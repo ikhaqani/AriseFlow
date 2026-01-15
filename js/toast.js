@@ -6,34 +6,17 @@ const ICONS = Object.freeze({
   close: `<svg viewBox="0 0 24 24" width="14" height="14" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>`
 });
 
-/** Ensures the toast container exists and returns it. */
-const ensureContainer = () => {
-  let el = document.getElementById('toast-container');
-  if (el) return el;
+function ensureContainer() {
+  const existing = document.getElementById('toast-container');
+  if (existing) return existing;
 
-  el = document.createElement('div');
+  const el = document.createElement('div');
   el.id = 'toast-container';
   document.body.appendChild(el);
   return el;
-};
+}
 
-/** Creates a toast DOM element for the given payload. */
-const createToastElement = ({ message, type, duration }) => {
-  const toast = document.createElement('div');
-  toast.className = `toast toast-${type}`;
-  toast.innerHTML = `
-    <div class="toast-content">
-      <span class="toast-icon">${ICONS[type] || ICONS.info}</span>
-      <span class="toast-msg">${message}</span>
-    </div>
-    <button class="toast-close" type="button" aria-label="Sluiten">${ICONS.close}</button>
-    <div class="toast-progress" style="animation-duration:${duration}ms"></div>
-  `;
-  return toast;
-};
-
-/** Removes a toast element with transition cleanup. */
-const removeToast = (toast) => {
+function removeToastEl(toast) {
   if (!toast) return;
 
   toast.classList.remove('visible');
@@ -48,43 +31,78 @@ const removeToast = (toast) => {
 
   setTimeout(() => {
     if (toast.parentElement) onDone();
-  }, 500);
-};
+  }, 600);
+}
+
+function createToastElement(message, type, duration) {
+  const toast = document.createElement('div');
+  toast.className = `toast toast-${type}`;
+
+  const content = document.createElement('div');
+  content.className = 'toast-content';
+
+  const icon = document.createElement('span');
+  icon.className = 'toast-icon';
+  icon.innerHTML = ICONS[type] || ICONS.info;
+
+  const msg = document.createElement('span');
+  msg.className = 'toast-msg';
+  msg.textContent = String(message ?? '');
+
+  content.appendChild(icon);
+  content.appendChild(msg);
+
+  const closeBtn = document.createElement('button');
+  closeBtn.className = 'toast-close';
+  closeBtn.type = 'button';
+  closeBtn.setAttribute('aria-label', 'Sluiten');
+  closeBtn.innerHTML = ICONS.close;
+
+  const progress = document.createElement('div');
+  progress.className = 'toast-progress';
+  progress.style.animationDuration = `${duration}ms`;
+
+  toast.appendChild(content);
+  toast.appendChild(closeBtn);
+  toast.appendChild(progress);
+
+  return toast;
+}
 
 export const Toast = {
   container: null,
   maxToasts: 5,
 
-  /** Initializes the toast container reference. */
   init() {
     this.container = ensureContainer();
   },
 
-  /** Shows a toast message with type and auto-dismiss duration. */
   show(message, type = 'info', duration = 3000) {
     if (!this.container) this.init();
 
+    const t = String(type || 'info');
+    const safeType = ICONS[t] ? t : 'info';
+    const ms = Number.isFinite(Number(duration)) ? Math.max(400, Number(duration)) : 3000;
+
     if (this.container.childElementCount >= this.maxToasts) {
       const oldest = this.container.firstElementChild;
-      if (oldest) removeToast(oldest);
+      if (oldest) removeToastEl(oldest);
     }
 
-    const toast = createToastElement({ message, type, duration });
+    const toast = createToastElement(message, safeType, ms);
 
     const closeBtn = toast.querySelector('.toast-close');
-    if (closeBtn) closeBtn.onclick = () => removeToast(toast);
+    if (closeBtn) closeBtn.onclick = () => removeToastEl(toast);
 
     let timerId = null;
 
-    /** Starts or restarts the auto-dismiss timer. */
     const startTimer = () => {
       clearTimeout(timerId);
-      timerId = setTimeout(() => removeToast(toast), duration);
+      timerId = setTimeout(() => removeToastEl(toast), ms);
       const bar = toast.querySelector('.toast-progress');
       if (bar) bar.style.animationPlayState = 'running';
     };
 
-    /** Pauses the auto-dismiss timer. */
     const stopTimer = () => {
       clearTimeout(timerId);
       const bar = toast.querySelector('.toast-progress');
@@ -102,8 +120,7 @@ export const Toast = {
     });
   },
 
-  /** Removes a toast programmatically. */
   removeToast(toast) {
-    removeToast(toast);
+    removeToastEl(toast);
   }
 };

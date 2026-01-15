@@ -107,7 +107,7 @@ class StateManager {
       id: String(x.id || uid()),
       name: String(x.name || '').trim(),
       legacy: !!(x.legacy ?? x.isLegacy),
-      future: String(x.future ?? x.futureSystem || '').trim(),
+      future: String(x.future ?? x.futureSystem ?? '').trim(),
       qa: x.qa && typeof x.qa === 'object' ? { ...x.qa } : {},
       score: Number.isFinite(Number(x.score ?? x.calculatedScore)) ? Number(x.score ?? x.calculatedScore) : null
     };
