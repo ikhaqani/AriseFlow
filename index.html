@@ -26,15 +26,16 @@
       <div class="top-row">
 
         <div class="sheet-controls">
-            <span class="sheet-label">PROCES:</span>
-            <select id="sheetSelect" class="sheet-select" title="Wissel van procesblad"></select>
-            <button class="btn-icon" id="btnRenameSheet" title="Huidig blad hernoemen">✎</button>
-            <button class="btn-icon" id="btnAddSheet" title="Nieuw blad toevoegen">+</button>
-            <button class="btn-icon danger" id="btnDelSheet" title="Huidig blad verwijderen">×</button>
+          <span class="sheet-label">PROCES:</span>
+          <select id="sheetSelect" class="sheet-select" title="Wissel van procesblad"></select>
+          <button class="btn-icon" id="btnRenameSheet" title="Huidig blad hernoemen">✎</button>
+          <button class="btn-icon" id="btnReorderSheets" title="Procesbladen herordenen (Ctrl+Shift+O)">↕</button>
+          <button class="btn-icon" id="btnAddSheet" title="Nieuw blad toevoegen">+</button>
+          <button class="btn-icon danger" id="btnDelSheet" title="Huidig blad verwijderen">×</button>
         </div>
 
         <div class="project-title-wrapper">
-            <input id="boardTitle" class="project-title-input" placeholder="Naam van Project..." spellcheck="false" />
+          <input id="boardTitle" class="project-title-input" placeholder="Naam van Project..." spellcheck="false" />
         </div>
 
         <div class="actions">
@@ -63,15 +64,15 @@
 
       <div class="dashboard-bar">
         <div class="stat-group">
-            <div class="stat-item" title="Aantal stappen 'In Control'">
-                🙂 <span class="stat-pill pill-green" id="countHappy">0</span>
-            </div>
-            <div class="stat-item" title="Aantal stappen 'Kwetsbaar'">
-                😐 <span class="stat-pill pill-orange" id="countNeutral">0</span>
-            </div>
-            <div class="stat-item" title="Aantal stappen 'Niet in Control'">
-                ☹️ <span class="stat-pill pill-red" id="countSad">0</span>
-            </div>
+          <div class="stat-item" title="Aantal stappen 'In Control'">
+            🙂 <span class="stat-pill pill-green" id="countHappy">0</span>
+          </div>
+          <div class="stat-item" title="Aantal stappen 'Kwetsbaar'">
+            😐 <span class="stat-pill pill-orange" id="countNeutral">0</span>
+          </div>
+          <div class="stat-item" title="Aantal stappen 'Niet in Control'">
+            ☹️ <span class="stat-pill pill-red" id="countSad">0</span>
+          </div>
         </div>
         <span class="stat-info">LIVE STATUS (Huidig Blad)</span>
       </div>
@@ -89,9 +90,7 @@
 
         <div id="board-content-wrapper">
           <div id="board-header-display">Laden...</div>
-
           <div id="merge-layer" aria-hidden="true"></div>
-
           <div id="cols"></div>
         </div>
       </div>
@@ -111,12 +110,12 @@
 
   <div class="modal-overlay" id="colManagerModal">
     <div class="modal" style="width: 400px; max-width: 90vw;">
-        <h3>Kolommen Beheer</h3>
-        <div class="sub-text">Vink items uit om kolommen tijdelijk te verbergen op het bord.</div>
-        <div id="colManagerList"></div>
-        <div class="modal-btns">
-            <button class="std-btn primary" id="colManagerCloseBtn">Sluiten</button>
-        </div>
+      <h3>Kolommen Beheer</h3>
+      <div class="sub-text">Vink items uit om kolommen tijdelijk te verbergen op het bord.</div>
+      <div id="colManagerList"></div>
+      <div class="modal-btns">
+        <button class="std-btn primary" id="colManagerCloseBtn">Sluiten</button>
+      </div>
     </div>
   </div>
 

@@ -39,114 +39,214 @@ const safeToast = (msg, type = 'info', ms) => {
   Toast.show(msg, type, ms);
 };
 
+/** Initializes the toast UI if available. */
 const initToast = () => {
   try {
     if (Toast && typeof Toast.init === 'function') Toast.init();
   } catch (e) {
-    console.warn("Toast init failed", e);
+    console.warn('Toast init failed', e);
   }
 };
 
+/** Persists the current modal state into data without closing it. */
 const syncOpenModal = () => {
-  const modal = $("editModal");
+  const modal = $('editModal');
   if (!modal) return;
-  const isOpen = modal.style.display && modal.style.display !== "none";
+  const isOpen = modal.style.display && modal.style.display !== 'none';
   if (!isOpen) return;
 
   try {
     saveModalDetails(false);
   } catch (e) {
-    console.warn("Modal sync failed", e);
+    console.warn('Modal sync failed', e);
   }
 };
 
+/** Renames the active sheet using a prompt and persists state. */
 const renameActiveSheet = () => {
   syncOpenModal();
 
   const currentName = state.activeSheet?.name || '';
-  const newName = prompt("Hernoem proces:", currentName);
+  const newName = prompt('Hernoem proces:', currentName);
   if (!newName || !newName.trim() || newName.trim() === currentName) return;
-  state.renameSheet(newName.trim());
-  safeToast("Naam gewijzigd", "success");
+  if (typeof state.renameSheet === 'function') state.renameSheet(newName.trim());
+  safeToast('Naam gewijzigd', 'success');
 };
 
-/* ============================================================
-   MERGE LAYER (for spanning/merged stickies)
-   - Renders an overlay sticky that spans multiple columns.
-   - Hides the underlying duplicated stickies.
-   ============================================================ */
+/** Returns a stable identifier for the active sheet if present. */
+const getActiveSheetKey = () => {
+  const s = state.activeSheet;
+  return s?.id ?? s?.name ?? null;
+};
+
+/** Attempts to trigger a reindex routine in state after sheet ordering changes. */
+const tryReindexAfterSheetOrderChange = () => {
+  const fns = [
+    state?.reindexAfterSheetOrderChange,
+    state?.reindexAfterSheetReorder,
+    state?.reindexDerivedIds,
+    state?.reindexAll
+  ].filter((fn) => typeof fn === 'function');
+
+  if (fns.length) {
+    try {
+      fns[0].call(state);
+    } catch (e) {
+      console.warn('Reindex failed', e);
+    }
+  }
+};
+
+/** Produces a readable listing of current sheets for reorder prompts. */
+const buildSheetOrderPromptText = () => {
+  const sheets = Array.isArray(state?.data?.sheets) ? state.data.sheets : [];
+  const lines = sheets.map((s, i) => `${i + 1}. ${String(s?.name || `Proces ${i + 1}`)}`);
+  return `Huidige volgorde:\n${lines.join('\n')}\n\nNieuwe volgorde (komma-gescheiden indices, bv: 2,1,3):`;
+};
+
+/** Validates that an array is a permutation of 1..n. */
+const isPermutation1ToN = (arr, n) => {
+  if (!Array.isArray(arr) || arr.length !== n) return false;
+  const seen = new Set();
+  for (const x of arr) {
+    if (!Number.isInteger(x) || x < 1 || x > n) return false;
+    if (seen.has(x)) return false;
+    seen.add(x);
+  }
+  return seen.size === n;
+};
+
+/** Reorders the sheets in state based on a user-provided permutation. */
+const reorderSheetsByPrompt = () => {
+  syncOpenModal();
+
+  const sheets = Array.isArray(state?.data?.sheets) ? state.data.sheets : [];
+  const n = sheets.length;
+  if (n <= 1) return;
+
+  const input = prompt(buildSheetOrderPromptText(), Array.from({ length: n }, (_, i) => i + 1).join(','));
+  if (!input || !input.trim()) return;
+
+  const order = input
+    .split(',')
+    .map((x) => x.trim())
+    .filter((x) => x.length > 0)
+    .map((x) => parseInt(x, 10))
+    .filter((x) => Number.isFinite(x));
+
+  if (!isPermutation1ToN(order, n)) {
+    safeToast('Ongeldige volgorde. Gebruik elke index precies 1x (1 t/m N).', 'error', 2200);
+    return;
+  }
+
+  const activeKey = getActiveSheetKey();
+
+  if (typeof state.reorderSheets === 'function') {
+    try {
+      state.reorderSheets(order.map((x) => x - 1));
+      tryReindexAfterSheetOrderChange();
+      safeToast('Volgorde bijgewerkt', 'success');
+      return;
+    } catch (e) {
+      console.warn('state.reorderSheets failed', e);
+    }
+  }
+
+  try {
+    const nextSheets = order.map((x) => sheets[x - 1]);
+    state.data.sheets = nextSheets;
+
+    const activeAfter = nextSheets.find((s) => (s?.id ?? s?.name ?? null) === activeKey);
+    if (activeAfter) {
+      if (typeof state.setActiveSheet === 'function') state.setActiveSheet(activeAfter.id ?? activeAfter.name);
+      else state.activeSheet = activeAfter;
+    } else {
+      if (typeof state.setActiveSheet === 'function') state.setActiveSheet(nextSheets[0]?.id ?? nextSheets[0]?.name);
+      else state.activeSheet = nextSheets[0];
+    }
+
+    if (typeof state.save === 'function') state.save();
+    if (typeof state.saveProject === 'function') state.saveProject();
+    if (typeof state.persist === 'function') state.persist();
+
+    tryReindexAfterSheetOrderChange();
+    renderBoard(openEditModal);
+    safeToast('Volgorde bijgewerkt', 'success');
+  } catch (e) {
+    console.warn('Fallback reorder failed', e);
+    safeToast('Volgorde wijzigen mislukt', 'error', 2200);
+  }
+};
 
 let mergeRefreshTimer = null;
 
+/** Ensures the merge overlay layer exists and returns its element. */
 const ensureMergeLayer = () => {
-  const wrapper = $("board-content-wrapper");
+  const wrapper = $('board-content-wrapper');
   if (!wrapper) return null;
 
-  // Ensure wrapper can be positioning context
   const wrapperStyle = getComputedStyle(wrapper);
-  if (wrapperStyle.position === "static") {
-    wrapper.style.position = "relative";
+  if (wrapperStyle.position === 'static') {
+    wrapper.style.position = 'relative';
   }
 
-  let layer = $("merge-layer");
+  let layer = $('merge-layer');
   if (!layer) {
-    layer = document.createElement("div");
-    layer.id = "merge-layer";
-    layer.setAttribute("aria-hidden", "true");
-    wrapper.insertBefore(layer, $("cols") || null);
+    layer = document.createElement('div');
+    layer.id = 'merge-layer';
+    layer.setAttribute('aria-hidden', 'true');
+    wrapper.insertBefore(layer, $('cols') || null);
   }
 
-  // Ensure overlay styling (works even if CSS not yet added)
   Object.assign(layer.style, {
-    position: "absolute",
-    inset: "0",
-    pointerEvents: "none",
-    zIndex: "50",
+    position: 'absolute',
+    inset: '0',
+    pointerEvents: 'none',
+    zIndex: '50'
   });
 
   return layer;
 };
 
+/** Returns the rendered column elements for the current board view. */
 const getColumnElements = () => {
-  const colsRoot = $("cols");
+  const colsRoot = $('cols');
   if (!colsRoot) return [];
-  return Array.from(colsRoot.querySelectorAll(":scope > .col"));
+  return Array.from(colsRoot.querySelectorAll(':scope > .col'));
 };
 
+/** Returns the sticky element at a given column element and slot index. */
 const getStickyAt = (colEl, slotIdx) => {
   if (!colEl) return null;
-  const slots = colEl.querySelector(".slots");
+  const slots = colEl.querySelector('.slots');
   if (!slots) return null;
-
-  // SIPOC order: 0 Lev, 1 Sys, 2 Input, 3 Proces, 4 Output, 5 Klant
   const slot = slots.querySelector(`:scope > .slot:nth-child(${slotIdx + 1})`);
   if (!slot) return null;
-
-  return slot.querySelector(":scope > .sticky");
+  return slot.querySelector(':scope > .sticky');
 };
 
+/** Shows or hides underlying stickies while preserving layout. */
 const setUnderlyingVisibility = (stickyEls, visible) => {
   for (const el of stickyEls) {
     if (!el) continue;
     if (visible) {
-      el.style.visibility = "";
-      el.style.opacity = "";
+      el.style.visibility = '';
+      el.style.opacity = '';
     } else {
-      // Keep layout (so bounding boxes remain stable if needed) but hide visually
-      el.style.visibility = "hidden";
-      el.style.opacity = "0";
+      el.style.visibility = 'hidden';
+      el.style.opacity = '0';
     }
   }
 };
 
+/** Builds a merged sticky element for overlay rendering. */
 const buildMergedStickyEl = (textValue) => {
-  const merged = document.createElement("div");
-  merged.id = "merged-approval-output";
-  merged.className = "sticky merged-sticky";
-  merged.style.position = "absolute";
-  merged.style.pointerEvents = "auto"; // allow click forwarding
+  const merged = document.createElement('div');
+  merged.id = 'merged-approval-output';
+  merged.className = 'sticky merged-sticky';
+  merged.style.position = 'absolute';
+  merged.style.pointerEvents = 'auto';
 
-  // Inner structure matching existing sticky DOM
   merged.innerHTML = `
     <div class="sticky-grip"></div>
     <div class="sticky-content">
@@ -155,54 +255,49 @@ const buildMergedStickyEl = (textValue) => {
     <div class="sticky-badge label-tr">MERGED</div>
   `;
 
-  const textEl = merged.querySelector(".text");
-  if (textEl) textEl.textContent = textValue || "";
+  const textEl = merged.querySelector('.text');
+  if (textEl) textEl.textContent = textValue || '';
 
   return merged;
 };
 
+/** Synchronizes a legacy merged overlay example for the active sheet. */
 const syncMergedApprovalOutput = () => {
   const layer = ensureMergeLayer();
   if (!layer) return;
 
-  // Clear previous merged overlays
-  layer.innerHTML = "";
+  layer.innerHTML = '';
 
   const cols = getColumnElements();
-  if (cols.length < 4) return; // need at least columns 1..4
+  if (cols.length < 4) return;
 
-  // Target: merge Output row for columns 2,3,4 (1-based); => indices 1..3 (0-based)
   const SLOT_OUTPUT = 4;
   const targetColIdxs = [1, 2, 3];
 
   const stickyEls = targetColIdxs.map((i) => getStickyAt(cols[i], SLOT_OUTPUT));
   if (stickyEls.some((el) => !el)) return;
 
-  // Use data text if possible (preferred); fallback to DOM text.
   const dataTexts = targetColIdxs.map((i) => {
     const t = state.activeSheet?.columns?.[i]?.slots?.[SLOT_OUTPUT]?.text;
-    return typeof t === "string" ? t.trim() : "";
+    return typeof t === 'string' ? t.trim() : '';
   });
 
   const domTexts = stickyEls.map((el) => {
-    const t = el?.querySelector(".text")?.textContent;
-    return typeof t === "string" ? t.trim() : "";
+    const t = el?.querySelector('.text')?.textContent;
+    return typeof t === 'string' ? t.trim() : '';
   });
 
   const texts = dataTexts.every((t) => t) ? dataTexts : domTexts;
   const nonEmpty = texts.filter((t) => t.length > 0);
   if (nonEmpty.length === 0) return;
 
-  // Only merge if all three are identical (after trim)
   const first = texts[0];
   const allSame = texts.every((t) => t === first);
   if (!allSame) {
-    // if not identical, do not merge; ensure originals are visible
     setUnderlyingVisibility(stickyEls, true);
     return;
   }
 
-  // Compute union rect across the 3 stickies
   const layerRect = layer.getBoundingClientRect();
   const rects = stickyEls.map((el) => el.getBoundingClientRect());
 
@@ -213,176 +308,177 @@ const syncMergedApprovalOutput = () => {
 
   const mergedEl = buildMergedStickyEl(first);
 
-  // Style to match the stickies
-  // Note: use small inset so it doesn’t overlap borders harshly
   const inset = 0;
   mergedEl.style.left = `${left - layerRect.left + inset}px`;
   mergedEl.style.top = `${top - layerRect.top + inset}px`;
   mergedEl.style.width = `${right - left - inset * 2}px`;
   mergedEl.style.height = `${bottom - top - inset * 2}px`;
 
-  // Forward click to the first underlying sticky (so your delegated edit/modal behavior still works)
-  mergedEl.addEventListener("click", (e) => {
+  mergedEl.addEventListener('click', (e) => {
     e.preventDefault();
     e.stopPropagation();
     const target = stickyEls[0];
     if (target) {
-      target.dispatchEvent(new MouseEvent("click", { bubbles: true, cancelable: true }));
+      target.dispatchEvent(new MouseEvent('click', { bubbles: true, cancelable: true }));
     }
   });
 
   layer.appendChild(mergedEl);
-
-  // Hide underlying duplicates
   setUnderlyingVisibility(stickyEls, false);
 };
 
+/** Schedules a merge overlay refresh with an optional delay. */
 const scheduleMergeRefresh = (delay = 0) => {
   if (mergeRefreshTimer) clearTimeout(mergeRefreshTimer);
   mergeRefreshTimer = setTimeout(() => {
     try {
       syncMergedApprovalOutput();
     } catch (e) {
-      console.warn("Merge refresh failed", e);
+      console.warn('Merge refresh failed', e);
     }
   }, delay);
 };
 
-/* ============================================================
-   UI SETUP
-   ============================================================ */
-
+/** Sets up project title input bindings to state. */
 const setupProjectTitle = () => {
-  const titleInput = $("boardTitle");
+  const titleInput = $('boardTitle');
   if (!titleInput) return;
 
-  titleInput.addEventListener("input", (e) => {
-    state.updateProjectTitle(e.target.value);
+  titleInput.addEventListener('input', (e) => {
+    if (typeof state.updateProjectTitle === 'function') state.updateProjectTitle(e.target.value);
   });
 
-  titleInput.addEventListener("blur", () => {
-    state.updateProjectTitle(titleInput.value);
+  titleInput.addEventListener('blur', () => {
+    if (typeof state.updateProjectTitle === 'function') state.updateProjectTitle(titleInput.value);
   });
 };
 
+/** Sets up sheet selection and CRUD controls including optional reorder binding. */
 const setupSheetControls = () => {
-  const sheetSelect = $("sheetSelect");
+  const sheetSelect = $('sheetSelect');
   if (sheetSelect) {
-    sheetSelect.addEventListener("change", (e) => {
+    sheetSelect.addEventListener('change', (e) => {
       syncOpenModal();
-      state.setActiveSheet(e.target.value);
-      safeToast(`Gewisseld naar: ${state.activeSheet.name}`, "info", 1000);
+      if (typeof state.setActiveSheet === 'function') state.setActiveSheet(e.target.value);
+      safeToast(`Gewisseld naar: ${state.activeSheet?.name || ''}`, 'info', 1000);
       scheduleMergeRefresh(50);
     });
   }
 
-  const btnRename = pickEl("btnRenameSheet", "#btnRenameSheet", "[data-action='rename-sheet']");
+  const btnRename = pickEl('btnRenameSheet', '#btnRenameSheet', "[data-action='rename-sheet']");
   bindClickEl(btnRename, renameActiveSheet);
 
-  document.addEventListener("dblclick", (e) => {
-    if (e.target && e.target.id === "board-header-display") renameActiveSheet();
+  document.addEventListener('dblclick', (e) => {
+    if (e.target && e.target.id === 'board-header-display') renameActiveSheet();
   });
 
-  const btnAdd = pickEl("btnAddSheet", "#btnAddSheet", "[data-action='add-sheet']", "#addSheetBtn");
+  const btnReorder = pickEl('btnReorderSheets', '#btnReorderSheets', "[data-action='reorder-sheets']", 'btnSortSheets', '#btnSortSheets');
+  bindClickEl(btnReorder, () => {
+    reorderSheetsByPrompt();
+    scheduleMergeRefresh(80);
+  });
+
+  const btnAdd = pickEl('btnAddSheet', '#btnAddSheet', "[data-action='add-sheet']", '#addSheetBtn');
   bindClickEl(btnAdd, () => {
     syncOpenModal();
-    const name = prompt("Nieuw procesblad naam:", `Proces ${state.data.sheets.length + 1}`);
+    const name = prompt('Nieuw procesblad naam:', `Proces ${state.data.sheets.length + 1}`);
     if (!name || !name.trim()) return;
-    state.addSheet(name.trim());
-    safeToast("Procesblad toegevoegd", "success");
+    if (typeof state.addSheet === 'function') state.addSheet(name.trim());
+    safeToast('Procesblad toegevoegd', 'success');
     scheduleMergeRefresh(50);
   });
 
-  const btnDel = pickEl("btnDelSheet", "#btnDelSheet", "[data-action='delete-sheet']", "#deleteSheetBtn");
+  const btnDel = pickEl('btnDelSheet', '#btnDelSheet', "[data-action='delete-sheet']", '#deleteSheetBtn');
   bindClickEl(btnDel, () => {
     syncOpenModal();
 
     if (state.data.sheets.length <= 1) {
-      safeToast("Laatste blad kan niet verwijderd worden", "error");
+      safeToast('Laatste blad kan niet verwijderd worden', 'error');
       return;
     }
     if (!confirm(`Weet je zeker dat je "${state.activeSheet.name}" wilt verwijderen?`)) return;
-    state.deleteSheet();
-    safeToast("Procesblad verwijderd", "info");
+    if (typeof state.deleteSheet === 'function') state.deleteSheet();
+    safeToast('Procesblad verwijderd', 'info');
     scheduleMergeRefresh(50);
   });
 
-  document.addEventListener("visibilitychange", () => {
+  document.addEventListener('visibilitychange', () => {
     if (document.hidden) syncOpenModal();
   });
 };
 
+/** Sets up toolbar actions for save/load/export and clears. */
 const setupToolbarActions = () => {
-  bindClick("saveBtn", async () => {
+  bindClick('saveBtn', async () => {
     syncOpenModal();
     await saveToFile();
-    safeToast("Project opgeslagen", "success");
+    safeToast('Project opgeslagen', 'success');
   });
 
-  bindClick("exportCsvBtn", () => {
+  bindClick('exportCsvBtn', () => {
     syncOpenModal();
     exportToCSV();
-    safeToast("Excel export gereed", "success");
+    safeToast('Excel export gereed', 'success');
   });
 
-  bindClick("exportBtn", async () => {
+  bindClick('exportBtn', async () => {
     syncOpenModal();
     await exportHD();
-    safeToast("Screenshot gemaakt", "success");
+    safeToast('Screenshot gemaakt', 'success');
   });
 
-  bindClick("loadBtn", () => {
-    const inp = $("fileInput");
+  bindClick('loadBtn', () => {
+    const inp = $('fileInput');
     if (inp) inp.click();
   });
 
-  const fileInput = $("fileInput");
+  const fileInput = $('fileInput');
   if (fileInput) {
-    fileInput.addEventListener("change", (e) => {
+    fileInput.addEventListener('change', (e) => {
       const file = e.target.files?.[0];
       if (!file) return;
       loadFromFile(file, () => {
-        fileInput.value = "";
-        safeToast("Project geladen", "success");
+        fileInput.value = '';
+        safeToast('Project geladen', 'success');
         scheduleMergeRefresh(100);
       });
     });
   }
 
-  bindClick("clearBtn", () => {
+  bindClick('clearBtn', () => {
     syncOpenModal();
-    if (!confirm("⚠️ Pas op: Alles wissen?")) return;
+    if (!confirm('⚠️ Pas op: Alles wissen?')) return;
     localStorage.clear();
     location.reload();
   });
 };
 
+/** Sets up zoom controls and triggers overlay recalculation. */
 const setupZoom = () => {
   let zoomLevel = 1;
 
   const updateZoom = () => {
-    const boardEl = $("board");
+    const boardEl = $('board');
     if (!boardEl) return;
 
     zoomLevel = Math.max(0.4, Math.min(2.0, zoomLevel));
     boardEl.style.transform = `scale(${zoomLevel})`;
 
-    const zoomDisplay = $("zoomDisplay");
+    const zoomDisplay = $('zoomDisplay');
     if (zoomDisplay) zoomDisplay.textContent = `${Math.round(zoomLevel * 100)}%`;
 
-    // Trigger layout recalculation for overlays
     setTimeout(() => {
-      window.dispatchEvent(new Event("resize"));
+      window.dispatchEvent(new Event('resize'));
       scheduleMergeRefresh(0);
     }, 50);
   };
 
-  bindClick("zoomIn", () => {
+  bindClick('zoomIn', () => {
     zoomLevel += 0.1;
     updateZoom();
   });
 
-  bindClick("zoomOut", () => {
+  bindClick('zoomOut', () => {
     zoomLevel -= 0.1;
     updateZoom();
   });
@@ -390,81 +486,85 @@ const setupZoom = () => {
   updateZoom();
 };
 
+/** Sets up the topbar menu collapse toggle. */
 const setupMenuToggle = () => {
-  bindClick("menuToggle", () => {
-    const topbar = $("topbar");
+  bindClick('menuToggle', () => {
+    const topbar = $('topbar');
     if (!topbar) return;
 
-    const viewportEl = $("viewport");
-    const icon = document.querySelector("#menuToggle .toggle-icon");
+    const viewportEl = $('viewport');
+    const icon = document.querySelector('#menuToggle .toggle-icon');
 
-    const isCollapsed = topbar.classList.toggle("collapsed");
-    if (viewportEl) viewportEl.classList.toggle("expanded-view");
-    if (icon) icon.style.transform = isCollapsed ? "rotate(180deg)" : "rotate(0deg)";
+    const isCollapsed = topbar.classList.toggle('collapsed');
+    if (viewportEl) viewportEl.classList.toggle('expanded-view');
+    if (icon) icon.style.transform = isCollapsed ? 'rotate(180deg)' : 'rotate(0deg)';
 
     scheduleMergeRefresh(50);
   });
 };
 
+/** Sets up the column visibility manager modal. */
 const setupColumnManager = () => {
-  bindClick("btnManageCols", () => {
+  bindClick('btnManageCols', () => {
     syncOpenModal();
 
-    const list = $("colManagerList");
-    const modal = $("colManagerModal");
+    const list = $('colManagerList');
+    const modal = $('colManagerModal');
     if (!list || !modal) return;
 
-    list.innerHTML = "";
+    list.innerHTML = '';
 
     state.activeSheet.columns.forEach((col, idx) => {
-      const raw = col.slots?.[3]?.text || "";
-      const procText = raw
-        ? `${raw.substring(0, 25)}${raw.length > 25 ? "..." : ""}`
-        : "<i>(Leeg)</i>";
+      const raw = col.slots?.[3]?.text || '';
+      const procText = raw ? `${raw.substring(0, 25)}${raw.length > 25 ? '...' : ''}` : '<i>(Leeg)</i>';
 
-      const item = document.createElement("div");
-      item.className = "col-manager-item";
+      const item = document.createElement('div');
+      item.className = 'col-manager-item';
       item.innerHTML = `
         <span style="font-size:13px; color:#ddd;">
           <strong>Kolom ${idx + 1}</strong>: ${procText}
         </span>
-        <input type="checkbox" ${col.isVisible !== false ? "checked" : ""} style="cursor:pointer; transform:scale(1.2);">
+        <input type="checkbox" ${col.isVisible !== false ? 'checked' : ''} style="cursor:pointer; transform:scale(1.2);">
       `;
 
-      const checkbox = item.querySelector("input");
-      checkbox.addEventListener("change", (e) => {
-        state.setColVisibility(idx, e.target.checked);
+      const checkbox = item.querySelector('input');
+      checkbox.addEventListener('change', (e) => {
+        if (typeof state.setColVisibility === 'function') state.setColVisibility(idx, e.target.checked);
         scheduleMergeRefresh(50);
       });
 
       list.appendChild(item);
     });
 
-    modal.style.display = "grid";
+    modal.style.display = 'grid';
   });
 
-  bindClick("colManagerCloseBtn", () => {
-    const modal = $("colManagerModal");
-    if (modal) modal.style.display = "none";
+  bindClick('colManagerCloseBtn', () => {
+    const modal = $('colManagerModal');
+    if (modal) modal.style.display = 'none';
     scheduleMergeRefresh(50);
   });
 };
 
+/** Sets up modal save/cancel bindings and overlay refresh. */
 const setupModals = () => {
-  bindClick("modalSaveBtn", () => {
+  bindClick('modalSaveBtn', () => {
     saveModalDetails(true);
-    safeToast("Wijzigingen opgeslagen", "save");
+    safeToast('Wijzigingen opgeslagen', 'save');
     scheduleMergeRefresh(50);
   });
 
-  bindClick("modalCancelBtn", () => {
-    const m = $("editModal");
-    if (m) m.style.display = "none";
+  bindClick('modalCancelBtn', () => {
+    const m = $('editModal');
+    if (m) m.style.display = 'none';
   });
 };
 
+/** Subscribes to state changes and keeps the UI in sync. */
 const setupStateSubscription = () => {
-  const titleInput = $("boardTitle");
+  const titleInput = $('boardTitle');
+
+  if (typeof state.subscribe !== 'function') return;
 
   state.subscribe((_, meta) => {
     applyStateUpdate(meta, openEditModal);
@@ -473,39 +573,52 @@ const setupStateSubscription = () => {
       titleInput.value = state.data.projectTitle;
     }
 
-    document.title = state.data.projectTitle ? `${state.data.projectTitle} - SIPOC` : "SIPOC Board";
+    document.title = state.data.projectTitle ? `${state.data.projectTitle} - SIPOC` : 'SIPOC Board';
 
-    const header = $("board-header-display");
+    const header = $('board-header-display');
     if (header) {
-      header.style.cursor = "pointer";
-      header.title = "Dubbelklik om naam te wijzigen";
+      header.style.cursor = 'pointer';
+      header.title = 'Dubbelklik om naam te wijzigen';
     }
 
-    // After any state-driven render/update, resync merged overlay
     scheduleMergeRefresh(80);
   });
 };
 
+/** Sets up global hotkeys including sheet reorder and quick save. */
 const setupGlobalHotkeys = () => {
-  document.addEventListener("keydown", (e) => {
-    if ((e.ctrlKey || e.metaKey) && e.key === "s") {
+  document.addEventListener('keydown', (e) => {
+    const isSave = (e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 's';
+    const isReorder = (e.ctrlKey || e.metaKey) && e.shiftKey && e.key.toLowerCase() === 'o';
+
+    if (isSave) {
       e.preventDefault();
       syncOpenModal();
       saveToFile();
-      safeToast("Quick Save", "save");
+      safeToast('Quick Save', 'save');
+      return;
     }
 
-    if (e.key === "Escape") {
-      document.querySelectorAll(".modal-overlay").forEach((m) => (m.style.display = "none"));
+    if (isReorder) {
+      e.preventDefault();
+      reorderSheetsByPrompt();
+      scheduleMergeRefresh(80);
+      return;
+    }
+
+    if (e.key === 'Escape') {
+      document.querySelectorAll('.modal-overlay').forEach((m) => (m.style.display = 'none'));
     }
   });
 };
 
+/** Sets up overlay resync for resize/scroll events. */
 const setupOverlayResyncOnResize = () => {
-  window.addEventListener("resize", () => scheduleMergeRefresh(0));
-  window.addEventListener("scroll", () => scheduleMergeRefresh(0), true);
+  window.addEventListener('resize', () => scheduleMergeRefresh(0));
+  window.addEventListener('scroll', () => scheduleMergeRefresh(0), true);
 };
 
+/** Initializes the application and renders the initial board state. */
 const initApp = () => {
   initToast();
   setupDelegatedEvents();
@@ -522,13 +635,12 @@ const initApp = () => {
 
   renderBoard(openEditModal);
 
-  const titleInput = $("boardTitle");
+  const titleInput = $('boardTitle');
   if (titleInput) titleInput.value = state.data.projectTitle;
 
-  // Initial merged overlay pass (after first paint)
   scheduleMergeRefresh(120);
 
-  setTimeout(() => safeToast("Klaar voor gebruik", "info"), 500);
+  setTimeout(() => safeToast('Klaar voor gebruik', 'info'), 500);
 };
 
-document.addEventListener("DOMContentLoaded", initApp);
+document.addEventListener('DOMContentLoaded', initApp);

@@ -1,4 +1,4 @@
-/* main.css (VOLLEDIG - VIERKANT & HORIZONTALE BADGES) */
+/* main.css (VOLLEDIG - GRID TOPBAR, HUD, GROEP-SPACING & TOGGLE) */
 
 /* ==========================================================================
    SCROLLBARS
@@ -26,7 +26,10 @@
    ========================================================================== */
 :root {
     --gap: 12px;
-    --col-gap: 12px;
+    
+    /* AANGEPAST: Grote ruimte tussen hoofdstappen voor "eiland" effect */
+    --col-gap: 80px; 
+    
     --col-width: 250px;
     --slot-min-height: 140px;
 
@@ -36,13 +39,15 @@
     --sticky-font-size: 15px;
     --sticky-font-weight: 700;
 
-    --bg-color: #1a1a1a;
+    --bg-color: #121212;
 
     --ui-border: rgba(255, 255, 255, 0.1);
+    --ui-border-strong: rgba(255, 255, 255, 0.18);
     --ui-text-muted: rgba(255, 255, 255, 0.5);
 
     --ui-accent: #2979ff;
     --ui-accent-hover: #5390ff;
+    --ui-accent-glow: rgba(41, 121, 255, 0.4);
 
     --ui-success: #00e676;
     --ui-danger: #ff1744;
@@ -50,7 +55,7 @@
     --status-neutral-bg: #ff9100;
     --status-sad-bg: #ff1744;
 
-    --topbar-height: 64px;
+    --topbar-height: 72px;
 }
 
 /* ==========================================================================
@@ -60,6 +65,9 @@ body {
     margin: 0;
     padding: 0;
     background-color: var(--bg-color);
+    background-image: 
+        radial-gradient(circle at 50% 0%, #1e2228 0%, transparent 60%),
+        linear-gradient(0deg, rgba(0,0,0,0.2) 0%, transparent 100%);
     font-family: "Inter", sans-serif;
     color: #ffffff;
     overflow: hidden;
@@ -99,7 +107,7 @@ body {
 }
 
 /* ==========================================================================
-   TOPBAR
+   TOPBAR (GRID LAYOUT - NO OVERLAP)
    ========================================================================== */
 .topbar {
     position: fixed;
@@ -108,19 +116,23 @@ body {
     width: 100%;
     height: var(--topbar-height);
     z-index: 1000;
-    background: rgba(33, 33, 33, 0.95);
-    border-bottom: 1px solid var(--ui-border);
-    backdrop-filter: blur(12px);
-    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
+    
+    background: #141414; /* Solid dark background */
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    box-shadow: 0 4px 20px rgba(0,0,0,0.4);
+    
+    display: flex;
+    flex-direction: column;
     transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .topbar-content {
-    padding: 12px 24px;
+    width: 100%;
+    height: 100%;
+    padding: 0 24px;
+    box-sizing: border-box;
     display: flex;
     flex-direction: column;
-    gap: 12px;
-    height: 100%;
     justify-content: center;
 }
 
@@ -129,174 +141,183 @@ body {
     pointer-events: none;
 }
 
+/* GRID LAYOUT: Voorkomt overlapping */
 .top-row {
-    position: relative;
-    display: flex;
-    width: 100%;
-    justify-content: space-between;
+    display: grid;
+    grid-template-columns: 1fr auto 1fr; /* Links - Midden - Rechts */
     align-items: center;
+    height: 100%;
+    width: 100%;
 }
 
+/* Toggle Bar onderaan */
 .topbar-toggle-bar {
     position: absolute;
-    bottom: -20px;
-    left: 0;
-    height: 20px;
-    width: 100%;
+    bottom: -16px;
+    left: 50%;
+    transform: translateX(-50%);
+    height: 16px;
+    width: 120px;
     display: flex;
     align-items: center;
     justify-content: center;
     cursor: pointer;
-    background: rgba(255, 255, 255, 0.02);
-    border-top: 1px solid var(--ui-border);
+    background: #141414;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-top: none;
+    border-bottom-left-radius: 8px;
+    border-bottom-right-radius: 8px;
     color: var(--ui-text-muted);
     font-size: 10px;
-    text-transform: uppercase;
-    letter-spacing: 1.5px;
-    font-weight: 700;
-    transition: background 0.2s, color 0.2s;
+    transition: all 0.2s ease;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.3);
 }
 
 .topbar-toggle-bar:hover {
-    background: rgba(255, 255, 255, 0.05);
+    background: var(--ui-accent);
     color: #ffffff;
+    height: 20px;
+    bottom: -20px;
+    box-shadow: 0 4px 15px var(--ui-accent-glow);
+    border-color: var(--ui-accent);
 }
 
 .toggle-icon {
-    margin-left: 6px;
     font-size: 10px;
     transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 
-/* LINKS */
+/* LINKS: Sheet Controls */
 .sheet-controls {
-    position: relative;
-    z-index: 2000 !important;
-    pointer-events: auto !important;
     display: flex;
     align-items: center;
-    gap: 10px;
+    gap: 12px;
+    justify-self: start;
 }
 
 .sheet-label {
-    color: var(--ui-text-muted);
-    font-size: 11px;
+    color: #666;
+    font-size: 10px;
     font-weight: 800;
-    letter-spacing: 0.5px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    margin-right: 4px;
 }
 
 .sheet-select {
-    position: relative;
-    z-index: 2001;
-    min-width: 160px;
-    cursor: pointer;
-    background: rgba(0, 0, 0, 0.3);
-    border: 1px solid var(--ui-border);
-    color: #ffffff;
+    appearance: none;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: #fff;
     padding: 6px 12px;
     border-radius: 6px;
-    outline: none;
-    font-weight: 600;
+    font-family: "Inter", sans-serif;
     font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
     transition: all 0.2s;
+    min-width: 160px;
 }
 
 .sheet-select:hover {
+    background: rgba(255, 255, 255, 0.1);
     border-color: rgba(255, 255, 255, 0.3);
-    background: rgba(0, 0, 0, 0.5);
 }
 
 .sheet-select:focus {
+    outline: none;
     border-color: var(--ui-accent);
-    box-shadow: 0 0 0 2px rgba(41, 121, 255, 0.3);
+    box-shadow: 0 0 0 2px rgba(41, 121, 255, 0.2);
 }
 
-/* MIDDEN */
+.sheet-select option {
+    background: #222;
+    color: white;
+}
+
+/* MIDDEN: Project Title */
 .project-title-wrapper {
-    position: absolute;
-    left: 0;
-    right: 0;
-    top: 0;
-    bottom: 0;
+    position: relative; 
     display: flex;
     justify-content: center;
     align-items: center;
-    pointer-events: none;
-    z-index: 1000;
+    justify-self: center;
+    width: 100%;
 }
 
 .project-title-input {
-    pointer-events: auto;
-    z-index: 1001;
-    width: 320px;
-    text-align: center;
     background: transparent;
-    border: 1px solid transparent;
+    border: 1px solid transparent; 
     color: #ffffff;
     font-family: "Inter", sans-serif;
-    font-weight: 800;
+    font-weight: 900;
     font-size: 16px;
     text-transform: uppercase;
-    letter-spacing: 0.5px;
-    outline: none;
+    letter-spacing: 1px;
+    text-align: center;
+    width: 280px;
+    padding: 6px;
     border-radius: 6px;
-    transition: border-color 0.2s, background 0.2s;
+    transition: all 0.2s;
+    outline: none;
 }
 
-.project-title-input:hover,
+.project-title-input:hover {
+    background: rgba(255, 255, 255, 0.05);
+    border-color: rgba(255, 255, 255, 0.1);
+}
+
 .project-title-input:focus {
-    background: rgba(255, 255, 255, 0.03);
-    border-color: var(--ui-border);
+    background: #000;
+    border-color: var(--ui-accent);
+    box-shadow: 0 0 15px rgba(41, 121, 255, 0.3);
 }
 
-/* RECHTS */
+/* RECHTS: Actions */
 .actions {
-    position: relative;
-    z-index: 2000;
     display: flex;
-    gap: 8px;
+    gap: 10px;
     align-items: center;
+    justify-self: end;
 }
 
 .divider-vertical {
     width: 1px;
     height: 24px;
-    background: var(--ui-border);
-    margin: 0 6px;
-    opacity: 0.5;
+    background: rgba(255,255,255,0.1);
+    margin: 0 4px;
 }
 
 /* ==========================================================================
-   BUTTONS
+   BUTTONS (UNIFIED)
    ========================================================================== */
 .std-btn {
     height: 32px;
     padding: 0 14px;
+    background: #222;
+    border: 1px solid #333;
     border-radius: 6px;
-    background: rgba(255, 255, 255, 0.04);
-    border: 1px solid var(--ui-border);
-    color: var(--ui-text-muted);
+    color: #ccc;
     font-size: 12px;
     font-weight: 600;
-    cursor: pointer;
-    transition: all 0.2s;
     display: inline-flex;
     align-items: center;
     justify-content: center;
+    cursor: pointer;
+    transition: all 0.2s;
     white-space: nowrap;
     user-select: none;
 }
 
 .std-btn:hover {
-    background: rgba(255, 255, 255, 0.1);
-    color: #ffffff;
-    border-color: rgba(255, 255, 255, 0.3);
+    background: #333;
+    color: #fff;
+    border-color: #555;
     transform: translateY(-1px);
 }
 
 .std-btn:active {
     transform: translateY(0);
-    opacity: 0.8;
 }
 
 .std-btn.primary {
@@ -308,66 +329,41 @@ body {
 .std-btn.primary:hover {
     background: var(--ui-accent-hover);
     border-color: var(--ui-accent-hover);
-    box-shadow: 0 4px 12px rgba(41, 121, 255, 0.4);
-}
-
-.std-btn.accent-text {
-    color: var(--ui-success);
-    border-color: rgba(0, 230, 118, 0.2);
-}
-
-.std-btn.accent-text:hover {
-    background: rgba(0, 230, 118, 0.1);
-    border-color: var(--ui-success);
-}
-
-.std-btn.danger-text {
-    color: var(--ui-danger);
-    border-color: rgba(255, 23, 68, 0.2);
-}
-
-.std-btn.danger-text:hover {
-    background: rgba(255, 23, 68, 0.1);
-    border-color: var(--ui-danger);
 }
 
 .btn-icon {
-    position: relative;
-    z-index: 2001;
-    width: 28px;
-    height: 28px;
+    width: 32px;
+    height: 32px;
     display: grid;
     place-items: center;
-    background: rgba(255, 255, 255, 0.04);
-    border: 1px solid var(--ui-border);
+    background: transparent;
+    border: 1px solid rgba(255, 255, 255, 0.1);
     border-radius: 6px;
-    color: var(--ui-text-muted);
+    color: #666;
     cursor: pointer;
     transition: all 0.2s;
+    position: relative;
+    z-index: 2001;
 }
 
 .btn-icon:hover {
-    background: var(--ui-accent);
-    color: #ffffff;
-    border-color: var(--ui-accent);
-    transform: scale(1.05);
-}
-
-.btn-icon:active {
-    transform: scale(0.95);
+    color: #fff;
+    background: rgba(255, 255, 255, 0.1);
+    border-color: rgba(255, 255, 255, 0.3);
 }
 
 .btn-icon.danger:hover {
     background: var(--ui-danger);
     border-color: var(--ui-danger);
+    color: white;
 }
 
 .zoom-controls {
     display: flex;
     align-items: center;
-    background: rgba(0, 0, 0, 0.2);
+    background: #222;
     border-radius: 6px;
-    border: 1px solid var(--ui-border);
+    border: 1px solid #333;
     height: 32px;
     overflow: hidden;
 }
@@ -377,82 +373,85 @@ body {
     height: 100%;
     border: none;
     background: transparent;
-    color: var(--ui-text-muted);
+    color: #ccc;
     cursor: pointer;
     font-weight: 700;
     transition: background 0.2s, color 0.2s;
 }
 
 .zoom-btn:hover {
-    background: rgba(255, 255, 255, 0.1);
-    color: #ffffff;
+    background: #333;
+    color: #fff;
 }
 
 .zoom-display {
     font-size: 11px;
-    color: #ffffff;
+    color: #fff;
     width: 48px;
     text-align: center;
     font-weight: 600;
     user-select: none;
-    border-left: 1px solid var(--ui-border);
-    border-right: 1px solid var(--ui-border);
+    border-left: 1px solid #333;
+    border-right: 1px solid #333;
     line-height: 32px;
 }
 
 /* ==========================================================================
-   DASHBOARD BAR
+   DASHBOARD BAR (HUD - FLOATING)
    ========================================================================== */
 .dashboard-bar {
-    position: relative;
+    position: absolute;
+    top: 84px; /* Zweeft onder de topbar */
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 990;
+    
+    background: rgba(0, 0, 0, 0.8);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    padding: 4px 16px;
+    border-radius: 100px;
     display: flex;
-    justify-content: center;
+    gap: 20px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.5);
+    height: 32px;
     align-items: center;
-    background: rgba(0, 0, 0, 0.3);
-    padding: 6px 16px;
-    border-radius: 8px;
-    border: 1px solid var(--ui-border);
-    height: 36px;
+    pointer-events: none;
 }
 
 .stat-group {
     display: flex;
-    gap: 24px;
+    gap: 20px;
 }
 
 .stat-item {
     display: flex;
     align-items: center;
     gap: 8px;
-    color: #b0bec5;
-    font-size: 12px;
-    font-weight: 600;
+}
+
+.stat-item span:first-child {
+    font-size: 16px; 
+    line-height: 1;
 }
 
 .stat-pill {
-    padding: 2px 10px;
-    border-radius: 12px;
     font-size: 11px;
-    color: #ffffff;
     font-weight: 800;
-    min-width: 24px;
+    padding: 2px 8px;
+    border-radius: 10px;
+    min-width: 20px;
     text-align: center;
+    color: #fff;
+    line-height: 1.2;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
 
-.pill-green { background: #00c853; color: #ffffff; }
-.pill-orange { background: #ff6d00; color: #ffffff; }
-.pill-red { background: #d50000; color: #ffffff; }
+.pill-green { background: #00e676; }
+.pill-orange { background: #ff9100; }
+.pill-red { background: #ff1744; }
 
-.stat-info {
-    position: absolute;
-    right: 16px;
-    font-size: 10px;
-    color: rgba(255, 255, 255, 0.3);
-    text-transform: uppercase;
-    font-weight: 700;
-    letter-spacing: 0.5px;
-}
+.stat-info { display: none; }
 
 /* ==========================================================================
    ROW HEADERS & BOARD TITLE
@@ -495,10 +494,10 @@ body {
 #board-header-display {
     font-family: "Inter", sans-serif;
     font-weight: 900;
-    font-size: 28px;
+    font-size: 32px;
     color: #ffffff;
     text-transform: uppercase;
-    letter-spacing: 3px;
+    letter-spacing: 4px;
     margin-bottom: 40px;
     text-align: center;
     text-shadow: 0 4px 20px rgba(0, 0, 0, 0.6);
@@ -512,7 +511,7 @@ body {
     color: var(--ui-accent);
     opacity: 1;
     transform: translateY(-1px);
-    text-shadow: 0 4px 25px rgba(41, 121, 255, 0.4);
+    text-shadow: 0 4px 30px var(--ui-accent-glow);
 }
 
 /* ==========================================================================
@@ -618,7 +617,7 @@ body {
 }
 
 /* ==========================================================================
-   SLOTS & STICKIES (AANGEPAST: VIERKANT & HORIZONTAAL)
+   SLOTS & STICKIES (VIERKANT & HORIZONTAAL)
    ========================================================================== */
 .slots {
     display: flex;
@@ -632,7 +631,6 @@ body {
     height: var(--slot-min-height);
 }
 
-/* Sticky basis - RECHTE HOEKEN (border-radius: 0) */
 .sticky {
     position: relative;
     flex: 1;
@@ -646,7 +644,7 @@ body {
     color: var(--sticky-text);
     font-family: var(--sticky-font-family);
     border: 1px solid rgba(0, 0, 0, 0.05);
-    border-radius: 0; /* GEEN afgeronde hoeken */
+    border-radius: 0; 
     box-shadow:
         0 2px 4px rgba(0, 0, 0, 0.15),
         0 8px 16px rgba(0, 0, 0, 0.1);
@@ -769,10 +767,8 @@ body {
 }
 
 /* ==========================================================================
-   LEGACY LABEL (PROFESSIONAL PILL)
-   Gebruik: wrap '(Legacy)' als <span class="legacy-tag">Legacy</span>
+   LEGACY LABEL & BADGES
    ========================================================================== */
-
 .legacy-tag {
     display: inline-flex;
     align-items: center;
@@ -785,12 +781,10 @@ body {
     background: rgba(0, 0, 0, 0.12);
     border: 1px solid rgba(0, 0, 0, 0.22);
     color: rgba(0, 0, 0, 0.78);
-
     box-shadow: 0 1px 2px rgba(0, 0, 0, 0.12);
     white-space: nowrap;
 }
 
-/* In modals (dark background) */
 .modal .legacy-tag {
     background: rgba(255, 255, 255, 0.08);
     border-color: rgba(255, 255, 255, 0.18);
@@ -798,16 +792,11 @@ body {
     box-shadow: none;
 }
 
-/* In stickies (yellow background) */
 .sticky .legacy-tag {
     background: rgba(0, 0, 0, 0.10);
     border-color: rgba(0, 0, 0, 0.20);
     color: rgba(0, 0, 0, 0.80);
 }
-
-/* ==========================================================================
-   BADGES (AANGEPAST: 4 OP EEN RIJ, VAN LINKS BOVEN NAAR RECHTS BOVEN)
-   ========================================================================== */
 
 .badges-row {
     position: absolute;
@@ -816,73 +805,36 @@ body {
     right: 4px;
     height: 24px;
     z-index: 10;
-
-    /* container is click-through */
     pointer-events: none;
 }
 
-/*
-  BELANGRIJK:
-  In de HTML blijken badges niet altijd (alleen) `.sticky-badge` te zijn.
-  Daarom targetten we ALLE directe kinderen van `.badges-row`.
-  Dit forceert 4 items horizontaal (geen verticale stack).
-*/
 .badges-row > * {
     position: absolute !important;
     top: 0 !important;
-
     background: transparent !important;
     border: none !important;
     box-shadow: none !important;
     backdrop-filter: none !important;
     padding: 0 !important;
-
     font-family: "Inter", sans-serif;
     font-size: 14px;
     line-height: 1;
     font-weight: 800;
     color: rgba(255,255,255, 0.95);
-
     display: inline-flex !important;
     align-items: center;
     justify-content: center;
-
-    /* badges zelf mogen wel clickable zijn */
     pointer-events: auto;
     user-select: none;
-
     text-shadow: 0 1px 2px rgba(0,0,0,0.3);
     white-space: nowrap;
 }
 
-/* 4 vaste posities: links, 1/3, 2/3, rechts (status emoji altijd rechtsboven) */
-.badges-row > :nth-child(1) {
-    left: 0 !important;
-    right: auto !important;
-    transform: none !important;
-}
+.badges-row > :nth-child(1) { left: 0 !important; right: auto !important; transform: none !important; }
+.badges-row > :nth-child(2) { left: 33.3333% !important; right: auto !important; transform: translateX(-50%) !important; }
+.badges-row > :nth-child(3) { left: 66.6666% !important; right: auto !important; transform: translateX(-50%) !important; }
+.badges-row > :last-child { right: 0 !important; left: auto !important; transform: none !important; font-size: 18px !important; }
 
-.badges-row > :nth-child(2) {
-    left: 33.3333% !important;
-    right: auto !important;
-    transform: translateX(-50%) !important;
-}
-
-.badges-row > :nth-child(3) {
-    left: 66.6666% !important;
-    right: auto !important;
-    transform: translateX(-50%) !important;
-}
-
-/* Laatste badge: status (sad/neutral/happy) altijd rechtsboven */
-.badges-row > :last-child {
-    right: 0 !important;
-    left: auto !important;
-    transform: none !important;
-    font-size: 18px !important;
-}
-
-/* Helper classes resetten (zeker weten dat niets positioneert) */
 .label-tl, .label-tr, .label-bl, .label-br {
     background: transparent !important;
     position: static !important;
@@ -898,7 +850,7 @@ body {
 }
 
 /* ==========================================================================
-   OVERIGE INDICATOREN (Blijven op hun plek)
+   OVERIGE INDICATOREN
    ========================================================================== */
 .workexp-badge {
     position: absolute;
@@ -999,10 +951,7 @@ body {
     line-height: 1;
 }
 
-.auth-body {
-    display: flex;
-    flex-direction: column;
-}
+.auth-body { display: flex; flex-direction: column; }
 
 .auth-row {
     display: flex;
@@ -1041,7 +990,6 @@ body {
     overflow: hidden;
 }
 
-/* Footer */
 .auth-footer {
     margin-top: auto;
     padding-top: 6px;
@@ -1056,12 +1004,7 @@ body {
     line-height: 1.2;
 }
 
-.gate-lbl {
-    text-align: right;
-    opacity: 0.8;
-    color: #555;
-}
-
+.gate-lbl { text-align: right; opacity: 0.8; color: #555; }
 .status-fail { color: #d32f2f; }
 .status-pass { color: #2e7d32; }
 
@@ -1093,95 +1036,59 @@ body {
 }
 
 .logic-line.fail .logic-key,
-.logic-line.fail .logic-val {
-    color: #c62828;
-    opacity: 1;
-}
-
+.logic-line.fail .logic-val { color: #c62828; opacity: 1; }
 .logic-line.pass .logic-key,
-.logic-line.pass .logic-val {
-    color: #1b5e20;
-    opacity: 1;
-}
+.logic-line.pass .logic-val { color: #1b5e20; opacity: 1; }
 
-/* Gate UI op status-stickies */
 .sticky.status-happy .auth-module,
 .sticky.status-neutral .auth-module,
-.sticky.status-sad .auth-module {
-    background: rgba(0,0,0,.16);
-    border: 0;
-}
+.sticky.status-sad .auth-module { background: rgba(0,0,0,.16); border: 0; }
 
 .sticky.status-happy .auth-badge,
 .sticky.status-neutral .auth-badge,
-.sticky.status-sad .auth-badge {
-    background: rgba(255,255,255,.92);
-    color: #000;
-}
+.sticky.status-sad .auth-badge { background: rgba(255,255,255,.92); color: #000; }
 
 .sticky.status-happy .auth-logic,
 .sticky.status-neutral .auth-logic,
 .sticky.status-sad .auth-logic,
 .sticky.status-happy .auth-label,
 .sticky.status-neutral .auth-label,
-.sticky.status-sad .auth-label {
-    color: rgba(255,255,255,.92);
-}
+.sticky.status-sad .auth-label { color: rgba(255,255,255,.92); }
 
 .sticky.status-happy .auth-num,
 .sticky.status-neutral .auth-num,
-.sticky.status-sad .auth-num {
-    background: rgba(255,255,255,.22);
-    color: rgba(255,255,255,.92);
-}
+.sticky.status-sad .auth-num { background: rgba(255,255,255,.22); color: rgba(255,255,255,.92); }
 
 .sticky.status-happy .logic-line.fail .logic-key,
 .sticky.status-happy .logic-line.fail .logic-val,
 .sticky.status-neutral .logic-line.fail .logic-key,
 .sticky.status-neutral .logic-line.fail .logic-val,
 .sticky.status-sad .logic-line.fail .logic-key,
-.sticky.status-sad .logic-line.fail .logic-val {
-    color: rgba(255,170,170,1);
-}
-
+.sticky.status-sad .logic-line.fail .logic-val { color: rgba(255,170,170,1); }
 
 .sticky.status-happy .logic-line.pass .logic-key,
 .sticky.status-happy .logic-line.pass .logic-val,
 .sticky.status-neutral .logic-line.pass .logic-key,
 .sticky.status-neutral .logic-line.pass .logic-val,
 .sticky.status-sad .logic-line.pass .logic-key,
-.sticky.status-sad .logic-line.pass .logic-val {
-    color: rgba(170,255,170,1);
-}
+.sticky.status-sad .logic-line.pass .logic-val { color: rgba(170,255,170,1); }
 
-/* ==========================================================================
-   GATE UI (FOOTER - COMPACT & PROFESSIONAL)
-   Doel: Rework/Pass strak tegen de onderkant + professionele styling
-   ========================================================================== */
+/* Gate UI (Compact Footer) */
+.sticky.is-auth-gate .sticky-content { padding-bottom: 8px !important; }
 
-/* Minder vrije ruimte onderin de sticky wanneer gate footer aanwezig is */
-.sticky.is-auth-gate .sticky-content {
-    padding-bottom: 8px !important; /* default is 22px */
-}
-
-/* Footer layout: strak, rustig, professioneel */
 .sticky.is-auth-gate .auth-footer {
     margin-top: 0 !important;
     padding-top: 4px !important;
-    border-top: 1px solid rgba(0,0,0,.14) !important; /* minder ‘druk’ dan dashed */
-
-    /* override: in HTML staat soms inline flex */
+    border-top: 1px solid rgba(0,0,0,.14) !important;
     display: flex !important;
     justify-content: center !important;
     align-items: center !important;
     gap: 12px !important;
-
     font-size: 12px !important;
     font-weight: 700 !important;
     line-height: 1.05 !important;
 }
 
-/* Elke regel (Rework/Pass) als compacte ‘chip’ */
 .sticky.is-auth-gate .auth-footer .logic-line {
     display: inline-flex !important;
     align-items: center !important;
@@ -1191,31 +1098,22 @@ body {
     margin: 0 !important;
 }
 
-/* Icoon iets groter en strak */
-.sticky.is-auth-gate .auth-footer .logic-line > span:first-child {
-    font-size: 14px !important;
-    line-height: 1 !important;
-}
+.sticky.is-auth-gate .auth-footer .logic-line > span:first-child { font-size: 14px !important; line-height: 1 !important; }
 
-/* Label (Rework/Pass) als pill met kleur */
 .sticky.is-auth-gate .auth-footer .logic-line > span:nth-child(2) {
     display: inline-flex !important;
     align-items: center !important;
     padding: 2px 8px !important;
     border-radius: 999px !important;
-
     text-transform: uppercase !important;
     letter-spacing: .7px !important;
     font-size: 10px !important;
     font-weight: 900 !important;
-
-    /* reset inline styles */
     background: transparent !important;
     border: 1px solid transparent !important;
     color: inherit !important;
 }
 
-/* Waarde (doelproces) */
 .sticky.is-auth-gate .auth-footer .logic-line > span:nth-child(3) {
     font-weight: 850 !important;
     opacity: .94 !important;
@@ -1226,37 +1124,27 @@ body {
     letter-spacing: .1px !important;
 }
 
-/* Waarde kleurt mee met Rework/Pass (professioneler, direct scanbaar) */
-.sticky.is-auth-gate .auth-footer .logic-line.fail > span:nth-child(3) {
-    color: #b71c1c !important;
-}
+.sticky.is-auth-gate .auth-footer .logic-line.fail > span:nth-child(3) { color: #b71c1c !important; }
+.sticky.is-auth-gate .auth-footer .logic-line.pass > span:nth-child(3) { color: #1b5e20 !important; }
 
-.sticky.is-auth-gate .auth-footer .logic-line.pass > span:nth-child(3) {
-    color: #1b5e20 !important;
-}
-
-/* Rework = rood */
 .sticky.is-auth-gate .auth-footer .logic-line.fail > span:nth-child(2) {
     background: rgba(211, 47, 47, .12) !important;
     border-color: rgba(211, 47, 47, .28) !important;
     color: #b71c1c !important;
 }
 
-/* Pass = groen */
 .sticky.is-auth-gate .auth-footer .logic-line.pass > span:nth-child(2) {
     background: rgba(56, 142, 60, .12) !important;
     border-color: rgba(56, 142, 60, .28) !important;
     color: #1b5e20 !important;
 }
 
-/* Op status-stickies (donkere achtergrond): labels/tekst in wit, maar met behoud van accent */
 .sticky.status-happy.is-auth-gate .auth-footer,
 .sticky.status-neutral.is-auth-gate .auth-footer,
 .sticky.status-sad.is-auth-gate .auth-footer {
     border-top-color: rgba(255,255,255,.22) !important;
 }
 
-/* Op status-stickies: waarde ook kleur-geleidt per Rework/Pass */
 .sticky.status-happy.is-auth-gate .auth-footer .logic-line.fail > span:nth-child(3),
 .sticky.status-neutral.is-auth-gate .auth-footer .logic-line.fail > span:nth-child(3),
 .sticky.status-sad.is-auth-gate .auth-footer .logic-line.fail > span:nth-child(3) {
@@ -1286,8 +1174,36 @@ body {
 }
 
 /* ==========================================================================
-   CONNECTOR INPUTS
+   SPACING & CONNECTORS (AANGEPAST: 80PX SPACING, 0PX VOOR VARIANTS)
    ========================================================================== */
+.col-connector {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    width: var(--col-gap); /* 80px */
+    flex-shrink: 0;
+    padding-top: 0;
+    z-index: 10;
+    overflow: visible; /* Zorg dat pijl zichtbaar is */
+}
+
+.col-connector.parallel-connector,
+.col-connector.variant-connector {
+    width: 0 !important; /* Varianten plakken tegen elkaar aan */
+    padding: 0 !important;
+    margin: 0 !important;
+    overflow: visible;
+    pointer-events: none;
+    justify-content: center;
+}
+
+.col-connector.parallel-connector .parallel-line,
+.col-connector.variant-connector .parallel-line {
+    display: none !important;
+}
+
 .connector-active {
     position: relative;
     width: 100%;
@@ -1297,10 +1213,7 @@ body {
     margin-top: 0 !important;
 }
 
-.connector-active:hover .connector-delete {
-    opacity: 1;
-    pointer-events: auto;
-}
+.connector-active:hover .connector-delete { opacity: 1; pointer-events: auto; }
 
 .connector-input-minimal {
     width: 70px;
@@ -1317,24 +1230,22 @@ body {
     transition: opacity 0.2s;
 }
 
-.connector-input-minimal:focus,
-.connector-input-minimal:hover {
+.connector-input-minimal:focus, .connector-input-minimal:hover {
     opacity: 1;
     background: rgba(0, 0, 0, 0.3);
     border-radius: 4px;
 }
 
 .connector-arrow-minimal {
-    width: 60px;
+    width: 50px; /* Iets breder voor de 80px gap */
     height: 2px;
     background: rgba(255, 255, 255, 0.3);
     position: relative;
     transition: background 0.2s;
+    margin-top: 50px; /* Verticaal centreren */
 }
 
-.connector-active:hover .connector-arrow-minimal {
-    background: rgba(255, 255, 255, 0.6);
-}
+.connector-active:hover .connector-arrow-minimal { background: rgba(255, 255, 255, 0.6); }
 
 .connector-arrow-minimal::after {
     content: "";
@@ -1347,9 +1258,7 @@ body {
     transition: border-left-color 0.2s;
 }
 
-.connector-active:hover .connector-arrow-minimal::after {
-    border-left-color: rgba(255, 255, 255, 0.6);
-}
+.connector-active:hover .connector-arrow-minimal::after { border-left-color: rgba(255, 255, 255, 0.6); }
 
 .connector-add {
     width: 24px;
@@ -1368,9 +1277,7 @@ body {
     transition: all 0.2s;
 }
 
-.col-connector:hover .connector-add {
-    opacity: 1;
-}
+.col-connector:hover .connector-add { opacity: 1; }
 
 .connector-add:hover {
     background: var(--ui-accent);
@@ -1401,77 +1308,7 @@ body {
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
 }
 
-.connector-delete:hover {
-    transform: scale(1.1);
-    background: #f44336;
-}
-
-/* ==========================================================================
-   TOOLTIPS
-   ========================================================================== */
-#customTooltip {
-    position: fixed;
-    left: 0;
-    top: 0;
-    transform: translate(-9999px, -9999px);
-    z-index: 10000;
-    pointer-events: none;
-    opacity: 0;
-    transition: opacity 120ms ease, transform 120ms ease;
-    max-width: 360px;
-    padding: 10px 12px;
-    border-radius: 10px;
-    background: rgba(20, 24, 28, 0.95);
-    border: 1px solid rgba(255, 255, 255, 0.12);
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.45);
-    backdrop-filter: blur(10px);
-    color: #ffffff;
-    font-family: "Inter", sans-serif;
-    font-size: 12px;
-    line-height: 1.4;
-}
-
-#customTooltip [data-tt="title"] {
-    font-weight: 900;
-    font-size: 11px;
-    letter-spacing: 0.6px;
-    text-transform: uppercase;
-    opacity: 0.9;
-    margin-bottom: 6px;
-}
-
-#customTooltip [data-tt="body"] {
-    opacity: 0.85;
-}
-
-/* ==========================================================================
-   SPACING & CONNECTORS
-   ========================================================================== */
-.col-connector {
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-    align-items: center;
-    width: var(--col-gap);
-    flex-shrink: 0;
-    padding-top: 0;
-    z-index: 10;
-}
-
-.col-connector.parallel-connector,
-.col-connector.variant-connector {
-    width: 0 !important;
-    padding: 0 !important;
-    overflow: visible;
-    pointer-events: none;
-    justify-content: center;
-}
-
-.col-connector.parallel-connector .parallel-line,
-.col-connector.variant-connector .parallel-line {
-    display: none !important;
-}
+.connector-delete:hover { transform: scale(1.1); background: #f44336; }
 
 /* Parallel Column Styling */
 .col.is-parallel {
@@ -1581,6 +1418,42 @@ body {
 }
 
 /* ==========================================================================
+   TOOLTIPS
+   ========================================================================== */
+#customTooltip {
+    position: fixed;
+    left: 0;
+    top: 0;
+    transform: translate(-9999px, -9999px);
+    z-index: 10000;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 120ms ease, transform 120ms ease;
+    max-width: 360px;
+    padding: 10px 12px;
+    border-radius: 10px;
+    background: rgba(20, 24, 28, 0.95);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.45);
+    backdrop-filter: blur(10px);
+    color: #ffffff;
+    font-family: "Inter", sans-serif;
+    font-size: 12px;
+    line-height: 1.4;
+}
+
+#customTooltip [data-tt="title"] {
+    font-weight: 900;
+    font-size: 11px;
+    letter-spacing: 0.6px;
+    text-transform: uppercase;
+    opacity: 0.9;
+    margin-bottom: 6px;
+}
+
+#customTooltip [data-tt="body"] { opacity: 0.85; }
+
+/* ==========================================================================
    EXPORT MODE
    ========================================================================== */
 body.exporting {
@@ -1640,10 +1513,7 @@ body.exporting .connector-text-export {
     animation: fadeIn 0.2s ease-out;
 }
 
-@keyframes fadeIn {
-    from { opacity: 0; }
-    to { opacity: 1; }
-}
+@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
 
 .modal {
     background: linear-gradient(160deg, #2b373d 0%, #232b2f 100%);
@@ -1661,14 +1531,8 @@ body.exporting .connector-text-export {
 }
 
 @keyframes modalSlideUp {
-    from {
-        opacity: 0;
-        transform: translateY(20px) scale(0.98);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0) scale(1);
-    }
+    from { opacity: 0; transform: translateY(20px) scale(0.98); }
+    to { opacity: 1; transform: translateY(0) scale(1); }
 }
 
 .modal h3 {
@@ -1693,17 +1557,11 @@ body.exporting .connector-text-export {
     font-weight: 700;
 }
 
-.modal-input,
-.def-input,
-textarea,
-.sys-opt,
-.status-option {
+.modal-input, .def-input, textarea, .sys-opt, .status-option {
     font-family: "Inter", sans-serif;
 }
 
-.modal-input,
-.def-input,
-textarea {
+.modal-input, .def-input, textarea {
     width: 100%;
     background: rgba(0, 0, 0, 0.3);
     border: 1px solid rgba(255, 255, 255, 0.15);
@@ -1715,19 +1573,13 @@ textarea {
     transition: all 0.2s;
 }
 
-.modal-input:focus,
-.def-input:focus,
-textarea:focus {
+.modal-input:focus, .def-input:focus, textarea:focus {
     border-color: var(--ui-accent);
     background: rgba(0, 0, 0, 0.5);
     box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.2);
 }
 
-textarea {
-    resize: vertical;
-    min-height: 80px;
-    line-height: 1.5;
-}
+textarea { resize: vertical; min-height: 80px; line-height: 1.5; }
 
 .io-helper {
     margin-bottom: 32px;
@@ -1738,9 +1590,7 @@ textarea {
     padding-bottom: 16px;
 }
 
-.system-question {
-    margin-bottom: 36px;
-}
+.system-question { margin-bottom: 36px; }
 
 .sys-q-title {
     display: block;
@@ -1751,11 +1601,7 @@ textarea {
     line-height: 1.5;
 }
 
-.radio-group-container {
-    display: flex;
-    gap: 8px;
-    flex-wrap: wrap;
-}
+.radio-group-container { display: flex; gap: 8px; flex-wrap: wrap; }
 
 .sys-opt {
     flex: 1;
@@ -1786,11 +1632,7 @@ textarea {
     box-shadow: 0 4px 10px rgba(41, 121, 255, 0.3);
 }
 
-.status-selector {
-    display: flex;
-    gap: 12px;
-    margin-bottom: 20px;
-}
+.status-selector { display: flex; gap: 12px; margin-bottom: 20px; }
 
 .status-option {
     flex: 1;
@@ -1827,16 +1669,13 @@ textarea {
     transform: translateY(-2px);
 }
 
-.status-option:hover .status-emoji {
-    filter: grayscale(0);
-}
+.status-option:hover .status-emoji { filter: grayscale(0); }
 
 .status-option.selected-sad {
     border-color: #ef5350;
     background: rgba(239, 83, 80, 0.1);
     box-shadow: 0 0 15px rgba(239, 83, 80, 0.1);
 }
-
 .status-option.selected-sad .status-text { color: #ef5350; }
 .status-option.selected-sad .status-emoji { filter: grayscale(0); }
 
@@ -1845,7 +1684,6 @@ textarea {
     background: rgba(255, 167, 38, 0.1);
     box-shadow: 0 0 15px rgba(255, 167, 38, 0.1);
 }
-
 .status-option.selected-neu .status-text { color: #ffa726; }
 .status-option.selected-neu .status-emoji { filter: grayscale(0); }
 
@@ -1854,7 +1692,6 @@ textarea {
     background: rgba(102, 187, 106, 0.1);
     box-shadow: 0 0 15px rgba(102, 187, 106, 0.1);
 }
-
 .status-option.selected-hap .status-text { color: #66bb6a; }
 .status-option.selected-hap .status-emoji { filter: grayscale(0); }
 
@@ -2015,9 +1852,7 @@ textarea {
 .save-status.saving { opacity: 1; color: #ffca28; }
 .save-status.saved { opacity: 1; color: var(--ui-success); }
 
-@keyframes spin {
-    100% { transform: rotate(360deg); }
-}
+@keyframes spin { 100% { transform: rotate(360deg); } }
 
 .spinner {
     width: 10px;
@@ -2031,12 +1866,41 @@ textarea {
 /* ==========================================================================
    INPUT DIRECTION SAFETY
    ========================================================================== */
-input,
-textarea,
-[contenteditable],
-[contenteditable="true"],
-.text[contenteditable="true"] {
+input, textarea, [contenteditable], [contenteditable="true"], .text[contenteditable="true"] {
     direction: ltr !important;
     unicode-bidi: isolate !important;
     writing-mode: horizontal-tb !important;
+}
+
+/* ==========================================================================
+   MENU TOGGLE LOGIC (FIX VOOR MENU IN/UITKLAPPEN)
+   ========================================================================== */
+.topbar.collapsed {
+    transform: translateY(-100%);
+}
+
+.topbar.collapsed .topbar-content {
+    opacity: 0; 
+    pointer-events: none;
+}
+
+.topbar.collapsed .topbar-toggle-bar {
+    /* Duw het hendeltje naar beneden zodat het zichtbaar blijft */
+    transform: translateY(100%); 
+    opacity: 0.8;
+    background: #141414;
+    border-top: 1px solid rgba(255,255,255,0.1);
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+    border-radius: 0 0 8px 8px;
+}
+
+.topbar.collapsed .topbar-toggle-bar:hover {
+    opacity: 1;
+    background: var(--ui-accent);
+    border-color: var(--ui-accent);
+}
+
+.viewport.expanded-view {
+    /* Verwijder de padding van de topbar zodat content omhoog schuift */
+    padding-top: 40px !important; 
 }

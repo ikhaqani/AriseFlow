@@ -1,5 +1,3 @@
-// modals.js  (VOLLEDIG)
-// -----------------------------------------------------------
 import { state } from './state.js';
 import {
   IO_CRITERIA,
@@ -16,6 +14,7 @@ let areListenersAttached = false;
 
 const $ = (id) => document.getElementById(id);
 
+/** Creates a deep copy of a plain object for safe mutation. */
 const deepClone = (obj) => {
   try {
     if (typeof structuredClone === 'function') return structuredClone(obj);
@@ -144,6 +143,7 @@ const IO_CRITERIA_DEFS = {
   }
 };
 
+/** Escapes a string for safe placement inside HTML attributes. */
 const escapeAttr = (v) =>
   String(v ?? '')
     .replace(/&/g, '&amp;')
@@ -151,6 +151,7 @@ const escapeAttr = (v) =>
     .replace(/</g, '&lt;')
     .replace(/>/g, '&gt;');
 
+/** Renders a selectable radio-like group with a hidden input for persistence. */
 const createRadioGroup = (name, options, selectedValue, isHorizontal = false) => `
   <div class="radio-group-container ${isHorizontal ? 'horizontal' : 'vertical'}">
     ${options
@@ -175,6 +176,7 @@ const createRadioGroup = (name, options, selectedValue, isHorizontal = false) =>
   </div>
 `;
 
+/** Builds analysis rows pairing root-causes and countermeasures for display. */
 const createCombinedAnalysisRows = (causes, improvements) => {
   const c = causes || [];
   const i = improvements || [];
@@ -211,12 +213,14 @@ const createCombinedAnalysisRows = (causes, improvements) => {
   return html;
 };
 
+/** Returns the currently edited sticky slot object from state. */
 const getStickyData = () => {
   if (!editingSticky) return null;
   const sheet = state.activeSheet;
   return sheet.columns[editingSticky.colIdx].slots[editingSticky.slotIdx];
 };
 
+/** Returns the visible column indices for the active sheet in order. */
 const getVisibleColIdxs = () => {
   const sheet = state.activeSheet;
   if (!sheet) return [];
@@ -227,10 +231,7 @@ const getVisibleColIdxs = () => {
   return vis;
 };
 
-/* =========================================================
-   Merge helpers in modal
-   ========================================================= */
-
+/** Gets the active output merge range for the currently edited output sticky. */
 const getCurrentOutputMergeRange = () => {
   const sheet = state.activeSheet;
   if (!sheet || !editingSticky) return null;
@@ -238,6 +239,7 @@ const getCurrentOutputMergeRange = () => {
   return state.getOutputMergeForCol(editingSticky.colIdx);
 };
 
+/** Gets the active system merge range for the currently edited system sticky. */
 const getCurrentSystemMergeRange = () => {
   const sheet = state.activeSheet;
   if (!sheet || !editingSticky) return null;
@@ -245,6 +247,7 @@ const getCurrentSystemMergeRange = () => {
   return state.getSystemMergeForCol(editingSticky.colIdx);
 };
 
+/** Renders the output merge controls block for the output tab when applicable. */
 const renderOutputMergeControls = () => {
   if (!editingSticky || editingSticky.slotIdx !== 4) return '';
 
@@ -313,6 +316,7 @@ const renderOutputMergeControls = () => {
   `;
 };
 
+/** Renders the system merge controls block for the system tab when applicable. */
 const renderSystemMergeControls = () => {
   if (!editingSticky || editingSticky.slotIdx !== 1) return '';
 
@@ -385,10 +389,7 @@ const renderSystemMergeControls = () => {
   `;
 };
 
-/* =========================================================
-   SYSTEM TAB (multi-system + per-system score)
-   ========================================================= */
-
+/** Ensures systemData has the required multi-system schema for persistence. */
 function ensureSystemDataShape(data) {
   data.systemData = data.systemData || {};
   const sd = data.systemData;
@@ -398,8 +399,26 @@ function ensureSystemDataShape(data) {
   if (!Array.isArray(sd.systems)) {
     const legacyName = typeof sd.systemName === 'string' ? sd.systemName.trim() : '';
     sd.systems = legacyName
-      ? [{ id: `${Date.now()}_${Math.random().toString(16).slice(2)}`, name: legacyName, isLegacy: false, futureSystem: '', qa: {}, calculatedScore: null }]
-      : [{ id: `${Date.now()}_${Math.random().toString(16).slice(2)}`, name: '', isLegacy: false, futureSystem: '', qa: {}, calculatedScore: null }];
+      ? [
+          {
+            id: `${Date.now()}_${Math.random().toString(16).slice(2)}`,
+            name: legacyName,
+            isLegacy: false,
+            futureSystem: '',
+            qa: {},
+            calculatedScore: null
+          }
+        ]
+      : [
+          {
+            id: `${Date.now()}_${Math.random().toString(16).slice(2)}`,
+            name: '',
+            isLegacy: false,
+            futureSystem: '',
+            qa: {},
+            calculatedScore: null
+          }
+        ];
   }
   sd.systems = sd.systems.map((s) => ({
     id: String(s?.id || `${Date.now()}_${Math.random().toString(16).slice(2)}`),
@@ -410,14 +429,23 @@ function ensureSystemDataShape(data) {
     calculatedScore: Number.isFinite(Number(s?.calculatedScore)) ? Number(s.calculatedScore) : null
   }));
   if (sd.systems.length === 0) {
-    sd.systems = [{ id: `${Date.now()}_${Math.random().toString(16).slice(2)}`, name: '', isLegacy: false, futureSystem: '', qa: {}, calculatedScore: null }];
+    sd.systems = [
+      {
+        id: `${Date.now()}_${Math.random().toString(16).slice(2)}`,
+        name: '',
+        isLegacy: false,
+        futureSystem: '',
+        qa: {},
+        calculatedScore: null
+      }
+    ];
   }
 
   if (typeof sd.systemName !== 'string') sd.systemName = sd.systems[0]?.name || '';
   if (!Number.isFinite(Number(sd.calculatedScore))) sd.calculatedScore = null;
 }
 
-
+/** Computes a 0-100 system fit score from question option indices. */
 function computeSystemScoreFromAnswers(answerObj) {
   let total = 0;
   let answeredCount = 0;
@@ -431,20 +459,18 @@ function computeSystemScoreFromAnswers(answerObj) {
 
   if (answeredCount === 0) return null;
 
-  // assumes options indices 0..3 (max 3 each); keeps your previous scoring logic
   const maxPoints = SYSTEM_QUESTIONS.length * 3;
   const safeTotal = Math.min(total, maxPoints);
   return Math.round(100 * (1 - safeTotal / maxPoints));
 }
 
-// Helper: persist systems from DOM into data.systemData (from currently rendered cards)
+/** Reads the system tab DOM and persists it into data.systemData. */
 function persistSystemTabFromDOM(contentEl, data) {
   if (!contentEl || !data) return;
 
   ensureSystemDataShape(data);
   const sd = data.systemData;
 
-  // Read systems from the currently rendered cards
   const cards = contentEl.querySelectorAll('.system-card');
   const nextSystems = [];
 
@@ -484,7 +510,6 @@ function persistSystemTabFromDOM(contentEl, data) {
 
   if (nextSystems.length) sd.systems = nextSystems;
 
-  // Backward compat fields
   sd.systemName = sd.systems?.[0]?.name || '';
 
   const scores = (sd.systems || []).map((s) => s.calculatedScore).filter((x) => x != null);
@@ -492,6 +517,7 @@ function persistSystemTabFromDOM(contentEl, data) {
     scores.length === 0 ? null : Math.round(scores.reduce((a, b) => a + b, 0) / scores.length);
 }
 
+/** Renders the system tab including multi-system cards and live scoring. */
 const renderSystemTab = (data) => {
   ensureSystemDataShape(data);
 
@@ -541,7 +567,9 @@ const renderSystemTab = (data) => {
         <div style="display:grid; gap:10px;">
           <div style="display:grid; grid-template-columns: 1fr; gap:6px;">
             <div class="modal-label" style="margin:0; font-size:11px;">Systeemnaam</div>
-            <input class="modal-input sys-name" type="text" value="${escapeAttr(name)}" placeholder="Bijv. ARIA / EPIC / Radiotherapieweb / Monaco..." />
+            <input class="modal-input sys-name" type="text" value="${escapeAttr(
+              name
+            )}" placeholder="Bijv. ARIA / EPIC / Radiotherapieweb / Monaco..." />
           </div>
 
           <div style="display:grid; grid-template-columns: 1fr 1fr; gap:10px;">
@@ -552,7 +580,9 @@ const renderSystemTab = (data) => {
 
             <div style="display:grid; grid-template-columns: 1fr; gap:6px;">
               <div class="modal-label" style="margin:0; font-size:11px;">Toekomstig systeem (verwachting)</div>
-              <input class="modal-input sys-future" type="text" value="${escapeAttr(future)}" placeholder="Bijv. ARIA / EPIC / nieuw portaal..." />
+              <input class="modal-input sys-future" type="text" value="${escapeAttr(
+                future
+              )}" placeholder="Bijv. ARIA / EPIC / nieuw portaal..." />
             </div>
           </div>
         </div>
@@ -565,20 +595,28 @@ const renderSystemTab = (data) => {
 
           ${SYSTEM_QUESTIONS.map((q) => {
             const currentVal = qa[q.id] !== undefined ? qa[q.id] : null;
-            const optionsMapped = q.options.map((optText, optIdx) => ({ value: optIdx, label: optText }));
+            const optionsMapped = q.options.map((optText, optIdx) => ({
+              value: optIdx,
+              label: optText
+            }));
 
             return `
               <div class="system-question" style="margin-bottom:12px;">
                 <div class="sys-q-title">${escapeAttr(q.label)}</div>
-                ${createRadioGroup(`sys_${escapeAttr(sysId)}_${escapeAttr(q.id)}`, optionsMapped, currentVal, true)}
+                ${createRadioGroup(
+                  `sys_${escapeAttr(sysId)}_${escapeAttr(q.id)}`,
+                  optionsMapped,
+                  currentVal,
+                  true
+                )}
               </div>
             `;
           }).join('')}
 
           <div style="margin-top:10px; font-size:12px; opacity:.9;">
             Score (dit systeem): <span class="sys-score" data-sys-score="${escapeAttr(sysId)}">${
-              Number.isFinite(Number(sys.calculatedScore)) ? `${sys.calculatedScore}%` : '—'
-            }</span>
+      Number.isFinite(Number(sys.calculatedScore)) ? `${sys.calculatedScore}%` : '—'
+    }</span>
           </div>
         </div>
       </div>
@@ -588,12 +626,16 @@ const renderSystemTab = (data) => {
   html += `
       </div>
 
-      <button class="std-btn primary" id="btnAddSystem" data-action="add-system" type="button" style="margin-top:14px; display:${isMulti ? 'inline-flex' : 'none'};">
+      <button class="std-btn primary" id="btnAddSystem" data-action="add-system" type="button" style="margin-top:14px; display:${
+        isMulti ? 'inline-flex' : 'none'
+      };">
         + Systeem toevoegen
       </button>
 
       <div style="margin-top:14px; font-size:12px; opacity:.9;">
-        Overall score (kolom): <strong id="sysOverallScore">${Number.isFinite(Number(sd.calculatedScore)) ? `${sd.calculatedScore}%` : '—'}</strong>
+        Overall score (kolom): <strong id="sysOverallScore">${
+          Number.isFinite(Number(sd.calculatedScore)) ? `${sd.calculatedScore}%` : '—'
+        }</strong>
       </div>
     </div>
   `;
@@ -601,10 +643,7 @@ const renderSystemTab = (data) => {
   return html;
 };
 
-/* =========================================================
-   PROCESS TAB
-   ========================================================= */
-
+/** Renders the process analysis tab content for the process row. */
 const renderProcessTab = (data) => {
   const status = data.processStatus;
   const isHappy = status === 'HAPPY';
@@ -634,9 +673,8 @@ const renderProcessTab = (data) => {
     .join('');
 
   const workExp = data.workExp || null;
-  const workExpHtml = WORK_EXP_OPTIONS
-    .map(
-      (o) => `
+  const workExpHtml = WORK_EXP_OPTIONS.map(
+    (o) => `
       <div class="status-option ${workExp === o.value ? o.cls : ''}"
            data-action="set-workexp"
            data-val="${escapeAttr(o.value)}"
@@ -649,24 +687,22 @@ const renderProcessTab = (data) => {
         <span class="status-text">${escapeAttr(o.label)}</span>
       </div>
   `
-    )
-    .join('');
+  ).join('');
 
   const leanValue = data.processValue || null;
-  const leanValueHtml = LEAN_VALUES
-    .map((opt) => {
-      const val = opt.value;
-      const label = opt.label;
+  const leanValueHtml = LEAN_VALUES.map((opt) => {
+    const val = opt.value;
+    const label = opt.label;
 
-      let displayLabel = label;
-      if (val === 'VA' && !label.includes('💚')) displayLabel = '💚 ' + label;
-      if (val === 'BNVA' && !label.includes('⚖️')) displayLabel = '⚖️ ' + label;
-      if (val === 'NVA' && !label.includes('🗑️')) displayLabel = '🗑️ ' + label;
+    let displayLabel = label;
+    if (val === 'VA' && !label.includes('💚')) displayLabel = '💚 ' + label;
+    if (val === 'BNVA' && !label.includes('⚖️')) displayLabel = '⚖️ ' + label;
+    if (val === 'NVA' && !label.includes('🗑️')) displayLabel = '🗑️ ' + label;
 
-      const def = LEAN_VALUE_DEFS[val] || {};
-      const isSelected = leanValue === val;
+    const def = LEAN_VALUE_DEFS[val] || {};
+    const isSelected = leanValue === val;
 
-      return `
+    return `
       <div class="sys-opt ${isSelected ? 'selected' : ''}" 
            data-value="${escapeAttr(val)}"
            data-tt-title="${escapeAttr(def.title || label)}"
@@ -674,24 +710,22 @@ const renderProcessTab = (data) => {
         ${escapeAttr(displayLabel)}
       </div>
     `;
-    })
-    .join('');
+  }).join('');
 
   const activityType = data.type || null;
-  const activityTypeHtml = ACTIVITY_TYPES
-    .map((opt) => {
-      const val = opt.value;
-      const label = opt.label;
-      const def = ACTIVITY_TYPE_DEFS[val] || {};
-      const isSelected = activityType === val;
+  const activityTypeHtml = ACTIVITY_TYPES.map((opt) => {
+    const val = opt.value;
+    const label = opt.label;
+    const def = ACTIVITY_TYPE_DEFS[val] || {};
+    const isSelected = activityType === val;
 
-      let displayLabel = label;
-      if (val === 'Taak' && !label.includes('📝')) displayLabel = '📝 ' + label;
-      if (val === 'Afspraak' && !label.includes('📅')) displayLabel = '📅 ' + label;
-      if (val === 'TimeOut' && !label.includes('🛑')) displayLabel = '🛑 ' + label;
-      if (val === 'Beoordeling' && !label.includes('🔎')) displayLabel = '🔎 ' + label;
+    let displayLabel = label;
+    if (val === 'Taak' && !label.includes('📝')) displayLabel = '📝 ' + label;
+    if (val === 'Afspraak' && !label.includes('📅')) displayLabel = '📅 ' + label;
+    if (val === 'TimeOut' && !label.includes('🛑')) displayLabel = '🛑 ' + label;
+    if (val === 'Beoordeling' && !label.includes('🔎')) displayLabel = '🔎 ' + label;
 
-      return `
+    return `
       <div class="sys-opt ${isSelected ? 'selected' : ''}"
            data-value="${escapeAttr(val)}"
            data-tt-title="${escapeAttr(def.title || label)}"
@@ -699,8 +733,7 @@ const renderProcessTab = (data) => {
         ${escapeAttr(displayLabel)}
       </div>
     `;
-    })
-    .join('');
+  }).join('');
 
   const disruptions =
     data.disruptions && data.disruptions.length > 0
@@ -794,10 +827,7 @@ const renderProcessTab = (data) => {
   `;
 };
 
-/* =========================================================
-   IO TAB (Input / Output)
-   ========================================================= */
-
+/** Renders the IO tab for Input/Output including quality criteria and definitions. */
 const renderIoTab = (data, isInputRow) => {
   let linkHtml = '';
 
@@ -967,10 +997,7 @@ const renderIoTab = (data, isInputRow) => {
   `;
 };
 
-/* =========================================================
-   RENDER MODAL CONTENT
-   ========================================================= */
-
+/** Renders the correct modal tab content based on the edited slot type. */
 const renderContent = () => {
   const data = getStickyData();
   if (!data) return;
@@ -999,13 +1026,10 @@ const renderContent = () => {
   }
 };
 
-/* =========================================================
-   TOOLTIP
-   ========================================================= */
-
 let _ttEl = null;
 let _ttVisible = false;
 
+/** Ensures a single tooltip element exists and returns it. */
 function ensureTooltipEl() {
   if (_ttEl) return _ttEl;
 
@@ -1041,6 +1065,7 @@ function ensureTooltipEl() {
   return el;
 }
 
+/** Shows a tooltip near the pointer using the target dataset title/body. */
 function showTooltip(target, x, y) {
   const el = ensureTooltipEl();
 
@@ -1073,6 +1098,7 @@ function showTooltip(target, x, y) {
   el.style.transform = `translate(${Math.round(left)}px, ${Math.round(top)}px)`;
 }
 
+/** Hides the tooltip if currently visible. */
 function hideTooltip() {
   if (!_ttEl || !_ttVisible) return;
   _ttEl.style.opacity = '0';
@@ -1080,10 +1106,7 @@ function hideTooltip() {
   _ttVisible = false;
 }
 
-/* =========================================================
-   LISTENERS
-   ========================================================= */
-
+/** Installs persistent modal event listeners once for delegated interactions. */
 const setupPermanentListeners = () => {
   const modal = $('editModal');
   const content = $('modalContent');
@@ -1136,7 +1159,6 @@ const setupPermanentListeners = () => {
     if (e.key === 'Escape') hideTooltip();
   });
 
-  // merge enable toggle (Output)
   content.addEventListener('change', (e) => {
     if (e.target?.id !== 'mergeEnable') return;
     const enabled = !!e.target.checked;
@@ -1149,7 +1171,6 @@ const setupPermanentListeners = () => {
     if (hint) hint.textContent = enabled ? hint.textContent || 'Actief' : 'Niet gemerged';
   });
 
-  // merge enable toggle (System)
   content.addEventListener('change', (e) => {
     if (e.target?.id !== 'sysMergeEnable') return;
     const enabled = !!e.target.checked;
@@ -1162,14 +1183,12 @@ const setupPermanentListeners = () => {
     if (hint) hint.textContent = enabled ? hint.textContent || 'Actief' : 'Niet gemerged';
   });
 
-  // Multi-system toggle + add/remove system rows
   content.addEventListener('change', (e) => {
     if (e.target?.id !== 'sysMultiEnable') return;
 
     const data = getStickyData();
     if (!data) return;
 
-    // Eerst huidige UI → data (anders raak je wijzigingen kwijt)
     persistSystemTabFromDOM(content, data);
 
     ensureSystemDataShape(data);
@@ -1188,10 +1207,8 @@ const setupPermanentListeners = () => {
       ensureSystemDataShape(data);
       data.systemData.isMulti = true;
 
-      // Bewaar eerst wat er nu in de UI staat (anders wordt je push direct overschreven)
       persistSystemTabFromDOM(content, data);
 
-      // Voeg nieuw systeem toe
       data.systemData.systems.push({
         id: `${Date.now()}_${Math.random().toString(16).slice(2)}`,
         name: '',
@@ -1216,10 +1233,8 @@ const setupPermanentListeners = () => {
       ensureSystemDataShape(data);
       if (data.systemData.systems.length <= 1) return;
 
-      // Bewaar eerst wat er nu in de UI staat
       persistSystemTabFromDOM(content, data);
 
-      // Verwijder systeem
       data.systemData.systems = data.systemData.systems.filter((s) => String(s.id) !== String(sysId));
       if (data.systemData.systems.length === 0) {
         data.systemData.systems = [
@@ -1240,7 +1255,71 @@ const setupPermanentListeners = () => {
     }
   });
 
-  // Sys-opt radio buttons
+  /** Handles selecting an impact level and persists it to the hidden impact input. */
+  function handleImpactClick(opt) {
+    const key = String(opt?.dataset?.key || '').trim();
+    const val = String(opt?.dataset?.value || '').trim();
+    if (!key) return;
+
+    const group = opt.closest('.radio-group-container') || opt.parentElement;
+    const hidden = content.querySelector(`input[name="qa_impact_${key}"]`);
+
+    const wasSelected = opt.classList.contains('selected');
+
+    if (group) {
+      group
+        .querySelectorAll(`.impact-opt[data-key="${key}"]`)
+        .forEach((el) => el.classList.remove('selected'));
+    }
+
+    if (wasSelected) {
+      if (hidden) hidden.value = '';
+      return;
+    }
+
+    opt.classList.add('selected');
+    if (hidden) hidden.value = val;
+  }
+
+  /** Computes and updates per-system and overall system scores from the current DOM state. */
+  function updateLiveSystemScoresInUI() {
+    const wrapper = $('systemWrapper');
+    if (!wrapper) return;
+
+    const cards = wrapper.querySelectorAll('.system-card');
+    const overallScores = [];
+
+    cards.forEach((card) => {
+      const sysId = card.dataset.sysId;
+      const answers = {};
+
+      SYSTEM_QUESTIONS.forEach((q) => {
+        const v = wrapper.querySelector(
+          `input[name="sys_${CSS.escape(sysId)}_${CSS.escape(q.id)}"]`
+        )?.value;
+        if (v === '' || v == null) return;
+        const n = parseInt(v, 10);
+        if (Number.isFinite(n)) answers[q.id] = n;
+      });
+
+      const score = computeSystemScoreFromAnswers(answers);
+      const scoreEl = wrapper.querySelector(`[data-sys-score="${CSS.escape(sysId)}"]`);
+      if (scoreEl) scoreEl.textContent = score == null ? '—' : `${score}%`;
+
+      if (score != null) overallScores.push(score);
+    });
+
+    const overallEl = $('sysOverallScore');
+    if (overallEl) {
+      if (overallScores.length === 0) overallEl.textContent = '—';
+      else {
+        overallEl.textContent = `${Math.round(
+          overallScores.reduce((a, b) => a + b, 0) / overallScores.length
+        )}%`;
+      }
+    }
+  }
+
   content.addEventListener('click', (e) => {
     const opt = e.target.closest('.sys-opt');
     if (!opt) return;
@@ -1267,467 +1346,3 @@ const setupPermanentListeners = () => {
         content
           .querySelectorAll(`.impact-opt[data-key="${key}"]`)
           .forEach((el) => el.classList.remove('selected'));
-      }
-      return;
-    }
-
-    opt.classList.add('selected');
-    if (input) input.value = opt.dataset.value;
-
-    if (input && input.name.startsWith('qa_gate_')) {
-      const key = input.name.replace('qa_gate_', '');
-      const impactWrapper = $(`impact_wrapper_${key}`);
-      if (!impactWrapper) return;
-
-      if (opt.dataset.value === 'FAIL') {
-        impactWrapper.style.display = 'block';
-      } else {
-        impactWrapper.style.display = 'none';
-        const impactInput = content.querySelector(`input[name="qa_impact_${key}"]`);
-        if (impactInput) impactInput.value = '';
-        content
-          .querySelectorAll(`.impact-opt[data-key="${key}"]`)
-          .forEach((el) => el.classList.remove('selected'));
-      }
-    }
-
-    // If this is a system question radio (sys_<sysId>_<qId>), update live scores in UI
-    if (input && input.name.startsWith('sys_')) {
-      // Light live update: compute per-card score from current hidden inputs
-      updateLiveSystemScoresInUI();
-    }
-  });
-
-  function handleImpactClick(opt) {
-    const key = String(opt?.dataset?.key || '').trim();
-    const val = String(opt?.dataset?.value || '').trim();
-    if (!key) return;
-
-    const group = opt.closest('.radio-group-container') || opt.parentElement;
-    const hidden = content.querySelector(`input[name="qa_impact_${key}"]`);
-
-    const wasSelected = opt.classList.contains('selected');
-
-    if (group) {
-      group
-        .querySelectorAll(`.impact-opt[data-key="${key}"]`)
-        .forEach((el) => el.classList.remove('selected'));
-    }
-
-    if (wasSelected) {
-      if (hidden) hidden.value = '';
-      return;
-    }
-
-    opt.classList.add('selected');
-    if (hidden) hidden.value = val;
-  }
-
-  function updateLiveSystemScoresInUI() {
-    // Only works when system tab is rendered
-    const wrapper = $('systemWrapper');
-    if (!wrapper) return;
-
-    const cards = wrapper.querySelectorAll('.system-card');
-    let overallScores = [];
-
-    cards.forEach((card) => {
-      const sysId = card.dataset.sysId;
-      const answers = {};
-
-      SYSTEM_QUESTIONS.forEach((q) => {
-        const v = wrapper.querySelector(`input[name="sys_${CSS.escape(sysId)}_${CSS.escape(q.id)}"]`)?.value;
-        if (v === '' || v == null) return;
-        const n = parseInt(v, 10);
-        if (Number.isFinite(n)) answers[q.id] = n;
-      });
-
-      const score = computeSystemScoreFromAnswers(answers);
-      const scoreEl = wrapper.querySelector(`[data-sys-score="${CSS.escape(sysId)}"]`);
-      if (scoreEl) scoreEl.textContent = score == null ? '—' : `${score}%`;
-
-      if (score != null) overallScores.push(score);
-    });
-
-    const overallEl = $('sysOverallScore');
-    if (overallEl) {
-      if (overallScores.length === 0) overallEl.textContent = '—';
-      else overallEl.textContent = `${Math.round(overallScores.reduce((a, b) => a + b, 0) / overallScores.length)}%`;
-    }
-  }
-
-  // Proces status select
-  content.addEventListener('click', (e) => {
-    const statusOpt = e.target.closest('.status-option[data-action="set-status"]');
-    if (!statusOpt) return;
-
-    const val = statusOpt.dataset.val;
-    const configStatus = PROCESS_STATUSES.find((s) => s.value === val);
-    const input = $('processStatus');
-    if (!configStatus || !input) return;
-
-    const wasActive = statusOpt.classList.contains(configStatus.class);
-
-    PROCESS_STATUSES.forEach((s) => {
-      content
-        .querySelectorAll(`.status-option.${s.class}[data-action="set-status"]`)
-        .forEach((el) => el.classList.remove(s.class));
-    });
-
-    if (wasActive) input.value = '';
-    else {
-      input.value = val;
-      statusOpt.classList.add(configStatus.class);
-    }
-
-    saveModalDetails(false);
-    renderContent();
-    hideTooltip();
-  });
-
-  // Werkbeleving select
-  content.addEventListener('click', (e) => {
-    const opt = e.target.closest('.status-option[data-action="set-workexp"]');
-    if (!opt) return;
-
-    const input = $('workExp');
-    if (!input) return;
-
-    const val = opt.dataset.val;
-    const wasActive = (input.value || '') === val;
-
-    content
-      .querySelectorAll('.status-option[data-action="set-workexp"]')
-      .forEach((el) => el.classList.remove('selected-hap', 'selected-neu', 'selected-sad'));
-
-    if (wasActive) {
-      input.value = '';
-      hideTooltip();
-      return;
-    }
-
-    input.value = val;
-
-    const found = WORK_EXP_OPTIONS.find((o) => o.value === val);
-    if (found?.cls) opt.classList.add(found.cls);
-  });
-
-  // Dynamic lists / tables
-  content.addEventListener('click', (e) => {
-    const target = e.target;
-
-    if (target?.dataset?.action === 'remove-row') {
-      target.closest('.dynamic-row, tr')?.remove();
-      return;
-    }
-
-    if (target?.dataset?.action === 'add-analysis-row') {
-      const tbody = $('analysisTbody');
-      if (!tbody) return;
-
-      const tr = document.createElement('tr');
-      tr.innerHTML = `
-        <td><input type="text" class="def-input input-cause" placeholder="Oorzaak..."></td>
-        <td><input type="text" class="def-input input-measure" placeholder="Maatregel..."></td>
-        <td><button class="btn-row-del-tiny" data-action="remove-row" type="button">×</button></td>
-      `;
-      tbody.appendChild(tr);
-      tr.querySelector('input')?.focus();
-      return;
-    }
-
-    if (target?.dataset?.action === 'add-def-row') {
-      const tbody = $('defTbody');
-      if (!tbody) return;
-
-      const tr = document.createElement('tr');
-      tr.innerHTML = `
-        <td><input class="def-input" placeholder="Naam item..."></td>
-        <td><textarea class="def-sub-input" placeholder="Specificaties..."></textarea></td>
-        <td>${createRadioGroup(`def_type_new_${Date.now()}`, DEFINITION_TYPES, null, true)}</td>
-        <td><button class="btn-row-del-tiny" data-action="remove-row" type="button">×</button></td>
-      `;
-      tbody.appendChild(tr);
-      tr.querySelector('input')?.focus();
-      return;
-    }
-
-    if (target?.dataset?.action === 'add-disrupt-row') {
-      const tbody = $('disruptTbody');
-      if (!tbody) return;
-
-      const tr = document.createElement('tr');
-      tr.innerHTML = `
-        <td><input class="def-input" placeholder="Scenario..."></td>
-        <td>${createRadioGroup(`dis_freq_new_${Date.now()}`, DISRUPTION_FREQUENCIES, null, false)}</td>
-        <td><input class="def-input" placeholder="Workaround..."></td>
-        <td><button class="btn-row-del-tiny" data-action="remove-row" type="button">×</button></td>
-      `;
-      tbody.appendChild(tr);
-      tr.querySelector('input')?.focus();
-    }
-  });
-
-  // Input linked source select
-  content.addEventListener('change', (e) => {
-    if (e.target?.id !== 'inputSourceSelect') return;
-
-    const data = getStickyData();
-    if (!data) return;
-
-    data.linkedSourceId = e.target.value || null;
-
-    const info = $('linkedInfoText');
-    if (info) info.style.display = e.target.value ? 'block' : 'none';
-
-    state.saveStickyDetails();
-  });
-};
-
-/* =========================================================
-   OPEN / SAVE
-   ========================================================= */
-
-export function openEditModal(colIdx, slotIdx) {
-  editingSticky = { colIdx, slotIdx };
-
-  if (!areListenersAttached) {
-    setupPermanentListeners();
-    areListenersAttached = true;
-  }
-
-  renderContent();
-
-  const modal = $('editModal');
-  if (modal) modal.style.display = 'grid';
-}
-
-export function saveModalDetails(closeModal = true) {
-  const data = getStickyData();
-  if (!data) return;
-
-  const slotIdx = editingSticky.slotIdx;
-  const content = $('modalContent');
-  if (!content) return;
-
-  if (slotIdx === 3) {
-    const statusVal = $('processStatus')?.value ?? '';
-    data.processStatus = statusVal === '' ? null : statusVal;
-
-    const expVal = $('workExp')?.value ?? '';
-    data.workExp = expVal === '' ? null : expVal;
-
-    const expNote = $('workExpNote');
-    data.workExpNote = expNote ? expNote.value : '';
-
-    const typeVal = content.querySelector('input[name="metaType"]')?.value ?? '';
-    data.type = typeVal === '' ? null : typeVal;
-
-    const procVal = content.querySelector('input[name="metaValue"]')?.value ?? '';
-    data.processValue = procVal === '' ? null : procVal;
-
-    const success = $('successFactors');
-    data.successFactors = success ? success.value : '';
-
-    data.causes = Array.from(content.querySelectorAll('.input-cause'))
-      .map((i) => i.value)
-      .filter((v) => v.trim());
-
-    data.improvements = Array.from(content.querySelectorAll('.input-measure'))
-      .map((i) => i.value)
-      .filter((v) => v.trim());
-
-    const disruptTbody = $('disruptTbody');
-    if (disruptTbody) {
-      const rows = disruptTbody.querySelectorAll('tr');
-      data.disruptions = Array.from(rows)
-        .map((tr) => ({
-          scenario: tr.querySelector('td:nth-child(1) input')?.value || '',
-          frequency: tr.querySelector('td:nth-child(2) input[type="hidden"]')?.value || null,
-          workaround: tr.querySelector('td:nth-child(3) input')?.value || ''
-        }))
-        .filter((d) => d.scenario.trim());
-    }
-  } else if (slotIdx === 1) {
-    // ===== SYSTEM TAB SAVE (multi-system) =====
-    ensureSystemDataShape(data);
-    const sd = data.systemData;
-
-    sd.isMulti = !!content.querySelector('#sysMultiEnable')?.checked;
-
-    // Read all system cards from DOM
-    const cards = content.querySelectorAll('.system-card');
-    const nextSystems = [];
-
-    cards.forEach((card) => {
-      const sysId = card.dataset.sysId;
-      const name = card.querySelector('.sys-name')?.value || '';
-      const isLegacy = !!card.querySelector('.sys-legacy')?.checked;
-      const futureSystem = card.querySelector('.sys-future')?.value || '';
-
-      const qa = {};
-      SYSTEM_QUESTIONS.forEach((q) => {
-        const vStr = content.querySelector(`input[name="sys_${CSS.escape(sysId)}_${CSS.escape(q.id)}"]`)?.value ?? '';
-        if (vStr === '') {
-          qa[q.id] = null;
-          return;
-        }
-        const n = parseInt(vStr, 10);
-        qa[q.id] = Number.isFinite(n) ? n : null;
-      });
-
-      const score = computeSystemScoreFromAnswers(
-        Object.fromEntries(
-          Object.entries(qa).filter(([, v]) => Number.isFinite(Number(v)))
-        )
-      );
-
-      nextSystems.push({
-        id: String(sysId),
-        name: String(name),
-        isLegacy,
-        futureSystem: String(futureSystem),
-        qa,
-        calculatedScore: score
-      });
-    });
-
-    sd.systems = nextSystems.length ? nextSystems : sd.systems;
-
-    // Backward compat
-    sd.systemName = sd.systems?.[0]?.name || '';
-
-    // Overall score: average of non-null per-system scores
-    const scores = sd.systems.map((s) => s.calculatedScore).filter((x) => x != null);
-    sd.calculatedScore =
-      scores.length === 0 ? null : Math.round(scores.reduce((a, b) => a + b, 0) / scores.length);
-
-    // ===== SYSTEM MERGE APPLY (slotIdx === 1) =====
-    const enable = $('sysMergeEnable')?.checked ?? false;
-    const startSel = $('sysMergeStartSelect');
-    const endSel = $('sysMergeEndSelect');
-
-    const colIdx = editingSticky.colIdx;
-
-    if (!enable) {
-      state.setSystemMergeRangeForCol(colIdx, colIdx, colIdx);
-    } else {
-      const startCol = startSel ? parseInt(startSel.value, 10) : colIdx;
-      const endCol = endSel ? parseInt(endSel.value, 10) : colIdx;
-
-      const s = Math.min(startCol, endCol);
-      const e = Math.max(startCol, endCol);
-
-      if (s > colIdx || e < colIdx || s === e) {
-        state.setSystemMergeRangeForCol(colIdx, colIdx, colIdx);
-      } else {
-        state.setSystemMergeRangeForCol(colIdx, s, e);
-
-        // Propagate system slot (master) to all cols in range
-        const sheet = state.activeSheet;
-        const source = deepClone(sheet.columns[colIdx].slots[1]);
-
-        state.beginBatch({ reason: 'batch' });
-        for (let c = s; c <= e; c++) {
-          if (sheet.columns[c]?.isVisible === false) continue;
-          sheet.columns[c].slots[1] = deepClone(source);
-        }
-        state.endBatch({ reason: 'columns' });
-      }
-    }
-  } else if (slotIdx === 2 || slotIdx === 4) {
-    if (slotIdx === 2) {
-      const select = $('inputSourceSelect');
-      if (select) data.linkedSourceId = select.value || null;
-    }
-
-    const defTbody = $('defTbody');
-    if (defTbody) {
-      const rows = defTbody.querySelectorAll('tr');
-      data.inputDefinitions = Array.from(rows)
-        .map((tr) => ({
-          item: tr.querySelector('td:nth-child(1) input')?.value || '',
-          specifications: tr.querySelector('td:nth-child(2) textarea')?.value || '',
-          type: tr.querySelector('td:nth-child(3) input[type="hidden"]')?.value || null
-        }))
-        .filter(
-          (d) =>
-            d.item.trim() ||
-            d.specifications.trim() ||
-            (d.type != null && String(d.type).trim() !== '')
-        );
-    }
-
-    const ioQual = $('ioTabQual');
-    if (ioQual) {
-      data.qa = data.qa || {};
-      IO_CRITERIA.forEach((c) => {
-        const gateInput = content.querySelector(`input[name="qa_gate_${c.key}"]`);
-        const impactInput = content.querySelector(`input[name="qa_impact_${c.key}"]`);
-        const noteInput = $(`note_${c.key}`);
-
-        let finalResult = null;
-        if (gateInput) {
-          const gateVal = gateInput.value;
-          if (gateVal === 'GOOD') finalResult = 'GOOD';
-          else if (gateVal === 'NA') finalResult = 'NA';
-          else if (gateVal === 'FAIL') {
-            const impactVal = impactInput ? impactInput.value : '';
-            if (impactVal === 'A') finalResult = 'POOR';
-            else if (impactVal === 'B') finalResult = 'MODERATE';
-            else if (impactVal === 'C') finalResult = 'MINOR';
-            else finalResult = 'FAIL';
-          }
-        }
-
-        data.qa[c.key] = {
-          result: finalResult,
-          note: noteInput ? noteInput.value : ''
-        };
-      });
-    }
-
-    // Output merge selection handling (slotIdx === 4)
-    if (slotIdx === 4) {
-      const enable = $('mergeEnable')?.checked ?? false;
-      const startSel = $('mergeStartSelect');
-      const endSel = $('mergeEndSelect');
-
-      const colIdx = editingSticky.colIdx;
-
-      if (!enable) {
-        state.setOutputMergeRangeForCol(colIdx, colIdx, colIdx);
-      } else {
-        const startCol = startSel ? parseInt(startSel.value, 10) : colIdx;
-        const endCol = endSel ? parseInt(endSel.value, 10) : colIdx;
-
-        const s = Math.min(startCol, endCol);
-        const e = Math.max(startCol, endCol);
-
-        if (s > colIdx || e < colIdx || s === e) {
-          state.setOutputMergeRangeForCol(colIdx, colIdx, colIdx);
-        } else {
-          state.setOutputMergeRangeForCol(colIdx, s, e);
-
-          const sheet = state.activeSheet;
-          const source = deepClone(sheet.columns[colIdx].slots[4]);
-
-          state.beginBatch({ reason: 'batch' });
-          for (let c = s; c <= e; c++) {
-            if (sheet.columns[c]?.isVisible === false) continue;
-            sheet.columns[c].slots[4] = deepClone(source);
-          }
-          state.endBatch({ reason: 'columns' });
-        }
-      }
-    }
-  }
-
-  state.saveStickyDetails();
-
-  if (closeModal) {
-    const modal = $('editModal');
-    if (modal) modal.style.display = 'none';
-    hideTooltip();
-  }
-}

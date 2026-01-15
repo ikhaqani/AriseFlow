@@ -35,8 +35,7 @@ function loadMergeGroups() {
 function saveMergeGroups(groups) {
   try {
     localStorage.setItem(_mergeKey(), JSON.stringify(groups || []));
-  } catch {
-  }
+  } catch {}
 }
 
 /** Ensures merge groups are loaded for the current active sheet key. */
@@ -62,7 +61,9 @@ function isContiguousZeroBased(cols) {
 function _sanitizeGate(gate) {
   if (!gate || typeof gate !== 'object') return null;
   const enabled = !!gate.enabled;
-  const failTargetColIdx = Number.isFinite(Number(gate.failTargetColIdx)) ? Number(gate.failTargetColIdx) : null;
+  const failTargetColIdx = Number.isFinite(Number(gate.failTargetColIdx))
+    ? Number(gate.failTargetColIdx)
+    : null;
   return { enabled, failTargetColIdx };
 }
 
@@ -90,14 +91,12 @@ function _sanitizeSystemsMeta(meta) {
 
   if (systems.length === 0) systems.push({ name: '', legacy: false, future: '', qa: {}, score: null });
 
-  let normalizedSystems = systems;
-
   let activeSystemIdx = Number(meta.activeSystemIdx);
   if (!Number.isFinite(activeSystemIdx)) activeSystemIdx = 0;
   if (activeSystemIdx < 0) activeSystemIdx = 0;
-  if (activeSystemIdx >= normalizedSystems.length) activeSystemIdx = 0;
+  if (activeSystemIdx >= systems.length) activeSystemIdx = 0;
 
-  return { multi, systems: normalizedSystems, activeSystemIdx };
+  return { multi, systems, activeSystemIdx };
 }
 
 /** Sanitizes one merge group to the active sheet bounds and schema. */
@@ -164,6 +163,142 @@ function getMergeGroup(colIdx, slotIdx) {
 function isMergedSlave(colIdx, slotIdx) {
   const g = getMergeGroup(colIdx, slotIdx);
   return !!g && colIdx !== g.master;
+}
+
+/** Returns a stable unique id string. */
+function makeId(prefix = 'id') {
+  if (typeof crypto !== 'undefined' && typeof crypto.randomUUID === 'function') {
+    return `${prefix}_${crypto.randomUUID()}`;
+  }
+  return `${prefix}_${Date.now()}_${Math.random().toString(16).slice(2)}`;
+}
+
+/** Builds a stable merge storage key for a given project and sheet. */
+function mergeKeyFor(project, sheet) {
+  const pid = project?.id || project?.name || project?.projectTitle || 'project';
+  const sid = sheet?.id || sheet?.name || 'sheet';
+  return `${MERGE_LS_PREFIX}:${pid}:${sid}`;
+}
+
+/** Loads raw merge groups for a given project and sheet key. */
+function loadMergeGroupsRawFor(project, sheet) {
+  try {
+    const raw = localStorage.getItem(mergeKeyFor(project, sheet));
+    if (!raw) return [];
+    const parsed = JSON.parse(raw);
+    return Array.isArray(parsed) ? parsed : [];
+  } catch {
+    return [];
+  }
+}
+
+/** Sanitizes one merge group to the provided sheet bounds and schema. */
+function sanitizeGroupForSheet(sheet, g) {
+  const n = sheet?.columns?.length ?? 0;
+  if (!n) return null;
+
+  const slotIdx = Number(g?.slotIdx);
+  if (![1, 4].includes(slotIdx)) return null;
+
+  const cols = Array.isArray(g?.cols) ? g.cols.map((x) => Number(x)).filter(Number.isFinite) : [];
+  const uniq = [...new Set(cols)].filter((c) => c >= 0 && c < n);
+  if (uniq.length < 2) return null;
+  if (!isContiguousZeroBased(uniq)) return null;
+
+  let master = Number(g?.master);
+  if (!Number.isFinite(master) || !uniq.includes(master)) master = uniq[0];
+
+  const gate = slotIdx === 4 ? _sanitizeGate(g?.gate) : null;
+  const systemsMeta = slotIdx === 1 ? _sanitizeSystemsMeta(g?.systemsMeta) : null;
+
+  return { slotIdx, cols: uniq.sort((a, b) => a - b), master, gate, systemsMeta };
+}
+
+/** Returns sanitized merge groups for a provided project and sheet. */
+function getMergeGroupsSanitizedForSheet(project, sheet) {
+  const raw = loadMergeGroupsRawFor(project, sheet);
+  return raw.map((g) => sanitizeGroupForSheet(sheet, g)).filter(Boolean);
+}
+
+/** Returns the merge group that contains a given cell in a provided sheet. */
+function getMergeGroupForCellInSheet(groups, colIdx, slotIdx) {
+  return (
+    (groups || []).find(
+      (x) => x.slotIdx === slotIdx && Array.isArray(x.cols) && x.cols.includes(colIdx)
+    ) || null
+  );
+}
+
+/** Returns true when the cell is a non-master member of a merge group in a provided sheet. */
+function isMergedSlaveInSheet(groups, colIdx, slotIdx) {
+  const g = getMergeGroupForCellInSheet(groups, colIdx, slotIdx);
+  return !!g && colIdx !== g.master;
+}
+
+/** Builds global output id and text maps using current sheet order. */
+function buildGlobalOutputMaps(project) {
+  const outIdByUid = {};
+  const outTextByUid = {};
+  const outTextByOutId = {};
+
+  let outCounter = 0;
+
+  (project?.sheets || []).forEach((sheet) => {
+    const groups = getMergeGroupsSanitizedForSheet(project, sheet);
+
+    (sheet?.columns || []).forEach((col, colIdx) => {
+      if (col?.isVisible === false) return;
+
+      const outSlot = col?.slots?.[4];
+      if (!outSlot?.text?.trim()) return;
+
+      if (isMergedSlaveInSheet(groups, colIdx, 4)) return;
+
+      if (!outSlot.outputUid || String(outSlot.outputUid).trim() === '') {
+        outSlot.outputUid = makeId('out');
+      }
+
+      outCounter += 1;
+      const outId = `OUT${outCounter}`;
+
+      outIdByUid[outSlot.outputUid] = outId;
+      outTextByUid[outSlot.outputUid] = outSlot.text;
+      outTextByOutId[outId] = outSlot.text;
+    });
+  });
+
+  return { outIdByUid, outTextByUid, outTextByOutId };
+}
+
+/** Computes IN/OUT counters that occur before the active sheet in current sheet order. */
+function computeCountersBeforeActiveSheet(project, activeSheetId, outIdByUid) {
+  let inCount = 0;
+  let outCount = 0;
+
+  for (const sheet of project?.sheets || []) {
+    if (sheet.id === activeSheetId) break;
+
+    const groups = getMergeGroupsSanitizedForSheet(project, sheet);
+
+    (sheet.columns || []).forEach((col, colIdx) => {
+      if (col?.isVisible === false) return;
+
+      const inSlot = col?.slots?.[2];
+      const outSlot = col?.slots?.[4];
+
+      const linkedUid = String(inSlot?.linkedSourceUid || '').trim();
+      const linkedId = String(inSlot?.linkedSourceId || '').trim();
+
+      const isLinkedByUid = linkedUid && outIdByUid && outIdByUid[linkedUid];
+      const isLinkedById = linkedId && /^OUT\d+$/.test(linkedId);
+
+      if (!isLinkedByUid && !isLinkedById && inSlot?.text?.trim()) inCount += 1;
+
+      if (outSlot?.text?.trim() && !isMergedSlaveInSheet(groups, colIdx, 4)) outCount += 1;
+    });
+  }
+
+  return { inStart: inCount, outStart: outCount };
 }
 
 /** Reads and sanitizes systems meta stored in the System slot of a column. */
@@ -515,8 +650,11 @@ function openMergeModal(clickedColIdx, slotIdx, openModalFn) {
       gateFailTarget.appendChild(opt);
     });
 
-    if (gate?.failTargetColIdx != null && Number.isFinite(gate.failTargetColIdx)) gateFailTarget.value = String(gate.failTargetColIdx);
-    else gateFailTarget.value = '';
+    if (gate?.failTargetColIdx != null && Number.isFinite(gate.failTargetColIdx)) {
+      gateFailTarget.value = String(gate.failTargetColIdx);
+    } else {
+      gateFailTarget.value = '';
+    }
   }
 
   function syncPassLabel() {
@@ -585,7 +723,9 @@ function openMergeModal(clickedColIdx, slotIdx, openModalFn) {
     const clean = _sanitizeSystemsMeta(meta);
     if (!clean) return null;
 
-    const scores = (clean.systems || []).map((s) => _computeSystemScore(s)).filter((x) => Number.isFinite(Number(x)));
+    const scores = (clean.systems || [])
+      .map((s) => _computeSystemScore(s))
+      .filter((x) => Number.isFinite(Number(x)));
     if (!scores.length) return null;
 
     const avg = scores.reduce((a, b) => a + b, 0) / scores.length;
@@ -639,7 +779,9 @@ function openMergeModal(clickedColIdx, slotIdx, openModalFn) {
 
           <div>
             <div style="font-size:12px; letter-spacing:0.06em; font-weight:800; opacity:0.75; margin-bottom:6px;">TOEKOMSTIG SYSTEEM (VERWACHTING)</div>
-            <input data-sys-future="${idx}" class="modal-input" style="margin:0; height:40px; ${legacyChecked ? '' : 'opacity:0.45; pointer-events:none;'}" placeholder="Bijv. ARIA / EPIC / nieuw portaal..." value="${escapeAttr(sys.future || '')}" />
+            <input data-sys-future="${idx}" class="modal-input" style="margin:0; height:40px; ${
+              legacyChecked ? '' : 'opacity:0.45; pointer-events:none;'
+            }" placeholder="Bijv. ARIA / EPIC / nieuw portaal..." value="${escapeAttr(sys.future || '')}" />
           </div>
         </div>
 
@@ -752,7 +894,9 @@ function openMergeModal(clickedColIdx, slotIdx, openModalFn) {
     });
 
     const overall = _computeOverallScore(systemsMeta);
-    if (overallSystemScoreEl) overallSystemScoreEl.textContent = Number.isFinite(Number(overall)) ? `${Number(overall)}%` : '—';
+    if (overallSystemScoreEl) {
+      overallSystemScoreEl.textContent = Number.isFinite(Number(overall)) ? `${Number(overall)}%` : '—';
+    }
   }
 
   if (slotIdx === 1) {
@@ -1154,7 +1298,9 @@ function buildSlotHTML({
   const editableAttr = isLinked ? 'contenteditable="false" data-linked="true"' : 'contenteditable="true"';
 
   return `
-    <div class="sticky ${statusClass} ${extraStickyClass}" style="${escapeAttr(extraStickyStyle)}" data-col="${colIdx}" data-slot="${slotIdx}">
+    <div class="sticky ${statusClass} ${extraStickyClass}" style="${escapeAttr(
+    extraStickyStyle
+  )}" data-col="${colIdx}" data-slot="${slotIdx}">
       <div class="sticky-grip"></div>
 
       <div class="badges-row">
@@ -1380,7 +1526,9 @@ function _formatSystemsSummaryFromMeta(meta) {
   const lineHTML = (s) => {
     const nm = String(s?.name || '').trim() || '—';
     const legacy = !!s?.legacy;
-    return `<div class="sys-line"><span class="sys-name">${escapeHTML(nm)}</span>${legacy ? `<span class="legacy-tag" aria-label="Legacy">Legacy</span>` : ''}</div>`;
+    return `<div class="sys-line"><span class="sys-name">${escapeHTML(
+      nm
+    )}</span>${legacy ? `<span class="legacy-tag" aria-label="Legacy">Legacy</span>` : ''}</div>`;
   };
 
   if (!clean.multi) {
@@ -1522,8 +1670,9 @@ function renderColumnsOnly(openModalFn) {
 
   const variantLetterMap = computeVariantLetterMap(activeSheet);
 
-  const offsets = state.getGlobalCountersBeforeActive();
-  const allOutputMap = state.getAllOutputs();
+  const project = state.project || state.data;
+  const { outIdByUid, outTextByUid, outTextByOutId } = buildGlobalOutputMaps(project);
+  const offsets = computeCountersBeforeActiveSheet(project, project.activeSheetId, outIdByUid);
 
   let localInCounter = 0;
   let localOutCounter = 0;
@@ -1541,8 +1690,14 @@ function renderColumnsOnly(openModalFn) {
     const inputSlot = col.slots?.[2];
     const outputSlot = col.slots?.[4];
 
-    if (inputSlot?.linkedSourceId && allOutputMap[inputSlot.linkedSourceId]) myInputId = inputSlot.linkedSourceId;
-    else if (inputSlot?.text?.trim()) {
+    const linkedUid = String(inputSlot?.linkedSourceUid || '').trim();
+    const linkedId = String(inputSlot?.linkedSourceId || '').trim();
+
+    if (linkedUid && outIdByUid[linkedUid]) {
+      myInputId = outIdByUid[linkedUid];
+    } else if (linkedId && outTextByOutId[linkedId]) {
+      myInputId = linkedId;
+    } else if (inputSlot?.text?.trim()) {
       localInCounter += 1;
       myInputId = `IN${offsets.inStart + localInCounter}`;
     }
@@ -1593,9 +1748,17 @@ function renderColumnsOnly(openModalFn) {
       let displayText = slot.text;
       let isLinked = false;
 
-      if (slotIdx === 2 && slot.linkedSourceId && allOutputMap[slot.linkedSourceId]) {
-        displayText = allOutputMap[slot.linkedSourceId];
-        isLinked = true;
+      if (slotIdx === 2) {
+        const lu = String(slot?.linkedSourceUid || '').trim();
+        const lid = String(slot?.linkedSourceId || '').trim();
+
+        if (lu && outTextByUid[lu]) {
+          displayText = outTextByUid[lu];
+          isLinked = true;
+        } else if (lid && outTextByOutId[lid]) {
+          displayText = outTextByOutId[lid];
+          isLinked = true;
+        }
       }
 
       const scoreBadgeHTML = buildScoreBadges({ slotIdx, slot });
@@ -1690,6 +1853,23 @@ function updateSingleText(colIdx, slotIdx) {
   if (!slotEl) return false;
 
   if (slotEl && slotEl.isContentEditable && document.activeElement === slotEl) return true;
+
+  if (slotIdx === 2) {
+    const project = state.project || state.data;
+    const { outIdByUid, outTextByUid, outTextByOutId } = buildGlobalOutputMaps(project);
+
+    const lu = String(slot?.linkedSourceUid || '').trim();
+    const lid = String(slot?.linkedSourceId || '').trim();
+
+    if (lu && outIdByUid[lu]) {
+      slotEl.textContent = outTextByUid[lu] ?? '';
+      return true;
+    }
+    if (lid && outTextByOutId[lid]) {
+      slotEl.textContent = outTextByOutId[lid] ?? '';
+      return true;
+    }
+  }
 
   slotEl.textContent = slot.text ?? '';
   return true;
