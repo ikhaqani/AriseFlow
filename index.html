@@ -1,0 +1,132 @@
+<!doctype html>
+<html lang="nl">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0" />
+  <meta name="description" content="High-Performance SIPOC Process Analysis Board" />
+  <title>Proces Analyse Project Board</title>
+
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>📊</text></svg>">
+
+  <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@700&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="css/theme.css">
+  <link rel="stylesheet" href="css/main.css">
+</head>
+<body>
+
+  <input type="file" id="fileInput" style="display:none" accept=".json" />
+
+  <div class="topbar" id="topbar">
+    <div class="topbar-content">
+      <div class="top-row">
+
+        <div class="sheet-controls">
+            <span class="sheet-label">PROCES:</span>
+            <select id="sheetSelect" class="sheet-select" title="Wissel van procesblad"></select>
+            <button class="btn-icon" id="btnRenameSheet" title="Huidig blad hernoemen">✎</button>
+            <button class="btn-icon" id="btnAddSheet" title="Nieuw blad toevoegen">+</button>
+            <button class="btn-icon danger" id="btnDelSheet" title="Huidig blad verwijderen">×</button>
+        </div>
+
+        <div class="project-title-wrapper">
+            <input id="boardTitle" class="project-title-input" placeholder="Naam van Project..." spellcheck="false" />
+        </div>
+
+        <div class="actions">
+
+          <div id="saveStatus" class="save-status"></div>
+
+          <div class="zoom-controls">
+            <button class="zoom-btn" id="zoomOut" title="Uitzoomen (Ctrl+Muiswiel)">-</button>
+            <div class="zoom-display" id="zoomDisplay">100%</div>
+            <button class="zoom-btn" id="zoomIn" title="Inzoomen (Ctrl+Muiswiel)">+</button>
+          </div>
+
+          <div class="divider-vertical"></div>
+
+          <button class="std-btn" id="btnManageCols" title="Kolommen verbergen/tonen">👁️ Kolommen</button>
+          <button class="std-btn" id="saveBtn" title="Opslaan als bestand (Ctrl+S)">💾 Opslaan</button>
+          <button class="std-btn" id="loadBtn" title="JSON bestand laden (of sleep bestand hierheen)">📂 Laden</button>
+
+          <div class="divider-vertical"></div>
+
+          <button class="std-btn accent-text" id="exportCsvBtn" title="Exporteer data naar Excel/CSV">📊 Excel</button>
+          <button class="std-btn" id="exportBtn" title="Maak screenshot">📸 Foto</button>
+          <button class="std-btn danger-text" id="clearBtn" title="Project wissen en resetten">🗑️ Reset</button>
+        </div>
+      </div>
+
+      <div class="dashboard-bar">
+        <div class="stat-group">
+            <div class="stat-item" title="Aantal stappen 'In Control'">
+                🙂 <span class="stat-pill pill-green" id="countHappy">0</span>
+            </div>
+            <div class="stat-item" title="Aantal stappen 'Kwetsbaar'">
+                😐 <span class="stat-pill pill-orange" id="countNeutral">0</span>
+            </div>
+            <div class="stat-item" title="Aantal stappen 'Niet in Control'">
+                ☹️ <span class="stat-pill pill-red" id="countSad">0</span>
+            </div>
+        </div>
+        <span class="stat-info">LIVE STATUS (Huidig Blad)</span>
+      </div>
+    </div>
+
+    <div class="topbar-toggle-bar" id="menuToggle" title="Klik om menu in/uit te klappen">
+      <span id="toggleText"></span> <span class="toggle-icon">▲</span>
+    </div>
+  </div>
+
+  <div class="viewport" id="viewport">
+    <div class="board-scale-wrapper" id="boardScale">
+      <div id="board">
+        <div id="row-headers"></div>
+
+        <div id="board-content-wrapper">
+          <div id="board-header-display">Laden...</div>
+
+          <div id="merge-layer" aria-hidden="true"></div>
+
+          <div id="cols"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal-overlay" id="editModal">
+    <div class="modal">
+      <h3 id="modalTitle">Analyse</h3>
+      <div id="modalContent"></div>
+      <div class="modal-btns">
+        <button class="std-btn" id="modalCancelBtn">Annuleren</button>
+        <button class="std-btn primary" id="modalSaveBtn">Opslaan</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal-overlay" id="colManagerModal">
+    <div class="modal" style="width: 400px; max-width: 90vw;">
+        <h3>Kolommen Beheer</h3>
+        <div class="sub-text">Vink items uit om kolommen tijdelijk te verbergen op het bord.</div>
+        <div id="colManagerList"></div>
+        <div class="modal-btns">
+            <button class="std-btn primary" id="colManagerCloseBtn">Sluiten</button>
+        </div>
+    </div>
+  </div>
+
+  <div id="customTooltip">
+    <div data-tt="title"></div>
+    <div data-tt="body"></div>
+  </div>
+
+  <div id="toast-container"></div>
+
+  <script type="module" src="js/app.js"></script>
+</body>
+</html>
