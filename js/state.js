@@ -2,7 +2,6 @@ import { createProjectState, createSheet, createColumn, createSticky, STORAGE_KE
 
 class StateManager {
   constructor() {
-    /** Initializes the state manager with storage, listeners, and history. */
     this.project = createProjectState();
     this.listeners = new Set();
     this.saveCallbacks = new Set();
@@ -21,18 +20,15 @@ class StateManager {
   }
 
   _makeId(prefix = 'id') {
-    /** Returns a reasonably unique id string for internal stable identifiers. */
     try {
       if (typeof crypto !== 'undefined' && typeof crypto.randomUUID === 'function') {
         return `${prefix}_${crypto.randomUUID()}`;
       }
-    } catch {
-    }
+    } catch {}
     return `${prefix}_${Date.now()}_${Math.random().toString(16).slice(2)}`;
   }
 
   _ensureProcessIds(project) {
-    /** Ensures each process slot has a stable id for referencing across features like gates. */
     const sheets = project?.sheets || [];
     sheets.forEach((sheet) => {
       (sheet.columns || []).forEach((col) => {
@@ -44,7 +40,6 @@ class StateManager {
   }
 
   _ensureOutputUids(project) {
-    /** Ensures each output slot has a stable outputUid used for durable linking across reordering. */
     const sheets = project?.sheets || [];
     sheets.forEach((sheet) => {
       (sheet.columns || []).forEach((col) => {
@@ -56,7 +51,6 @@ class StateManager {
   }
 
   _buildLegacyOutIdToUidMap(project) {
-    /** Builds a best-effort mapping OUTn -> outputUid using the current sheet/column order. */
     const map = {};
     let counter = 0;
 
@@ -78,30 +72,40 @@ class StateManager {
   }
 
   _migrateLinkedSourceIdToUid(project) {
-    /** Migrates legacy linkedSourceId (OUTn) into linkedSourceUid (stable) when possible. */
-    const map = this._buildLegacyOutIdToUidMap(project);
+    // Migrates legacy linkedSourceId (OUTn) and/or legacy single linkedSourceUid -> new linkedSourceUids[]
+    const outIdToUid = this._buildLegacyOutIdToUidMap(project);
 
     (project?.sheets || []).forEach((sheet) => {
       (sheet?.columns || []).forEach((col) => {
         const inSlot = col?.slots?.[2];
         if (!inSlot) return;
 
-        const already = String(inSlot.linkedSourceUid || '').trim();
-        if (already) return;
+        // Ensure array field exists
+        if (!Array.isArray(inSlot.linkedSourceUids)) {
+          const singleUid = String(inSlot.linkedSourceUid || '').trim();
+          inSlot.linkedSourceUids = singleUid ? [singleUid] : [];
+        }
 
+        // If array already has content, keep it (and sync single field)
+        if (inSlot.linkedSourceUids.length > 0) {
+          inSlot.linkedSourceUid = String(inSlot.linkedSourceUids[0] || '').trim() || null;
+          return;
+        }
+
+        // Legacy OUTn -> uid
         const legacy = String(inSlot.linkedSourceId || '').trim();
-        if (!/^OUT\d+$/.test(legacy)) return;
-
-        const uidVal = map[legacy];
-        if (!uidVal) return;
-
-        inSlot.linkedSourceUid = uidVal;
+        if (/^OUT\d+$/.test(legacy)) {
+          const uidVal = outIdToUid[legacy];
+          if (uidVal) {
+            inSlot.linkedSourceUids = [uidVal];
+            inSlot.linkedSourceUid = uidVal;
+          }
+        }
       });
     });
   }
 
   _sanitizeSystemEntry(s) {
-    /** Normalizes one system entry to a safe schema used by the System slot UI. */
     const x = s && typeof s === 'object' ? s : {};
     return {
       id: String(x.id || uid()),
@@ -114,7 +118,6 @@ class StateManager {
   }
 
   _ensureMultiSystemShape(slot) {
-    /** Ensures the System slot has a multi-system structure compatible with the current UI. */
     if (!slot || typeof slot !== 'object') return;
 
     if (!slot.systemData || typeof slot.systemData !== 'object') slot.systemData = {};
@@ -147,7 +150,6 @@ class StateManager {
   }
 
   _normalizeMergeRanges(sheet, key, slotIdx) {
-    /** Normalizes merge range lists into non-overlapping contiguous ranges within sheet bounds. */
     const colsLen = sheet?.columns?.length ?? 0;
     if (!Array.isArray(sheet[key])) sheet[key] = [];
 
@@ -180,19 +182,16 @@ class StateManager {
   }
 
   _normalizeOutputMerges(sheet) {
-    /** Normalizes output merges for the active sheet. */
     this._normalizeMergeRanges(sheet, 'outputMerges', 4);
   }
 
   getOutputMergeForCol(colIdx) {
-    /** Returns the output merge range covering colIdx or null. */
     const sheet = this.activeSheet;
     if (!sheet || !Array.isArray(sheet.outputMerges)) return null;
     return sheet.outputMerges.find((r) => r.slotIdx === 4 && colIdx >= r.startCol && colIdx <= r.endCol) || null;
   }
 
   setOutputMergeRangeForCol(colIdx, startCol, endCol) {
-    /** Sets or clears the output merge range covering colIdx. */
     const sheet = this.activeSheet;
     if (!sheet) return;
 
@@ -224,19 +223,16 @@ class StateManager {
   }
 
   _normalizeSystemMerges(sheet) {
-    /** Normalizes system merges for the active sheet. */
     this._normalizeMergeRanges(sheet, 'systemMerges', 1);
   }
 
   getSystemMergeForCol(colIdx) {
-    /** Returns the system merge range covering colIdx or null. */
     const sheet = this.activeSheet;
     if (!sheet || !Array.isArray(sheet.systemMerges)) return null;
     return sheet.systemMerges.find((r) => r.slotIdx === 1 && colIdx >= r.startCol && colIdx <= r.endCol) || null;
   }
 
   setSystemMergeRangeForCol(colIdx, startCol, endCol) {
-    /** Sets or clears the system merge range covering colIdx. */
     const sheet = this.activeSheet;
     if (!sheet) return;
 
@@ -268,39 +264,33 @@ class StateManager {
   }
 
   subscribe(listenerFn) {
-    /** Subscribes a listener to state updates and returns an unsubscribe function. */
     this.listeners.add(listenerFn);
     return () => this.listeners.delete(listenerFn);
   }
 
   onSave(fn) {
-    /** Subscribes a callback to save lifecycle events and returns an unsubscribe function. */
     this.saveCallbacks.add(fn);
     return () => this.saveCallbacks.delete(fn);
   }
 
   beginBatch(meta = { reason: 'batch' }) {
-    /** Starts a notification batch where updates are merged until endBatch is called. */
     this._suspendNotify += 1;
     this._pendingMeta = this._mergeMeta(this._pendingMeta, meta);
   }
 
   endBatch(meta = null) {
-    /** Ends a notification batch and emits a merged update if this was the outermost batch. */
     this._suspendNotify = Math.max(0, this._suspendNotify - 1);
     if (meta) this._pendingMeta = this._mergeMeta(this._pendingMeta, meta);
     if (this._suspendNotify === 0) this.notify(this._pendingMeta || { reason: 'batch' });
   }
 
   _mergeMeta(a, b) {
-    /** Merges two meta objects with later keys overriding earlier keys. */
     if (!a) return b ? { ...b } : null;
     if (!b) return a ? { ...a } : null;
     return { ...a, ...b };
   }
 
   notify(meta = { reason: 'full' }, { clone = false, throttleMs = 0 } = {}) {
-    /** Notifies listeners with optional throttling and batching semantics. */
     if (this._suspendNotify > 0) {
       this._pendingMeta = this._mergeMeta(this._pendingMeta, meta);
       return;
@@ -329,7 +319,6 @@ class StateManager {
   }
 
   _emit(meta, { clone }) {
-    /** Emits an update payload to all subscribed listeners. */
     const payload = clone
       ? typeof structuredClone === 'function'
         ? structuredClone(this.project)
@@ -340,7 +329,6 @@ class StateManager {
   }
 
   pushHistory({ throttleMs = 0 } = {}) {
-    /** Pushes a snapshot onto the undo history with optional throttling. */
     if (throttleMs > 0) {
       const now = performance.now();
       if (this._lastHistoryTs && now - this._lastHistoryTs < throttleMs) return;
@@ -357,7 +345,6 @@ class StateManager {
   }
 
   undo() {
-    /** Restores the previous snapshot from history and returns whether it succeeded. */
     if (this.historyStack.length === 0) return false;
     this.redoStack.push(JSON.stringify(this.project));
     this.project = JSON.parse(this.historyStack.pop());
@@ -366,7 +353,6 @@ class StateManager {
   }
 
   redo() {
-    /** Reapplies the last undone snapshot and returns whether it succeeded. */
     if (this.redoStack.length === 0) return false;
     this.historyStack.push(JSON.stringify(this.project));
     this.project = JSON.parse(this.redoStack.pop());
@@ -375,7 +361,6 @@ class StateManager {
   }
 
   loadFromStorage() {
-    /** Loads project state from localStorage and sanitizes the result. */
     try {
       const saved = localStorage.getItem(STORAGE_KEY);
       if (!saved) return;
@@ -387,7 +372,6 @@ class StateManager {
   }
 
   sanitizeProjectData(data) {
-    /** Normalizes project data to the latest schema while preserving user content. */
     const fresh = createProjectState();
     const merged = { ...fresh, ...data };
 
@@ -395,6 +379,7 @@ class StateManager {
       merged.sheets = fresh.sheets;
       this._ensureOutputUids(merged);
       this._ensureProcessIds(merged);
+      this._migrateLinkedSourceIdToUid(merged);
       return merged;
     }
 
@@ -430,8 +415,16 @@ class StateManager {
             ...s,
             qa: { ...clean.qa, ...(s.qa || {}) },
             systemData: { ...clean.systemData, ...(s.systemData || {}) },
+
+            // legacy single + new multi
             linkedSourceId: s.linkedSourceId ?? clean.linkedSourceId,
             linkedSourceUid: s.linkedSourceUid ?? clean.linkedSourceUid,
+            linkedSourceUids: Array.isArray(s.linkedSourceUids)
+              ? s.linkedSourceUids.map((x) => String(x || '').trim()).filter(Boolean)
+              : Array.isArray(clean.linkedSourceUids)
+                ? clean.linkedSourceUids
+                : [],
+
             inputDefinitions: Array.isArray(s.inputDefinitions) ? s.inputDefinitions : clean.inputDefinitions,
             disruptions: Array.isArray(s.disruptions) ? s.disruptions : clean.disruptions,
             workExp: s.workExp ?? clean.workExp,
@@ -441,8 +434,10 @@ class StateManager {
             gate: { ...cleanGate, ...sGate }
           };
 
+          // Process slot stable id
           if (slotIdx === 3 && (!mergedSlot.id || String(mergedSlot.id).trim() === '')) mergedSlot.id = this._makeId('proc');
 
+          // Gate defaults
           if (mergedSlot.gate) {
             if (!Array.isArray(mergedSlot.gate.checkProcessIds)) mergedSlot.gate.checkProcessIds = [];
             if (mergedSlot.gate.onFailTargetProcessId === undefined) mergedSlot.gate.onFailTargetProcessId = null;
@@ -451,7 +446,18 @@ class StateManager {
             if (mergedSlot.gate.note === undefined) mergedSlot.gate.note = '';
           }
 
+          // System slot multi-shape
           if (slotIdx === 1) this._ensureMultiSystemShape(mergedSlot);
+
+          // Input slot: sync single uid into array (if needed)
+          if (slotIdx === 2) {
+            if (!Array.isArray(mergedSlot.linkedSourceUids)) mergedSlot.linkedSourceUids = [];
+            if (mergedSlot.linkedSourceUids.length === 0) {
+              const singleUid = String(mergedSlot.linkedSourceUid || '').trim();
+              if (singleUid) mergedSlot.linkedSourceUids = [singleUid];
+            }
+            mergedSlot.linkedSourceUid = String(mergedSlot.linkedSourceUids[0] || '').trim() || null;
+          }
 
           return mergedSlot;
         });
@@ -469,7 +475,6 @@ class StateManager {
   }
 
   saveToStorage() {
-    /** Persists the current project state into localStorage and emits save events. */
     try {
       this.project.lastModified = new Date().toISOString();
       this.saveCallbacks.forEach((fn) => fn('saving'));
@@ -483,31 +488,26 @@ class StateManager {
   }
 
   get data() {
-    /** Returns the current project state object. */
     return this.project;
   }
 
   get activeSheet() {
-    /** Returns the currently active sheet or a safe fallback sheet. */
     const found = this.project.sheets.find((s) => s.id === this.project.activeSheetId);
     return found || this.project.sheets[0];
   }
 
   setActiveSheet(id) {
-    /** Sets the active sheet by id and triggers a sheet update. */
     if (!this.project.sheets.some((s) => s.id === id)) return;
     this.project.activeSheetId = id;
     this.notify({ reason: 'sheet' }, { clone: false });
   }
 
   updateProjectTitle(title) {
-    /** Updates the project title with throttled notifications. */
     this.project.projectTitle = title;
     this.notify({ reason: 'title' }, { clone: false, throttleMs: 50 });
   }
 
   updateStickyText(colIdx, slotIdx, text) {
-    /** Updates a sticky text field in-place and emits a minimal text update. */
     const sheet = this.activeSheet;
     const slot = sheet?.columns?.[colIdx]?.slots?.[slotIdx];
     if (!slot) return;
@@ -516,7 +516,6 @@ class StateManager {
   }
 
   setTransition(colIdx, val) {
-    /** Sets or clears a column transition attribute used by the UI. */
     const col = this.activeSheet?.columns?.[colIdx];
     if (!col) return;
 
@@ -532,7 +531,6 @@ class StateManager {
   }
 
   addSheet(name) {
-    /** Adds a new sheet and activates it. */
     this.pushHistory();
     const newSheet = createSheet(name || `Proces ${this.project.sheets.length + 1}`);
     this.project.sheets.push(newSheet);
@@ -543,7 +541,6 @@ class StateManager {
   }
 
   renameSheet(newName) {
-    /** Renames the active sheet if the name changed. */
     const sheet = this.activeSheet;
     if (!sheet || !newName || sheet.name === newName) return;
     this.pushHistory();
@@ -552,7 +549,6 @@ class StateManager {
   }
 
   moveSheet(fromIndex, toIndex) {
-    /** Moves a sheet within the sheets array to support custom process flow ordering. */
     const sheets = this.project.sheets || [];
     if (sheets.length <= 1) return;
 
@@ -573,7 +569,6 @@ class StateManager {
   }
 
   deleteSheet() {
-    /** Deletes the active sheet if more than one exists and returns whether it succeeded. */
     if (this.project.sheets.length <= 1) return false;
 
     const idx = this.project.sheets.findIndex((s) => s.id === this.project.activeSheetId);
@@ -590,7 +585,6 @@ class StateManager {
   }
 
   addColumn(afterIndex) {
-    /** Inserts a new column after the given index (or at end if -1). */
     this.pushHistory();
     const sheet = this.activeSheet;
     const newCol = createColumn();
@@ -608,7 +602,6 @@ class StateManager {
   }
 
   deleteColumn(index) {
-    /** Deletes a column if at least one column remains and returns whether it succeeded. */
     const sheet = this.activeSheet;
     if (sheet.columns.length <= 1) return false;
 
@@ -623,7 +616,6 @@ class StateManager {
   }
 
   moveColumn(index, direction) {
-    /** Swaps a column with its neighbor and clears merges to avoid ambiguous ranges. */
     const sheet = this.activeSheet;
     const targetIndex = index + direction;
     if (targetIndex < 0 || targetIndex >= sheet.columns.length) return;
@@ -638,7 +630,6 @@ class StateManager {
   }
 
   setColVisibility(index, isVisible) {
-    /** Sets a column visibility flag used by rendering and exports. */
     const sheet = this.activeSheet;
     if (!sheet.columns[index]) return;
 
@@ -649,13 +640,11 @@ class StateManager {
   }
 
   saveStickyDetails() {
-    /** Creates a history point for non-text edits and triggers a details update. */
     this.pushHistory();
     this.notify({ reason: 'details' }, { clone: false });
   }
 
   toggleParallel(colIdx) {
-    /** Toggles a column's parallel flag and disables variant when enabled. */
     this.pushHistory();
     const col = this.activeSheet?.columns?.[colIdx];
     if (!col) return;
@@ -667,7 +656,6 @@ class StateManager {
   }
 
   toggleVariant(colIdx) {
-    /** Toggles a column's variant flag and disables parallel when enabled. */
     this.pushHistory();
     const col = this.activeSheet?.columns?.[colIdx];
     if (!col) return;
@@ -679,7 +667,6 @@ class StateManager {
   }
 
   getGlobalCountersBeforeActive() {
-    /** Returns cumulative IN/OUT counts across sheets before the active sheet for stable numbering. */
     let inCount = 0;
     let outCount = 0;
 
@@ -700,8 +687,8 @@ class StateManager {
     return { inStart: inCount, outStart: outCount };
   }
 
+  // Legacy helper used by current UI: OUTn -> text
   getAllOutputs() {
-    /** Returns an OUTn->text map derived from the current sheet/column ordering. */
     const map = {};
     let counter = 0;
 
@@ -716,6 +703,42 @@ class StateManager {
     });
 
     return map;
+  }
+
+  // New helper for multi-select UI: stable uid + display OUTn
+  getAllOutputsDetailed() {
+    const list = [];
+    let counter = 0;
+
+    (this.project.sheets || []).forEach((sheet) => {
+      (sheet.columns || []).forEach((col) => {
+        if (col?.isVisible === false) return;
+        const outSlot = col?.slots?.[4];
+        if (!outSlot?.text?.trim()) return;
+
+        if (!outSlot.outputUid || String(outSlot.outputUid).trim() === '') outSlot.outputUid = this._makeId('out');
+
+        counter += 1;
+        list.push({
+          outId: `OUT${counter}`,
+          uid: outSlot.outputUid,
+          text: outSlot.text
+        });
+      });
+    });
+
+    return list;
+  }
+
+  // Resolve selected UIDs to current OUTn labels (for export/UI sync)
+  resolveOutUidsToOutIds(uids) {
+    const wanted = Array.isArray(uids) ? uids.map((x) => String(x || '').trim()).filter(Boolean) : [];
+    if (wanted.length === 0) return [];
+
+    const det = this.getAllOutputsDetailed();
+    const byUid = new Map(det.map((x) => [String(x.uid), x.outId]));
+
+    return wanted.map((u) => byUid.get(u) || '').filter(Boolean);
   }
 }
 

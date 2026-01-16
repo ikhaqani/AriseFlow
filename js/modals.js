@@ -228,6 +228,51 @@ const getVisibleColIdxs = () => {
 };
 
 /* =========================================================
+   Input-linking (MULTI) helpers (OUT1; OUT2 als input)
+   ========================================================= */
+
+function normalizeLinkedSourceIds(data) {
+  if (!data || typeof data !== 'object') return [];
+  const arr = Array.isArray(data.linkedSourceIds)
+    ? data.linkedSourceIds
+    : data.linkedSourceId
+      ? [data.linkedSourceId]
+      : [];
+  const clean = arr
+    .map((x) => String(x ?? '').trim())
+    .filter((x) => x !== '');
+  return [...new Set(clean)];
+}
+
+function setLinkedSourceIds(data, ids) {
+  if (!data || typeof data !== 'object') return;
+  const clean = (Array.isArray(ids) ? ids : [])
+    .map((x) => String(x ?? '').trim())
+    .filter((x) => x !== '');
+  const uniq = [...new Set(clean)];
+
+  // Nieuwe bron van waarheid
+  data.linkedSourceIds = uniq.length ? uniq : null;
+
+  // Backward compat (oude code gebruikt linkedSourceId)
+  data.linkedSourceId = uniq.length ? uniq[0] : null;
+}
+
+function updateLinkedInfoUI(ids) {
+  const info = $('linkedInfoText');
+  const summary = $('linkedSourcesSummary');
+  const n = Array.isArray(ids) ? ids.length : 0;
+
+  if (info) {
+    info.style.display = n ? 'block' : 'none';
+    info.textContent = n ? `🔗 Gekoppeld (${n}): ${ids.join('; ')}` : '';
+  }
+  if (summary) {
+    summary.textContent = n ? ids.join('; ') : '—';
+  }
+}
+
+/* =========================================================
    Merge helpers in modal
    ========================================================= */
 
@@ -398,8 +443,26 @@ function ensureSystemDataShape(data) {
   if (!Array.isArray(sd.systems)) {
     const legacyName = typeof sd.systemName === 'string' ? sd.systemName.trim() : '';
     sd.systems = legacyName
-      ? [{ id: `${Date.now()}_${Math.random().toString(16).slice(2)}`, name: legacyName, isLegacy: false, futureSystem: '', qa: {}, calculatedScore: null }]
-      : [{ id: `${Date.now()}_${Math.random().toString(16).slice(2)}`, name: '', isLegacy: false, futureSystem: '', qa: {}, calculatedScore: null }];
+      ? [
+          {
+            id: `${Date.now()}_${Math.random().toString(16).slice(2)}`,
+            name: legacyName,
+            isLegacy: false,
+            futureSystem: '',
+            qa: {},
+            calculatedScore: null
+          }
+        ]
+      : [
+          {
+            id: `${Date.now()}_${Math.random().toString(16).slice(2)}`,
+            name: '',
+            isLegacy: false,
+            futureSystem: '',
+            qa: {},
+            calculatedScore: null
+          }
+        ];
   }
   sd.systems = sd.systems.map((s) => ({
     id: String(s?.id || `${Date.now()}_${Math.random().toString(16).slice(2)}`),
@@ -410,13 +473,21 @@ function ensureSystemDataShape(data) {
     calculatedScore: Number.isFinite(Number(s?.calculatedScore)) ? Number(s.calculatedScore) : null
   }));
   if (sd.systems.length === 0) {
-    sd.systems = [{ id: `${Date.now()}_${Math.random().toString(16).slice(2)}`, name: '', isLegacy: false, futureSystem: '', qa: {}, calculatedScore: null }];
+    sd.systems = [
+      {
+        id: `${Date.now()}_${Math.random().toString(16).slice(2)}`,
+        name: '',
+        isLegacy: false,
+        futureSystem: '',
+        qa: {},
+        calculatedScore: null
+      }
+    ];
   }
 
   if (typeof sd.systemName !== 'string') sd.systemName = sd.systems[0]?.name || '';
   if (!Number.isFinite(Number(sd.calculatedScore))) sd.calculatedScore = null;
 }
-
 
 function computeSystemScoreFromAnswers(answerObj) {
   let total = 0;
@@ -431,7 +502,6 @@ function computeSystemScoreFromAnswers(answerObj) {
 
   if (answeredCount === 0) return null;
 
-  // assumes options indices 0..3 (max 3 each); keeps your previous scoring logic
   const maxPoints = SYSTEM_QUESTIONS.length * 3;
   const safeTotal = Math.min(total, maxPoints);
   return Math.round(100 * (1 - safeTotal / maxPoints));
@@ -444,7 +514,6 @@ function persistSystemTabFromDOM(contentEl, data) {
   ensureSystemDataShape(data);
   const sd = data.systemData;
 
-  // Read systems from the currently rendered cards
   const cards = contentEl.querySelectorAll('.system-card');
   const nextSystems = [];
 
@@ -484,7 +553,6 @@ function persistSystemTabFromDOM(contentEl, data) {
 
   if (nextSystems.length) sd.systems = nextSystems;
 
-  // Backward compat fields
   sd.systemName = sd.systems?.[0]?.name || '';
 
   const scores = (sd.systems || []).map((s) => s.calculatedScore).filter((x) => x != null);
@@ -541,7 +609,9 @@ const renderSystemTab = (data) => {
         <div style="display:grid; gap:10px;">
           <div style="display:grid; grid-template-columns: 1fr; gap:6px;">
             <div class="modal-label" style="margin:0; font-size:11px;">Systeemnaam</div>
-            <input class="modal-input sys-name" type="text" value="${escapeAttr(name)}" placeholder="Bijv. ARIA / EPIC / Radiotherapieweb / Monaco..." />
+            <input class="modal-input sys-name" type="text" value="${escapeAttr(
+              name
+            )}" placeholder="Bijv. ARIA / EPIC / Radiotherapieweb / Monaco..." />
           </div>
 
           <div style="display:grid; grid-template-columns: 1fr 1fr; gap:10px;">
@@ -552,7 +622,9 @@ const renderSystemTab = (data) => {
 
             <div style="display:grid; grid-template-columns: 1fr; gap:6px;">
               <div class="modal-label" style="margin:0; font-size:11px;">Toekomstig systeem (verwachting)</div>
-              <input class="modal-input sys-future" type="text" value="${escapeAttr(future)}" placeholder="Bijv. ARIA / EPIC / nieuw portaal..." />
+              <input class="modal-input sys-future" type="text" value="${escapeAttr(
+                future
+              )}" placeholder="Bijv. ARIA / EPIC / nieuw portaal..." />
             </div>
           </div>
         </div>
@@ -563,17 +635,27 @@ const renderSystemTab = (data) => {
             Beantwoord per vraag hoe goed dit systeem jouw taak ondersteunt.
           </div>
 
-          ${SYSTEM_QUESTIONS.map((q) => {
-            const currentVal = qa[q.id] !== undefined ? qa[q.id] : null;
-            const optionsMapped = q.options.map((optText, optIdx) => ({ value: optIdx, label: optText }));
+          ${SYSTEM_QUESTIONS
+            .map((q) => {
+              const currentVal = qa[q.id] !== undefined ? qa[q.id] : null;
+              const optionsMapped = q.options.map((optText, optIdx) => ({
+                value: optIdx,
+                label: optText
+              }));
 
-            return `
+              return `
               <div class="system-question" style="margin-bottom:12px;">
                 <div class="sys-q-title">${escapeAttr(q.label)}</div>
-                ${createRadioGroup(`sys_${escapeAttr(sysId)}_${escapeAttr(q.id)}`, optionsMapped, currentVal, true)}
+                ${createRadioGroup(
+                  `sys_${escapeAttr(sysId)}_${escapeAttr(q.id)}`,
+                  optionsMapped,
+                  currentVal,
+                  true
+                )}
               </div>
             `;
-          }).join('')}
+            })
+            .join('')}
 
           <div style="margin-top:10px; font-size:12px; opacity:.9;">
             Score (dit systeem): <span class="sys-score" data-sys-score="${escapeAttr(sysId)}">${
@@ -588,12 +670,16 @@ const renderSystemTab = (data) => {
   html += `
       </div>
 
-      <button class="std-btn primary" id="btnAddSystem" data-action="add-system" type="button" style="margin-top:14px; display:${isMulti ? 'inline-flex' : 'none'};">
+      <button class="std-btn primary" id="btnAddSystem" data-action="add-system" type="button" style="margin-top:14px; display:${
+        isMulti ? 'inline-flex' : 'none'
+      };">
         + Systeem toevoegen
       </button>
 
       <div style="margin-top:14px; font-size:12px; opacity:.9;">
-        Overall score (kolom): <strong id="sysOverallScore">${Number.isFinite(Number(sd.calculatedScore)) ? `${sd.calculatedScore}%` : '—'}</strong>
+        Overall score (kolom): <strong id="sysOverallScore">${
+          Number.isFinite(Number(sd.calculatedScore)) ? `${sd.calculatedScore}%` : '—'
+        }</strong>
       </div>
     </div>
   `;
@@ -803,26 +889,56 @@ const renderIoTab = (data, isInputRow) => {
 
   if (isInputRow) {
     const allOutputs = state.getAllOutputs();
-    const options = Object.entries(allOutputs)
+    const selectedIds = normalizeLinkedSourceIds(data);
+    const selectedSet = new Set(selectedIds);
+
+    const listItems = Object.entries(allOutputs)
       .map(([id, text]) => {
-        const t = (text || '').substring(0, 40);
-        return `<option value="${escapeAttr(id)}" ${
-          data.linkedSourceId === id ? 'selected' : ''
-        }>${escapeAttr(id)}: ${escapeAttr(t)}${(text || '').length > 40 ? '...' : ''}</option>`;
+        const t = (text || '').substring(0, 70);
+        const checked = selectedSet.has(id);
+        return `
+          <label style="display:flex; align-items:flex-start; gap:10px; padding:8px 10px; border-radius:8px; cursor:pointer; background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08);">
+            <input class="input-source-cb" type="checkbox" value="${escapeAttr(id)}" ${checked ? 'checked' : ''} style="margin-top:2px;" />
+            <div style="display:flex; flex-direction:column; gap:3px;">
+              <div style="font-weight:900; font-size:12px; letter-spacing:.3px;">${escapeAttr(id)}</div>
+              <div style="font-size:11px; opacity:.85; line-height:1.35;">${escapeAttr(t)}${
+                (text || '').length > 70 ? '...' : ''
+              }</div>
+            </div>
+          </label>
+        `;
       })
       .join('');
 
     linkHtml = `
       <div style="margin-bottom: 20px; padding: 12px; background: rgba(0,0,0,0.2); border-radius: 8px; border: 1px solid rgba(255,255,255,0.1);">
-        <div class="modal-label" style="margin-top:0;">Input Bron (Koppel aan Output)</div>
-        <select id="inputSourceSelect" class="modal-input">
-          <option value="">-- Geen / Externe Input --</option>
-          ${options}
-        </select>
-        <div id="linkedInfoText" style="display:${
-          data.linkedSourceId ? 'block' : 'none'
-        }; color:var(--ui-accent); font-size:11px; margin-top:8px; font-weight:600;">
-          🔗 Gekoppeld. Tekst wordt automatisch bijgewerkt.
+        <div class="modal-label" style="margin-top:0;">Input Bron (koppel aan 1+ Outputs)</div>
+
+        <div class="io-helper" style="margin-top:6px; margin-bottom:12px;">
+          Selecteer meerdere outputs als deze processtap meerdere inputs nodig heeft (Excel: <strong>OUT1; OUT2</strong>).
+        </div>
+
+        <div style="display:flex; align-items:center; gap:10px; margin-bottom:12px;">
+          <label style="display:flex; align-items:center; gap:10px; font-size:13px; cursor:pointer; margin:0;">
+            <input id="inputExternalToggle" type="checkbox" ${selectedIds.length === 0 ? 'checked' : ''} />
+            Geen koppeling (externe input)
+          </label>
+
+          <div style="margin-left:auto; font-size:12px; opacity:.85;">
+            Geselecteerd: <span id="linkedSourcesSummary" style="font-weight:900; color: var(--ui-accent);">${
+              selectedIds.length ? escapeAttr(selectedIds.join('; ')) : '—'
+            }</span>
+          </div>
+        </div>
+
+        <div id="inputSourcesList" style="display:grid; gap:8px; max-height: 260px; overflow:auto; padding-right:4px; ${
+          selectedIds.length === 0 ? 'opacity:0.55; pointer-events:none; filter: grayscale(0.2);' : ''
+        }">
+          ${listItems || '<div style="opacity:.7; font-size:12px;">Geen outputs beschikbaar.</div>'}
+        </div>
+
+        <div id="linkedInfoText" style="display:${selectedIds.length ? 'block' : 'none'}; color:var(--ui-accent); font-size:11px; margin-top:10px; font-weight:700;">
+          🔗 Gekoppeld (${selectedIds.length}): ${escapeAttr(selectedIds.join('; '))}
         </div>
       </div>
     `;
@@ -1169,7 +1285,6 @@ const setupPermanentListeners = () => {
     const data = getStickyData();
     if (!data) return;
 
-    // Eerst huidige UI → data (anders raak je wijzigingen kwijt)
     persistSystemTabFromDOM(content, data);
 
     ensureSystemDataShape(data);
@@ -1188,10 +1303,8 @@ const setupPermanentListeners = () => {
       ensureSystemDataShape(data);
       data.systemData.isMulti = true;
 
-      // Bewaar eerst wat er nu in de UI staat (anders wordt je push direct overschreven)
       persistSystemTabFromDOM(content, data);
 
-      // Voeg nieuw systeem toe
       data.systemData.systems.push({
         id: `${Date.now()}_${Math.random().toString(16).slice(2)}`,
         name: '',
@@ -1216,10 +1329,8 @@ const setupPermanentListeners = () => {
       ensureSystemDataShape(data);
       if (data.systemData.systems.length <= 1) return;
 
-      // Bewaar eerst wat er nu in de UI staat
       persistSystemTabFromDOM(content, data);
 
-      // Verwijder systeem
       data.systemData.systems = data.systemData.systems.filter((s) => String(s.id) !== String(sysId));
       if (data.systemData.systems.length === 0) {
         data.systemData.systems = [
@@ -1291,9 +1402,7 @@ const setupPermanentListeners = () => {
       }
     }
 
-    // If this is a system question radio (sys_<sysId>_<qId>), update live scores in UI
     if (input && input.name.startsWith('sys_')) {
-      // Light live update: compute per-card score from current hidden inputs
       updateLiveSystemScoresInUI();
     }
   });
@@ -1324,7 +1433,6 @@ const setupPermanentListeners = () => {
   }
 
   function updateLiveSystemScoresInUI() {
-    // Only works when system tab is rendered
     const wrapper = $('systemWrapper');
     if (!wrapper) return;
 
@@ -1336,7 +1444,9 @@ const setupPermanentListeners = () => {
       const answers = {};
 
       SYSTEM_QUESTIONS.forEach((q) => {
-        const v = wrapper.querySelector(`input[name="sys_${CSS.escape(sysId)}_${CSS.escape(q.id)}"]`)?.value;
+        const v = wrapper.querySelector(
+          `input[name="sys_${CSS.escape(sysId)}_${CSS.escape(q.id)}"]`
+        )?.value;
         if (v === '' || v == null) return;
         const n = parseInt(v, 10);
         if (Number.isFinite(n)) answers[q.id] = n;
@@ -1352,7 +1462,10 @@ const setupPermanentListeners = () => {
     const overallEl = $('sysOverallScore');
     if (overallEl) {
       if (overallScores.length === 0) overallEl.textContent = '—';
-      else overallEl.textContent = `${Math.round(overallScores.reduce((a, b) => a + b, 0) / overallScores.length)}%`;
+      else
+        overallEl.textContent = `${Math.round(
+          overallScores.reduce((a, b) => a + b, 0) / overallScores.length
+        )}%`;
     }
   }
 
@@ -1468,19 +1581,55 @@ const setupPermanentListeners = () => {
     }
   });
 
-  // Input linked source select
+  // Input bron (MULTI) — checkboxes + externe toggle
   content.addEventListener('change', (e) => {
-    if (e.target?.id !== 'inputSourceSelect') return;
-
     const data = getStickyData();
     if (!data) return;
 
-    data.linkedSourceId = e.target.value || null;
+    if (e.target?.id === 'inputExternalToggle') {
+      const checked = !!e.target.checked;
 
-    const info = $('linkedInfoText');
-    if (info) info.style.display = e.target.value ? 'block' : 'none';
+      const list = $('inputSourcesList');
+      if (list) {
+        list.style.opacity = checked ? '0.55' : '1';
+        list.style.pointerEvents = checked ? 'none' : 'auto';
+        list.style.filter = checked ? 'grayscale(0.2)' : 'none';
+      }
 
-    state.saveStickyDetails();
+      if (checked) {
+        // Clear all selections
+        content.querySelectorAll('.input-source-cb').forEach((cb) => {
+          cb.checked = false;
+        });
+        setLinkedSourceIds(data, []);
+        updateLinkedInfoUI([]);
+        state.saveStickyDetails();
+      }
+      return;
+    }
+
+    if (e.target?.classList?.contains('input-source-cb')) {
+      // If user selects any, auto-uncheck external
+      const ext = $('inputExternalToggle');
+      if (ext) ext.checked = false;
+
+      const ids = Array.from(content.querySelectorAll('.input-source-cb'))
+        .filter((cb) => cb.checked)
+        .map((cb) => cb.value);
+
+      setLinkedSourceIds(data, ids);
+      updateLinkedInfoUI(normalizeLinkedSourceIds(data));
+
+      const list = $('inputSourcesList');
+      if (list) {
+        const hasAny = ids.length > 0;
+        list.style.opacity = hasAny ? '1' : '0.55';
+        list.style.pointerEvents = hasAny ? 'auto' : 'none';
+        list.style.filter = hasAny ? 'none' : 'grayscale(0.2)';
+      }
+
+      state.saveStickyDetails();
+    }
   });
 };
 
@@ -1500,6 +1649,13 @@ export function openEditModal(colIdx, slotIdx) {
 
   const modal = $('editModal');
   if (modal) modal.style.display = 'grid';
+
+  // Ensure info label is correct after render for multi input
+  if (slotIdx === 2) {
+    const data = getStickyData();
+    const ids = normalizeLinkedSourceIds(data);
+    updateLinkedInfoUI(ids);
+  }
 }
 
 export function saveModalDetails(closeModal = true) {
@@ -1555,7 +1711,6 @@ export function saveModalDetails(closeModal = true) {
 
     sd.isMulti = !!content.querySelector('#sysMultiEnable')?.checked;
 
-    // Read all system cards from DOM
     const cards = content.querySelectorAll('.system-card');
     const nextSystems = [];
 
@@ -1567,7 +1722,10 @@ export function saveModalDetails(closeModal = true) {
 
       const qa = {};
       SYSTEM_QUESTIONS.forEach((q) => {
-        const vStr = content.querySelector(`input[name="sys_${CSS.escape(sysId)}_${CSS.escape(q.id)}"]`)?.value ?? '';
+        const vStr =
+          content.querySelector(
+            `input[name="sys_${CSS.escape(sysId)}_${CSS.escape(q.id)}"]`
+          )?.value ?? '';
         if (vStr === '') {
           qa[q.id] = null;
           return;
@@ -1577,9 +1735,7 @@ export function saveModalDetails(closeModal = true) {
       });
 
       const score = computeSystemScoreFromAnswers(
-        Object.fromEntries(
-          Object.entries(qa).filter(([, v]) => Number.isFinite(Number(v)))
-        )
+        Object.fromEntries(Object.entries(qa).filter(([, v]) => Number.isFinite(Number(v))))
       );
 
       nextSystems.push({
@@ -1594,10 +1750,8 @@ export function saveModalDetails(closeModal = true) {
 
     sd.systems = nextSystems.length ? nextSystems : sd.systems;
 
-    // Backward compat
     sd.systemName = sd.systems?.[0]?.name || '';
 
-    // Overall score: average of non-null per-system scores
     const scores = sd.systems.map((s) => s.calculatedScore).filter((x) => x != null);
     sd.calculatedScore =
       scores.length === 0 ? null : Math.round(scores.reduce((a, b) => a + b, 0) / scores.length);
@@ -1623,7 +1777,6 @@ export function saveModalDetails(closeModal = true) {
       } else {
         state.setSystemMergeRangeForCol(colIdx, s, e);
 
-        // Propagate system slot (master) to all cols in range
         const sheet = state.activeSheet;
         const source = deepClone(sheet.columns[colIdx].slots[1]);
 
@@ -1636,9 +1789,18 @@ export function saveModalDetails(closeModal = true) {
       }
     }
   } else if (slotIdx === 2 || slotIdx === 4) {
+    // ===== INPUT LINK SAVE (MULTI) =====
     if (slotIdx === 2) {
-      const select = $('inputSourceSelect');
-      if (select) data.linkedSourceId = select.value || null;
+      // Save current checkboxes into data.linkedSourceIds (+ backward compat linkedSourceId)
+      const ext = $('inputExternalToggle');
+      if (ext && ext.checked) {
+        setLinkedSourceIds(data, []);
+      } else {
+        const ids = Array.from(content.querySelectorAll('.input-source-cb'))
+          .filter((cb) => cb.checked)
+          .map((cb) => cb.value);
+        setLinkedSourceIds(data, ids);
+      }
     }
 
     const defTbody = $('defTbody');

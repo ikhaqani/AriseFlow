@@ -235,6 +235,17 @@ function isMergedSlaveInSheet(groups, colIdx, slotIdx) {
   return !!g && colIdx !== g.master;
 }
 
+/** Normalizes multi-link input structure: returns array of linked output UIDs (may be empty). */
+function getLinkedUidsFromInputSlot(slot) {
+  if (!slot || typeof slot !== 'object') return [];
+  const arr = Array.isArray(slot.linkedSourceUids) ? slot.linkedSourceUids : [];
+  const cleaned = arr.map((x) => String(x || '').trim()).filter(Boolean);
+  if (cleaned.length) return cleaned;
+
+  const single = String(slot.linkedSourceUid || '').trim();
+  return single ? [single] : [];
+}
+
 /** Builds global output id and text maps using current sheet order. */
 function buildGlobalOutputMaps(project) {
   const outIdByUid = {};
@@ -286,11 +297,11 @@ function computeCountersBeforeActiveSheet(project, activeSheetId, outIdByUid) {
       const inSlot = col?.slots?.[2];
       const outSlot = col?.slots?.[4];
 
-      const linkedUid = String(inSlot?.linkedSourceUid || '').trim();
-      const linkedId = String(inSlot?.linkedSourceId || '').trim();
+      const linkedUids = getLinkedUidsFromInputSlot(inSlot);
+      const legacyLinkedId = String(inSlot?.linkedSourceId || '').trim();
 
-      const isLinkedByUid = linkedUid && outIdByUid && outIdByUid[linkedUid];
-      const isLinkedById = linkedId && /^OUT\d+$/.test(linkedId);
+      const isLinkedByUid = linkedUids.some((u) => !!(u && outIdByUid && outIdByUid[u]));
+      const isLinkedById = legacyLinkedId && /^OUT\d+$/.test(legacyLinkedId);
 
       if (!isLinkedByUid && !isLinkedById && inSlot?.text?.trim()) inCount += 1;
 
@@ -1500,12 +1511,9 @@ function renderConnector({ frag, activeSheet, colIdx, variantLetterMap }) {
     return;
   }
 
-  // --- HIER IS DE FIX: ---
-  // We maken de pijl-div weer aan, maar verbergen hem visueel met style="visibility:hidden".
-  // Zo blijft de layout voor de knoppen (+ en x) intact.
   const connEl = document.createElement('div');
   connEl.className = 'col-connector';
-  
+
   connEl.innerHTML = `
       <div class="connector-active">
       </div>
@@ -1703,13 +1711,15 @@ function renderColumnsOnly(openModalFn) {
     const inputSlot = col.slots?.[2];
     const outputSlot = col.slots?.[4];
 
-    const linkedUid = String(inputSlot?.linkedSourceUid || '').trim();
-    const linkedId = String(inputSlot?.linkedSourceId || '').trim();
+    const linkedUids = getLinkedUidsFromInputSlot(inputSlot);
+    const legacyLinkedId = String(inputSlot?.linkedSourceId || '').trim();
 
-    if (linkedUid && outIdByUid[linkedUid]) {
-      myInputId = outIdByUid[linkedUid];
-    } else if (linkedId && outTextByOutId[linkedId]) {
-      myInputId = linkedId;
+    const outIdsFromUids = linkedUids.map((u) => outIdByUid[u]).filter(Boolean);
+
+    if (outIdsFromUids.length) {
+      myInputId = outIdsFromUids.join('; ');
+    } else if (legacyLinkedId && outTextByOutId[legacyLinkedId]) {
+      myInputId = legacyLinkedId;
     } else if (inputSlot?.text?.trim()) {
       localInCounter += 1;
       myInputId = `IN${offsets.inStart + localInCounter}`;
@@ -1762,14 +1772,15 @@ function renderColumnsOnly(openModalFn) {
       let isLinked = false;
 
       if (slotIdx === 2) {
-        const lu = String(slot?.linkedSourceUid || '').trim();
-        const lid = String(slot?.linkedSourceId || '').trim();
+        const uids = getLinkedUidsFromInputSlot(slot);
+        const legacyId = String(slot?.linkedSourceId || '').trim();
 
-        if (lu && outTextByUid[lu]) {
-          displayText = outTextByUid[lu];
+        const texts = uids.map((u) => outTextByUid[u]).filter((t) => String(t || '').trim() !== '');
+        if (texts.length) {
+          displayText = texts.join('; ');
           isLinked = true;
-        } else if (lid && outTextByOutId[lid]) {
-          displayText = outTextByOutId[lid];
+        } else if (legacyId && outTextByOutId[legacyId]) {
+          displayText = outTextByOutId[legacyId];
           isLinked = true;
         }
       }
@@ -1869,17 +1880,18 @@ function updateSingleText(colIdx, slotIdx) {
 
   if (slotIdx === 2) {
     const project = state.project || state.data;
-    const { outIdByUid, outTextByUid, outTextByOutId } = buildGlobalOutputMaps(project);
+    const { outTextByUid, outTextByOutId } = buildGlobalOutputMaps(project);
 
-    const lu = String(slot?.linkedSourceUid || '').trim();
-    const lid = String(slot?.linkedSourceId || '').trim();
+    const uids = getLinkedUidsFromInputSlot(slot);
+    const legacyId = String(slot?.linkedSourceId || '').trim();
 
-    if (lu && outIdByUid[lu]) {
-      slotEl.textContent = outTextByUid[lu] ?? '';
+    const texts = uids.map((u) => outTextByUid[u]).filter((t) => String(t || '').trim() !== '');
+    if (texts.length) {
+      slotEl.textContent = texts.join('; ');
       return true;
     }
-    if (lid && outTextByOutId[lid]) {
-      slotEl.textContent = outTextByOutId[lid] ?? '';
+    if (legacyId && outTextByOutId[legacyId]) {
+      slotEl.textContent = outTextByOutId[legacyId] ?? '';
       return true;
     }
   }

@@ -2,7 +2,8 @@
 // - 1 rij per proceskolom (geen 6 rijen per SSIPOC-slot)
 // - Alle multi-waarden in 1 cel gescheiden door ";" (aligned per systeem waar van toepassing)
 // - Disruptions/oorzaken/maatregelen/toelichtingen ook ";"-gescheiden
-// - FIX: Input kan gelinkt zijn aan OUTx via linkedSourceId óf linkedSourceUid -> beide worden als OUTx geëxporteerd
+// - FIX: Input kan gelinkt zijn aan OUTx via linkedSourceId óf linkedSourceUid óf MEERDERE links (arrays)
+//        -> alles wordt als "OUTx; OUTy" geëxporteerd (en input-tekst als "tekstOutx; tekstOuty")
 // - FIX: Input-tekst bij link gebruikt output-tekst (outTextByUid / outTextByOutId) indien beschikbaar
 // - FIX: Output IDs zijn project-breed stabiel (op basis van outputUid + sheet/kolom volgorde + merge-slaves overslaan)
 
@@ -237,6 +238,88 @@ function buildGlobalOutputMaps(project) {
   });
 
   return { outIdByUid, outTextByUid, outTextByOutId };
+}
+
+/* ==========================================================================
+   INPUT linking: single + multiple links (OUTx / outputUid)
+   ========================================================================== */
+
+function _looksLikeOutId(v) {
+  const s = String(v || '').trim();
+  return !!s && /^OUT\d+$/.test(s);
+}
+
+function normalizeLinkedSources(inputSlot) {
+  const out = [];
+
+  const idsArr = Array.isArray(inputSlot?.linkedSourceIds) ? inputSlot.linkedSourceIds : null;
+  const uidsArr = Array.isArray(inputSlot?.linkedSourceUids) ? inputSlot.linkedSourceUids : null;
+
+  if (uidsArr && uidsArr.length) {
+    uidsArr.forEach((u) => {
+      const s = String(u ?? '').trim();
+      if (s) out.push({ kind: 'uid', value: s });
+    });
+  }
+
+  if (idsArr && idsArr.length) {
+    idsArr.forEach((id) => {
+      const s = String(id ?? '').trim();
+      if (s) out.push({ kind: 'id', value: s });
+    });
+  }
+
+  const singleUid = String(inputSlot?.linkedSourceUid || '').trim();
+  const singleId = String(inputSlot?.linkedSourceId || '').trim();
+
+  if (singleUid) out.push({ kind: 'uid', value: singleUid });
+  if (singleId) out.push({ kind: 'id', value: singleId });
+
+  // dedupe while preserving order
+  const seen = new Set();
+  const uniq = [];
+  for (const x of out) {
+    const key = `${x.kind}:${x.value}`;
+    if (seen.has(key)) continue;
+    seen.add(key);
+    uniq.push(x);
+  }
+
+  return uniq;
+}
+
+function resolveLinkedSourcesToOutPairs(sources, outIdByUid, outTextByUid, outTextByOutId) {
+  const ids = [];
+  const texts = [];
+
+  (sources || []).forEach((src) => {
+    if (!src?.value) return;
+
+    if (src.kind === 'id') {
+      const raw = String(src.value).trim();
+      if (!_looksLikeOutId(raw)) return;
+
+      const outId = raw;
+      const txt = String(outTextByOutId?.[outId] ?? '').trim() || outId;
+
+      ids.push(outId);
+      texts.push(txt);
+      return;
+    }
+
+    if (src.kind === 'uid') {
+      const uid = String(src.value).trim();
+      if (!uid) return;
+
+      const outId = String(outIdByUid?.[uid] ?? '').trim() || uid;
+      const txt = String(outTextByUid?.[uid] ?? '').trim() || outId;
+
+      ids.push(outId);
+      texts.push(txt);
+    }
+  });
+
+  return { ids, texts };
 }
 
 /* ==========================================================================
@@ -701,26 +784,19 @@ export function exportToCSV() {
         // Fase
         const fase = `Procesflow ${globalColNr}`;
 
-        // Input + InputID (linked of nieuw)
+        // Input + InputID (linked of nieuw) — ondersteunt single + multiple links
         const inputSlot = col?.slots?.[2];
         const outputSlot = col?.slots?.[4];
-
-        const linkedId = String(inputSlot?.linkedSourceId || '').trim();   // kan OUT12 zijn
-        const linkedUid = String(inputSlot?.linkedSourceUid || '').trim(); // kan out_xxx zijn
 
         let inputId = '';
         let inputText = String(inputSlot?.text ?? '').trim();
 
-        // FIX: resolve links naar OUTx + output tekst als beschikbaar
-        const linkedIdLooksLikeOut = linkedId && /^OUT\d+$/.test(linkedId);
+        const sources = normalizeLinkedSources(inputSlot);
+        const resolved = resolveLinkedSourcesToOutPairs(sources, outIdByUid, outTextByUid, outTextByOutId);
 
-        if (linkedIdLooksLikeOut) {
-          inputId = linkedId;
-          if (outTextByOutId[linkedId]) inputText = outTextByOutId[linkedId];
-        } else if (linkedUid) {
-          const resolvedOutId = outIdByUid[linkedUid] || '';
-          inputId = resolvedOutId || linkedUid; // als niet te resolven: bewaar uid
-          if (outTextByUid[linkedUid]) inputText = outTextByUid[linkedUid];
+        if (resolved.ids.length) {
+          inputId = joinSemi(resolved.ids);
+          inputText = joinSemi(resolved.texts);
         } else if (inputText) {
           globalInCounter += 1;
           inputId = `IN${globalInCounter}`;
@@ -755,7 +831,9 @@ export function exportToCSV() {
         const leanwaarde = getLeanValueLabel(procSlot?.processValue ?? '');
         const statusProces = getProcessStatusLabel(procSlot?.processStatus ?? '');
 
-        const oorzaken = Array.isArray(procSlot?.causes) ? joinSemi(procSlot.causes) : String(procSlot?.causes ?? '').trim();
+        const oorzaken = Array.isArray(procSlot?.causes)
+          ? joinSemi(procSlot.causes)
+          : String(procSlot?.causes ?? '').trim();
         const maatregelen = Array.isArray(procSlot?.improvements)
           ? joinSemi(procSlot.improvements)
           : String(procSlot?.improvements ?? '').trim();
