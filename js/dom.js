@@ -279,6 +279,71 @@ function getLinkedSourcesFromInputSlot(slot) {
   return out;
 }
 
+/** Normalizes bundle-link input structure: returns array of linked bundle ids (strings). */
+function getLinkedBundleIdsFromInputSlot(slot) {
+  if (!slot || typeof slot !== 'object') return [];
+
+  const tokens = [];
+
+  const arr = Array.isArray(slot.linkedBundleIds) ? slot.linkedBundleIds : [];
+  arr.forEach((x) => {
+    const s = String(x || '').trim();
+    if (s) tokens.push(s);
+  });
+
+  const single = String(slot.linkedBundleId || '').trim();
+  if (single) tokens.push(single);
+
+  const seen = new Set();
+  const out = [];
+  for (const t of tokens) {
+    const k = String(t);
+    if (seen.has(k)) continue;
+    seen.add(k);
+    out.push(k);
+  }
+  return out;
+}
+
+function _getAllOutputBundles(project) {
+  const p = project || state?.project || state?.data;
+  const arr = Array.isArray(p?.outputBundles) ? p.outputBundles : [];
+  return arr.filter((b) => b && typeof b === 'object');
+}
+
+function _findBundleById(project, bundleId) {
+  const id = String(bundleId || '').trim();
+  if (!id) return null;
+  return _getAllOutputBundles(project).find((b) => String(b.id || '').trim() === id) || null;
+}
+
+function _getBundleLabel(project, bundleId) {
+  const b = _findBundleById(project, bundleId);
+  const nm = String(b?.name || '').trim();
+  return nm || String(bundleId || '').trim();
+}
+
+function _resolveBundleOutUids(project, bundleId) {
+  const b = _findBundleById(project, bundleId);
+  const arr = Array.isArray(b?.outputUids) ? b.outputUids : [];
+  const seen = new Set();
+  const out = [];
+  arr.forEach((x) => {
+    const s = String(x || '').trim();
+    if (!s) return;
+    if (seen.has(s)) return;
+    seen.add(s);
+    out.push(s);
+  });
+  return out;
+}
+
+function _joinSemiText(arr) {
+  const a = Array.isArray(arr) ? arr : [];
+  const cleaned = a.map((x) => String(x ?? '').trim()).filter((x) => x !== '');
+  return cleaned.join('; ');
+}
+
 /** Resolves linked sources into aligned OUT-ids + display texts (all '; ' separated later). */
 function resolveLinkedSourcesToOutAndText(tokens, outIdByUid, outTextByUid, outTextByOutId) {
   const ids = [];
@@ -1775,6 +1840,17 @@ function renderColumnsOnly(openModalFn) {
 
   const project = state.project || state.data;
   const { outIdByUid, outTextByUid, outTextByOutId } = buildGlobalOutputMaps(project);
+
+  // Fallback: UI-selecties gebruiken vaak OUTx labels (incl. merged-slaves).
+  // buildGlobalOutputMaps() slaat merged-slaves over, waardoor OUT2 soms geen tekst heeft.
+  // Daarom vullen we ontbrekende OUTx->tekst aan via state.getAllOutputs().
+  try {
+    const all = typeof state.getAllOutputs === 'function' ? state.getAllOutputs() : {};
+    Object.keys(all || {}).forEach((k) => {
+      if (!outTextByOutId[k] && all[k]) outTextByOutId[k] = all[k];
+    });
+  } catch {}
+
   const offsets = computeCountersBeforeActiveSheet(project, project.activeSheetId, outIdByUid);
 
   let localInCounter = 0;
@@ -1793,11 +1869,18 @@ function renderColumnsOnly(openModalFn) {
     const inputSlot = col.slots?.[2];
     const outputSlot = col.slots?.[4];
 
+    const bundleIdsForInput = getLinkedBundleIdsFromInputSlot(inputSlot);
+    const bundleLabelsForInput = bundleIdsForInput.map((bid) => _getBundleLabel(project, bid));
+
+    // Direct links (outputs) + bundle links
     const tokens = getLinkedSourcesFromInputSlot(inputSlot);
     const resolved = resolveLinkedSourcesToOutAndText(tokens, outIdByUid, outTextByUid, outTextByOutId);
 
-    if (resolved.ids.length) {
-      myInputId = resolved.ids.join('; ');
+    if (bundleLabelsForInput.length) {
+      // Bundels zijn bedoeld om de input compact te houden: toon alleen bundelnaam/nam(en) in de tag.
+      myInputId = _joinSemiText(bundleLabelsForInput);
+    } else if (resolved.ids.length) {
+      myInputId = _joinSemiText(resolved.ids);
     } else if (inputSlot?.text?.trim()) {
       localInCounter += 1;
       myInputId = `IN${offsets.inStart + localInCounter}`;
@@ -1850,11 +1933,23 @@ function renderColumnsOnly(openModalFn) {
       let isLinked = false;
 
       if (slotIdx === 2) {
+        const bundleIds = getLinkedBundleIdsFromInputSlot(slot);
+        const bundleLabels = bundleIds.map((bid) => _getBundleLabel(project, bid));
+
         const tokens = getLinkedSourcesFromInputSlot(slot);
         const resolved = resolveLinkedSourcesToOutAndText(tokens, outIdByUid, outTextByUid, outTextByOutId);
 
-        if (resolved.texts.length) {
-          displayText = resolved.texts.join('; ');
+        // Bundels = compact label op de post-it. Als er bundels zijn: toon alléén bundelnaam/nam(en).
+        // Anders (geen bundels): toon de gelinkte output-teksten.
+        const parts = [];
+        if (bundleLabels.length) {
+          parts.push(...bundleLabels);
+        } else if (resolved.texts.length) {
+          parts.push(...resolved.texts);
+        }
+
+        if (parts.length) {
+          displayText = _joinSemiText(parts);
           isLinked = true;
         }
       }
@@ -1956,11 +2051,29 @@ function updateSingleText(colIdx, slotIdx) {
     const project = state.project || state.data;
     const { outIdByUid, outTextByUid, outTextByOutId } = buildGlobalOutputMaps(project);
 
+    // Zelfde fallback als in renderColumnsOnly(): OUTx labels uit UI moeten altijd een tekst kunnen tonen.
+    try {
+      const all = typeof state.getAllOutputs === 'function' ? state.getAllOutputs() : {};
+      Object.keys(all || {}).forEach((k) => {
+        if (!outTextByOutId[k] && all[k]) outTextByOutId[k] = all[k];
+      });
+    } catch {}
+
+    const bundleIds = getLinkedBundleIdsFromInputSlot(slot);
+    const bundleLabels = bundleIds.map((bid) => _getBundleLabel(project, bid));
+
     const tokens = getLinkedSourcesFromInputSlot(slot);
     const resolved = resolveLinkedSourcesToOutAndText(tokens, outIdByUid, outTextByUid, outTextByOutId);
 
-    if (resolved.texts.length) {
-      slotEl.textContent = resolved.texts.join('; ');
+    const parts = [];
+    if (bundleLabels.length) {
+      parts.push(...bundleLabels);
+    } else if (resolved.texts.length) {
+      parts.push(...resolved.texts);
+    }
+
+    if (parts.length) {
+      slotEl.textContent = _joinSemiText(parts);
       return true;
     }
   }

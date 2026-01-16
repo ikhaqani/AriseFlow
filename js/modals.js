@@ -113,8 +113,7 @@ const IO_CRITERIA_DEFS = {
   kwaliteit: {
     gating: 'De ontvangen data is correct en bruikbaar (formaat/resolutie/inhoud).',
     impactA: 'A. Blokkerend: Onbruikbaar: taak kan niet veilig/correct uitgevoerd worden.',
-    impactB:
-      'B. Extra werk: Bruikbaar na correctie/omweg (converteren, herexport, opnieuw opvragen).',
+    impactB: 'B. Extra werk: Bruikbaar na correctie/omweg (converteren, herexport, opnieuw opvragen).',
     impactC: 'C. Kleine schoonheidsfout; nauwelijks effect op uitvoering.'
   },
   duidelijkheid: {
@@ -258,17 +257,201 @@ function setLinkedSourceIds(data, ids) {
   data.linkedSourceId = uniq.length ? uniq[0] : null;
 }
 
+function _formatLinkedSources(ids, allOutputs) {
+  const outMap = allOutputs && typeof allOutputs === 'object' ? allOutputs : {};
+  const arr = Array.isArray(ids) ? ids : [];
+
+  const parts = arr
+    .map((id) => {
+      const key = String(id ?? '').trim();
+      if (!key) return '';
+      const raw = String(outMap[key] ?? '').trim();
+      if (!raw) return key;
+
+      const short = raw.length > 42 ? `${raw.slice(0, 42)}...` : raw;
+      return `${short} (${key})`;
+    })
+    .filter((x) => x !== '');
+
+  return parts.join('; ');
+}
+
 function updateLinkedInfoUI(ids) {
   const info = $('linkedInfoText');
   const summary = $('linkedSourcesSummary');
   const n = Array.isArray(ids) ? ids.length : 0;
 
+  const allOutputs = state.getAllOutputs();
+  const formatted = n ? _formatLinkedSources(ids, allOutputs) : '';
+
   if (info) {
     info.style.display = n ? 'block' : 'none';
-    info.textContent = n ? `🔗 Gekoppeld (${n}): ${ids.join('; ')}` : '';
+    info.textContent = n ? `🔗 Gekoppeld (${n}): ${formatted}` : '';
   }
   if (summary) {
-    summary.textContent = n ? ids.join('; ') : '—';
+    summary.textContent = n ? formatted : '—';
+  }
+}
+
+/* =========================================================
+   Output-bundles (Pakketten) helpers
+   ========================================================= */
+
+function ensureOutputBundlesArray() {
+  const project = state.data;
+  if (!project || typeof project !== 'object') return [];
+  if (!Array.isArray(project.outputBundles)) project.outputBundles = [];
+  return project.outputBundles;
+}
+
+function makeLocalId(prefix = 'id') {
+  return `${prefix}_${Date.now()}_${Math.random().toString(16).slice(2)}`;
+}
+
+function getActiveBundleId(data) {
+  if (!data || typeof data !== 'object') return '';
+  const a = Array.isArray(data.linkedBundleIds) ? data.linkedBundleIds : [];
+  const first = a.length ? String(a[0] ?? '').trim() : '';
+  const single = String(data.linkedBundleId ?? '').trim();
+  return single || first;
+}
+
+function setActiveBundleId(data, bundleId) {
+  if (!data || typeof data !== 'object') return;
+  const id = String(bundleId ?? '').trim();
+  data.linkedBundleId = id || null;
+  data.linkedBundleIds = id ? [id] : null;
+}
+
+function findBundleById(bundleId) {
+  const id = String(bundleId ?? '').trim();
+  if (!id) return null;
+  const arr = ensureOutputBundlesArray();
+  return arr.find((b) => String(b?.id ?? '').trim() === id) || null;
+}
+
+function formatBundleOutputs(bundle, allOutputs) {
+  const outMap = allOutputs && typeof allOutputs === 'object' ? allOutputs : {};
+  const ids = Array.isArray(bundle?.outIds) ? bundle.outIds : [];
+  const parts = ids
+    .map((id) => {
+      const key = String(id ?? '').trim();
+      if (!key) return '';
+      const raw = String(outMap[key] ?? '').trim();
+      if (!raw) return key;
+      const short = raw.length > 42 ? `${raw.slice(0, 42)}...` : raw;
+      return `${short} (${key})`;
+    })
+    .filter((x) => x !== '');
+  return parts.join('; ');
+}
+
+/* ✅ NIEUW: checkbox sync zodat bundle-output ook "aangevinkt" is */
+function syncOutputCheckboxesFromLinkedSources(data) {
+  const content = $('modalContent');
+  if (!content) return;
+
+  const ids = new Set(normalizeLinkedSourceIds(data));
+  content.querySelectorAll('.input-source-cb').forEach((cb) => {
+    cb.disabled = false;
+    cb.checked = ids.has(String(cb.value || '').trim());
+  });
+}
+
+function syncOutputCheckboxesFromBundle(bundle) {
+  const content = $('modalContent');
+  if (!content) return;
+
+  const ids = new Set(
+    (Array.isArray(bundle?.outIds) ? bundle.outIds : []).map((x) => String(x ?? '').trim())
+  );
+
+  content.querySelectorAll('.input-source-cb').forEach((cb) => {
+    const key = String(cb.value || '').trim();
+    cb.checked = ids.has(key);
+    cb.disabled = true; // bundle actief => read-only
+  });
+}
+
+function updateBundleInfoUI(data) {
+  const content = $('modalContent');
+  if (!content) return;
+
+  const bundleInfo = content.querySelector('#bundleActiveInfo');
+  const bundleHint = content.querySelector('#bundleHint');
+  const bundlePick = content.querySelector('#bundlePick');
+  const bundleName = content.querySelector('#bundleName');
+
+  const allOutputs = state.getAllOutputs();
+  const activeId = getActiveBundleId(data);
+  const bundle = activeId ? findBundleById(activeId) : null;
+
+  // UI fields
+  if (bundlePick) bundlePick.value = bundle ? String(bundle.id) : '';
+  if (bundleName) bundleName.value = bundle ? String(bundle.name || '').trim() : '';
+
+  // Active info line
+  if (bundleInfo) {
+    if (!bundle) {
+      bundleInfo.style.display = 'none';
+      bundleInfo.textContent = '';
+    } else {
+      const nm = String(bundle.name || '').trim() || 'Pakket';
+      const detail = formatBundleOutputs(bundle, allOutputs);
+      bundleInfo.style.display = 'block';
+      bundleInfo.textContent = detail ? `📦 ${nm}: ${detail}` : `📦 ${nm}`;
+    }
+  }
+
+  // Hint
+  if (bundleHint) {
+    if (!bundle) bundleHint.textContent = '';
+    else bundleHint.textContent = `Bevat: ${(Array.isArray(bundle.outIds) ? bundle.outIds.length : 0)} outputs`;
+  }
+
+  // ✅ BELANGRIJK: bundle => checkboxes aanvinken + locken; geen bundle => normale linkedSourceIds
+  if (bundle) {
+    // voorkom mixen
+    data.text = '';
+    setLinkedSourceIds(data, []);
+
+    // extern toggle uit
+    const ext = $('inputExternalToggle');
+    if (ext) ext.checked = false;
+
+    // checkbox sync
+    syncOutputCheckboxesFromBundle(bundle);
+
+    // summary bovenin wordt pakketnaam
+    const summary = $('linkedSourcesSummary');
+    if (summary) summary.textContent = `📦 ${String(bundle.name || 'Pakket').trim()}`;
+
+    // linkedInfoText verbergen (want linkedSourceIds zijn leeg)
+    const info = $('linkedInfoText');
+    if (info) {
+      info.style.display = 'none';
+      info.textContent = '';
+    }
+
+    // lijst disable (read-only)
+    const list = content.querySelector('#inputSourcesList');
+    if (list) {
+      list.style.opacity = '0.55';
+      list.style.pointerEvents = 'none';
+      list.style.filter = 'grayscale(0.2)';
+    }
+  } else {
+    // geen bundle => checkbox sync vanuit linkedSourceIds
+    syncOutputCheckboxesFromLinkedSources(data);
+
+    const ids = normalizeLinkedSourceIds(data);
+    const list = content.querySelector('#inputSourcesList');
+    if (list) {
+      const hasAny = ids.length > 0;
+      list.style.opacity = hasAny ? '1' : '0.55';
+      list.style.pointerEvents = hasAny ? 'auto' : 'none';
+      list.style.filter = hasAny ? 'none' : 'grayscale(0.2)';
+    }
   }
 }
 
@@ -311,9 +494,7 @@ const renderOutputMergeControls = () => {
     .slice(0, pos + 1)
     .map((idx) => {
       const lbl = `Kolom ${idx + 1}`;
-      return `<option value="${idx}" ${idx === startDefault ? 'selected' : ''}>${escapeAttr(
-        lbl
-      )}</option>`;
+      return `<option value="${idx}" ${idx === startDefault ? 'selected' : ''}>${escapeAttr(lbl)}</option>`;
     })
     .join('');
 
@@ -321,9 +502,7 @@ const renderOutputMergeControls = () => {
     .slice(pos)
     .map((idx) => {
       const lbl = `Kolom ${idx + 1}`;
-      return `<option value="${idx}" ${idx === endDefault ? 'selected' : ''}>${escapeAttr(
-        lbl
-      )}</option>`;
+      return `<option value="${idx}" ${idx === endDefault ? 'selected' : ''}>${escapeAttr(lbl)}</option>`;
     })
     .join('');
 
@@ -379,9 +558,7 @@ const renderSystemMergeControls = () => {
     .slice(0, pos + 1)
     .map((idx) => {
       const lbl = `Kolom ${idx + 1}`;
-      return `<option value="${idx}" ${idx === startDefault ? 'selected' : ''}>${escapeAttr(
-        lbl
-      )}</option>`;
+      return `<option value="${idx}" ${idx === startDefault ? 'selected' : ''}>${escapeAttr(lbl)}</option>`;
     })
     .join('');
 
@@ -389,9 +566,7 @@ const renderSystemMergeControls = () => {
     .slice(pos)
     .map((idx) => {
       const lbl = `Kolom ${idx + 1}`;
-      return `<option value="${idx}" ${idx === endDefault ? 'selected' : ''}>${escapeAttr(
-        lbl
-      )}</option>`;
+      return `<option value="${idx}" ${idx === endDefault ? 'selected' : ''}>${escapeAttr(lbl)}</option>`;
     })
     .join('');
 
@@ -410,16 +585,12 @@ const renderSystemMergeControls = () => {
       <div style="display:flex; gap:10px; flex-wrap:wrap;">
         <div style="flex:1; min-width:180px;">
           <div style="font-size:12px; opacity:.85; margin-bottom:6px;">Van (linker grens)</div>
-          <select id="sysMergeStartSelect" class="modal-input" ${
-            hasMerge ? '' : 'disabled'
-          }>${startOpts}</select>
+          <select id="sysMergeStartSelect" class="modal-input" ${hasMerge ? '' : 'disabled'}>${startOpts}</select>
         </div>
 
         <div style="flex:1; min-width:180px;">
           <div style="font-size:12px; opacity:.85; margin-bottom:6px;">Tot (rechter grens)</div>
-          <select id="sysMergeEndSelect" class="modal-input" ${
-            hasMerge ? '' : 'disabled'
-          }>${endOpts}</select>
+          <select id="sysMergeEndSelect" class="modal-input" ${hasMerge ? '' : 'disabled'}>${endOpts}</select>
         </div>
       </div>
 
@@ -892,6 +1063,11 @@ const renderIoTab = (data, isInputRow) => {
     const selectedIds = normalizeLinkedSourceIds(data);
     const selectedSet = new Set(selectedIds);
 
+    const activeBundleId = getActiveBundleId(data);
+    const hasBundle = !!activeBundleId;
+    const bundle = hasBundle ? findBundleById(activeBundleId) : null;
+    const bundleName = String(bundle?.name || '').trim();
+
     const listItems = Object.entries(allOutputs)
       .map(([id, text]) => {
         const t = (text || '').substring(0, 70);
@@ -910,6 +1086,14 @@ const renderIoTab = (data, isInputRow) => {
       })
       .join('');
 
+    const extChecked = !hasBundle && selectedIds.length === 0;
+
+    const summaryText = hasBundle
+      ? `📦 ${bundleName || 'Pakket'}`
+      : selectedIds.length
+        ? escapeAttr(_formatLinkedSources(selectedIds, allOutputs))
+        : '—';
+
     linkHtml = `
       <div style="margin-bottom: 20px; padding: 12px; background: rgba(0,0,0,0.2); border-radius: 8px; border: 1px solid rgba(255,255,255,0.1);">
         <div class="modal-label" style="margin-top:0;">Input Bron (koppel aan 1+ Outputs)</div>
@@ -920,26 +1104,61 @@ const renderIoTab = (data, isInputRow) => {
 
         <div style="display:flex; align-items:center; gap:10px; margin-bottom:12px;">
           <label style="display:flex; align-items:center; gap:10px; font-size:13px; cursor:pointer; margin:0;">
-            <input id="inputExternalToggle" type="checkbox" ${selectedIds.length === 0 ? 'checked' : ''} />
+            <input id="inputExternalToggle" type="checkbox" ${extChecked ? 'checked' : ''} />
             Geen koppeling (externe input)
           </label>
 
           <div style="margin-left:auto; font-size:12px; opacity:.85;">
-            Geselecteerd: <span id="linkedSourcesSummary" style="font-weight:900; color: var(--ui-accent);">${
-              selectedIds.length ? escapeAttr(selectedIds.join('; ')) : '—'
-            }</span>
+            Geselecteerd: <span id="linkedSourcesSummary" style="font-weight:900; color: var(--ui-accent);">${summaryText}</span>
           </div>
         </div>
 
         <div id="inputSourcesList" style="display:grid; gap:8px; max-height: 260px; overflow:auto; padding-right:4px; ${
-          selectedIds.length === 0 ? 'opacity:0.55; pointer-events:none; filter: grayscale(0.2);' : ''
+          (hasBundle || selectedIds.length === 0)
+            ? 'opacity:0.55; pointer-events:none; filter: grayscale(0.2);'
+            : ''
         }">
           ${listItems || '<div style="opacity:.7; font-size:12px;">Geen outputs beschikbaar.</div>'}
         </div>
 
         <div id="linkedInfoText" style="display:${selectedIds.length ? 'block' : 'none'}; color:var(--ui-accent); font-size:11px; margin-top:10px; font-weight:700;">
-          🔗 Gekoppeld (${selectedIds.length}): ${escapeAttr(selectedIds.join('; '))}
+          🔗 Gekoppeld (${selectedIds.length}): ${escapeAttr(_formatLinkedSources(selectedIds, allOutputs))}
         </div>
+
+        <div id="bundleActiveInfo" style="display:none; color:var(--ui-accent); font-size:11px; margin-top:10px; font-weight:800;"></div>
+
+        <div style="margin-top:14px; padding-top:12px; border-top:1px dashed rgba(255,255,255,0.14);"></div>
+
+        <div class="modal-label" style="margin-top:0;">Output-pakket (bundel)</div>
+        <div class="io-helper" style="margin-top:6px; margin-bottom:12px;">
+          Geef een naam aan een set outputs (bijv. <strong>Verwijspakket</strong>) en gebruik die als 1 input.
+        </div>
+
+        <label class="modal-label" style="font-size:11px; margin-top:0;">Bestaand pakket (optioneel)</label>
+        <select id="bundlePick" class="modal-input">
+          <option value="">— Nieuw pakket —</option>
+          ${(() => {
+            const project = state.data;
+            const bundles = Array.isArray(project?.outputBundles) ? project.outputBundles : [];
+            return bundles
+              .map((b) => {
+                const id = String(b?.id || '').trim();
+                const nm = String(b?.name || '').trim() || id;
+                return `<option value="${escapeAttr(id)}">${escapeAttr(nm)}</option>`;
+              })
+              .join('');
+          })()}
+        </select>
+
+        <label class="modal-label" style="font-size:11px; margin-top:10px;">Pakketnaam</label>
+        <input id="bundleName" class="modal-input" placeholder="Bijv. Verwijspakket" />
+
+        <div style="display:flex; gap:10px; margin-top:10px; flex-wrap:wrap;">
+          <button id="bundleApplyBtn" class="std-btn primary" type="button">Pakket maken/updates & gebruiken</button>
+          <button id="bundleClearBtn" class="std-btn" type="button">Pakket loskoppelen</button>
+        </div>
+
+        <div id="bundleHint" style="margin-top:8px; font-size:12px; opacity:0.8;"></div>
       </div>
     `;
   }
@@ -1597,19 +1816,23 @@ const setupPermanentListeners = () => {
       }
 
       if (checked) {
-        // Clear all selections
         content.querySelectorAll('.input-source-cb').forEach((cb) => {
           cb.checked = false;
+          cb.disabled = false;
         });
         setLinkedSourceIds(data, []);
+        setActiveBundleId(data, '');
         updateLinkedInfoUI([]);
+        updateBundleInfoUI(data);
         state.saveStickyDetails();
       }
       return;
     }
 
     if (e.target?.classList?.contains('input-source-cb')) {
-      // If user selects any, auto-uncheck external
+      // bundle actief? dan UI is disabled, maar als dit toch gebeurt: stop
+      if (getActiveBundleId(data)) return;
+
       const ext = $('inputExternalToggle');
       if (ext) ext.checked = false;
 
@@ -1617,8 +1840,11 @@ const setupPermanentListeners = () => {
         .filter((cb) => cb.checked)
         .map((cb) => cb.value);
 
+      setActiveBundleId(data, '');
       setLinkedSourceIds(data, ids);
+
       updateLinkedInfoUI(normalizeLinkedSourceIds(data));
+      updateBundleInfoUI(data);
 
       const list = $('inputSourcesList');
       if (list) {
@@ -1630,6 +1856,113 @@ const setupPermanentListeners = () => {
 
       state.saveStickyDetails();
     }
+  });
+
+  // Output-pakket (bundel) — pick existing
+  content.addEventListener('change', (e) => {
+    if (e.target?.id !== 'bundlePick') return;
+    const data = getStickyData();
+    if (!data) return;
+
+    const id = String(e.target.value || '').trim();
+    setActiveBundleId(data, id);
+
+    if (id) {
+      // voorkom mixen (bron is bundle)
+      data.text = '';
+      setLinkedSourceIds(data, []);
+      updateLinkedInfoUI([]);
+    }
+
+    updateBundleInfoUI(data);
+    state.saveStickyDetails();
+  });
+
+  // Output-pakket (bundel) — create/update/use + clear
+  content.addEventListener('click', (e) => {
+    const data = getStickyData();
+    if (!data) return;
+
+    const applyBtn = e.target?.closest?.('#bundleApplyBtn');
+    const clearBtn = e.target?.closest?.('#bundleClearBtn');
+
+    if (clearBtn) {
+      setActiveBundleId(data, '');
+      updateBundleInfoUI(data);
+
+      const ids = normalizeLinkedSourceIds(data);
+      const list = $('inputSourcesList');
+      if (list) {
+        const hasAny = ids.length > 0;
+        list.style.opacity = hasAny ? '1' : '0.55';
+        list.style.pointerEvents = hasAny ? 'auto' : 'none';
+        list.style.filter = hasAny ? 'none' : 'grayscale(0.2)';
+      }
+
+      syncOutputCheckboxesFromLinkedSources(data);
+      updateLinkedInfoUI(ids);
+
+      state.saveStickyDetails();
+      return;
+    }
+
+    if (!applyBtn) return;
+
+    const pick = content.querySelector('#bundlePick');
+    const nameEl = content.querySelector('#bundleName');
+    const name = String(nameEl?.value || '').trim();
+
+    if (!name) {
+      alert('Vul een pakketnaam in.');
+      return;
+    }
+
+    // Use currently checked outputs as the bundle content
+    const ids = Array.from(content.querySelectorAll('.input-source-cb'))
+      .filter((cb) => cb.checked)
+      .map((cb) => cb.value);
+
+    if (!ids.length) {
+      alert('Selecteer minimaal 1 output om in het pakket te zetten.');
+      return;
+    }
+
+    const bundles = ensureOutputBundlesArray();
+    const pickedId = String(pick?.value || '').trim();
+
+    let bundle = pickedId ? findBundleById(pickedId) : null;
+
+    if (!bundle) {
+      bundle = { id: makeLocalId('bundle'), name, outIds: [] };
+      bundles.push(bundle);
+
+      if (pick) {
+        const opt = document.createElement('option');
+        opt.value = bundle.id;
+        opt.textContent = bundle.name;
+        pick.appendChild(opt);
+        pick.value = bundle.id;
+      }
+    }
+
+    bundle.name = name;
+    bundle.outIds = [...new Set(ids.map((x) => String(x ?? '').trim()).filter((x) => x))];
+
+    // Activate this bundle as the input source
+    setActiveBundleId(data, bundle.id);
+
+    // Avoid mixing bundle with direct linked outputs or free text
+    setLinkedSourceIds(data, []);
+    data.text = '';
+
+    const ext = $('inputExternalToggle');
+    if (ext) ext.checked = false;
+
+    updateLinkedInfoUI([]);
+    updateBundleInfoUI(data);          // ✅ dit vinkt nu ook de output-checks aan + disabled
+    syncOutputCheckboxesFromBundle(bundle);
+
+    state.saveStickyDetails();
   });
 };
 
@@ -1650,11 +1983,12 @@ export function openEditModal(colIdx, slotIdx) {
   const modal = $('editModal');
   if (modal) modal.style.display = 'grid';
 
-  // Ensure info label is correct after render for multi input
+  // Ensure info label is correct after render for multi input + bundle
   if (slotIdx === 2) {
     const data = getStickyData();
     const ids = normalizeLinkedSourceIds(data);
     updateLinkedInfoUI(ids);
+    updateBundleInfoUI(data);
   }
 }
 
@@ -1789,17 +2123,29 @@ export function saveModalDetails(closeModal = true) {
       }
     }
   } else if (slotIdx === 2 || slotIdx === 4) {
-    // ===== INPUT LINK SAVE (MULTI) =====
+    // ===== INPUT / OUTPUT SAVE =====
     if (slotIdx === 2) {
-      // Save current checkboxes into data.linkedSourceIds (+ backward compat linkedSourceId)
-      const ext = $('inputExternalToggle');
-      if (ext && ext.checked) {
-        setLinkedSourceIds(data, []);
+      const activeBundleId = getActiveBundleId(data);
+
+      // bundle actief => geen linkedSourceIds opslaan
+      if (!activeBundleId) {
+        const ext = $('inputExternalToggle');
+        if (ext && ext.checked) {
+          setLinkedSourceIds(data, []);
+        } else {
+          const ids = Array.from(content.querySelectorAll('.input-source-cb'))
+            .filter((cb) => cb.checked)
+            .map((cb) => cb.value);
+          setLinkedSourceIds(data, ids);
+        }
       } else {
-        const ids = Array.from(content.querySelectorAll('.input-source-cb'))
-          .filter((cb) => cb.checked)
-          .map((cb) => cb.value);
-        setLinkedSourceIds(data, ids);
+        // bundle actief: name update (optioneel)
+        const b = findBundleById(activeBundleId);
+        const nm = String(content.querySelector('#bundleName')?.value || '').trim();
+        if (b && nm) b.name = nm;
+
+        data.text = '';
+        setLinkedSourceIds(data, []);
       }
     }
 

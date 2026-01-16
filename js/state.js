@@ -50,6 +50,42 @@ class StateManager {
     });
   }
 
+  _sanitizeOutputBundle(b) {
+    const x = b && typeof b === 'object' ? b : {};
+    const id = String(x.id || uid()).trim() || uid();
+    const name = String(x.name || '').trim();
+    const outputUids = Array.isArray(x.outputUids)
+      ? [...new Set(x.outputUids.map((v) => String(v || '').trim()).filter(Boolean))]
+      : [];
+    return { id, name, outputUids };
+  }
+
+  _ensureOutputBundles(project) {
+    if (!project || typeof project !== 'object') return;
+    if (!Array.isArray(project.outputBundles)) project.outputBundles = [];
+    project.outputBundles = project.outputBundles.map((b) => this._sanitizeOutputBundle(b));
+  }
+
+  _migrateInputBundleFields(project) {
+    // Migrates legacy single linkedBundleId -> linkedBundleIds[]
+    (project?.sheets || []).forEach((sheet) => {
+      (sheet?.columns || []).forEach((col) => {
+        const inSlot = col?.slots?.[2];
+        if (!inSlot) return;
+
+        if (!Array.isArray(inSlot.linkedBundleIds)) {
+          const single = String(inSlot.linkedBundleId || '').trim();
+          inSlot.linkedBundleIds = single ? [single] : [];
+        } else {
+          inSlot.linkedBundleIds = inSlot.linkedBundleIds.map((x) => String(x || '').trim()).filter(Boolean);
+        }
+
+        // Keep legacy field in sync (first item) for backward compatibility
+        inSlot.linkedBundleId = String(inSlot.linkedBundleIds[0] || '').trim() || null;
+      });
+    });
+  }
+
   _buildLegacyOutIdToUidMap(project) {
     const map = {};
     let counter = 0;
@@ -380,6 +416,8 @@ class StateManager {
       this._ensureOutputUids(merged);
       this._ensureProcessIds(merged);
       this._migrateLinkedSourceIdToUid(merged);
+      this._ensureOutputBundles(merged);
+      this._migrateInputBundleFields(merged);
       return merged;
     }
 
@@ -410,29 +448,35 @@ class StateManager {
           const cleanGate = clean.gate && typeof clean.gate === 'object' ? clean.gate : {};
           const sGate = s.gate && typeof s.gate === 'object' ? s.gate : {};
 
-          const mergedSlot = {
-            ...clean,
-            ...s,
-            qa: { ...clean.qa, ...(s.qa || {}) },
-            systemData: { ...clean.systemData, ...(s.systemData || {}) },
+        const mergedSlot = {
+          ...clean,
+          ...s,
+          qa: { ...clean.qa, ...(s.qa || {}) },
+          systemData: { ...clean.systemData, ...(s.systemData || {}) },
 
-            // legacy single + new multi
-            linkedSourceId: s.linkedSourceId ?? clean.linkedSourceId,
-            linkedSourceUid: s.linkedSourceUid ?? clean.linkedSourceUid,
-            linkedSourceUids: Array.isArray(s.linkedSourceUids)
-              ? s.linkedSourceUids.map((x) => String(x || '').trim()).filter(Boolean)
-              : Array.isArray(clean.linkedSourceUids)
-                ? clean.linkedSourceUids
-                : [],
+          // legacy single + new multi
+          linkedSourceId: s.linkedSourceId ?? clean.linkedSourceId,
+          linkedSourceUid: s.linkedSourceUid ?? clean.linkedSourceUid,
+          linkedSourceUids: Array.isArray(s.linkedSourceUids)
+            ? s.linkedSourceUids.map((x) => String(x || '').trim()).filter(Boolean)
+            : Array.isArray(clean.linkedSourceUids)
+              ? clean.linkedSourceUids
+              : [],
+          linkedBundleId: s.linkedBundleId ?? clean.linkedBundleId,
+          linkedBundleIds: Array.isArray(s.linkedBundleIds)
+            ? s.linkedBundleIds.map((x) => String(x || '').trim()).filter(Boolean)
+            : Array.isArray(clean.linkedBundleIds)
+              ? clean.linkedBundleIds
+              : [],
 
-            inputDefinitions: Array.isArray(s.inputDefinitions) ? s.inputDefinitions : clean.inputDefinitions,
-            disruptions: Array.isArray(s.disruptions) ? s.disruptions : clean.disruptions,
-            workExp: s.workExp ?? clean.workExp,
-            workExpNote: s.workExpNote ?? clean.workExpNote,
-            id: s.id ?? clean.id,
-            isGate: s.isGate ?? clean.isGate,
-            gate: { ...cleanGate, ...sGate }
-          };
+          inputDefinitions: Array.isArray(s.inputDefinitions) ? s.inputDefinitions : clean.inputDefinitions,
+          disruptions: Array.isArray(s.disruptions) ? s.disruptions : clean.disruptions,
+          workExp: s.workExp ?? clean.workExp,
+          workExpNote: s.workExpNote ?? clean.workExpNote,
+          id: s.id ?? clean.id,
+          isGate: s.isGate ?? clean.isGate,
+          gate: { ...cleanGate, ...sGate }
+        };
 
           // Process slot stable id
           if (slotIdx === 3 && (!mergedSlot.id || String(mergedSlot.id).trim() === '')) mergedSlot.id = this._makeId('proc');
@@ -449,14 +493,27 @@ class StateManager {
           // System slot multi-shape
           if (slotIdx === 1) this._ensureMultiSystemShape(mergedSlot);
 
-          // Input slot: sync single uid into array (if needed)
+          // Input slot: sync single uid into array (if needed) and bundle fields
           if (slotIdx === 2) {
             if (!Array.isArray(mergedSlot.linkedSourceUids)) mergedSlot.linkedSourceUids = [];
+            mergedSlot.linkedSourceUids = mergedSlot.linkedSourceUids.map((x) => String(x || '').trim()).filter(Boolean);
+
             if (mergedSlot.linkedSourceUids.length === 0) {
               const singleUid = String(mergedSlot.linkedSourceUid || '').trim();
               if (singleUid) mergedSlot.linkedSourceUids = [singleUid];
             }
+
             mergedSlot.linkedSourceUid = String(mergedSlot.linkedSourceUids[0] || '').trim() || null;
+
+            if (!Array.isArray(mergedSlot.linkedBundleIds)) mergedSlot.linkedBundleIds = [];
+            mergedSlot.linkedBundleIds = mergedSlot.linkedBundleIds.map((x) => String(x || '').trim()).filter(Boolean);
+
+            if (mergedSlot.linkedBundleIds.length === 0) {
+              const singleB = String(mergedSlot.linkedBundleId || '').trim();
+              if (singleB) mergedSlot.linkedBundleIds = [singleB];
+            }
+
+            mergedSlot.linkedBundleId = String(mergedSlot.linkedBundleIds[0] || '').trim() || null;
           }
 
           return mergedSlot;
@@ -470,6 +527,8 @@ class StateManager {
     this._ensureOutputUids(merged);
     this._migrateLinkedSourceIdToUid(merged);
     this._ensureProcessIds(merged);
+    this._ensureOutputBundles(merged);
+    this._migrateInputBundleFields(merged);
 
     return merged;
   }
@@ -737,6 +796,94 @@ class StateManager {
     const byUid = new Map(det.map((x) => [String(x.uid), x.outId]));
 
     return wanted.map((u) => byUid.get(u) || '').filter(Boolean);
+  }
+
+  getOutputBundles() {
+    return Array.isArray(this.project.outputBundles) ? this.project.outputBundles : [];
+  }
+
+  getOutputBundleById(bundleId) {
+    const id = String(bundleId || '').trim();
+    if (!id) return null;
+    return this.getOutputBundles().find((b) => String(b.id) === id) || null;
+  }
+
+  addOutputBundle(name, outputUids = []) {
+    this.pushHistory();
+    this._ensureOutputBundles(this.project);
+
+    const bundle = this._sanitizeOutputBundle({
+      id: uid(),
+      name: String(name || '').trim(),
+      outputUids: Array.isArray(outputUids) ? outputUids : []
+    });
+
+    this.project.outputBundles.push(bundle);
+    this.notify({ reason: 'details' }, { clone: false });
+    return bundle;
+  }
+
+  updateOutputBundle(bundleId, { name, outputUids } = {}) {
+    const b = this.getOutputBundleById(bundleId);
+    if (!b) return false;
+
+    this.pushHistory();
+
+    if (name !== undefined) b.name = String(name || '').trim();
+    if (outputUids !== undefined) {
+      b.outputUids = [...new Set((Array.isArray(outputUids) ? outputUids : []).map((v) => String(v || '').trim()).filter(Boolean))];
+    }
+
+    this.notify({ reason: 'details' }, { clone: false });
+    return true;
+  }
+
+  deleteOutputBundle(bundleId) {
+    const id = String(bundleId || '').trim();
+    if (!id) return false;
+
+    this.pushHistory();
+    this._ensureOutputBundles(this.project);
+
+    const beforeLen = this.project.outputBundles.length;
+    this.project.outputBundles = this.project.outputBundles.filter((b) => String(b.id) !== id);
+
+    // Remove references from all input slots
+    (this.project.sheets || []).forEach((sheet) => {
+      (sheet.columns || []).forEach((col) => {
+        const inSlot = col?.slots?.[2];
+        if (!inSlot) return;
+        if (!Array.isArray(inSlot.linkedBundleIds)) inSlot.linkedBundleIds = [];
+        inSlot.linkedBundleIds = inSlot.linkedBundleIds.map((x) => String(x || '').trim()).filter(Boolean).filter((x) => x !== id);
+        inSlot.linkedBundleId = String(inSlot.linkedBundleIds[0] || '').trim() || null;
+      });
+    });
+
+    const changed = this.project.outputBundles.length !== beforeLen;
+    if (changed) this.notify({ reason: 'details' }, { clone: false });
+    return changed;
+  }
+
+  resolveBundleIdsToOutUids(bundleIds) {
+    const ids = Array.isArray(bundleIds) ? bundleIds.map((x) => String(x || '').trim()).filter(Boolean) : [];
+    if (!ids.length) return [];
+
+    const all = [];
+    ids.forEach((id) => {
+      const b = this.getOutputBundleById(id);
+      if (!b) return;
+      (b.outputUids || []).forEach((u) => {
+        const uu = String(u || '').trim();
+        if (uu) all.push(uu);
+      });
+    });
+
+    return [...new Set(all)];
+  }
+
+  getOutputBundleLabel(bundleId) {
+    const b = this.getOutputBundleById(bundleId);
+    return b ? String(b.name || '').trim() : '';
   }
 }
 

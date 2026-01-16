@@ -4,6 +4,7 @@
 // - Disruptions/oorzaken/maatregelen/toelichtingen ook ";"-gescheiden
 // - FIX: Input kan gelinkt zijn aan OUTx via linkedSourceId óf linkedSourceUid óf MEERDERE links (arrays)
 //        -> alles wordt als "OUTx; OUTy" geëxporteerd (en input-tekst als "tekstOutx; tekstOuty")
+// - FIX: Input kan ook een bundel zijn (bundelnaam -> OUTx; OUTy) voor compacte input in post-it/export
 // - FIX: Input-tekst bij link gebruikt output-tekst (outTextByUid / outTextByOutId) indien beschikbaar
 // - FIX: Output IDs zijn project-breed stabiel (op basis van outputUid + sheet/kolom volgorde + merge-slaves overslaan)
 
@@ -320,6 +321,104 @@ function resolveLinkedSourcesToOutPairs(sources, outIdByUid, outTextByUid, outTe
   });
 
   return { ids, texts };
+}
+
+/* ==========================================================================
+   OUTPUT bundels (bundelnaam -> OUTx; OUTy) voor compacte input
+   Verwacht in project: project.outputBundles = [{ id, name, outputUids: [] }]
+   Verwacht in inputSlot: linkedBundleId (string) of linkedBundleIds (array)
+   ========================================================================== */
+
+function normalizeLinkedBundles(inputSlot) {
+  const out = [];
+
+  const idsArr = Array.isArray(inputSlot?.linkedBundleIds) ? inputSlot.linkedBundleIds : null;
+  if (idsArr && idsArr.length) {
+    idsArr.forEach((id) => {
+      const s = String(id ?? '').trim();
+      if (s) out.push(s);
+    });
+  }
+
+  const single = String(inputSlot?.linkedBundleId || '').trim();
+  if (single) out.push(single);
+
+  // dedupe while preserving order
+  const seen = new Set();
+  const uniq = [];
+  for (const x of out) {
+    if (seen.has(x)) continue;
+    seen.add(x);
+    uniq.push(x);
+  }
+
+  return uniq;
+}
+
+function buildBundleMaps(project, outIdByUid, outTextByUid) {
+  const nameById = {};
+  const outIdsById = {};
+  const outTextsById = {};
+
+  const bundles = Array.isArray(project?.outputBundles) ? project.outputBundles : [];
+
+  bundles.forEach((b) => {
+    if (!b || typeof b !== 'object') return;
+
+    const id = String(b.id ?? '').trim();
+    if (!id) return;
+
+    const name = String(b.name ?? '').trim();
+    nameById[id] = name || id;
+
+    const uids = Array.isArray(b.outputUids) ? b.outputUids : [];
+    const ids = [];
+    const texts = [];
+
+    uids.forEach((u) => {
+      const uid = String(u ?? '').trim();
+      if (!uid) return;
+
+      const outId = String(outIdByUid?.[uid] ?? '').trim() || uid;
+      const outText = String(outTextByUid?.[uid] ?? '').trim() || outId;
+
+      ids.push(outId);
+      texts.push(outText);
+    });
+
+    outIdsById[id] = ids;
+    outTextsById[id] = texts;
+  });
+
+  return { nameById, outIdsById, outTextsById };
+}
+
+function resolveBundleIdsToLists(bundleIds, bundleMaps) {
+  const ids = Array.isArray(bundleIds) ? bundleIds : [];
+
+  const bundleNames = [];
+  const memberOutIds = [];
+  const memberOutTexts = [];
+
+  ids.forEach((bid) => {
+    const id = String(bid ?? '').trim();
+    if (!id) return;
+
+    const name = String(bundleMaps?.nameById?.[id] ?? '').trim() || id;
+    bundleNames.push(name);
+
+    const outs = Array.isArray(bundleMaps?.outIdsById?.[id]) ? bundleMaps.outIdsById[id] : [];
+    const txts = Array.isArray(bundleMaps?.outTextsById?.[id]) ? bundleMaps.outTextsById[id] : [];
+
+    outs.forEach((x) => memberOutIds.push(String(x ?? '').trim()));
+    txts.forEach((x) => memberOutTexts.push(String(x ?? '').trim()));
+  });
+
+  return {
+    bundleNames: bundleNames.filter(Boolean),
+    memberOutIds: memberOutIds.filter(Boolean),
+    memberOutTexts: memberOutTexts.filter(Boolean)
+  };
 }
 
 /* ==========================================================================
@@ -693,6 +792,9 @@ export function exportToCSV() {
       'TTF Scores',
       'Input ID',
       'Input',
+      'Input bundel(s)',
+      'Bundel Output IDs',
+      'Bundel Output teksten',
       'Compleetheid',
       'Compleetheid taakimpact',
       'Compleetheid taakimpact opmerking',
@@ -740,6 +842,7 @@ export function exportToCSV() {
 
     // FIX: bouw eerst 1x project-brede OUT mapping + output teksten
     const { outIdByUid, outTextByUid, outTextByOutId } = buildGlobalOutputMaps(project);
+    const bundleMaps = buildBundleMaps(project, outIdByUid, outTextByUid);
 
     let globalColNr = 0;
     let globalInCounter = 0;
@@ -784,25 +887,49 @@ export function exportToCSV() {
         // Fase
         const fase = `Procesflow ${globalColNr}`;
 
-        // Input + InputID (linked of nieuw) — ondersteunt single + multiple links
+        // Input + InputID (linked of nieuw) — ondersteunt single + multiple links + bundels
         const inputSlot = col?.slots?.[2];
         const outputSlot = col?.slots?.[4];
 
         let inputId = '';
         let inputText = String(inputSlot?.text ?? '').trim();
 
+        // 1) bundels (compact)
+        const linkedBundleIds = normalizeLinkedBundles(inputSlot);
+        const bundleResolved = resolveBundleIdsToLists(linkedBundleIds, bundleMaps);
+
+        const inputBundlesStr = joinSemi(bundleResolved.bundleNames);
+        const bundleOutIdsStr = joinSemi(bundleResolved.memberOutIds);
+        const bundleOutTextsStr = joinSemi(bundleResolved.memberOutTexts);
+
+        // 2) losse OUT-links (single + multiple)
         const sources = normalizeLinkedSources(inputSlot);
         const resolved = resolveLinkedSourcesToOutPairs(sources, outIdByUid, outTextByUid, outTextByOutId);
 
+        const partsId = [];
+        const partsText = [];
+
+        if (bundleResolved.bundleNames.length) {
+          partsId.push(...bundleResolved.bundleNames);
+          partsText.push(...bundleResolved.bundleNames);
+        }
+
         if (resolved.ids.length) {
-          inputId = joinSemi(resolved.ids);
-          inputText = joinSemi(resolved.texts);
-        } else if (inputText) {
-          globalInCounter += 1;
-          inputId = `IN${globalInCounter}`;
+          partsId.push(...resolved.ids);
+          partsText.push(...resolved.texts);
+        }
+
+        if (!resolved.ids.length && !bundleResolved.bundleNames.length) {
+          if (inputText) {
+            globalInCounter += 1;
+            inputId = `IN${globalInCounter}`;
+          } else {
+            inputId = '';
+            inputText = '';
+          }
         } else {
-          inputId = '';
-          inputText = '';
+          inputId = joinSemi(partsId);
+          inputText = joinSemi(partsText);
         }
 
         // IO QA (Input slot qa) per systeem aligned
@@ -831,9 +958,7 @@ export function exportToCSV() {
         const leanwaarde = getLeanValueLabel(procSlot?.processValue ?? '');
         const statusProces = getProcessStatusLabel(procSlot?.processStatus ?? '');
 
-        const oorzaken = Array.isArray(procSlot?.causes)
-          ? joinSemi(procSlot.causes)
-          : String(procSlot?.causes ?? '').trim();
+        const oorzaken = Array.isArray(procSlot?.causes) ? joinSemi(procSlot.causes) : String(procSlot?.causes ?? '').trim();
         const maatregelen = Array.isArray(procSlot?.improvements)
           ? joinSemi(procSlot.improvements)
           : String(procSlot?.improvements ?? '').trim();
@@ -884,6 +1009,9 @@ export function exportToCSV() {
 
           inputId,
           inputText,
+          inputBundlesStr,
+          bundleOutIdsStr,
+          bundleOutTextsStr,
 
           comp.result,
           comp.impact,
