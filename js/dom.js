@@ -235,15 +235,80 @@ function isMergedSlaveInSheet(groups, colIdx, slotIdx) {
   return !!g && colIdx !== g.master;
 }
 
-/** Normalizes multi-link input structure: returns array of linked output UIDs (may be empty). */
-function getLinkedUidsFromInputSlot(slot) {
-  if (!slot || typeof slot !== 'object') return [];
-  const arr = Array.isArray(slot.linkedSourceUids) ? slot.linkedSourceUids : [];
-  const cleaned = arr.map((x) => String(x || '').trim()).filter(Boolean);
-  if (cleaned.length) return cleaned;
+/** Returns true when a value looks like an OUT id (e.g., OUT12). */
+function _looksLikeOutId(v) {
+  const s = String(v || '').trim();
+  return !!s && /^OUT\d+$/.test(s);
+}
 
-  const single = String(slot.linkedSourceUid || '').trim();
-  return single ? [single] : [];
+/** Normalizes multi-link input structure: returns array of linked sources (uids and/or OUT ids). */
+function getLinkedSourcesFromInputSlot(slot) {
+  if (!slot || typeof slot !== 'object') return [];
+
+  const tokens = [];
+
+  const arrUids = Array.isArray(slot.linkedSourceUids) ? slot.linkedSourceUids : [];
+  const arrIds = Array.isArray(slot.linkedSourceIds) ? slot.linkedSourceIds : [];
+
+  arrUids.forEach((x) => {
+    const s = String(x || '').trim();
+    if (s) tokens.push(s);
+  });
+
+  arrIds.forEach((x) => {
+    const s = String(x || '').trim();
+    if (s) tokens.push(s);
+  });
+
+  const singleUid = String(slot.linkedSourceUid || '').trim();
+  const singleId = String(slot.linkedSourceId || '').trim();
+
+  if (singleUid) tokens.push(singleUid);
+  if (singleId) tokens.push(singleId);
+
+  // de-dupe while preserving order
+  const seen = new Set();
+  const out = [];
+  for (const t of tokens) {
+    const key = String(t);
+    if (seen.has(key)) continue;
+    seen.add(key);
+    out.push(key);
+  }
+
+  return out;
+}
+
+/** Resolves linked sources into aligned OUT-ids + display texts (all '; ' separated later). */
+function resolveLinkedSourcesToOutAndText(tokens, outIdByUid, outTextByUid, outTextByOutId) {
+  const ids = [];
+  const texts = [];
+
+  (Array.isArray(tokens) ? tokens : []).forEach((t) => {
+    const s = String(t || '').trim();
+    if (!s) return;
+
+    // If the stored token is already an OUT id, use it directly
+    if (_looksLikeOutId(s)) {
+      const outId = s;
+      const txt = String(outTextByOutId?.[outId] ?? '').trim() || outId;
+      ids.push(outId);
+      texts.push(txt);
+      return;
+    }
+
+    // Otherwise treat it as outputUid
+    const outId = String(outIdByUid?.[s] ?? '').trim() || s;
+    const txt =
+      String(outTextByUid?.[s] ?? '').trim() ||
+      String(outTextByOutId?.[outId] ?? '').trim() ||
+      outId;
+
+    ids.push(outId);
+    texts.push(txt);
+  });
+
+  return { ids, texts };
 }
 
 /** Builds global output id and text maps using current sheet order. */
@@ -297,13 +362,10 @@ function computeCountersBeforeActiveSheet(project, activeSheetId, outIdByUid) {
       const inSlot = col?.slots?.[2];
       const outSlot = col?.slots?.[4];
 
-      const linkedUids = getLinkedUidsFromInputSlot(inSlot);
-      const legacyLinkedId = String(inSlot?.linkedSourceId || '').trim();
+      const tokens = getLinkedSourcesFromInputSlot(inSlot);
+      const isLinked = tokens.some((t) => (_looksLikeOutId(t) ? true : !!(t && outIdByUid && outIdByUid[t])));
 
-      const isLinkedByUid = linkedUids.some((u) => !!(u && outIdByUid && outIdByUid[u]));
-      const isLinkedById = legacyLinkedId && /^OUT\d+$/.test(legacyLinkedId);
-
-      if (!isLinkedByUid && !isLinkedById && inSlot?.text?.trim()) inCount += 1;
+      if (!isLinked && inSlot?.text?.trim()) inCount += 1;
 
       if (outSlot?.text?.trim() && !isMergedSlaveInSheet(groups, colIdx, 4)) outCount += 1;
     });
@@ -1711,15 +1773,11 @@ function renderColumnsOnly(openModalFn) {
     const inputSlot = col.slots?.[2];
     const outputSlot = col.slots?.[4];
 
-    const linkedUids = getLinkedUidsFromInputSlot(inputSlot);
-    const legacyLinkedId = String(inputSlot?.linkedSourceId || '').trim();
+    const tokens = getLinkedSourcesFromInputSlot(inputSlot);
+    const resolved = resolveLinkedSourcesToOutAndText(tokens, outIdByUid, outTextByUid, outTextByOutId);
 
-    const outIdsFromUids = linkedUids.map((u) => outIdByUid[u]).filter(Boolean);
-
-    if (outIdsFromUids.length) {
-      myInputId = outIdsFromUids.join('; ');
-    } else if (legacyLinkedId && outTextByOutId[legacyLinkedId]) {
-      myInputId = legacyLinkedId;
+    if (resolved.ids.length) {
+      myInputId = resolved.ids.join('; ');
     } else if (inputSlot?.text?.trim()) {
       localInCounter += 1;
       myInputId = `IN${offsets.inStart + localInCounter}`;
@@ -1772,15 +1830,11 @@ function renderColumnsOnly(openModalFn) {
       let isLinked = false;
 
       if (slotIdx === 2) {
-        const uids = getLinkedUidsFromInputSlot(slot);
-        const legacyId = String(slot?.linkedSourceId || '').trim();
+        const tokens = getLinkedSourcesFromInputSlot(slot);
+        const resolved = resolveLinkedSourcesToOutAndText(tokens, outIdByUid, outTextByUid, outTextByOutId);
 
-        const texts = uids.map((u) => outTextByUid[u]).filter((t) => String(t || '').trim() !== '');
-        if (texts.length) {
-          displayText = texts.join('; ');
-          isLinked = true;
-        } else if (legacyId && outTextByOutId[legacyId]) {
-          displayText = outTextByOutId[legacyId];
+        if (resolved.texts.length) {
+          displayText = resolved.texts.join('; ');
           isLinked = true;
         }
       }
@@ -1880,18 +1934,13 @@ function updateSingleText(colIdx, slotIdx) {
 
   if (slotIdx === 2) {
     const project = state.project || state.data;
-    const { outTextByUid, outTextByOutId } = buildGlobalOutputMaps(project);
+    const { outIdByUid, outTextByUid, outTextByOutId } = buildGlobalOutputMaps(project);
 
-    const uids = getLinkedUidsFromInputSlot(slot);
-    const legacyId = String(slot?.linkedSourceId || '').trim();
+    const tokens = getLinkedSourcesFromInputSlot(slot);
+    const resolved = resolveLinkedSourcesToOutAndText(tokens, outIdByUid, outTextByUid, outTextByOutId);
 
-    const texts = uids.map((u) => outTextByUid[u]).filter((t) => String(t || '').trim() !== '');
-    if (texts.length) {
-      slotEl.textContent = texts.join('; ');
-      return true;
-    }
-    if (legacyId && outTextByOutId[legacyId]) {
-      slotEl.textContent = outTextByOutId[legacyId] ?? '';
+    if (resolved.texts.length) {
+      slotEl.textContent = resolved.texts.join('; ');
       return true;
     }
   }
