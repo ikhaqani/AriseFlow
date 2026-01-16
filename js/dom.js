@@ -621,15 +621,22 @@ function openMergeModal(clickedColIdx, slotIdx, openModalFn) {
 
   let gate = slotIdx === 4 ? _sanitizeGate(cur?.gate) || { enabled: false, failTargetColIdx: null } : null;
 
-  let systemsMeta =
-    slotIdx === 1
-      ? _sanitizeSystemsMeta(cur?.systemsMeta) ||
-        _getSystemMetaFromSlot(masterCol) || {
-          multi: false,
-          systems: [{ name: '', legacy: false, future: '', qa: {}, score: null }],
-          activeSystemIdx: 0
-        }
-      : null;
+  let systemsMeta = null;
+
+  if (slotIdx === 1) {
+    const existing = _sanitizeSystemsMeta(cur?.systemsMeta) || _getSystemMetaFromSlot(masterCol);
+    if (existing) {
+      systemsMeta = existing;
+    } else {
+      // FIX: Gebruik de tekst van de post-it als die er is
+      const initialName = String(curText || '').trim();
+      systemsMeta = {
+        multi: false,
+        systems: [{ name: initialName, legacy: false, future: '', qa: {}, score: null }],
+        activeSystemIdx: 0
+      };
+    }
+  }
 
   const processOptions = getAllProcessOptions();
 
@@ -1520,10 +1527,10 @@ function syncRowHeightsNow() {
       if (!sticky) continue;
 
       // Use scrollHeight as source-of-truth for content growth.
-      // FIX: Increase buffer from +2 to +12 to prevent any text cutoff or overlap.
+      // FIX: Increase buffer from +2 to +32 to prevent any text cutoff or overlap.
       const h = Math.ceil(
         Math.max(sticky.scrollHeight || 0, sticky.getBoundingClientRect?.().height || 0)
-      ) + 12;
+      ) + 32;
       if (h > heights[r]) heights[r] = h;
     }
   });
@@ -1995,8 +2002,6 @@ function renderColumnsOnly(openModalFn) {
         const tokens = getLinkedSourcesFromInputSlot(slot);
         const resolved = resolveLinkedSourcesToOutAndText(tokens, outIdByUid, outTextByUid, outTextByOutId);
 
-        // Bundels = compact label op de post-it. Als er bundels zijn: toon alléén bundelnaam/nam(en).
-        // Anders (geen bundels): toon de gelinkte output-teksten.
         const parts = [];
         if (bundleLabels.length) {
           parts.push(...bundleLabels);
