@@ -1190,8 +1190,9 @@ body {
 }
 
 .col-connector.parallel-connector,
-.col-connector.variant-connector {
-    width: 0 !important; /* Varianten plakken tegen elkaar aan */
+.col-connector.variant-connector,
+.col-connector.combo-connector {
+    width: 0 !important; /* Varianten/parallel/combo plakken tegen elkaar aan */
     padding: 0 !important;
     margin: 0 !important;
     overflow: visible;
@@ -1200,8 +1201,33 @@ body {
 }
 
 .col-connector.parallel-connector .parallel-line,
-.col-connector.variant-connector .parallel-line {
+.col-connector.variant-connector .parallel-line,
+.col-connector.combo-connector .parallel-line {
     display: none !important;
+}
+
+/* Combo (Parallel + Split) connector: toon beide badges onder elkaar */
+.combo-badge-stack {
+    position: absolute;
+    top: 50%;
+    left: 0;
+    transform: translate(-50%, -50%);
+    z-index: 120;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    pointer-events: none;
+}
+
+/* Als badges in de stack zitten, moeten ze niet absoluut positioneren */
+.combo-badge-stack .parallel-badge,
+.combo-badge-stack .variant-badge {
+    position: static !important;
+    top: auto !important;
+    left: auto !important;
+    transform: none !important;
+    margin: 0 !important;
+    pointer-events: none;
 }
 
 .connector-active {

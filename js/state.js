@@ -650,7 +650,6 @@ class StateManager {
     if (!col) return;
 
     col.isParallel = !col.isParallel;
-    if (col.isParallel) col.isVariant = false;
 
     this.notify({ reason: 'columns' }, { clone: false });
   }
@@ -661,7 +660,6 @@ class StateManager {
     if (!col) return;
 
     col.isVariant = !col.isVariant;
-    if (col.isVariant) col.isParallel = false;
 
     this.notify({ reason: 'columns' }, { clone: false });
   }

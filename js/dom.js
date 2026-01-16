@@ -1456,7 +1456,9 @@ function syncRowHeightsNow() {
   const processOffset = heights[0] + heights[1] + heights[2] + 3 * gapSize;
 
   colsContainer.querySelectorAll('.col-connector').forEach((c) => {
-    if (!c.classList.contains('parallel-connector')) c.style.paddingTop = `${processOffset}px`;
+    if (!c.classList.contains('parallel-connector') && !c.classList.contains('combo-connector')) {
+      c.style.paddingTop = `${processOffset}px`;
+    }
   });
 }
 
@@ -1556,7 +1558,26 @@ function renderConnector({ frag, activeSheet, colIdx, variantLetterMap }) {
 
   const nextCol = activeSheet.columns[nextVisibleIdx];
 
-  if (nextCol.isParallel) {
+  // New connector selection logic:
+  const hasParallel = !!nextCol.isParallel;
+  const hasVariant = !!nextCol.isVariant;
+
+  // If both are enabled, show both badges stacked (under each other)
+  if (hasParallel && hasVariant) {
+    const letter = variantLetterMap?.[nextVisibleIdx] || 'A';
+    const connEl = document.createElement('div');
+    connEl.className = 'col-connector combo-connector';
+    connEl.innerHTML = `
+      <div class="combo-badge-stack">
+        <div class="parallel-badge">||</div>
+        <div class="variant-badge">🔀${letter}</div>
+      </div>
+    `;
+    frag.appendChild(connEl);
+    return;
+  }
+
+  if (hasParallel) {
     const connEl = document.createElement('div');
     connEl.className = 'col-connector parallel-connector';
     connEl.innerHTML = `<div class="parallel-line"></div><div class="parallel-badge">||</div>`;
@@ -1564,7 +1585,7 @@ function renderConnector({ frag, activeSheet, colIdx, variantLetterMap }) {
     return;
   }
 
-  if (nextCol.isVariant) {
+  if (hasVariant) {
     const letter = variantLetterMap?.[nextVisibleIdx] || 'A';
     const connEl = document.createElement('div');
     connEl.className = 'col-connector variant-connector';
@@ -1575,7 +1596,6 @@ function renderConnector({ frag, activeSheet, colIdx, variantLetterMap }) {
 
   const connEl = document.createElement('div');
   connEl.className = 'col-connector';
-
   connEl.innerHTML = `
       <div class="connector-active">
       </div>
