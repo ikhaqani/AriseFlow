@@ -7,7 +7,8 @@
 // - FIX: Input kan ook een bundel zijn (bundelnaam -> OUTx; OUTy) voor compacte input in post-it/export
 // - FIX: Input-tekst bij link gebruikt output-tekst (outTextByUid / outTextByOutId) indien beschikbaar
 // - FIX: Output IDs zijn project-breed stabiel (op basis van outputUid + sheet/kolom volgorde + merge-slaves overslaan)
-// - FIX: Systemen kolom in Excel vult ook als je alleen direct tekst op de Systeem post-it hebt gezet (slot[1].text)
+// - FIX (NIEUW): Systeem export werkt ook als je systeemnaam direct in de post-it hebt getypt (slot.text),
+//                dus zonder “multi-systeem” toggle / systemsMeta.
 
 import { state } from './state.js';
 import { Toast } from './toast.js';
@@ -104,11 +105,14 @@ function sanitizeMergeGroupForSheet(sheet, g) {
     slotIdx === 4 && g?.gate && typeof g.gate === 'object'
       ? {
           enabled: !!g.gate.enabled,
-          failTargetColIdx: Number.isFinite(Number(g.gate.failTargetColIdx)) ? Number(g.gate.failTargetColIdx) : null
+          failTargetColIdx: Number.isFinite(Number(g.gate.failTargetColIdx))
+            ? Number(g.gate.failTargetColIdx)
+            : null
         }
       : null;
 
-  const systemsMeta = slotIdx === 1 && g?.systemsMeta && typeof g.systemsMeta === 'object' ? g.systemsMeta : null;
+  const systemsMeta =
+    slotIdx === 1 && g?.systemsMeta && typeof g.systemsMeta === 'object' ? g.systemsMeta : null;
 
   return { slotIdx, cols: uniq.sort((a, b) => a - b), master, gate, systemsMeta };
 }
@@ -120,7 +124,11 @@ function getMergeGroupsSanitized(project, sheet) {
 }
 
 function getMergeGroupForCell(groups, colIdx, slotIdx) {
-  return (groups || []).find((x) => x.slotIdx === slotIdx && Array.isArray(x.cols) && x.cols.includes(colIdx)) || null;
+  return (
+    (groups || []).find(
+      (x) => x.slotIdx === slotIdx && Array.isArray(x.cols) && x.cols.includes(colIdx)
+    ) || null
+  );
 }
 
 function isMergedSlaveInSheet(groups, colIdx, slotIdx) {
@@ -326,10 +334,8 @@ function resolveLinkedSourcesToOutPairs(sources, outIdByUid, outTextByUid, outTe
 
 /* ==========================================================================
    OUTPUT bundels (bundelnaam -> OUTx; OUTy) voor compacte input
-   - Ondersteunt zowel:
-     * project.outputBundles = [{ id, name, outIds: ['OUT1','OUT2'] }]
-     * project.outputBundles = [{ id, name, outputUids: ['out_x..','out_y..'] }] (fallback)
-   - inputSlot: linkedBundleId (string) of linkedBundleIds (array)
+   Verwacht in project: project.outputBundles = [{ id, name, outIds: [] }]
+   Verwacht in inputSlot: linkedBundleId (string) of linkedBundleIds (array)
    ========================================================================== */
 
 function normalizeLinkedBundles(inputSlot) {
@@ -359,6 +365,7 @@ function normalizeLinkedBundles(inputSlot) {
 }
 
 function buildBundleMaps(project, outIdByUid, outTextByUid, outTextByOutId) {
+  buildGlobalOutputMaps(project); // no-op safety (ensures uids exist)
   const nameById = {};
   const outIdsById = {};
   const outTextsById = {};
@@ -374,39 +381,30 @@ function buildBundleMaps(project, outIdByUid, outTextByUid, outTextByOutId) {
     const name = String(b.name ?? '').trim();
     nameById[id] = name || id;
 
-    // Preferred: outIds (OUT1, OUT2, ...)
-    const outIds = Array.isArray(b.outIds) ? b.outIds : null;
-
-    // Fallback: outputUids
-    const uids = Array.isArray(b.outputUids) ? b.outputUids : null;
+    // NEW schema: outIds (OUT1..), legacy: outputUids
+    const rawOutIds = Array.isArray(b.outIds) ? b.outIds : [];
+    const rawUids = Array.isArray(b.outputUids) ? b.outputUids : [];
 
     const ids = [];
     const texts = [];
 
-    if (outIds && outIds.length) {
-      outIds.forEach((o) => {
-        const outId = String(o ?? '').trim();
-        if (!outId) return;
+    rawOutIds.forEach((oid) => {
+      const outId = String(oid ?? '').trim();
+      if (!outId) return;
+      ids.push(outId);
+      texts.push(String(outTextByOutId?.[outId] ?? '').trim() || outId);
+    });
 
-        const outText = String(outTextByOutId?.[outId] ?? '').trim() || outId;
-        ids.push(outId);
-        texts.push(outText);
-      });
-    } else if (uids && uids.length) {
-      uids.forEach((u) => {
-        const uid = String(u ?? '').trim();
-        if (!uid) return;
+    rawUids.forEach((u) => {
+      const uid = String(u ?? '').trim();
+      if (!uid) return;
+      const outId = String(outIdByUid?.[uid] ?? '').trim() || uid;
+      ids.push(outId);
+      texts.push(String(outTextByUid?.[uid] ?? '').trim() || outId);
+    });
 
-        const outId = String(outIdByUid?.[uid] ?? '').trim() || uid;
-        const outText = String(outTextByUid?.[uid] ?? '').trim() || outId;
-
-        ids.push(outId);
-        texts.push(outText);
-      });
-    }
-
-    outIdsById[id] = ids;
-    outTextsById[id] = texts;
+    outIdsById[id] = [...new Set(ids.filter(Boolean))];
+    outTextsById[id] = texts.filter(Boolean);
   });
 
   return { nameById, outIdsById, outTextsById };
@@ -445,11 +443,11 @@ function resolveBundleIdsToLists(bundleIds, bundleMaps) {
    ========================================================================== */
 
 const SYSFIT_Q = [
-  { id: 'q1', title: 'Hoe vaak dwingt het systeem je tot workarounds?', type: 'freq' }, // Systeem workarounds
-  { id: 'q2', title: 'Hoe vaak remt het systeem je af?', type: 'freq' }, // Belemmering
-  { id: 'q3', title: 'Hoe vaak moet je gegevens dubbel registreren?', type: 'freq' }, // Dubbel registreren
-  { id: 'q4', title: 'Hoe vaak laat het systeem ruimte voor fouten?', type: 'freq' }, // Foutgevoeligheid
-  { id: 'q5', title: 'Wat is de impact bij systeemuitval?', type: 'impact' } // Gevolg bij uitval
+  { id: 'q1', title: 'Hoe vaak dwingt het systeem je tot workarounds?', type: 'freq' },
+  { id: 'q2', title: 'Hoe vaak remt het systeem je af?', type: 'freq' },
+  { id: 'q3', title: 'Hoe vaak moet je gegevens dubbel registreren?', type: 'freq' },
+  { id: 'q4', title: 'Hoe vaak laat het systeem ruimte voor fouten?', type: 'freq' },
+  { id: 'q5', title: 'Wat is de impact bij systeemuitval?', type: 'impact' }
 ];
 
 const SYSFIT_OPTS = {
@@ -466,6 +464,62 @@ const SYSFIT_OPTS = {
     { key: 'STOP', label: 'Volledige stilstand', score: 0 }
   ]
 };
+
+// NEW: bouw een bruikbare meta-structuur als de gebruiker alleen slot.text heeft ingevuld.
+function buildSystemsMetaFallbackFromSlot(sysSlot) {
+  const slot = sysSlot && typeof sysSlot === 'object' ? sysSlot : {};
+  const sd = slot.systemData && typeof slot.systemData === 'object' ? slot.systemData : null;
+
+  // 1) Nieuwe vorm: sd.systemsMeta.systems
+  const meta = sd?.systemsMeta && typeof sd.systemsMeta === 'object' ? sd.systemsMeta : null;
+  if (Array.isArray(meta?.systems)) {
+    return {
+      multi: !!meta.multi || meta.systems.length > 1,
+      systems: meta.systems.map((s) => ({
+        name: String(s?.name ?? '').trim(),
+        legacy: !!(s?.legacy ?? s?.isLegacy),
+        future: String(s?.future ?? s?.futureSystem ?? '').trim(),
+        qa: s?.qa && typeof s.qa === 'object' ? { ...s.qa } : {},
+        score: Number.isFinite(Number(s?.score ?? s?.calculatedScore)) ? Number(s?.score ?? s?.calculatedScore) : null
+      }))
+    };
+  }
+
+  // 2) Legacy vorm: sd.systems (uit oudere tabs)
+  if (Array.isArray(sd?.systems)) {
+    const arr = sd.systems
+      .map((s) => ({
+        name: String(s?.name ?? '').trim(),
+        legacy: !!(s?.legacy ?? s?.isLegacy),
+        future: String(s?.future ?? s?.futureSystem ?? '').trim(),
+        qa: s?.qa && typeof s.qa === 'object' ? { ...s.qa } : {},
+        score: Number.isFinite(Number(s?.score ?? s?.calculatedScore)) ? Number(s?.score ?? s?.calculatedScore) : null
+      }))
+      .filter((x) => x.name || x.future || x.legacy || Object.keys(x.qa || {}).length);
+
+    if (arr.length) return { multi: arr.length > 1, systems: arr };
+  }
+
+  // 3) Enkel systeem uit sd.systemName
+  const nameFromSd = String(sd?.systemName ?? '').trim();
+  if (nameFromSd) {
+    return {
+      multi: false,
+      systems: [{ name: nameFromSd, legacy: false, future: '', qa: {}, score: null }]
+    };
+  }
+
+  // 4) Cruciale fallback: direct getypte post-it tekst (slot.text)
+  const nameFromText = String(slot?.text ?? '').trim();
+  if (nameFromText) {
+    return {
+      multi: false,
+      systems: [{ name: nameFromText, legacy: false, future: '', qa: {}, score: null }]
+    };
+  }
+
+  return null;
+}
 
 function sanitizeSystemsMeta(meta) {
   if (!meta || typeof meta !== 'object') return null;
@@ -536,7 +590,10 @@ function systemsToLists(meta) {
   const systems = clean?.systems || [];
 
   const names = systems.map((s) => String(s?.name || '').trim()).filter(Boolean);
-  const legacyNames = systems.filter((s) => !!s.legacy).map((s) => String(s?.name || '').trim()).filter(Boolean);
+  const legacyNames = systems
+    .filter((s) => !!s.legacy)
+    .map((s) => String(s?.name || '').trim())
+    .filter(Boolean);
   const targetNames = systems
     .filter((s) => !!s.legacy)
     .map((s) => String(s?.future || '').trim())
@@ -562,35 +619,7 @@ function systemsToLists(meta) {
     foutgevoeligheid: joinSemi(foutgevoelig),
     gevolgUitval: joinSemi(uitvalImpact),
     ttfScores: joinSemi(ttfScores),
-    systemsCount: systems.length
-  };
-}
-
-/* ==========================================================================
-   System meta fallback uit post-it tekst (slot[1].text)
-   ========================================================================== */
-
-function buildSystemsMetaFromSlotText(systemSlotText) {
-  const raw = String(systemSlotText ?? '').trim();
-  if (!raw) return null;
-
-  // Als iemand "EPIC; ARIA" typt op de post-it, blijven we consistent met ";"-model.
-  const parts = raw
-    .split(';')
-    .map((x) => String(x ?? '').trim())
-    .filter(Boolean);
-
-  if (!parts.length) return null;
-
-  return {
-    multi: parts.length > 1,
-    systems: parts.map((name) => ({
-      name,
-      legacy: false,
-      future: '',
-      qa: {},
-      score: null
-    }))
+    systemsCount: Math.max(1, systems.length)
   };
 }
 
@@ -917,16 +946,19 @@ export function exportToCSV() {
 
         const leverancier = String(col?.slots?.[0]?.text ?? '').trim();
 
-        // Systems meta:
-        // 1) bij System-merge: neem meta van mergeGroup
-        // 2) anders uit slot.systemData.systemsMeta
-        // 3) anders fallback uit directe post-it tekst (slot[1].text)
-        const sysGroup = getMergeGroupForCell(mergeGroups, colIdx, 1);
+        // ============================
+        // SYSTEMS (FIX: fallback slot.text)
+        // ============================
         const sysSlot = col?.slots?.[1] || {};
+        const sysGroup = getMergeGroupForCell(mergeGroups, colIdx, 1);
+
+        // 1) bij system-merge: group.systemsMeta heeft prioriteit
+        // 2) anders: uit slot.systemData (systemsMeta/systems/systemName)
+        // 3) anders: slot.text (direct getypte post-it)
         const sysMeta =
           sysGroup?.systemsMeta ||
           sysSlot?.systemData?.systemsMeta ||
-          buildSystemsMetaFromSlotText(sysSlot?.text);
+          buildSystemsMetaFallbackFromSlot(sysSlot);
 
         const sysLists = systemsToLists(sysMeta);
         const systemsCount = sysLists.systemsCount;
@@ -964,14 +996,11 @@ export function exportToCSV() {
         const partsId = [];
         const partsText = [];
 
-        // Als bundel actief is: inputId/inputText worden bundelnamen (compact),
-        // en de inhoud van de bundel gaat naar aparte kolommen (Bundel Output IDs / teksten).
         if (bundleResolved.bundleNames.length) {
           partsId.push(...bundleResolved.bundleNames);
           partsText.push(...bundleResolved.bundleNames);
         }
 
-        // Losse links blijven gewoon OUTx; OUTy
         if (resolved.ids.length) {
           partsId.push(...resolved.ids);
           partsText.push(...resolved.texts);
@@ -1016,7 +1045,9 @@ export function exportToCSV() {
         const leanwaarde = getLeanValueLabel(procSlot?.processValue ?? '');
         const statusProces = getProcessStatusLabel(procSlot?.processStatus ?? '');
 
-        const oorzaken = Array.isArray(procSlot?.causes) ? joinSemi(procSlot.causes) : String(procSlot?.causes ?? '').trim();
+        const oorzaken = Array.isArray(procSlot?.causes)
+          ? joinSemi(procSlot.causes)
+          : String(procSlot?.causes ?? '').trim();
         const maatregelen = Array.isArray(procSlot?.improvements)
           ? joinSemi(procSlot.improvements)
           : String(procSlot?.improvements ?? '').trim();

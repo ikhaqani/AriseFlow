@@ -628,14 +628,17 @@ body {
 .slot {
     position: relative;
     display: flex;
-    height: var(--slot-min-height);
+    min-height: var(--slot-min-height);
+    height: auto;
+    align-items: stretch;
 }
 
 .sticky {
     position: relative;
     flex: 1;
     z-index: 1;
-    height: 100%;
+    height: auto;
+    min-height: var(--slot-min-height);
     padding: 0;
     display: flex;
     flex-direction: column;
@@ -681,8 +684,8 @@ body {
     flex-direction: column;
     padding: 22px 10px;
     cursor: text;
-    overflow: hidden;
-    height: 100%;
+    overflow: visible;
+    height: auto;
     box-sizing: border-box;
 }
 
@@ -700,8 +703,8 @@ body {
     unicode-bidi: plaintext;
     flex: 1 1 auto;
     min-height: 0;
-    overflow: hidden;
-    text-overflow: ellipsis;
+    overflow: visible;
+    text-overflow: unset;
 }
 
 /* Merged items */

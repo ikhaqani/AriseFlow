@@ -1493,7 +1493,21 @@ function syncRowHeightsNow() {
   const cols = colsContainer?.querySelectorAll?.('.col');
   if (!cols || !cols.length) return;
 
-  const heights = Array(6).fill(160);
+  // 1) Reset heights so content can naturally expand before measuring.
+  for (let r = 0; r < 6; r++) {
+    if (rowHeaders[r]) rowHeaders[r].style.height = 'auto';
+    cols.forEach((col) => {
+      const slotNodes = col.querySelectorAll('.slots .slot');
+      if (!slotNodes[r]) return;
+      slotNodes[r].style.height = 'auto';
+      const sticky = slotNodes[r].firstElementChild;
+      if (sticky) sticky.style.height = 'auto';
+    });
+  }
+
+  // 2) Measure tallest sticky per row after reset.
+  const MIN_ROW_HEIGHT = 160;
+  const heights = Array(6).fill(MIN_ROW_HEIGHT);
 
   cols.forEach((col) => {
     const slotNodes = col.querySelectorAll('.slots .slot');
@@ -1502,11 +1516,15 @@ function syncRowHeightsNow() {
       if (!slot) continue;
       const sticky = slot.firstElementChild;
       if (!sticky) continue;
-      const h = sticky.offsetHeight;
+
+      // Use scrollHeight as source-of-truth for content growth.
+      // Add a small buffer for borders/shadows.
+      const h = Math.ceil(Math.max(sticky.scrollHeight || 0, sticky.getBoundingClientRect?.().height || 0)) + 2;
       if (h > heights[r]) heights[r] = h;
     }
   });
 
+  // 3) Apply unified heights across all columns per row.
   for (let r = 0; r < 6; r++) {
     const hStr = `${heights[r]}px`;
     if (rowHeaders[r]) rowHeaders[r].style.height = hStr;
@@ -1517,6 +1535,7 @@ function syncRowHeightsNow() {
     });
   }
 
+  // Keep connector vertical alignment correct.
   const gapSize = 20;
   const processOffset = heights[0] + heights[1] + heights[2] + 3 * gapSize;
 
@@ -1799,6 +1818,7 @@ function renderMergedOverlays(openModalFn) {
         () => {
           if (g.slotIdx === 1 && g.systemsMeta) return;
           state.updateStickyText(masterCol, g.slotIdx, txt.textContent);
+          scheduleSyncRowHeights();
         },
         { passive: true }
       );
@@ -1999,6 +2019,7 @@ function renderColumnsOnly(openModalFn) {
           'input',
           () => {
             state.updateStickyText(colIdx, slotIdx, textEl.textContent);
+            scheduleSyncRowHeights();
           },
           { passive: true }
         );
@@ -2006,6 +2027,7 @@ function renderColumnsOnly(openModalFn) {
           'blur',
           () => {
             state.updateStickyText(colIdx, slotIdx, textEl.textContent);
+            scheduleSyncRowHeights();
           },
           { passive: true }
         );
