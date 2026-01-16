@@ -709,21 +709,21 @@ body {
 
 /* Merged items */
 .sticky.merged-source {
-    height: var(--slot-min-height) !important;
-    max-height: var(--slot-min-height) !important;
-    overflow: hidden !important;
+    height: auto !important;
+    max-height: none !important;
+    overflow: visible !important;
     transform: none !important;
     box-shadow: none !important;
 }
 
 .sticky.merged-source .sticky-content {
-    padding: 0 !important;
-    overflow: hidden !important;
+    padding: 22px 10px !important;
+    overflow: visible !important;
 }
 
 .sticky.merged-source .text {
-    max-height: var(--slot-min-height) !important;
-    overflow: hidden !important;
+    max-height: none !important;
+    overflow: visible !important;
 }
 
 .merged-overlay {
@@ -922,7 +922,7 @@ body {
     flex-direction: column;
     box-sizing: border-box;
     font-family: inherit;
-    overflow: hidden;
+    overflow: visible;
 }
 
 .auth-header {
@@ -987,10 +987,10 @@ body {
     font-weight: var(--sticky-font-weight);
     color: rgba(0,0,0,.88);
     line-height: 1.15;
-    display: -webkit-box;
-    -webkit-box-orient: vertical;
-    -webkit-line-clamp: 2;
-    overflow: hidden;
+    display: block;
+    white-space: pre-wrap;
+    word-break: break-word;
+    overflow: visible;
 }
 
 .auth-footer {
@@ -1032,10 +1032,11 @@ body {
 .logic-val {
     font-weight: 800;
     text-align: right;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    max-width: 140px;
+    white-space: normal;
+    word-break: break-word;
+    overflow: visible;
+    text-overflow: unset;
+    max-width: none;
 }
 
 .logic-line.fail .logic-key,
@@ -1120,10 +1121,10 @@ body {
 .sticky.is-auth-gate .auth-footer .logic-line > span:nth-child(3) {
     font-weight: 850 !important;
     opacity: .94 !important;
-    max-width: 260px !important;
-    overflow: hidden !important;
-    text-overflow: ellipsis !important;
-    white-space: nowrap !important;
+    max-width: none !important;
+    overflow: visible !important;
+    text-overflow: unset !important;
+    white-space: normal !important;
     letter-spacing: .1px !important;
 }
 

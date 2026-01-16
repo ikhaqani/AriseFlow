@@ -1524,6 +1524,11 @@ function syncRowHeightsNow() {
     }
   });
 
+  // 2b) Make ALL rows the same height for consistent layout across the entire board.
+  //     If one row grows, every row grows to match the largest row.
+  const globalMax = Math.max(...heights);
+  for (let r = 0; r < 6; r++) heights[r] = globalMax;
+
   // 3) Apply unified heights across all columns per row.
   for (let r = 0; r < 6; r++) {
     const hStr = `${heights[r]}px`;
