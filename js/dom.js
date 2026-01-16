@@ -1569,8 +1569,8 @@ function renderConnector({ frag, activeSheet, colIdx, variantLetterMap }) {
     connEl.className = 'col-connector combo-connector';
     connEl.innerHTML = `
       <div class="combo-badge-stack">
-        <div class="parallel-badge">||</div>
         <div class="variant-badge">🔀${letter}</div>
+        <div class="parallel-badge">||</div>
       </div>
     `;
     frag.appendChild(connEl);
