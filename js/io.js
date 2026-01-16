@@ -1,19 +1,31 @@
-// io.js (VOLLEDIG - AANGEPAST)
-// -----------------------------------------------------------
+// io.js (VOLLEDIG - EXPORT AS-IS CSV + JSON + HD)
+// - 1 rij per proceskolom (geen 6 rijen per SSIPOC-slot)
+// - Alle multi-waarden in 1 cel gescheiden door ";" (aligned per systeem waar van toepassing)
+// - Disruptions/oorzaken/maatregelen/toelichtingen ook ";"-gescheiden
+// - FIX: Input kan gelinkt zijn aan OUTx via linkedSourceId óf linkedSourceUid -> beide worden als OUTx geëxporteerd
+// - FIX: Input-tekst bij link gebruikt output-tekst (outTextByUid / outTextByOutId) indien beschikbaar
+// - FIX: Output IDs zijn project-breed stabiel (op basis van outputUid + sheet/kolom volgorde + merge-slaves overslaan)
+
 import { state } from './state.js';
 import { Toast } from './toast.js';
 import { IO_CRITERIA } from './config.js';
 
 const MERGE_LS_PREFIX = 'ssipoc.mergeGroups.v2';
 
-/* =========================================================
+/* ==========================================================================
    CSV helpers
-   ========================================================= */
+   ========================================================================== */
 
 function toCsvField(text) {
   if (text === null || text === undefined) return '""';
   const str = String(text);
   return `"${str.replace(/"/g, '""').replace(/\r?\n/g, ' ')}"`;
+}
+
+function joinSemi(arr) {
+  const a = Array.isArray(arr) ? arr : [];
+  const cleaned = a.map((x) => String(x ?? '').trim()).filter((x) => x !== '');
+  return cleaned.join('; ');
 }
 
 function getFileName(ext) {
@@ -43,83 +55,9 @@ function downloadCanvas(canvas) {
   a.click();
 }
 
-/* =========================================================
-   Scoring / formatting
-   ========================================================= */
-
-function calculateLSSScore(qa) {
-  if (!qa) return null;
-
-  let totalW = 0;
-  let earnedW = 0;
-
-  IO_CRITERIA.forEach((c) => {
-    const val = qa?.[c.key]?.result;
-    const isScored = ['GOOD', 'POOR', 'MODERATE', 'MINOR', 'FAIL', 'OK', 'NOT_OK'].includes(val);
-    if (!isScored) return;
-
-    totalW += c.weight;
-
-    if (val === 'GOOD' || val === 'OK') earnedW += c.weight;
-    else if (val === 'MINOR') earnedW += c.weight * 0.75;
-    else if (val === 'MODERATE') earnedW += c.weight * 0.5;
-  });
-
-  return totalW === 0 ? null : Math.round((earnedW / totalW) * 100);
-}
-
-function yesNo(v) {
-  return v ? 'Ja' : 'Nee';
-}
-
-function safeText(v) {
-  return String(v ?? '').trim();
-}
-
-function formatInputSpecs(defs) {
-  if (!Array.isArray(defs) || defs.length === 0) return '';
-  return defs
-    .filter((d) => d && (d.item || d.specifications || d.type))
-    .map((d) => {
-      const item = safeText(d.item);
-      const specs = safeText(d.specifications);
-      const type = safeText(d.type);
-      const main = [item, specs].filter(Boolean).join(': ');
-      return type ? `${main} (${type})` : main;
-    })
-    .filter(Boolean)
-    .join(' | ');
-}
-
-function formatDisruptions(disruptions) {
-  if (!Array.isArray(disruptions) || disruptions.length === 0) return '';
-  return disruptions
-    .filter((d) => d && (d.scenario || d.frequency || d.workaround))
-    .map((d) => {
-      const scenario = safeText(d.scenario);
-      const freq = safeText(d.frequency);
-      const workaround = safeText(d.workaround);
-      const left = [scenario, freq].filter(Boolean).join(' - ');
-      return workaround ? `${left}: ${workaround}` : left;
-    })
-    .filter(Boolean)
-    .join(' | ');
-}
-
-function formatWorkjoy(slot) {
-  const v = slot?.workExp ?? slot?.workjoy ?? slot?.workJoy ?? null;
-  if (!v) return { value: '', label: '', icon: '', context: '' };
-
-  const V = String(v);
-  if (V === 'OBSTACLE') return { value: V, label: 'Obstakel', icon: '🛠️', context: 'Kost energie & frustreert.' };
-  if (V === 'ROUTINE') return { value: V, label: 'Routine', icon: '🤖', context: 'Saai & repeterend.' };
-  if (V === 'FLOW') return { value: V, label: 'Flow', icon: '🚀', context: 'Geeft energie & voldoening.' };
-  return { value: V, label: '', icon: '', context: '' };
-}
-
-/* =========================================================
-   Merge helpers (localStorage)
-   ========================================================= */
+/* ==========================================================================
+   Merge groups (System + Output) — gelezen uit localStorage
+   ========================================================================== */
 
 function mergeKeyForSheet(project, sheet) {
   const pid = project?.id || project?.name || project?.projectTitle || 'project';
@@ -138,20 +76,23 @@ function loadMergeGroupsRaw(project, sheet) {
   }
 }
 
-function isContiguous(cols) {
+function isContiguousZeroBased(cols) {
   if (!Array.isArray(cols) || cols.length < 2) return false;
   const s = [...new Set(cols)].sort((a, b) => a - b);
   return s.length === s[s.length - 1] - s[0] + 1;
 }
 
-function sanitizeMergeGroup(g, colCount) {
+function sanitizeMergeGroupForSheet(sheet, g) {
+  const n = sheet?.columns?.length ?? 0;
+  if (!n) return null;
+
   const slotIdx = Number(g?.slotIdx);
   if (![1, 4].includes(slotIdx)) return null;
 
   const cols = Array.isArray(g?.cols) ? g.cols.map((x) => Number(x)).filter(Number.isFinite) : [];
-  const uniq = [...new Set(cols)].filter((c) => c >= 0 && c < colCount);
+  const uniq = [...new Set(cols)].filter((c) => c >= 0 && c < n);
   if (uniq.length < 2) return null;
-  if (!isContiguous(uniq)) return null;
+  if (!isContiguousZeroBased(uniq)) return null;
 
   let master = Number(g?.master);
   if (!Number.isFinite(master) || !uniq.includes(master)) master = uniq[0];
@@ -160,9 +101,7 @@ function sanitizeMergeGroup(g, colCount) {
     slotIdx === 4 && g?.gate && typeof g.gate === 'object'
       ? {
           enabled: !!g.gate.enabled,
-          failTargetColIdx: Number.isFinite(Number(g.gate.failTargetColIdx))
-            ? Number(g.gate.failTargetColIdx)
-            : null
+          failTargetColIdx: Number.isFinite(Number(g.gate.failTargetColIdx)) ? Number(g.gate.failTargetColIdx) : null
         }
       : null;
 
@@ -172,10 +111,8 @@ function sanitizeMergeGroup(g, colCount) {
 }
 
 function getMergeGroupsSanitized(project, sheet) {
-  const n = sheet?.columns?.length ?? 0;
-  if (!n) return [];
   return loadMergeGroupsRaw(project, sheet)
-    .map((g) => sanitizeMergeGroup(g, n))
+    .map((g) => sanitizeMergeGroupForSheet(sheet, g))
     .filter(Boolean);
 }
 
@@ -183,21 +120,9 @@ function getMergeGroupForCell(groups, colIdx, slotIdx) {
   return (groups || []).find((x) => x.slotIdx === slotIdx && Array.isArray(x.cols) && x.cols.includes(colIdx)) || null;
 }
 
-function getMergeRangeString(group) {
-  if (!group?.cols?.length) return '';
-  const min = Math.min(...group.cols) + 1;
-  const max = Math.max(...group.cols) + 1;
-  return min === max ? String(min) : `${min}-${max}`;
-}
-
-/* =========================================================
-   Routing helpers
-   ========================================================= */
-
-function getProcessLabel(sheet, colIdx) {
-  const t = sheet?.columns?.[colIdx]?.slots?.[3]?.text;
-  const s = safeText(t);
-  return s || `Kolom ${Number(colIdx) + 1}`;
+function isMergedSlaveInSheet(groups, colIdx, slotIdx) {
+  const g = getMergeGroupForCell(groups, colIdx, slotIdx);
+  return !!g && colIdx !== g.master;
 }
 
 function getNextVisibleColIdx(sheet, fromIdx) {
@@ -208,24 +133,30 @@ function getNextVisibleColIdx(sheet, fromIdx) {
   return null;
 }
 
+function getProcessLabel(sheet, colIdx) {
+  const t = sheet?.columns?.[colIdx]?.slots?.[3]?.text;
+  const s = String(t ?? '').trim();
+  return s || `Kolom ${Number(colIdx) + 1}`;
+}
+
 function getPassTargetFromGroup(sheet, group) {
-  if (!group?.cols?.length) return { label: '', col: '' };
+  if (!group?.cols?.length) return '';
   const maxCol = Math.max(...group.cols);
   const nextIdx = getNextVisibleColIdx(sheet, maxCol);
-  if (nextIdx == null) return { label: 'Einde proces', col: '' };
-  return { label: getProcessLabel(sheet, nextIdx), col: String(nextIdx + 1) };
+  if (nextIdx == null) return 'Einde proces';
+  return getProcessLabel(sheet, nextIdx);
 }
 
 function getFailTargetFromGate(sheet, gate) {
-  if (!gate?.enabled) return { label: '', col: '' };
+  if (!gate?.enabled) return '';
   const idx = gate.failTargetColIdx;
-  if (idx == null || !Number.isFinite(Number(idx))) return { label: '', col: '' };
-  return { label: getProcessLabel(sheet, idx), col: String(Number(idx) + 1) };
+  if (idx == null || !Number.isFinite(Number(idx))) return '';
+  return getProcessLabel(sheet, idx);
 }
 
-/* =========================================================
-   Variant helpers
-   ========================================================= */
+/* ==========================================================================
+   Variant route letters
+   ========================================================================== */
 
 function toLetter(i0) {
   const n = Number(i0);
@@ -262,9 +193,78 @@ function computeVariantLetterMap(sheet) {
   return map;
 }
 
-/* =========================================================
-   Systems meta formatting (multi-system)
-   ========================================================= */
+/* ==========================================================================
+   Output ID stabilisatie (outputUid -> OUTx) + Output tekst maps
+   ========================================================================== */
+
+function makeId(prefix = 'id') {
+  if (typeof crypto !== 'undefined' && typeof crypto.randomUUID === 'function') {
+    return `${prefix}_${crypto.randomUUID()}`;
+  }
+  return `${prefix}_${Date.now()}_${Math.random().toString(16).slice(2)}`;
+}
+
+function buildGlobalOutputMaps(project) {
+  const outIdByUid = {};
+  const outTextByUid = {};
+  const outTextByOutId = {};
+
+  let outCounter = 0;
+
+  (project?.sheets || []).forEach((sheet) => {
+    const groups = getMergeGroupsSanitized(project, sheet);
+
+    (sheet?.columns || []).forEach((col, colIdx) => {
+      if (col?.isVisible === false) return;
+
+      const outSlot = col?.slots?.[4];
+      const outText = String(outSlot?.text ?? '').trim();
+      if (!outText) return;
+
+      if (isMergedSlaveInSheet(groups, colIdx, 4)) return;
+
+      if (!outSlot.outputUid || String(outSlot.outputUid).trim() === '') {
+        outSlot.outputUid = makeId('out');
+      }
+
+      outCounter += 1;
+      const outId = `OUT${outCounter}`;
+
+      outIdByUid[outSlot.outputUid] = outId;
+      outTextByUid[outSlot.outputUid] = outText;
+      outTextByOutId[outId] = outText;
+    });
+  });
+
+  return { outIdByUid, outTextByUid, outTextByOutId };
+}
+
+/* ==========================================================================
+   Systems meta + TTF (per systeem)
+   ========================================================================== */
+
+const SYSFIT_Q = [
+  { id: 'q1', title: 'Hoe vaak dwingt het systeem je tot workarounds?', type: 'freq' }, // Systeem workarounds
+  { id: 'q2', title: 'Hoe vaak remt het systeem je af?', type: 'freq' }, // Belemmering
+  { id: 'q3', title: 'Hoe vaak moet je gegevens dubbel registreren?', type: 'freq' }, // Dubbel registreren
+  { id: 'q4', title: 'Hoe vaak laat het systeem ruimte voor fouten?', type: 'freq' }, // Foutgevoeligheid
+  { id: 'q5', title: 'Wat is de impact bij systeemuitval?', type: 'impact' } // Gevolg bij uitval
+];
+
+const SYSFIT_OPTS = {
+  freq: [
+    { key: 'NEVER', label: '(Bijna) nooit', score: 1 },
+    { key: 'SOMETIMES', label: 'Soms', score: 0.66 },
+    { key: 'OFTEN', label: 'Vaak', score: 0.33 },
+    { key: 'ALWAYS', label: '(Bijna) altijd', score: 0 }
+  ],
+  impact: [
+    { key: 'SAFE', label: 'Veilig (Fallback)', score: 1 },
+    { key: 'DELAY', label: 'Vertraging', score: 0.66 },
+    { key: 'RISK', label: 'Groot risico', score: 0.33 },
+    { key: 'STOP', label: 'Volledige stilstand', score: 0 }
+  ]
+};
 
 function sanitizeSystemsMeta(meta) {
   if (!meta || typeof meta !== 'object') return null;
@@ -274,9 +274,9 @@ function sanitizeSystemsMeta(meta) {
     .map((s) => {
       if (!s || typeof s !== 'object') return null;
       return {
-        name: safeText(s.name),
+        name: String(s.name ?? '').trim(),
         legacy: !!s.legacy,
-        future: safeText(s.future),
+        future: String(s.future ?? '').trim(),
         qa: s.qa && typeof s.qa === 'object' ? { ...s.qa } : {},
         score: Number.isFinite(Number(s.score)) ? Number(s.score) : null
       };
@@ -290,72 +290,257 @@ function sanitizeSystemsMeta(meta) {
   return { multi, systems };
 }
 
-function formatSystemsList(meta) {
-  const clean = sanitizeSystemsMeta(meta);
-  if (!clean) return { names: '', scores: '', legacyFuture: '', answersJson: '' };
+function computeTTFSystemScore(sys) {
+  const qa = sys?.qa && typeof sys.qa === 'object' ? sys.qa : {};
+  let sum = 0;
+  let nAns = 0;
 
-  const names = clean.systems
-    .map((s) => {
-      const nm = safeText(s.name);
-      if (!nm) return '';
-      return s.legacy ? `${nm} (Legacy)` : nm;
-    })
-    .filter(Boolean)
-    .join(' | ');
+  for (const q of SYSFIT_Q) {
+    const ansKey = qa[q.id];
+    if (!ansKey) continue;
+    const opt = (SYSFIT_OPTS[q.type] || []).find((o) => o.key === ansKey);
+    if (!opt) continue;
+    sum += opt.score;
+    nAns += 1;
+  }
 
-  const scores = clean.systems.map((s) => (Number.isFinite(Number(s.score)) ? `${Number(s.score)}%` : '—')).join('; ');
-
-  const legacyFuture = clean.systems
-    .filter((s) => s.legacy && (safeText(s.name) || safeText(s.future)))
-    .map((s) => `${safeText(s.name) || '—'} -> ${safeText(s.future) || '—'}`)
-    .join(' | ');
-
-  const answersJson = (() => {
-    const payload = clean.systems.map((s) => ({
-      name: s.name || '',
-      legacy: !!s.legacy,
-      future: s.future || '',
-      score: Number.isFinite(Number(s.score)) ? Number(s.score) : null,
-      qa: s.qa || {}
-    }));
-    try {
-      return JSON.stringify(payload);
-    } catch {
-      return '';
-    }
-  })();
-
-  return { names, scores, legacyFuture, answersJson };
+  if (nAns === 0) return null;
+  return Math.round((sum / nAns) * 100);
 }
 
-/* =========================================================
-   Output ID map (OUT1..)
-   ========================================================= */
+function getSysAnswerLabel(sys, qid) {
+  const qa = sys?.qa && typeof sys.qa === 'object' ? sys.qa : {};
+  const q = SYSFIT_Q.find((x) => x.id === qid);
+  if (!q) return '';
+  const key = qa[qid];
+  if (!key) return '';
+  const opt = (SYSFIT_OPTS[q.type] || []).find((o) => o.key === key);
+  return opt?.label || '';
+}
 
-function buildOutputMaps(sheet, mergeGroups) {
-  const outIdBySlotId = {};
-  const outTextByOutId = {};
-  let outCounter = 0;
+function computeTTFScoreListFromMeta(meta) {
+  const clean = sanitizeSystemsMeta(meta);
+  if (!clean?.systems?.length) return [];
 
-  sheet.columns.forEach((col, colIdx) => {
-    const sOut = col?.slots?.[4];
-    if (!sOut?.text?.trim()) return;
+  return clean.systems.map((s) => {
+    const stored = s?.score;
+    if (Number.isFinite(Number(stored))) return Number(stored);
+    const computed = computeTTFSystemScore(s);
+    return Number.isFinite(Number(computed)) ? Number(computed) : null;
+  });
+}
 
-    const g = getMergeGroupForCell(mergeGroups, colIdx, 4);
-    if (g && colIdx !== g.master) return;
+function systemsToLists(meta) {
+  const clean = sanitizeSystemsMeta(meta);
+  const systems = clean?.systems || [];
 
-    outCounter += 1;
-    const outId = `OUT${outCounter}`;
-    if (sOut.id) outIdBySlotId[sOut.id] = outId;
-    outTextByOutId[outId] = sOut.text;
+  const names = systems.map((s) => String(s?.name || '').trim()).filter(Boolean);
+  const legacyNames = systems.filter((s) => !!s.legacy).map((s) => String(s?.name || '').trim()).filter(Boolean);
+  const targetNames = systems
+    .filter((s) => !!s.legacy)
+    .map((s) => String(s?.future || '').trim())
+    .filter(Boolean);
+
+  const ttfScores = computeTTFScoreListFromMeta(clean).map((v) =>
+    Number.isFinite(Number(v)) ? `${Number(v)}%` : '—'
+  );
+
+  const sysWorkarounds = systems.map((s) => getSysAnswerLabel(s, 'q1'));
+  const belemmering = systems.map((s) => getSysAnswerLabel(s, 'q2'));
+  const dubbelReg = systems.map((s) => getSysAnswerLabel(s, 'q3'));
+  const foutgevoelig = systems.map((s) => getSysAnswerLabel(s, 'q4'));
+  const uitvalImpact = systems.map((s) => getSysAnswerLabel(s, 'q5'));
+
+  return {
+    systemNames: joinSemi(names),
+    legacySystems: joinSemi(legacyNames),
+    targetSystems: joinSemi(targetNames),
+    systemWorkarounds: joinSemi(sysWorkarounds),
+    belemmering: joinSemi(belemmering),
+    dubbelRegistreren: joinSemi(dubbelReg),
+    foutgevoeligheid: joinSemi(foutgevoelig),
+    gevolgUitval: joinSemi(uitvalImpact),
+    ttfScores: joinSemi(ttfScores),
+    systemsCount: systems.length
+  };
+}
+
+/* ==========================================================================
+   IQF (Input quality) score
+   ========================================================================== */
+
+function calculateIQFScore(qa) {
+  if (!qa) return null;
+
+  let totalW = 0;
+  let earnedW = 0;
+
+  IO_CRITERIA.forEach((c) => {
+    const val = qa?.[c.key]?.result;
+    const isScored = ['GOOD', 'POOR', 'MODERATE', 'MINOR', 'FAIL', 'OK', 'NOT_OK'].includes(val);
+    if (!isScored) return;
+
+    totalW += c.weight;
+
+    if (val === 'GOOD' || val === 'OK') earnedW += c.weight;
+    else if (val === 'MINOR') earnedW += c.weight * 0.75;
+    else if (val === 'MODERATE') earnedW += c.weight * 0.5;
   });
 
-  return { outIdBySlotId, outTextByOutId };
+  return totalW === 0 ? null : Math.round((earnedW / totalW) * 100);
 }
 
-/* =========================================================
-   File save/load
-   ========================================================= */
+/* ==========================================================================
+   IO criteria per systeem (result/impact/opmerking) met ";" alignment
+   ========================================================================== */
+
+function normalizeIOResultLabel(v) {
+  const s = String(v ?? '').trim();
+  if (!s) return '';
+  const U = s.toUpperCase();
+  if (U === 'OK' || U === 'GOOD' || U === 'PASS' || U === 'VOLDOET') return 'Voldoet';
+  if (U === 'NOT_OK' || U === 'FAIL' || U === 'NOK' || U === 'VOLDOET_NIET') return 'Voldoet niet';
+  if (U === 'NVT' || U === 'NA') return 'NVT';
+  return s;
+}
+
+function getCriterionKeyByLabel(label) {
+  const L = String(label || '').trim().toLowerCase();
+  const c = (IO_CRITERIA || []).find((x) => String(x?.label || '').trim().toLowerCase() === L);
+  return c?.key || null;
+}
+
+function extractPerSystem(q, systemsCount, field) {
+  const n = Math.max(1, Number(systemsCount) || 1);
+  const empty = Array(n).fill('');
+
+  if (q == null) return empty;
+
+  if (typeof q === 'string' || typeof q === 'number' || typeof q === 'boolean') {
+    return Array(n).fill(String(q));
+  }
+
+  if (q && typeof q === 'object') {
+    if (Array.isArray(q.bySystem)) {
+      return Array(n)
+        .fill(null)
+        .map((_, i) => {
+          const it = q.bySystem[i];
+          if (!it || typeof it !== 'object') return '';
+          return String(it?.[field] ?? '').trim();
+        });
+    }
+    return Array(n).fill(String(q?.[field] ?? '').trim());
+  }
+
+  return empty;
+}
+
+function getIOTripleForLabel(slotQa, label, systemsCount) {
+  const key = getCriterionKeyByLabel(label);
+  if (!key) return { result: '', impact: '', note: '' };
+
+  const q = slotQa?.[key];
+
+  const resArr = extractPerSystem(q, systemsCount, 'result').map(normalizeIOResultLabel);
+  const impactArr = extractPerSystem(q, systemsCount, 'impact');
+  const noteArr = extractPerSystem(q, systemsCount, 'note');
+
+  return {
+    result: joinSemi(resArr),
+    impact: joinSemi(impactArr),
+    note: joinSemi(noteArr)
+  };
+}
+
+/* ==========================================================================
+   Input definitions (Items / Type / Specificaties) aligned met ";"
+   ========================================================================== */
+
+function splitDefs(defs) {
+  const arr = Array.isArray(defs) ? defs : [];
+  const items = [];
+  const types = [];
+  const specs = [];
+
+  arr.forEach((d) => {
+    if (!d || typeof d !== 'object') return;
+    items.push(String(d.item ?? '').trim());
+    types.push(String(d.type ?? '').trim());
+    specs.push(String(d.specifications ?? '').trim());
+  });
+
+  return {
+    items: joinSemi(items),
+    types: joinSemi(types),
+    specs: joinSemi(specs)
+  };
+}
+
+/* ==========================================================================
+   Analyse: oorzaken/maatregelen + verstoringen/frequentie/workarounds (aligned)
+   ========================================================================== */
+
+function normalizeFreqLabel(v) {
+  const s = String(v ?? '').trim();
+  if (!s) return '';
+  const U = s.toUpperCase();
+  if (U === 'NEVER') return '(Bijna) nooit';
+  if (U === 'SOMETIMES') return 'Soms';
+  if (U === 'OFTEN') return 'Vaak';
+  if (U === 'ALWAYS') return '(Bijna) altijd';
+  if (U === 'ZELDEN') return 'Zelden';
+  if (U === 'SOMS') return 'Soms';
+  if (U === 'VAAK') return 'Vaak';
+  if (U === 'ALTIJD') return 'Altijd';
+  return s;
+}
+
+function splitDisruptions(disruptions) {
+  const arr = Array.isArray(disruptions) ? disruptions : [];
+  const scenarios = [];
+  const freqs = [];
+  const workarounds = [];
+
+  arr.forEach((d) => {
+    if (!d || typeof d !== 'object') return;
+    scenarios.push(String(d.scenario ?? '').trim());
+    freqs.push(normalizeFreqLabel(d.frequency));
+    workarounds.push(String(d.workaround ?? '').trim());
+  });
+
+  return {
+    scenarios: joinSemi(scenarios),
+    frequencies: joinSemi(freqs),
+    workarounds: joinSemi(workarounds)
+  };
+}
+
+/* ==========================================================================
+   Werkbeleving / Lean / Status
+   ========================================================================== */
+
+function formatWorkExp(workExp) {
+  const v = String(workExp ?? '').trim().toUpperCase();
+  if (v === 'OBSTACLE') return 'Obstakel';
+  if (v === 'ROUTINE') return 'Routine';
+  if (v === 'FLOW') return 'Flow';
+  return String(workExp ?? '').trim();
+}
+
+function getLeanValueLabel(v) {
+  const s = String(v ?? '').trim();
+  return s || '';
+}
+
+function getProcessStatusLabel(v) {
+  const s = String(v ?? '').trim();
+  return s || '';
+}
+
+/* ==========================================================================
+   JSON save/load
+   ========================================================================== */
 
 export async function saveToFile() {
   const dataStr = JSON.stringify(state.data, null, 2);
@@ -400,399 +585,297 @@ export function loadFromFile(file, onSuccess) {
   reader.readAsText(file);
 }
 
-/* =========================================================
-   EXPORT 1: AsIs_Overview (1 rij per processtap)
-   ========================================================= */
-
-function getSlotText(col, slotIdx, outTextByOutId) {
-  const slot = col?.slots?.[slotIdx];
-  if (!slot) return '';
-
-  // Input linked -> use linked output text
-  if (slotIdx === 2 && slot?.linkedSourceId) {
-    const linkedId = slot.linkedSourceId;
-    if (outTextByOutId && outTextByOutId[linkedId]) return safeText(outTextByOutId[linkedId]);
-  }
-
-  return safeText(slot?.text);
-}
-
-function computeIoScoreForCol(col, slotIdx) {
-  const slot = col?.slots?.[slotIdx];
-  return slot ? calculateLSSScore(slot.qa) : null;
-}
-
-function getSystemOverallForCol(col) {
-  const sd = col?.slots?.[1]?.systemData;
-  if (!sd) return null;
-  const v = sd.calculatedScore ?? null;
-  return Number.isFinite(Number(v)) ? Number(v) : null;
-}
-
-function getSystemsMetaForCol(col) {
-  const sd = col?.slots?.[1]?.systemData;
-  if (!sd) return null;
-  return sd.systemsMeta ?? null;
-}
-
-function buildAsIsOverviewRows(project) {
-  const headers = [
-    'Project',
-    'Sheet',
-    'Step Nr (Global)',
-    'Step Nr (Sheet)',
-    'Column Id',
-    'Step Label',
-
-    'Supplier',
-    'System Text',
-    'Input',
-    'Process',
-    'Output',
-    'Customer',
-
-    'Activity Type',
-    'Process Status',
-    'Lean Value',
-    'WorkExp',
-    'WorkExp Note',
-
-    'TTF Overall (%)',
-    'IQF Input (%)',
-    'IQF Output (%)',
-
-    'Split (Variant)',
-    'Variant Route',
-    'Parallel',
-
-    'System Merged',
-    'System Merge Range',
-
-    'Output Merged',
-    'Output Merge Range',
-    'Gate Enabled',
-    'Gate Fail To (Label)',
-    'Gate Fail To (Col)',
-    'Gate Pass To (Label)',
-    'Gate Pass To (Col)',
-
-    'Systemen (met Legacy)',
-    'TTF Scores (per systeem)',
-    'Legacy -> Toekomst',
-    'TTF Antwoorden (JSON)',
-
-    'Succesfactoren',
-    'Oorzaken (RC)',
-    'Maatregelen (CM)',
-    'Verstoringen',
-    'Input Specs',
-    'Output Specs'
-  ];
-
-  const lines = [headers.map(toCsvField).join(';')];
-
-  let globalStepNr = 0;
-
-  (project?.sheets || []).forEach((sheet) => {
-    const mergeGroups = getMergeGroupsSanitized(project, sheet);
-    const variantMap = computeVariantLetterMap(sheet);
-    const { outTextByOutId } = buildOutputMaps(sheet, mergeGroups);
-
-    let sheetStepNr = 0;
-
-    (sheet.columns || []).forEach((col, colIdx) => {
-      if (col?.isVisible === false) return;
-
-      sheetStepNr += 1;
-      globalStepNr += 1;
-
-      const sysGroup = getMergeGroupForCell(mergeGroups, colIdx, 1);
-      const outGroup = getMergeGroupForCell(mergeGroups, colIdx, 4);
-
-      const sysMerged = !!sysGroup;
-      const sysRange = sysGroup ? getMergeRangeString(sysGroup) : '';
-
-      const outMerged = !!outGroup;
-      const outRange = outGroup ? getMergeRangeString(outGroup) : '';
-
-      const gateEnabled = outGroup?.gate?.enabled ? true : false;
-      const failTarget = outGroup ? getFailTargetFromGate(sheet, outGroup.gate) : { label: '', col: '' };
-      const passTarget = outGroup ? getPassTargetFromGroup(sheet, outGroup) : { label: '', col: '' };
-
-      const supplierText = getSlotText(col, 0, outTextByOutId);
-      const systemText = getSlotText(col, 1, outTextByOutId);
-      const inputText = getSlotText(col, 2, outTextByOutId);
-      const processText = getSlotText(col, 3, outTextByOutId);
-      const outputText = getSlotText(col, 4, outTextByOutId);
-      const customerText = getSlotText(col, 5, outTextByOutId);
-
-      const procSlot = col?.slots?.[3] || {};
-      const activityType = safeText(procSlot.type);
-      const processStatus = safeText(procSlot.processStatus);
-      const leanValue = safeText(procSlot.processValue);
-
-      const wj = formatWorkjoy(procSlot);
-      const workExpNote = safeText(procSlot.workExpNote);
-
-      const ttfOverall = getSystemOverallForCol(col);
-      const sysFmt = formatSystemsList(getSystemsMetaForCol(col));
-
-      const iqfInput = computeIoScoreForCol(col, 2);
-      const iqfOutput = computeIoScoreForCol(col, 4);
-
-      const splitVariant = yesNo(!!col.isVariant);
-      const variantRoute = col.isVariant ? String(variantMap[colIdx] || '') : '';
-      const parallel = yesNo(!!col.isParallel);
-
-      const succesfactoren = safeText(procSlot.successFactors);
-      const oorzaken = Array.isArray(procSlot.causes) ? procSlot.causes.map(safeText).filter(Boolean).join(' | ') : '';
-      const maatregelen = Array.isArray(procSlot.improvements)
-        ? procSlot.improvements.map(safeText).filter(Boolean).join(' | ')
-        : '';
-      const verstoringen = formatDisruptions(procSlot.disruptions);
-
-      const inputSpecs = formatInputSpecs(col?.slots?.[2]?.inputDefinitions);
-      const outputSpecs = formatInputSpecs(col?.slots?.[4]?.inputDefinitions);
-
-      const row = [
-        safeText(project?.projectTitle || ''),
-        safeText(sheet?.name || ''),
-        globalStepNr,
-        sheetStepNr,
-        safeText(col?.id || ''),
-        getProcessLabel(sheet, colIdx),
-
-        supplierText,
-        systemText,
-        inputText,
-        processText,
-        outputText,
-        customerText,
-
-        activityType,
-        processStatus,
-        leanValue,
-        wj.value,
-        workExpNote,
-
-        ttfOverall == null ? '' : String(ttfOverall),
-        iqfInput == null ? '' : String(iqfInput),
-        iqfOutput == null ? '' : String(iqfOutput),
-
-        splitVariant,
-        variantRoute,
-        parallel,
-
-        yesNo(sysMerged),
-        sysRange,
-
-        yesNo(outMerged),
-        outRange,
-        yesNo(gateEnabled),
-        failTarget.label,
-        failTarget.col,
-        passTarget.label,
-        passTarget.col,
-
-        sysFmt.names,
-        sysFmt.scores,
-        sysFmt.legacyFuture,
-        sysFmt.answersJson,
-
-        succesfactoren,
-        oorzaken,
-        maatregelen,
-        verstoringen,
-        inputSpecs,
-        outputSpecs
-      ];
-
-      lines.push(row.map(toCsvField).join(';'));
-    });
-  });
-
-  return lines.join('\n');
-}
-
-/* =========================================================
-   EXPORT 2: IQF_Detail (1 rij per criterium per Input/Output)
-   ========================================================= */
-
-function buildIqfDetailRows(project) {
-  const headers = [
-    'Project',
-    'Sheet',
-    'Step Nr (Global)',
-    'Step Nr (Sheet)',
-    'Column Id',
-    'Step Label',
-    'RowType', // Input | Output
-    'Criterion Key',
-    'Criterion Label',
-    'Weight',
-    'Result',
-    'Note',
-    'Details(JSON)'
-  ];
-
-  const lines = [headers.map(toCsvField).join(';')];
-
-  let globalStepNr = 0;
-
-  (project?.sheets || []).forEach((sheet) => {
-    let sheetStepNr = 0;
-
-    (sheet.columns || []).forEach((col, colIdx) => {
-      if (col?.isVisible === false) return;
-
-      sheetStepNr += 1;
-      globalStepNr += 1;
-
-      const stepLabel = getProcessLabel(sheet, colIdx);
-      const base = [
-        safeText(project?.projectTitle || ''),
-        safeText(sheet?.name || ''),
-        globalStepNr,
-        sheetStepNr,
-        safeText(col?.id || ''),
-        stepLabel
-      ];
-
-      const addRowType = (rowType, slotIdx) => {
-        const slot = col?.slots?.[slotIdx] || {};
-        IO_CRITERIA.forEach((c) => {
-          const q = slot?.qa?.[c.key] || {};
-          const result = q?.result ?? '';
-          const note = q?.note ?? '';
-          let details = '';
-          try {
-            details = JSON.stringify(q || {});
-          } catch {
-            details = '';
-          }
-
-          const row = [
-            ...base,
-            rowType,
-            c.key,
-            c.label,
-            c.weight,
-            result,
-            note,
-            details
-          ];
-          lines.push(row.map(toCsvField).join(';'));
-        });
-      };
-
-      addRowType('Input', 2);
-      addRowType('Output', 4);
-    });
-  });
-
-  return lines.join('\n');
-}
-
-/* =========================================================
-   EXPORT 3: System_Detail (1 rij per systeem binnen stap)
-   ========================================================= */
-
-function buildSystemDetailRows(project) {
-  const headers = [
-    'Project',
-    'Sheet',
-    'Step Nr (Global)',
-    'Step Nr (Sheet)',
-    'Column Id',
-    'Step Label',
-    'SystemIdx',
-    'SystemName',
-    'Legacy',
-    'Future',
-    'SystemScore(%)',
-    'Answers(JSON)'
-  ];
-
-  const lines = [headers.map(toCsvField).join(';')];
-
-  let globalStepNr = 0;
-
-  (project?.sheets || []).forEach((sheet) => {
-    let sheetStepNr = 0;
-
-    (sheet.columns || []).forEach((col, colIdx) => {
-      if (col?.isVisible === false) return;
-
-      sheetStepNr += 1;
-      globalStepNr += 1;
-
-      const stepLabel = getProcessLabel(sheet, colIdx);
-
-      const meta = getSystemsMetaForCol(col);
-      const clean = sanitizeSystemsMeta(meta);
-      if (!clean) return;
-
-      clean.systems.forEach((s, idx) => {
-        let answers = '';
-        try {
-          answers = JSON.stringify(s.qa || {});
-        } catch {
-          answers = '';
+/* ==========================================================================
+   EXPORT: As-Is CSV (1 rij per kolom)
+   ========================================================================== */
+
+export function exportToCSV() {
+  try {
+    const headers = [
+      'Kolomnummer',
+      'Fase',
+      'Parallel?',
+      'Parallel met?',
+      'Split?',
+      'Route',
+      'Leverancier',
+      'Systemen',
+      'Legacy systemen',
+      'Target systemen',
+      'Systeem workarounds',
+      'Belemmering',
+      'Dubbel registreren',
+      'Foutgevoeligheid',
+      'Gevolg bij uitval',
+      'TTF Scores',
+      'Input ID',
+      'Input',
+      'Compleetheid',
+      'Compleetheid taakimpact',
+      'Compleetheid taakimpact opmerking',
+      'Datakwaliteit',
+      'Datakwaliteit taakimpact',
+      'Datakwaliteit taakimpact opmerking',
+      'Eenduidigheid',
+      'Eenduidigheid taakimpact',
+      'Eenduidigheid taakimpact opmerking',
+      'Tijdigheid',
+      'Tijdigheid taakimpact',
+      'Tijdigheid taakimpact opmerking',
+      'Standaardisatie',
+      'Standaardisatie taakimpact',
+      'Standaardisatie taakimpact opmerking',
+      'Overdracht',
+      'Overdracht taakimpact',
+      'Overdracht taakimpact opmerking',
+      'IQF score',
+      'Items',
+      'Type',
+      'Specificaties',
+      'Proces',
+      'Type activiteit',
+      'Werkbeleving',
+      'Toelichting',
+      'Leanwaarde',
+      'Status proces',
+      'Oorzaken',
+      'Maatregelen',
+      'Verstoringen',
+      'Frequentie',
+      'Proces workarounds',
+      'Output ID',
+      'Output',
+      'Procesvalidatie',
+      'Routing bij rework',
+      'Routing bij pass',
+      'Klant'
+    ];
+
+    const lines = [headers.map(toCsvField).join(';')];
+
+    const project = state.data;
+
+    // FIX: bouw eerst 1x project-brede OUT mapping + output teksten
+    const { outIdByUid, outTextByUid, outTextByOutId } = buildGlobalOutputMaps(project);
+
+    let globalColNr = 0;
+    let globalInCounter = 0;
+
+    (project?.sheets || []).forEach((sheet) => {
+      const mergeGroups = getMergeGroupsSanitized(project, sheet);
+      const variantMap = computeVariantLetterMap(sheet);
+
+      const visibleColIdxs = (sheet.columns || [])
+        .map((c, i) => ({ c, i }))
+        .filter(({ c }) => c?.isVisible !== false)
+        .map(({ i }) => i);
+
+      const prevVisibleByIdx = {};
+      let prev = null;
+      visibleColIdxs.forEach((idx) => {
+        prevVisibleByIdx[idx] = prev;
+        prev = idx;
+      });
+
+      (sheet.columns || []).forEach((col, colIdx) => {
+        if (col?.isVisible === false) return;
+
+        globalColNr += 1;
+
+        const leverancier = String(col?.slots?.[0]?.text ?? '').trim();
+
+        // Systems meta: bij System-merge: neem meta van mergeGroup, anders uit slot.systemData.systemsMeta
+        const sysGroup = getMergeGroupForCell(mergeGroups, colIdx, 1);
+        const sysMeta = sysGroup?.systemsMeta || col?.slots?.[1]?.systemData?.systemsMeta || null;
+        const sysLists = systemsToLists(sysMeta);
+        const systemsCount = sysLists.systemsCount;
+
+        // Parallel / Split / Route
+        const isParallel = !!col.isParallel;
+        const prevIdx = prevVisibleByIdx[colIdx];
+        const parallelWith = isParallel && prevIdx != null ? getProcessLabel(sheet, prevIdx) : '-';
+
+        const isSplit = !!col.isVariant;
+        const route = isSplit ? String(variantMap[colIdx] || '') : '-';
+
+        // Fase
+        const fase = `Procesflow ${globalColNr}`;
+
+        // Input + InputID (linked of nieuw)
+        const inputSlot = col?.slots?.[2];
+        const outputSlot = col?.slots?.[4];
+
+        const linkedId = String(inputSlot?.linkedSourceId || '').trim();   // kan OUT12 zijn
+        const linkedUid = String(inputSlot?.linkedSourceUid || '').trim(); // kan out_xxx zijn
+
+        let inputId = '';
+        let inputText = String(inputSlot?.text ?? '').trim();
+
+        // FIX: resolve links naar OUTx + output tekst als beschikbaar
+        const linkedIdLooksLikeOut = linkedId && /^OUT\d+$/.test(linkedId);
+
+        if (linkedIdLooksLikeOut) {
+          inputId = linkedId;
+          if (outTextByOutId[linkedId]) inputText = outTextByOutId[linkedId];
+        } else if (linkedUid) {
+          const resolvedOutId = outIdByUid[linkedUid] || '';
+          inputId = resolvedOutId || linkedUid; // als niet te resolven: bewaar uid
+          if (outTextByUid[linkedUid]) inputText = outTextByUid[linkedUid];
+        } else if (inputText) {
+          globalInCounter += 1;
+          inputId = `IN${globalInCounter}`;
+        } else {
+          inputId = '';
+          inputText = '';
         }
 
+        // IO QA (Input slot qa) per systeem aligned
+        const slotQa = inputSlot?.qa || {};
+
+        const comp = getIOTripleForLabel(slotQa, 'Compleetheid', systemsCount);
+        const dq = getIOTripleForLabel(slotQa, 'Datakwaliteit', systemsCount);
+        const ed = getIOTripleForLabel(slotQa, 'Eenduidigheid', systemsCount);
+        const tj = getIOTripleForLabel(slotQa, 'Tijdigheid', systemsCount);
+        const st = getIOTripleForLabel(slotQa, 'Standaardisatie', systemsCount);
+        const ov = getIOTripleForLabel(slotQa, 'Overdracht', systemsCount);
+
+        const iqfScore = calculateIQFScore(slotQa);
+        const iqfScoreStr = iqfScore == null ? '' : String(iqfScore);
+
+        // Input definitions -> items/types/specs
+        const def = splitDefs(inputSlot?.inputDefinitions);
+
+        // Proces
+        const procSlot = col?.slots?.[3] || {};
+        const proces = String(procSlot?.text ?? '').trim();
+        const typeActiviteit = String(procSlot?.type ?? '').trim();
+        const werkbeleving = formatWorkExp(procSlot?.workExp ?? procSlot?.workjoy ?? procSlot?.workJoy ?? '');
+        const toelichting = String(procSlot?.note ?? procSlot?.toelichting ?? procSlot?.context ?? '').trim();
+
+        const leanwaarde = getLeanValueLabel(procSlot?.processValue ?? '');
+        const statusProces = getProcessStatusLabel(procSlot?.processStatus ?? '');
+
+        const oorzaken = Array.isArray(procSlot?.causes) ? joinSemi(procSlot.causes) : String(procSlot?.causes ?? '').trim();
+        const maatregelen = Array.isArray(procSlot?.improvements)
+          ? joinSemi(procSlot.improvements)
+          : String(procSlot?.improvements ?? '').trim();
+
+        const dis = splitDisruptions(procSlot?.disruptions);
+        const procesWorkarounds =
+          dis.workarounds ||
+          (Array.isArray(procSlot?.workarounds)
+            ? joinSemi(procSlot.workarounds)
+            : String(procSlot?.processWorkarounds ?? '').trim());
+
+        // Output + OutputID (stabiel via outputUid->OUTx) + Gate/routing
+        const outGroup = getMergeGroupForCell(mergeGroups, colIdx, 4);
+        const outText = String(outputSlot?.text ?? '').trim();
+
+        let outputId = '';
+        if (outText && !isMergedSlaveInSheet(mergeGroups, colIdx, 4)) {
+          const outUid = String(outputSlot?.outputUid || '').trim();
+          outputId = outUid && outIdByUid[outUid] ? outIdByUid[outUid] : '';
+        }
+
+        const procesValidatie = outGroup?.gate?.enabled ? 'Ja' : 'Nee';
+        const routingRework = outGroup?.gate?.enabled ? getFailTargetFromGate(sheet, outGroup.gate) || '-' : '-';
+        const routingPass = outGroup ? getPassTargetFromGroup(sheet, outGroup) || '-' : '-';
+
+        // Klant
+        const klant = String(col?.slots?.[5]?.text ?? '').trim();
+
         const row = [
-          safeText(project?.projectTitle || ''),
-          safeText(sheet?.name || ''),
-          globalStepNr,
-          sheetStepNr,
-          safeText(col?.id || ''),
-          stepLabel,
-          idx + 1,
-          safeText(s.name),
-          yesNo(!!s.legacy),
-          safeText(s.future),
-          Number.isFinite(Number(s.score)) ? String(Number(s.score)) : '',
-          answers
+          globalColNr,
+          fase,
+          isParallel ? 'Ja' : 'Nee',
+          parallelWith,
+          isSplit ? 'Ja' : 'Nee',
+          route,
+
+          leverancier,
+
+          sysLists.systemNames,
+          sysLists.legacySystems,
+          sysLists.targetSystems,
+          sysLists.systemWorkarounds,
+          sysLists.belemmering,
+          sysLists.dubbelRegistreren,
+          sysLists.foutgevoeligheid,
+          sysLists.gevolgUitval,
+          sysLists.ttfScores,
+
+          inputId,
+          inputText,
+
+          comp.result,
+          comp.impact,
+          comp.note,
+
+          dq.result,
+          dq.impact,
+          dq.note,
+
+          ed.result,
+          ed.impact,
+          ed.note,
+
+          tj.result,
+          tj.impact,
+          tj.note,
+
+          st.result,
+          st.impact,
+          st.note,
+
+          ov.result,
+          ov.impact,
+          ov.note,
+
+          iqfScoreStr,
+
+          def.items,
+          def.types,
+          def.specs,
+
+          proces,
+          typeActiviteit,
+          werkbeleving,
+          toelichting,
+          leanwaarde,
+          statusProces,
+
+          oorzaken,
+          maatregelen,
+
+          dis.scenarios,
+          dis.frequencies,
+          procesWorkarounds,
+
+          outputId,
+          outText,
+
+          procesValidatie,
+          routingRework,
+          routingPass,
+
+          klant
         ];
 
         lines.push(row.map(toCsvField).join(';'));
       });
     });
-  });
 
-  return lines.join('\n');
-}
-
-/* =========================================================
-   Public export API
-   ========================================================= */
-
-export function exportToCSV() {
-  try {
-    const project = state.data;
-
-    // 1) Overview (1 row per process step)
-    const overview = buildAsIsOverviewRows(project);
-    downloadBlob(new Blob(['\uFEFF' + overview], { type: 'text/csv;charset=utf-8;' }), getFileName('AsIs_Overview.csv'));
-
-    // 2) IQF detail (per criterium)
-    const iqfDetail = buildIqfDetailRows(project);
-    downloadBlob(new Blob(['\uFEFF' + iqfDetail], { type: 'text/csv;charset=utf-8;' }), getFileName('IQF_Detail.csv'));
-
-    // 3) System detail (per systeem)
-    const sysDetail = buildSystemDetailRows(project);
-    downloadBlob(new Blob(['\uFEFF' + sysDetail], { type: 'text/csv;charset=utf-8;' }), getFileName('System_Detail.csv'));
-
-    Toast.show('CSV exports gemaakt: AsIs_Overview + IQF_Detail + System_Detail', 'success');
+    const blob = new Blob(['\uFEFF' + lines.join('\n')], { type: 'text/csv;charset=utf-8;' });
+    downloadBlob(blob, getFileName('csv'));
   } catch (e) {
     console.error(e);
     Toast.show('Fout bij genereren CSV', 'error');
   }
 }
 
-/* =========================================================
-   HD Export (ongewijzigd)
-   ========================================================= */
+/* ==========================================================================
+   EXPORT: HD image
+   ========================================================================== */
 
 export async function exportHD(copyToClipboard = false) {
   if (typeof html2canvas === 'undefined') {

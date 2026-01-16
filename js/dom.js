@@ -1497,7 +1497,20 @@ function renderConnector({ frag, activeSheet, colIdx, variantLetterMap }) {
     connEl.className = 'col-connector variant-connector';
     connEl.innerHTML = `<div class="variant-badge">🔀${letter}</div>`;
     frag.appendChild(connEl);
+    return;
   }
+
+  // --- HIER IS DE FIX: ---
+  // We maken de pijl-div weer aan, maar verbergen hem visueel met style="visibility:hidden".
+  // Zo blijft de layout voor de knoppen (+ en x) intact.
+  const connEl = document.createElement('div');
+  connEl.className = 'col-connector';
+  
+  connEl.innerHTML = `
+      <div class="connector-active">
+      </div>
+  `;
+  frag.appendChild(connEl);
 }
 
 /** Renders the process status counters in the UI header. */
