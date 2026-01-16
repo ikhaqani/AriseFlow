@@ -1,3 +1,14 @@
+// io.js (VOLLEDIG - EXPORT AS-IS CSV + JSON + HD)
+// - 1 rij per proceskolom (geen 6 rijen per SSIPOC-slot)
+// - Alle multi-waarden in 1 cel gescheiden door ";" (aligned per systeem waar van toepassing)
+// - Disruptions/oorzaken/maatregelen/toelichtingen ook ";"-gescheiden
+// - FIX: Input kan gelinkt zijn aan OUTx via linkedSourceId óf linkedSourceUid óf MEERDERE links (arrays)
+//        -> alles wordt als "OUTx; OUTy" geëxporteerd (en input-tekst als "tekstOutx; tekstOuty")
+// - FIX: Input kan ook een bundel zijn (bundelnaam -> OUTx; OUTy) voor compacte input in post-it/export
+// - FIX: Input-tekst bij link gebruikt output-tekst (outTextByUid / outTextByOutId) indien beschikbaar
+// - FIX: Output IDs zijn project-breed stabiel (op basis van outputUid + sheet/kolom volgorde + merge-slaves overslaan)
+// - FIX (VERBETERD): Systeem export negeert nu 'lege' systeem-objecten en pakt in dat geval de post-it tekst.
+
 import { state } from './state.js';
 import { Toast } from './toast.js';
 import { IO_CRITERIA } from './config.js';
@@ -460,22 +471,27 @@ function buildSystemsMetaFallbackFromSlot(sysSlot) {
 
   // 1) Nieuwe vorm: sd.systemsMeta.systems
   const meta = sd?.systemsMeta && typeof sd.systemsMeta === 'object' ? sd.systemsMeta : null;
-  // FIX: Check length > 0, anders terugvallen op tekst
+  
+  // FIX VERBETERD: Check niet alleen op length > 0, maar ook of er écht een naam is ingevuld.
+  // Anders overschrijft een leeg metadata-object de zichtbare tekst (slot.text).
   if (Array.isArray(meta?.systems) && meta.systems.length > 0) {
-    return {
-      multi: !!meta.multi || meta.systems.length > 1,
-      systems: meta.systems.map((s) => ({
-        name: String(s?.name ?? '').trim(),
-        legacy: !!(s?.legacy ?? s?.isLegacy),
-        future: String(s?.future ?? s?.futureSystem ?? '').trim(),
-        qa: s?.qa && typeof s.qa === 'object' ? { ...s.qa } : {},
-        score: Number.isFinite(Number(s?.score ?? s?.calculatedScore)) ? Number(s?.score ?? s?.calculatedScore) : null
-      }))
-    };
+    const hasRealName = meta.systems.some(s => s?.name && String(s.name).trim() !== '');
+    
+    if (hasRealName) {
+        return {
+          multi: !!meta.multi || meta.systems.length > 1,
+          systems: meta.systems.map((s) => ({
+            name: String(s?.name ?? '').trim(),
+            legacy: !!(s?.legacy ?? s?.isLegacy),
+            future: String(s?.future ?? s?.futureSystem ?? '').trim(),
+            qa: s?.qa && typeof s.qa === 'object' ? { ...s.qa } : {},
+            score: Number.isFinite(Number(s?.score ?? s?.calculatedScore)) ? Number(s?.score ?? s?.calculatedScore) : null
+          }))
+        };
+    }
   }
 
   // 2) Legacy vorm: sd.systems (uit oudere tabs)
-  // FIX: Check length > 0
   if (Array.isArray(sd?.systems) && sd.systems.length > 0) {
     const arr = sd.systems
       .map((s) => ({
