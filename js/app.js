@@ -329,6 +329,12 @@ const syncMergedApprovalOutput = () => {
 
 /** Schedules a merge overlay refresh with an optional delay. */
 const scheduleMergeRefresh = (delay = 0) => {
+  // FIX: Niet refreshen als we in de merged note aan het typen zijn
+  const activeEl = document.activeElement;
+  if (activeEl && activeEl.closest('#merged-approval-output')) {
+    return;
+  }
+
   if (mergeRefreshTimer) clearTimeout(mergeRefreshTimer);
   mergeRefreshTimer = setTimeout(() => {
     try {

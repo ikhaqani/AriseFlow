@@ -1,15 +1,3 @@
-// io.js (VOLLEDIG - EXPORT AS-IS CSV + JSON + HD)
-// - 1 rij per proceskolom (geen 6 rijen per SSIPOC-slot)
-// - Alle multi-waarden in 1 cel gescheiden door ";" (aligned per systeem waar van toepassing)
-// - Disruptions/oorzaken/maatregelen/toelichtingen ook ";"-gescheiden
-// - FIX: Input kan gelinkt zijn aan OUTx via linkedSourceId óf linkedSourceUid óf MEERDERE links (arrays)
-//        -> alles wordt als "OUTx; OUTy" geëxporteerd (en input-tekst als "tekstOutx; tekstOuty")
-// - FIX: Input kan ook een bundel zijn (bundelnaam -> OUTx; OUTy) voor compacte input in post-it/export
-// - FIX: Input-tekst bij link gebruikt output-tekst (outTextByUid / outTextByOutId) indien beschikbaar
-// - FIX: Output IDs zijn project-breed stabiel (op basis van outputUid + sheet/kolom volgorde + merge-slaves overslaan)
-// - FIX (NIEUW): Systeem export werkt ook als je systeemnaam direct in de post-it hebt getypt (slot.text),
-//                dus zonder “multi-systeem” toggle / systemsMeta.
-
 import { state } from './state.js';
 import { Toast } from './toast.js';
 import { IO_CRITERIA } from './config.js';
@@ -472,7 +460,8 @@ function buildSystemsMetaFallbackFromSlot(sysSlot) {
 
   // 1) Nieuwe vorm: sd.systemsMeta.systems
   const meta = sd?.systemsMeta && typeof sd.systemsMeta === 'object' ? sd.systemsMeta : null;
-  if (Array.isArray(meta?.systems)) {
+  // FIX: Check length > 0, anders terugvallen op tekst
+  if (Array.isArray(meta?.systems) && meta.systems.length > 0) {
     return {
       multi: !!meta.multi || meta.systems.length > 1,
       systems: meta.systems.map((s) => ({
@@ -486,7 +475,8 @@ function buildSystemsMetaFallbackFromSlot(sysSlot) {
   }
 
   // 2) Legacy vorm: sd.systems (uit oudere tabs)
-  if (Array.isArray(sd?.systems)) {
+  // FIX: Check length > 0
+  if (Array.isArray(sd?.systems) && sd.systems.length > 0) {
     const arr = sd.systems
       .map((s) => ({
         name: String(s?.name ?? '').trim(),
@@ -953,11 +943,9 @@ export function exportToCSV() {
         const sysGroup = getMergeGroupForCell(mergeGroups, colIdx, 1);
 
         // 1) bij system-merge: group.systemsMeta heeft prioriteit
-        // 2) anders: uit slot.systemData (systemsMeta/systems/systemName)
-        // 3) anders: slot.text (direct getypte post-it)
+        // 2) anders: gebruik slimme fallback (data > legacy > text)
         const sysMeta =
           sysGroup?.systemsMeta ||
-          sysSlot?.systemData?.systemsMeta ||
           buildSystemsMetaFallbackFromSlot(sysSlot);
 
         const sysLists = systemsToLists(sysMeta);

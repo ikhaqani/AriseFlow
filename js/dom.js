@@ -428,7 +428,9 @@ function computeCountersBeforeActiveSheet(project, activeSheetId, outIdByUid) {
       const outSlot = col?.slots?.[4];
 
       const tokens = getLinkedSourcesFromInputSlot(inSlot);
-      const isLinked = tokens.some((t) => (_looksLikeOutId(t) ? true : !!(t && outIdByUid && outIdByUid[t])));
+      const isLinked = tokens.some((t) =>
+        _looksLikeOutId(t) ? true : !!(t && outIdByUid && outIdByUid[t])
+      );
 
       if (!isLinked && inSlot?.text?.trim()) inCount += 1;
 
@@ -1518,8 +1520,10 @@ function syncRowHeightsNow() {
       if (!sticky) continue;
 
       // Use scrollHeight as source-of-truth for content growth.
-      // Add a small buffer for borders/shadows.
-      const h = Math.ceil(Math.max(sticky.scrollHeight || 0, sticky.getBoundingClientRect?.().height || 0)) + 2;
+      // FIX: Increase buffer from +2 to +12 to prevent any text cutoff or overlap.
+      const h = Math.ceil(
+        Math.max(sticky.scrollHeight || 0, sticky.getBoundingClientRect?.().height || 0)
+      ) + 12;
       if (h > heights[r]) heights[r] = h;
     }
   });
@@ -1740,13 +1744,16 @@ function renderMergedOverlays(openModalFn) {
 
   if (getComputedStyle(colsContainer).position === 'static') colsContainer.style.position = 'relative';
 
-  clearMergedOverlays(colsContainer);
+  // REMOVED: clearMergedOverlays(colsContainer);
 
   const activeSheet = state.activeSheet;
   if (!activeSheet) return;
 
   const groups = getAllMergeGroupsSanitized();
-
+  
+  // FIX: Tracken welke overlays we deze frame verwerken, om te voorkomen dat we gefocuste elementen weggooien
+  const processedKeys = new Set();
+  
   groups.forEach((g) => {
     const visibleCols = g.cols.filter((cIdx) => activeSheet.columns[cIdx]?.isVisible !== false);
     if (visibleCols.length < 2) return;
@@ -1776,78 +1783,102 @@ function renderMergedOverlays(openModalFn) {
     const width = p2.x + lastSlot.offsetWidth - p1.x;
     const height = firstSlot.offsetHeight;
 
-    const overlay = document.createElement('div');
-    overlay.className = 'merged-overlay';
-    overlay.style.position = 'absolute';
+    // FIX: Unieke key per merge group om element te hergebruiken
+    const mergeKey = `g-${g.slotIdx}-${g.master}`;
+    processedKeys.add(mergeKey);
+
+    let overlay = colsContainer.querySelector(`.merged-overlay[data-merge-key="${mergeKey}"]`);
+    const isNew = !overlay;
+
+    if (isNew) {
+        overlay = document.createElement('div');
+        overlay.className = 'merged-overlay';
+        overlay.dataset.mergeKey = mergeKey;
+        overlay.style.position = 'absolute';
+        overlay.style.zIndex = '500';
+        overlay.style.pointerEvents = 'auto';
+
+        const cloned = masterSticky.cloneNode(true);
+        if (g.slotIdx === 1) cloned.classList.add('has-sys-summary');
+
+        cloned.classList.remove('merged-source');
+        cloned.style.visibility = 'visible';
+        cloned.style.pointerEvents = 'auto';
+        cloned.style.width = '100%';
+        cloned.style.height = '100%';
+        cloned.classList.add('merged-sticky');
+        
+        const txt = cloned.querySelector('.text');
+        if (txt) {
+            txt.removeAttribute('data-linked');
+            txt.addEventListener(
+                'input',
+                () => {
+                  if (g.slotIdx === 1 && g.systemsMeta) return;
+                  state.updateStickyText(masterCol, g.slotIdx, txt.textContent);
+                  scheduleSyncRowHeights();
+                },
+                { passive: true }
+            );
+        }
+
+        const stickyEl = cloned;
+        const textEl = cloned.querySelector('.text');
+        attachStickyInteractions({ stickyEl, textEl, colIdx: masterCol, slotIdx: g.slotIdx, openModalFn });
+        
+        overlay.appendChild(cloned);
+        colsContainer.appendChild(overlay);
+    }
+
+    // UPDATE GEOMETRY (Always)
     overlay.style.left = `${Math.round(left)}px`;
     overlay.style.top = `${Math.round(top)}px`;
     overlay.style.width = `${Math.round(width)}px`;
     overlay.style.height = `${Math.round(height)}px`;
-    overlay.style.zIndex = '500';
-    overlay.style.pointerEvents = 'auto';
 
-    const cloned = masterSticky.cloneNode(true);
-    if (g.slotIdx === 1) cloned.classList.add('has-sys-summary');
+    // UPDATE CONTENT (Only if not focused)
+    const textEl = overlay.querySelector('.text');
+    const stickyEl = overlay.querySelector('.sticky');
+    
+    // Check focus
+    const activeEl = document.activeElement;
+    const isFocused = activeEl && (activeEl === textEl || overlay.contains(activeEl));
 
-    cloned.classList.remove('merged-source');
-    cloned.style.visibility = 'visible';
-    cloned.style.pointerEvents = 'auto';
-    cloned.style.width = '100%';
-    cloned.style.height = '100%';
-    cloned.classList.add('merged-sticky');
+    if (!isFocused && textEl) {
+        const masterData = activeSheet.columns[masterCol]?.slots?.[g.slotIdx];
+        const baseText = masterData?.text ?? '';
 
-    const txt = cloned.querySelector('.text');
-    const masterData = activeSheet.columns[masterCol]?.slots?.[g.slotIdx];
-
-    if (txt) {
-      const baseText = masterData?.text ?? '';
-
-      if (g.slotIdx === 1 && g.systemsMeta) {
-        const summaryHTML = _formatSystemsSummaryFromMeta(g.systemsMeta);
-        if (summaryHTML) {
-          txt.innerHTML = summaryHTML;
-          txt.setAttribute('contenteditable', 'false');
+        if (g.slotIdx === 1 && g.systemsMeta) {
+            const summaryHTML = _formatSystemsSummaryFromMeta(g.systemsMeta);
+            if (textEl.innerHTML !== summaryHTML) {
+                textEl.innerHTML = summaryHTML;
+                textEl.setAttribute('contenteditable', 'false');
+            }
         } else {
-          txt.textContent = baseText;
-          txt.setAttribute('contenteditable', 'true');
+            if (textEl.textContent !== baseText) {
+                textEl.textContent = baseText;
+                textEl.setAttribute('contenteditable', 'true');
+            }
         }
-      } else {
-        txt.textContent = baseText;
-        txt.setAttribute('contenteditable', 'true');
-      }
-
-      txt.removeAttribute('data-linked');
-
-      txt.addEventListener(
-        'input',
-        () => {
-          if (g.slotIdx === 1 && g.systemsMeta) return;
-          state.updateStickyText(masterCol, g.slotIdx, txt.textContent);
-          scheduleSyncRowHeights();
-        },
-        { passive: true }
-      );
     }
-
-    if (g.slotIdx === 4) {
+    
+    // ALWAYS update Gate badges (in case enabled/disabled via modal)
+    if (g.slotIdx === 4 && stickyEl) {
       const gate = _sanitizeGate(g?.gate);
       const passLabel = getPassLabelForGroup(g);
-
       let failLabel = '—';
       if (gate?.enabled && gate.failTargetColIdx != null) {
         const idx = gate.failTargetColIdx;
         if (Number.isFinite(idx)) failLabel = getProcessLabel(idx);
       }
-
-      applyGateToSticky(cloned, gate, passLabel, failLabel);
+      applyGateToSticky(stickyEl, gate, passLabel, failLabel);
     }
+  });
 
-    overlay.appendChild(cloned);
-    colsContainer.appendChild(overlay);
-
-    const stickyEl = cloned;
-    const textEl = cloned.querySelector('.text');
-    attachStickyInteractions({ stickyEl, textEl, colIdx: masterCol, slotIdx: g.slotIdx, openModalFn });
+  // FIX: Cleanup old overlays
+  const allOverlays = Array.from(colsContainer.querySelectorAll('.merged-overlay'));
+  allOverlays.forEach(el => {
+      if (!processedKeys.has(el.dataset.mergeKey)) el.remove();
   });
 }
 
