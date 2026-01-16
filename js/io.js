@@ -7,6 +7,7 @@
 // - FIX: Input kan ook een bundel zijn (bundelnaam -> OUTx; OUTy) voor compacte input in post-it/export
 // - FIX: Input-tekst bij link gebruikt output-tekst (outTextByUid / outTextByOutId) indien beschikbaar
 // - FIX: Output IDs zijn project-breed stabiel (op basis van outputUid + sheet/kolom volgorde + merge-slaves overslaan)
+// - FIX: Systemen kolom in Excel vult ook als je alleen direct tekst op de Systeem post-it hebt gezet (slot[1].text)
 
 import { state } from './state.js';
 import { Toast } from './toast.js';
@@ -325,8 +326,10 @@ function resolveLinkedSourcesToOutPairs(sources, outIdByUid, outTextByUid, outTe
 
 /* ==========================================================================
    OUTPUT bundels (bundelnaam -> OUTx; OUTy) voor compacte input
-   Verwacht in project: project.outputBundles = [{ id, name, outputUids: [] }]
-   Verwacht in inputSlot: linkedBundleId (string) of linkedBundleIds (array)
+   - Ondersteunt zowel:
+     * project.outputBundles = [{ id, name, outIds: ['OUT1','OUT2'] }]
+     * project.outputBundles = [{ id, name, outputUids: ['out_x..','out_y..'] }] (fallback)
+   - inputSlot: linkedBundleId (string) of linkedBundleIds (array)
    ========================================================================== */
 
 function normalizeLinkedBundles(inputSlot) {
@@ -355,7 +358,7 @@ function normalizeLinkedBundles(inputSlot) {
   return uniq;
 }
 
-function buildBundleMaps(project, outIdByUid, outTextByUid) {
+function buildBundleMaps(project, outIdByUid, outTextByUid, outTextByOutId) {
   const nameById = {};
   const outIdsById = {};
   const outTextsById = {};
@@ -371,20 +374,36 @@ function buildBundleMaps(project, outIdByUid, outTextByUid) {
     const name = String(b.name ?? '').trim();
     nameById[id] = name || id;
 
-    const uids = Array.isArray(b.outputUids) ? b.outputUids : [];
+    // Preferred: outIds (OUT1, OUT2, ...)
+    const outIds = Array.isArray(b.outIds) ? b.outIds : null;
+
+    // Fallback: outputUids
+    const uids = Array.isArray(b.outputUids) ? b.outputUids : null;
+
     const ids = [];
     const texts = [];
 
-    uids.forEach((u) => {
-      const uid = String(u ?? '').trim();
-      if (!uid) return;
+    if (outIds && outIds.length) {
+      outIds.forEach((o) => {
+        const outId = String(o ?? '').trim();
+        if (!outId) return;
 
-      const outId = String(outIdByUid?.[uid] ?? '').trim() || uid;
-      const outText = String(outTextByUid?.[uid] ?? '').trim() || outId;
+        const outText = String(outTextByOutId?.[outId] ?? '').trim() || outId;
+        ids.push(outId);
+        texts.push(outText);
+      });
+    } else if (uids && uids.length) {
+      uids.forEach((u) => {
+        const uid = String(u ?? '').trim();
+        if (!uid) return;
 
-      ids.push(outId);
-      texts.push(outText);
-    });
+        const outId = String(outIdByUid?.[uid] ?? '').trim() || uid;
+        const outText = String(outTextByUid?.[uid] ?? '').trim() || outId;
+
+        ids.push(outId);
+        texts.push(outText);
+      });
+    }
 
     outIdsById[id] = ids;
     outTextsById[id] = texts;
@@ -544,6 +563,34 @@ function systemsToLists(meta) {
     gevolgUitval: joinSemi(uitvalImpact),
     ttfScores: joinSemi(ttfScores),
     systemsCount: systems.length
+  };
+}
+
+/* ==========================================================================
+   System meta fallback uit post-it tekst (slot[1].text)
+   ========================================================================== */
+
+function buildSystemsMetaFromSlotText(systemSlotText) {
+  const raw = String(systemSlotText ?? '').trim();
+  if (!raw) return null;
+
+  // Als iemand "EPIC; ARIA" typt op de post-it, blijven we consistent met ";"-model.
+  const parts = raw
+    .split(';')
+    .map((x) => String(x ?? '').trim())
+    .filter(Boolean);
+
+  if (!parts.length) return null;
+
+  return {
+    multi: parts.length > 1,
+    systems: parts.map((name) => ({
+      name,
+      legacy: false,
+      future: '',
+      qa: {},
+      score: null
+    }))
   };
 }
 
@@ -842,7 +889,7 @@ export function exportToCSV() {
 
     // FIX: bouw eerst 1x project-brede OUT mapping + output teksten
     const { outIdByUid, outTextByUid, outTextByOutId } = buildGlobalOutputMaps(project);
-    const bundleMaps = buildBundleMaps(project, outIdByUid, outTextByUid);
+    const bundleMaps = buildBundleMaps(project, outIdByUid, outTextByUid, outTextByOutId);
 
     let globalColNr = 0;
     let globalInCounter = 0;
@@ -870,9 +917,17 @@ export function exportToCSV() {
 
         const leverancier = String(col?.slots?.[0]?.text ?? '').trim();
 
-        // Systems meta: bij System-merge: neem meta van mergeGroup, anders uit slot.systemData.systemsMeta
+        // Systems meta:
+        // 1) bij System-merge: neem meta van mergeGroup
+        // 2) anders uit slot.systemData.systemsMeta
+        // 3) anders fallback uit directe post-it tekst (slot[1].text)
         const sysGroup = getMergeGroupForCell(mergeGroups, colIdx, 1);
-        const sysMeta = sysGroup?.systemsMeta || col?.slots?.[1]?.systemData?.systemsMeta || null;
+        const sysSlot = col?.slots?.[1] || {};
+        const sysMeta =
+          sysGroup?.systemsMeta ||
+          sysSlot?.systemData?.systemsMeta ||
+          buildSystemsMetaFromSlotText(sysSlot?.text);
+
         const sysLists = systemsToLists(sysMeta);
         const systemsCount = sysLists.systemsCount;
 
@@ -909,11 +964,14 @@ export function exportToCSV() {
         const partsId = [];
         const partsText = [];
 
+        // Als bundel actief is: inputId/inputText worden bundelnamen (compact),
+        // en de inhoud van de bundel gaat naar aparte kolommen (Bundel Output IDs / teksten).
         if (bundleResolved.bundleNames.length) {
           partsId.push(...bundleResolved.bundleNames);
           partsText.push(...bundleResolved.bundleNames);
         }
 
+        // Losse links blijven gewoon OUTx; OUTy
         if (resolved.ids.length) {
           partsId.push(...resolved.ids);
           partsText.push(...resolved.texts);
