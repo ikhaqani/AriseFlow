@@ -1,4 +1,4 @@
-// io.js (VOLLEDIG - EXPORT AS-IS CSV + JSON + HD)
+// io.js (VOLLEDIG - EXPORT AS-IS CSV + JSON + HD + GITHUB CLOUD)
 // - 1 rij per proceskolom (geen 6 rijen per SSIPOC-slot)
 // - Alle multi-waarden in 1 cel gescheiden door ";" (aligned per systeem waar van toepassing)
 // - Disruptions/oorzaken/maatregelen/toelichtingen ook ";"-gescheiden
@@ -9,8 +9,7 @@
 // - FIX: Output IDs zijn project-breed stabiel (op basis van outputUid + sheet/kolom volgorde + merge-slaves overslaan)
 // - FIX (ROBUUST): Systeem export checkt nu strikt of er daadwerkelijk tekst in de systeemnaam staat.
 //        Lege merge-objecten worden genegeerd ten gunste van de post-it tekst.
-// - FIX (GROEPEN): Klant (5), Systeem (1) en Output (4) ondersteunen merges. Leverancier (0) is plat.
-// - FIX (Nieuwe types): Conditioneel en Groep kolommen toegevoegd.
+// - NEW: GitHub Cloud Integratie (Direct Save/Load)
 
 import { state } from './state.js';
 import { Toast } from './toast.js';
@@ -62,7 +61,7 @@ function downloadCanvas(canvas) {
 }
 
 /* ==========================================================================
-   Merge groups (System + Output + Klant) — gelezen uit localStorage
+   Merge groups (System + Output) — gelezen uit localStorage
    ========================================================================== */
 
 function mergeKeyForSheet(project, sheet) {
@@ -93,8 +92,7 @@ function sanitizeMergeGroupForSheet(sheet, g) {
   if (!n) return null;
 
   const slotIdx = Number(g?.slotIdx);
-  // AANGEPAST: Sta 1 (Systeem), 4 (Output), 5 (Klant) toe. 0 (Leverancier) niet.
-  if (![1, 4, 5].includes(slotIdx)) return null;
+  if (![1, 4].includes(slotIdx)) return null;
 
   const cols = Array.isArray(g?.cols) ? g.cols.map((x) => Number(x)).filter(Number.isFinite) : [];
   const uniq = [...new Set(cols)].filter((c) => c >= 0 && c < n);
@@ -972,10 +970,6 @@ export function exportToCSV() {
 
         globalColNr += 1;
 
-        // ============================
-        // LEVERANCIER (SLOT 0)
-        // ============================
-        // Standaard tekst zonder merge logica, want merge op slot 0 is uitgeschakeld.
         const leverancier = String(col?.slots?.[0]?.text ?? '').trim();
 
         // ============================
@@ -1115,17 +1109,8 @@ export function exportToCSV() {
         const routingRework = outGroup?.gate?.enabled ? getFailTargetFromGate(sheet, outGroup.gate) || '-' : '-';
         const routingPass = outGroup ? getPassTargetFromGroup(sheet, outGroup) || '-' : '-';
 
-        // ============================
-        // KLANT (SLOT 5)
-        // ============================
-        const klantGroup = getMergeGroupForCell(mergeGroups, colIdx, 5);
-        let klant = '';
-        if (klantGroup) {
-             const masterCol = sheet.columns[klantGroup.master];
-             klant = String(masterCol?.slots?.[5]?.text ?? '').trim();
-        } else {
-             klant = String(col?.slots?.[5]?.text ?? '').trim();
-        }
+        // Klant
+        const klant = String(col?.slots?.[5]?.text ?? '').trim();
 
         const row = [
           globalColNr,
@@ -1271,5 +1256,109 @@ export async function exportHD(copyToClipboard = false) {
   } catch (err) {
     console.error('Export failed:', err);
     Toast.show('Screenshot mislukt', 'error');
+  }
+}
+
+/* ==========================================================================
+   GITHUB CLOUD OPSLAG
+   ========================================================================== */
+
+// Helpers voor tekst-codering (nodig voor GitHub API)
+function utf8_to_b64(str) {
+  return window.btoa(unescape(encodeURIComponent(str)));
+}
+
+function b64_to_utf8(str) {
+  return decodeURIComponent(escape(window.atob(str)));
+}
+
+// Haal instellingen op
+function getGitHubConfig() {
+  return {
+    token: localStorage.getItem('gh_token'),
+    owner: localStorage.getItem('gh_owner'),
+    repo: localStorage.getItem('gh_repo'),
+    path: localStorage.getItem('gh_path') || 'ariseflow_data.json' // Naam van bestand in je repo
+  };
+}
+
+// 1. LADEN VAN GITHUB
+export async function loadFromGitHub() {
+  const { token, owner, repo, path } = getGitHubConfig();
+  if (!token || !owner || !repo) throw new Error('GitHub instellingen ontbreken.');
+
+  // URL naar het bestand via de API
+  const url = `https://api.github.com/repos/${owner}/${repo}/contents/${path}`;
+  
+  const response = await fetch(url, {
+    headers: {
+      'Authorization': `token ${token}`,
+      'Accept': 'application/vnd.github.v3+json'
+    }
+  });
+
+  if (!response.ok) throw new Error(`Fout bij laden: ${response.statusText}`);
+
+  const data = await response.json();
+  const content = b64_to_utf8(data.content); // Decodeer de inhoud
+  
+  // Update de applicatie state
+  const parsed = JSON.parse(content);
+  state.project = parsed;
+  if (typeof state.notify === 'function') state.notify();
+  
+  return true;
+}
+
+// 2. OPSLAAN NAAR GITHUB (OVERWRITE)
+export async function saveToGitHub() {
+  const { token, owner, repo, path } = getGitHubConfig();
+  
+  if (!token || !owner || !repo) {
+    alert("Vul eerst je GitHub gegevens in via de knop 'Setup'.");
+    return;
+  }
+
+  const url = `https://api.github.com/repos/${owner}/${repo}/contents/${path}`;
+  
+  // STAP A: Haal eerst de huidige SHA (versie-code) op van het bestand online
+  let sha = null;
+  try {
+    const getResp = await fetch(url, {
+      method: 'GET',
+      headers: { 
+        'Authorization': `token ${token}`,
+        'Accept': 'application/vnd.github.v3+json'
+      }
+    });
+    if (getResp.ok) {
+      const getData = await getResp.json();
+      sha = getData.sha; // Dit is de 'sleutel' om te mogen overschrijven
+    }
+  } catch (e) {
+    console.warn("Bestand bestaat nog niet, er wordt een nieuwe gemaakt.");
+  }
+
+  // STAP B: Bereid de nieuwe data voor
+  const contentStr = JSON.stringify(state.data, null, 2);
+  const body = {
+    message: `Update via AriseFlow: ${new Date().toLocaleString()}`,
+    content: utf8_to_b64(contentStr),
+    sha: sha // Als we deze SHA meesturen, weet GitHub dat we deze specifieke versie overschrijven
+  };
+
+  // STAP C: Stuur de update (PUT request)
+  const putResp = await fetch(url, {
+    method: 'PUT',
+    headers: {
+      'Authorization': `token ${token}`,
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(body)
+  });
+
+  if (!putResp.ok) {
+    const errData = await putResp.json();
+    throw new Error(`Opslaan mislukt: ${errData.message}`);
   }
 }

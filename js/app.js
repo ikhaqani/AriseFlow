@@ -1,7 +1,8 @@
 import { state } from './state.js';
 import { renderBoard, setupDelegatedEvents, applyStateUpdate } from './dom.js';
 import { openEditModal, saveModalDetails } from './modals.js';
-import { saveToFile, loadFromFile, exportToCSV, exportHD } from './io.js';
+// GITHUB INTEGRATIE: Imports toegevoegd
+import { saveToFile, loadFromFile, exportToCSV, exportHD, saveToGitHub, loadFromGitHub } from './io.js';
 import { Toast } from './toast.js';
 
 const $ = (id) => document.getElementById(id);
@@ -413,6 +414,64 @@ const setupSheetControls = () => {
   });
 };
 
+/* ==========================================================================
+   GITHUB CLOUD UI HANDLERS
+   ========================================================================== */
+
+/** Setup functie voor GitHub configuratie prompt */
+const setupGitHubConfig = () => {
+  const t = prompt("GitHub Token:", localStorage.getItem('gh_token') || '');
+  if (t === null) return; // Geannuleerd
+  const o = prompt("GitHub Gebruikersnaam (Owner):", localStorage.getItem('gh_owner') || '');
+  const r = prompt("Repository naam:", localStorage.getItem('gh_repo') || '');
+  
+  if(t && o && r) {
+    localStorage.setItem('gh_token', t);
+    localStorage.setItem('gh_owner', o);
+    localStorage.setItem('gh_repo', r);
+    safeToast('Instellingen opgeslagen!', 'success');
+  }
+};
+
+/** Koppel acties aan cloud knoppen */
+const setupCloudActions = () => {
+  // Knop: Opslaan naar GitHub
+  bindClick('ghSaveBtn', async () => {
+    syncOpenModal();
+    const btn = document.getElementById('ghSaveBtn');
+    const oldText = btn ? btn.innerText : '';
+    if (btn) btn.innerText = 'Bezig...';
+    
+    try {
+      await saveToGitHub();
+      safeToast('Succesvol opgeslagen in GitHub Repo!', 'success');
+    } catch (e) {
+      console.error(e);
+      safeToast('Fout: ' + e.message, 'error', 4000);
+    } finally {
+      if (btn) btn.innerText = oldText;
+    }
+  });
+
+  // Knop: Laden van GitHub
+  bindClick('ghLoadBtn', async () => {
+    syncOpenModal();
+    if(!confirm("Huidige wijzigingen overschrijven met versie van GitHub?")) return;
+    try {
+      await loadFromGitHub();
+      safeToast('Laatste versie ingeladen!', 'success');
+      renderBoard(openEditModal); 
+      scheduleMergeRefresh(100);
+    } catch (e) {
+      console.error(e);
+      safeToast('Fout bij laden: ' + e.message, 'error', 4000);
+    }
+  });
+
+  // Knop: Instellingen
+  bindClick('ghSetupBtn', setupGitHubConfig);
+};
+
 /** Sets up toolbar actions for save/load/export and clears. */
 const setupToolbarActions = () => {
   bindClick('saveBtn', async () => {
@@ -638,6 +697,9 @@ const initApp = () => {
   setupStateSubscription();
   setupGlobalHotkeys();
   setupOverlayResyncOnResize();
+  
+  // NEW: Koppel cloud acties
+  setupCloudActions();
 
   renderBoard(openEditModal);
 
