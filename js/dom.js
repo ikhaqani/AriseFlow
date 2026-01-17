@@ -1662,6 +1662,7 @@ function renderConnector({ frag, activeSheet, colIdx, variantLetterMap }) {
   const hasVariant = !!nextCol.isVariant;
   const hasQuestion = !!nextCol.isQuestion;
   const hasConditional = !!nextCol.isConditional;
+  const hasGroup = !!nextCol.isGroup;
 
   let badgesHTML = '';
 
@@ -1672,19 +1673,21 @@ function renderConnector({ frag, activeSheet, colIdx, variantLetterMap }) {
   if (hasParallel) {
     badgesHTML += `<div class="parallel-badge">||</div>`;
   }
-  if (hasQuestion) {
-    badgesHTML += `<div class="question-badge">❓</div>`;
+  if (hasGroup) {
+    badgesHTML += `<div class="group-badge">🧩</div>`;
   }
   if (hasConditional) {
     badgesHTML += `<div class="conditional-badge">⚡</div>`;
   }
+  if (hasQuestion) {
+    badgesHTML += `<div class="question-badge">❓</div>`;
+  }
 
-  // Tel alle actieve badges
-  const count = (hasParallel ? 1 : 0) + (hasVariant ? 1 : 0) + (hasQuestion ? 1 : 0) + (hasConditional ? 1 : 0);
+  const count = (hasParallel ? 1 : 0) + (hasVariant ? 1 : 0) + (hasQuestion ? 1 : 0) + (hasConditional ? 1 : 0) + (hasGroup ? 1 : 0);
 
   const connEl = document.createElement('div');
 
-  // Als er 1 of meer badges zijn, gebruik de combo-stack
+  // If one or more special types are active, use the combo/stack logic
   if (count > 0) {
     connEl.className = 'col-connector combo-connector';
     connEl.innerHTML = `
@@ -1693,7 +1696,7 @@ function renderConnector({ frag, activeSheet, colIdx, variantLetterMap }) {
       </div>
     `;
   } else {
-    // Standaard pijl
+    // Standard arrow
     connEl.className = 'col-connector';
     connEl.innerHTML = `<div class="connector-active"></div>`;
   }
@@ -1953,7 +1956,8 @@ function renderColumnsOnly(openModalFn) {
     }
 
     const colEl = document.createElement('div');
-    colEl.className = `col ${col.isParallel ? 'is-parallel' : ''} ${col.isVariant ? 'is-variant' : ''}`;
+    // NIEUW: is-group class toevoegen aan de kolom
+    colEl.className = `col ${col.isParallel ? 'is-parallel' : ''} ${col.isVariant ? 'is-variant' : ''} ${col.isGroup ? 'is-group' : ''}`;
     colEl.dataset.idx = colIdx;
 
     if (col.isVariant) colEl.dataset.route = variantLetterMap[colIdx] || 'A';
@@ -1974,9 +1978,13 @@ function renderColumnsOnly(openModalFn) {
           ? `<button class="btn-col-action btn-variant ${col.isVariant ? 'active' : ''}" data-action="variant" type="button">🔀</button>`
           : ''
       }
+      
+      <button class="btn-col-action btn-group ${col.isGroup ? 'active' : ''}" data-action="group" title="Markeer als onderdeel van groep" type="button">🧩</button>
+      
       <button class="btn-col-action btn-conditional ${col.isConditional ? 'active' : ''}" data-action="conditional" title="Voorwaardelijke stap (optioneel)" type="button">⚡</button>
       
       <button class="btn-col-action btn-question ${col.isQuestion ? 'active' : ''}" data-action="question" title="Markeer als vraag" type="button">❓</button>
+      
       <button class="btn-col-action btn-hide-col" data-action="hide" type="button">👁️</button>
       <button class="btn-col-action btn-add-col-here" data-action="add" type="button">+</button>
       <button class="btn-col-action btn-delete-col" data-action="delete" type="button">×</button>
@@ -2236,8 +2244,11 @@ export function setupDelegatedEvents() {
       case 'variant':
         state.toggleVariant?.(idx);
         break;
-      case 'conditional': // NIEUW
+      case 'conditional':
         state.toggleConditional?.(idx);
+        break;
+      case 'group': // NIEUW
+        state.toggleGroup?.(idx);
         break;
       case 'question':
         state.toggleQuestion?.(idx);

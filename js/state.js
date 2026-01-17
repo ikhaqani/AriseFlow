@@ -436,6 +436,9 @@ class StateManager {
         
         // NIEUW: Conditionele stap
         if (typeof col.isConditional !== 'boolean') col.isConditional = !!col.isConditional; 
+        
+        // NIEUW: Group proces
+        if (typeof col.isGroup !== 'boolean') col.isGroup = !!col.isGroup;
 
         if (typeof col.isVisible !== 'boolean') col.isVisible = col.isVisible !== false;
 
@@ -745,6 +748,17 @@ class StateManager {
     if (!col) return;
 
     col.isConditional = !col.isConditional;
+
+    this.notify({ reason: 'columns' }, { clone: false });
+  }
+
+  // NIEUW: Groep proces toggle (puzzelstuk)
+  toggleGroup(colIdx) {
+    this.pushHistory();
+    const col = this.activeSheet?.columns?.[colIdx];
+    if (!col) return;
+
+    col.isGroup = !col.isGroup;
 
     this.notify({ reason: 'columns' }, { clone: false });
   }

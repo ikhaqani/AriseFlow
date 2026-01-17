@@ -626,6 +626,14 @@ body {
     box-shadow: 0 0 8px rgba(0, 188, 212, 0.6);
 }
 
+/* NIEUW: Group button styling (Roze/Magenta) */
+.btn-group.active {
+    background: #e91e63;
+    color: #ffffff;
+    border-color: #e91e63;
+    box-shadow: 0 0 8px rgba(233, 30, 99, 0.6);
+}
+
 .btn-move-col {
     cursor: grab;
     background: var(--ui-accent);
@@ -1226,7 +1234,7 @@ body {
     display: none !important;
 }
 
-/* Combo (Parallel + Split + Question + Conditional) connector: toon alle badges onder elkaar */
+/* Combo (Parallel + Split + Question + Conditional + Group) connector: toon alle badges onder elkaar */
 .combo-badge-stack {
     position: absolute;
     top: 50%;
@@ -1243,7 +1251,8 @@ body {
 .combo-badge-stack .parallel-badge,
 .combo-badge-stack .variant-badge,
 .combo-badge-stack .question-badge,
-.combo-badge-stack .conditional-badge {
+.combo-badge-stack .conditional-badge,
+.combo-badge-stack .group-badge {
     position: static !important;
     top: auto !important;
     left: auto !important;
@@ -1505,6 +1514,48 @@ body {
     justify-content: center;
     height: 24px;
     min-width: 24px;
+}
+
+/* NIEUW: Group Badge Styling (Puzzelstuk) */
+.group-badge {
+    position: absolute;
+    top: 50%;
+    left: 0;
+    transform: translate(-50%, -50%);
+    z-index: 100;
+    background: #e91e63; /* Roze */
+    color: #ffffff;
+    font-size: 14px;
+    font-weight: 800;
+    padding: 3px 6px;
+    border-radius: 4px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 24px;
+    min-width: 24px;
+}
+
+/* NIEUW: Group Column Styling (Subtiele visualisatie voor het blok zelf) */
+.col.is-group {
+    border-top: 2px solid rgba(233, 30, 99, 0.3);
+    border-bottom: 2px solid rgba(233, 30, 99, 0.3);
+    background: rgba(233, 30, 99, 0.02);
+    border-radius: 12px;
+    position: relative;
+}
+
+.col.is-group + .col.is-group {
+    border-left: 1px solid rgba(233, 30, 99, 0.2);
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+}
+
+.col.is-group:has(+ .col.is-group) {
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+    border-right: none;
 }
 
 /* ==========================================================================

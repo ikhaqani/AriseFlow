@@ -880,6 +880,7 @@ export function exportToCSV() {
       'Split?',
       'Route',
       'Conditioneel?',
+      'Groep?',
       'Leverancier',
       'Systemen',
       'Legacy systemen',
@@ -1001,6 +1002,9 @@ export function exportToCSV() {
 
         // NIEUW: Conditioneel (Trigger)
         const isConditional = !!col.isConditional;
+        
+        // NIEUW: Group
+        const isGroup = !!col.isGroup;
 
         // Fase
         const fase = `Procesflow ${globalColNr}`;
@@ -1115,6 +1119,7 @@ export function exportToCSV() {
           isSplit ? 'Ja' : 'Nee',
           route,
           isConditional ? 'Ja' : 'Nee',
+          isGroup ? 'Ja' : 'Nee',
 
           leverancier,
 
