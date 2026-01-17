@@ -1,4 +1,4 @@
-// modals.js  (VOLLEDIG)
+// modals.js  (VOLLEDIG AANGEPAST)
 // -----------------------------------------------------------
 import { state } from './state.js';
 import {
@@ -381,6 +381,7 @@ function updateBundleInfoUI(data) {
   const bundleHint = content.querySelector('#bundleHint');
   const bundlePick = content.querySelector('#bundlePick');
   const bundleName = content.querySelector('#bundleName');
+  const bundleDeleteBtn = content.querySelector('#bundleDeleteDefBtn');
 
   const allOutputs = state.getAllOutputs();
   const activeId = getActiveBundleId(data);
@@ -407,6 +408,11 @@ function updateBundleInfoUI(data) {
   if (bundleHint) {
     if (!bundle) bundleHint.textContent = '';
     else bundleHint.textContent = `Bevat: ${(Array.isArray(bundle.outIds) ? bundle.outIds.length : 0)} outputs`;
+  }
+
+  // Delete button visibility
+  if(bundleDeleteBtn) {
+    bundleDeleteBtn.style.display = bundle ? 'inline-block' : 'none';
   }
 
   // ✅ BELANGRIJK: bundle => checkboxes aanvinken + locken; geen bundle => normale linkedSourceIds
@@ -1154,8 +1160,12 @@ const renderIoTab = (data, isInputRow) => {
         <input id="bundleName" class="modal-input" placeholder="Bijv. Verwijspakket" />
 
         <div style="display:flex; gap:10px; margin-top:10px; flex-wrap:wrap;">
-          <button id="bundleApplyBtn" class="std-btn primary" type="button">Pakket maken/updates & gebruiken</button>
-          <button id="bundleClearBtn" class="std-btn" type="button">Pakket loskoppelen</button>
+          <button id="bundleApplyBtn" class="std-btn primary" type="button">Pakket opslaan/gebruiken</button>
+          <button id="bundleClearBtn" class="std-btn" type="button">Loskoppelen</button>
+          
+          <button id="bundleDeleteDefBtn" class="std-btn danger-text" type="button" style="margin-left:auto; border:1px solid #ff5252; color:#ff5252; display:none;">
+             🗑️ Pakket definitief verwijderen
+          </button>
         </div>
 
         <div id="bundleHint" style="margin-top:8px; font-size:12px; opacity:0.8;"></div>
@@ -1878,14 +1888,55 @@ const setupPermanentListeners = () => {
     state.saveStickyDetails();
   });
 
-  // Output-pakket (bundel) — create/update/use + clear
+  // Output-pakket (bundel) — create/update/use + clear + DELETE
   content.addEventListener('click', (e) => {
     const data = getStickyData();
     if (!data) return;
 
     const applyBtn = e.target?.closest?.('#bundleApplyBtn');
     const clearBtn = e.target?.closest?.('#bundleClearBtn');
+    const deleteDefBtn = e.target?.closest?.('#bundleDeleteDefBtn');
 
+    // 1. Verwijder Pakket Definitie (NIEUW)
+    if (deleteDefBtn) {
+        const pick = content.querySelector('#bundlePick');
+        const id = String(pick?.value || '').trim();
+
+        if (!id) return;
+        if (!confirm('Weet je zeker dat je dit pakket definitief wilt verwijderen? Het is dan nergens meer beschikbaar.')) return;
+
+        // Verwijder uit data
+        const bundles = ensureOutputBundlesArray();
+        const project = state.data;
+        project.outputBundles = bundles.filter(b => String(b.id) !== id);
+
+        // UI Reset
+        setActiveBundleId(data, '');
+        if(pick) {
+           pick.value = '';
+           const opt = pick.querySelector(`option[value="${escapeAttr(id)}"]`);
+           if(opt) opt.remove();
+        }
+        
+        content.querySelector('#bundleName').value = '';
+        updateBundleInfoUI(data);
+        
+        // Inputs weer vrijgeven
+        const ids = normalizeLinkedSourceIds(data);
+        const list = $('inputSourcesList');
+        if (list) {
+           list.style.opacity = '1';
+           list.style.pointerEvents = 'auto';
+           list.style.filter = 'none';
+        }
+        syncOutputCheckboxesFromLinkedSources(data);
+        updateLinkedInfoUI(ids);
+
+        state.saveStickyDetails();
+        return;
+    }
+
+    // 2. Clear Selection
     if (clearBtn) {
       setActiveBundleId(data, '');
       updateBundleInfoUI(data);
@@ -1906,6 +1957,7 @@ const setupPermanentListeners = () => {
       return;
     }
 
+    // 3. Apply / Create / Update
     if (!applyBtn) return;
 
     const pick = content.querySelector('#bundlePick');
@@ -1933,6 +1985,7 @@ const setupPermanentListeners = () => {
     let bundle = pickedId ? findBundleById(pickedId) : null;
 
     if (!bundle) {
+      // Create NEW
       bundle = { id: makeLocalId('bundle'), name, outIds: [] };
       bundles.push(bundle);
 
@@ -1943,9 +1996,15 @@ const setupPermanentListeners = () => {
         pick.appendChild(opt);
         pick.value = bundle.id;
       }
+    } else {
+      // Update EXISTING (en update de UI naam)
+      bundle.name = name;
+      if (pick) {
+          const opt = pick.querySelector(`option[value="${bundle.id}"]`);
+          if (opt) opt.textContent = name;
+      }
     }
 
-    bundle.name = name;
     bundle.outIds = [...new Set(ids.map((x) => String(x ?? '').trim()).filter((x) => x))];
 
     // Activate this bundle as the input source
