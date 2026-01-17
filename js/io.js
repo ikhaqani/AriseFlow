@@ -879,6 +879,7 @@ export function exportToCSV() {
       'Parallel met?',
       'Split?',
       'Route',
+      'Conditioneel?',
       'Leverancier',
       'Systemen',
       'Legacy systemen',
@@ -998,6 +999,9 @@ export function exportToCSV() {
         const isSplit = !!col.isVariant;
         const route = isSplit ? String(variantMap[colIdx] || '') : '-';
 
+        // NIEUW: Conditioneel (Trigger)
+        const isConditional = !!col.isConditional;
+
         // Fase
         const fase = `Procesflow ${globalColNr}`;
 
@@ -1110,6 +1114,7 @@ export function exportToCSV() {
           parallelWith,
           isSplit ? 'Ja' : 'Nee',
           route,
+          isConditional ? 'Ja' : 'Nee',
 
           leverancier,
 

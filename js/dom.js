@@ -1658,48 +1658,46 @@ function renderConnector({ frag, activeSheet, colIdx, variantLetterMap }) {
 
   const nextCol = activeSheet.columns[nextVisibleIdx];
 
-  // New connector selection logic:
   const hasParallel = !!nextCol.isParallel;
   const hasVariant = !!nextCol.isVariant;
+  const hasQuestion = !!nextCol.isQuestion;
+  const hasConditional = !!nextCol.isConditional;
 
-  // If both are enabled, show both badges stacked (under each other)
-  if (hasParallel && hasVariant) {
-    const letter = variantLetterMap?.[nextVisibleIdx] || 'A';
-    const connEl = document.createElement('div');
-    connEl.className = 'col-connector combo-connector';
-    connEl.innerHTML = `
-      <div class="combo-badge-stack">
-        <div class="variant-badge">🔀${letter}</div>
-        <div class="parallel-badge">||</div>
-      </div>
-    `;
-    frag.appendChild(connEl);
-    return;
-  }
-
-  if (hasParallel) {
-    const connEl = document.createElement('div');
-    connEl.className = 'col-connector parallel-connector';
-    connEl.innerHTML = `<div class="parallel-line"></div><div class="parallel-badge">||</div>`;
-    frag.appendChild(connEl);
-    return;
-  }
+  let badgesHTML = '';
 
   if (hasVariant) {
     const letter = variantLetterMap?.[nextVisibleIdx] || 'A';
-    const connEl = document.createElement('div');
-    connEl.className = 'col-connector variant-connector';
-    connEl.innerHTML = `<div class="variant-badge">🔀${letter}</div>`;
-    frag.appendChild(connEl);
-    return;
+    badgesHTML += `<div class="variant-badge">🔀${letter}</div>`;
+  }
+  if (hasParallel) {
+    badgesHTML += `<div class="parallel-badge">||</div>`;
+  }
+  if (hasQuestion) {
+    badgesHTML += `<div class="question-badge">❓</div>`;
+  }
+  if (hasConditional) {
+    badgesHTML += `<div class="conditional-badge">⚡</div>`;
   }
 
+  // Tel alle actieve badges
+  const count = (hasParallel ? 1 : 0) + (hasVariant ? 1 : 0) + (hasQuestion ? 1 : 0) + (hasConditional ? 1 : 0);
+
   const connEl = document.createElement('div');
-  connEl.className = 'col-connector';
-  connEl.innerHTML = `
-      <div class="connector-active">
+
+  // Als er 1 of meer badges zijn, gebruik de combo-stack
+  if (count > 0) {
+    connEl.className = 'col-connector combo-connector';
+    connEl.innerHTML = `
+      <div class="combo-badge-stack">
+        ${badgesHTML}
       </div>
-  `;
+    `;
+  } else {
+    // Standaard pijl
+    connEl.className = 'col-connector';
+    connEl.innerHTML = `<div class="connector-active"></div>`;
+  }
+
   frag.appendChild(connEl);
 }
 
@@ -1976,6 +1974,9 @@ function renderColumnsOnly(openModalFn) {
           ? `<button class="btn-col-action btn-variant ${col.isVariant ? 'active' : ''}" data-action="variant" type="button">🔀</button>`
           : ''
       }
+      <button class="btn-col-action btn-conditional ${col.isConditional ? 'active' : ''}" data-action="conditional" title="Voorwaardelijke stap (optioneel)" type="button">⚡</button>
+      
+      <button class="btn-col-action btn-question ${col.isQuestion ? 'active' : ''}" data-action="question" title="Markeer als vraag" type="button">❓</button>
       <button class="btn-col-action btn-hide-col" data-action="hide" type="button">👁️</button>
       <button class="btn-col-action btn-add-col-here" data-action="add" type="button">+</button>
       <button class="btn-col-action btn-delete-col" data-action="delete" type="button">×</button>
@@ -2234,6 +2235,12 @@ export function setupDelegatedEvents() {
         break;
       case 'variant':
         state.toggleVariant?.(idx);
+        break;
+      case 'conditional': // NIEUW
+        state.toggleConditional?.(idx);
+        break;
+      case 'question':
+        state.toggleQuestion?.(idx);
         break;
     }
   };

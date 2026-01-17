@@ -432,6 +432,11 @@ class StateManager {
       sheet.columns.forEach((col) => {
         if (typeof col.isVariant !== 'boolean') col.isVariant = false;
         if (typeof col.isParallel !== 'boolean') col.isParallel = !!col.isParallel;
+        if (typeof col.isQuestion !== 'boolean') col.isQuestion = !!col.isQuestion;
+        
+        // NIEUW: Conditionele stap
+        if (typeof col.isConditional !== 'boolean') col.isConditional = !!col.isConditional; 
+
         if (typeof col.isVisible !== 'boolean') col.isVisible = col.isVisible !== false;
 
         if (!Array.isArray(col.slots) || col.slots.length !== 6) {
@@ -719,6 +724,27 @@ class StateManager {
     if (!col) return;
 
     col.isVariant = !col.isVariant;
+
+    this.notify({ reason: 'columns' }, { clone: false });
+  }
+
+  toggleQuestion(colIdx) {
+    this.pushHistory();
+    const col = this.activeSheet?.columns?.[colIdx];
+    if (!col) return;
+
+    col.isQuestion = !col.isQuestion;
+
+    this.notify({ reason: 'columns' }, { clone: false });
+  }
+
+  // NIEUW: Conditionele stap toggle (bliksem)
+  toggleConditional(colIdx) {
+    this.pushHistory();
+    const col = this.activeSheet?.columns?.[colIdx];
+    if (!col) return;
+
+    col.isConditional = !col.isConditional;
 
     this.notify({ reason: 'columns' }, { clone: false });
   }

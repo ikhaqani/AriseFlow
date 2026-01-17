@@ -610,6 +610,22 @@ body {
     box-shadow: 0 0 8px rgba(126, 87, 194, 0.6);
 }
 
+/* NIEUW: Conditionele (Trigger) button styling */
+.btn-conditional.active {
+    background: #ff9800; /* Oranje */
+    color: #ffffff;
+    border-color: #ff9800;
+    box-shadow: 0 0 8px rgba(255, 152, 0, 0.6);
+}
+
+/* NIEUW: Vraagteken button styling */
+.btn-question.active {
+    background: #00bcd4; /* Cyaan blauw */
+    color: #ffffff;
+    border-color: #00bcd4;
+    box-shadow: 0 0 8px rgba(0, 188, 212, 0.6);
+}
+
 .btn-move-col {
     cursor: grab;
     background: var(--ui-accent);
@@ -1210,7 +1226,7 @@ body {
     display: none !important;
 }
 
-/* Combo (Parallel + Split) connector: toon beide badges onder elkaar */
+/* Combo (Parallel + Split + Question + Conditional) connector: toon alle badges onder elkaar */
 .combo-badge-stack {
     position: absolute;
     top: 50%;
@@ -1225,7 +1241,9 @@ body {
 
 /* Als badges in de stack zitten, moeten ze niet absoluut positioneren */
 .combo-badge-stack .parallel-badge,
-.combo-badge-stack .variant-badge {
+.combo-badge-stack .variant-badge,
+.combo-badge-stack .question-badge,
+.combo-badge-stack .conditional-badge {
     position: static !important;
     top: auto !important;
     left: auto !important;
@@ -1436,6 +1454,48 @@ body {
     background: #7e57c2;
     color: #ffffff;
     font-size: 12px;
+    font-weight: 800;
+    padding: 3px 6px;
+    border-radius: 4px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 24px;
+    min-width: 24px;
+}
+
+/* NIEUW: Question Badge Styling */
+.question-badge {
+    position: absolute;
+    top: 50%;
+    left: 0;
+    transform: translate(-50%, -50%);
+    z-index: 100;
+    background: #00bcd4; /* Cyaan blauw */
+    color: #ffffff;
+    font-size: 12px;
+    font-weight: 800;
+    padding: 3px 6px;
+    border-radius: 4px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 24px;
+    min-width: 24px;
+}
+
+/* NIEUW: Conditional Badge Styling */
+.conditional-badge {
+    position: absolute;
+    top: 50%;
+    left: 0;
+    transform: translate(-50%, -50%);
+    z-index: 100;
+    background: #ff9800; /* Oranje */
+    color: #ffffff;
+    font-size: 14px;
     font-weight: 800;
     padding: 3px 6px;
     border-radius: 4px;
