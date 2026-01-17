@@ -110,8 +110,8 @@ function sanitizeGroupForActiveSheet(g) {
   const slotIdx = Number(g?.slotIdx);
   if (!Number.isFinite(slotIdx)) return null;
 
-  // AANGEPAST: Sta ook 0 (Leverancier) en 5 (Klant) toe
-  if (![0, 1, 4, 5].includes(slotIdx)) return null;
+  // AANGEPAST: Alleen 1 (Systeem), 4 (Output), 5 (Klant) toestaan. Leverancier (0) verwijderd.
+  if (![1, 4, 5].includes(slotIdx)) return null;
 
   const cols = Array.isArray(g?.cols) ? g.cols.map((x) => Number(x)).filter(Number.isFinite) : [];
   const uniq = [...new Set(cols)].filter((c) => c >= 0 && c < n);
@@ -201,8 +201,8 @@ function sanitizeGroupForSheet(sheet, g) {
   if (!n) return null;
 
   const slotIdx = Number(g?.slotIdx);
-  // AANGEPAST: Sta ook 0 (Leverancier) en 5 (Klant) toe
-  if (![0, 1, 4, 5].includes(slotIdx)) return null;
+  // AANGEPAST: Alleen 1, 4, 5
+  if (![1, 4, 5].includes(slotIdx)) return null;
 
   const cols = Array.isArray(g?.cols) ? g.cols.map((x) => Number(x)).filter(Number.isFinite) : [];
   const uniq = [...new Set(cols)].filter((c) => c >= 0 && c < n);
@@ -604,15 +604,10 @@ function openMergeModal(clickedColIdx, slotIdx, openModalFn) {
   const n = sh.columns?.length ?? 0;
   if (!n) return;
 
-  // AANGEPAST: Sta 0 (Leverancier), 1 (Systeem), 4 (Output), 5 (Klant) toe
-  if (![0, 1, 4, 5].includes(slotIdx)) return;
+  // AANGEPAST: Alleen 1, 4, 5. (0 = Leverancier is verwijderd)
+  if (![1, 4, 5].includes(slotIdx)) return;
 
-  // Bepaal titel
-  let slotName = '';
-  if (slotIdx === 0) slotName = 'Leverancier';
-  else if (slotIdx === 1) slotName = 'Systeem';
-  else if (slotIdx === 4) slotName = 'Output';
-  else if (slotIdx === 5) slotName = 'Klant';
+  const slotName = slotIdx === 1 ? 'Systeem' : slotIdx === 4 ? 'Output' : 'Klant';
 
   const cur = getAllMergeGroupsSanitized().find((g) => g.slotIdx === slotIdx) || null;
   const curCols = cur?.cols?.length ? cur.cols : [];
@@ -704,7 +699,6 @@ function openMergeModal(clickedColIdx, slotIdx, openModalFn) {
   `
       : '';
 
-  // Titel en description aangepast
   modal.innerHTML = `
     <h3>Consolidatie ${slotName}</h3>
 
@@ -725,10 +719,6 @@ function openMergeModal(clickedColIdx, slotIdx, openModalFn) {
     <div id="mergeStatusLine" style="margin-top:6px; font-size:12px; opacity:0.8;">Niet gemerged</div>
 
     ${
-      // Alleen voor Output en Systeem mag je iets speciaals; voor 0 en 5 is het gewoon tekst
-      // Maar in dit geval: Output heeft validatie, Systeem heeft fit-vragen
-      // Voor Leverancier en Klant is het 'gewoon' de tekst van de master
-      // We gebruiken de textarea voor de merged text (behalve als systemen specifiek zijn)
       slotIdx !== 1
         ? `
     <label class="modal-label">${slotName} Definitie</label>
@@ -1261,1021 +1251,1019 @@ const TTF_IMPACT_SCORES = { SAFE: 1, DELAY: 0.66, RISK: 0.33, STOP: 0 };
 
 /** Computes a 0-100 System Fit score for a single system entry based on stored answers. */
 function computeTTFSystemScore(sys) {
-  const qa = sys?.qa && typeof sys.qa === 'object' ? sys.qa : {};
-  const keys = [
-    { id: 'q1', map: TTF_FREQ_SCORES },
-    { id: 'q2', map: TTF_FREQ_SCORES },
-    { id: 'q3', map: TTF_FREQ_SCORES },
-    { id: 'q4', map: TTF_FREQ_SCORES },
-    { id: 'q5', map: TTF_IMPACT_SCORES }
-  ];
+  const qa = sys?.qa && typeof sys.qa === 'object' ? sys.qa : {};
+  const keys = [
+    { id: 'q1', map: TTF_FREQ_SCORES },
+    { id: 'q2', map: TTF_FREQ_SCORES },
+    { id: 'q3', map: TTF_FREQ_SCORES },
+    { id: 'q4', map: TTF_FREQ_SCORES },
+    { id: 'q5', map: TTF_IMPACT_SCORES }
+  ];
 
-  let sum = 0;
-  let n = 0;
+  let sum = 0;
+  let n = 0;
 
-  for (const k of keys) {
-    const ans = qa[k.id];
-    if (!ans) continue;
-    const v = k.map[ans];
-    if (typeof v !== 'number' || !Number.isFinite(v)) continue;
-    sum += v;
-    n += 1;
-  }
+  for (const k of keys) {
+    const ans = qa[k.id];
+    if (!ans) continue;
+    const v = k.map[ans];
+    if (typeof v !== 'number' || !Number.isFinite(v)) continue;
+    sum += v;
+    n += 1;
+  }
 
-  if (n === 0) return null;
-  return Math.round((sum / n) * 100);
+  if (n === 0) return null;
+  return Math.round((sum / n) * 100);
 }
 
 /** Returns the ordered per-system TTF scores from systems meta, computing when missing. */
 function computeTTFScoreListFromMeta(meta) {
-  const clean = _sanitizeSystemsMeta(meta);
-  if (!clean?.systems?.length) return [];
+  const clean = _sanitizeSystemsMeta(meta);
+  if (!clean?.systems?.length) return [];
 
-  return clean.systems.map((s) => {
-    const stored = s?.score;
-    if (Number.isFinite(Number(stored))) return Number(stored);
-    const computed = computeTTFSystemScore(s);
-    return Number.isFinite(Number(computed)) ? Number(computed) : null;
-  });
+  return clean.systems.map((s) => {
+    const stored = s?.score;
+    if (Number.isFinite(Number(stored))) return Number(stored);
+    const computed = computeTTFSystemScore(s);
+    return Number.isFinite(Number(computed)) ? Number(computed) : null;
+  });
 }
 
 /** Computes the weighted Input Quality score (0-100) from stored QA results. */
 function calculateLSSScore(qa) {
-  if (!qa) return null;
+  if (!qa) return null;
 
-  let totalW = 0;
-  let earnedW = 0;
+  let totalW = 0;
+  let earnedW = 0;
 
-  IO_CRITERIA.forEach((c) => {
-    const val = qa[c.key]?.result;
-    const isScored = ['GOOD', 'POOR', 'MODERATE', 'MINOR', 'FAIL', 'OK', 'NOT_OK'].includes(val);
-    if (!isScored) return;
+  IO_CRITERIA.forEach((c) => {
+    const val = qa[c.key]?.result;
+    const isScored = ['GOOD', 'POOR', 'MODERATE', 'MINOR', 'FAIL', 'OK', 'NOT_OK'].includes(val);
+    if (!isScored) return;
 
-    totalW += c.weight;
+    totalW += c.weight;
 
-    if (val === 'GOOD' || val === 'OK') earnedW += c.weight;
-    else if (val === 'MINOR') earnedW += c.weight * 0.75;
-    else if (val === 'MODERATE') earnedW += c.weight * 0.5;
-    else earnedW += 0;
-  });
+    if (val === 'GOOD' || val === 'OK') earnedW += c.weight;
+    else if (val === 'MINOR') earnedW += c.weight * 0.75;
+    else if (val === 'MODERATE') earnedW += c.weight * 0.5;
+    else earnedW += 0;
+  });
 
-  return totalW === 0 ? null : Math.round((earnedW / totalW) * 100);
+  return totalW === 0 ? null : Math.round((earnedW / totalW) * 100);
 }
 
 /** Returns the emoji corresponding to a process status value. */
 function getProcessEmoji(status) {
-  if (!status) return '';
-  const s = PROCESS_STATUSES?.find?.((x) => x.value === status);
-  return s?.emoji || '';
+  if (!status) return '';
+  const s = PROCESS_STATUSES?.find?.((x) => x.value === status);
+  return s?.emoji || '';
 }
 
 /** Maps a zero-based index to a route letter for variant flows. */
 function _toLetter(i0) {
-  const n = Number(i0);
-  if (!Number.isFinite(n) || n < 0) return 'A';
-  const base = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
-  return base[n] || `R${n + 1}`;
+  const n = Number(i0);
+  if (!Number.isFinite(n) || n < 0) return 'A';
+  const base = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+  return base[n] || `R${n + 1}`;
 }
 
 /** Computes the per-column route letter map for variant columns. */
 function computeVariantLetterMap(activeSheet) {
-  const map = {};
-  if (!activeSheet?.columns?.length) return map;
+  const map = {};
+  if (!activeSheet?.columns?.length) return map;
 
-  let inRun = false;
-  let runIdx = 0;
+  let inRun = false;
+  let runIdx = 0;
 
-  for (let i = 0; i < activeSheet.columns.length; i++) {
-    const col = activeSheet.columns[i];
-    if (col?.isVisible === false) continue;
+  for (let i = 0; i < activeSheet.columns.length; i++) {
+    const col = activeSheet.columns[i];
+    if (col?.isVisible === false) continue;
 
-    const isVar = !!col?.isVariant;
+    const isVar = !!col?.isVariant;
 
-    if (isVar) {
-      if (!inRun) {
-        inRun = true;
-        runIdx = 0;
-      }
-      map[i] = _toLetter(runIdx);
-      runIdx += 1;
-    } else {
-      inRun = false;
-      runIdx = 0;
-    }
-  }
+    if (isVar) {
+      if (!inRun) {
+        inRun = true;
+        runIdx = 0;
+      }
+      map[i] = _toLetter(runIdx);
+      runIdx += 1;
+    } else {
+      inRun = false;
+      runIdx = 0;
+    }
+  }
 
-  return map;
+  return map;
 }
 
 /** Returns UI metadata for a given work experience value. */
 function getWorkExpMeta(workExp) {
-  const v = String(workExp || '').toUpperCase();
-  if (v === 'OBSTACLE') return { icon: '🛠️', short: 'Obstakel', context: 'Kost energie' };
-  if (v === 'ROUTINE') return { icon: '🤖', short: 'Routine', context: 'Saai & Repeterend' };
-  if (v === 'FLOW') return { icon: '🚀', short: 'Flow', context: 'Geeft energie' };
-  return null;
+  const v = String(workExp || '').toUpperCase();
+  if (v === 'OBSTACLE') return { icon: '🛠️', short: 'Obstakel', context: 'Kost energie' };
+  if (v === 'ROUTINE') return { icon: '🤖', short: 'Routine', context: 'Saai & Repeterend' };
+  if (v === 'FLOW') return { icon: '🚀', short: 'Flow', context: 'Geeft energie' };
+  return null;
 }
 
 /** Returns the icon corresponding to the Lean value classification. */
 function getLeanIcon(val) {
-  if (val === 'VA') return '💚';
-  if (val === 'BNVA') return '⚖️';
-  if (val === 'NVA') return '🗑️';
-  return '';
+  if (val === 'VA') return '💚';
+  if (val === 'BNVA') return '⚖️';
+  if (val === 'NVA') return '🗑️';
+  return '';
 }
 
 /** Builds HTML for score badges including IQF (Input) and TTF (System). */
 function buildScoreBadges({ slotIdx, slot }) {
-  let html = '';
+  let html = '';
 
-  const qaScore = calculateLSSScore(slot.qa);
-  if (qaScore !== null && slotIdx === 2) {
-    const badgeClass = qaScore >= 80 ? 'score-high' : qaScore >= 60 ? 'score-med' : 'score-low';
-    html += `<div class="qa-score-badge ${badgeClass}">IQF: ${qaScore}%</div>`;
-  }
+  const qaScore = calculateLSSScore(slot.qa);
+  if (qaScore !== null && slotIdx === 2) {
+    const badgeClass = qaScore >= 80 ? 'score-high' : qaScore >= 60 ? 'score-med' : 'score-low';
+    html += `<div class="qa-score-badge ${badgeClass}">IQF: ${qaScore}%</div>`;
+  }
 
-  if (slotIdx === 1) {
-    const meta = slot.systemData?.systemsMeta;
-    const scoreList = computeTTFScoreListFromMeta(meta);
+  if (slotIdx === 1) {
+    const meta = slot.systemData?.systemsMeta;
+    const scoreList = computeTTFScoreListFromMeta(meta);
 
-    if (scoreList.length) {
-      const scores = scoreList.map((v) => (Number.isFinite(Number(v)) ? `${Number(v)}%` : '—'));
-      const label = `TTF: ${scores.join('; ')}`;
+    if (scoreList.length) {
+      const scores = scoreList.map((v) => (Number.isFinite(Number(v)) ? `${Number(v)}%` : '—'));
+      const label = `TTF: ${scores.join('; ')}`;
 
-      const overallStored = slot.systemData?.calculatedScore;
-      const overallDerived = (() => {
-        if (Number.isFinite(Number(overallStored))) return Number(overallStored);
-        const valid = scoreList.filter((x) => Number.isFinite(Number(x)));
-        if (!valid.length) return null;
-        return Math.round(valid.reduce((a, b) => a + b, 0) / valid.length);
-      })();
+      const overallStored = slot.systemData?.calculatedScore;
+      const overallDerived = (() => {
+        if (Number.isFinite(Number(overallStored))) return Number(overallStored);
+        const valid = scoreList.filter((x) => Number.isFinite(Number(x)));
+        if (!valid.length) return null;
+        return Math.round(valid.reduce((a, b) => a + b, 0) / valid.length);
+      })();
 
-      const badgeClass =
-        Number.isFinite(Number(overallDerived))
-          ? Number(overallDerived) >= 80
-            ? 'score-high'
-            : Number(overallDerived) >= 60
-              ? 'score-med'
-              : 'score-low'
-          : 'score-med';
+      const badgeClass =
+        Number.isFinite(Number(overallDerived))
+          ? Number(overallDerived) >= 80
+            ? 'score-high'
+            : Number(overallDerived) >= 60
+              ? 'score-med'
+              : 'score-low'
+          : 'score-med';
 
-      html += `<div class="qa-score-badge ${badgeClass}">${escapeHTML(label)}</div>`;
-      return html;
-    }
+      html += `<div class="qa-score-badge ${badgeClass}">${escapeHTML(label)}</div>`;
+      return html;
+    }
 
-    if (slot.systemData?.calculatedScore != null) {
-      const sysScore = slot.systemData.calculatedScore;
-      const badgeClass = sysScore >= 80 ? 'score-high' : sysScore >= 60 ? 'score-med' : 'score-low';
-      html += `<div class="qa-score-badge ${badgeClass}">TTF: ${sysScore}%</div>`;
-    }
-  }
+    if (slot.systemData?.calculatedScore != null) {
+      const sysScore = slot.systemData.calculatedScore;
+      const badgeClass = sysScore >= 80 ? 'score-high' : sysScore >= 60 ? 'score-med' : 'score-low';
+      html += `<div class="qa-score-badge ${badgeClass}">TTF: ${sysScore}%</div>`;
+    }
+  }
 
-  return html;
+  return html;
 }
 
 /** Builds the HTML for one sticky slot including badges and the editable content area. */
 function buildSlotHTML({
-  colIdx,
-  slotIdx,
-  slot,
-  statusClass,
-  typeIcon,
-  myInputId,
-  myOutputId,
-  isLinked,
-  scoreBadgeHTML,
-  extraStickyClass = '',
-  extraStickyStyle = ''
+  colIdx,
+  slotIdx,
+  slot,
+  statusClass,
+  typeIcon,
+  myInputId,
+  myOutputId,
+  isLinked,
+  scoreBadgeHTML,
+  extraStickyClass = '',
+  extraStickyStyle = ''
 }) {
-  const procEmoji = slotIdx === 3 && slot.processStatus ? getProcessEmoji(slot.processStatus) : '';
-  const leanIcon = slotIdx === 3 && slot.processValue ? getLeanIcon(slot.processValue) : '';
-  const workExpIcon = slotIdx === 3 ? (getWorkExpMeta(slot?.workExp)?.icon || '') : '';
-  const linkIcon = isLinked ? '🔗' : '';
+  const procEmoji = slotIdx === 3 && slot.processStatus ? getProcessEmoji(slot.processStatus) : '';
+  const leanIcon = slotIdx === 3 && slot.processValue ? getLeanIcon(slot.processValue) : '';
+  const workExpIcon = slotIdx === 3 ? (getWorkExpMeta(slot?.workExp)?.icon || '') : '';
+  const linkIcon = isLinked ? '🔗' : '';
 
-  const b1 = slotIdx === 3 && slot.type ? typeIcon : '';
-  const b2 = slotIdx === 3 ? leanIcon : '';
-  const b3 = slotIdx === 3 ? workExpIcon : (slotIdx === 2 && isLinked ? linkIcon : '');
-  const b4 = slotIdx === 3 ? procEmoji : '';
+  const b1 = slotIdx === 3 && slot.type ? typeIcon : '';
+  const b2 = slotIdx === 3 ? leanIcon : '';
+  const b3 = slotIdx === 3 ? workExpIcon : (slotIdx === 2 && isLinked ? linkIcon : '');
+  const b4 = slotIdx === 3 ? procEmoji : '';
 
-  const editableAttr = isLinked ? 'contenteditable="false" data-linked="true"' : 'contenteditable="true"';
+  const editableAttr = isLinked ? 'contenteditable="false" data-linked="true"' : 'contenteditable="true"';
 
-  return `
-    <div class="sticky ${statusClass} ${extraStickyClass}" style="${escapeAttr(
-    extraStickyStyle
-  )}" data-col="${colIdx}" data-slot="${slotIdx}">
-      <div class="sticky-grip"></div>
+  return `
+    <div class="sticky ${statusClass} ${extraStickyClass}" style="${escapeAttr(
+    extraStickyStyle
+  )}" data-col="${colIdx}" data-slot="${slotIdx}">
+      <div class="sticky-grip"></div>
 
-      <div class="badges-row">
-        <div class="sticky-badge">${escapeHTML(b1)}</div>
-        <div class="sticky-badge">${escapeHTML(b2)}</div>
-        <div class="sticky-badge">${escapeHTML(b3)}</div>
-        <div class="sticky-badge emoji-only">${escapeHTML(b4)}</div>
-      </div>
+      <div class="badges-row">
+        <div class="sticky-badge">${escapeHTML(b1)}</div>
+        <div class="sticky-badge">${escapeHTML(b2)}</div>
+        <div class="sticky-badge">${escapeHTML(b3)}</div>
+        <div class="sticky-badge emoji-only">${escapeHTML(b4)}</div>
+      </div>
 
-      ${slotIdx === 2 && myInputId ? `<div class="id-tag">${myInputId}</div>` : ''}
-      ${slotIdx === 4 && myOutputId ? `<div class="id-tag">${myOutputId}</div>` : ''}
+      ${slotIdx === 2 && myInputId ? `<div class="id-tag">${myInputId}</div>` : ''}
+      ${slotIdx === 4 && myOutputId ? `<div class="id-tag">${myOutputId}</div>` : ''}
 
-      ${scoreBadgeHTML}
+      ${scoreBadgeHTML}
 
-      <div class="sticky-content">
-        <div class="text" ${editableAttr} spellcheck="false"></div>
-      </div>
-    </div>
-  `;
+      <div class="sticky-content">
+        <div class="text" ${editableAttr} spellcheck="false"></div>
+      </div>
+    </div>
+  `;
 }
 
 /** Computes an element offset relative to an ancestor element. */
 function getOffsetWithin(el, ancestor) {
-  let x = 0;
-  let y = 0;
-  let cur = el;
-  while (cur && cur !== ancestor) {
-    x += cur.offsetLeft || 0;
-    y += cur.offsetTop || 0;
-    cur = cur.offsetParent;
-  }
-  return { x, y };
+  let x = 0;
+  let y = 0;
+  let cur = el;
+  while (cur && cur !== ancestor) {
+    x += cur.offsetLeft || 0;
+    y += cur.offsetTop || 0;
+    cur = cur.offsetParent;
+  }
+  return { x, y };
 }
 
 /** Schedules a single row-height sync and merged overlay render on the next frame. */
 function scheduleSyncRowHeights() {
-  if (_syncRaf) cancelAnimationFrame(_syncRaf);
-  _syncRaf = requestAnimationFrame(() => {
-    _syncRaf = 0;
-    syncRowHeightsNow();
-    renderMergedOverlays(_openModalFn);
-  });
+  if (_syncRaf) cancelAnimationFrame(_syncRaf);
+  _syncRaf = requestAnimationFrame(() => {
+    _syncRaf = 0;
+    syncRowHeightsNow();
+    renderMergedOverlays(_openModalFn);
+  });
 }
 
 /** Synchronizes row heights across columns using the tallest sticky per row. */
 function syncRowHeightsNow() {
-  const rowHeadersEl = $('row-headers');
-  const rowHeaders = rowHeadersEl?.children;
-  if (!rowHeaders || !rowHeaders.length) return;
+  const rowHeadersEl = $('row-headers');
+  const rowHeaders = rowHeadersEl?.children;
+  if (!rowHeaders || !rowHeaders.length) return;
 
-  const colsContainer = $('cols');
-  const cols = colsContainer?.querySelectorAll?.('.col');
-  if (!cols || !cols.length) return;
+  const colsContainer = $('cols');
+  const cols = colsContainer?.querySelectorAll?.('.col');
+  if (!cols || !cols.length) return;
 
-  // 1) Reset heights so content can naturally expand before measuring.
-  for (let r = 0; r < 6; r++) {
-    if (rowHeaders[r]) rowHeaders[r].style.height = 'auto';
-    cols.forEach((col) => {
-      const slotNodes = col.querySelectorAll('.slots .slot');
-      if (!slotNodes[r]) return;
-      slotNodes[r].style.height = 'auto';
-      const sticky = slotNodes[r].firstElementChild;
-      if (sticky) sticky.style.height = 'auto';
-    });
-  }
+  // 1) Reset heights so content can naturally expand before measuring.
+  for (let r = 0; r < 6; r++) {
+    if (rowHeaders[r]) rowHeaders[r].style.height = 'auto';
+    cols.forEach((col) => {
+      const slotNodes = col.querySelectorAll('.slots .slot');
+      if (!slotNodes[r]) return;
+      slotNodes[r].style.height = 'auto';
+      const sticky = slotNodes[r].firstElementChild;
+      if (sticky) sticky.style.height = 'auto';
+    });
+  }
 
-  // 2) Measure tallest sticky per row after reset.
-  const MIN_ROW_HEIGHT = 160;
-  const heights = Array(6).fill(MIN_ROW_HEIGHT);
+  // 2) Measure tallest sticky per row after reset.
+  const MIN_ROW_HEIGHT = 160;
+  const heights = Array(6).fill(MIN_ROW_HEIGHT);
 
-  cols.forEach((col) => {
-    const slotNodes = col.querySelectorAll('.slots .slot');
-    for (let r = 0; r < 6; r++) {
-      const slot = slotNodes[r];
-      if (!slot) continue;
-      const sticky = slot.firstElementChild;
-      if (!sticky) continue;
+  cols.forEach((col) => {
+    const slotNodes = col.querySelectorAll('.slots .slot');
+    for (let r = 0; r < 6; r++) {
+      const slot = slotNodes[r];
+      if (!slot) continue;
+      const sticky = slot.firstElementChild;
+      if (!sticky) continue;
 
-      // Use scrollHeight as source-of-truth for content growth.
-      // FIX: Increase buffer from +2 to +32 to prevent any text cutoff or overlap.
-      const h = Math.ceil(
-        Math.max(sticky.scrollHeight || 0, sticky.getBoundingClientRect?.().height || 0)
-      ) + 32;
-      if (h > heights[r]) heights[r] = h;
-    }
-  });
+      // Use scrollHeight as source-of-truth for content growth.
+      // FIX: Increase buffer from +2 to +32 to prevent any text cutoff or overlap.
+      const h = Math.ceil(
+        Math.max(sticky.scrollHeight || 0, sticky.getBoundingClientRect?.().height || 0)
+      ) + 32;
+      if (h > heights[r]) heights[r] = h;
+    }
+  });
 
-  // 2b) Make ALL rows the same height for consistent layout across the entire board.
-  //     If one row grows, every row grows to match the largest row.
-  const globalMax = Math.max(...heights);
-  for (let r = 0; r < 6; r++) heights[r] = globalMax;
+  // 2b) Make ALL rows the same height for consistent layout across the entire board.
+  //     If one row grows, every row grows to match the largest row.
+  const globalMax = Math.max(...heights);
+  for (let r = 0; r < 6; r++) heights[r] = globalMax;
 
-  // 3) Apply unified heights across all columns per row.
-  for (let r = 0; r < 6; r++) {
-    const hStr = `${heights[r]}px`;
-    if (rowHeaders[r]) rowHeaders[r].style.height = hStr;
+  // 3) Apply unified heights across all columns per row.
+  for (let r = 0; r < 6; r++) {
+    const hStr = `${heights[r]}px`;
+    if (rowHeaders[r]) rowHeaders[r].style.height = hStr;
 
-    cols.forEach((col) => {
-      const slotNodes = col.querySelectorAll('.slots .slot');
-      if (slotNodes[r]) slotNodes[r].style.height = hStr;
-    });
-  }
+    cols.forEach((col) => {
+      const slotNodes = col.querySelectorAll('.slots .slot');
+      if (slotNodes[r]) slotNodes[r].style.height = hStr;
+    });
+  }
 
-  // Keep connector vertical alignment correct.
-  const gapSize = 20;
-  const processOffset = heights[0] + heights[1] + heights[2] + 3 * gapSize;
+  // Keep connector vertical alignment correct.
+  const gapSize = 20;
+  const processOffset = heights[0] + heights[1] + heights[2] + 3 * gapSize;
 
-  colsContainer.querySelectorAll('.col-connector').forEach((c) => {
-    if (!c.classList.contains('parallel-connector') && !c.classList.contains('combo-connector')) {
-      c.style.paddingTop = `${processOffset}px`;
-    }
-  });
+  colsContainer.querySelectorAll('.col-connector').forEach((c) => {
+    if (!c.classList.contains('parallel-connector') && !c.classList.contains('combo-connector')) {
+      c.style.paddingTop = `${processOffset}px`;
+    }
+  });
 }
 
 /** Ensures the SSIPOC row headers are present on the left side of the board. */
 function ensureRowHeaders() {
-  const rowHeaderContainer = $('row-headers');
-  if (!rowHeaderContainer || rowHeaderContainer.children.length > 0) return;
+  const rowHeaderContainer = $('row-headers');
+  if (!rowHeaderContainer || rowHeaderContainer.children.length > 0) return;
 
-  ['Leverancier', 'Systeem', 'Input', 'Proces', 'Output', 'Klant'].forEach((label) => {
-    const div = document.createElement('div');
-    div.className = 'row-header';
-    div.innerHTML = `<span>${label}</span>`;
-    rowHeaderContainer.appendChild(div);
-  });
+  ['Leverancier', 'Systeem', 'Input', 'Proces', 'Output', 'Klant'].forEach((label) => {
+    const div = document.createElement('div');
+    div.className = 'row-header';
+    div.innerHTML = `<span>${label}</span>`;
+    rowHeaderContainer.appendChild(div);
+  });
 }
 
 /** Renders the sheet selector based on the active project sheets. */
 function renderSheetSelect() {
-  const select = $('sheetSelect');
-  if (!select) return;
+  const select = $('sheetSelect');
+  if (!select) return;
 
-  const activeId = state.project.activeSheetId;
-  select.innerHTML = '';
+  const activeId = state.project.activeSheetId;
+  select.innerHTML = '';
 
-  state.project.sheets.forEach((s) => {
-    const opt = document.createElement('option');
-    opt.value = s.id;
-    opt.textContent = s.name;
-    opt.selected = s.id === activeId;
-    select.appendChild(opt);
-  });
+  state.project.sheets.forEach((s) => {
+    const opt = document.createElement('option');
+    opt.value = s.id;
+    opt.textContent = s.name;
+    opt.selected = s.id === activeId;
+    select.appendChild(opt);
+  });
 }
 
 /** Renders the current sheet title in the board header. */
 function renderHeader(activeSheet) {
-  const headDisp = $('board-header-display');
-  if (headDisp) headDisp.textContent = activeSheet.name;
+  const headDisp = $('board-header-display');
+  if (headDisp) headDisp.textContent = activeSheet.name;
 }
 
 /** Attaches click and double-click interactions to a sticky and its text element. */
 function attachStickyInteractions({ stickyEl, textEl, colIdx, slotIdx, openModalFn }) {
-  const onDblClick = (e) => {
-    if (![0, 1, 2, 3, 4, 5].includes(slotIdx)) return;
-    e.preventDefault();
-    e.stopPropagation();
+  const onDblClick = (e) => {
+    if (![0, 1, 2, 3, 4, 5].includes(slotIdx)) return;
+    e.preventDefault();
+    e.stopPropagation();
 
-    const sel = window.getSelection?.();
-    if (sel) sel.removeAllRanges();
+    const sel = window.getSelection?.();
+    if (sel) sel.removeAllRanges();
 
-    // AANGEPAST: Sta 0, 1, 4, 5 toe voor merge modal
-    if ([0, 1, 4, 5].includes(slotIdx)) openMergeModal(colIdx, slotIdx, openModalFn);
-    else {
-      openModalFn?.(colIdx, slotIdx);
-      requestAnimationFrame(() => removeLegacySystemMergeUI());
-    }
-  };
+    // AANGEPAST: Sta 1, 4, 5 toe voor merge modal (Leverancier 0 verwijderd)
+    if ([1, 4, 5].includes(slotIdx)) openMergeModal(colIdx, slotIdx, openModalFn);
+    else {
+      openModalFn?.(colIdx, slotIdx);
+      requestAnimationFrame(() => removeLegacySystemMergeUI());
+    }
+  };
 
-  const focusText = (e) => {
-    if (e.detail && e.detail > 1) return;
+  const focusText = (e) => {
+    if (e.detail && e.detail > 1) return;
 
-    if (
-      e.target.closest(
-        '.sticky-grip, .qa-score-badge, .id-tag, .badges-row, .workexp-badge, .btn-col-action, .col-actions'
-      )
-    ) {
-      return;
-    }
+    if (
+      e.target.closest(
+        '.sticky-grip, .qa-score-badge, .id-tag, .badges-row, .workexp-badge, .btn-col-action, .col-actions'
+      )
+    ) {
+      return;
+    }
 
-    requestAnimationFrame(() => {
-      textEl.focus();
+    requestAnimationFrame(() => {
+      textEl.focus();
 
-      const range = document.createRange();
-      const sel = window.getSelection();
-      range.selectNodeContents(textEl);
-      range.collapse(false);
-      sel.removeAllRanges();
-      sel.addRange(range);
-    });
-  };
+      const range = document.createRange();
+      const sel = window.getSelection();
+      range.selectNodeContents(textEl);
+      range.collapse(false);
+      sel.removeAllRanges();
+      sel.addRange(range);
+    });
+  };
 
-  stickyEl.addEventListener('dblclick', onDblClick);
-  textEl.addEventListener('dblclick', onDblClick);
-  stickyEl.addEventListener('click', focusText);
+  stickyEl.addEventListener('dblclick', onDblClick);
+  textEl.addEventListener('dblclick', onDblClick);
+  stickyEl.addEventListener('click', focusText);
 }
 
 /** Renders a connector between columns for parallel or variant flow visualization. */
 function renderConnector({ frag, activeSheet, colIdx, variantLetterMap }) {
-  if (colIdx >= activeSheet.columns.length - 1) return;
+  if (colIdx >= activeSheet.columns.length - 1) return;
 
-  let nextVisibleIdx = null;
-  for (let i = colIdx + 1; i < activeSheet.columns.length; i++) {
-    if (activeSheet.columns[i].isVisible !== false) {
-      nextVisibleIdx = i;
-      break;
-    }
-  }
-  if (nextVisibleIdx == null) return;
+  let nextVisibleIdx = null;
+  for (let i = colIdx + 1; i < activeSheet.columns.length; i++) {
+    if (activeSheet.columns[i].isVisible !== false) {
+      nextVisibleIdx = i;
+      break;
+    }
+  }
+  if (nextVisibleIdx == null) return;
 
-  const nextCol = activeSheet.columns[nextVisibleIdx];
+  const nextCol = activeSheet.columns[nextVisibleIdx];
 
-  const hasParallel = !!nextCol.isParallel;
-  const hasVariant = !!nextCol.isVariant;
-  const hasQuestion = !!nextCol.isQuestion;
-  const hasConditional = !!nextCol.isConditional;
-  const hasGroup = !!nextCol.isGroup;
+  const hasParallel = !!nextCol.isParallel;
+  const hasVariant = !!nextCol.isVariant;
+  const hasQuestion = !!nextCol.isQuestion;
+  const hasConditional = !!nextCol.isConditional;
+  const hasGroup = !!nextCol.isGroup;
 
-  let badgesHTML = '';
+  let badgesHTML = '';
 
-  if (hasVariant) {
-    const letter = variantLetterMap?.[nextVisibleIdx] || 'A';
-    badgesHTML += `<div class="variant-badge">🔀${letter}</div>`;
-  }
-  if (hasParallel) {
-    badgesHTML += `<div class="parallel-badge">||</div>`;
-  }
-  
-  // LOGIC CHANGE: Conditional (Lightning) BEFORE Group (Puzzle) to make Puzzle appear 2nd (below)
-  if (hasConditional) {
-    badgesHTML += `<div class="conditional-badge">⚡</div>`;
-  }
-  if (hasGroup) {
-    badgesHTML += `<div class="group-badge">🧩</div>`;
-  }
-  
-  if (hasQuestion) {
-    badgesHTML += `<div class="question-badge">❓</div>`;
-  }
+  // Group (Puzzle) FIRST (Front/Top)
+  if (hasGroup) {
+    badgesHTML += `<div class="group-badge">🧩</div>`;
+  }
+  if (hasConditional) {
+    badgesHTML += `<div class="conditional-badge">⚡</div>`;
+  }
+  if (hasVariant) {
+    const letter = variantLetterMap?.[nextVisibleIdx] || 'A';
+    badgesHTML += `<div class="variant-badge">🔀${letter}</div>`;
+  }
+  if (hasParallel) {
+    badgesHTML += `<div class="parallel-badge">||</div>`;
+  }
+  if (hasQuestion) {
+    badgesHTML += `<div class="question-badge">❓</div>`;
+  }
 
-  const count = (hasParallel ? 1 : 0) + (hasVariant ? 1 : 0) + (hasQuestion ? 1 : 0) + (hasConditional ? 1 : 0) + (hasGroup ? 1 : 0);
+  const count = (hasParallel ? 1 : 0) + (hasVariant ? 1 : 0) + (hasQuestion ? 1 : 0) + (hasConditional ? 1 : 0) + (hasGroup ? 1 : 0);
 
-  const connEl = document.createElement('div');
+  const connEl = document.createElement('div');
 
-  // If one or more special types are active, use the combo/stack logic
-  if (count > 0) {
-    connEl.className = 'col-connector combo-connector';
-    connEl.innerHTML = `
-      <div class="combo-badge-stack">
-        ${badgesHTML}
-      </div>
-    `;
-  } else {
-    // Standard arrow
-    connEl.className = 'col-connector';
-    connEl.innerHTML = `<div class="connector-active"></div>`;
-  }
+  // If one or more special types are active, use the combo/stack logic
+  if (count > 0) {
+    connEl.className = 'col-connector combo-connector';
+    connEl.innerHTML = `
+      <div class="combo-badge-stack">
+        ${badgesHTML}
+      </div>
+    `;
+  } else {
+    // Standard arrow
+    connEl.className = 'col-connector';
+    connEl.innerHTML = `<div class="connector-active"></div>`;
+  }
 
-  frag.appendChild(connEl);
+  frag.appendChild(connEl);
 }
 
 /** Renders the process status counters in the UI header. */
 function renderStats(stats) {
-  const happyEl = $('countHappy');
-  const neutralEl = $('countNeutral');
-  const sadEl = $('countSad');
+  const happyEl = $('countHappy');
+  const neutralEl = $('countNeutral');
+  const sadEl = $('countSad');
 
-  if (happyEl) happyEl.textContent = stats.happy;
-  if (neutralEl) neutralEl.textContent = stats.neutral;
-  if (sadEl) sadEl.textContent = stats.sad;
+  if (happyEl) happyEl.textContent = stats.happy;
+  if (neutralEl) neutralEl.textContent = stats.neutral;
+  if (sadEl) sadEl.textContent = stats.sad;
 }
 
 /** Removes any previously rendered merged overlays from the columns container. */
 function clearMergedOverlays(colsContainer) {
-  colsContainer?.querySelectorAll?.('.merged-overlay')?.forEach((n) => n.remove());
+  colsContainer?.querySelectorAll?.('.merged-overlay')?.forEach((n) => n.remove());
 }
 
 /** Builds system summary HTML using inline Legacy pills for merged System overlays. */
 function _formatSystemsSummaryFromMeta(meta) {
-  const clean = _sanitizeSystemsMeta(meta);
-  if (!clean) return '';
+  const clean = _sanitizeSystemsMeta(meta);
+  if (!clean) return '';
 
-  const systems = clean.systems || [];
+  const systems = clean.systems || [];
 
-  const lineHTML = (s) => {
-    const nm = String(s?.name || '').trim() || '—';
-    const legacy = !!s?.legacy;
-    return `<div class="sys-line"><span class="sys-name">${escapeHTML(
-      nm
-    )}</span>${legacy ? `<span class="legacy-tag" aria-label="Legacy">Legacy</span>` : ''}</div>`;
-  };
+  const lineHTML = (s) => {
+    const nm = String(s?.name || '').trim() || '—';
+    const legacy = !!s?.legacy;
+    return `<div class="sys-line"><span class="sys-name">${escapeHTML(
+      nm
+    )}</span>${legacy ? `<span class="legacy-tag" aria-label="Legacy">Legacy</span>` : ''}</div>`;
+  };
 
-  if (!clean.multi) {
-    const s = systems[0] || { name: '', legacy: false };
-    const nm = String(s.name || '').trim();
-    if (!nm) return '';
-    return `<div class="sys-summary">${lineHTML(s)}</div>`;
-  }
+  if (!clean.multi) {
+    const s = systems[0] || { name: '', legacy: false };
+    const nm = String(s.name || '').trim();
+    if (!nm) return '';
+    return `<div class="sys-summary">${lineHTML(s)}</div>`;
+  }
 
-  return `<div class="sys-summary">${systems.map(lineHTML).join('')}</div>`;
+  return `<div class="sys-summary">${systems.map(lineHTML).join('')}</div>`;
 }
 
 /** Renders merged overlays for System and Output across active merge group ranges. */
 function renderMergedOverlays(openModalFn) {
-  const colsContainer = $('cols');
-  if (!colsContainer) return;
+  const colsContainer = $('cols');
+  if (!colsContainer) return;
 
-  if (getComputedStyle(colsContainer).position === 'static') colsContainer.style.position = 'relative';
+  if (getComputedStyle(colsContainer).position === 'static') colsContainer.style.position = 'relative';
 
-  // REMOVED: clearMergedOverlays(colsContainer);
+  // REMOVED: clearMergedOverlays(colsContainer);
 
-  const activeSheet = state.activeSheet;
-  if (!activeSheet) return;
+  const activeSheet = state.activeSheet;
+  if (!activeSheet) return;
 
-  const groups = getAllMergeGroupsSanitized();
-  
-  // FIX: Tracken welke overlays we deze frame verwerken, om te voorkomen dat we gefocuste elementen weggooien
-  const processedKeys = new Set();
-  
-  groups.forEach((g) => {
-    const visibleCols = g.cols.filter((cIdx) => activeSheet.columns[cIdx]?.isVisible !== false);
-    if (visibleCols.length < 2) return;
+  const groups = getAllMergeGroupsSanitized();
+  
+  // FIX: Tracken welke overlays we deze frame verwerken, om te voorkomen dat we gefocuste elementen weggooien
+  const processedKeys = new Set();
+  
+  groups.forEach((g) => {
+    const visibleCols = g.cols.filter((cIdx) => activeSheet.columns[cIdx]?.isVisible !== false);
+    if (visibleCols.length < 2) return;
 
-    const firstCol = visibleCols[0];
-    const lastCol = visibleCols[visibleCols.length - 1];
-    const masterCol = g.master;
+    const firstCol = visibleCols[0];
+    const lastCol = visibleCols[visibleCols.length - 1];
+    const masterCol = g.master;
 
-    const firstColEl = colsContainer.querySelector(`.col[data-idx="${firstCol}"]`);
-    const lastColEl = colsContainer.querySelector(`.col[data-idx="${lastCol}"]`);
-    const masterColEl = colsContainer.querySelector(`.col[data-idx="${masterCol}"]`);
-    if (!firstColEl || !lastColEl || !masterColEl) return;
+    const firstColEl = colsContainer.querySelector(`.col[data-idx="${firstCol}"]`);
+    const lastColEl = colsContainer.querySelector(`.col[data-idx="${lastCol}"]`);
+    const masterColEl = colsContainer.querySelector(`.col[data-idx="${masterCol}"]`);
+    if (!firstColEl || !lastColEl || !masterColEl) return;
 
-    const firstSlot = firstColEl.querySelectorAll('.slots .slot')[g.slotIdx];
-    const lastSlot = lastColEl.querySelectorAll('.slots .slot')[g.slotIdx];
-    const masterSlot = masterColEl.querySelectorAll('.slots .slot')[g.slotIdx];
-    if (!firstSlot || !lastSlot || !masterSlot) return;
+    const firstSlot = firstColEl.querySelectorAll('.slots .slot')[g.slotIdx];
+    const lastSlot = lastColEl.querySelectorAll('.slots .slot')[g.slotIdx];
+    const masterSlot = masterColEl.querySelectorAll('.slots .slot')[g.slotIdx];
+    if (!firstSlot || !lastSlot || !masterSlot) return;
 
-    const masterSticky = masterSlot.querySelector(`.sticky[data-col="${masterCol}"][data-slot="${g.slotIdx}"]`);
-    if (!masterSticky) return;
+    const masterSticky = masterSlot.querySelector(`.sticky[data-col="${masterCol}"][data-slot="${g.slotIdx}"]`);
+    if (!masterSticky) return;
 
-    const p1 = getOffsetWithin(firstSlot, colsContainer);
-    const p2 = getOffsetWithin(lastSlot, colsContainer);
+    const p1 = getOffsetWithin(firstSlot, colsContainer);
+    const p2 = getOffsetWithin(lastSlot, colsContainer);
 
-    const left = p1.x;
-    const top = p1.y;
-    const width = p2.x + lastSlot.offsetWidth - p1.x;
-    const height = firstSlot.offsetHeight;
+    const left = p1.x;
+    const top = p1.y;
+    const width = p2.x + lastSlot.offsetWidth - p1.x;
+    const height = firstSlot.offsetHeight;
 
-    // FIX: Unieke key per merge group om element te hergebruiken
-    const mergeKey = `g-${g.slotIdx}-${g.master}`;
-    processedKeys.add(mergeKey);
+    // FIX: Unieke key per merge group om element te hergebruiken
+    const mergeKey = `g-${g.slotIdx}-${g.master}`;
+    processedKeys.add(mergeKey);
 
-    let overlay = colsContainer.querySelector(`.merged-overlay[data-merge-key="${mergeKey}"]`);
-    const isNew = !overlay;
+    let overlay = colsContainer.querySelector(`.merged-overlay[data-merge-key="${mergeKey}"]`);
+    const isNew = !overlay;
 
-    if (isNew) {
-        overlay = document.createElement('div');
-        overlay.className = 'merged-overlay';
-        overlay.dataset.mergeKey = mergeKey;
-        overlay.style.position = 'absolute';
-        overlay.style.zIndex = '500';
-        overlay.style.pointerEvents = 'auto';
+    if (isNew) {
+        overlay = document.createElement('div');
+        overlay.className = 'merged-overlay';
+        overlay.dataset.mergeKey = mergeKey;
+        overlay.style.position = 'absolute';
+        overlay.style.zIndex = '500';
+        overlay.style.pointerEvents = 'auto';
 
-        const cloned = masterSticky.cloneNode(true);
-        if (g.slotIdx === 1) cloned.classList.add('has-sys-summary');
+        const cloned = masterSticky.cloneNode(true);
+        if (g.slotIdx === 1) cloned.classList.add('has-sys-summary');
 
-        cloned.classList.remove('merged-source');
-        cloned.style.visibility = 'visible';
-        cloned.style.pointerEvents = 'auto';
-        cloned.style.width = '100%';
-        cloned.style.height = '100%';
-        cloned.classList.add('merged-sticky');
-        
-        const txt = cloned.querySelector('.text');
-        if (txt) {
-            txt.removeAttribute('data-linked');
-            txt.addEventListener(
-                'input',
-                () => {
-                  if (g.slotIdx === 1 && g.systemsMeta) return;
-                  state.updateStickyText(masterCol, g.slotIdx, txt.textContent);
-                  scheduleSyncRowHeights();
-                },
-                { passive: true }
-            );
-        }
+        cloned.classList.remove('merged-source');
+        cloned.style.visibility = 'visible';
+        cloned.style.pointerEvents = 'auto';
+        cloned.style.width = '100%';
+        cloned.style.height = '100%';
+        cloned.classList.add('merged-sticky');
+        
+        const txt = cloned.querySelector('.text');
+        if (txt) {
+            txt.removeAttribute('data-linked');
+            txt.addEventListener(
+                'input',
+                () => {
+                  if (g.slotIdx === 1 && g.systemsMeta) return;
+                  state.updateStickyText(masterCol, g.slotIdx, txt.textContent);
+                  scheduleSyncRowHeights();
+                },
+                { passive: true }
+            );
+        }
 
-        const stickyEl = cloned;
-        const textEl = cloned.querySelector('.text');
-        attachStickyInteractions({ stickyEl, textEl, colIdx: masterCol, slotIdx: g.slotIdx, openModalFn });
-        
-        overlay.appendChild(cloned);
-        colsContainer.appendChild(overlay);
-    }
+        const stickyEl = cloned;
+        const textEl = cloned.querySelector('.text');
+        attachStickyInteractions({ stickyEl, textEl, colIdx: masterCol, slotIdx: g.slotIdx, openModalFn });
+        
+        overlay.appendChild(cloned);
+        colsContainer.appendChild(overlay);
+    }
 
-    // UPDATE GEOMETRY (Always)
-    overlay.style.left = `${Math.round(left)}px`;
-    overlay.style.top = `${Math.round(top)}px`;
-    overlay.style.width = `${Math.round(width)}px`;
-    overlay.style.height = `${Math.round(height)}px`;
+    // UPDATE GEOMETRY (Always)
+    overlay.style.left = `${Math.round(left)}px`;
+    overlay.style.top = `${Math.round(top)}px`;
+    overlay.style.width = `${Math.round(width)}px`;
+    overlay.style.height = `${Math.round(height)}px`;
 
-    // UPDATE CONTENT (Only if not focused)
-    const textEl = overlay.querySelector('.text');
-    const stickyEl = overlay.querySelector('.sticky');
-    
-    // Check focus
-    const activeEl = document.activeElement;
-    const isFocused = activeEl && (activeEl === textEl || overlay.contains(activeEl));
+    // UPDATE CONTENT (Only if not focused)
+    const textEl = overlay.querySelector('.text');
+    const stickyEl = overlay.querySelector('.sticky');
+    
+    // Check focus
+    const activeEl = document.activeElement;
+    const isFocused = activeEl && (activeEl === textEl || overlay.contains(activeEl));
 
-    if (!isFocused && textEl) {
-        const masterData = activeSheet.columns[masterCol]?.slots?.[g.slotIdx];
-        const baseText = masterData?.text ?? '';
+    if (!isFocused && textEl) {
+        const masterData = activeSheet.columns[masterCol]?.slots?.[g.slotIdx];
+        const baseText = masterData?.text ?? '';
 
-        if (g.slotIdx === 1 && g.systemsMeta) {
-            const summaryHTML = _formatSystemsSummaryFromMeta(g.systemsMeta);
-            if (textEl.innerHTML !== summaryHTML) {
-                textEl.innerHTML = summaryHTML;
-                textEl.setAttribute('contenteditable', 'false');
-            }
-        } else {
-            if (textEl.textContent !== baseText) {
-                textEl.textContent = baseText;
-                textEl.setAttribute('contenteditable', 'true');
-            }
-        }
-    }
-    
-    // ALWAYS update Gate badges (in case enabled/disabled via modal)
-    if (g.slotIdx === 4 && stickyEl) {
-      const gate = _sanitizeGate(g?.gate);
-      const passLabel = getPassLabelForGroup(g);
-      let failLabel = '—';
-      if (gate?.enabled && gate.failTargetColIdx != null) {
-        const idx = gate.failTargetColIdx;
-        if (Number.isFinite(idx)) failLabel = getProcessLabel(idx);
-      }
-      applyGateToSticky(stickyEl, gate, passLabel, failLabel);
-    }
-  });
+        if (g.slotIdx === 1 && g.systemsMeta) {
+            const summaryHTML = _formatSystemsSummaryFromMeta(g.systemsMeta);
+            if (textEl.innerHTML !== summaryHTML) {
+                textEl.innerHTML = summaryHTML;
+                textEl.setAttribute('contenteditable', 'false');
+            }
+        } else {
+            if (textEl.textContent !== baseText) {
+                textEl.textContent = baseText;
+                textEl.setAttribute('contenteditable', 'true');
+            }
+        }
+    }
+    
+    // ALWAYS update Gate badges (in case enabled/disabled via modal)
+    if (g.slotIdx === 4 && stickyEl) {
+      const gate = _sanitizeGate(g?.gate);
+      const passLabel = getPassLabelForGroup(g);
+      let failLabel = '—';
+      if (gate?.enabled && gate.failTargetColIdx != null) {
+        const idx = gate.failTargetColIdx;
+        if (Number.isFinite(idx)) failLabel = getProcessLabel(idx);
+      }
+      applyGateToSticky(stickyEl, gate, passLabel, failLabel);
+    }
+  });
 
-  // FIX: Cleanup old overlays
-  const allOverlays = Array.from(colsContainer.querySelectorAll('.merged-overlay'));
-  allOverlays.forEach(el => {
-      if (!processedKeys.has(el.dataset.mergeKey)) el.remove();
-  });
+  // FIX: Cleanup old overlays
+  const allOverlays = Array.from(colsContainer.querySelectorAll('.merged-overlay'));
+  allOverlays.forEach(el => {
+      if (!processedKeys.has(el.dataset.mergeKey)) el.remove();
+  });
 }
 
 /** Renders only the columns grid including stickies, badges, and connectors. */
 function renderColumnsOnly(openModalFn) {
-  const activeSheet = state.activeSheet;
-  if (!activeSheet) return;
+  const activeSheet = state.activeSheet;
+  if (!activeSheet) return;
 
-  ensureMergeGroupsLoaded();
+  ensureMergeGroupsLoaded();
 
-  const colsContainer = $('cols');
-  if (!colsContainer) return;
+  const colsContainer = $('cols');
+  if (!colsContainer) return;
 
-  const variantLetterMap = computeVariantLetterMap(activeSheet);
+  const variantLetterMap = computeVariantLetterMap(activeSheet);
 
-  const project = state.project || state.data;
-  const { outIdByUid, outTextByUid, outTextByOutId } = buildGlobalOutputMaps(project);
+  const project = state.project || state.data;
+  const { outIdByUid, outTextByUid, outTextByOutId } = buildGlobalOutputMaps(project);
 
-  // Fallback: UI-selecties gebruiken vaak OUTx labels (incl. merged-slaves).
-  // buildGlobalOutputMaps() slaat merged-slaves over, waardoor OUT2 soms geen tekst heeft.
-  // Daarom vullen we ontbrekende OUTx->tekst aan via state.getAllOutputs().
-  try {
-    const all = typeof state.getAllOutputs === 'function' ? state.getAllOutputs() : {};
-    Object.keys(all || {}).forEach((k) => {
-      if (!outTextByOutId[k] && all[k]) outTextByOutId[k] = all[k];
-    });
-  } catch {}
+  // Fallback: UI-selecties gebruiken vaak OUTx labels (incl. merged-slaves).
+  // buildGlobalOutputMaps() slaat merged-slaves over, waardoor OUT2 soms geen tekst heeft.
+  // Daarom vullen we ontbrekende OUTx->tekst aan via state.getAllOutputs().
+  try {
+    const all = typeof state.getAllOutputs === 'function' ? state.getAllOutputs() : {};
+    Object.keys(all || {}).forEach((k) => {
+      if (!outTextByOutId[k] && all[k]) outTextByOutId[k] = all[k];
+    });
+  } catch {}
 
-  const offsets = computeCountersBeforeActiveSheet(project, project.activeSheetId, outIdByUid);
+  const offsets = computeCountersBeforeActiveSheet(project, project.activeSheetId, outIdByUid);
 
-  let localInCounter = 0;
-  let localOutCounter = 0;
+  let localInCounter = 0;
+  let localOutCounter = 0;
 
-  const stats = { happy: 0, neutral: 0, sad: 0 };
+  const stats = { happy: 0, neutral: 0, sad: 0 };
 
-  const frag = document.createDocumentFragment();
+  const frag = document.createDocumentFragment();
 
-  activeSheet.columns.forEach((col, colIdx) => {
-    if (col.isVisible === false) return;
+  activeSheet.columns.forEach((col, colIdx) => {
+    if (col.isVisible === false) return;
 
-    let myInputId = '';
-    let myOutputId = '';
+    let myInputId = '';
+    let myOutputId = '';
 
-    const inputSlot = col.slots?.[2];
-    const outputSlot = col.slots?.[4];
+    const inputSlot = col.slots?.[2];
+    const outputSlot = col.slots?.[4];
 
-    const bundleIdsForInput = getLinkedBundleIdsFromInputSlot(inputSlot);
-    const bundleLabelsForInput = bundleIdsForInput.map((bid) => _getBundleLabel(project, bid));
+    const bundleIdsForInput = getLinkedBundleIdsFromInputSlot(inputSlot);
+    const bundleLabelsForInput = bundleIdsForInput.map((bid) => _getBundleLabel(project, bid));
 
-    // Direct links (outputs) + bundle links
-    const tokens = getLinkedSourcesFromInputSlot(inputSlot);
-    const resolved = resolveLinkedSourcesToOutAndText(tokens, outIdByUid, outTextByUid, outTextByOutId);
+    // Direct links (outputs) + bundle links
+    const tokens = getLinkedSourcesFromInputSlot(inputSlot);
+    const resolved = resolveLinkedSourcesToOutAndText(tokens, outIdByUid, outTextByUid, outTextByOutId);
 
-    if (bundleLabelsForInput.length) {
-      // Bundels zijn bedoeld om de input compact te houden: toon alleen bundelnaam/nam(en) in de tag.
-      myInputId = _joinSemiText(bundleLabelsForInput);
-    } else if (resolved.ids.length) {
-      myInputId = _joinSemiText(resolved.ids);
-    } else if (inputSlot?.text?.trim()) {
-      localInCounter += 1;
-      myInputId = `IN${offsets.inStart + localInCounter}`;
-    }
+    if (bundleLabelsForInput.length) {
+      // Bundels zijn bedoeld om de input compact te houden: toon alleen bundelnaam/nam(en) in de tag.
+      myInputId = _joinSemiText(bundleLabelsForInput);
+    } else if (resolved.ids.length) {
+      myInputId = _joinSemiText(resolved.ids);
+    } else if (inputSlot?.text?.trim()) {
+      localInCounter += 1;
+      myInputId = `IN${offsets.inStart + localInCounter}`;
+    }
 
-    if (outputSlot?.text?.trim() && !isMergedSlave(colIdx, 4)) {
-      localOutCounter += 1;
-      myOutputId = `OUT${offsets.outStart + localOutCounter}`;
-    }
+    if (outputSlot?.text?.trim() && !isMergedSlave(colIdx, 4)) {
+      localOutCounter += 1;
+      myOutputId = `OUT${offsets.outStart + localOutCounter}`;
+    }
 
-    const colEl = document.createElement('div');
-    // NIEUW: is-group class toevoegen aan de kolom
-    colEl.className = `col ${col.isParallel ? 'is-parallel' : ''} ${col.isVariant ? 'is-variant' : ''} ${col.isGroup ? 'is-group' : ''}`;
-    colEl.dataset.idx = colIdx;
+    const colEl = document.createElement('div');
+    // NIEUW: is-group class toevoegen aan de kolom
+    colEl.className = `col ${col.isParallel ? 'is-parallel' : ''} ${col.isVariant ? 'is-variant' : ''} ${col.isGroup ? 'is-group' : ''}`;
+    colEl.dataset.idx = colIdx;
 
-    if (col.isVariant) colEl.dataset.route = variantLetterMap[colIdx] || 'A';
-    else colEl.dataset.route = '';
+    if (col.isVariant) colEl.dataset.route = variantLetterMap[colIdx] || 'A';
+    else colEl.dataset.route = '';
 
-    const actionsEl = document.createElement('div');
-    actionsEl.className = 'col-actions';
-    actionsEl.innerHTML = `
-      <button class="btn-col-action btn-arrow" data-action="move" data-dir="-1" type="button">←</button>
-      <button class="btn-col-action btn-arrow" data-action="move" data-dir="1" type="button">→</button>
-      ${
-        colIdx > 0
-          ? `<button class="btn-col-action btn-parallel ${col.isParallel ? 'active' : ''}" data-action="parallel" type="button">∥</button>`
-          : ''
-      }
-      ${
-        colIdx > 0
-          ? `<button class="btn-col-action btn-variant ${col.isVariant ? 'active' : ''}" data-action="variant" type="button">🔀</button>`
-          : ''
-      }
-      
-      <button class="btn-col-action btn-group ${col.isGroup ? 'active' : ''}" data-action="group" title="Markeer als onderdeel van groep" type="button">🧩</button>
-      
-      <button class="btn-col-action btn-conditional ${col.isConditional ? 'active' : ''}" data-action="conditional" title="Voorwaardelijke stap (optioneel)" type="button">⚡</button>
-      
-      <button class="btn-col-action btn-question ${col.isQuestion ? 'active' : ''}" data-action="question" title="Markeer als vraag" type="button">❓</button>
-      
-      <button class="btn-col-action btn-hide-col" data-action="hide" type="button">👁️</button>
-      <button class="btn-col-action btn-add-col-here" data-action="add" type="button">+</button>
-      <button class="btn-col-action btn-delete-col" data-action="delete" type="button">×</button>
-    `;
-    colEl.appendChild(actionsEl);
+    const actionsEl = document.createElement('div');
+    actionsEl.className = 'col-actions';
+    actionsEl.innerHTML = `
+      <button class="btn-col-action btn-arrow" data-action="move" data-dir="-1" type="button">←</button>
+      <button class="btn-col-action btn-arrow" data-action="move" data-dir="1" type="button">→</button>
+      ${
+        colIdx > 0
+          ? `<button class="btn-col-action btn-parallel ${col.isParallel ? 'active' : ''}" data-action="parallel" type="button">∥</button>`
+          : ''
+      }
+      ${
+        colIdx > 0
+          ? `<button class="btn-col-action btn-variant ${col.isVariant ? 'active' : ''}" data-action="variant" type="button">🔀</button>`
+          : ''
+      }
+      
+      <button class="btn-col-action btn-group ${col.isGroup ? 'active' : ''}" data-action="group" title="Markeer als onderdeel van groep" type="button">🧩</button>
+      
+      <button class="btn-col-action btn-conditional ${col.isConditional ? 'active' : ''}" data-action="conditional" title="Voorwaardelijke stap (optioneel)" type="button">⚡</button>
+      
+      <button class="btn-col-action btn-question ${col.isQuestion ? 'active' : ''}" data-action="question" title="Markeer als vraag" type="button">❓</button>
+      
+      <button class="btn-col-action btn-hide-col" data-action="hide" type="button">👁️</button>
+      <button class="btn-col-action btn-add-col-here" data-action="add" type="button">+</button>
+      <button class="btn-col-action btn-delete-col" data-action="delete" type="button">×</button>
+    `;
+    colEl.appendChild(actionsEl);
 
-    const slotsEl = document.createElement('div');
-    slotsEl.className = 'slots';
+    const slotsEl = document.createElement('div');
+    slotsEl.className = 'slots';
 
-    col.slots.forEach((slot, slotIdx) => {
-      if (slotIdx === 3) {
-        if (slot.processStatus === 'HAPPY') stats.happy += 1;
-        else if (slot.processStatus === 'NEUTRAL') stats.neutral += 1;
-        else if (slot.processStatus === 'SAD') stats.sad += 1;
-      }
+    col.slots.forEach((slot, slotIdx) => {
+      if (slotIdx === 3) {
+        if (slot.processStatus === 'HAPPY') stats.happy += 1;
+        else if (slot.processStatus === 'NEUTRAL') stats.neutral += 1;
+        else if (slot.processStatus === 'SAD') stats.sad += 1;
+      }
 
-      let displayText = slot.text;
-      let isLinked = false;
+      let displayText = slot.text;
+      let isLinked = false;
 
-      if (slotIdx === 2) {
-        const bundleIds = getLinkedBundleIdsFromInputSlot(slot);
-        const bundleLabels = bundleIds.map((bid) => _getBundleLabel(project, bid));
+      if (slotIdx === 2) {
+        const bundleIds = getLinkedBundleIdsFromInputSlot(slot);
+        const bundleLabels = bundleIds.map((bid) => _getBundleLabel(project, bid));
 
-        const tokens = getLinkedSourcesFromInputSlot(slot);
-        const resolved = resolveLinkedSourcesToOutAndText(tokens, outIdByUid, outTextByUid, outTextByOutId);
+        const tokens = getLinkedSourcesFromInputSlot(slot);
+        const resolved = resolveLinkedSourcesToOutAndText(tokens, outIdByUid, outTextByUid, outTextByOutId);
 
-        const parts = [];
-        if (bundleLabels.length) {
-          parts.push(...bundleLabels);
-        } else if (resolved.texts.length) {
-          parts.push(...resolved.texts);
-        }
+        const parts = [];
+        if (bundleLabels.length) {
+          parts.push(...bundleLabels);
+        } else if (resolved.texts.length) {
+          parts.push(...resolved.texts);
+        }
 
-        if (parts.length) {
-          displayText = _joinSemiText(parts);
-          isLinked = true;
-        }
-      }
+        if (parts.length) {
+          displayText = _joinSemiText(parts);
+          isLinked = true;
+        }
+      }
 
-      const scoreBadgeHTML = buildScoreBadges({ slotIdx, slot });
+      const scoreBadgeHTML = buildScoreBadges({ slotIdx, slot });
 
-      let statusClass = '';
-      if (slotIdx === 3 && slot.processStatus) statusClass = `status-${slot.processStatus.toLowerCase()}`;
+      let statusClass = '';
+      if (slotIdx === 3 && slot.processStatus) statusClass = `status-${slot.processStatus.toLowerCase()}`;
 
-      let typeIcon = '📝';
-      if (slot.type === 'Afspraak') typeIcon = '📅';
+      let typeIcon = '📝';
+      if (slot.type === 'Afspraak') typeIcon = '📅';
 
-      let extraStickyClass = '';
-      let extraStickyStyle = '';
+      let extraStickyClass = '';
+      let extraStickyStyle = '';
 
-      if (getMergeGroup(colIdx, slotIdx)) {
-        extraStickyClass = 'merged-source';
-        extraStickyStyle = 'visibility:hidden; pointer-events:none;';
-      }
+      if (getMergeGroup(colIdx, slotIdx)) {
+        extraStickyClass = 'merged-source';
+        extraStickyStyle = 'visibility:hidden; pointer-events:none;';
+      }
 
-      const slotDiv = document.createElement('div');
-      slotDiv.className = 'slot';
-      slotDiv.innerHTML = buildSlotHTML({
-        colIdx,
-        slotIdx,
-        slot,
-        statusClass,
-        typeIcon,
-        myInputId,
-        myOutputId,
-        isLinked,
-        scoreBadgeHTML,
-        extraStickyClass,
-        extraStickyStyle
-      });
+      const slotDiv = document.createElement('div');
+      slotDiv.className = 'slot';
+      slotDiv.innerHTML = buildSlotHTML({
+        colIdx,
+        slotIdx,
+        slot,
+        statusClass,
+        typeIcon,
+        myInputId,
+        myOutputId,
+        isLinked,
+        scoreBadgeHTML,
+        extraStickyClass,
+        extraStickyStyle
+      });
 
-      const textEl = slotDiv.querySelector('.text');
-      const stickyEl = slotDiv.querySelector('.sticky');
-      if (textEl) textEl.textContent = displayText;
+      const textEl = slotDiv.querySelector('.text');
+      const stickyEl = slotDiv.querySelector('.sticky');
+      if (textEl) textEl.textContent = displayText;
 
-      const isMergedSource = !!getMergeGroup(colIdx, slotIdx);
+      const isMergedSource = !!getMergeGroup(colIdx, slotIdx);
 
-      if (!isMergedSource) attachStickyInteractions({ stickyEl, textEl, colIdx, slotIdx, openModalFn });
+      if (!isMergedSource) attachStickyInteractions({ stickyEl, textEl, colIdx, slotIdx, openModalFn });
 
-      if (!isLinked && textEl && !isMergedSource) {
-        textEl.addEventListener(
-          'input',
-          () => {
-            state.updateStickyText(colIdx, slotIdx, textEl.textContent);
-            scheduleSyncRowHeights();
-          },
-          { passive: true }
-        );
-        textEl.addEventListener(
-          'blur',
-          () => {
-            state.updateStickyText(colIdx, slotIdx, textEl.textContent);
-            scheduleSyncRowHeights();
-          },
-          { passive: true }
-        );
-      }
+      if (!isLinked && textEl && !isMergedSource) {
+        textEl.addEventListener(
+          'input',
+          () => {
+            state.updateStickyText(colIdx, slotIdx, textEl.textContent);
+            scheduleSyncRowHeights();
+          },
+          { passive: true }
+        );
+        textEl.addEventListener(
+          'blur',
+          () => {
+            state.updateStickyText(colIdx, slotIdx, textEl.textContent);
+            scheduleSyncRowHeights();
+          },
+          { passive: true }
+        );
+      }
 
-      slotsEl.appendChild(slotDiv);
-    });
+      slotsEl.appendChild(slotDiv);
+    });
 
-    colEl.appendChild(slotsEl);
-    frag.appendChild(colEl);
+    colEl.appendChild(slotsEl);
+    frag.appendChild(colEl);
 
-    renderConnector({ frag, activeSheet, colIdx, variantLetterMap });
-  });
+    renderConnector({ frag, activeSheet, colIdx, variantLetterMap });
+  });
 
-  colsContainer.replaceChildren(frag);
-  renderStats(stats);
-  scheduleSyncRowHeights();
+  colsContainer.replaceChildren(frag);
+  renderStats(stats);
+  scheduleSyncRowHeights();
 }
 
 /** Updates one rendered text cell when state signals a text-only change. */
 function updateSingleText(colIdx, slotIdx) {
-  const colsContainer = $('cols');
-  const colEl = colsContainer?.querySelector?.(`.col[data-idx="${colIdx}"]`);
-  if (!colEl) return false;
+  const colsContainer = $('cols');
+  const colEl = colsContainer?.querySelector?.(`.col[data-idx="${colIdx}"]`);
+  if (!colEl) return false;
 
-  const slot = state.activeSheet.columns[colIdx]?.slots?.[slotIdx];
-  if (!slot) return false;
+  const slot = state.activeSheet.columns[colIdx]?.slots?.[slotIdx];
+  if (!slot) return false;
 
-  const g = getMergeGroup(colIdx, slotIdx);
-  if (g && slotIdx === g.slotIdx) {
-    const active = document.activeElement;
-    if (active && active.closest('.merged-overlay')) return true;
-    scheduleSyncRowHeights();
-    return true;
-  }
+  const g = getMergeGroup(colIdx, slotIdx);
+  if (g && slotIdx === g.slotIdx) {
+    const active = document.activeElement;
+    if (active && active.closest('.merged-overlay')) return true;
+    scheduleSyncRowHeights();
+    return true;
+  }
 
-  const slotEl = colEl.querySelector(`.sticky[data-col="${colIdx}"][data-slot="${slotIdx}"] .text`);
-  if (!slotEl) return false;
+  const slotEl = colEl.querySelector(`.sticky[data-col="${colIdx}"][data-slot="${slotIdx}"] .text`);
+  if (!slotEl) return false;
 
-  if (slotEl && slotEl.isContentEditable && document.activeElement === slotEl) return true;
+  if (slotEl && slotEl.isContentEditable && document.activeElement === slotEl) return true;
 
-  if (slotIdx === 2) {
-    const project = state.project || state.data;
-    const { outIdByUid, outTextByUid, outTextByOutId } = buildGlobalOutputMaps(project);
+  if (slotIdx === 2) {
+    const project = state.project || state.data;
+    const { outIdByUid, outTextByUid, outTextByOutId } = buildGlobalOutputMaps(project);
 
-    // Zelfde fallback als in renderColumnsOnly(): OUTx labels uit UI moeten altijd een tekst kunnen tonen.
-    try {
-      const all = typeof state.getAllOutputs === 'function' ? state.getAllOutputs() : {};
-      Object.keys(all || {}).forEach((k) => {
-        if (!outTextByOutId[k] && all[k]) outTextByOutId[k] = all[k];
-      });
-    } catch {}
+    // Zelfde fallback als in renderColumnsOnly(): OUTx labels uit UI moeten altijd een tekst kunnen tonen.
+    try {
+      const all = typeof state.getAllOutputs === 'function' ? state.getAllOutputs() : {};
+      Object.keys(all || {}).forEach((k) => {
+        if (!outTextByOutId[k] && all[k]) outTextByOutId[k] = all[k];
+      });
+    } catch {}
 
-    const bundleIds = getLinkedBundleIdsFromInputSlot(slot);
-    const bundleLabels = bundleIds.map((bid) => _getBundleLabel(project, bid));
+    const bundleIds = getLinkedBundleIdsFromInputSlot(slot);
+    const bundleLabels = bundleIds.map((bid) => _getBundleLabel(project, bid));
 
-    const tokens = getLinkedSourcesFromInputSlot(slot);
-    const resolved = resolveLinkedSourcesToOutAndText(tokens, outIdByUid, outTextByUid, outTextByOutId);
+    const tokens = getLinkedSourcesFromInputSlot(slot);
+    const resolved = resolveLinkedSourcesToOutAndText(tokens, outIdByUid, outTextByUid, outTextByOutId);
 
-    const parts = [];
-    if (bundleLabels.length) {
-      parts.push(...bundleLabels);
-    } else if (resolved.texts.length) {
-      parts.push(...resolved.texts);
-    }
+    const parts = [];
+    if (bundleLabels.length) {
+      parts.push(...bundleLabels);
+    } else if (resolved.texts.length) {
+      parts.push(...resolved.texts);
+    }
 
-    if (parts.length) {
-      slotEl.textContent = _joinSemiText(parts);
-      return true;
-    }
-  }
+    if (parts.length) {
+      slotEl.textContent = _joinSemiText(parts);
+      return true;
+    }
+  }
 
-  slotEl.textContent = slot.text ?? '';
-  return true;
+  slotEl.textContent = slot.text ?? '';
+  return true;
 }
 
 /** Renders the full board for the currently active sheet. */
 export function renderBoard(openModalFn) {
-  _openModalFn = openModalFn || _openModalFn;
+  _openModalFn = openModalFn || _openModalFn;
 
-  const activeSheet = state.activeSheet;
-  if (!activeSheet) return;
+  const activeSheet = state.activeSheet;
+  if (!activeSheet) return;
 
-  ensureMergeGroupsLoaded();
+  ensureMergeGroupsLoaded();
 
-  renderSheetSelect();
-  renderHeader(activeSheet);
-  ensureRowHeaders();
-  renderColumnsOnly(_openModalFn);
+  renderSheetSelect();
+  renderHeader(activeSheet);
+  ensureRowHeaders();
+  renderColumnsOnly(_openModalFn);
 }
 
 /** Applies a state update reason to the UI with minimal re-render where possible. */
 export function applyStateUpdate(meta, openModalFn) {
-  _openModalFn = openModalFn || _openModalFn;
+  _openModalFn = openModalFn || _openModalFn;
 
-  const reason = meta?.reason || 'full';
+  const reason = meta?.reason || 'full';
 
-  if (reason === 'text' && Number.isFinite(meta?.colIdx) && Number.isFinite(meta?.slotIdx)) {
-    const ok = updateSingleText(meta.colIdx, meta.slotIdx);
-    if (ok) return;
-  }
+  if (reason === 'text' && Number.isFinite(meta?.colIdx) && Number.isFinite(meta?.slotIdx)) {
+    const ok = updateSingleText(meta.colIdx, meta.slotIdx);
+    if (ok) return;
+  }
 
-  if (reason === 'title') return;
+  if (reason === 'title') return;
 
-  if (reason === 'sheet' || reason === 'sheets') {
-    const activeSheet = state.activeSheet;
-    if (activeSheet) {
-      ensureMergeGroupsLoaded();
-      renderSheetSelect();
-      renderHeader(activeSheet);
-    }
-    renderColumnsOnly(_openModalFn);
-    return;
-  }
+  if (reason === 'sheet' || reason === 'sheets') {
+    const activeSheet = state.activeSheet;
+    if (activeSheet) {
+      ensureMergeGroupsLoaded();
+      renderSheetSelect();
+      renderHeader(activeSheet);
+    }
+    renderColumnsOnly(_openModalFn);
+    return;
+  }
 
-  if (reason === 'columns' || reason === 'transition' || reason === 'details') {
-    renderColumnsOnly(_openModalFn);
-    return;
-  }
+  if (reason === 'columns' || reason === 'transition' || reason === 'details') {
+    renderColumnsOnly(_openModalFn);
+    return;
+  }
 
-  renderBoard(_openModalFn);
+  renderBoard(_openModalFn);
 }
 
 /** Installs delegated handlers for column action buttons and prevents duplicate binding. */
 export function setupDelegatedEvents() {
-  if (_delegatedBound) return;
-  _delegatedBound = true;
+  if (_delegatedBound) return;
+  _delegatedBound = true;
 
-  const act = (e) => {
-    const btn = e.target.closest('.btn-col-action');
-    if (!btn) return;
+  const act = (e) => {
+    const btn = e.target.closest('.btn-col-action');
+    if (!btn) return;
 
-    const action = btn.dataset.action;
-    if (!action) return;
+    const action = btn.dataset.action;
+    if (!action) return;
 
-    if (e.type === 'mousedown' && performance.now() - _lastPointerDownTs < 250) return;
-    if (e.type === 'pointerdown') _lastPointerDownTs = performance.now();
+    if (e.type === 'mousedown' && performance.now() - _lastPointerDownTs < 250) return;
+    if (e.type === 'pointerdown') _lastPointerDownTs = performance.now();
 
-    e.preventDefault();
-    e.stopPropagation();
+    e.preventDefault();
+    e.stopPropagation();
 
-    const colEl = btn.closest('.col');
-    if (!colEl) return;
+    const colEl = btn.closest('.col');
+    if (!colEl) return;
 
-    const idx = parseInt(colEl.dataset.idx, 10);
-    if (!Number.isFinite(idx)) return;
+    const idx = parseInt(colEl.dataset.idx, 10);
+    if (!Number.isFinite(idx)) return;
 
-    switch (action) {
-      case 'move':
-        state.moveColumn(idx, parseInt(btn.dataset.dir, 10));
-        break;
-      case 'delete':
-        if (confirm('Kolom verwijderen?')) state.deleteColumn(idx);
-        break;
-      case 'add':
-        state.addColumn(idx);
-        break;
-      case 'hide':
-        state.setColVisibility(idx, false);
-        break;
-      case 'parallel':
-        state.toggleParallel?.(idx);
-        break;
-      case 'variant':
-        state.toggleVariant?.(idx);
-        break;
-      case 'conditional':
-        state.toggleConditional?.(idx);
-        break;
-      case 'group': // NIEUW
-        state.toggleGroup?.(idx);
-        break;
-      case 'question':
-        state.toggleQuestion?.(idx);
-        break;
-    }
-  };
+    switch (action) {
+      case 'move':
+        state.moveColumn(idx, parseInt(btn.dataset.dir, 10));
+        break;
+      case 'delete':
+        if (confirm('Kolom verwijderen?')) state.deleteColumn(idx);
+        break;
+      case 'add':
+        state.addColumn(idx);
+        break;
+      case 'hide':
+        state.setColVisibility(idx, false);
+        break;
+      case 'parallel':
+        state.toggleParallel?.(idx);
+        break;
+      case 'variant':
+        state.toggleVariant?.(idx);
+        break;
+      case 'conditional':
+        state.toggleConditional?.(idx);
+        break;
+      case 'group': // NIEUW
+        state.toggleGroup?.(idx);
+        break;
+      case 'question':
+        state.toggleQuestion?.(idx);
+        break;
+    }
+  };
 
-  document.addEventListener('pointerdown', act, true);
-  document.addEventListener('mousedown', act, true);
-  document.addEventListener('touchstart', act, { capture: true, passive: false });
+  document.addEventListener('pointerdown', act, true);
+  document.addEventListener('mousedown', act, true);
+  document.addEventListener('touchstart', act, { capture: true, passive: false });
 }

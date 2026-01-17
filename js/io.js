@@ -9,7 +9,8 @@
 // - FIX: Output IDs zijn project-breed stabiel (op basis van outputUid + sheet/kolom volgorde + merge-slaves overslaan)
 // - FIX (ROBUUST): Systeem export checkt nu strikt of er daadwerkelijk tekst in de systeemnaam staat.
 //        Lege merge-objecten worden genegeerd ten gunste van de post-it tekst.
-// - FIX (GROEPEN): Leverancier (0) en Klant (5) ondersteunen nu ook merges (ophalen tekst van master).
+// - FIX (GROEPEN): Klant (5), Systeem (1) en Output (4) ondersteunen merges. Leverancier (0) is plat.
+// - FIX (Nieuwe types): Conditioneel en Groep kolommen toegevoegd.
 
 import { state } from './state.js';
 import { Toast } from './toast.js';
@@ -61,7 +62,7 @@ function downloadCanvas(canvas) {
 }
 
 /* ==========================================================================
-   Merge groups (System + Output + Leverancier + Klant) — gelezen uit localStorage
+   Merge groups (System + Output + Klant) — gelezen uit localStorage
    ========================================================================== */
 
 function mergeKeyForSheet(project, sheet) {
@@ -92,8 +93,8 @@ function sanitizeMergeGroupForSheet(sheet, g) {
   if (!n) return null;
 
   const slotIdx = Number(g?.slotIdx);
-  // AANGEPAST: Sta 0, 1, 4, 5 toe
-  if (![0, 1, 4, 5].includes(slotIdx)) return null;
+  // AANGEPAST: Sta 1 (Systeem), 4 (Output), 5 (Klant) toe. 0 (Leverancier) niet.
+  if (![1, 4, 5].includes(slotIdx)) return null;
 
   const cols = Array.isArray(g?.cols) ? g.cols.map((x) => Number(x)).filter(Number.isFinite) : [];
   const uniq = [...new Set(cols)].filter((c) => c >= 0 && c < n);
@@ -974,14 +975,8 @@ export function exportToCSV() {
         // ============================
         // LEVERANCIER (SLOT 0)
         // ============================
-        const levGroup = getMergeGroupForCell(mergeGroups, colIdx, 0);
-        let leverancier = '';
-        if (levGroup) {
-             const masterCol = sheet.columns[levGroup.master];
-             leverancier = String(masterCol?.slots?.[0]?.text ?? '').trim();
-        } else {
-             leverancier = String(col?.slots?.[0]?.text ?? '').trim();
-        }
+        // Standaard tekst zonder merge logica, want merge op slot 0 is uitgeschakeld.
+        const leverancier = String(col?.slots?.[0]?.text ?? '').trim();
 
         // ============================
         // SYSTEMS (ROBUUSTE FIX)
