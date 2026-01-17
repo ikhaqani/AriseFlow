@@ -9,6 +9,7 @@
 // - FIX: Output IDs zijn project-breed stabiel (op basis van outputUid + sheet/kolom volgorde + merge-slaves overslaan)
 // - FIX (ROBUUST): Systeem export checkt nu strikt of er daadwerkelijk tekst in de systeemnaam staat.
 //        Lege merge-objecten worden genegeerd ten gunste van de post-it tekst.
+// - FIX (GROEPEN): Leverancier (0) en Klant (5) ondersteunen nu ook merges (ophalen tekst van master).
 
 import { state } from './state.js';
 import { Toast } from './toast.js';
@@ -60,7 +61,7 @@ function downloadCanvas(canvas) {
 }
 
 /* ==========================================================================
-   Merge groups (System + Output) — gelezen uit localStorage
+   Merge groups (System + Output + Leverancier + Klant) — gelezen uit localStorage
    ========================================================================== */
 
 function mergeKeyForSheet(project, sheet) {
@@ -91,7 +92,8 @@ function sanitizeMergeGroupForSheet(sheet, g) {
   if (!n) return null;
 
   const slotIdx = Number(g?.slotIdx);
-  if (![1, 4].includes(slotIdx)) return null;
+  // AANGEPAST: Sta 0, 1, 4, 5 toe
+  if (![0, 1, 4, 5].includes(slotIdx)) return null;
 
   const cols = Array.isArray(g?.cols) ? g.cols.map((x) => Number(x)).filter(Number.isFinite) : [];
   const uniq = [...new Set(cols)].filter((c) => c >= 0 && c < n);
@@ -969,7 +971,17 @@ export function exportToCSV() {
 
         globalColNr += 1;
 
-        const leverancier = String(col?.slots?.[0]?.text ?? '').trim();
+        // ============================
+        // LEVERANCIER (SLOT 0)
+        // ============================
+        const levGroup = getMergeGroupForCell(mergeGroups, colIdx, 0);
+        let leverancier = '';
+        if (levGroup) {
+             const masterCol = sheet.columns[levGroup.master];
+             leverancier = String(masterCol?.slots?.[0]?.text ?? '').trim();
+        } else {
+             leverancier = String(col?.slots?.[0]?.text ?? '').trim();
+        }
 
         // ============================
         // SYSTEMS (ROBUUSTE FIX)
@@ -1108,8 +1120,17 @@ export function exportToCSV() {
         const routingRework = outGroup?.gate?.enabled ? getFailTargetFromGate(sheet, outGroup.gate) || '-' : '-';
         const routingPass = outGroup ? getPassTargetFromGroup(sheet, outGroup) || '-' : '-';
 
-        // Klant
-        const klant = String(col?.slots?.[5]?.text ?? '').trim();
+        // ============================
+        // KLANT (SLOT 5)
+        // ============================
+        const klantGroup = getMergeGroupForCell(mergeGroups, colIdx, 5);
+        let klant = '';
+        if (klantGroup) {
+             const masterCol = sheet.columns[klantGroup.master];
+             klant = String(masterCol?.slots?.[5]?.text ?? '').trim();
+        } else {
+             klant = String(col?.slots?.[5]?.text ?? '').trim();
+        }
 
         const row = [
           globalColNr,

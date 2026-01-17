@@ -110,6 +110,9 @@ function sanitizeGroupForActiveSheet(g) {
   const slotIdx = Number(g?.slotIdx);
   if (!Number.isFinite(slotIdx)) return null;
 
+  // AANGEPAST: Sta ook 0 (Leverancier) en 5 (Klant) toe
+  if (![0, 1, 4, 5].includes(slotIdx)) return null;
+
   const cols = Array.isArray(g?.cols) ? g.cols.map((x) => Number(x)).filter(Number.isFinite) : [];
   const uniq = [...new Set(cols)].filter((c) => c >= 0 && c < n);
   if (uniq.length < 2) return null;
@@ -198,7 +201,8 @@ function sanitizeGroupForSheet(sheet, g) {
   if (!n) return null;
 
   const slotIdx = Number(g?.slotIdx);
-  if (![1, 4].includes(slotIdx)) return null;
+  // AANGEPAST: Sta ook 0 (Leverancier) en 5 (Klant) toe
+  if (![0, 1, 4, 5].includes(slotIdx)) return null;
 
   const cols = Array.isArray(g?.cols) ? g.cols.map((x) => Number(x)).filter(Number.isFinite) : [];
   const uniq = [...new Set(cols)].filter((c) => c >= 0 && c < n);
@@ -600,9 +604,15 @@ function openMergeModal(clickedColIdx, slotIdx, openModalFn) {
   const n = sh.columns?.length ?? 0;
   if (!n) return;
 
-  if (![1, 4].includes(slotIdx)) return;
+  // AANGEPAST: Sta 0 (Leverancier), 1 (Systeem), 4 (Output), 5 (Klant) toe
+  if (![0, 1, 4, 5].includes(slotIdx)) return;
 
-  const slotName = slotIdx === 1 ? 'Systeem' : 'Output';
+  // Bepaal titel
+  let slotName = '';
+  if (slotIdx === 0) slotName = 'Leverancier';
+  else if (slotIdx === 1) slotName = 'Systeem';
+  else if (slotIdx === 4) slotName = 'Output';
+  else if (slotIdx === 5) slotName = 'Klant';
 
   const cur = getAllMergeGroupsSanitized().find((g) => g.slotIdx === slotIdx) || null;
   const curCols = cur?.cols?.length ? cur.cols : [];
@@ -694,6 +704,7 @@ function openMergeModal(clickedColIdx, slotIdx, openModalFn) {
   `
       : '';
 
+  // Titel en description aangepast
   modal.innerHTML = `
     <h3>Consolidatie ${slotName}</h3>
 
@@ -714,7 +725,11 @@ function openMergeModal(clickedColIdx, slotIdx, openModalFn) {
     <div id="mergeStatusLine" style="margin-top:6px; font-size:12px; opacity:0.8;">Niet gemerged</div>
 
     ${
-      slotIdx === 4
+      // Alleen voor Output en Systeem mag je iets speciaals; voor 0 en 5 is het gewoon tekst
+      // Maar in dit geval: Output heeft validatie, Systeem heeft fit-vragen
+      // Voor Leverancier en Klant is het 'gewoon' de tekst van de master
+      // We gebruiken de textarea voor de merged text (behalve als systemen specifiek zijn)
+      slotIdx !== 1
         ? `
     <label class="modal-label">${slotName} Definitie</label>
     <textarea id="mergeText" class="modal-input" rows="3" placeholder="Beschrijving van het geconsolideerde resultaat..."></textarea>
@@ -1601,14 +1616,15 @@ function renderHeader(activeSheet) {
 /** Attaches click and double-click interactions to a sticky and its text element. */
 function attachStickyInteractions({ stickyEl, textEl, colIdx, slotIdx, openModalFn }) {
   const onDblClick = (e) => {
-    if (![1, 2, 3, 4].includes(slotIdx)) return;
+    if (![0, 1, 2, 3, 4, 5].includes(slotIdx)) return;
     e.preventDefault();
     e.stopPropagation();
 
     const sel = window.getSelection?.();
     if (sel) sel.removeAllRanges();
 
-    if (slotIdx === 4 || slotIdx === 1) openMergeModal(colIdx, slotIdx, openModalFn);
+    // AANGEPAST: Sta 0, 1, 4, 5 toe voor merge modal
+    if ([0, 1, 4, 5].includes(slotIdx)) openMergeModal(colIdx, slotIdx, openModalFn);
     else {
       openModalFn?.(colIdx, slotIdx);
       requestAnimationFrame(() => removeLegacySystemMergeUI());
