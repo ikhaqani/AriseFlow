@@ -1673,12 +1673,15 @@ function renderConnector({ frag, activeSheet, colIdx, variantLetterMap }) {
   if (hasParallel) {
     badgesHTML += `<div class="parallel-badge">||</div>`;
   }
-  if (hasGroup) {
-    badgesHTML += `<div class="group-badge">🧩</div>`;
-  }
+  
+  // LOGIC CHANGE: Conditional (Lightning) BEFORE Group (Puzzle) to make Puzzle appear 2nd (below)
   if (hasConditional) {
     badgesHTML += `<div class="conditional-badge">⚡</div>`;
   }
+  if (hasGroup) {
+    badgesHTML += `<div class="group-badge">🧩</div>`;
+  }
+  
   if (hasQuestion) {
     badgesHTML += `<div class="question-badge">❓</div>`;
   }
