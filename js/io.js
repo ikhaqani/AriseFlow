@@ -7,7 +7,8 @@
 // - FIX: Input kan ook een bundel zijn (bundelnaam -> OUTx; OUTy) voor compacte input in post-it/export
 // - FIX: Input-tekst bij link gebruikt output-tekst (outTextByUid / outTextByOutId) indien beschikbaar
 // - FIX: Output IDs zijn project-breed stabiel (op basis van outputUid + sheet/kolom volgorde + merge-slaves overslaan)
-// - FIX (VERBETERD): Systeem export negeert nu 'lege' systeem-objecten en pakt in dat geval de post-it tekst.
+// - FIX (ROBUUST): Systeem export checkt nu strikt of er daadwerkelijk tekst in de systeemnaam staat.
+//        Lege merge-objecten worden genegeerd ten gunste van de post-it tekst.
 
 import { state } from './state.js';
 import { Toast } from './toast.js';
@@ -464,49 +465,44 @@ const SYSFIT_OPTS = {
   ]
 };
 
-// NEW: bouw een bruikbare meta-structuur als de gebruiker alleen slot.text heeft ingevuld.
+/**
+ * Checks if a meta object actually contains valid system data.
+ * Returns true if at least one system has a name.
+ */
+function hasValidSystems(meta) {
+  if (!meta || typeof meta !== 'object') return false;
+  if (!Array.isArray(meta.systems) || meta.systems.length === 0) return false;
+  
+  // Check if at least one system has a non-empty name
+  return meta.systems.some(s => s && String(s.name || '').trim() !== '');
+}
+
+/**
+ * ROBUST FALLBACK: Builds system meta from slot data, ensuring we don't
+ * return empty structures that override the post-it text.
+ */
 function buildSystemsMetaFallbackFromSlot(sysSlot) {
   const slot = sysSlot && typeof sysSlot === 'object' ? sysSlot : {};
   const sd = slot.systemData && typeof slot.systemData === 'object' ? slot.systemData : null;
+  const postItText = String(slot.text || '').trim();
 
-  // 1) Nieuwe vorm: sd.systemsMeta.systems
-  const meta = sd?.systemsMeta && typeof sd.systemsMeta === 'object' ? sd.systemsMeta : null;
-  
-  // FIX VERBETERD: Check niet alleen op length > 0, maar ook of er écht een naam is ingevuld.
-  // Anders overschrijft een leeg metadata-object de zichtbare tekst (slot.text).
-  if (Array.isArray(meta?.systems) && meta.systems.length > 0) {
-    const hasRealName = meta.systems.some(s => s?.name && String(s.name).trim() !== '');
-    
-    if (hasRealName) {
-        return {
-          multi: !!meta.multi || meta.systems.length > 1,
-          systems: meta.systems.map((s) => ({
-            name: String(s?.name ?? '').trim(),
-            legacy: !!(s?.legacy ?? s?.isLegacy),
-            future: String(s?.future ?? s?.futureSystem ?? '').trim(),
-            qa: s?.qa && typeof s.qa === 'object' ? { ...s.qa } : {},
-            score: Number.isFinite(Number(s?.score ?? s?.calculatedScore)) ? Number(s?.score ?? s?.calculatedScore) : null
-          }))
-        };
+  // 1) Try explicit new metadata (sd.systemsMeta)
+  if (sd?.systemsMeta && hasValidSystems(sd.systemsMeta)) {
+    return sd.systemsMeta;
+  }
+
+  // 2) Try legacy metadata (sd.systems)
+  if (Array.isArray(sd?.systems) && sd.systems.length > 0) {
+    const validLegacy = sd.systems.filter(s => s && String(s.name || '').trim() !== '');
+    if (validLegacy.length > 0) {
+      return { 
+        multi: validLegacy.length > 1, 
+        systems: validLegacy 
+      };
     }
   }
 
-  // 2) Legacy vorm: sd.systems (uit oudere tabs)
-  if (Array.isArray(sd?.systems) && sd.systems.length > 0) {
-    const arr = sd.systems
-      .map((s) => ({
-        name: String(s?.name ?? '').trim(),
-        legacy: !!(s?.legacy ?? s?.isLegacy),
-        future: String(s?.future ?? s?.futureSystem ?? '').trim(),
-        qa: s?.qa && typeof s.qa === 'object' ? { ...s.qa } : {},
-        score: Number.isFinite(Number(s?.score ?? s?.calculatedScore)) ? Number(s?.score ?? s?.calculatedScore) : null
-      }))
-      .filter((x) => x.name || x.future || x.legacy || Object.keys(x.qa || {}).length);
-
-    if (arr.length) return { multi: arr.length > 1, systems: arr };
-  }
-
-  // 3) Enkel systeem uit sd.systemName
+  // 3) Try simple legacy name (sd.systemName)
   const nameFromSd = String(sd?.systemName ?? '').trim();
   if (nameFromSd) {
     return {
@@ -515,15 +511,15 @@ function buildSystemsMetaFallbackFromSlot(sysSlot) {
     };
   }
 
-  // 4) Cruciale fallback: direct getypte post-it tekst (slot.text)
-  const nameFromText = String(slot?.text ?? '').trim();
-  if (nameFromText) {
+  // 4) Ultimate Fallback: The Post-it Text itself
+  if (postItText) {
     return {
       multi: false,
-      systems: [{ name: nameFromText, legacy: false, future: '', qa: {}, score: null }]
+      systems: [{ name: postItText, legacy: false, future: '', qa: {}, score: null }]
     };
   }
 
+  // No data found at all
   return null;
 }
 
@@ -543,6 +539,8 @@ function sanitizeSystemsMeta(meta) {
       };
     })
     .filter(Boolean);
+    // Note: We don't filter out empty names here yet, because the UI might be 
+    // mid-edit. But for export, we prefer valid names.
 
   const inferredMulti = systems.length > 1;
   const multi = !!meta.multi || inferredMulti;
@@ -593,7 +591,26 @@ function computeTTFScoreListFromMeta(meta) {
 
 function systemsToLists(meta) {
   const clean = sanitizeSystemsMeta(meta);
-  const systems = clean?.systems || [];
+  // Ensure we process the clean result
+  const systems = (clean?.systems || []).filter(s => s && String(s.name || '').trim() !== '');
+
+  // If after cleaning we have no systems, allow one empty to prevent crashes,
+  // but logically this should have been caught by the export loop logic.
+  if (systems.length === 0 && clean?.systems?.length > 0) {
+     // If truly empty, return empty strings
+     return {
+         systemNames: '',
+         legacySystems: '',
+         targetSystems: '',
+         systemWorkarounds: '',
+         belemmering: '',
+         dubbelRegistreren: '',
+         foutgevoeligheid: '',
+         gevolgUitval: '',
+         ttfScores: '',
+         systemsCount: 1
+     };
+  }
 
   const names = systems.map((s) => String(s?.name || '').trim()).filter(Boolean);
   const legacyNames = systems
@@ -605,7 +622,7 @@ function systemsToLists(meta) {
     .map((s) => String(s?.future || '').trim())
     .filter(Boolean);
 
-  const ttfScores = computeTTFScoreListFromMeta(clean).map((v) =>
+  const ttfScores = computeTTFScoreListFromMeta({ ...clean, systems }).map((v) =>
     Number.isFinite(Number(v)) ? `${Number(v)}%` : '—'
   );
 
@@ -953,16 +970,22 @@ export function exportToCSV() {
         const leverancier = String(col?.slots?.[0]?.text ?? '').trim();
 
         // ============================
-        // SYSTEMS (FIX: fallback slot.text)
+        // SYSTEMS (ROBUUSTE FIX)
         // ============================
         const sysSlot = col?.slots?.[1] || {};
         const sysGroup = getMergeGroupForCell(mergeGroups, colIdx, 1);
+        
+        let sysMeta = null;
 
-        // 1) bij system-merge: group.systemsMeta heeft prioriteit
-        // 2) anders: gebruik slimme fallback (data > legacy > text)
-        const sysMeta =
-          sysGroup?.systemsMeta ||
-          buildSystemsMetaFallbackFromSlot(sysSlot);
+        // 1. Check Merge Group Meta: ONLY use if it has actual names
+        if (sysGroup?.systemsMeta && hasValidSystems(sysGroup.systemsMeta)) {
+             sysMeta = sysGroup.systemsMeta;
+        }
+
+        // 2. Fallback to Slot Logic (Explicit meta -> Legacy meta -> Post-it Text)
+        if (!sysMeta) {
+             sysMeta = buildSystemsMetaFallbackFromSlot(sysSlot);
+        }
 
         const sysLists = systemsToLists(sysMeta);
         const systemsCount = sysLists.systemsCount;
