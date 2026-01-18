@@ -9,6 +9,7 @@
 // - FIX: Output IDs zijn project-breed stabiel (op basis van outputUid + sheet/kolom volgorde + merge-slaves overslaan)
 // - FIX (ROBUUST): Systeem export checkt nu strikt of er daadwerkelijk tekst in de systeemnaam staat.
 //        Lege merge-objecten worden genegeerd ten gunste van de post-it tekst.
+// - NEW: Logica kolom toegevoegd aan CSV export.
 // - NEW: GitHub Cloud Integratie (Direct Save/Load)
 
 import { state } from './state.js';
@@ -881,6 +882,7 @@ export function exportToCSV() {
       'Split?',
       'Route',
       'Conditioneel?',
+      'Logica', // <--- NIEUW: Logica kolom
       'Groep?',
       'Leverancier',
       'Systemen',
@@ -1001,8 +1003,22 @@ export function exportToCSV() {
         const isSplit = !!col.isVariant;
         const route = isSplit ? String(variantMap[colIdx] || '') : '-';
 
-        // NIEUW: Conditioneel (Trigger)
+        // NIEUW: Conditioneel (Trigger) & Logica
         const isConditional = !!col.isConditional;
+        
+        // --- LOGICA EXTRACTIE VOOR CSV ---
+        const logic = col.logic || {};
+        let logicExport = '';
+
+        if (isConditional && logic.condition) {
+            const trueLabel = logic.ifTrue !== null ? getProcessLabel(sheet, logic.ifTrue) : '';
+            const falseLabel = logic.ifFalse !== null ? getProcessLabel(sheet, logic.ifFalse) : '';
+
+            logicExport = `ALS: ${logic.condition}`;
+            if (trueLabel) logicExport += `; DAN: ${trueLabel}`;
+            if (falseLabel) logicExport += `; ANDERS: ${falseLabel}`;
+        }
+        // ---------------------------------
         
         // NIEUW: Group
         const isGroup = !!col.isGroup;
@@ -1120,6 +1136,7 @@ export function exportToCSV() {
           isSplit ? 'Ja' : 'Nee',
           route,
           isConditional ? 'Ja' : 'Nee',
+          logicExport, // <--- Logica data
           isGroup ? 'Ja' : 'Nee',
 
           leverancier,

@@ -422,6 +422,25 @@ class StateManager {
     }
 
     merged.sheets.forEach((sheet) => {
+      // === GROUPS: Ensure array exists ===
+      if (!Array.isArray(sheet.groups)) sheet.groups = [];
+      
+      // Valideer bestaande groups op nieuwe structuur
+      sheet.groups = sheet.groups.map(g => {
+         if (!Array.isArray(g.cols)) {
+             // Migratie van oude Start/End naar Array (voor backward compat tijdens dev)
+             if (Number.isFinite(g.startCol) && Number.isFinite(g.endCol)) {
+                 const newCols = [];
+                 for(let i=g.startCol; i<=g.endCol; i++) newCols.push(i);
+                 g.cols = newCols;
+             } else {
+                 g.cols = [];
+             }
+         }
+         return g;
+      }).filter(g => g.cols.length > 0);
+      // ===================================
+
       if (!Array.isArray(sheet.outputMerges)) sheet.outputMerges = [];
       if (!Array.isArray(sheet.systemMerges)) sheet.systemMerges = [];
       this._normalizeOutputMerges(sheet);
@@ -436,6 +455,18 @@ class StateManager {
         
         // NIEUW: Conditionele stap
         if (typeof col.isConditional !== 'boolean') col.isConditional = !!col.isConditional; 
+        
+        // --- NIEUWE LOGICA SANITIZATION ---
+        if (col.logic && typeof col.logic === 'object') {
+           col.logic = {
+             condition: String(col.logic.condition || ''),
+             ifTrue: (col.logic.ifTrue !== null && Number.isFinite(Number(col.logic.ifTrue))) ? Number(col.logic.ifTrue) : null,
+             ifFalse: (col.logic.ifFalse !== null && Number.isFinite(Number(col.logic.ifFalse))) ? Number(col.logic.ifFalse) : null
+           };
+        } else {
+           col.logic = null;
+        }
+        // ----------------------------------
         
         // NIEUW: Group proces
         if (typeof col.isGroup !== 'boolean') col.isGroup = !!col.isGroup;
@@ -675,6 +706,17 @@ class StateManager {
     this.pushHistory();
     sheet.columns.splice(index, 1);
 
+    // FIX: Update groups bij delete
+    if (Array.isArray(sheet.groups)) {
+        sheet.groups = sheet.groups.map(g => {
+            // Verwijder index uit lijst
+            const newCols = g.cols.filter(c => c !== index)
+                // Verschuif indices die groter zijn dan deleted index
+                .map(c => c > index ? c - 1 : c);
+            return { ...g, cols: newCols };
+        }).filter(g => g.cols.length > 0);
+    }
+
     this._normalizeOutputMerges(sheet);
     this._normalizeSystemMerges(sheet);
 
@@ -689,6 +731,18 @@ class StateManager {
 
     this.pushHistory();
     [sheet.columns[index], sheet.columns[targetIndex]] = [sheet.columns[targetIndex], sheet.columns[index]];
+
+    // FIX: Update groups bij move
+    // We wisselen index en targetIndex om in de groepen
+    if (Array.isArray(sheet.groups)) {
+        sheet.groups.forEach(g => {
+            g.cols = g.cols.map(c => {
+                if (c === index) return targetIndex;
+                if (c === targetIndex) return index;
+                return c;
+            });
+        });
+    }
 
     sheet.outputMerges = [];
     sheet.systemMerges = [];
@@ -752,6 +806,25 @@ class StateManager {
     this.notify({ reason: 'columns' }, { clone: false });
   }
 
+  // === NIEUWE FUNCTIE VOOR LOGICA OPSLAAN ===
+  setColumnLogic(colIdx, logicData) {
+    this.pushHistory();
+    const col = this.activeSheet?.columns?.[colIdx];
+    if (!col) return;
+
+    col.logic = {
+      condition: String(logicData.condition || ''),
+      ifTrue: logicData.ifTrue !== '' && logicData.ifTrue !== null ? Number(logicData.ifTrue) : null,
+      ifFalse: logicData.ifFalse !== '' && logicData.ifFalse !== null ? Number(logicData.ifFalse) : null
+    };
+
+    // Zorg dat de vlag aan staat als er logica is
+    col.isConditional = true;
+
+    this.notify({ reason: 'columns' }, { clone: false });
+  }
+  // ===========================================
+
   // NIEUW: Groep proces toggle (puzzelstuk)
   toggleGroup(colIdx) {
     this.pushHistory();
@@ -762,6 +835,61 @@ class StateManager {
 
     this.notify({ reason: 'columns' }, { clone: false });
   }
+
+  // === NIEUWE FUNCTIES VOOR GROEPEN (LIJST BASED) ===
+  getGroupForCol(colIdx) {
+    const sheet = this.activeSheet;
+    if (!sheet || !Array.isArray(sheet.groups)) return null;
+    // Check of de index voorkomt in de lijst
+    return sheet.groups.find(g => Array.isArray(g.cols) && g.cols.includes(colIdx)) || null;
+  }
+
+  setColumnGroup(groupData) {
+    this.pushHistory();
+    const sheet = this.activeSheet;
+    if (!sheet) return;
+
+    if (!Array.isArray(sheet.groups)) sheet.groups = [];
+
+    const newCols = Array.isArray(groupData.cols) ? groupData.cols : [];
+    
+    // Verwijder de gekozen kolommen uit EVENTUELE ANDERE groepen
+    // (Een kolom kan maar in 1 groep tegelijk zitten om verwarring te voorkomen)
+    sheet.groups.forEach(g => {
+        g.cols = g.cols.filter(c => !newCols.includes(c));
+    });
+    // Verwijder lege groepen
+    sheet.groups = sheet.groups.filter(g => g.cols.length > 0);
+
+    // Voeg de nieuwe groep toe
+    if (newCols.length > 0) {
+      // Bestaat deze groep al (via ID)? Update hem dan
+      const existingIdx = groupData.id ? sheet.groups.findIndex(g => g.id === groupData.id) : -1;
+      
+      if (existingIdx !== -1) {
+          sheet.groups[existingIdx].cols = newCols;
+          sheet.groups[existingIdx].title = String(groupData.title || '').trim();
+      } else {
+          sheet.groups.push({
+            id: this._makeId('grp'),
+            cols: newCols,
+            title: String(groupData.title || '').trim()
+          });
+      }
+    }
+
+    this.notify({ reason: 'groups' }, { clone: false });
+  }
+
+  removeGroup(groupId) {
+    this.pushHistory();
+    const sheet = this.activeSheet;
+    if (!sheet || !Array.isArray(sheet.groups)) return;
+
+    sheet.groups = sheet.groups.filter(g => g.id !== groupId);
+    this.notify({ reason: 'groups' }, { clone: false });
+  }
+  // ====================================
 
   getGlobalCountersBeforeActive() {
     let inCount = 0;

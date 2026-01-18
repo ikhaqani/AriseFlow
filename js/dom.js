@@ -1,5 +1,6 @@
 import { state } from './state.js';
 import { IO_CRITERIA, PROCESS_STATUSES } from './config.js';
+import { openEditModal, saveModalDetails, openLogicModal, openGroupModal } from './modals.js'; // NIEUW: openGroupModal toegevoegd
 
 const $ = (id) => document.getElementById(id);
 
@@ -1489,6 +1490,7 @@ function scheduleSyncRowHeights() {
     _syncRaf = 0;
     syncRowHeightsNow();
     renderMergedOverlays(_openModalFn);
+    renderGroupOverlays(); // FIX: Nu ook groepen renderen
   });
 }
 
@@ -1664,6 +1666,12 @@ function renderConnector({ frag, activeSheet, colIdx, variantLetterMap }) {
   const hasConditional = !!nextCol.isConditional;
   const hasGroup = !!nextCol.isGroup;
 
+  // NIEUWE LOGICA: Haal opgeslagen conditie-data op voor tooltip
+  const conditionData = nextCol.logic || null;
+  const conditionTooltip = conditionData && conditionData.condition
+    ? `Logica: ${escapeAttr(conditionData.condition)}`
+    : 'Conditionele stap';
+
   let badgesHTML = '';
 
   if (hasVariant) {
@@ -1674,9 +1682,9 @@ function renderConnector({ frag, activeSheet, colIdx, variantLetterMap }) {
     badgesHTML += `<div class="parallel-badge">||</div>`;
   }
   
-  // LOGIC CHANGE: Conditional (Lightning) BEFORE Group (Puzzle) to make Puzzle appear 2nd (below)
+  // LOGIC CHANGE: Conditional (Lightning) met tooltip
   if (hasConditional) {
-    badgesHTML += `<div class="conditional-badge">⚡</div>`;
+    badgesHTML += `<div class="conditional-badge" title="${conditionTooltip}">⚡</div>`;
   }
   if (hasGroup) {
     badgesHTML += `<div class="group-badge">🧩</div>`;
@@ -1893,6 +1901,55 @@ function renderMergedOverlays(openModalFn) {
   });
 }
 
+/**
+ * Renders overlay boxes for column groups (ranges).
+ * Uses the updated logic from state.js.
+ */
+function renderGroupOverlays() {
+  const colsContainer = $('cols');
+  if (!colsContainer) return;
+  const sheet = state.activeSheet;
+  if (!sheet || !Array.isArray(sheet.groups)) return;
+
+  // Verwijder oude overlays
+  colsContainer.querySelectorAll('.group-overlay-box').forEach(el => el.remove());
+
+  sheet.groups.forEach(g => {
+    // Vind de kolommen in de DOM
+    const startEl = colsContainer.querySelector(`.col[data-idx="${g.startCol}"]`);
+    const endEl = colsContainer.querySelector(`.col[data-idx="${g.endCol}"]`);
+
+    if (!startEl || !endEl) return;
+
+    // Bereken positie
+    // We gebruiken offsetLeft van de container
+    const left = startEl.offsetLeft;
+    const right = endEl.offsetLeft + endEl.offsetWidth;
+    const width = right - left;
+    
+    // Hoogte: van bovenkant col tot onderkant (pak scrollHeight van de col)
+    // Een kleine padding correctie (-10px ofzo) kan nodig zijn afhankelijk van je layout
+    // We nemen de offsetHeight van de startCol, maar we willen eigenlijk de max height van de reeks
+    const height = startEl.offsetHeight - 20; 
+
+    const div = document.createElement('div');
+    div.className = 'group-overlay-box';
+    div.style.left = `${left}px`;
+    div.style.width = `${width}px`;
+    div.style.height = `${height}px`;
+    
+    // Label toevoegen
+    if (g.title) {
+        const label = document.createElement('div');
+        label.className = 'group-overlay-label';
+        label.textContent = g.title;
+        div.appendChild(label);
+    }
+
+    colsContainer.appendChild(div);
+  });
+}
+
 /** Renders only the columns grid including stickies, badges, and connectors. */
 function renderColumnsOnly(openModalFn) {
   const activeSheet = state.activeSheet;
@@ -2098,6 +2155,9 @@ function renderColumnsOnly(openModalFn) {
   colsContainer.replaceChildren(frag);
   renderStats(stats);
   scheduleSyncRowHeights();
+  
+  // RENDER GROUP OVERLAYS NA ELKE RENDER
+  requestAnimationFrame(() => renderGroupOverlays()); 
 }
 
 /** Updates one rendered text cell when state signals a text-only change. */
@@ -2196,7 +2256,7 @@ export function applyStateUpdate(meta, openModalFn) {
     return;
   }
 
-  if (reason === 'columns' || reason === 'transition' || reason === 'details') {
+  if (reason === 'columns' || reason === 'transition' || reason === 'details' || reason === 'groups') {
     renderColumnsOnly(_openModalFn);
     return;
   }
@@ -2248,10 +2308,12 @@ export function setupDelegatedEvents() {
         state.toggleVariant?.(idx);
         break;
       case 'conditional':
-        state.toggleConditional?.(idx);
+        // Open logica modal
+        openLogicModal(idx);
         break;
-      case 'group': // NIEUW
-        state.toggleGroup?.(idx);
+      case 'group':
+        // Open group modal (NIEUW)
+        openGroupModal(idx);
         break;
       case 'question':
         state.toggleQuestion?.(idx);

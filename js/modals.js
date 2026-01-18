@@ -143,12 +143,13 @@ const IO_CRITERIA_DEFS = {
   }
 };
 
-const escapeAttr = (v) =>
-  String(v ?? '')
+function escapeAttr(v) {
+  return String(v ?? '')
     .replace(/&/g, '&amp;')
     .replace(/"/g, '&quot;')
     .replace(/</g, '&lt;')
     .replace(/>/g, '&gt;');
+}
 
 const createRadioGroup = (name, options, selectedValue, isHorizontal = false) => `
   <div class="radio-group-container ${isHorizontal ? 'horizontal' : 'vertical'}">
@@ -2297,4 +2298,263 @@ export function saveModalDetails(closeModal = true) {
     if (modal) modal.style.display = 'none';
     hideTooltip();
   }
+}
+
+// === LOGICA MODAL (BLIKSEM) - AANGEPAST VOOR SKIP/EXECUTE MODEL ===
+export function openLogicModal(colIdx) {
+  const sheet = state.activeSheet;
+  if (!sheet) return;
+
+  const col = sheet.columns[colIdx];
+  const logic = col.logic || { condition: '', ifTrue: null, ifFalse: null };
+
+  const createStepOptions = (selectedVal) => {
+    return sheet.columns.map((c, i) => {
+      if (c.isVisible === false) return '';
+      
+      const label = c.slots?.[3]?.text || `Stap ${i + 1}`;
+      const isSelected = (selectedVal !== null && String(selectedVal) === String(i)) ? 'selected' : '';
+      
+      if (i === colIdx) return ''; // Geen optie om naar zichzelf te springen
+
+      return `<option value="${i}" ${isSelected}>Ga naar: ${i + 1}. ${escapeAttr(label)}</option>`;
+    }).join('');
+  };
+
+  const html = `
+    <h3>⚡ Conditionele Stap</h3>
+    <div class="sub-text">
+        Bepaal wanneer deze stap uitgevoerd moet worden of overgeslagen.<br>
+        <em>Huidige stap: <strong>${escapeAttr(col.slots?.[3]?.text || 'Naamloos')}</strong></em>
+    </div>
+
+    <div style="margin-top:16px;">
+      <label class="modal-label">De Conditie (Vraag)</label>
+      <textarea id="logicCondition" class="modal-input" rows="2" placeholder="Bijv: Komt patiënt voor in systeem?">${escapeAttr(logic.condition)}</textarea>
+    </div>
+
+    <div style="margin-top:20px; display:grid; grid-template-columns: 1fr 1fr; gap:20px;">
+       <div style="background:rgba(0,255,0,0.05); padding:10px; border-radius:8px; border:1px solid rgba(0,255,0,0.1);">
+         <label class="modal-label" style="color:#69f0ae; margin-top:0;">Indien JA (Waar)</label>
+         <div class="io-helper" style="margin-bottom:8px; font-size:12px;">Als het antwoord JA is...</div>
+         <select id="logicIfTrue" class="modal-input">
+            <option value="">⬇️ Voer deze stap uit (Standaard)</option>
+            ${createStepOptions(logic.ifTrue)}
+         </select>
+       </div>
+
+       <div style="background:rgba(255,0,0,0.05); padding:10px; border-radius:8px; border:1px solid rgba(255,0,0,0.1);">
+         <label class="modal-label" style="color:#ff8a80; margin-top:0;">Indien NEE (Niet Waar)</label>
+         <div class="io-helper" style="margin-bottom:8px; font-size:12px;">Als het antwoord NEE is...</div>
+         <select id="logicIfFalse" class="modal-input">
+            <option value="">⬇️ Voer deze stap uit (Standaard)</option>
+            ${createStepOptions(logic.ifFalse)}
+         </select>
+       </div>
+    </div>
+    
+    <div style="margin-top:12px; font-size:12px; opacity:0.6; font-style:italic;">
+        Tip: Kies een doelstap om deze huidige stap over te slaan (skip).
+    </div>
+
+    <div class="modal-btns">
+      <button id="logicRemoveBtn" class="std-btn danger-text" type="button">Logica wissen</button>
+      <button id="logicCancelBtn" class="std-btn" type="button">Annuleren</button>
+      <button id="logicSaveBtn" class="std-btn primary" type="button">Opslaan</button>
+    </div>
+  `;
+
+  let overlay = document.getElementById('logicModalOverlay');
+  if (overlay) overlay.remove();
+
+  overlay = document.createElement('div');
+  overlay.id = 'logicModalOverlay';
+  overlay.className = 'modal-overlay';
+  overlay.style.display = 'grid';
+
+  const modal = document.createElement('div');
+  modal.className = 'modal';
+  modal.innerHTML = html;
+
+  overlay.appendChild(modal);
+  document.body.appendChild(overlay);
+
+  const close = () => overlay.remove();
+
+  overlay.addEventListener('click', (e) => { if(e.target === overlay) close(); });
+  modal.querySelector('#logicCancelBtn').onclick = close;
+
+  modal.querySelector('#logicRemoveBtn').onclick = () => {
+    state.toggleConditional(colIdx); 
+    close();
+  };
+
+  modal.querySelector('#logicSaveBtn').onclick = () => {
+    const condition = document.getElementById('logicCondition').value;
+    const ifTrue = document.getElementById('logicIfTrue').value;
+    const ifFalse = document.getElementById('logicIfFalse').value;
+
+    state.setColumnLogic(colIdx, { condition, ifTrue, ifFalse });
+    close();
+  };
+}
+
+// === GROEP MODAL (PUZZELSTUK) - AANGEPAST VOOR LIJST INTERACTIE ===
+export function openGroupModal(colIdx) {
+  const sheet = state.activeSheet;
+  if (!sheet) return;
+
+  const existingGroup = state.getGroupForCol(colIdx);
+  const titleVal = existingGroup ? existingGroup.title : '';
+  
+  // Begin met bestaande kolommen of de huidige kolom
+  let currentCols = existingGroup && Array.isArray(existingGroup.cols) 
+      ? [...existingGroup.cols] 
+      : [colIdx];
+
+  // Helper om de lijst te renderen
+  const renderColsList = () => {
+      const listEl = document.getElementById('groupColList');
+      if(!listEl) return;
+      
+      listEl.innerHTML = '';
+      
+      if(currentCols.length === 0) {
+          listEl.innerHTML = '<div style="font-size:12px; opacity:0.6; padding:8px;">Geen kolommen geselecteerd.</div>';
+          return;
+      }
+
+      // Sorteer voor netheid
+      currentCols.sort((a,b) => a - b);
+
+      currentCols.forEach(cIdx => {
+          const col = sheet.columns[cIdx];
+          if(!col || col.isVisible === false) return;
+          
+          const label = col.slots?.[3]?.text || `Kolom ${cIdx + 1}`;
+          
+          const item = document.createElement('div');
+          item.className = 'col-manager-item';
+          item.innerHTML = `
+             <span style="font-size:13px;"><strong>${cIdx + 1}.</strong> ${escapeAttr(label)}</span>
+             <button class="btn-icon danger" type="button" style="width:24px; height:24px; min-width:24px;">×</button>
+          `;
+          
+          item.querySelector('button').onclick = () => {
+              currentCols = currentCols.filter(x => x !== cIdx);
+              renderColsList();
+              renderAddOptions(); // Refresh dropdown zodat de verwijderde weer beschikbaar is
+          };
+          
+          listEl.appendChild(item);
+      });
+  };
+
+  // Helper voor dropdown opties (alle kolommen behalve die er al in zitten)
+  const renderAddOptions = () => {
+      const select = document.getElementById('groupAddSelect');
+      if(!select) return;
+      
+      select.innerHTML = '<option value="">-- Kies een kolom --</option>';
+      
+      sheet.columns.forEach((c, i) => {
+          if (c.isVisible === false) return;
+          if (currentCols.includes(i)) return; // Sla over als al in lijst
+          
+          const label = c.slots?.[3]?.text || `Kolom ${i + 1}`;
+          const opt = document.createElement('option');
+          opt.value = i;
+          opt.textContent = `${i + 1}. ${label}`;
+          select.appendChild(opt);
+      });
+  };
+
+  const html = `
+    <h3>🧩 Groep Definitie</h3>
+    <div class="sub-text">Beheer de kolommen in deze groep.</div>
+
+    <div style="margin-top:16px;">
+      <label class="modal-label">Naam van de groep</label>
+      <input id="groupTitle" class="modal-input" type="text" placeholder="Bijv. Triage Fase" value="${escapeAttr(titleVal)}">
+    </div>
+
+    <div style="margin-top:24px;">
+       <label class="modal-label">Kolommen in deze groep</label>
+       <div id="groupColList" style="border:1px solid rgba(255,255,255,0.1); border-radius:8px; max-height:200px; overflow-y:auto; margin-bottom:12px;"></div>
+       
+       <div style="display:flex; gap:8px;">
+          <select id="groupAddSelect" class="modal-input" style="flex:1;"></select>
+          <button id="groupAddBtn" class="std-btn" type="button">Toevoegen</button>
+       </div>
+    </div>
+
+    <div class="modal-btns">
+      ${existingGroup ? `<button id="groupRemoveBtn" class="std-btn danger-text" type="button">Groep verwijderen</button>` : '<div></div>'}
+      <button id="groupCancelBtn" class="std-btn" type="button">Annuleren</button>
+      <button id="groupSaveBtn" class="std-btn primary" type="button">Opslaan</button>
+    </div>
+  `;
+
+  let overlay = document.getElementById('groupModalOverlay');
+  if (overlay) overlay.remove();
+
+  overlay = document.createElement('div');
+  overlay.id = 'groupModalOverlay';
+  overlay.className = 'modal-overlay';
+  overlay.style.display = 'grid';
+  
+  const modal = document.createElement('div');
+  modal.className = 'modal';
+  modal.innerHTML = html;
+  
+  overlay.appendChild(modal);
+  document.body.appendChild(overlay);
+
+  // Initial render
+  renderColsList();
+  renderAddOptions();
+
+  // Events
+  const addBtn = document.getElementById('groupAddBtn');
+  const addSelect = document.getElementById('groupAddSelect');
+
+  addBtn.onclick = () => {
+      const val = addSelect.value;
+      if(!val) return;
+      const idx = parseInt(val, 10);
+      if(!currentCols.includes(idx)) {
+          currentCols.push(idx);
+          renderColsList();
+          renderAddOptions();
+      }
+  };
+
+  const close = () => overlay.remove();
+
+  overlay.addEventListener('click', (e) => { if(e.target === overlay) close(); });
+  modal.querySelector('#groupCancelBtn').onclick = close;
+
+  const removeBtn = modal.querySelector('#groupRemoveBtn');
+  if (removeBtn) {
+    removeBtn.onclick = () => {
+        state.removeGroup(existingGroup.id);
+        close();
+    };
+  }
+
+  modal.querySelector('#groupSaveBtn').onclick = () => {
+    const title = document.getElementById('groupTitle').value;
+    
+    if (currentCols.length === 0) {
+        // Als leeg, verwijder groep
+        if(existingGroup) state.removeGroup(existingGroup.id);
+    } else {
+        state.setColumnGroup({ 
+            id: existingGroup ? existingGroup.id : null,
+            cols: currentCols, 
+            title 
+        });
+    }
+    close();
+  };
 }

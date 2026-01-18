@@ -1,4 +1,4 @@
-/* main.css (VOLLEDIG - GRID TOPBAR, HUD, GROEP-SPACING & TOGGLE) */
+/* main.css (VOLLEDIG - Z-INDEX FIX VOOR EMOJIS & BUTTONS) */
 
 /* ==========================================================================
    SCROLLBARS
@@ -26,10 +26,7 @@
    ========================================================================== */
 :root {
     --gap: 12px;
-    
-    /* AANGEPAST: Grote ruimte tussen hoofdstappen voor "eiland" effect */
     --col-gap: 25px; 
-    
     --col-width: 250px;
     --slot-min-height: 140px;
 
@@ -107,7 +104,7 @@ body {
 }
 
 /* ==========================================================================
-   TOPBAR (GRID LAYOUT - NO OVERLAP)
+   TOPBAR
    ========================================================================== */
 .topbar {
     position: fixed;
@@ -116,11 +113,9 @@ body {
     width: 100%;
     height: var(--topbar-height);
     z-index: 1000;
-    
-    background: #141414; /* Solid dark background */
+    background: #141414; 
     border-bottom: 1px solid rgba(255, 255, 255, 0.08);
     box-shadow: 0 4px 20px rgba(0,0,0,0.4);
-    
     display: flex;
     flex-direction: column;
     transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
@@ -141,16 +136,14 @@ body {
     pointer-events: none;
 }
 
-/* GRID LAYOUT: Voorkomt overlapping */
 .top-row {
     display: grid;
-    grid-template-columns: 1fr auto 1fr; /* Links - Midden - Rechts */
+    grid-template-columns: 1fr auto 1fr;
     align-items: center;
     height: 100%;
     width: 100%;
 }
 
-/* Toggle Bar onderaan */
 .topbar-toggle-bar {
     position: absolute;
     bottom: -16px;
@@ -187,7 +180,6 @@ body {
     transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 
-/* LINKS: Sheet Controls */
 .sheet-controls {
     display: flex;
     align-items: center;
@@ -235,7 +227,6 @@ body {
     color: white;
 }
 
-/* MIDDEN: Project Title */
 .project-title-wrapper {
     position: relative; 
     display: flex;
@@ -273,7 +264,6 @@ body {
     box-shadow: 0 0 15px rgba(41, 121, 255, 0.3);
 }
 
-/* RECHTS: Actions */
 .actions {
     display: flex;
     gap: 10px;
@@ -289,7 +279,7 @@ body {
 }
 
 /* ==========================================================================
-   BUTTONS (UNIFIED)
+   BUTTONS
    ========================================================================== */
 .std-btn {
     height: 32px;
@@ -397,11 +387,11 @@ body {
 }
 
 /* ==========================================================================
-   DASHBOARD BAR (HUD - FLOATING)
+   DASHBOARD BAR
    ========================================================================== */
 .dashboard-bar {
     position: absolute;
-    top: 84px; /* Zweeft onder de topbar */
+    top: 84px; 
     left: 50%;
     transform: translateX(-50%);
     z-index: 990;
@@ -454,7 +444,7 @@ body {
 .stat-info { display: none; }
 
 /* ==========================================================================
-   ROW HEADERS & BOARD TITLE
+   ROW HEADERS
    ========================================================================== */
 #row-headers {
     display: flex;
@@ -550,6 +540,7 @@ body {
     pointer-events: none;
     transform: translateY(8px);
     transition: opacity 0.15s ease, transform 0.15s ease;
+    z-index: 2500; /* FORCEER OP VOORGROND BOVEN ALLES */
 }
 
 .col:hover .col-actions,
@@ -576,7 +567,6 @@ body {
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
     transition: transform 0.12s, background 0.12s, border-color 0.12s, opacity 0.12s;
     position: relative;
-    z-index: 50;
     pointer-events: auto;
     user-select: none;
 }
@@ -585,7 +575,7 @@ body {
     background: var(--ui-accent);
     border-color: var(--ui-accent);
     transform: scale(1.08);
-    z-index: 60;
+    z-index: 2600;
 }
 
 .btn-col-action:active {
@@ -610,23 +600,20 @@ body {
     box-shadow: 0 0 8px rgba(126, 87, 194, 0.6);
 }
 
-/* NIEUW: Conditionele (Trigger) button styling */
 .btn-conditional.active {
-    background: #ff9800; /* Oranje */
+    background: #ff9800;
     color: #ffffff;
     border-color: #ff9800;
     box-shadow: 0 0 8px rgba(255, 152, 0, 0.6);
 }
 
-/* NIEUW: Vraagteken button styling */
 .btn-question.active {
-    background: #00bcd4; /* Cyaan blauw */
+    background: #00bcd4;
     color: #ffffff;
     border-color: #00bcd4;
     box-shadow: 0 0 8px rgba(0, 188, 212, 0.6);
 }
 
-/* NIEUW: Group button styling (Roze/Magenta) */
 .btn-group.active {
     background: #e91e63;
     color: #ffffff;
@@ -640,8 +627,28 @@ body {
     border-color: var(--ui-accent);
 }
 
+.col.is-group {
+    border-top: 2px solid rgba(233, 30, 99, 0.3);
+    border-bottom: 2px solid rgba(233, 30, 99, 0.3);
+    background: rgba(233, 30, 99, 0.02);
+    border-radius: 12px;
+    position: relative;
+}
+
+.col.is-group + .col.is-group {
+    border-left: 1px solid rgba(233, 30, 99, 0.2);
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+}
+
+.col.is-group:has(+ .col.is-group) {
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+    border-right: none;
+}
+
 /* ==========================================================================
-   SLOTS & STICKIES (VIERKANT & HORIZONTAAL)
+   SLOTS & STICKIES
    ========================================================================== */
 .slots {
     display: flex;
@@ -1202,7 +1209,7 @@ body {
 }
 
 /* ==========================================================================
-   SPACING & CONNECTORS (AANGEPAST: 80PX SPACING, 0PX VOOR VARIANTS)
+   SPACING & CONNECTORS
    ========================================================================== */
 .col-connector {
     position: relative;
@@ -1213,14 +1220,14 @@ body {
     width: var(--col-gap); /* 80px */
     flex-shrink: 0;
     padding-top: 0;
-    z-index: 10;
-    overflow: visible; /* Zorg dat pijl zichtbaar is */
+    z-index: 1000; /* Zorg dat connector boven sticky staat (indien geen hover) */
+    overflow: visible; 
 }
 
 .col-connector.parallel-connector,
 .col-connector.variant-connector,
 .col-connector.combo-connector {
-    width: 0 !important; /* Varianten/parallel/combo plakken tegen elkaar aan */
+    width: 0 !important; 
     padding: 0 !important;
     margin: 0 !important;
     overflow: visible;
@@ -1240,7 +1247,7 @@ body {
     top: 50%;
     left: 0;
     transform: translate(-50%, -50%);
-    z-index: 120;
+    z-index: 2000; /* AANGEPAST: Zeer hoge z-index voor emojis/badges */
     display: flex;
     flex-direction: column;
     gap: 6px;
@@ -1259,6 +1266,7 @@ body {
     transform: none !important;
     margin: 0 !important;
     pointer-events: none;
+    z-index: 2001; /* Extra zekerheid */
 }
 
 .connector-active {
@@ -2043,5 +2051,36 @@ input, textarea, [contenteditable], [contenteditable="true"], .text[contentedita
 
 .viewport.expanded-view {
     /* Verwijder de padding van de topbar zodat content omhoog schuift */
-    padding-top: 40px !important; 
+    padding-top: 40px !important;
+}
+
+/* ==========================================================================
+   GROUP OVERLAYS (NEW)
+   ========================================================================== */
+.group-overlay-box {
+    position: absolute;
+    /* Top/Left/Width/Height are set via JS */
+    border: 3px solid #000000; /* Dikke zwarte rand zoals gevraagd */
+    border-radius: 16px;
+    pointer-events: none; /* Cruciaal: zorgt dat je erdoorheen kunt klikken */
+    z-index: 5; /* Boven de cols, onder de modals */
+    box-sizing: border-box;
+    /* Optioneel: heel lichte achtergrond om de groep te benadrukken */
+    background-color: rgba(0, 0, 0, 0.02); 
+}
+
+.group-overlay-label {
+    position: absolute;
+    top: -14px;
+    left: 20px;
+    background-color: #000000;
+    color: #ffffff;
+    padding: 4px 10px;
+    border-radius: 4px;
+    font-size: 11px;
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    white-space: nowrap;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.4);
 }
