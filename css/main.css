@@ -1,4 +1,4 @@
-/* main.css (VOLLEDIG - Z-INDEX FIX, GROTERE PADDING & HOGERE GROEP TITELS) */
+/* main.css (VOLLEDIG - EXTRA MARGE ONDER TITEL VOOR GROEP HEADERS) */
 
 /* ==========================================================================
    SCROLLBARS
@@ -53,6 +53,10 @@
     --status-sad-bg: #ff1744;
 
     --topbar-height: 72px;
+
+    /* Hoogte definities voor automatische uitlijning */
+    --actions-height: 40px;      /* Hoogte van de knoppenbalk */
+    --group-header-height: 40px; /* Hoogte van de titel + lijn */
 }
 
 /* ==========================================================================
@@ -74,8 +78,8 @@ body {
     width: 100%;
     height: 100%;
     overflow: auto;
-    /* AANGEPAST: Extra padding bovenin (100px) voor de groep headers */
-    padding: calc(var(--topbar-height) + 100px) 40px 60px 40px;
+    /* Voldoende padding zodat de Main Title niet achter de Topbar verdwijnt */
+    padding: calc(var(--topbar-height) + 60px) 40px 60px 40px;
     display: flex;
     justify-content: flex-start;
     align-items: flex-start;
@@ -489,7 +493,8 @@ body {
     color: #ffffff;
     text-transform: uppercase;
     letter-spacing: 4px;
-    margin-bottom: 40px;
+    /* AANGEPAST: Extra marge onderaan (120px) om ruimte te maken voor Groep Headers */
+    margin-bottom: 120px;
     text-align: center;
     text-shadow: 0 4px 20px rgba(0, 0, 0, 0.6);
     opacity: 0.9;
@@ -529,10 +534,11 @@ body {
 
 .col-actions {
     position: absolute;
-    top: -40px;
+    /* AUTOMATISCH: Boven de kolom, met een vaste hoogte variabele */
+    top: calc(-1 * var(--actions-height)); 
     left: 0;
     width: 100%;
-    height: 34px;
+    height: var(--actions-height);
     display: flex;
     justify-content: center;
     align-items: center;
@@ -541,7 +547,7 @@ body {
     pointer-events: none;
     transform: translateY(8px);
     transition: opacity 0.15s ease, transform 0.15s ease;
-    z-index: 2500; /* FORCEER OP VOORGROND BOVEN ALLES */
+    z-index: 2500; /* Boven alles */
 }
 
 .col:hover .col-actions,
@@ -2062,8 +2068,8 @@ input, textarea, [contenteditable], [contenteditable="true"], .text[contentedita
 .group-header-overlay {
     position: absolute;
     /* Left/Width are set via JS */
-    top: -90px; /* Negative value to move it ABOVE the columns */
-    height: 30px;
+    top: calc(-1 * (var(--actions-height) + var(--group-header-height) + 5px));
+    height: var(--group-header-height);
     pointer-events: none;
     z-index: 100; /* Behind modal, but distinct */
     display: flex;

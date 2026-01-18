@@ -1,6 +1,6 @@
 import { state } from './state.js';
 import { IO_CRITERIA, PROCESS_STATUSES } from './config.js';
-import { openEditModal, saveModalDetails, openLogicModal, openGroupModal } from './modals.js';
+import { openEditModal, saveModalDetails, openLogicModal, openGroupModal } from './modals.js'; // NIEUW: openGroupModal toegevoegd
 
 const $ = (id) => document.getElementById(id);
 
