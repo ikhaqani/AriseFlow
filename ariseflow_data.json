@@ -4074,7 +4074,8 @@
               "workExpNote": ""
             }
           ],
-          "isGroup": true
+          "isGroup": true,
+          "isConditional": false
         },
         {
           "id": "7cf507c7-61a7-4cfa-b287-a8206b2ac5aa",
@@ -4473,7 +4474,12 @@
           ],
           "isConditional": true,
           "isQuestion": false,
-          "isGroup": true
+          "isGroup": true,
+          "logic": {
+            "condition": "Komt deze patiënt voor in het systeem?",
+            "ifTrue": 4,
+            "ifFalse": null
+          }
         },
         {
           "id": "97f546fa-a317-4a5a-abe8-cba26deebe85",
@@ -5681,7 +5687,18 @@
         }
       ],
       "outputMerges": [],
-      "systemMerges": []
+      "systemMerges": [],
+      "groups": [
+        {
+          "id": "grp_fdc773a1-1d81-422f-83dd-789abb9fb891",
+          "cols": [
+            0,
+            1,
+            2
+          ],
+          "title": "Verwijzing"
+        }
+      ]
     },
     {
       "id": "4852d9ea-d646-44b7-bf7d-c852725ff82a",
