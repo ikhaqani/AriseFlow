@@ -1,4 +1,4 @@
-/* main.css (VOLLEDIG - Z-INDEX FIX VOOR EMOJIS & BUTTONS) */
+/* main.css (VOLLEDIG - Z-INDEX FIX VOOR EMOJIS & BUTTONS + GROUP LINE UPDATE) */
 
 /* ==========================================================================
    SCROLLBARS
@@ -1209,7 +1209,7 @@ body {
 }
 
 /* ==========================================================================
-   SPACING & CONNECTORS
+   SPACING & CONNECTORS (AANGEPAST: 80PX SPACING, 0PX VOOR VARIANTS)
    ========================================================================== */
 .col-connector {
     position: relative;
@@ -2057,30 +2057,37 @@ input, textarea, [contenteditable], [contenteditable="true"], .text[contentedita
 /* ==========================================================================
    GROUP OVERLAYS (NEW)
    ========================================================================== */
-.group-overlay-box {
+/* Verwijder border, voegt titel toe boven de groep */
+.group-header-overlay {
     position: absolute;
-    /* Top/Left/Width/Height are set via JS */
-    border: 3px solid #000000; /* Dikke zwarte rand zoals gevraagd */
-    border-radius: 16px;
-    pointer-events: none; /* Cruciaal: zorgt dat je erdoorheen kunt klikken */
-    z-index: 5; /* Boven de cols, onder de modals */
-    box-sizing: border-box;
-    /* Optioneel: heel lichte achtergrond om de groep te benadrukken */
-    background-color: rgba(0, 0, 0, 0.02); 
+    /* Left/Width are set via JS */
+    top: 55px; /* Ongeveer hoogte col-actions */
+    height: 30px; 
+    pointer-events: none;
+    z-index: 10;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
-.group-overlay-label {
-    position: absolute;
-    top: -14px;
-    left: 20px;
-    background-color: #000000;
-    color: #ffffff;
-    padding: 4px 10px;
-    border-radius: 4px;
-    font-size: 11px;
+.group-header-label {
+    font-size: 14px;
     font-weight: 900;
+    color: #ffffff;
     text-transform: uppercase;
-    letter-spacing: 0.8px;
+    letter-spacing: 1px;
+    background: #000;
+    padding: 2px 10px;
+    border-radius: 4px;
+    margin-bottom: 4px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.5);
     white-space: nowrap;
-    box-shadow: 0 2px 6px rgba(0,0,0,0.4);
+}
+
+.group-header-line {
+    width: 100%;
+    height: 2px;
+    background: #ffffff;
+    opacity: 0.6;
+    border-radius: 2px;
 }

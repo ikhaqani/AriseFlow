@@ -10,6 +10,7 @@
 // - FIX (ROBUUST): Systeem export checkt nu strikt of er daadwerkelijk tekst in de systeemnaam staat.
 //        Lege merge-objecten worden genegeerd ten gunste van de post-it tekst.
 // - NEW: Logica kolom toegevoegd aan CSV export.
+// - NEW: Groepsnaam kolom toegevoegd aan CSV export.
 // - NEW: GitHub Cloud Integratie (Direct Save/Load)
 
 import { state } from './state.js';
@@ -884,6 +885,7 @@ export function exportToCSV() {
       'Conditioneel?',
       'Logica', // <--- NIEUW: Logica kolom
       'Groep?',
+      'Groepsnaam', // <--- NIEUW: Groepsnaam kolom
       'Leverancier',
       'Systemen',
       'Legacy systemen',
@@ -1022,6 +1024,8 @@ export function exportToCSV() {
         
         // NIEUW: Group
         const isGroup = !!col.isGroup;
+        // Haal groepsnaam op als de kolom in een groep zit
+        const groupName = state.getGroupForCol(colIdx)?.title || '';
 
         // Fase
         const fase = `Procesflow ${globalColNr}`;
@@ -1138,6 +1142,7 @@ export function exportToCSV() {
           isConditional ? 'Ja' : 'Nee',
           logicExport, // <--- Logica data
           isGroup ? 'Ja' : 'Nee',
+          groupName, // <--- Groepsnaam
 
           leverancier,
 

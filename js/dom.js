@@ -1,6 +1,6 @@
 import { state } from './state.js';
 import { IO_CRITERIA, PROCESS_STATUSES } from './config.js';
-import { openEditModal, saveModalDetails, openLogicModal, openGroupModal } from './modals.js'; // NIEUW: openGroupModal toegevoegd
+import { openEditModal, saveModalDetails, openLogicModal, openGroupModal } from './modals.js';
 
 const $ = (id) => document.getElementById(id);
 
@@ -1686,9 +1686,11 @@ function renderConnector({ frag, activeSheet, colIdx, variantLetterMap }) {
   if (hasConditional) {
     badgesHTML += `<div class="conditional-badge" title="${conditionTooltip}">⚡</div>`;
   }
-  if (hasGroup) {
-    badgesHTML += `<div class="group-badge">🧩</div>`;
-  }
+  
+  // LOGIC CHANGE: Group badge (puzzelstuk) VERWIJDERD
+  // if (hasGroup) {
+  //   badgesHTML += `<div class="group-badge">🧩</div>`;
+  // }
   
   if (hasQuestion) {
     badgesHTML += `<div class="question-badge">❓</div>`;
@@ -1912,41 +1914,41 @@ function renderGroupOverlays() {
   if (!sheet || !Array.isArray(sheet.groups)) return;
 
   // Verwijder oude overlays
-  colsContainer.querySelectorAll('.group-overlay-box').forEach(el => el.remove());
+  colsContainer.querySelectorAll('.group-header-overlay').forEach(el => el.remove());
 
   sheet.groups.forEach(g => {
-    // Vind de kolommen in de DOM
-    const startEl = colsContainer.querySelector(`.col[data-idx="${g.startCol}"]`);
-    const endEl = colsContainer.querySelector(`.col[data-idx="${g.endCol}"]`);
+    // Vind de kolommen in de DOM op basis van de lijst
+    const colElements = g.cols.map(cIdx => colsContainer.querySelector(`.col[data-idx="${cIdx}"]`)).filter(Boolean);
 
-    if (!startEl || !endEl) return;
+    if (colElements.length === 0) return;
 
-    // Bereken positie
-    // We gebruiken offsetLeft van de container
-    const left = startEl.offsetLeft;
-    const right = endEl.offsetLeft + endEl.offsetWidth;
-    const width = right - left;
+    // Bereken positie: minimale linker en maximale rechter grens
+    let minLeft = Infinity;
+    let maxRight = -Infinity;
+
+    colElements.forEach(el => {
+        // Gebruik getOffsetWithin voor relatieve positie binnen colsContainer
+        const rect = getOffsetWithin(el, colsContainer);
+        if (rect.x < minLeft) minLeft = rect.x;
+        
+        const right = rect.x + el.offsetWidth;
+        if (right > maxRight) maxRight = right;
+    });
     
-    // Hoogte: van bovenkant col tot onderkant (pak scrollHeight van de col)
-    // Een kleine padding correctie (-10px ofzo) kan nodig zijn afhankelijk van je layout
-    // We nemen de offsetHeight van de startCol, maar we willen eigenlijk de max height van de reeks
-    const height = startEl.offsetHeight - 20; 
+    const width = maxRight - minLeft;
 
-    const div = document.createElement('div');
-    div.className = 'group-overlay-box';
-    div.style.left = `${left}px`;
-    div.style.width = `${width}px`;
-    div.style.height = `${height}px`;
+    const overlay = document.createElement('div');
+    overlay.className = 'group-header-overlay';
+    overlay.style.left = `${minLeft}px`;
+    overlay.style.width = `${width}px`;
     
-    // Label toevoegen
-    if (g.title) {
-        const label = document.createElement('div');
-        label.className = 'group-overlay-label';
-        label.textContent = g.title;
-        div.appendChild(label);
-    }
+    // HTML: Titel label + witte lijn
+    overlay.innerHTML = `
+        <div class="group-header-label">${escapeHTML(g.title)}</div>
+        <div class="group-header-line"></div>
+    `;
 
-    colsContainer.appendChild(div);
+    colsContainer.appendChild(overlay);
   });
 }
 
@@ -2308,11 +2310,11 @@ export function setupDelegatedEvents() {
         state.toggleVariant?.(idx);
         break;
       case 'conditional':
-        // Open logica modal
+        // AANGEPAST: Open nu altijd de logica modal
         openLogicModal(idx);
         break;
       case 'group':
-        // Open group modal (NIEUW)
+        // Open group modal
         openGroupModal(idx);
         break;
       case 'question':
