@@ -4,7 +4,7 @@
   "author": "Anoniem",
   "created": "2026-01-16T08:48:17.021Z",
   "version": "2.7",
-  "activeSheetId": "82c5a0d7-dd02-4362-940e-76e2a3f5d814",
+  "activeSheetId": "af73f8e9-9286-4596-a418-93e5b3c50f57",
   "sheets": [
     {
       "id": "819bb6d9-21cc-49cf-8c40-4b6d7df6b2e1",
@@ -213,7 +213,7 @@
             {
               "id": "4f24a23a-fa39-4156-bb3d-356e1da4ecad",
               "created": 1768553297021,
-              "text": "Patiënt verwijzen naar specialist",
+              "text": "Verwijzen patiënt",
               "linkedSourceId": null,
               "type": null,
               "processValue": null,
@@ -478,7 +478,7 @@
             {
               "id": "456f543c-a9ed-40d3-8ff5-93be2689ffd8",
               "created": 1768554142730,
-              "text": "Ziekenhuissysteem",
+              "text": "Ziekenhuissysteem ",
               "linkedSourceId": null,
               "type": null,
               "processValue": null,
@@ -882,7 +882,7 @@
             {
               "id": "4b3d035f-6fb6-4c7e-bdca-7c2e96c4cce5",
               "created": 1768560389860,
-              "text": "Ziekenhuissysteem",
+              "text": "Ziekenhuissysteem ",
               "linkedSourceId": null,
               "type": null,
               "processValue": null,
@@ -919,7 +919,7 @@
               "systemData": {
                 "isMulti": false,
                 "systemName": "",
-                "calculatedScore": null,
+                "calculatedScore": 0,
                 "systems": [
                   {
                     "id": "3c3e0f9f-4595-47ab-ba7d-0331996be2e0",
@@ -935,7 +935,20 @@
                     },
                     "calculatedScore": null
                   }
-                ]
+                ],
+                "systemsMeta": {
+                  "multi": false,
+                  "systems": [
+                    {
+                      "name": "Ziekenhuissysteem",
+                      "legacy": false,
+                      "future": "",
+                      "qa": {},
+                      "score": null
+                    }
+                  ],
+                  "activeSystemIdx": 0
+                }
               },
               "inputDefinitions": [],
               "disruptions": [],
@@ -1311,7 +1324,7 @@
               "systemData": {
                 "isMulti": false,
                 "systemName": "",
-                "calculatedScore": null,
+                "calculatedScore": 0,
                 "systems": [
                   {
                     "id": "a4dcd030-e841-447e-b848-a0f7c92e7d64",
@@ -1327,7 +1340,20 @@
                     },
                     "calculatedScore": null
                   }
-                ]
+                ],
+                "systemsMeta": {
+                  "multi": false,
+                  "systems": [
+                    {
+                      "name": "Ziekenhuissysteem",
+                      "legacy": false,
+                      "future": "",
+                      "qa": {},
+                      "score": null
+                    }
+                  ],
+                  "activeSystemIdx": 0
+                }
               },
               "inputDefinitions": [],
               "disruptions": [],
@@ -1400,7 +1426,7 @@
             {
               "id": "b2a9a5a7-79c9-4f08-b3be-8bc72e99ff7f",
               "created": 1768560538331,
-              "text": "Uitvoeren scopie",
+              "text": "Verrichten scopie",
               "linkedSourceId": null,
               "type": null,
               "processValue": null,
@@ -1812,7 +1838,7 @@
             {
               "id": "0bb62337-80b2-41a6-96db-911081bcc510",
               "created": 1768554461205,
-              "text": "Uitvoeren pathologisch onderzoek",
+              "text": "Analyseren weefsel",
               "linkedSourceId": null,
               "type": null,
               "processValue": null,
@@ -2078,7 +2104,7 @@
             {
               "id": "da088e0a-4452-44c0-a541-acbb897ca28f",
               "created": 1768555766143,
-              "text": "Ziekenhuissysteem / Pacs",
+              "text": "Ziekenhuissysteem ",
               "linkedSourceId": null,
               "type": null,
               "processValue": null,
@@ -2136,7 +2162,7 @@
                   "multi": false,
                   "systems": [
                     {
-                      "name": "",
+                      "name": "Ziekenhuissysteem",
                       "legacy": false,
                       "future": "",
                       "qa": {},
@@ -2217,7 +2243,7 @@
             {
               "id": "a2f3b3e3-b6c8-4fe3-b4f0-92f1b9ccd5ec",
               "created": 1768555766143,
-              "text": "Uitvoeren beeldvormingsonderzoek",
+              "text": "Maken beelden",
               "linkedSourceId": null,
               "type": null,
               "processValue": null,
@@ -3828,7 +3854,7 @@
             {
               "id": "2c75a42b-ca38-43eb-ae2c-860614862f9c",
               "created": 1768627984926,
-              "text": "Aanvullen patiëntendossier",
+              "text": "Aanvullen dossier",
               "linkedSourceId": null,
               "type": null,
               "processValue": null,
@@ -3891,7 +3917,7 @@
             {
               "id": "8c29d123-dd39-4357-8a1e-8b76e86c2671",
               "created": 1768627984926,
-              "text": "Gecompleteerd patiëntendossier",
+              "text": "Aangevuld dossier",
               "linkedSourceId": null,
               "type": null,
               "processValue": null,
@@ -4030,7 +4056,7 @@
             {
               "id": "9cfe4e7c-e78b-4350-9845-1805bc35c2c0",
               "created": 1768656147976,
-              "text": "Radiotherapie Web",
+              "text": "Wie maakt de triagetaak aan",
               "linkedSourceId": null,
               "type": null,
               "processValue": null,
@@ -4156,7 +4182,7 @@
             {
               "id": "3e50416d-89aa-4e39-9b9e-ce9cb4d56a9b",
               "created": 1768656147976,
-              "text": "Verwijzing patiënt",
+              "text": "Verwijzing ",
               "linkedSourceId": null,
               "type": null,
               "processValue": null,
@@ -4166,27 +4192,27 @@
               "improvements": [],
               "qa": {
                 "compleet": {
-                  "result": "",
+                  "result": null,
                   "note": ""
                 },
                 "kwaliteit": {
-                  "result": "",
+                  "result": null,
                   "note": ""
                 },
                 "duidelijkheid": {
-                  "result": "",
+                  "result": null,
                   "note": ""
                 },
                 "tijdigheid": {
-                  "result": "",
+                  "result": null,
                   "note": ""
                 },
                 "standaard": {
-                  "result": "",
+                  "result": null,
                   "note": ""
                 },
                 "overdracht": {
-                  "result": "",
+                  "result": null,
                   "note": ""
                 }
               },
@@ -4214,12 +4240,15 @@
               "inputDefinitions": [],
               "disruptions": [],
               "workExp": null,
-              "workExpNote": ""
+              "workExpNote": "",
+              "linkedBundleId": null,
+              "linkedBundleIds": null,
+              "linkedSourceIds": null
             },
             {
               "id": "d264ed9f-6daa-45c7-9224-52ca1748df9c",
               "created": 1768656147976,
-              "text": "Automatisch aanmaken taak \"Triage\" ",
+              "text": "Aanmaken triagetaak",
               "linkedSourceId": null,
               "type": null,
               "processValue": null,
@@ -4282,7 +4311,7 @@
             {
               "id": "4a747084-25aa-44cc-99ec-1e82453c05f8",
               "created": 1768656147976,
-              "text": "Taak \"Triage\" ",
+              "text": "Triagetaak",
               "linkedSourceId": null,
               "type": null,
               "processValue": null,
@@ -4407,7 +4436,8 @@
               "workExpNote": ""
             }
           ],
-          "isGroup": true
+          "isGroup": true,
+          "isQuestion": true
         },
         {
           "id": "2ce8f53c-c3f7-473b-9997-9b8bfe3fecce",
@@ -4616,7 +4646,7 @@
             {
               "id": "82314803-75c8-4354-9d82-8e1c45f0a3eb",
               "created": 1768629005279,
-              "text": "Aanmaken triage order",
+              "text": "Aanmaken triageorder",
               "linkedSourceId": null,
               "type": null,
               "processValue": null,
@@ -5013,7 +5043,7 @@
             {
               "id": "d107aa5a-1203-463f-b512-531d149de7ff",
               "created": 1768629089349,
-              "text": "Aanmaken formulier \"Nieuwe behandeling\" ",
+              "text": "Aanmaken behandelformulier",
               "linkedSourceId": null,
               "type": null,
               "processValue": null,
@@ -5342,8 +5372,8 @@
             {
               "id": "62dece07-14b2-479e-98ec-96e89712d184",
               "created": 1768629362067,
-              "text": "Taak \"Triage\" ",
-              "linkedSourceId": null,
+              "text": "",
+              "linkedSourceId": "OUT11",
               "type": null,
               "processValue": null,
               "processStatus": null,
@@ -5352,27 +5382,27 @@
               "improvements": [],
               "qa": {
                 "compleet": {
-                  "result": "",
+                  "result": null,
                   "note": ""
                 },
                 "kwaliteit": {
-                  "result": "",
+                  "result": null,
                   "note": ""
                 },
                 "duidelijkheid": {
-                  "result": "",
+                  "result": null,
                   "note": ""
                 },
                 "tijdigheid": {
-                  "result": "",
+                  "result": null,
                   "note": ""
                 },
                 "standaard": {
-                  "result": "",
+                  "result": null,
                   "note": ""
                 },
                 "overdracht": {
-                  "result": "",
+                  "result": null,
                   "note": ""
                 }
               },
@@ -5400,12 +5430,17 @@
               "inputDefinitions": [],
               "disruptions": [],
               "workExp": null,
-              "workExpNote": ""
+              "workExpNote": "",
+              "linkedSourceIds": [
+                "OUT11"
+              ],
+              "linkedBundleId": null,
+              "linkedBundleIds": null
             },
             {
               "id": "36b5517f-1077-498e-a566-10087a8d3fdc",
               "created": 1768629362067,
-              "text": "Afronden taak \"Triage\" ",
+              "text": "Afronden triagetaak",
               "linkedSourceId": null,
               "type": null,
               "processValue": null,
@@ -5468,7 +5503,7 @@
             {
               "id": "b5653d38-602d-4fb7-8f37-dd6cf10526d0",
               "created": 1768629362067,
-              "text": "",
+              "text": "Triagetaak afgerond",
               "linkedSourceId": null,
               "type": null,
               "processValue": null,
@@ -5532,7 +5567,7 @@
             {
               "id": "4a1e2592-87b5-4e93-aea3-a7060cf9e0e1",
               "created": 1768629362067,
-              "text": "",
+              "text": "Polikliniek",
               "linkedSourceId": null,
               "type": null,
               "processValue": null,
@@ -5811,7 +5846,7 @@
             {
               "id": "0215eca6-4ec6-4d82-8813-5dd0826e5e15",
               "created": 1768630183290,
-              "text": "Patiënt triëren",
+              "text": "Triëren patiënt",
               "linkedSourceId": null,
               "type": null,
               "processValue": null,
@@ -5874,7 +5909,7 @@
             {
               "id": "2a7cd350-c829-4a38-99e5-e1324b2921c0",
               "created": 1768630183290,
-              "text": "Interne verwijsorder nieuwe patiënt",
+              "text": "Verwijsorder",
               "linkedSourceId": null,
               "type": null,
               "processValue": null,
@@ -6607,7 +6642,7 @@
             {
               "id": "f46cd908-3b87-4376-8284-ec02cc6ec9e7",
               "created": 1768631121718,
-              "text": "Bericht versturen naar de polikliniek + aanmaken taak \"Voorbereiden consult\"",
+              "text": "Versturen bericht",
               "linkedSourceId": null,
               "type": null,
               "processValue": null,
@@ -6670,7 +6705,7 @@
             {
               "id": "51f745cc-5f0a-4ade-a889-6452a002b922",
               "created": 1768631121718,
-              "text": "Correspondentie + Taak \"Voorbereiden consult\"",
+              "text": "Gegevensverzoek",
               "linkedSourceId": null,
               "type": null,
               "processValue": null,
@@ -6796,6 +6831,412 @@
             }
           ],
           "isConditional": false
+        },
+        {
+          "id": "272dbcf6-e42c-423e-8278-2e4b6e96294b",
+          "order": 1,
+          "isVisible": true,
+          "isParallel": false,
+          "isVariant": false,
+          "hasTransition": false,
+          "transitionNext": "",
+          "outputId": null,
+          "slots": [
+            {
+              "id": "9a0e458b-575d-4eef-a996-10a9ecc036b5",
+              "created": 1768722654221,
+              "text": "Triage arts",
+              "linkedSourceId": null,
+              "type": null,
+              "processValue": null,
+              "processStatus": null,
+              "successFactors": "",
+              "causes": [],
+              "improvements": [],
+              "qa": {
+                "compleet": {
+                  "result": "",
+                  "note": ""
+                },
+                "kwaliteit": {
+                  "result": "",
+                  "note": ""
+                },
+                "duidelijkheid": {
+                  "result": "",
+                  "note": ""
+                },
+                "tijdigheid": {
+                  "result": "",
+                  "note": ""
+                },
+                "standaard": {
+                  "result": "",
+                  "note": ""
+                },
+                "overdracht": {
+                  "result": "",
+                  "note": ""
+                }
+              },
+              "systemData": {
+                "isMulti": false,
+                "systemName": "",
+                "calculatedScore": null,
+                "systems": [
+                  {
+                    "id": "8dbd40ca-b58e-4265-a371-5779d9bfa150",
+                    "name": "",
+                    "isLegacy": false,
+                    "futureSystem": "",
+                    "qa": {
+                      "workarounds": null,
+                      "performance": null,
+                      "double": null,
+                      "error": null,
+                      "depend": null
+                    },
+                    "calculatedScore": null
+                  }
+                ]
+              },
+              "inputDefinitions": [],
+              "disruptions": [],
+              "workExp": null,
+              "workExpNote": ""
+            },
+            {
+              "id": "da6498ea-9b93-40a7-a24e-c1d747fe64cc",
+              "created": 1768722654221,
+              "text": "Radiotherapie Web",
+              "linkedSourceId": null,
+              "type": null,
+              "processValue": null,
+              "processStatus": null,
+              "successFactors": "",
+              "causes": [],
+              "improvements": [],
+              "qa": {
+                "compleet": {
+                  "result": "",
+                  "note": ""
+                },
+                "kwaliteit": {
+                  "result": "",
+                  "note": ""
+                },
+                "duidelijkheid": {
+                  "result": "",
+                  "note": ""
+                },
+                "tijdigheid": {
+                  "result": "",
+                  "note": ""
+                },
+                "standaard": {
+                  "result": "",
+                  "note": ""
+                },
+                "overdracht": {
+                  "result": "",
+                  "note": ""
+                }
+              },
+              "systemData": {
+                "isMulti": false,
+                "systemName": "",
+                "calculatedScore": 0,
+                "systems": [
+                  {
+                    "id": "0fa2efe9-8008-4984-9657-b01b2f51e4f1",
+                    "name": "",
+                    "isLegacy": false,
+                    "futureSystem": "",
+                    "qa": {
+                      "workarounds": null,
+                      "performance": null,
+                      "double": null,
+                      "error": null,
+                      "depend": null
+                    },
+                    "calculatedScore": null
+                  }
+                ],
+                "systemsMeta": {
+                  "multi": false,
+                  "systems": [
+                    {
+                      "name": "Radiotherapie Web",
+                      "legacy": false,
+                      "future": "",
+                      "qa": {},
+                      "score": null
+                    }
+                  ],
+                  "activeSystemIdx": 0
+                }
+              },
+              "inputDefinitions": [],
+              "disruptions": [],
+              "workExp": null,
+              "workExpNote": ""
+            },
+            {
+              "id": "f66ae944-7135-4856-9bf6-5f83f2ee1193",
+              "created": 1768722654221,
+              "text": "Verzoek aanvullende gegevens",
+              "linkedSourceId": null,
+              "type": null,
+              "processValue": null,
+              "processStatus": null,
+              "successFactors": "",
+              "causes": [],
+              "improvements": [],
+              "qa": {
+                "compleet": {
+                  "result": "",
+                  "note": ""
+                },
+                "kwaliteit": {
+                  "result": "",
+                  "note": ""
+                },
+                "duidelijkheid": {
+                  "result": "",
+                  "note": ""
+                },
+                "tijdigheid": {
+                  "result": "",
+                  "note": ""
+                },
+                "standaard": {
+                  "result": "",
+                  "note": ""
+                },
+                "overdracht": {
+                  "result": "",
+                  "note": ""
+                }
+              },
+              "systemData": {
+                "isMulti": false,
+                "systemName": "",
+                "calculatedScore": null,
+                "systems": [
+                  {
+                    "id": "3574a10c-cae2-4bed-8494-fcab2279d8ae",
+                    "name": "",
+                    "isLegacy": false,
+                    "futureSystem": "",
+                    "qa": {
+                      "workarounds": null,
+                      "performance": null,
+                      "double": null,
+                      "error": null,
+                      "depend": null
+                    },
+                    "calculatedScore": null
+                  }
+                ]
+              },
+              "inputDefinitions": [],
+              "disruptions": [],
+              "workExp": null,
+              "workExpNote": ""
+            },
+            {
+              "id": "f7c5070a-1e04-4414-952b-5a065fae343b",
+              "created": 1768722654222,
+              "text": "Aanmaken voorbereidingstaak",
+              "linkedSourceId": null,
+              "type": null,
+              "processValue": null,
+              "processStatus": null,
+              "successFactors": "",
+              "causes": [],
+              "improvements": [],
+              "qa": {
+                "compleet": {
+                  "result": "",
+                  "note": ""
+                },
+                "kwaliteit": {
+                  "result": "",
+                  "note": ""
+                },
+                "duidelijkheid": {
+                  "result": "",
+                  "note": ""
+                },
+                "tijdigheid": {
+                  "result": "",
+                  "note": ""
+                },
+                "standaard": {
+                  "result": "",
+                  "note": ""
+                },
+                "overdracht": {
+                  "result": "",
+                  "note": ""
+                }
+              },
+              "systemData": {
+                "isMulti": false,
+                "systemName": "",
+                "calculatedScore": null,
+                "systems": [
+                  {
+                    "id": "6011a69d-fa10-4089-b327-cb1cdb96e3ec",
+                    "name": "",
+                    "isLegacy": false,
+                    "futureSystem": "",
+                    "qa": {
+                      "workarounds": null,
+                      "performance": null,
+                      "double": null,
+                      "error": null,
+                      "depend": null
+                    },
+                    "calculatedScore": null
+                  }
+                ]
+              },
+              "inputDefinitions": [],
+              "disruptions": [],
+              "workExp": null,
+              "workExpNote": ""
+            },
+            {
+              "id": "3724dc3a-7cfb-4c21-b6d5-230b9ff42fa3",
+              "created": 1768722654222,
+              "text": "Taak \"Voorbereiden consult\"",
+              "linkedSourceId": null,
+              "type": null,
+              "processValue": null,
+              "processStatus": null,
+              "successFactors": "",
+              "causes": [],
+              "improvements": [],
+              "qa": {
+                "compleet": {
+                  "result": "",
+                  "note": ""
+                },
+                "kwaliteit": {
+                  "result": "",
+                  "note": ""
+                },
+                "duidelijkheid": {
+                  "result": "",
+                  "note": ""
+                },
+                "tijdigheid": {
+                  "result": "",
+                  "note": ""
+                },
+                "standaard": {
+                  "result": "",
+                  "note": ""
+                },
+                "overdracht": {
+                  "result": "",
+                  "note": ""
+                }
+              },
+              "systemData": {
+                "isMulti": false,
+                "systemName": "",
+                "calculatedScore": null,
+                "systems": [
+                  {
+                    "id": "cd8a6776-6f97-4c7d-880b-70bf8a4d0fa8",
+                    "name": "",
+                    "isLegacy": false,
+                    "futureSystem": "",
+                    "qa": {
+                      "workarounds": null,
+                      "performance": null,
+                      "double": null,
+                      "error": null,
+                      "depend": null
+                    },
+                    "calculatedScore": null
+                  }
+                ]
+              },
+              "inputDefinitions": [],
+              "disruptions": [],
+              "workExp": null,
+              "workExpNote": "",
+              "outputUid": "out_4ef6af9f-53b2-4b73-80b7-b3724f6e1193"
+            },
+            {
+              "id": "6829a3d2-1b07-4512-8132-f38bd44b9313",
+              "created": 1768722654222,
+              "text": "Polikliniek",
+              "linkedSourceId": null,
+              "type": null,
+              "processValue": null,
+              "processStatus": null,
+              "successFactors": "",
+              "causes": [],
+              "improvements": [],
+              "qa": {
+                "compleet": {
+                  "result": "",
+                  "note": ""
+                },
+                "kwaliteit": {
+                  "result": "",
+                  "note": ""
+                },
+                "duidelijkheid": {
+                  "result": "",
+                  "note": ""
+                },
+                "tijdigheid": {
+                  "result": "",
+                  "note": ""
+                },
+                "standaard": {
+                  "result": "",
+                  "note": ""
+                },
+                "overdracht": {
+                  "result": "",
+                  "note": ""
+                }
+              },
+              "systemData": {
+                "isMulti": false,
+                "systemName": "",
+                "calculatedScore": null,
+                "systems": [
+                  {
+                    "id": "9bf6981e-3424-49af-994b-e896fcbc8031",
+                    "name": "",
+                    "isLegacy": false,
+                    "futureSystem": "",
+                    "qa": {
+                      "workarounds": null,
+                      "performance": null,
+                      "double": null,
+                      "error": null,
+                      "depend": null
+                    },
+                    "calculatedScore": null
+                  }
+                ]
+              },
+              "inputDefinitions": [],
+              "disruptions": [],
+              "workExp": null,
+              "workExpNote": ""
+            }
+          ],
+          "isGroup": true,
+          "isConditional": true
         },
         {
           "id": "3eb5adee-916e-453e-b68b-2da0961b2f50",
@@ -6950,7 +7391,7 @@
               "id": "0fe7ded6-9d35-4c58-9a4a-b26d22e2c761",
               "created": 1768631647762,
               "text": "",
-              "linkedSourceId": "OUT15",
+              "linkedSourceId": "OUT16",
               "type": null,
               "processValue": null,
               "processStatus": null,
@@ -7011,13 +7452,14 @@
               "linkedBundleId": null,
               "linkedBundleIds": null,
               "linkedSourceIds": [
-                "OUT15"
+                "OUT16",
+                "OUT17"
               ]
             },
             {
               "id": "1e2adbdb-d97d-4f8c-8ddf-5a48b0192311",
               "created": 1768631647762,
-              "text": "Opvragen aanvullende gegevens",
+              "text": "Opvragen gegevens",
               "linkedSourceId": null,
               "type": null,
               "processValue": null,
@@ -7080,7 +7522,7 @@
             {
               "id": "5586f38a-bc3d-4b9a-9b77-890125382f0e",
               "created": 1768631647762,
-              "text": "Opgevraagde aanvullende gegevens",
+              "text": "Uitvraag",
               "linkedSourceId": null,
               "type": null,
               "processValue": null,
@@ -7144,7 +7586,7 @@
             {
               "id": "d1b760dd-d2a2-4e93-8a4d-9734b47b2530",
               "created": 1768631647762,
-              "text": "Polikliniek",
+              "text": "Huisarts / Medisch specialist",
               "linkedSourceId": null,
               "type": null,
               "processValue": null,
@@ -7213,7 +7655,7 @@
           "id": "6c2c6bbd-a782-4f73-9599-4de1db5e8e9a",
           "order": 1,
           "isVisible": true,
-          "isParallel": true,
+          "isParallel": false,
           "isVariant": false,
           "hasTransition": false,
           "transitionNext": "",
@@ -7285,7 +7727,7 @@
             {
               "id": "13df17b9-92e0-4e34-8245-e54fef8ee045",
               "created": 1768631713730,
-              "text": "Epic",
+              "text": "Epic / Beveiligde mail / Brief per post / Telefoonsysteem",
               "linkedSourceId": null,
               "type": null,
               "processValue": null,
@@ -7322,7 +7764,7 @@
               "systemData": {
                 "isMulti": false,
                 "systemName": "",
-                "calculatedScore": null,
+                "calculatedScore": 0,
                 "systems": [
                   {
                     "id": "a56d00ed-410d-485a-b183-e0a4948cc864",
@@ -7338,7 +7780,41 @@
                     },
                     "calculatedScore": null
                   }
-                ]
+                ],
+                "systemsMeta": {
+                  "multi": true,
+                  "systems": [
+                    {
+                      "name": "Epic",
+                      "legacy": false,
+                      "future": "",
+                      "qa": {},
+                      "score": null
+                    },
+                    {
+                      "name": "Beveiligde mail",
+                      "legacy": false,
+                      "future": "",
+                      "qa": {},
+                      "score": null
+                    },
+                    {
+                      "name": "Brief per post",
+                      "legacy": false,
+                      "future": "",
+                      "qa": {},
+                      "score": null
+                    },
+                    {
+                      "name": "Telefoonsysteem",
+                      "legacy": false,
+                      "future": "",
+                      "qa": {},
+                      "score": null
+                    }
+                  ],
+                  "activeSystemIdx": 0
+                }
               },
               "inputDefinitions": [],
               "disruptions": [],
@@ -7349,7 +7825,7 @@
               "id": "0bfa238a-21be-4671-87b3-62ad82e9448b",
               "created": 1768631713730,
               "text": "",
-              "linkedSourceId": "OUT15",
+              "linkedSourceId": "OUT18",
               "type": null,
               "processValue": null,
               "processStatus": null,
@@ -7410,13 +7886,13 @@
               "linkedBundleId": null,
               "linkedBundleIds": null,
               "linkedSourceIds": [
-                "OUT15"
+                "OUT18"
               ]
             },
             {
               "id": "3a0128b0-8ee5-4407-bfd1-add21d406435",
               "created": 1768631713730,
-              "text": "Aanvullen patiëntendossier",
+              "text": "Aanvullen dossier",
               "linkedSourceId": null,
               "type": null,
               "processValue": null,
@@ -7479,7 +7955,7 @@
             {
               "id": "198cf403-10c3-4dae-b718-92eb7cda211f",
               "created": 1768631713730,
-              "text": "Geactualiseerd patiëntendossier",
+              "text": "Bijgewerkt dossier",
               "linkedSourceId": null,
               "type": null,
               "processValue": null,
@@ -7604,7 +8080,9 @@
               "workExpNote": ""
             }
           ],
-          "isGroup": true
+          "isGroup": true,
+          "isConditional": true,
+          "isQuestion": false
         },
         {
           "id": "10bb2664-2d64-40a2-a6bd-fa1f30308b22",
@@ -7746,7 +8224,7 @@
               "id": "0a0a9519-837a-417e-872b-1ee1e278d22e",
               "created": 1768633502274,
               "text": "",
-              "linkedSourceId": "OUT15",
+              "linkedSourceId": "OUT17",
               "type": null,
               "processValue": null,
               "processStatus": null,
@@ -7807,13 +8285,13 @@
               "linkedBundleId": null,
               "linkedBundleIds": null,
               "linkedSourceIds": [
-                "OUT15"
+                "OUT17"
               ]
             },
             {
               "id": "6b8cf033-5d0a-4b1a-9cd2-81d44dc80048",
               "created": 1768633502274,
-              "text": "Afronden taak \"Voorbereiden consult\" + correspondentie naar behandelend arts",
+              "text": "Afronden voorbereiding",
               "linkedSourceId": null,
               "type": null,
               "processValue": null,
@@ -7876,7 +8354,7 @@
             {
               "id": "0f3a985f-5b34-46c3-bef1-bf2e26135715",
               "created": 1768633502274,
-              "text": "Taak \"Voorbereiden consult\" afgerond + correspondentie behandelend arts",
+              "text": "Taak \"Voorbereiden consult\" afgerond",
               "linkedSourceId": null,
               "type": null,
               "processValue": null,
@@ -7940,7 +8418,7 @@
             {
               "id": "be959e68-1392-455f-a654-2aaa72663747",
               "created": 1768633502274,
-              "text": "Behandelend arts",
+              "text": "Polikliniek",
               "linkedSourceId": null,
               "type": null,
               "processValue": null,
@@ -8002,6 +8480,403 @@
             }
           ],
           "isGroup": true
+        },
+        {
+          "id": "317c8fb9-ec7d-4652-afa1-86f4b9942cf8",
+          "order": 1,
+          "isVisible": true,
+          "isParallel": false,
+          "isVariant": false,
+          "hasTransition": false,
+          "transitionNext": "",
+          "outputId": null,
+          "slots": [
+            {
+              "id": "2dc3a199-795a-470c-ad32-9cd6ffc12759",
+              "created": 1768723040889,
+              "text": "Polikliniek",
+              "linkedSourceId": null,
+              "type": null,
+              "processValue": null,
+              "processStatus": null,
+              "successFactors": "",
+              "causes": [],
+              "improvements": [],
+              "qa": {
+                "compleet": {
+                  "result": "",
+                  "note": ""
+                },
+                "kwaliteit": {
+                  "result": "",
+                  "note": ""
+                },
+                "duidelijkheid": {
+                  "result": "",
+                  "note": ""
+                },
+                "tijdigheid": {
+                  "result": "",
+                  "note": ""
+                },
+                "standaard": {
+                  "result": "",
+                  "note": ""
+                },
+                "overdracht": {
+                  "result": "",
+                  "note": ""
+                }
+              },
+              "systemData": {
+                "isMulti": false,
+                "systemName": "",
+                "calculatedScore": null,
+                "systems": [
+                  {
+                    "id": "7124ffd9-3c02-4cdd-b0b2-b1191a6ad85b",
+                    "name": "",
+                    "isLegacy": false,
+                    "futureSystem": "",
+                    "qa": {
+                      "workarounds": null,
+                      "performance": null,
+                      "double": null,
+                      "error": null,
+                      "depend": null
+                    },
+                    "calculatedScore": null
+                  }
+                ]
+              },
+              "inputDefinitions": [],
+              "disruptions": [],
+              "workExp": null,
+              "workExpNote": ""
+            },
+            {
+              "id": "073d14e4-7849-4153-80dd-259325911e7f",
+              "created": 1768723040889,
+              "text": "Radiotherapie Web / Ook in EPIC??",
+              "linkedSourceId": null,
+              "type": null,
+              "processValue": null,
+              "processStatus": null,
+              "successFactors": "",
+              "causes": [],
+              "improvements": [],
+              "qa": {
+                "compleet": {
+                  "result": "",
+                  "note": ""
+                },
+                "kwaliteit": {
+                  "result": "",
+                  "note": ""
+                },
+                "duidelijkheid": {
+                  "result": "",
+                  "note": ""
+                },
+                "tijdigheid": {
+                  "result": "",
+                  "note": ""
+                },
+                "standaard": {
+                  "result": "",
+                  "note": ""
+                },
+                "overdracht": {
+                  "result": "",
+                  "note": ""
+                }
+              },
+              "systemData": {
+                "isMulti": false,
+                "systemName": "",
+                "calculatedScore": null,
+                "systems": [
+                  {
+                    "id": "bef6f778-2659-4e9e-ae50-a8ab2f8b4a92",
+                    "name": "",
+                    "isLegacy": false,
+                    "futureSystem": "",
+                    "qa": {
+                      "workarounds": null,
+                      "performance": null,
+                      "double": null,
+                      "error": null,
+                      "depend": null
+                    },
+                    "calculatedScore": null
+                  }
+                ]
+              },
+              "inputDefinitions": [],
+              "disruptions": [],
+              "workExp": null,
+              "workExpNote": ""
+            },
+            {
+              "id": "4314fd91-e4d5-4744-9b9c-f268b1b98732",
+              "created": 1768723040889,
+              "text": "",
+              "linkedSourceId": "OUT16",
+              "type": null,
+              "processValue": null,
+              "processStatus": null,
+              "successFactors": "",
+              "causes": [],
+              "improvements": [],
+              "qa": {
+                "compleet": {
+                  "result": null,
+                  "note": ""
+                },
+                "kwaliteit": {
+                  "result": null,
+                  "note": ""
+                },
+                "duidelijkheid": {
+                  "result": null,
+                  "note": ""
+                },
+                "tijdigheid": {
+                  "result": null,
+                  "note": ""
+                },
+                "standaard": {
+                  "result": null,
+                  "note": ""
+                },
+                "overdracht": {
+                  "result": null,
+                  "note": ""
+                }
+              },
+              "systemData": {
+                "isMulti": false,
+                "systemName": "",
+                "calculatedScore": null,
+                "systems": [
+                  {
+                    "id": "84d590d1-0ca2-4d0f-9f46-44e0eaf11a54",
+                    "name": "",
+                    "isLegacy": false,
+                    "futureSystem": "",
+                    "qa": {
+                      "workarounds": null,
+                      "performance": null,
+                      "double": null,
+                      "error": null,
+                      "depend": null
+                    },
+                    "calculatedScore": null
+                  }
+                ]
+              },
+              "inputDefinitions": [],
+              "disruptions": [],
+              "workExp": null,
+              "workExpNote": "",
+              "linkedBundleId": null,
+              "linkedBundleIds": null,
+              "linkedSourceIds": [
+                "OUT16"
+              ]
+            },
+            {
+              "id": "3b9c7eac-064d-4dd6-9905-25e094792bce",
+              "created": 1768723040889,
+              "text": "Informeren arts",
+              "linkedSourceId": null,
+              "type": null,
+              "processValue": null,
+              "processStatus": null,
+              "successFactors": "",
+              "causes": [],
+              "improvements": [],
+              "qa": {
+                "compleet": {
+                  "result": "",
+                  "note": ""
+                },
+                "kwaliteit": {
+                  "result": "",
+                  "note": ""
+                },
+                "duidelijkheid": {
+                  "result": "",
+                  "note": ""
+                },
+                "tijdigheid": {
+                  "result": "",
+                  "note": ""
+                },
+                "standaard": {
+                  "result": "",
+                  "note": ""
+                },
+                "overdracht": {
+                  "result": "",
+                  "note": ""
+                }
+              },
+              "systemData": {
+                "isMulti": false,
+                "systemName": "",
+                "calculatedScore": null,
+                "systems": [
+                  {
+                    "id": "a47ad8e0-ff6b-42e0-8f0d-09be0570ec94",
+                    "name": "",
+                    "isLegacy": false,
+                    "futureSystem": "",
+                    "qa": {
+                      "workarounds": null,
+                      "performance": null,
+                      "double": null,
+                      "error": null,
+                      "depend": null
+                    },
+                    "calculatedScore": null
+                  }
+                ]
+              },
+              "inputDefinitions": [],
+              "disruptions": [],
+              "workExp": null,
+              "workExpNote": ""
+            },
+            {
+              "id": "c42f3fc3-ded9-4ffc-93a8-1bc9507e13f4",
+              "created": 1768723040889,
+              "text": "Notificatie",
+              "linkedSourceId": null,
+              "type": null,
+              "processValue": null,
+              "processStatus": null,
+              "successFactors": "",
+              "causes": [],
+              "improvements": [],
+              "qa": {
+                "compleet": {
+                  "result": "",
+                  "note": ""
+                },
+                "kwaliteit": {
+                  "result": "",
+                  "note": ""
+                },
+                "duidelijkheid": {
+                  "result": "",
+                  "note": ""
+                },
+                "tijdigheid": {
+                  "result": "",
+                  "note": ""
+                },
+                "standaard": {
+                  "result": "",
+                  "note": ""
+                },
+                "overdracht": {
+                  "result": "",
+                  "note": ""
+                }
+              },
+              "systemData": {
+                "isMulti": false,
+                "systemName": "",
+                "calculatedScore": null,
+                "systems": [
+                  {
+                    "id": "20d89404-8cd3-47d9-8412-d5c342194a90",
+                    "name": "",
+                    "isLegacy": false,
+                    "futureSystem": "",
+                    "qa": {
+                      "workarounds": null,
+                      "performance": null,
+                      "double": null,
+                      "error": null,
+                      "depend": null
+                    },
+                    "calculatedScore": null
+                  }
+                ]
+              },
+              "inputDefinitions": [],
+              "disruptions": [],
+              "workExp": null,
+              "workExpNote": "",
+              "outputUid": "out_d1e73dad-dd4d-42b3-a19d-135de3803dc5"
+            },
+            {
+              "id": "c62e2634-c566-42b2-96f2-d1d116bda6d4",
+              "created": 1768723040889,
+              "text": "Behandelend arts",
+              "linkedSourceId": null,
+              "type": null,
+              "processValue": null,
+              "processStatus": null,
+              "successFactors": "",
+              "causes": [],
+              "improvements": [],
+              "qa": {
+                "compleet": {
+                  "result": "",
+                  "note": ""
+                },
+                "kwaliteit": {
+                  "result": "",
+                  "note": ""
+                },
+                "duidelijkheid": {
+                  "result": "",
+                  "note": ""
+                },
+                "tijdigheid": {
+                  "result": "",
+                  "note": ""
+                },
+                "standaard": {
+                  "result": "",
+                  "note": ""
+                },
+                "overdracht": {
+                  "result": "",
+                  "note": ""
+                }
+              },
+              "systemData": {
+                "isMulti": false,
+                "systemName": "",
+                "calculatedScore": null,
+                "systems": [
+                  {
+                    "id": "297f0608-aa7d-4334-9f04-d3771ba0f568",
+                    "name": "",
+                    "isLegacy": false,
+                    "futureSystem": "",
+                    "qa": {
+                      "workarounds": null,
+                      "performance": null,
+                      "double": null,
+                      "error": null,
+                      "depend": null
+                    },
+                    "calculatedScore": null
+                  }
+                ]
+              },
+              "inputDefinitions": [],
+              "disruptions": [],
+              "workExp": null,
+              "workExpNote": ""
+            }
+          ],
+          "isQuestion": true
         }
       ],
       "outputMerges": [],
@@ -8415,16 +9290,6 @@
     }
   ],
   "outputBundles": [
-    {
-      "id": "bundle_1768591642493_9dc32caea825d",
-      "name": "Verwijspakket",
-      "outIds": [
-        "OUT3",
-        "OUT4",
-        "OUT5",
-        "OUT6"
-      ]
-    },
     {
       "id": "bundle_1768598236759_ed0ef068ab7948",
       "name": "Verwijspakket",
