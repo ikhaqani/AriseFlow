@@ -2601,25 +2601,75 @@ export function openGroupModal(colIdx) {
   };
 }
 
-// === VARIANT MODAL (ROUTES) - MET VERWIJDER KNOP ===
+// === VARIANT MODAL (ROUTES) - VERBETERDE VERSIE (MULTI PARENT) ===
 export function openVariantModal(colIdx) {
   const sheet = state.activeSheet;
   if (!sheet) return;
 
-  const col = sheet.columns[colIdx]; // Huidige kolom ophalen
+  const col = sheet.columns[colIdx];
 
-  // Huidige status ophalen (groep info)
+  // Huidige status ophalen
   const info = state.getVariantGroupForCol(colIdx);
   const existingGroup = info ? info.group : null;
-  
-  // Check: Is dit een variant? (Zowel nieuw in groep als 'oud' los)
   const isVariant = col.isVariant || !!existingGroup;
 
-  // Standaard waardes
-  let parentVal = (info && info.role === 'child') ? existingGroup.parentColIdx : colIdx; 
+  // Huidige parents ophalen (array of single)
+  let currentParents = [];
+  if (existingGroup) {
+      if (Array.isArray(existingGroup.parents)) currentParents = [...existingGroup.parents];
+      else if (existingGroup.parentColIdx !== undefined) currentParents = [existingGroup.parentColIdx];
+  } else {
+      // Default: als we op een 'nieuwe' kolom klikken die nog nergens bij hoort, is hij zelf parent kandidaat.
+      currentParents = [colIdx];
+  }
+
   let currentVariants = existingGroup ? [...existingGroup.variants] : [];
 
   const getLetter = (i) => String.fromCharCode(65 + i);
+
+  // Render lijst met mogelijke parents (checkboxes)
+  const renderParentList = () => {
+      const container = document.getElementById('variantParentList');
+      if(!container) return;
+      container.innerHTML = '';
+
+      sheet.columns.forEach((c, i) => {
+          if (c.isVisible === false) return;
+          if (currentVariants.includes(i)) return; // Een child kan niet zijn eigen parent zijn
+
+          const label = c.slots?.[3]?.text || `Kolom ${i + 1}`;
+          const isSelected = currentParents.includes(i);
+          const isCurrent = (i === colIdx);
+
+          const div = document.createElement('label');
+          div.className = 'sys-opt'; 
+          div.style.display = 'flex';
+          div.style.alignItems = 'center';
+          div.style.gap = '10px';
+          div.style.cursor = 'pointer';
+          if(isSelected) div.classList.add('selected');
+
+          div.innerHTML = `
+             <input type="checkbox" value="${i}" ${isSelected ? 'checked' : ''} style="accent-color:var(--ui-accent);">
+             <span style="flex:1; font-size:13px;">${i + 1}. ${escapeAttr(label)} ${isCurrent ? '<strong>(Dit)</strong>' : ''}</span>
+          `;
+
+          // Click handler
+          div.querySelector('input').onchange = (e) => {
+              if (e.target.checked) {
+                  currentParents.push(i);
+                  div.classList.add('selected');
+              } else {
+                  currentParents = currentParents.filter(p => p !== i);
+                  div.classList.remove('selected');
+              }
+              // Refresh de children dropdown (want een parent kan geen child zijn)
+              renderAddOptions();
+          };
+
+          container.appendChild(div);
+      });
+  };
 
   const renderVariantList = () => {
     const listEl = document.getElementById('variantList');
@@ -2655,29 +2705,12 @@ export function openVariantModal(colIdx) {
         item.querySelector('button').onclick = () => {
             currentVariants = currentVariants.filter(x => x !== vIdx);
             renderVariantList();
-            renderAddOptions();
+            renderAddOptions(); // Refresh dropdown (variant is weer beschikbaar als parent)
+            renderParentList(); // Refresh parents (variant is weer beschikbaar)
         };
 
         listEl.appendChild(item);
     });
-  };
-
-  const renderParentSelect = () => {
-      const sel = document.getElementById('variantParentSelect');
-      if(!sel) return;
-      sel.innerHTML = '';
-
-      sheet.columns.forEach((c, i) => {
-          if (c.isVisible === false) return;
-          if (currentVariants.includes(i)) return; 
-
-          const label = c.slots?.[3]?.text || `Kolom ${i + 1}`;
-          const opt = document.createElement('option');
-          opt.value = i;
-          opt.textContent = `${i + 1}. ${label} ${i === colIdx ? '(Huidige)' : ''}`;
-          if (i === parentVal) opt.selected = true;
-          sel.appendChild(opt);
-      });
   };
 
   const renderAddOptions = () => {
@@ -2687,8 +2720,8 @@ export function openVariantModal(colIdx) {
 
       sheet.columns.forEach((c, i) => {
           if (c.isVisible === false) return;
-          if (i === parentVal) return; 
-          if (currentVariants.includes(i)) return; 
+          if (currentParents.includes(i)) return; // Een parent kan geen child zijn
+          if (currentVariants.includes(i)) return; // Al geselecteerd
 
           const label = c.slots?.[3]?.text || `Kolom ${i + 1}`;
           const opt = document.createElement('option');
@@ -2700,17 +2733,17 @@ export function openVariantModal(colIdx) {
 
   const html = `
     <h3>🔀 Route / Variant Definitie</h3>
-    <div class="sub-text">Bepaal het hoofdproces en de aftakkingen (routes).</div>
-
-    <div style="margin-top:16px; padding:12px; background:rgba(255,255,255,0.05); border-radius:8px;">
-      <label class="modal-label" style="margin-top:0;">1. Hoofdproces (Main)</label>
-      <div class="io-helper">Waar vertrekken de routes vanuit?</div>
-      <select id="variantParentSelect" class="modal-input"></select>
-    </div>
+    <div class="sub-text">Bepaal de hoofdprocessen (parents) en de aftakkingen (children).</div>
 
     <div style="margin-top:16px;">
-       <label class="modal-label">2. Routes (Op volgorde A, B, C...)</label>
-       <div id="variantList" style="border:1px solid rgba(255,255,255,0.1); border-radius:8px; max-height:200px; overflow-y:auto; margin-bottom:12px;"></div>
+      <label class="modal-label">1. Hoofdprocessen (Waar komen routes vandaan?)</label>
+      <div class="io-helper" style="margin-bottom:8px;">Selecteer 1 of meerdere kolommen die als startpunt dienen.</div>
+      <div id="variantParentList" style="border:1px solid rgba(255,255,255,0.1); border-radius:8px; max-height:150px; overflow-y:auto; padding:4px;"></div>
+    </div>
+
+    <div style="margin-top:20px;">
+       <label class="modal-label">2. Routes (Vervolgstappen)</label>
+       <div id="variantList" style="border:1px solid rgba(255,255,255,0.1); border-radius:8px; max-height:150px; overflow-y:auto; margin-bottom:12px;"></div>
        
        <div style="display:flex; gap:8px;">
           <select id="variantAddSelect" class="modal-input" style="flex:1;"></select>
@@ -2742,14 +2775,9 @@ export function openVariantModal(colIdx) {
   overlay.appendChild(modal);
   document.body.appendChild(overlay);
 
-  renderParentSelect();
+  renderParentList();
   renderVariantList();
   renderAddOptions();
-
-  document.getElementById('variantParentSelect').onchange = (e) => {
-      parentVal = parseInt(e.target.value, 10);
-      renderAddOptions(); 
-  };
 
   document.getElementById('variantAddBtn').onclick = () => {
       const val = document.getElementById('variantAddSelect').value;
@@ -2757,6 +2785,7 @@ export function openVariantModal(colIdx) {
       currentVariants.push(parseInt(val, 10));
       renderVariantList();
       renderAddOptions();
+      renderParentList(); // Update parents (child kan geen parent meer zijn)
   };
 
   const close = () => overlay.remove();
@@ -2766,12 +2795,10 @@ export function openVariantModal(colIdx) {
   const rmBtn = modal.querySelector('#variantRemoveBtn');
   if (rmBtn) {
       rmBtn.onclick = () => {
-          if(confirm('Weet je zeker dat je de split wilt opheffen? De kolommen blijven bestaan, maar zijn geen routes meer.')) {
+          if(confirm('Weet je zeker dat je de split wilt opheffen?')) {
               if(existingGroup) {
-                  // Volledige groep opheffen
                   state.removeVariantGroup(existingGroup.id);
               } else {
-                  // Legacy/losse variant opheffen (gewoon de vlag uitzetten)
                   state.toggleVariant(colIdx);
               }
               close();
@@ -2780,12 +2807,15 @@ export function openVariantModal(colIdx) {
   }
 
   modal.querySelector('#variantSaveBtn').onclick = () => {
+      if (currentParents.length === 0) {
+          alert("Selecteer minimaal één hoofdproces.");
+          return;
+      }
       if (currentVariants.length === 0) {
-          // Als lijst leeg is, en er was een groep, verwijder die dan (reset)
           if(existingGroup) state.removeVariantGroup(existingGroup.id);
       } else {
           state.setVariantGroup({
-              parentColIdx: parentVal,
+              parents: currentParents,
               variants: currentVariants
           });
       }

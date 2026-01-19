@@ -1,4 +1,4 @@
-// io.js (AANGEPAST: FIX VOOR AFGEKAPTE GROEP TITELS BIJ EXPORT)
+// io.js (AANGEPAST: FIX VOOR GROEPSNAMEN UIT JUISTE SHEET)
 
 import { state } from './state.js';
 import { Toast } from './toast.js';
@@ -156,7 +156,7 @@ function getFailTargetFromGate(sheet, gate) {
 }
 
 /* ==========================================================================
-   Variant route letters
+   Variant route letters (UPDATE: MULTI-PARENT SUPPORT)
    ========================================================================== */
 
 function toLetter(i0) {
@@ -170,40 +170,43 @@ function computeVariantLetterMap(sheet) {
   const map = {};
   if (!sheet?.columns?.length) return map;
 
+  const colGroups = {}; // key: parentColIdx, val: array of child indices
+
   if (Array.isArray(sheet.variantGroups)) {
       sheet.variantGroups.forEach(vg => {
-          vg.variants.forEach((vIdx, i) => {
-              map[vIdx] = toLetter(i);
-          });
+          const primaryParent = (vg.parents && vg.parents.length > 0) ? vg.parents[0] : vg.parentColIdx;
+          
+          if (primaryParent !== undefined) {
+              if (!colGroups[primaryParent]) colGroups[primaryParent] = [];
+              vg.variants.forEach(vIdx => colGroups[primaryParent].push(vIdx));
+          }
       });
   }
 
-  let inRun = false;
-  let runIdx = 0;
+  function assignLabels(parentIdx, prefix) {
+      const children = colGroups[parentIdx];
+      if (!children) return;
+      children.sort((a,b) => a - b); 
 
-  for (let i = 0; i < sheet.columns.length; i++) {
-    if (map[i]) {
-        inRun = false;
-        runIdx = 0;
-        continue;
-    }
-
-    const col = sheet.columns[i];
-    if (col?.isVisible === false) continue;
-
-    const isVar = !!col?.isVariant;
-    if (isVar) {
-      if (!inRun) {
-        inRun = true;
-        runIdx = 0;
-      }
-      map[i] = toLetter(runIdx);
-      runIdx += 1;
-    } else {
-      inRun = false;
-      runIdx = 0;
-    }
+      children.forEach((childIdx, i) => {
+          let myLabel = prefix ? `${prefix}.${i + 1}` : toLetter(i);
+          map[childIdx] = myLabel;
+          assignLabels(childIdx, myLabel);
+      });
   }
+
+  const allChildren = new Set();
+  Object.values(colGroups).forEach(list => list.forEach(c => allChildren.add(c)));
+  const rootParents = Object.keys(colGroups).map(Number).filter(p => !allChildren.has(p));
+
+  rootParents.forEach(root => assignLabels(root, ''));
+
+  let legacyCounter = 0;
+  sheet.columns.forEach((col, i) => {
+      if (col.isVariant && !map[i]) {
+          map[i] = toLetter(legacyCounter++);
+      }
+  });
 
   return map;
 }
@@ -543,8 +546,6 @@ function sanitizeSystemsMeta(meta) {
       };
     })
     .filter(Boolean);
-    // Note: We don't filter out empty names here yet, because the UI might be 
-    // mid-edit. But for export, we prefer valid names.
 
   const inferredMulti = systems.length > 1;
   const multi = !!meta.multi || inferredMulti;
@@ -595,13 +596,9 @@ function computeTTFScoreListFromMeta(meta) {
 
 function systemsToLists(meta) {
   const clean = sanitizeSystemsMeta(meta);
-  // Ensure we process the clean result
   const systems = (clean?.systems || []).filter(s => s && String(s.name || '').trim() !== '');
 
-  // If after cleaning we have no systems, allow one empty to prevent crashes,
-  // but logically this should have been caught by the export loop logic.
   if (systems.length === 0 && clean?.systems?.length > 0) {
-     // If truly empty, return empty strings
      return {
          systemNames: '',
          legacySystems: '',
@@ -974,21 +971,34 @@ export function exportToCSV() {
       const routeLookup = {};
       if (Array.isArray(sheet.variantGroups)) {
           sheet.variantGroups.forEach(vg => {
-              // Naam van parent kolom (gebruik global nummer als backup)
-              const parentCol = sheet.columns[vg.parentColIdx];
-              const parentName = parentCol?.slots?.[3]?.text || `Kolom ${localToGlobalMap[vg.parentColIdx] || '?'}`;
-              
-              // === AANGEPASTE REGEL: Map local variant indices naar GLOBALE kolomnummers ===
-              const routeNums = vg.variants
-                  .map(v => localToGlobalMap[v]) // Get global number
-                  .filter(n => n) // Filter out undefined (hidden cols)
-                  .join(', ');
-                  
-              routeLookup[vg.parentColIdx] = `Main (Routes: ${routeNums})`;
+              // 1. Vind namen van ALLE parents
+              const parentInfo = (Array.isArray(vg.parents) && vg.parents.length > 0)
+                 ? vg.parents
+                 : (vg.parentColIdx !== undefined ? [vg.parentColIdx] : []);
+                 
+              const parentNames = parentInfo.map(pid => {
+                  const pCol = sheet.columns[pid];
+                  // Gebruik global nummer
+                  const globNum = localToGlobalMap[pid] || '?';
+                  const txt = pCol?.slots?.[3]?.text || `Kolom ${globNum}`;
+                  return `${txt} (${globNum})`;
+              }).join(' & ');
 
+              // 2. Map local variant indices naar GLOBALE kolomnummers
+              const routeNums = vg.variants
+                  .map(v => localToGlobalMap[v]) 
+                  .filter(n => n) 
+                  .join(', ');
+              
+              // Zet label op de parents (optioneel, vaak niet nodig als ze zelf geen variant zijn)
+              parentInfo.forEach(pid => {
+                  routeLookup[pid] = `Main (Routes: ${routeNums})`;
+              });
+
+              // Zet label op de children
               vg.variants.forEach((vIdx, i) => {
                   const letter = String.fromCharCode(65 + i); 
-                  routeLookup[vIdx] = `Route ${letter} (van: ${parentName})`;
+                  routeLookup[vIdx] = `Route ${letter} (van: ${parentNames})`;
               });
           });
       }
@@ -1055,8 +1065,15 @@ export function exportToCSV() {
         let logicExport = '';
 
         if (isConditional && logic.condition) {
-            const trueAction = logic.ifTrue !== null ? `Ga naar ${getProcessLabel(sheet, logic.ifTrue)}` : 'Voer stap uit';
-            const falseAction = logic.ifFalse !== null ? `Ga naar ${getProcessLabel(sheet, logic.ifFalse)}` : 'Voer stap uit';
+            // Helper voor SKIP logica
+            const getLabel = (val) => {
+                if (val === 'SKIP') return 'SKIP (Overslaan)';
+                if (val !== null) return `Ga naar ${getProcessLabel(sheet, val)}`;
+                return 'Voer stap uit';
+            };
+
+            const trueAction = getLabel(logic.ifTrue);
+            const falseAction = getLabel(logic.ifFalse);
 
             logicExport = `VRAAG: ${logic.condition}`;
             logicExport += `; INDIEN JA: ${trueAction}`;
@@ -1064,9 +1081,10 @@ export function exportToCSV() {
         }
         // ---------------------------------
         
-        // NIEUW: Group
+        // NIEUW: Group - GEBRUIK LOKALE ZOEKEN (FIX)
         const isGroup = !!col.isGroup;
-        const groupName = state.getGroupForCol(colIdx)?.title || '';
+        const groupForThisCol = (sheet.groups || []).find(g => g.cols && g.cols.includes(colIdx));
+        const groupName = groupForThisCol ? (groupForThisCol.title || '') : '';
 
         // Fase
         const fase = `Procesflow ${globalColNr}`;

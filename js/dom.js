@@ -1,6 +1,6 @@
 import { state } from './state.js';
 import { IO_CRITERIA, PROCESS_STATUSES } from './config.js';
-import { openEditModal, saveModalDetails, openLogicModal, openGroupModal, openVariantModal } from './modals.js'; // NIEUW: openVariantModal toegevoegd
+import { openEditModal, saveModalDetails, openLogicModal, openGroupModal, openVariantModal } from './modals.js';
 
 const $ = (id) => document.getElementById(id);
 
@@ -12,6 +12,36 @@ let _lastPointerDownTs = 0;
 const MERGE_LS_PREFIX = 'ssipoc.mergeGroups.v2';
 
 let _mergeGroups = [];
+
+// =========================================================
+// HULPFUNCTIE: Diepte berekenen (Alleen voor data-attribuut, niet voor grootte)
+// =========================================================
+function getDependencyDepth(colIdx) {
+  const sheet = state.activeSheet;
+  if (!sheet || !Array.isArray(sheet.variantGroups)) return 0;
+
+  let depth = 0;
+  let currentIdx = colIdx;
+  let safety = 0;
+
+  while (true) {
+    const parentGroup = sheet.variantGroups.find(g => g.variants.includes(currentIdx));
+    if (parentGroup) {
+      depth++;
+      // Pak de eerste ouder om omhoog te klimmen (puur voor indicatie)
+      const p = parentGroup.parents && parentGroup.parents.length > 0 
+          ? parentGroup.parents[0] 
+          : parentGroup.parentColIdx;
+          
+      if (p !== undefined) currentIdx = p;
+      else break;
+    } else {
+      break; 
+    }
+    if (++safety > 10) break; 
+  }
+  return depth;
+}
 
 /** Builds a stable localStorage key scoped to project and sheet. */
 function _mergeKey() {
@@ -2037,6 +2067,13 @@ function renderColumnsOnly(openModalFn) {
     // NIEUW: is-group class toevoegen aan de kolom
     colEl.className = `col ${col.isParallel ? 'is-parallel' : ''} ${col.isVariant ? 'is-variant' : ''} ${col.isGroup ? 'is-group' : ''}`;
     colEl.dataset.idx = colIdx;
+
+    // === NIEUW: Voeg diepte (nesting) level toe voor styling ===
+    const depth = getDependencyDepth(colIdx);
+    if (depth > 0) colEl.dataset.depth = depth;
+    // Visuele styling direct toepassen (je kunt dit later naar CSS verplaatsen)
+    if (depth > 0) colEl.style.transformOrigin = 'top center';
+    // ============================================================
 
     if (col.isVariant) colEl.dataset.route = variantLetterMap[colIdx] || 'A';
     else colEl.dataset.route = '';

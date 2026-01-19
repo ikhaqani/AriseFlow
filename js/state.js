@@ -473,7 +473,7 @@ class StateManager {
       if (!Array.isArray(sheet.variantGroups)) sheet.variantGroups = [];
       // Schoon lege groups op
       sheet.variantGroups = sheet.variantGroups.filter(vg => 
-          Number.isFinite(vg.parentColIdx) && 
+          (vg.parentColIdx !== undefined || (Array.isArray(vg.parents) && vg.parents.length > 0)) && 
           Array.isArray(vg.variants) && 
           vg.variants.length > 0
       );
@@ -494,10 +494,16 @@ class StateManager {
         if (typeof col.isConditional !== 'boolean') col.isConditional = !!col.isConditional; 
         
         if (col.logic && typeof col.logic === 'object') {
+           const sanitizeTarget = (val) => {
+               if (val === 'SKIP') return 'SKIP';
+               if (val !== null && val !== '' && Number.isFinite(Number(val))) return Number(val);
+               return null;
+           };
+
            col.logic = {
              condition: String(col.logic.condition || ''),
-             ifTrue: (col.logic.ifTrue !== null && Number.isFinite(Number(col.logic.ifTrue))) ? Number(col.logic.ifTrue) : null,
-             ifFalse: (col.logic.ifFalse !== null && Number.isFinite(Number(col.logic.ifFalse))) ? Number(col.logic.ifFalse) : null
+             ifTrue: sanitizeTarget(col.logic.ifTrue),
+             ifFalse: sanitizeTarget(col.logic.ifFalse)
            };
         } else {
            col.logic = null;
@@ -740,17 +746,30 @@ class StateManager {
     // NIEUW: Variant Groups updaten bij verwijderen kolom
     if (Array.isArray(sheet.variantGroups)) {
         sheet.variantGroups = sheet.variantGroups.map(vg => {
-             // Als parent verwijderd wordt, is de groep ongeldig -> straks filteren
-             if (vg.parentColIdx === index) return null;
+             // 1. Update Parent indices (kan nu een array zijn)
+             let parents = [];
+             if (Array.isArray(vg.parents)) {
+                 // Filter verwijderde parent eruit
+                 parents = vg.parents.filter(p => p !== index)
+                     .map(p => p > index ? p - 1 : p);
+                 // Als alle parents weg zijn, is de groep ongeldig
+                 if (parents.length === 0) return null;
+             } else if (Number.isFinite(vg.parentColIdx)) {
+                 // Legacy support
+                 if (vg.parentColIdx === index) return null; // Parent verwijderd
+                 const newP = vg.parentColIdx > index ? vg.parentColIdx - 1 : vg.parentColIdx;
+                 parents = [newP];
+             } else {
+                 return null; // Geen geldige parent data
+             }
              
-             // Update parent index
-             const newParent = vg.parentColIdx > index ? vg.parentColIdx - 1 : vg.parentColIdx;
-             
-             // Update variants
+             // 2. Update Variants
              const newVariants = vg.variants.filter(v => v !== index).map(v => v > index ? v - 1 : v);
              
-             return { ...vg, parentColIdx: newParent, variants: newVariants };
-        }).filter(vg => vg && vg.variants.length > 0);
+             if (newVariants.length === 0) return null; // Geen variants over
+
+             return { ...vg, parents: parents, parentColIdx: parents[0], variants: newVariants };
+        }).filter(Boolean);
     }
 
     this._normalizeOutputMerges(sheet);
@@ -781,9 +800,18 @@ class StateManager {
     // NIEUW: Variant Groups updaten bij verplaatsen
     if (Array.isArray(sheet.variantGroups)) {
         sheet.variantGroups.forEach(vg => {
-            // Update Parent
-            if (vg.parentColIdx === index) vg.parentColIdx = targetIndex;
-            else if (vg.parentColIdx === targetIndex) vg.parentColIdx = index;
+            // Update Parents (Array)
+            if (Array.isArray(vg.parents)) {
+                vg.parents = vg.parents.map(p => {
+                    if (p === index) return targetIndex;
+                    if (p === targetIndex) return index;
+                    return p;
+                });
+            } else if (Number.isFinite(vg.parentColIdx)) {
+                // Legacy
+                if (vg.parentColIdx === index) vg.parentColIdx = targetIndex;
+                else if (vg.parentColIdx === targetIndex) vg.parentColIdx = index;
+            }
             
             // Update Variants
             vg.variants = vg.variants.map(v => {
@@ -835,13 +863,17 @@ class StateManager {
     this.notify({ reason: 'columns' }, { clone: false });
   }
 
-  // === NIEUWE FUNCTIES VOOR VARIANTS (ROUTES) ===
+  // === NIEUWE FUNCTIES VOOR VARIANTS (ROUTES) - SUPPORT VOOR MEERDERE PARENTS ===
+  
   getVariantGroupForCol(colIdx) {
     const sheet = this.activeSheet;
     if (!sheet || !Array.isArray(sheet.variantGroups)) return null;
     
-    // Check of deze kolom een 'Main' (Parent) is
-    const asParent = sheet.variantGroups.find(vg => vg.parentColIdx === colIdx);
+    // Check of deze kolom een 'Main' (Parent) is (in de nieuwe parents array of oude parentColIdx)
+    const asParent = sheet.variantGroups.find(vg => 
+        (Array.isArray(vg.parents) && vg.parents.includes(colIdx)) || 
+        vg.parentColIdx === colIdx
+    );
     if (asParent) return { role: 'parent', group: asParent };
 
     // Check of deze kolom een 'Variant' (Child) is
@@ -858,40 +890,38 @@ class StateManager {
 
     if (!Array.isArray(sheet.variantGroups)) sheet.variantGroups = [];
 
-    const parentIdx = Number(data.parentColIdx);
+    // Support voor enkele parent (legacy) of meerdere (nieuw)
+    let parents = [];
+    if (Array.isArray(data.parents)) {
+        parents = data.parents.map(Number);
+    } else if (data.parentColIdx !== undefined && data.parentColIdx !== null) {
+        parents = [Number(data.parentColIdx)];
+    }
+
     const variantIndices = Array.isArray(data.variants) ? data.variants.map(Number) : [];
 
-    // STAP 1: Verwijder de OUDE definitie van deze specifieke parent (als die er was)
-    sheet.variantGroups = sheet.variantGroups.filter(vg => vg.parentColIdx !== parentIdx);
-
-    // STAP 2: Zorg dat de NIEUWE children (de routes) nergens anders children zijn.
-    // (Een kind kan maar één vader hebben).
-    // BELANGRIJK: We filteren 'parentIdx' NIET weg uit andere groepen. 
-    // Hierdoor mag de Parent zelf wel een Child zijn in een andere groep (Nesting!).
+    // Verwijder eerst varianten uit andere groepen (een kind heeft maar 1 set ouders in dit model)
     sheet.variantGroups.forEach(vg => {
         vg.variants = vg.variants.filter(v => !variantIndices.includes(v));
     });
-    
-    // Lege groepen opruimen
     sheet.variantGroups = sheet.variantGroups.filter(vg => vg.variants.length > 0);
 
-    if (variantIndices.length > 0) {
+    if (variantIndices.length > 0 && parents.length > 0) {
         sheet.variantGroups.push({
             id: this._makeId('var'),
-            parentColIdx: parentIdx,
+            parents: parents, // We slaan nu een array op!
+            parentColIdx: parents[0], // Voor backward compatibility
             variants: variantIndices
         });
         
         const allCols = sheet.columns;
         
-        // De varianten (children) krijgen altijd de variant-status
+        // Markeer kinderen als variant
         variantIndices.forEach(idx => {
             if(allCols[idx]) allCols[idx].isVariant = true;
         });
-
-        // De parent raken we NIET aan. 
-        // Als hij al variant was (van een vorig proces), blijft hij dat.
-        // Als hij 'main' was, blijft hij dat.
+        
+        // Parents markeren we NIET automatisch als variant (ze kunnen zelf Main zijn).
     }
 
     this.notify({ reason: 'columns' }, { clone: false });
@@ -905,26 +935,15 @@ class StateManager {
       const group = sheet.variantGroups.find(g => g.id === groupId);
       if(group) {
           const cols = sheet.columns;
-          
-          // 1. De children zijn nu 'vrij', dus geen variant meer (tenzij we dat later anders willen)
           group.variants.forEach(idx => {
               if(cols[idx]) cols[idx].isVariant = false;
           });
-
-          // 2. De parent: Alleen resetten als hij NIET ergens anders een child is.
-          // Dit voorkomt dat 'Intern' ineens een hoofspoor wordt als je de sub-routes verwijdert.
-          const isChildElsewhere = sheet.variantGroups.some(vg => 
-              vg.id !== groupId && vg.variants.includes(group.parentColIdx)
-          );
-          
-          if (!isChildElsewhere && cols[group.parentColIdx]) {
-             cols[group.parentColIdx].isVariant = false;
-          }
       }
 
       sheet.variantGroups = sheet.variantGroups.filter(g => g.id !== groupId);
       this.notify({ reason: 'columns' }, { clone: false });
   }
+  
   // ===============================================
 
   toggleQuestion(colIdx) {
