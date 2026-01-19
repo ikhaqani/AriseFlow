@@ -2564,10 +2564,15 @@ export function openVariantModal(colIdx) {
   const sheet = state.activeSheet;
   if (!sheet) return;
 
-  // Huidige status ophalen
+  const col = sheet.columns[colIdx]; // Huidige kolom ophalen
+
+  // Huidige status ophalen (groep info)
   const info = state.getVariantGroupForCol(colIdx);
   const existingGroup = info ? info.group : null;
   
+  // Check: Is dit een variant? (Zowel nieuw in groep als 'oud' los)
+  const isVariant = col.isVariant || !!existingGroup;
+
   // Standaard waardes
   let parentVal = (info && info.role === 'child') ? existingGroup.parentColIdx : colIdx; 
   let currentVariants = existingGroup ? [...existingGroup.variants] : [];
@@ -2585,10 +2590,10 @@ export function openVariantModal(colIdx) {
     }
 
     currentVariants.forEach((vIdx, i) => {
-        const col = sheet.columns[vIdx];
-        if (!col || col.isVisible === false) return;
+        const c = sheet.columns[vIdx];
+        if (!c || c.isVisible === false) return;
 
-        const label = col.slots?.[3]?.text || `Kolom ${vIdx + 1}`;
+        const label = c.slots?.[3]?.text || `Kolom ${vIdx + 1}`;
         const letter = getLetter(i);
 
         const item = document.createElement('div');
@@ -2598,7 +2603,7 @@ export function openVariantModal(colIdx) {
         item.style.alignItems = 'center';
         
         item.innerHTML = `
-           <div style="font-weight:bold; color:var(--ui-accent);">Route ${letter}</div>
+           <div style="font-weight:bold; color:var(--ui-accent);">${letter}</div>
            <div style="font-size:13px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">
               ${vIdx + 1}. ${escapeAttr(label)}
            </div>
@@ -2672,7 +2677,9 @@ export function openVariantModal(colIdx) {
     </div>
 
     <div class="modal-btns">
-      ${existingGroup ? `<button id="variantRemoveBtn" class="std-btn danger-text" type="button">Alle routes wissen</button>` : '<div></div>'}
+      ${isVariant ? 
+        `<button id="variantRemoveBtn" class="std-btn danger-text" type="button" style="border:1px solid #ff5252;">⚠️ Split opheffen</button>` 
+        : '<div></div>'}
       <button id="variantCancelBtn" class="std-btn" type="button">Annuleren</button>
       <button id="variantSaveBtn" class="std-btn primary" type="button">Opslaan</button>
     </div>
@@ -2706,7 +2713,7 @@ export function openVariantModal(colIdx) {
       const val = document.getElementById('variantAddSelect').value;
       if(!val) return;
       currentVariants.push(parseInt(val, 10));
-      renderVariantList();
+      renderVariantList();ensureOutputBundlesArray
       renderAddOptions();
   };
 
@@ -2717,13 +2724,22 @@ export function openVariantModal(colIdx) {
   const rmBtn = modal.querySelector('#variantRemoveBtn');
   if (rmBtn) {
       rmBtn.onclick = () => {
-          if(existingGroup) state.removeVariantGroup(existingGroup.id);
-          close();
+          if(confirm('Weet je zeker dat je de split wilt opheffen? De kolommen blijven bestaan, maar zijn geen routes meer.')) {
+              if(existingGroup) {
+                  // Volledige groep opheffen
+                  state.removeVariantGroup(existingGroup.id);
+              } else {
+                  // Legacy/losse variant opheffen (gewoon de vlag uitzetten)
+                  state.toggleVariant(colIdx);
+              }
+              close();
+          }
       };
   }
 
   modal.querySelector('#variantSaveBtn').onclick = () => {
       if (currentVariants.length === 0) {
+          // Als lijst leeg is, en er was een groep, verwijder die dan (reset)
           if(existingGroup) state.removeVariantGroup(existingGroup.id);
       } else {
           state.setVariantGroup({
