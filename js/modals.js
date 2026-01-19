@@ -2334,7 +2334,7 @@ export function saveModalDetails(closeModal = true) {
   }
 }
 
-// === LOGICA MODAL (BLIKSEM) - AANGEPAST VOOR SKIP/EXECUTE MODEL ===
+// === LOGICA MODAL (BLIKSEM) - MET SKIP OPTIE ===
 export function openLogicModal(colIdx) {
   const sheet = state.activeSheet;
   if (!sheet) return;
@@ -2343,7 +2343,11 @@ export function openLogicModal(colIdx) {
   const logic = col.logic || { condition: '', ifTrue: null, ifFalse: null };
 
   const createStepOptions = (selectedVal) => {
-    return sheet.columns.map((c, i) => {
+    // NIEUW: Expliciete SKIP optie bovenaan
+    let html = `<option value="SKIP" ${selectedVal === 'SKIP' ? 'selected' : ''}>⏭️ Sla deze stap over (SKIP)</option>`;
+    
+    // Daarna de normale stappen (voor sprongen)
+    html += sheet.columns.map((c, i) => {
       if (c.isVisible === false) return '';
       
       const label = c.slots?.[3]?.text || `Stap ${i + 1}`;
@@ -2353,6 +2357,8 @@ export function openLogicModal(colIdx) {
 
       return `<option value="${i}" ${isSelected}>Ga naar: ${i + 1}. ${escapeAttr(label)}</option>`;
     }).join('');
+    
+    return html;
   };
 
   const html = `
@@ -2388,7 +2394,7 @@ export function openLogicModal(colIdx) {
     </div>
     
     <div style="margin-top:12px; font-size:12px; opacity:0.6; font-style:italic;">
-        Tip: Kies een doelstap om deze huidige stap over te slaan (skip).
+        Tip: Gebruik <strong>SKIP</strong> om de stap over te slaan en direct door te gaan naar de volgende, zonder harde verwijzing.
     </div>
 
     <div class="modal-btns">

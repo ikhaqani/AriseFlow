@@ -861,13 +861,19 @@ class StateManager {
     const parentIdx = Number(data.parentColIdx);
     const variantIndices = Array.isArray(data.variants) ? data.variants.map(Number) : [];
 
-    const allInvolved = [parentIdx, ...variantIndices];
-    
-    sheet.variantGroups = sheet.variantGroups.filter(vg => {
-        if (allInvolved.includes(vg.parentColIdx)) return false;
-        vg.variants = vg.variants.filter(v => !allInvolved.includes(v));
-        return vg.variants.length > 0;
+    // STAP 1: Verwijder de OUDE definitie van deze specifieke parent (als die er was)
+    sheet.variantGroups = sheet.variantGroups.filter(vg => vg.parentColIdx !== parentIdx);
+
+    // STAP 2: Zorg dat de NIEUWE children (de routes) nergens anders children zijn.
+    // (Een kind kan maar één vader hebben).
+    // BELANGRIJK: We filteren 'parentIdx' NIET weg uit andere groepen. 
+    // Hierdoor mag de Parent zelf wel een Child zijn in een andere groep (Nesting!).
+    sheet.variantGroups.forEach(vg => {
+        vg.variants = vg.variants.filter(v => !variantIndices.includes(v));
     });
+    
+    // Lege groepen opruimen
+    sheet.variantGroups = sheet.variantGroups.filter(vg => vg.variants.length > 0);
 
     if (variantIndices.length > 0) {
         sheet.variantGroups.push({
@@ -877,16 +883,15 @@ class StateManager {
         });
         
         const allCols = sheet.columns;
-        // === FIX START: Parent is géén variant, alleen de children zijn variants ===
-        if(allCols[parentIdx]) allCols[parentIdx].isVariant = false; 
-        // === FIX END ===
         
+        // De varianten (children) krijgen altijd de variant-status
         variantIndices.forEach(idx => {
             if(allCols[idx]) allCols[idx].isVariant = true;
         });
-    } else {
-        const col = sheet.columns[parentIdx];
-        if(col) col.isVariant = false;
+
+        // De parent raken we NIET aan. 
+        // Als hij al variant was (van een vorig proces), blijft hij dat.
+        // Als hij 'main' was, blijft hij dat.
     }
 
     this.notify({ reason: 'columns' }, { clone: false });
@@ -900,10 +905,21 @@ class StateManager {
       const group = sheet.variantGroups.find(g => g.id === groupId);
       if(group) {
           const cols = sheet.columns;
-          if(cols[group.parentColIdx]) cols[group.parentColIdx].isVariant = false;
+          
+          // 1. De children zijn nu 'vrij', dus geen variant meer (tenzij we dat later anders willen)
           group.variants.forEach(idx => {
               if(cols[idx]) cols[idx].isVariant = false;
           });
+
+          // 2. De parent: Alleen resetten als hij NIET ergens anders een child is.
+          // Dit voorkomt dat 'Intern' ineens een hoofspoor wordt als je de sub-routes verwijdert.
+          const isChildElsewhere = sheet.variantGroups.some(vg => 
+              vg.id !== groupId && vg.variants.includes(group.parentColIdx)
+          );
+          
+          if (!isChildElsewhere && cols[group.parentColIdx]) {
+             cols[group.parentColIdx].isVariant = false;
+          }
       }
 
       sheet.variantGroups = sheet.variantGroups.filter(g => g.id !== groupId);
