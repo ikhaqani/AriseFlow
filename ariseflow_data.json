@@ -4,7 +4,7 @@
   "author": "Anoniem",
   "created": "2026-01-16T08:48:17.021Z",
   "version": "2.7",
-  "activeSheetId": "819bb6d9-21cc-49cf-8c40-4b6d7df6b2e1",
+  "activeSheetId": "858c26e5-f7ec-4311-b503-641f99e65c84",
   "sheets": [
     {
       "id": "819bb6d9-21cc-49cf-8c40-4b6d7df6b2e1",
@@ -6120,6 +6120,15 @@
             3
           ],
           "title": "Verwijzing"
+        },
+        {
+          "id": "grp_f0cc7045-5fa6-42e9-831c-1e487179c15c",
+          "cols": [
+            4,
+            5,
+            6
+          ],
+          "title": "Aanmelden patiënt en aanmaken triagetaak"
         }
       ],
       "variantGroups": [
