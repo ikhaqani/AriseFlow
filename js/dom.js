@@ -33,8 +33,15 @@ function getDependencyDepth(colIdx) {
           ? parentGroup.parents[0] 
           : parentGroup.parentColIdx;
           
-      if (p !== undefined) currentIdx = p;
-      else break;
+      if (p !== undefined) {
+         if (typeof p === 'string' && p.includes('::')) {
+            // Remote parent -> we stoppen hier, want we kunnen niet cross-sheet recursief zoeken
+            break;
+         }
+         currentIdx = p;
+      } else {
+         break;
+      }
     } else {
       break; 
     }
@@ -1355,51 +1362,55 @@ function _toLetter(i0) {
 
 /** Computes the per-column route letter map for variant columns. */
 function computeVariantLetterMap(activeSheet) {
-  // NIEUWE LOGICA: Haal letters op uit de Variant Groups als die er zijn
-  // Fallback naar de oude logica voor backward compat of losse varianten
-  
   const map = {};
   if (!activeSheet?.columns?.length) return map;
 
-  // 1. Check groups
+  const colGroups = {}; // key: parentColIdx, val: array of child indices
+
   if (Array.isArray(activeSheet.variantGroups)) {
       activeSheet.variantGroups.forEach(vg => {
-          vg.variants.forEach((vIdx, i) => {
-              map[vIdx] = _toLetter(i);
-          });
+          // Use first parent for numbering logic (e.g. A.1) to avoid duplicate labels like A.1 AND B.1
+          const primaryParent = (vg.parents && vg.parents.length > 0) ? vg.parents[0] : vg.parentColIdx;
+          
+          if (primaryParent !== undefined) {
+              if (!colGroups[primaryParent]) colGroups[primaryParent] = [];
+              vg.variants.forEach(vIdx => colGroups[primaryParent].push(vIdx));
+          }
       });
   }
 
-  // 2. Vul aan voor varianten die NIET in een groep zitten (oude stijl)
-  let inRun = false;
-  let runIdx = 0;
+  function assignLabels(parentIdx, prefix) {
+      const children = colGroups[parentIdx];
+      if (!children) return;
 
-  for (let i = 0; i < activeSheet.columns.length; i++) {
-    // Als we al een letter hebben uit de groups, resetten we de 'run' teller niet, 
-    // want die kolommen tellen als 'behandeld'.
-    if (map[i]) {
-        inRun = false; 
-        runIdx = 0;
-        continue;
-    }
+      children.sort((a,b) => a - b); 
 
-    const col = activeSheet.columns[i];
-    if (col?.isVisible === false) continue;
-
-    const isVar = !!col?.isVariant;
-
-    if (isVar) {
-      if (!inRun) {
-        inRun = true;
-        runIdx = 0;
-      }
-      map[i] = _toLetter(runIdx);
-      runIdx += 1;
-    } else {
-      inRun = false;
-      runIdx = 0;
-    }
+      children.forEach((childIdx, i) => {
+          let myLabel = '';
+          if (!prefix) {
+              myLabel = _toLetter(i);
+          } else {
+              myLabel = `${prefix}.${i + 1}`;
+          }
+          
+          map[childIdx] = myLabel;
+          assignLabels(childIdx, myLabel);
+      });
   }
+
+  const allChildren = new Set();
+  Object.values(colGroups).forEach(list => list.forEach(c => allChildren.add(c)));
+
+  const rootParents = Object.keys(colGroups).map(Number).filter(p => !allChildren.has(p));
+
+  rootParents.forEach(root => assignLabels(root, ''));
+
+  let legacyCounter = 0;
+  activeSheet.columns.forEach((col, i) => {
+      if (col.isVariant && !map[i]) {
+          map[i] = _toLetter(legacyCounter++);
+      }
+  });
 
   return map;
 }
@@ -2077,6 +2088,48 @@ function renderColumnsOnly(openModalFn) {
 
     if (col.isVariant) colEl.dataset.route = variantLetterMap[colIdx] || 'A';
     else colEl.dataset.route = '';
+
+    // === NIEUW: ROUTE HEADER (Visuele weergave van de route) ===
+    // Toon header als:
+    // 1. Het een expliciete Variant is (de start van de split)
+    // 2. OF als de gebruiker handmatig een routeLabel heeft ingesteld (de vervolgstappen)
+    
+    const manualRoute = col.routeLabel; // "A", "B", etc.
+    const autoRoute = col.isVariant ? (variantLetterMap[colIdx] || '?') : null;
+    
+    const displayRoute = manualRoute || autoRoute;
+
+    if (displayRoute) {
+        // Probeer de parent te vinden voor context (alleen als het een start-variant is)
+        let parentInfoText = '';
+        
+        if (col.isVariant) {
+            const info = state.getVariantGroupForCol(colIdx);
+            if (info && info.role === 'child') {
+                 const parents = info.group.parents || (info.group.parentColIdx !== undefined ? [info.group.parentColIdx] : []);
+                 const pNames = parents.map(p => {
+                    if(typeof p === 'number') return activeSheet.columns[p]?.slots?.[3]?.text || `Kolom ${p+1}`;
+                    return 'Extern';
+                 }).join(' & ');
+                 parentInfoText = `<span class="route-from">van: ${escapeHTML(pNames)}</span>`;
+            }
+        } else {
+            // Bij vervolgstappen tonen we: "Vervolg Route A"
+            parentInfoText = `<span class="route-from" style="font-style:normal; opacity:0.6;">(Vervolg)</span>`;
+        }
+
+        const routeHeader = document.createElement('div');
+        routeHeader.className = 'route-indicator';
+        // Geef vervolgstappen een iets transparantere look
+        if (!col.isVariant) routeHeader.style.opacity = '0.75'; 
+        
+        routeHeader.innerHTML = `
+            <span class="route-tag">Route ${displayRoute}</span>
+            ${parentInfoText}
+        `;
+        colEl.appendChild(routeHeader);
+    }
+    // ============================================================
 
     const actionsEl = document.createElement('div');
     actionsEl.className = 'col-actions';

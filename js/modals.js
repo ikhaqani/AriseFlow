@@ -22,6 +22,32 @@ const deepClone = (obj) => {
   return JSON.parse(JSON.stringify(obj));
 };
 
+// --- NIEUWE HULPFUNCTIES VOOR ROUTES ---
+function _toLetter(i) {
+  const n = Number(i);
+  if (!Number.isFinite(n) || n < 0) return 'A';
+  const base = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+  return base[n] || `R${n + 1}`;
+}
+
+function getAvailableRouteLetters() {
+  const sheet = state.activeSheet;
+  if (!sheet || !Array.isArray(sheet.variantGroups)) return [];
+  
+  const letters = new Set();
+  
+  // Verzamel letters uit alle variant groepen
+  sheet.variantGroups.forEach(vg => {
+      vg.variants.forEach((vIdx, i) => {
+          letters.add(_toLetter(i));
+      });
+  });
+  
+  // Sorteer A, B, C...
+  return Array.from(letters).sort();
+}
+// ---------------------------------------
+
 const PROCESS_STATUS_DEFS = {
   HAPPY: {
     title: 'Onder controle',
@@ -230,16 +256,13 @@ const getVisibleColIdxs = () => {
    Input-linking (MULTI) helpers (UUIDs nu!)
    ========================================================= */
 
-// NOTE: Nu gebruiken we linkedSourceUids ipv linkedSourceIds (die OUTn bevatten)
 function normalizeLinkedSourceIds(data) {
   if (!data || typeof data !== 'object') return [];
   
-  // Prefer the NEW UIDs array
   if (Array.isArray(data.linkedSourceUids) && data.linkedSourceUids.length > 0) {
       return data.linkedSourceUids;
   }
   
-  // Fallback (zou door state.js migratie al opgelost moeten zijn)
   const arr = Array.isArray(data.linkedSourceIds)
     ? data.linkedSourceIds
     : data.linkedSourceId
@@ -256,16 +279,13 @@ function setLinkedSourceIds(data, uids) {
     .filter((x) => x !== '');
   const uniq = [...new Set(clean)];
 
-  // We slaan nu op in de UIDs array
   data.linkedSourceUids = uniq.length ? uniq : [];
   data.linkedSourceUid = uniq.length ? uniq[0] : null;
 
-  // Maak legacy velden leeg om verwarring te voorkomen
   data.linkedSourceIds = [];
   data.linkedSourceId = null;
 }
 
-// Hulpfunctie om map te maken van UID -> {outId, text}
 function getOutputUidMap() {
     const details = state.getAllOutputsDetailed();
     const map = {};
@@ -285,10 +305,10 @@ function _formatLinkedSources(ids, uidMap) {
       if (!key) return '';
       
       const entry = map[key];
-      if (!entry) return '???'; // Onbekende link (zou niet moeten kunnen)
+      if (!entry) return '???'; 
 
       const raw = String(entry.text ?? '').trim();
-      const label = entry.outId; // Bijv OUT1
+      const label = entry.outId; 
 
       if (!raw) return label;
       const short = raw.length > 42 ? `${raw.slice(0, 42)}...` : raw;
@@ -355,7 +375,6 @@ function findBundleById(bundleId) {
 
 function formatBundleOutputs(bundle, uidMap) {
   const map = uidMap || getOutputUidMap();
-  // LET OP: Bundle gebruikt nu 'outputUids' ipv 'outIds'
   const ids = Array.isArray(bundle?.outputUids) ? bundle.outputUids : [];
   
   const parts = ids
@@ -378,12 +397,11 @@ function formatBundleOutputs(bundle, uidMap) {
   return parts.join('; ');
 }
 
-/* ✅ NIEUW: checkbox sync met UIDs */
 function syncOutputCheckboxesFromLinkedSources(data) {
   const content = $('modalContent');
   if (!content) return;
 
-  const ids = new Set(normalizeLinkedSourceIds(data)); // Dit zijn nu UIDs
+  const ids = new Set(normalizeLinkedSourceIds(data)); 
   content.querySelectorAll('.input-source-cb').forEach((cb) => {
     cb.disabled = false;
     cb.checked = ids.has(String(cb.value || '').trim());
@@ -394,7 +412,6 @@ function syncOutputCheckboxesFromBundle(bundle) {
   const content = $('modalContent');
   if (!content) return;
 
-  // Bundle gebruikt 'outputUids'
   const ids = new Set(
     (Array.isArray(bundle?.outputUids) ? bundle.outputUids : []).map((x) => String(x ?? '').trim())
   );
@@ -402,7 +419,7 @@ function syncOutputCheckboxesFromBundle(bundle) {
   content.querySelectorAll('.input-source-cb').forEach((cb) => {
     const key = String(cb.value || '').trim();
     cb.checked = ids.has(key);
-    cb.disabled = true; // bundle actief => read-only
+    cb.disabled = true; 
   });
 }
 
@@ -420,11 +437,9 @@ function updateBundleInfoUI(data) {
   const activeId = getActiveBundleId(data);
   const bundle = activeId ? findBundleById(activeId) : null;
 
-  // UI fields
   if (bundlePick) bundlePick.value = bundle ? String(bundle.id) : '';
   if (bundleName) bundleName.value = bundle ? String(bundle.name || '').trim() : '';
 
-  // Active info line
   if (bundleInfo) {
     if (!bundle) {
       bundleInfo.style.display = 'none';
@@ -437,18 +452,15 @@ function updateBundleInfoUI(data) {
     }
   }
 
-  // Hint
   if (bundleHint) {
     if (!bundle) bundleHint.textContent = '';
     else bundleHint.textContent = `Bevat: ${(Array.isArray(bundle.outputUids) ? bundle.outputUids.length : 0)} outputs`;
   }
 
-  // Delete button visibility
   if(bundleDeleteBtn) {
     bundleDeleteBtn.style.display = bundle ? 'inline-block' : 'none';
   }
 
-  // ✅ BELANGRIJK: bundle => checkboxes aanvinken + locken
   if (bundle) {
     data.text = '';
     setLinkedSourceIds(data, []);
@@ -1010,6 +1022,23 @@ const renderProcessTab = (data) => {
 
   const analysisRows = createCombinedAnalysisRows(data.causes, data.improvements);
 
+  // NIEUW: Haal beschikbare routes op en maak dropdown
+  const availableRoutes = getAvailableRouteLetters();
+  const currentRoute = state.activeSheet.columns[editingSticky.colIdx]?.routeLabel || '';
+
+  const routeSelectHtml = `
+    <div style="margin-top:24px; padding:12px; background:rgba(255,255,255,0.05); border-radius:8px;">
+        <label class="modal-label" style="margin-top:0;">Onderdeel van Route</label>
+        <div class="io-helper" style="margin-bottom:8px;">Hoort deze stap bij een specifiek pad?</div>
+        <select id="colRouteLabel" class="modal-input">
+            <option value="">— Geen (Algemeen) —</option>
+            ${availableRoutes.map(L => `
+                <option value="${L}" ${currentRoute === L ? 'selected' : ''}>Route ${L}</option>
+            `).join('')}
+        </select>
+    </div>
+  `;
+
   return `
     <div class="modal-label">Type Activiteit ${!data.type ? '<span style="color:#ff5252">*</span>' : ''}</div>
     <div class="radio-group-container horizontal">
@@ -1041,7 +1070,7 @@ const renderProcessTab = (data) => {
     <div class="status-selector">${statusHtml}</div>
     <input type="hidden" id="processStatus" value="${escapeAttr(status || '')}">
 
-    <div id="sectionAnalyse" style="margin-top:24px; padding-top:20px; border-top:1px solid rgba(255,255,255,0.1);">
+    ${routeSelectHtml} <div id="sectionAnalyse" style="margin-top:24px; padding-top:20px; border-top:1px solid rgba(255,255,255,0.1);">
         
         <div id="wrapperSuccess" style="display: ${showSuccessFactors ? 'block' : 'none'};">
            <div class="modal-label" style="color:var(--ui-success)">Waarom werkt dit goed? (Succesfactoren)</div>
@@ -2131,6 +2160,15 @@ export function saveModalDetails(closeModal = true) {
         }))
         .filter((d) => d.scenario.trim());
     }
+
+    // NIEUW: Sla route label op in de KOLOM (niet de slot/sticky, maar de col zelf)
+    const routeSelect = $('colRouteLabel');
+    const sheet = state.activeSheet;
+    if (routeSelect && sheet && sheet.columns[editingSticky.colIdx]) {
+        sheet.columns[editingSticky.colIdx].routeLabel = routeSelect.value || null;
+        // Trigger een 'columns' update zodat de header ververst
+        state.notify({ reason: 'columns' }, { clone: false });
+    }
   } else if (slotIdx === 1) {
     // ===== SYSTEM TAB SAVE (multi-system) =====
     ensureSystemDataShape(data);
@@ -2633,41 +2671,67 @@ export function openVariantModal(colIdx) {
       if(!container) return;
       container.innerHTML = '';
 
-      sheet.columns.forEach((c, i) => {
-          if (c.isVisible === false) return;
-          if (currentVariants.includes(i)) return; // Een child kan niet zijn eigen parent zijn
+      // LOOP OVER ALLE SHEETS
+      (state.project.sheets || []).forEach(s => {
+          const isCurrentSheet = (s.id === sheet.id);
+          
+          const header = document.createElement('div');
+          header.style.fontSize = '11px';
+          header.style.fontWeight = 'bold';
+          header.style.marginTop = '12px';
+          header.style.marginBottom = '4px';
+          header.style.color = isCurrentSheet ? 'var(--ui-accent)' : '#aaa';
+          header.style.textTransform = 'uppercase';
+          header.textContent = s.name;
+          container.appendChild(header);
 
-          const label = c.slots?.[3]?.text || `Kolom ${i + 1}`;
-          const isSelected = currentParents.includes(i);
-          const isCurrent = (i === colIdx);
+          (s.columns || []).forEach((c, i) => {
+              if (c.isVisible === false) return;
+              
+              // Child kan niet zijn eigen parent zijn (alleen op huidige sheet relevant)
+              if (isCurrentSheet && currentVariants.includes(i)) return; 
 
-          const div = document.createElement('label');
-          div.className = 'sys-opt'; 
-          div.style.display = 'flex';
-          div.style.alignItems = 'center';
-          div.style.gap = '10px';
-          div.style.cursor = 'pointer';
-          if(isSelected) div.classList.add('selected');
+              // Waarde is index (lokaal) of "ID::index" (remote)
+              const val = isCurrentSheet ? i : `${s.id}::${i}`;
+              const valStr = String(val);
 
-          div.innerHTML = `
-             <input type="checkbox" value="${i}" ${isSelected ? 'checked' : ''} style="accent-color:var(--ui-accent);">
-             <span style="flex:1; font-size:13px;">${i + 1}. ${escapeAttr(label)} ${isCurrent ? '<strong>(Dit)</strong>' : ''}</span>
-          `;
+              // Check of geselecteerd (vergelijk strings voor veiligheid)
+              const isSelected = currentParents.some(p => String(p) === valStr);
+              const isCurrentCol = (isCurrentSheet && i === colIdx);
 
-          // Click handler
-          div.querySelector('input').onchange = (e) => {
-              if (e.target.checked) {
-                  currentParents.push(i);
-                  div.classList.add('selected');
-              } else {
-                  currentParents = currentParents.filter(p => p !== i);
-                  div.classList.remove('selected');
-              }
-              // Refresh de children dropdown (want een parent kan geen child zijn)
-              renderAddOptions();
-          };
+              const div = document.createElement('label');
+              div.className = 'sys-opt'; 
+              div.style.display = 'flex';
+              div.style.alignItems = 'center';
+              div.style.gap = '10px';
+              div.style.cursor = 'pointer';
+              div.style.padding = '6px 10px';
+              if(isSelected) div.classList.add('selected');
 
-          container.appendChild(div);
+              const labelText = c.slots?.[3]?.text || `Kolom ${i + 1}`;
+
+              div.innerHTML = `
+                 <input type="checkbox" value="${val}" ${isSelected ? 'checked' : ''} style="accent-color:var(--ui-accent);">
+                 <span style="flex:1; font-size:13px; color:${isCurrentSheet ? '#fff' : '#ccc'};">
+                    ${i + 1}. ${escapeAttr(labelText)} ${isCurrentCol ? '<strong>(Dit)</strong>' : ''}
+                 </span>
+              `;
+
+              div.querySelector('input').onchange = (e) => {
+                  if (e.target.checked) {
+                      // Als lokaal, sla op als getal. Als remote, als string.
+                      const storeVal = isCurrentSheet ? i : val;
+                      currentParents.push(storeVal);
+                      div.classList.add('selected');
+                  } else {
+                      currentParents = currentParents.filter(p => String(p) !== valStr);
+                      div.classList.remove('selected');
+                  }
+                  renderAddOptions();
+              };
+
+              container.appendChild(div);
+          });
       });
   };
 
@@ -2733,18 +2797,16 @@ export function openVariantModal(colIdx) {
 
   const html = `
     <h3>🔀 Route / Variant Definitie</h3>
-    <div class="sub-text">Bepaal de hoofdprocessen (parents) en de aftakkingen (children).</div>
+    <div class="sub-text">Selecteer hoofdprocessen (ook uit andere sheets) en lokale sub-routes.</div>
 
     <div style="margin-top:16px;">
-      <label class="modal-label">1. Hoofdprocessen (Waar komen routes vandaan?)</label>
-      <div class="io-helper" style="margin-bottom:8px;">Selecteer 1 of meerdere kolommen die als startpunt dienen.</div>
-      <div id="variantParentList" style="border:1px solid rgba(255,255,255,0.1); border-radius:8px; max-height:150px; overflow-y:auto; padding:4px;"></div>
+      <label class="modal-label">1. Hoofdprocessen</label>
+      <div id="variantParentList" style="border:1px solid rgba(255,255,255,0.1); border-radius:8px; max-height:200px; overflow-y:auto; padding:4px 8px;"></div>
     </div>
 
     <div style="margin-top:20px;">
-       <label class="modal-label">2. Routes (Vervolgstappen)</label>
+       <label class="modal-label">2. Lokale Routes</label>
        <div id="variantList" style="border:1px solid rgba(255,255,255,0.1); border-radius:8px; max-height:150px; overflow-y:auto; margin-bottom:12px;"></div>
-       
        <div style="display:flex; gap:8px;">
           <select id="variantAddSelect" class="modal-input" style="flex:1;"></select>
           <button id="variantAddBtn" class="std-btn" type="button">Toevoegen</button>
@@ -2752,9 +2814,7 @@ export function openVariantModal(colIdx) {
     </div>
 
     <div class="modal-btns">
-      ${isVariant ? 
-        `<button id="variantRemoveBtn" class="std-btn danger-text" type="button" style="border:1px solid #ff5252;">⚠️ Split opheffen</button>` 
-        : '<div></div>'}
+      ${isVariant ? `<button id="variantRemoveBtn" class="std-btn danger-text" type="button">Split opheffen</button>` : '<div></div>'}
       <button id="variantCancelBtn" class="std-btn" type="button">Annuleren</button>
       <button id="variantSaveBtn" class="std-btn primary" type="button">Opslaan</button>
     </div>
