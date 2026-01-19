@@ -4,7 +4,7 @@
   "author": "Anoniem",
   "created": "2026-01-16T08:48:17.021Z",
   "version": "2.7",
-  "activeSheetId": "858c26e5-f7ec-4311-b503-641f99e65c84",
+  "activeSheetId": "819bb6d9-21cc-49cf-8c40-4b6d7df6b2e1",
   "sheets": [
     {
       "id": "819bb6d9-21cc-49cf-8c40-4b6d7df6b2e1",
@@ -2859,6 +2859,33 @@
             4,
             5
           ]
+        }
+      ],
+      "groups": [
+        {
+          "id": "grp_65e3bc43-b162-4e97-bd94-4d636d530441",
+          "cols": [
+            0
+          ],
+          "title": "Verwijzen naar specialist"
+        },
+        {
+          "id": "grp_4cb5f72b-57f8-41a8-ba2f-2ee88011a549",
+          "cols": [
+            1,
+            2,
+            3,
+            4,
+            5
+          ],
+          "title": "Diagnose uitvoeren"
+        },
+        {
+          "id": "grp_5ef867ff-0acc-4a55-905e-65fa6f9bf230",
+          "cols": [
+            6
+          ],
+          "title": "Besluit type behandeling"
         }
       ]
     },
