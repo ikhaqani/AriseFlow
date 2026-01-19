@@ -5301,6 +5301,402 @@
           "isGroup": true
         },
         {
+          "id": "9787c508-9f2d-4b77-b477-6c67f66a4e39",
+          "order": 1,
+          "isVisible": true,
+          "isParallel": false,
+          "isVariant": false,
+          "hasTransition": false,
+          "transitionNext": "",
+          "outputId": null,
+          "slots": [
+            {
+              "id": "b82e6b9c-39b4-4595-92f4-f96614b2de7e",
+              "created": 1768838667245,
+              "text": "Radiotherapie Web",
+              "linkedSourceId": null,
+              "type": null,
+              "processValue": null,
+              "processStatus": null,
+              "successFactors": "",
+              "causes": [],
+              "improvements": [],
+              "qa": {
+                "compleet": {
+                  "result": "",
+                  "note": ""
+                },
+                "kwaliteit": {
+                  "result": "",
+                  "note": ""
+                },
+                "duidelijkheid": {
+                  "result": "",
+                  "note": ""
+                },
+                "tijdigheid": {
+                  "result": "",
+                  "note": ""
+                },
+                "standaard": {
+                  "result": "",
+                  "note": ""
+                },
+                "overdracht": {
+                  "result": "",
+                  "note": ""
+                }
+              },
+              "systemData": {
+                "isMulti": false,
+                "systemName": "",
+                "calculatedScore": null,
+                "systems": [
+                  {
+                    "id": "aa5afcc0-ad68-4d20-bf7e-2cf96cbee036",
+                    "name": "",
+                    "isLegacy": false,
+                    "futureSystem": "",
+                    "qa": {
+                      "workarounds": null,
+                      "performance": null,
+                      "double": null,
+                      "error": null,
+                      "depend": null
+                    },
+                    "calculatedScore": null
+                  }
+                ]
+              },
+              "inputDefinitions": [],
+              "disruptions": [],
+              "workExp": null,
+              "workExpNote": ""
+            },
+            {
+              "id": "51f63861-0b6d-4cf7-a0d4-6917abc1a310",
+              "created": 1768838667245,
+              "text": "Epic",
+              "linkedSourceId": null,
+              "type": null,
+              "processValue": null,
+              "processStatus": null,
+              "successFactors": "",
+              "causes": [],
+              "improvements": [],
+              "qa": {
+                "compleet": {
+                  "result": "",
+                  "note": ""
+                },
+                "kwaliteit": {
+                  "result": "",
+                  "note": ""
+                },
+                "duidelijkheid": {
+                  "result": "",
+                  "note": ""
+                },
+                "tijdigheid": {
+                  "result": "",
+                  "note": ""
+                },
+                "standaard": {
+                  "result": "",
+                  "note": ""
+                },
+                "overdracht": {
+                  "result": "",
+                  "note": ""
+                }
+              },
+              "systemData": {
+                "isMulti": false,
+                "systemName": "",
+                "calculatedScore": null,
+                "systems": [
+                  {
+                    "id": "28c10f7d-ffae-4761-a50b-17860aefb669",
+                    "name": "",
+                    "isLegacy": false,
+                    "futureSystem": "",
+                    "qa": {
+                      "workarounds": null,
+                      "performance": null,
+                      "double": null,
+                      "error": null,
+                      "depend": null
+                    },
+                    "calculatedScore": null
+                  }
+                ]
+              },
+              "inputDefinitions": [],
+              "disruptions": [],
+              "workExp": null,
+              "workExpNote": ""
+            },
+            {
+              "id": "f40875e6-b9a2-499d-b7b1-650ca8561299",
+              "created": 1768838667245,
+              "text": "",
+              "linkedSourceId": "OUT8",
+              "type": null,
+              "processValue": null,
+              "processStatus": null,
+              "successFactors": "",
+              "causes": [],
+              "improvements": [],
+              "qa": {
+                "compleet": {
+                  "result": null,
+                  "note": ""
+                },
+                "kwaliteit": {
+                  "result": null,
+                  "note": ""
+                },
+                "duidelijkheid": {
+                  "result": null,
+                  "note": ""
+                },
+                "tijdigheid": {
+                  "result": null,
+                  "note": ""
+                },
+                "standaard": {
+                  "result": null,
+                  "note": ""
+                },
+                "overdracht": {
+                  "result": null,
+                  "note": ""
+                }
+              },
+              "systemData": {
+                "isMulti": false,
+                "systemName": "",
+                "calculatedScore": null,
+                "systems": [
+                  {
+                    "id": "fbd4e583-3492-469b-84f6-fcd5833799c0",
+                    "name": "",
+                    "isLegacy": false,
+                    "futureSystem": "",
+                    "qa": {
+                      "workarounds": null,
+                      "performance": null,
+                      "double": null,
+                      "error": null,
+                      "depend": null
+                    },
+                    "calculatedScore": null
+                  }
+                ]
+              },
+              "inputDefinitions": [],
+              "disruptions": [],
+              "workExp": null,
+              "workExpNote": "",
+              "linkedBundleId": null,
+              "linkedBundleIds": null,
+              "linkedSourceIds": [
+                "OUT8"
+              ]
+            },
+            {
+              "id": "1709d7dc-b48b-4ca6-8c1d-3a9d6998f68a",
+              "created": 1768838667245,
+              "text": "Aanmaken triagetaak",
+              "linkedSourceId": null,
+              "type": null,
+              "processValue": null,
+              "processStatus": null,
+              "successFactors": "",
+              "causes": [],
+              "improvements": [],
+              "qa": {
+                "compleet": {
+                  "result": "",
+                  "note": ""
+                },
+                "kwaliteit": {
+                  "result": "",
+                  "note": ""
+                },
+                "duidelijkheid": {
+                  "result": "",
+                  "note": ""
+                },
+                "tijdigheid": {
+                  "result": "",
+                  "note": ""
+                },
+                "standaard": {
+                  "result": "",
+                  "note": ""
+                },
+                "overdracht": {
+                  "result": "",
+                  "note": ""
+                }
+              },
+              "systemData": {
+                "isMulti": false,
+                "systemName": "",
+                "calculatedScore": null,
+                "systems": [
+                  {
+                    "id": "7b8b63e3-3736-4ce4-b58e-89d181e6f85a",
+                    "name": "",
+                    "isLegacy": false,
+                    "futureSystem": "",
+                    "qa": {
+                      "workarounds": null,
+                      "performance": null,
+                      "double": null,
+                      "error": null,
+                      "depend": null
+                    },
+                    "calculatedScore": null
+                  }
+                ]
+              },
+              "inputDefinitions": [],
+              "disruptions": [],
+              "workExp": null,
+              "workExpNote": ""
+            },
+            {
+              "id": "c1d1ecff-0b41-491f-ac5d-1f7b45650334",
+              "created": 1768838667245,
+              "text": "Triagetaak",
+              "linkedSourceId": null,
+              "type": null,
+              "processValue": null,
+              "processStatus": null,
+              "successFactors": "",
+              "causes": [],
+              "improvements": [],
+              "qa": {
+                "compleet": {
+                  "result": "",
+                  "note": ""
+                },
+                "kwaliteit": {
+                  "result": "",
+                  "note": ""
+                },
+                "duidelijkheid": {
+                  "result": "",
+                  "note": ""
+                },
+                "tijdigheid": {
+                  "result": "",
+                  "note": ""
+                },
+                "standaard": {
+                  "result": "",
+                  "note": ""
+                },
+                "overdracht": {
+                  "result": "",
+                  "note": ""
+                }
+              },
+              "systemData": {
+                "isMulti": false,
+                "systemName": "",
+                "calculatedScore": null,
+                "systems": [
+                  {
+                    "id": "34a9f32f-a141-40e5-9bde-67a1723963b3",
+                    "name": "",
+                    "isLegacy": false,
+                    "futureSystem": "",
+                    "qa": {
+                      "workarounds": null,
+                      "performance": null,
+                      "double": null,
+                      "error": null,
+                      "depend": null
+                    },
+                    "calculatedScore": null
+                  }
+                ]
+              },
+              "inputDefinitions": [],
+              "disruptions": [],
+              "workExp": null,
+              "workExpNote": "",
+              "outputUid": "out_d65e66cf-001b-4ff3-acc7-f6b0f77fabaa"
+            },
+            {
+              "id": "9e947a58-35a7-4ed7-a0b4-849c4ccaac11",
+              "created": 1768838667245,
+              "text": "Polikliniek",
+              "linkedSourceId": null,
+              "type": null,
+              "processValue": null,
+              "processStatus": null,
+              "successFactors": "",
+              "causes": [],
+              "improvements": [],
+              "qa": {
+                "compleet": {
+                  "result": "",
+                  "note": ""
+                },
+                "kwaliteit": {
+                  "result": "",
+                  "note": ""
+                },
+                "duidelijkheid": {
+                  "result": "",
+                  "note": ""
+                },
+                "tijdigheid": {
+                  "result": "",
+                  "note": ""
+                },
+                "standaard": {
+                  "result": "",
+                  "note": ""
+                },
+                "overdracht": {
+                  "result": "",
+                  "note": ""
+                }
+              },
+              "systemData": {
+                "isMulti": false,
+                "systemName": "",
+                "calculatedScore": null,
+                "systems": [
+                  {
+                    "id": "2097d79f-7a15-426f-993f-ee65e14718bb",
+                    "name": "",
+                    "isLegacy": false,
+                    "futureSystem": "",
+                    "qa": {
+                      "workarounds": null,
+                      "performance": null,
+                      "double": null,
+                      "error": null,
+                      "depend": null
+                    },
+                    "calculatedScore": null
+                  }
+                ]
+              },
+              "inputDefinitions": [],
+              "disruptions": [],
+              "workExp": null,
+              "workExpNote": ""
+            }
+          ]
+        },
+        {
           "id": "50f8aa78-2250-4c18-8970-87ef64d8729d",
           "order": 1,
           "isVisible": true,
@@ -5453,7 +5849,7 @@
               "id": "d693d17c-274d-4887-8770-1c3013c086fa",
               "created": 1768629089349,
               "text": "",
-              "linkedSourceId": "OUT10",
+              "linkedSourceId": null,
               "type": null,
               "processValue": null,
               "processStatus": null,
@@ -5513,9 +5909,7 @@
               "workExpNote": "",
               "linkedBundleId": null,
               "linkedBundleIds": null,
-              "linkedSourceIds": [
-                "OUT10"
-              ]
+              "linkedSourceIds": null
             },
             {
               "id": "d107aa5a-1203-463f-b512-531d149de7ff",
@@ -5850,7 +6244,7 @@
               "id": "62dece07-14b2-479e-98ec-96e89712d184",
               "created": 1768629362067,
               "text": "",
-              "linkedSourceId": "OUT11",
+              "linkedSourceId": "OUT14",
               "type": null,
               "processValue": null,
               "processStatus": null,
@@ -5909,7 +6303,7 @@
               "workExp": null,
               "workExpNote": "",
               "linkedSourceIds": [
-                "OUT11"
+                "OUT14"
               ],
               "linkedBundleId": null,
               "linkedBundleIds": null
@@ -6112,23 +6506,17 @@
       "systemMerges": [],
       "groups": [
         {
-          "id": "grp_0b049037-72f7-4a7b-8f04-92468ac85468",
+          "id": "grp_25479ea3-3d7c-4a76-a947-1462f23e8775",
           "cols": [
             0,
             1,
             2,
-            3
-          ],
-          "title": "Verwijzing"
-        },
-        {
-          "id": "grp_f0cc7045-5fa6-42e9-831c-1e487179c15c",
-          "cols": [
+            3,
             4,
             5,
             6
           ],
-          "title": "Aanmelden patiënt en aanmaken triagetaak"
+          "title": "Verwijzing en aanmelding"
         }
       ],
       "variantGroups": [
