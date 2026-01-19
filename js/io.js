@@ -1,18 +1,4 @@
-// io.js (VOLLEDIG - EXPORT AS-IS CSV + JSON + HD + GITHUB CLOUD)
-// - 1 rij per proceskolom (geen 6 rijen per SSIPOC-slot)
-// - Alle multi-waarden in 1 cel gescheiden door ";" (aligned per systeem waar van toepassing)
-// - Disruptions/oorzaken/maatregelen/toelichtingen ook ";"-gescheiden
-// - FIX: Input kan gelinkt zijn aan OUTx via linkedSourceId óf linkedSourceUid óf MEERDERE links (arrays)
-//        -> alles wordt als "OUTx; OUTy" geëxporteerd (en input-tekst als "tekstOutx; tekstOuty")
-// - FIX: Input kan ook een bundel zijn (bundelnaam -> OUTx; OUTy) voor compacte input in post-it/export
-// - FIX: Input-tekst bij link gebruikt output-tekst (outTextByUid / outTextByOutId) indien beschikbaar
-// - FIX: Output IDs zijn project-breed stabiel (op basis van outputUid + sheet/kolom volgorde + merge-slaves overslaan)
-// - FIX (ROBUUST): Systeem export checkt nu strikt of er daadwerkelijk tekst in de systeemnaam staat.
-//        Lege merge-objecten worden genegeerd ten gunste van de post-it tekst.
-// - NEW: Logica kolom toegevoegd aan CSV export (Consistent met modal termen).
-// - NEW: Groepsnaam kolom toegevoegd aan CSV export.
-// - NEW: GitHub Cloud Integratie (Direct Save/Load)
-// - FIX: Main route export toont nu CORRECTE globale kolomnummers (doorrekenend over sheets heen)
+// io.js (AANGEPAST: FIX VOOR AFGEKAPTE GROEP TITELS BIJ EXPORT)
 
 import { state } from './state.js';
 import { Toast } from './toast.js';
@@ -1307,11 +1293,19 @@ export async function exportHD(copyToClipboard = false) {
       onclone: (doc) => {
         doc.body.classList.add('exporting');
         const v = doc.getElementById('viewport');
+        const b = doc.getElementById('board');
+
         if (v) {
           v.style.overflow = 'visible';
           v.style.width = 'fit-content';
           v.style.height = 'auto';
-          v.style.padding = '40px';
+          v.style.position = 'static';
+        }
+
+        if (b) {
+            b.style.transform = 'none'; 
+            b.style.marginTop = '80px'; 
+            b.style.padding = '20px';   
         }
       }
     });
