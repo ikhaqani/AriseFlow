@@ -2434,7 +2434,7 @@
           "isGroup": true
         },
         {
-          "id": "8614029a-93a4-4a4d-bb62-5479a75dde6e",
+          "id": "bc030532-8d59-4b12-9027-0f1dc29ac034",
           "order": 1,
           "isVisible": true,
           "isParallel": false,
@@ -2444,8 +2444,8 @@
           "outputId": null,
           "slots": [
             {
-              "id": "2342be56-920a-43fa-9d90-d88f67885a56",
-              "created": 1768555997669,
+              "id": "99799464-a7fa-4588-9545-d2c0797a28a8",
+              "created": 1768833253658,
               "text": "Oncoloog / Patholoog / Radioloog / Radiotherapeut",
               "linkedSourceId": null,
               "type": null,
@@ -2486,7 +2486,7 @@
                 "calculatedScore": null,
                 "systems": [
                   {
-                    "id": "76a1de5e-4d5d-4dc4-bb21-138e9d0d2d6c",
+                    "id": "34790348-b279-41e6-864c-cbd4ffbea31a",
                     "name": "",
                     "isLegacy": false,
                     "futureSystem": "",
@@ -2507,8 +2507,8 @@
               "workExpNote": ""
             },
             {
-              "id": "ba3860ee-fe96-4d8e-a0bd-225ba0eabb3b",
-              "created": 1768555997669,
+              "id": "f1f86c0d-932f-4149-9a7c-7ef37e8a383a",
+              "created": 1768833253659,
               "text": "Ziekenhuissysteem / Pacs",
               "linkedSourceId": null,
               "type": null,
@@ -2546,10 +2546,10 @@
               "systemData": {
                 "isMulti": false,
                 "systemName": "",
-                "calculatedScore": 0,
+                "calculatedScore": null,
                 "systems": [
                   {
-                    "id": "9eff804c-20b9-491a-919d-1c799c82e4bf",
+                    "id": "6d424b6a-d47f-448c-b506-6110ce8e1f85",
                     "name": "",
                     "isLegacy": false,
                     "futureSystem": "",
@@ -2562,20 +2562,7 @@
                     },
                     "calculatedScore": null
                   }
-                ],
-                "systemsMeta": {
-                  "multi": false,
-                  "systems": [
-                    {
-                      "name": "",
-                      "legacy": false,
-                      "future": "",
-                      "qa": {},
-                      "score": null
-                    }
-                  ],
-                  "activeSystemIdx": 0
-                }
+                ]
               },
               "inputDefinitions": [],
               "disruptions": [],
@@ -2583,8 +2570,8 @@
               "workExpNote": ""
             },
             {
-              "id": "d6e40887-97ff-4877-849a-e40b27b05f41",
-              "created": 1768555997669,
+              "id": "fc8156f5-b5b1-4e0c-9501-9b04e9329c9b",
+              "created": 1768833253659,
               "text": "",
               "linkedSourceId": "OUT3",
               "type": null,
@@ -2625,7 +2612,7 @@
                 "calculatedScore": null,
                 "systems": [
                   {
-                    "id": "92f1149d-073a-47b5-beb7-e18a3c76fa2c",
+                    "id": "374fcdc7-3997-4117-9232-c977226c022d",
                     "name": "",
                     "isLegacy": false,
                     "futureSystem": "",
@@ -2644,18 +2631,19 @@
               "disruptions": [],
               "workExp": null,
               "workExpNote": "",
+              "linkedBundleId": null,
+              "linkedBundleIds": null,
               "linkedSourceIds": [
                 "OUT3",
                 "OUT4",
                 "OUT5",
-                "OUT6"
-              ],
-              "linkedBundleId": null,
-              "linkedBundleIds": null
+                "OUT6",
+                "OUT7"
+              ]
             },
             {
-              "id": "6bbf92f2-4e59-4aaa-9b28-db5accae67a1",
-              "created": 1768555997669,
+              "id": "5916329e-8db0-4693-b632-e8eb371893a8",
+              "created": 1768833253659,
               "text": "Houden MDO",
               "linkedSourceId": null,
               "type": null,
@@ -2696,7 +2684,7 @@
                 "calculatedScore": null,
                 "systems": [
                   {
-                    "id": "d0724689-9a38-4deb-8193-0c1a16cd0d28",
+                    "id": "1999eb44-09ab-4aa6-bb10-eb0ad6e67173",
                     "name": "",
                     "isLegacy": false,
                     "futureSystem": "",
@@ -2717,8 +2705,8 @@
               "workExpNote": ""
             },
             {
-              "id": "5553d03d-dcc7-484f-ba02-5cd0f5a7db34",
-              "created": 1768555997669,
+              "id": "7e365f92-861d-4314-b1ac-a35c30a79523",
+              "created": 1768833253659,
               "text": "MDO-verslag",
               "linkedSourceId": null,
               "type": null,
@@ -2759,7 +2747,7 @@
                 "calculatedScore": null,
                 "systems": [
                   {
-                    "id": "75b9aaef-9d45-4f24-85dd-923578ef2284",
+                    "id": "4bc93e54-258a-4246-b5d5-80abd179adbb",
                     "name": "",
                     "isLegacy": false,
                     "futureSystem": "",
@@ -2778,11 +2766,11 @@
               "disruptions": [],
               "workExp": null,
               "workExpNote": "",
-              "outputUid": "out_22e314ef-1b12-4ea5-abfc-e1e75edce80a"
+              "outputUid": "out_047745c3-bb79-4682-8b22-4b9821f6d193"
             },
             {
-              "id": "026b737e-cc5b-4d1d-9e6d-f97a457d581f",
-              "created": 1768555997669,
+              "id": "26bcaf00-131b-4909-b361-5bbd71422f81",
+              "created": 1768833253659,
               "text": "Verwijzer",
               "linkedSourceId": null,
               "type": null,
@@ -2823,7 +2811,7 @@
                 "calculatedScore": null,
                 "systems": [
                   {
-                    "id": "d8015998-cca6-4165-abc9-4dc6c64d657c",
+                    "id": "cc49a4ce-ad45-406e-953c-edfc2cb3b8a4",
                     "name": "",
                     "isLegacy": false,
                     "futureSystem": "",
@@ -2843,8 +2831,7 @@
               "workExp": null,
               "workExpNote": ""
             }
-          ],
-          "isGroup": true
+          ]
         }
       ],
       "outputMerges": [],
@@ -2859,6 +2846,33 @@
             4,
             5
           ]
+        }
+      ],
+      "groups": [
+        {
+          "id": "grp_65e3bc43-b162-4e97-bd94-4d636d530441",
+          "cols": [
+            0
+          ],
+          "title": "Verwijzen naar specialist"
+        },
+        {
+          "id": "grp_4cb5f72b-57f8-41a8-ba2f-2ee88011a549",
+          "cols": [
+            1,
+            2,
+            3,
+            4,
+            5
+          ],
+          "title": "Diagnose uitvoeren"
+        },
+        {
+          "id": "grp_578207c9-fde3-40bf-97b4-8e31bd803f15",
+          "cols": [
+            6
+          ],
+          "title": "Besluiten type behandeling"
         }
       ]
     },
@@ -6106,6 +6120,15 @@
             3
           ],
           "title": "Verwijzing"
+        },
+        {
+          "id": "grp_f0cc7045-5fa6-42e9-831c-1e487179c15c",
+          "cols": [
+            4,
+            5,
+            6
+          ],
+          "title": "Aanmelden patiënt en aanmaken triagetaak"
         }
       ],
       "variantGroups": [
