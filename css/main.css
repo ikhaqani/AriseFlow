@@ -1447,22 +1447,11 @@ body {
     border-right: none;
 }
 
-.col.is-variant::before {
-    position: absolute;
-    top: -28px;
-    left: 50%;
-    transform: translateX(-50%);
-    background: #7e57c2;
-    color: white;
-    font-size: 10px;
-    font-weight: 800;
-    padding: 4px 8px;
-    border-radius: 4px;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
-    z-index: 90;
-    white-space: nowrap;
+/* NIEUW: ROUTE INDICATOR (Subtiele badge op de post-it zelf) */
+.sticky-route-tag {
+    /* Styles staan al in de HTML via inline styles in buildSlotHTML */
+    /* Maar hier kun je defaults zetten als je wilt */
+    pointer-events: none;
 }
 
 .variant-badge {

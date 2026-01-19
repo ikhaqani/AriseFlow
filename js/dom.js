@@ -14,7 +14,7 @@ const MERGE_LS_PREFIX = 'ssipoc.mergeGroups.v2';
 let _mergeGroups = [];
 
 // =========================================================
-// HULPFUNCTIE: Diepte berekenen (Alleen voor data-attribuut, niet voor grootte)
+// HULPFUNCTIE: Diepte berekenen (Alleen voor data-attribuut)
 // =========================================================
 function getDependencyDepth(colIdx) {
   const sheet = state.activeSheet;
@@ -28,16 +28,12 @@ function getDependencyDepth(colIdx) {
     const parentGroup = sheet.variantGroups.find(g => g.variants.includes(currentIdx));
     if (parentGroup) {
       depth++;
-      // Pak de eerste ouder om omhoog te klimmen (puur voor indicatie)
       const p = parentGroup.parents && parentGroup.parents.length > 0 
           ? parentGroup.parents[0] 
           : parentGroup.parentColIdx;
           
       if (p !== undefined) {
-         if (typeof p === 'string' && p.includes('::')) {
-            // Remote parent -> we stoppen hier, want we kunnen niet cross-sheet recursief zoeken
-            break;
-         }
+         if (typeof p === 'string' && p.includes('::')) break;
          currentIdx = p;
       } else {
          break;
@@ -1507,11 +1503,30 @@ function buildSlotHTML({
 
   const editableAttr = isLinked ? 'contenteditable="false" data-linked="true"' : 'contenteditable="true"';
 
+  // === NIEUWE LOGICA VOOR ROUTE BADGE ===
+  let extraHtml = '';
+  // Check voor handmatige route label of automatische variant letter
+  if (slotIdx === 0) { // <--- AANGEPAST: NU BIJ LEVERANCIER (SLOT 0)
+      const manualRoute = state.activeSheet?.columns[colIdx]?.routeLabel;
+      const letterMap = computeVariantLetterMap(state.activeSheet);
+      const autoRoute = state.activeSheet?.columns[colIdx]?.isVariant ? (letterMap[colIdx] || 'A') : null;
+      
+      const routeLabel = manualRoute || autoRoute;
+      
+      if (routeLabel) {
+          // AANGEPAST: CENTREREN EN IETS HOGER PLAATSEN
+          extraHtml += `<div class="sticky-route-tag" style="position: absolute; top: -10px; left: 50%; transform: translateX(-50%); background: #2196f3; color: white; font-size: 10px; font-weight: bold; padding: 2px 8px; border-radius: 4px; box-shadow: 0 2px 4px rgba(0,0,0,0.2); z-index: 10; white-space: nowrap;">Route ${escapeHTML(routeLabel)}</div>`;
+      }
+  }
+  // ======================================
+
   return `
     <div class="sticky ${statusClass} ${extraStickyClass}" style="${escapeAttr(
     extraStickyStyle
   )}" data-col="${colIdx}" data-slot="${slotIdx}">
       <div class="sticky-grip"></div>
+      
+      ${extraHtml}
 
       <div class="badges-row">
         <div class="sticky-badge">${escapeHTML(b1)}</div>
