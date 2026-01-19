@@ -1,5 +1,4 @@
-// modals.js  (VOLLEDIG AANGEPAST)
-// -----------------------------------------------------------
+// modals.js
 import { state } from './state.js';
 import {
   IO_CRITERIA,
@@ -1165,7 +1164,7 @@ const renderIoTab = (data, isInputRow) => {
           <button id="bundleClearBtn" class="std-btn" type="button">Loskoppelen</button>
           
           <button id="bundleDeleteDefBtn" class="std-btn danger-text" type="button" style="margin-left:auto; border:1px solid #ff5252; color:#ff5252; display:none;">
-             🗑️ Pakket definitief verwijderen
+              🗑️ Pakket definitief verwijderen
           </button>
         </div>
 
@@ -2399,7 +2398,7 @@ export function openLogicModal(colIdx) {
   };
 }
 
-// === GROEP MODAL (PUZZELSTUK) - AANGEPAST VOOR LIJST INTERACTIE ===
+// === GROEP MODAL (PUZZELSTUK) - MET VERWIJDER KNOP ===
 export function openGroupModal(colIdx) {
   const sheet = state.activeSheet;
   if (!sheet) return;
@@ -2489,7 +2488,7 @@ export function openGroupModal(colIdx) {
     </div>
 
     <div class="modal-btns">
-      ${existingGroup ? `<button id="groupRemoveBtn" class="std-btn danger-text" type="button">Groep verwijderen</button>` : '<div></div>'}
+      ${existingGroup ? `<button id="groupRemoveBtn" class="std-btn danger-text" type="button">Groep opheffen</button>` : '<div></div>'}
       <button id="groupCancelBtn" class="std-btn" type="button">Annuleren</button>
       <button id="groupSaveBtn" class="std-btn primary" type="button">Opslaan</button>
     </div>
@@ -2537,8 +2536,10 @@ export function openGroupModal(colIdx) {
   const removeBtn = modal.querySelector('#groupRemoveBtn');
   if (removeBtn) {
     removeBtn.onclick = () => {
-        state.removeGroup(existingGroup.id);
-        close();
+        if(confirm('Weet je zeker dat je deze groep wilt opheffen? De kolommen blijven gewoon bestaan.')) {
+            state.removeGroup(existingGroup.id);
+            close();
+        }
     };
   }
 
@@ -2559,7 +2560,7 @@ export function openGroupModal(colIdx) {
   };
 }
 
-// === VARIANT MODAL (ROUTES) ===
+// === VARIANT MODAL (ROUTES) - MET VERWIJDER KNOP ===
 export function openVariantModal(colIdx) {
   const sheet = state.activeSheet;
   if (!sheet) return;
@@ -2713,7 +2714,7 @@ export function openVariantModal(colIdx) {
       const val = document.getElementById('variantAddSelect').value;
       if(!val) return;
       currentVariants.push(parseInt(val, 10));
-      renderVariantList();ensureOutputBundlesArray
+      renderVariantList();
       renderAddOptions();
   };
 
