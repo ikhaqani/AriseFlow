@@ -4,7 +4,7 @@
   "author": "Anoniem",
   "created": "2026-01-16T08:48:17.021Z",
   "version": "2.7",
-  "activeSheetId": "858c26e5-f7ec-4311-b503-641f99e65c84",
+  "activeSheetId": "819bb6d9-21cc-49cf-8c40-4b6d7df6b2e1",
   "sheets": [
     {
       "id": "819bb6d9-21cc-49cf-8c40-4b6d7df6b2e1",
@@ -811,7 +811,7 @@
           "order": 1,
           "isVisible": true,
           "isParallel": false,
-          "isVariant": true,
+          "isVariant": false,
           "hasTransition": false,
           "transitionNext": "",
           "outputId": null,
@@ -1209,14 +1209,20 @@
               "workExpNote": ""
             }
           ],
-          "isGroup": true
+          "isGroup": true,
+          "logic": {
+            "condition": "Moet de patiënt een operatie ondergaan?",
+            "ifTrue": null,
+            "ifFalse": 3
+          },
+          "isConditional": true
         },
         {
           "id": "523126f6-aa18-439c-9784-1bdf0987d832",
           "order": 1,
           "isVisible": true,
           "isParallel": true,
-          "isVariant": true,
+          "isVariant": false,
           "hasTransition": false,
           "transitionNext": "",
           "outputId": null,
@@ -1614,14 +1620,20 @@
               "workExpNote": ""
             }
           ],
-          "isGroup": true
+          "isGroup": true,
+          "logic": {
+            "condition": "Moet er een scope verricht worden bij deze patiënt?",
+            "ifTrue": null,
+            "ifFalse": 4
+          },
+          "isConditional": true
         },
         {
           "id": "47c0e4ff-5ffd-45fe-be97-27a43f358560",
           "order": 1,
           "isVisible": true,
           "isParallel": true,
-          "isVariant": true,
+          "isVariant": false,
           "hasTransition": false,
           "transitionNext": "",
           "outputId": null,
@@ -2026,14 +2038,20 @@
               "workExpNote": ""
             }
           ],
-          "isGroup": true
+          "isGroup": true,
+          "logic": {
+            "condition": "Moet er weefsel geanalyseerd worden?",
+            "ifTrue": null,
+            "ifFalse": 5
+          },
+          "isConditional": true
         },
         {
           "id": "e294d515-908d-467c-a882-f066d172ef29",
           "order": 1,
           "isVisible": true,
           "isParallel": true,
-          "isVariant": true,
+          "isVariant": false,
           "hasTransition": false,
           "transitionNext": "",
           "outputId": null,
@@ -2836,18 +2854,7 @@
       ],
       "outputMerges": [],
       "systemMerges": [],
-      "variantGroups": [
-        {
-          "id": "var_6a86778c-50d9-4502-9c64-db666153c094",
-          "parentColIdx": 1,
-          "variants": [
-            2,
-            3,
-            4,
-            5
-          ]
-        }
-      ],
+      "variantGroups": [],
       "groups": [
         {
           "id": "grp_65e3bc43-b162-4e97-bd94-4d636d530441",
