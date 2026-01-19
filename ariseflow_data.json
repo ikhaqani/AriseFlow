@@ -2449,7 +2449,13 @@
               "workExpNote": ""
             }
           ],
-          "isGroup": true
+          "isGroup": true,
+          "logic": {
+            "condition": "Is er beeldvorming nodig?",
+            "ifTrue": null,
+            "ifFalse": 6
+          },
+          "isConditional": true
         },
         {
           "id": "bc030532-8d59-4b12-9027-0f1dc29ac034",
