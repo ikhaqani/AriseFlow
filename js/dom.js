@@ -1,6 +1,6 @@
 import { state } from './state.js';
 import { IO_CRITERIA, PROCESS_STATUSES } from './config.js';
-import { openEditModal, saveModalDetails, openLogicModal, openGroupModal } from './modals.js'; // NIEUW: openGroupModal toegevoegd
+import { openEditModal, saveModalDetails, openLogicModal, openGroupModal, openVariantModal } from './modals.js'; // NIEUW: openVariantModal toegevoegd
 
 const $ = (id) => document.getElementById(id);
 
@@ -1325,13 +1325,34 @@ function _toLetter(i0) {
 
 /** Computes the per-column route letter map for variant columns. */
 function computeVariantLetterMap(activeSheet) {
+  // NIEUWE LOGICA: Haal letters op uit de Variant Groups als die er zijn
+  // Fallback naar de oude logica voor backward compat of losse varianten
+  
   const map = {};
   if (!activeSheet?.columns?.length) return map;
 
+  // 1. Check groups
+  if (Array.isArray(activeSheet.variantGroups)) {
+      activeSheet.variantGroups.forEach(vg => {
+          vg.variants.forEach((vIdx, i) => {
+              map[vIdx] = _toLetter(i);
+          });
+      });
+  }
+
+  // 2. Vul aan voor varianten die NIET in een groep zitten (oude stijl)
   let inRun = false;
   let runIdx = 0;
 
   for (let i = 0; i < activeSheet.columns.length; i++) {
+    // Als we al een letter hebben uit de groups, resetten we de 'run' teller niet, 
+    // want die kolommen tellen als 'behandeld'.
+    if (map[i]) {
+        inRun = false; 
+        runIdx = 0;
+        continue;
+    }
+
     const col = activeSheet.columns[i];
     if (col?.isVisible === false) continue;
 
@@ -1686,11 +1707,6 @@ function renderConnector({ frag, activeSheet, colIdx, variantLetterMap }) {
   if (hasConditional) {
     badgesHTML += `<div class="conditional-badge" title="${conditionTooltip}">⚡</div>`;
   }
-  
-  // LOGIC CHANGE: Group badge (puzzelstuk) VERWIJDERD
-  // if (hasGroup) {
-  //   badgesHTML += `<div class="group-badge">🧩</div>`;
-  // }
   
   if (hasQuestion) {
     badgesHTML += `<div class="question-badge">❓</div>`;
@@ -2307,14 +2323,13 @@ export function setupDelegatedEvents() {
         state.toggleParallel?.(idx);
         break;
       case 'variant':
-        state.toggleVariant?.(idx);
+        // NIEUWE LOGICA: Open de modal ipv direct toggle
+        openVariantModal(idx);
         break;
       case 'conditional':
-        // AANGEPAST: Open nu altijd de logica modal
         openLogicModal(idx);
         break;
       case 'group':
-        // Open group modal
         openGroupModal(idx);
         break;
       case 'question':

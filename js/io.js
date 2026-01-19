@@ -9,7 +9,7 @@
 // - FIX: Output IDs zijn project-breed stabiel (op basis van outputUid + sheet/kolom volgorde + merge-slaves overslaan)
 // - FIX (ROBUUST): Systeem export checkt nu strikt of er daadwerkelijk tekst in de systeemnaam staat.
 //        Lege merge-objecten worden genegeerd ten gunste van de post-it tekst.
-// - NEW: Logica kolom toegevoegd aan CSV export.
+// - NEW: Logica kolom toegevoegd aan CSV export (Consistent met modal termen).
 // - NEW: Groepsnaam kolom toegevoegd aan CSV export.
 // - NEW: GitHub Cloud Integratie (Direct Save/Load)
 
@@ -183,10 +183,24 @@ function computeVariantLetterMap(sheet) {
   const map = {};
   if (!sheet?.columns?.length) return map;
 
+  if (Array.isArray(sheet.variantGroups)) {
+      sheet.variantGroups.forEach(vg => {
+          vg.variants.forEach((vIdx, i) => {
+              map[vIdx] = toLetter(i);
+          });
+      });
+  }
+
   let inRun = false;
   let runIdx = 0;
 
   for (let i = 0; i < sheet.columns.length; i++) {
+    if (map[i]) {
+        inRun = false;
+        runIdx = 0;
+        continue;
+    }
+
     const col = sheet.columns[i];
     if (col?.isVisible === false) continue;
 
@@ -955,6 +969,25 @@ export function exportToCSV() {
 
     (project?.sheets || []).forEach((sheet) => {
       const mergeGroups = getMergeGroupsSanitized(project, sheet);
+      
+      // === NIEUWE LOGICA VOOR ROUTE LABELS ===
+      const routeLookup = {};
+      if (Array.isArray(sheet.variantGroups)) {
+          sheet.variantGroups.forEach(vg => {
+              const parentCol = sheet.columns[vg.parentColIdx];
+              const parentName = parentCol?.slots?.[3]?.text || `Kolom ${vg.parentColIdx + 1}`;
+              
+              routeLookup[vg.parentColIdx] = `Main (Start ${vg.variants.length} routes)`;
+
+              vg.variants.forEach((vIdx, i) => {
+                  const letter = String.fromCharCode(65 + i); 
+                  routeLookup[vIdx] = `Route ${letter} (van: ${parentName})`;
+              });
+          });
+      }
+      // ========================================
+
+      // Fallback voor oude varianten (losse split knop)
       const variantMap = computeVariantLetterMap(sheet);
 
       const visibleColIdxs = (sheet.columns || [])
@@ -1003,7 +1036,9 @@ export function exportToCSV() {
         const parallelWith = isParallel && prevIdx != null ? getProcessLabel(sheet, prevIdx) : '-';
 
         const isSplit = !!col.isVariant;
-        const route = isSplit ? String(variantMap[colIdx] || '') : '-';
+        
+        // AANGEPAST: Haal route info uit lookup of fallback map
+        const route = routeLookup[colIdx] || (isSplit ? (variantMap[colIdx] || 'Onbekende route') : '-');
 
         // NIEUW: Conditioneel (Trigger) & Logica
         const isConditional = !!col.isConditional;
@@ -1013,18 +1048,17 @@ export function exportToCSV() {
         let logicExport = '';
 
         if (isConditional && logic.condition) {
-            const trueLabel = logic.ifTrue !== null ? getProcessLabel(sheet, logic.ifTrue) : '';
-            const falseLabel = logic.ifFalse !== null ? getProcessLabel(sheet, logic.ifFalse) : '';
+            const trueAction = logic.ifTrue !== null ? `Ga naar ${getProcessLabel(sheet, logic.ifTrue)}` : 'Voer stap uit';
+            const falseAction = logic.ifFalse !== null ? `Ga naar ${getProcessLabel(sheet, logic.ifFalse)}` : 'Voer stap uit';
 
-            logicExport = `ALS: ${logic.condition}`;
-            if (trueLabel) logicExport += `; DAN: ${trueLabel}`;
-            if (falseLabel) logicExport += `; ANDERS: ${falseLabel}`;
+            logicExport = `VRAAG: ${logic.condition}`;
+            logicExport += `; INDIEN JA: ${trueAction}`;
+            logicExport += `; INDIEN NEE: ${falseAction}`;
         }
         // ---------------------------------
         
         // NIEUW: Group
         const isGroup = !!col.isGroup;
-        // Haal groepsnaam op als de kolom in een groep zit
         const groupName = state.getGroupForCol(colIdx)?.title || '';
 
         // Fase

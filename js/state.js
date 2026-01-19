@@ -428,7 +428,7 @@ class StateManager {
       // Valideer bestaande groups op nieuwe structuur
       sheet.groups = sheet.groups.map(g => {
          if (!Array.isArray(g.cols)) {
-             // Migratie van oude Start/End naar Array (voor backward compat tijdens dev)
+             // Migratie van oude Start/End naar Array
              if (Number.isFinite(g.startCol) && Number.isFinite(g.endCol)) {
                  const newCols = [];
                  for(let i=g.startCol; i<=g.endCol; i++) newCols.push(i);
@@ -439,7 +439,16 @@ class StateManager {
          }
          return g;
       }).filter(g => g.cols.length > 0);
-      // ===================================
+      
+      // === NIEUW: Variant Groups initialiseren ===
+      if (!Array.isArray(sheet.variantGroups)) sheet.variantGroups = [];
+      // Schoon lege groups op
+      sheet.variantGroups = sheet.variantGroups.filter(vg => 
+          Number.isFinite(vg.parentColIdx) && 
+          Array.isArray(vg.variants) && 
+          vg.variants.length > 0
+      );
+      // ===========================================
 
       if (!Array.isArray(sheet.outputMerges)) sheet.outputMerges = [];
       if (!Array.isArray(sheet.systemMerges)) sheet.systemMerges = [];
@@ -453,10 +462,8 @@ class StateManager {
         if (typeof col.isParallel !== 'boolean') col.isParallel = !!col.isParallel;
         if (typeof col.isQuestion !== 'boolean') col.isQuestion = !!col.isQuestion;
         
-        // NIEUW: Conditionele stap
         if (typeof col.isConditional !== 'boolean') col.isConditional = !!col.isConditional; 
         
-        // --- NIEUWE LOGICA SANITIZATION ---
         if (col.logic && typeof col.logic === 'object') {
            col.logic = {
              condition: String(col.logic.condition || ''),
@@ -466,9 +473,7 @@ class StateManager {
         } else {
            col.logic = null;
         }
-        // ----------------------------------
         
-        // NIEUW: Group proces
         if (typeof col.isGroup !== 'boolean') col.isGroup = !!col.isGroup;
 
         if (typeof col.isVisible !== 'boolean') col.isVisible = col.isVisible !== false;
@@ -493,7 +498,6 @@ class StateManager {
           qa: { ...clean.qa, ...(s.qa || {}) },
           systemData: { ...clean.systemData, ...(s.systemData || {}) },
 
-          // legacy single + new multi
           linkedSourceId: s.linkedSourceId ?? clean.linkedSourceId,
           linkedSourceUid: s.linkedSourceUid ?? clean.linkedSourceUid,
           linkedSourceUids: Array.isArray(s.linkedSourceUids)
@@ -517,10 +521,8 @@ class StateManager {
           gate: { ...cleanGate, ...sGate }
         };
 
-          // Process slot stable id
           if (slotIdx === 3 && (!mergedSlot.id || String(mergedSlot.id).trim() === '')) mergedSlot.id = this._makeId('proc');
 
-          // Gate defaults
           if (mergedSlot.gate) {
             if (!Array.isArray(mergedSlot.gate.checkProcessIds)) mergedSlot.gate.checkProcessIds = [];
             if (mergedSlot.gate.onFailTargetProcessId === undefined) mergedSlot.gate.onFailTargetProcessId = null;
@@ -529,10 +531,8 @@ class StateManager {
             if (mergedSlot.gate.note === undefined) mergedSlot.gate.note = '';
           }
 
-          // System slot multi-shape
           if (slotIdx === 1) this._ensureMultiSystemShape(mergedSlot);
 
-          // Input slot: sync single uid into array (if needed) and bundle fields
           if (slotIdx === 2) {
             if (!Array.isArray(mergedSlot.linkedSourceUids)) mergedSlot.linkedSourceUids = [];
             mergedSlot.linkedSourceUids = mergedSlot.linkedSourceUids.map((x) => String(x || '').trim()).filter(Boolean);
@@ -706,15 +706,28 @@ class StateManager {
     this.pushHistory();
     sheet.columns.splice(index, 1);
 
-    // FIX: Update groups bij delete
     if (Array.isArray(sheet.groups)) {
         sheet.groups = sheet.groups.map(g => {
-            // Verwijder index uit lijst
             const newCols = g.cols.filter(c => c !== index)
-                // Verschuif indices die groter zijn dan deleted index
                 .map(c => c > index ? c - 1 : c);
             return { ...g, cols: newCols };
         }).filter(g => g.cols.length > 0);
+    }
+    
+    // NIEUW: Variant Groups updaten bij verwijderen kolom
+    if (Array.isArray(sheet.variantGroups)) {
+        sheet.variantGroups = sheet.variantGroups.map(vg => {
+             // Als parent verwijderd wordt, is de groep ongeldig -> straks filteren
+             if (vg.parentColIdx === index) return null;
+             
+             // Update parent index
+             const newParent = vg.parentColIdx > index ? vg.parentColIdx - 1 : vg.parentColIdx;
+             
+             // Update variants
+             const newVariants = vg.variants.filter(v => v !== index).map(v => v > index ? v - 1 : v);
+             
+             return { ...vg, parentColIdx: newParent, variants: newVariants };
+        }).filter(vg => vg && vg.variants.length > 0);
     }
 
     this._normalizeOutputMerges(sheet);
@@ -732,14 +745,28 @@ class StateManager {
     this.pushHistory();
     [sheet.columns[index], sheet.columns[targetIndex]] = [sheet.columns[targetIndex], sheet.columns[index]];
 
-    // FIX: Update groups bij move
-    // We wisselen index en targetIndex om in de groepen
     if (Array.isArray(sheet.groups)) {
         sheet.groups.forEach(g => {
             g.cols = g.cols.map(c => {
                 if (c === index) return targetIndex;
                 if (c === targetIndex) return index;
                 return c;
+            });
+        });
+    }
+
+    // NIEUW: Variant Groups updaten bij verplaatsen
+    if (Array.isArray(sheet.variantGroups)) {
+        sheet.variantGroups.forEach(vg => {
+            // Update Parent
+            if (vg.parentColIdx === index) vg.parentColIdx = targetIndex;
+            else if (vg.parentColIdx === targetIndex) vg.parentColIdx = index;
+            
+            // Update Variants
+            vg.variants = vg.variants.map(v => {
+                if (v === index) return targetIndex;
+                if (v === targetIndex) return index;
+                return v;
             });
         });
     }
@@ -785,6 +812,79 @@ class StateManager {
     this.notify({ reason: 'columns' }, { clone: false });
   }
 
+  // === NIEUWE FUNCTIES VOOR VARIANTS (ROUTES) ===
+  getVariantGroupForCol(colIdx) {
+    const sheet = this.activeSheet;
+    if (!sheet || !Array.isArray(sheet.variantGroups)) return null;
+    
+    // Check of deze kolom een 'Main' (Parent) is
+    const asParent = sheet.variantGroups.find(vg => vg.parentColIdx === colIdx);
+    if (asParent) return { role: 'parent', group: asParent };
+
+    // Check of deze kolom een 'Variant' (Child) is
+    const asChild = sheet.variantGroups.find(vg => vg.variants.includes(colIdx));
+    if (asChild) return { role: 'child', group: asChild };
+
+    return null;
+  }
+
+  setVariantGroup(data) {
+    this.pushHistory();
+    const sheet = this.activeSheet;
+    if (!sheet) return;
+
+    if (!Array.isArray(sheet.variantGroups)) sheet.variantGroups = [];
+
+    const parentIdx = Number(data.parentColIdx);
+    const variantIndices = Array.isArray(data.variants) ? data.variants.map(Number) : [];
+
+    const allInvolved = [parentIdx, ...variantIndices];
+    
+    sheet.variantGroups = sheet.variantGroups.filter(vg => {
+        if (allInvolved.includes(vg.parentColIdx)) return false;
+        vg.variants = vg.variants.filter(v => !allInvolved.includes(v));
+        return vg.variants.length > 0;
+    });
+
+    if (variantIndices.length > 0) {
+        sheet.variantGroups.push({
+            id: this._makeId('var'),
+            parentColIdx: parentIdx,
+            variants: variantIndices
+        });
+        
+        const allCols = sheet.columns;
+        if(allCols[parentIdx]) allCols[parentIdx].isVariant = true; 
+        variantIndices.forEach(idx => {
+            if(allCols[idx]) allCols[idx].isVariant = true;
+        });
+    } else {
+        const col = sheet.columns[parentIdx];
+        if(col) col.isVariant = false;
+    }
+
+    this.notify({ reason: 'columns' }, { clone: false });
+  }
+
+  removeVariantGroup(groupId) {
+      this.pushHistory();
+      const sheet = this.activeSheet;
+      if (!sheet || !Array.isArray(sheet.variantGroups)) return;
+
+      const group = sheet.variantGroups.find(g => g.id === groupId);
+      if(group) {
+          const cols = sheet.columns;
+          if(cols[group.parentColIdx]) cols[group.parentColIdx].isVariant = false;
+          group.variants.forEach(idx => {
+              if(cols[idx]) cols[idx].isVariant = false;
+          });
+      }
+
+      sheet.variantGroups = sheet.variantGroups.filter(g => g.id !== groupId);
+      this.notify({ reason: 'columns' }, { clone: false });
+  }
+  // ===============================================
+
   toggleQuestion(colIdx) {
     this.pushHistory();
     const col = this.activeSheet?.columns?.[colIdx];
@@ -795,7 +895,6 @@ class StateManager {
     this.notify({ reason: 'columns' }, { clone: false });
   }
 
-  // NIEUW: Conditionele stap toggle (bliksem)
   toggleConditional(colIdx) {
     this.pushHistory();
     const col = this.activeSheet?.columns?.[colIdx];
@@ -806,7 +905,6 @@ class StateManager {
     this.notify({ reason: 'columns' }, { clone: false });
   }
 
-  // === NIEUWE FUNCTIE VOOR LOGICA OPSLAAN ===
   setColumnLogic(colIdx, logicData) {
     this.pushHistory();
     const col = this.activeSheet?.columns?.[colIdx];
@@ -818,14 +916,11 @@ class StateManager {
       ifFalse: logicData.ifFalse !== '' && logicData.ifFalse !== null ? Number(logicData.ifFalse) : null
     };
 
-    // Zorg dat de vlag aan staat als er logica is
     col.isConditional = true;
 
     this.notify({ reason: 'columns' }, { clone: false });
   }
-  // ===========================================
 
-  // NIEUW: Groep proces toggle (puzzelstuk)
   toggleGroup(colIdx) {
     this.pushHistory();
     const col = this.activeSheet?.columns?.[colIdx];
@@ -836,11 +931,9 @@ class StateManager {
     this.notify({ reason: 'columns' }, { clone: false });
   }
 
-  // === NIEUWE FUNCTIES VOOR GROEPEN (LIJST BASED) ===
   getGroupForCol(colIdx) {
     const sheet = this.activeSheet;
     if (!sheet || !Array.isArray(sheet.groups)) return null;
-    // Check of de index voorkomt in de lijst
     return sheet.groups.find(g => Array.isArray(g.cols) && g.cols.includes(colIdx)) || null;
   }
 
@@ -853,17 +946,12 @@ class StateManager {
 
     const newCols = Array.isArray(groupData.cols) ? groupData.cols : [];
     
-    // Verwijder de gekozen kolommen uit EVENTUELE ANDERE groepen
-    // (Een kolom kan maar in 1 groep tegelijk zitten om verwarring te voorkomen)
     sheet.groups.forEach(g => {
         g.cols = g.cols.filter(c => !newCols.includes(c));
     });
-    // Verwijder lege groepen
     sheet.groups = sheet.groups.filter(g => g.cols.length > 0);
 
-    // Voeg de nieuwe groep toe
     if (newCols.length > 0) {
-      // Bestaat deze groep al (via ID)? Update hem dan
       const existingIdx = groupData.id ? sheet.groups.findIndex(g => g.id === groupData.id) : -1;
       
       if (existingIdx !== -1) {
@@ -889,7 +977,6 @@ class StateManager {
     sheet.groups = sheet.groups.filter(g => g.id !== groupId);
     this.notify({ reason: 'groups' }, { clone: false });
   }
-  // ====================================
 
   getGlobalCountersBeforeActive() {
     let inCount = 0;
@@ -912,7 +999,6 @@ class StateManager {
     return { inStart: inCount, outStart: outCount };
   }
 
-  // Legacy helper used by current UI: OUTn -> text
   getAllOutputs() {
     const map = {};
     let counter = 0;
@@ -930,7 +1016,6 @@ class StateManager {
     return map;
   }
 
-  // New helper for multi-select UI: stable uid + display OUTn
   getAllOutputsDetailed() {
     const list = [];
     let counter = 0;
@@ -955,7 +1040,6 @@ class StateManager {
     return list;
   }
 
-  // Resolve selected UIDs to current OUTn labels (for export/UI sync)
   resolveOutUidsToOutIds(uids) {
     const wanted = Array.isArray(uids) ? uids.map((x) => String(x || '').trim()).filter(Boolean) : [];
     if (wanted.length === 0) return [];
@@ -1016,7 +1100,6 @@ class StateManager {
     const beforeLen = this.project.outputBundles.length;
     this.project.outputBundles = this.project.outputBundles.filter((b) => String(b.id) !== id);
 
-    // Remove references from all input slots
     (this.project.sheets || []).forEach((sheet) => {
       (sheet.columns || []).forEach((col) => {
         const inSlot = col?.slots?.[2];

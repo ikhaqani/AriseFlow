@@ -1295,7 +1295,7 @@ const renderIoTab = (data, isInputRow) => {
 
     <div class="modal-label">1. Kwaliteits Criteria (System Fit)</div>
     <div class="io-helper" style="margin-bottom:20px;">
-        Beoordeel of de ${isInputRow ? 'input' : 'output'} voldoende is om de taak zonder problemen uit te voeren.
+       Beoordeel of de ${isInputRow ? 'input' : 'output'} voldoende is om de taak zonder problemen uit te voeren.
     </div>
     
     <div id="ioTabQual">
@@ -2556,5 +2556,181 @@ export function openGroupModal(colIdx) {
         });
     }
     close();
+  };
+}
+
+// === VARIANT MODAL (ROUTES) ===
+export function openVariantModal(colIdx) {
+  const sheet = state.activeSheet;
+  if (!sheet) return;
+
+  // Huidige status ophalen
+  const info = state.getVariantGroupForCol(colIdx);
+  const existingGroup = info ? info.group : null;
+  
+  // Standaard waardes
+  let parentVal = (info && info.role === 'child') ? existingGroup.parentColIdx : colIdx; 
+  let currentVariants = existingGroup ? [...existingGroup.variants] : [];
+
+  const getLetter = (i) => String.fromCharCode(65 + i);
+
+  const renderVariantList = () => {
+    const listEl = document.getElementById('variantList');
+    if (!listEl) return;
+    listEl.innerHTML = '';
+
+    if (currentVariants.length === 0) {
+        listEl.innerHTML = '<div style="font-size:12px; opacity:0.6; padding:8px;">Nog geen routes toegevoegd.</div>';
+        return;
+    }
+
+    currentVariants.forEach((vIdx, i) => {
+        const col = sheet.columns[vIdx];
+        if (!col || col.isVisible === false) return;
+
+        const label = col.slots?.[3]?.text || `Kolom ${vIdx + 1}`;
+        const letter = getLetter(i);
+
+        const item = document.createElement('div');
+        item.className = 'col-manager-item'; 
+        item.style.display = 'grid';
+        item.style.gridTemplateColumns = '30px 1fr 30px';
+        item.style.alignItems = 'center';
+        
+        item.innerHTML = `
+           <div style="font-weight:bold; color:var(--ui-accent);">Route ${letter}</div>
+           <div style="font-size:13px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">
+              ${vIdx + 1}. ${escapeAttr(label)}
+           </div>
+           <button class="btn-icon danger" type="button" style="width:24px; height:24px;">×</button>
+        `;
+
+        item.querySelector('button').onclick = () => {
+            currentVariants = currentVariants.filter(x => x !== vIdx);
+            renderVariantList();
+            renderAddOptions();
+        };
+
+        listEl.appendChild(item);
+    });
+  };
+
+  const renderParentSelect = () => {
+      const sel = document.getElementById('variantParentSelect');
+      if(!sel) return;
+      sel.innerHTML = '';
+
+      sheet.columns.forEach((c, i) => {
+          if (c.isVisible === false) return;
+          if (currentVariants.includes(i)) return; 
+
+          const label = c.slots?.[3]?.text || `Kolom ${i + 1}`;
+          const opt = document.createElement('option');
+          opt.value = i;
+          opt.textContent = `${i + 1}. ${label} ${i === colIdx ? '(Huidige)' : ''}`;
+          if (i === parentVal) opt.selected = true;
+          sel.appendChild(opt);
+      });
+  };
+
+  const renderAddOptions = () => {
+      const select = document.getElementById('variantAddSelect');
+      if(!select) return;
+      select.innerHTML = '<option value="">-- Kies een route stap --</option>';
+
+      sheet.columns.forEach((c, i) => {
+          if (c.isVisible === false) return;
+          if (i === parentVal) return; 
+          if (currentVariants.includes(i)) return; 
+
+          const label = c.slots?.[3]?.text || `Kolom ${i + 1}`;
+          const opt = document.createElement('option');
+          opt.value = i;
+          opt.textContent = `${i + 1}. ${label}`;
+          select.appendChild(opt);
+      });
+  };
+
+  const html = `
+    <h3>🔀 Route / Variant Definitie</h3>
+    <div class="sub-text">Bepaal het hoofdproces en de aftakkingen (routes).</div>
+
+    <div style="margin-top:16px; padding:12px; background:rgba(255,255,255,0.05); border-radius:8px;">
+      <label class="modal-label" style="margin-top:0;">1. Hoofdproces (Main)</label>
+      <div class="io-helper">Waar vertrekken de routes vanuit?</div>
+      <select id="variantParentSelect" class="modal-input"></select>
+    </div>
+
+    <div style="margin-top:16px;">
+       <label class="modal-label">2. Routes (Op volgorde A, B, C...)</label>
+       <div id="variantList" style="border:1px solid rgba(255,255,255,0.1); border-radius:8px; max-height:200px; overflow-y:auto; margin-bottom:12px;"></div>
+       
+       <div style="display:flex; gap:8px;">
+          <select id="variantAddSelect" class="modal-input" style="flex:1;"></select>
+          <button id="variantAddBtn" class="std-btn" type="button">Toevoegen</button>
+       </div>
+    </div>
+
+    <div class="modal-btns">
+      ${existingGroup ? `<button id="variantRemoveBtn" class="std-btn danger-text" type="button">Alle routes wissen</button>` : '<div></div>'}
+      <button id="variantCancelBtn" class="std-btn" type="button">Annuleren</button>
+      <button id="variantSaveBtn" class="std-btn primary" type="button">Opslaan</button>
+    </div>
+  `;
+
+  let overlay = document.getElementById('variantModalOverlay');
+  if (overlay) overlay.remove();
+
+  overlay = document.createElement('div');
+  overlay.id = 'variantModalOverlay';
+  overlay.className = 'modal-overlay';
+  overlay.style.display = 'grid';
+  
+  const modal = document.createElement('div');
+  modal.className = 'modal';
+  modal.innerHTML = html;
+  
+  overlay.appendChild(modal);
+  document.body.appendChild(overlay);
+
+  renderParentSelect();
+  renderVariantList();
+  renderAddOptions();
+
+  document.getElementById('variantParentSelect').onchange = (e) => {
+      parentVal = parseInt(e.target.value, 10);
+      renderAddOptions(); 
+  };
+
+  document.getElementById('variantAddBtn').onclick = () => {
+      const val = document.getElementById('variantAddSelect').value;
+      if(!val) return;
+      currentVariants.push(parseInt(val, 10));
+      renderVariantList();
+      renderAddOptions();
+  };
+
+  const close = () => overlay.remove();
+  overlay.addEventListener('click', (e) => { if(e.target === overlay) close(); });
+  modal.querySelector('#variantCancelBtn').onclick = close;
+
+  const rmBtn = modal.querySelector('#variantRemoveBtn');
+  if (rmBtn) {
+      rmBtn.onclick = () => {
+          if(existingGroup) state.removeVariantGroup(existingGroup.id);
+          close();
+      };
+  }
+
+  modal.querySelector('#variantSaveBtn').onclick = () => {
+      if (currentVariants.length === 0) {
+          if(existingGroup) state.removeVariantGroup(existingGroup.id);
+      } else {
+          state.setVariantGroup({
+              parentColIdx: parentVal,
+              variants: currentVariants
+          });
+      }
+      close();
   };
 }
