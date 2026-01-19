@@ -854,7 +854,10 @@ class StateManager {
         });
         
         const allCols = sheet.columns;
-        if(allCols[parentIdx]) allCols[parentIdx].isVariant = true; 
+        // === FIX START: Parent is géén variant, alleen de children zijn variants ===
+        if(allCols[parentIdx]) allCols[parentIdx].isVariant = false; 
+        // === FIX END ===
+        
         variantIndices.forEach(idx => {
             if(allCols[idx]) allCols[idx].isVariant = true;
         });
