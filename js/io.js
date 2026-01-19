@@ -1,4 +1,4 @@
-// io.js (VOLLEDIG - EXPORT AS-IS CSV + JSON + HD + GITHUB CLOUD)
+// io.js (VOLLEDIG - AANGEPASTE ROUTE EXPORT)
 // - 1 rij per proceskolom (geen 6 rijen per SSIPOC-slot)
 // - Alle multi-waarden in 1 cel gescheiden door ";" (aligned per systeem waar van toepassing)
 // - Disruptions/oorzaken/maatregelen/toelichtingen ook ";"-gescheiden
@@ -12,6 +12,7 @@
 // - NEW: Logica kolom toegevoegd aan CSV export (Consistent met modal termen).
 // - NEW: Groepsnaam kolom toegevoegd aan CSV export.
 // - NEW: GitHub Cloud Integratie (Direct Save/Load)
+// - UPDATE: Main route export toont nu kolomnummers (bijv. "Main (Routes: 3, 4, 5)")
 
 import { state } from './state.js';
 import { Toast } from './toast.js';
@@ -977,7 +978,9 @@ export function exportToCSV() {
               const parentCol = sheet.columns[vg.parentColIdx];
               const parentName = parentCol?.slots?.[3]?.text || `Kolom ${vg.parentColIdx + 1}`;
               
-              routeLookup[vg.parentColIdx] = `Main (Start ${vg.variants.length} routes)`;
+              // === AANGEPASTE REGEL: Map indices (0-based) naar kolomnummers (1-based) ===
+              const routeNums = vg.variants.map(v => v + 1).join(', ');
+              routeLookup[vg.parentColIdx] = `Main (Routes: ${routeNums})`;
 
               vg.variants.forEach((vIdx, i) => {
                   const letter = String.fromCharCode(65 + i); 
