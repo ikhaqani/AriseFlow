@@ -1,4 +1,4 @@
-/* main.css (VOLLEDIG - UITLIJNING RIJ-LABELS + GROUP HEADERS + RESPONSIVE BUTTONS) */
+/* main.css (VOLLEDIG - SCORES VERBORGEN IN DASHBOARD) */
 
 /* ==========================================================================
    SCROLLBARS
@@ -404,7 +404,7 @@ body {
 }
 
 /* ==========================================================================
-   DASHBOARD BAR
+   DASHBOARD BAR (CLEAN: GEEN SCORES, ALLEEN EMOJI)
    ========================================================================== */
 .dashboard-bar {
     position: absolute;
@@ -442,21 +442,10 @@ body {
     line-height: 1;
 }
 
+/* AANGEPAST: Scores (pillen) verbergen voor cleanere look */
 .stat-pill {
-    font-size: 11px;
-    font-weight: 800;
-    padding: 2px 8px;
-    border-radius: 10px;
-    min-width: 20px;
-    text-align: center;
-    color: #fff;
-    line-height: 1.2;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    display: none !important;
 }
-
-.pill-green { background: #00e676; }
-.pill-orange { background: #ff9100; }
-.pill-red { background: #ff1744; }
 
 .stat-info { display: none; }
 

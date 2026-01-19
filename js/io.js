@@ -1,4 +1,4 @@
-// io.js (VOLLEDIG - AANGEPASTE ROUTE EXPORT)
+// io.js (VOLLEDIG - EXPORT AS-IS CSV + JSON + HD + GITHUB CLOUD)
 // - 1 rij per proceskolom (geen 6 rijen per SSIPOC-slot)
 // - Alle multi-waarden in 1 cel gescheiden door ";" (aligned per systeem waar van toepassing)
 // - Disruptions/oorzaken/maatregelen/toelichtingen ook ";"-gescheiden
@@ -12,7 +12,7 @@
 // - NEW: Logica kolom toegevoegd aan CSV export (Consistent met modal termen).
 // - NEW: Groepsnaam kolom toegevoegd aan CSV export.
 // - NEW: GitHub Cloud Integratie (Direct Save/Load)
-// - UPDATE: Main route export toont nu kolomnummers (bijv. "Main (Routes: 3, 4, 5)")
+// - FIX: Main route export toont nu CORRECTE globale kolomnummers (doorrekenend over sheets heen)
 
 import { state } from './state.js';
 import { Toast } from './toast.js';
@@ -971,15 +971,33 @@ export function exportToCSV() {
     (project?.sheets || []).forEach((sheet) => {
       const mergeGroups = getMergeGroupsSanitized(project, sheet);
       
-      // === NIEUWE LOGICA VOOR ROUTE LABELS ===
+      // PRE-CALCULATE GLOBAL COLUMN NUMBERS FOR THIS SHEET
+      // globalColNr is currently the count of *previous* sheets' columns.
+      // We need to simulate the loop to map local indices to future global numbers.
+      const localToGlobalMap = {};
+      let tempGlobalCounter = globalColNr; // Start where previous sheet left off
+
+      (sheet.columns || []).forEach((c, idx) => {
+          if (c.isVisible !== false) {
+              tempGlobalCounter++;
+              localToGlobalMap[idx] = tempGlobalCounter;
+          }
+      });
+
+      // === NIEUWE LOGICA VOOR ROUTE LABELS (GLOBAL NUMBERS) ===
       const routeLookup = {};
       if (Array.isArray(sheet.variantGroups)) {
           sheet.variantGroups.forEach(vg => {
+              // Naam van parent kolom (gebruik global nummer als backup)
               const parentCol = sheet.columns[vg.parentColIdx];
-              const parentName = parentCol?.slots?.[3]?.text || `Kolom ${vg.parentColIdx + 1}`;
+              const parentName = parentCol?.slots?.[3]?.text || `Kolom ${localToGlobalMap[vg.parentColIdx] || '?'}`;
               
-              // === AANGEPASTE REGEL: Map indices (0-based) naar kolomnummers (1-based) ===
-              const routeNums = vg.variants.map(v => v + 1).join(', ');
+              // === AANGEPASTE REGEL: Map local variant indices naar GLOBALE kolomnummers ===
+              const routeNums = vg.variants
+                  .map(v => localToGlobalMap[v]) // Get global number
+                  .filter(n => n) // Filter out undefined (hidden cols)
+                  .join(', ');
+                  
               routeLookup[vg.parentColIdx] = `Main (Routes: ${routeNums})`;
 
               vg.variants.forEach((vIdx, i) => {
