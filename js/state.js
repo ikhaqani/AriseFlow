@@ -107,35 +107,57 @@ class StateManager {
     return map;
   }
 
-  _migrateLinkedSourceIdToUid(project) {
-    // Migrates legacy linkedSourceId (OUTn) and/or legacy single linkedSourceUid -> new linkedSourceUids[]
+  // === CRITICAL FIX: Handles migration of both Bundles and Input Arrays ===
+  _migrateLegacyRefs(project) {
     const outIdToUid = this._buildLegacyOutIdToUidMap(project);
 
+    // 1. Migreer Output Bundles (van outIds ["OUT1"] -> naar outputUids ["uuid..."])
+    if (Array.isArray(project.outputBundles)) {
+        project.outputBundles.forEach(b => {
+            if (Array.isArray(b.outIds) && b.outIds.length > 0) {
+                if (!Array.isArray(b.outputUids)) b.outputUids = [];
+                
+                b.outIds.forEach(oid => {
+                    const uid = outIdToUid[oid];
+                    if (uid) b.outputUids.push(uid);
+                });
+                b.outputUids = [...new Set(b.outputUids)];
+            }
+        });
+    }
+
+    // 2. Migreer Inputs in kolommen
     (project?.sheets || []).forEach((sheet) => {
       (sheet?.columns || []).forEach((col) => {
         const inSlot = col?.slots?.[2];
         if (!inSlot) return;
 
-        // Ensure array field exists
-        if (!Array.isArray(inSlot.linkedSourceUids)) {
-          const singleUid = String(inSlot.linkedSourceUid || '').trim();
-          inSlot.linkedSourceUids = singleUid ? [singleUid] : [];
+        if (!Array.isArray(inSlot.linkedSourceUids)) inSlot.linkedSourceUids = [];
+
+        // A. Migreer enkele legacy ID (linkedSourceId)
+        const singleLegacy = String(inSlot.linkedSourceId || '').trim();
+        if (/^OUT\d+$/.test(singleLegacy)) {
+             const uid = outIdToUid[singleLegacy];
+             if (uid) inSlot.linkedSourceUids.push(uid);
         }
 
-        // If array already has content, keep it (and sync single field)
+        // B. Migreer meervoudige legacy IDs (linkedSourceIds)
+        if (Array.isArray(inSlot.linkedSourceIds)) {
+            inSlot.linkedSourceIds.forEach(lid => {
+                const s = String(lid).trim();
+                if (/^OUT\d+$/.test(s)) {
+                    const uid = outIdToUid[s];
+                    if (uid) inSlot.linkedSourceUids.push(uid);
+                }
+            });
+        }
+        
+        // Opruimen en synchroniseren
+        inSlot.linkedSourceUids = [...new Set(inSlot.linkedSourceUids)];
+        
+        // Als er data is, update de single pointer ook voor compatibiliteit
         if (inSlot.linkedSourceUids.length > 0) {
-          inSlot.linkedSourceUid = String(inSlot.linkedSourceUids[0] || '').trim() || null;
-          return;
-        }
-
-        // Legacy OUTn -> uid
-        const legacy = String(inSlot.linkedSourceId || '').trim();
-        if (/^OUT\d+$/.test(legacy)) {
-          const uidVal = outIdToUid[legacy];
-          if (uidVal) {
-            inSlot.linkedSourceUids = [uidVal];
-            inSlot.linkedSourceUid = uidVal;
-          }
+            inSlot.linkedSourceUid = inSlot.linkedSourceUids[0];
         }
       });
     });
@@ -413,13 +435,20 @@ class StateManager {
 
     if (!Array.isArray(merged.sheets) || merged.sheets.length === 0) {
       merged.sheets = fresh.sheets;
-      this._ensureOutputUids(merged);
-      this._ensureProcessIds(merged);
-      this._migrateLinkedSourceIdToUid(merged);
-      this._ensureOutputBundles(merged);
-      this._migrateInputBundleFields(merged);
-      return merged;
     }
+
+    // === CRITICAL FIX ORDER ===
+    // 1. Zorg dat alle outputs een UID hebben
+    this._ensureOutputUids(merged);
+    
+    // 2. MIGREER DE OUDE REFERENTIES (OUTx -> UID)
+    // Dit moet gebeuren voordat bundels of inputs worden schoongemaakt.
+    this._migrateLegacyRefs(merged);
+
+    // 3. Nu is het veilig om de rest te schonen
+    this._ensureProcessIds(merged);
+    this._ensureOutputBundles(merged); // Deze verwijdert 'outIds', dus moest na stap 2
+    this._migrateInputBundleFields(merged);
 
     merged.sheets.forEach((sheet) => {
       // === GROUPS: Ensure array exists ===
@@ -562,12 +591,6 @@ class StateManager {
         if (outSlot && (!outSlot.outputUid || String(outSlot.outputUid).trim() === '')) outSlot.outputUid = this._makeId('out');
       });
     });
-
-    this._ensureOutputUids(merged);
-    this._migrateLinkedSourceIdToUid(merged);
-    this._ensureProcessIds(merged);
-    this._ensureOutputBundles(merged);
-    this._migrateInputBundleFields(merged);
 
     return merged;
   }

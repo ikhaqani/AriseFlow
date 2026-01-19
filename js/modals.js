@@ -227,49 +227,72 @@ const getVisibleColIdxs = () => {
 };
 
 /* =========================================================
-   Input-linking (MULTI) helpers (OUT1; OUT2 als input)
+   Input-linking (MULTI) helpers (UUIDs nu!)
    ========================================================= */
 
+// NOTE: Nu gebruiken we linkedSourceUids ipv linkedSourceIds (die OUTn bevatten)
 function normalizeLinkedSourceIds(data) {
   if (!data || typeof data !== 'object') return [];
+  
+  // Prefer the NEW UIDs array
+  if (Array.isArray(data.linkedSourceUids) && data.linkedSourceUids.length > 0) {
+      return data.linkedSourceUids;
+  }
+  
+  // Fallback (zou door state.js migratie al opgelost moeten zijn)
   const arr = Array.isArray(data.linkedSourceIds)
     ? data.linkedSourceIds
     : data.linkedSourceId
       ? [data.linkedSourceId]
       : [];
-  const clean = arr
-    .map((x) => String(x ?? '').trim())
-    .filter((x) => x !== '');
-  return [...new Set(clean)];
+      
+  return [...new Set(arr.map((x) => String(x ?? '').trim()).filter(Boolean))];
 }
 
-function setLinkedSourceIds(data, ids) {
+function setLinkedSourceIds(data, uids) {
   if (!data || typeof data !== 'object') return;
-  const clean = (Array.isArray(ids) ? ids : [])
+  const clean = (Array.isArray(uids) ? uids : [])
     .map((x) => String(x ?? '').trim())
     .filter((x) => x !== '');
   const uniq = [...new Set(clean)];
 
-  // Nieuwe bron van waarheid
-  data.linkedSourceIds = uniq.length ? uniq : null;
+  // We slaan nu op in de UIDs array
+  data.linkedSourceUids = uniq.length ? uniq : [];
+  data.linkedSourceUid = uniq.length ? uniq[0] : null;
 
-  // Backward compat (oude code gebruikt linkedSourceId)
-  data.linkedSourceId = uniq.length ? uniq[0] : null;
+  // Maak legacy velden leeg om verwarring te voorkomen
+  data.linkedSourceIds = [];
+  data.linkedSourceId = null;
 }
 
-function _formatLinkedSources(ids, allOutputs) {
-  const outMap = allOutputs && typeof allOutputs === 'object' ? allOutputs : {};
+// Hulpfunctie om map te maken van UID -> {outId, text}
+function getOutputUidMap() {
+    const details = state.getAllOutputsDetailed();
+    const map = {};
+    details.forEach(d => {
+        map[d.uid] = d;
+    });
+    return map;
+}
+
+function _formatLinkedSources(ids, uidMap) {
+  const map = uidMap || getOutputUidMap();
   const arr = Array.isArray(ids) ? ids : [];
 
   const parts = arr
-    .map((id) => {
-      const key = String(id ?? '').trim();
+    .map((uid) => {
+      const key = String(uid ?? '').trim();
       if (!key) return '';
-      const raw = String(outMap[key] ?? '').trim();
-      if (!raw) return key;
+      
+      const entry = map[key];
+      if (!entry) return '???'; // Onbekende link (zou niet moeten kunnen)
 
+      const raw = String(entry.text ?? '').trim();
+      const label = entry.outId; // Bijv OUT1
+
+      if (!raw) return label;
       const short = raw.length > 42 ? `${raw.slice(0, 42)}...` : raw;
-      return `${short} (${key})`;
+      return `${short} (${label})`;
     })
     .filter((x) => x !== '');
 
@@ -281,8 +304,8 @@ function updateLinkedInfoUI(ids) {
   const summary = $('linkedSourcesSummary');
   const n = Array.isArray(ids) ? ids.length : 0;
 
-  const allOutputs = state.getAllOutputs();
-  const formatted = n ? _formatLinkedSources(ids, allOutputs) : '';
+  const uidMap = getOutputUidMap();
+  const formatted = n ? _formatLinkedSources(ids, uidMap) : '';
 
   if (info) {
     info.style.display = n ? 'block' : 'none';
@@ -330,28 +353,37 @@ function findBundleById(bundleId) {
   return arr.find((b) => String(b?.id ?? '').trim() === id) || null;
 }
 
-function formatBundleOutputs(bundle, allOutputs) {
-  const outMap = allOutputs && typeof allOutputs === 'object' ? allOutputs : {};
-  const ids = Array.isArray(bundle?.outIds) ? bundle.outIds : [];
+function formatBundleOutputs(bundle, uidMap) {
+  const map = uidMap || getOutputUidMap();
+  // LET OP: Bundle gebruikt nu 'outputUids' ipv 'outIds'
+  const ids = Array.isArray(bundle?.outputUids) ? bundle.outputUids : [];
+  
   const parts = ids
-    .map((id) => {
-      const key = String(id ?? '').trim();
+    .map((uid) => {
+      const key = String(uid ?? '').trim();
       if (!key) return '';
-      const raw = String(outMap[key] ?? '').trim();
-      if (!raw) return key;
+      
+      const entry = map[key];
+      if (!entry) return '???';
+      
+      const raw = String(entry.text ?? '').trim();
+      const label = entry.outId;
+      
+      if (!raw) return label;
       const short = raw.length > 42 ? `${raw.slice(0, 42)}...` : raw;
-      return `${short} (${key})`;
+      return `${short} (${label})`;
     })
     .filter((x) => x !== '');
+    
   return parts.join('; ');
 }
 
-/* ✅ NIEUW: checkbox sync zodat bundle-output ook "aangevinkt" is */
+/* ✅ NIEUW: checkbox sync met UIDs */
 function syncOutputCheckboxesFromLinkedSources(data) {
   const content = $('modalContent');
   if (!content) return;
 
-  const ids = new Set(normalizeLinkedSourceIds(data));
+  const ids = new Set(normalizeLinkedSourceIds(data)); // Dit zijn nu UIDs
   content.querySelectorAll('.input-source-cb').forEach((cb) => {
     cb.disabled = false;
     cb.checked = ids.has(String(cb.value || '').trim());
@@ -362,8 +394,9 @@ function syncOutputCheckboxesFromBundle(bundle) {
   const content = $('modalContent');
   if (!content) return;
 
+  // Bundle gebruikt 'outputUids'
   const ids = new Set(
-    (Array.isArray(bundle?.outIds) ? bundle.outIds : []).map((x) => String(x ?? '').trim())
+    (Array.isArray(bundle?.outputUids) ? bundle.outputUids : []).map((x) => String(x ?? '').trim())
   );
 
   content.querySelectorAll('.input-source-cb').forEach((cb) => {
@@ -383,7 +416,7 @@ function updateBundleInfoUI(data) {
   const bundleName = content.querySelector('#bundleName');
   const bundleDeleteBtn = content.querySelector('#bundleDeleteDefBtn');
 
-  const allOutputs = state.getAllOutputs();
+  const uidMap = getOutputUidMap();
   const activeId = getActiveBundleId(data);
   const bundle = activeId ? findBundleById(activeId) : null;
 
@@ -398,7 +431,7 @@ function updateBundleInfoUI(data) {
       bundleInfo.textContent = '';
     } else {
       const nm = String(bundle.name || '').trim() || 'Pakket';
-      const detail = formatBundleOutputs(bundle, allOutputs);
+      const detail = formatBundleOutputs(bundle, uidMap);
       bundleInfo.style.display = 'block';
       bundleInfo.textContent = detail ? `📦 ${nm}: ${detail}` : `📦 ${nm}`;
     }
@@ -407,7 +440,7 @@ function updateBundleInfoUI(data) {
   // Hint
   if (bundleHint) {
     if (!bundle) bundleHint.textContent = '';
-    else bundleHint.textContent = `Bevat: ${(Array.isArray(bundle.outIds) ? bundle.outIds.length : 0)} outputs`;
+    else bundleHint.textContent = `Bevat: ${(Array.isArray(bundle.outputUids) ? bundle.outputUids.length : 0)} outputs`;
   }
 
   // Delete button visibility
@@ -415,31 +448,25 @@ function updateBundleInfoUI(data) {
     bundleDeleteBtn.style.display = bundle ? 'inline-block' : 'none';
   }
 
-  // ✅ BELANGRIJK: bundle => checkboxes aanvinken + locken; geen bundle => normale linkedSourceIds
+  // ✅ BELANGRIJK: bundle => checkboxes aanvinken + locken
   if (bundle) {
-    // voorkom mixen
     data.text = '';
     setLinkedSourceIds(data, []);
 
-    // extern toggle uit
     const ext = $('inputExternalToggle');
     if (ext) ext.checked = false;
 
-    // checkbox sync
     syncOutputCheckboxesFromBundle(bundle);
 
-    // summary bovenin wordt pakketnaam
     const summary = $('linkedSourcesSummary');
     if (summary) summary.textContent = `📦 ${String(bundle.name || 'Pakket').trim()}`;
 
-    // linkedInfoText verbergen (want linkedSourceIds zijn leeg)
     const info = $('linkedInfoText');
     if (info) {
       info.style.display = 'none';
       info.textContent = '';
     }
 
-    // lijst disable (read-only)
     const list = content.querySelector('#inputSourcesList');
     if (list) {
       list.style.opacity = '0.55';
@@ -447,7 +474,6 @@ function updateBundleInfoUI(data) {
       list.style.filter = 'grayscale(0.2)';
     }
   } else {
-    // geen bundle => checkbox sync vanuit linkedSourceIds
     syncOutputCheckboxesFromLinkedSources(data);
 
     const ids = normalizeLinkedSourceIds(data);
@@ -684,7 +710,6 @@ function computeSystemScoreFromAnswers(answerObj) {
   return Math.round(100 * (1 - safeTotal / maxPoints));
 }
 
-// Helper: persist systems from DOM into data.systemData (from currently rendered cards)
 function persistSystemTabFromDOM(contentEl, data) {
   if (!contentEl || !data) return;
 
@@ -1065,26 +1090,34 @@ const renderIoTab = (data, isInputRow) => {
   let linkHtml = '';
 
   if (isInputRow) {
-    const allOutputs = state.getAllOutputs();
-    const selectedIds = normalizeLinkedSourceIds(data);
-    const selectedSet = new Set(selectedIds);
+    // Gebruik de gedetailleerde lijst om correcte mapping te hebben (UUID -> Text)
+    const allDetails = state.getAllOutputsDetailed();
+    const uidMap = getOutputUidMap();
+    
+    // De geselecteerde items zijn nu UUIDs
+    const selectedUids = normalizeLinkedSourceIds(data);
+    const selectedSet = new Set(selectedUids);
 
     const activeBundleId = getActiveBundleId(data);
     const hasBundle = !!activeBundleId;
     const bundle = hasBundle ? findBundleById(activeBundleId) : null;
     const bundleName = String(bundle?.name || '').trim();
 
-    const listItems = Object.entries(allOutputs)
-      .map(([id, text]) => {
-        const t = (text || '').substring(0, 70);
+    const listItems = allDetails
+      .map((item) => {
+        const id = item.uid;
+        const outLabel = item.outId;
+        const text = (item.text || '').substring(0, 70);
+        
         const checked = selectedSet.has(id);
+        
         return `
           <label style="display:flex; align-items:flex-start; gap:10px; padding:8px 10px; border-radius:8px; cursor:pointer; background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08);">
             <input class="input-source-cb" type="checkbox" value="${escapeAttr(id)}" ${checked ? 'checked' : ''} style="margin-top:2px;" />
             <div style="display:flex; flex-direction:column; gap:3px;">
-              <div style="font-weight:900; font-size:12px; letter-spacing:.3px;">${escapeAttr(id)}</div>
-              <div style="font-size:11px; opacity:.85; line-height:1.35;">${escapeAttr(t)}${
-                (text || '').length > 70 ? '...' : ''
+              <div style="font-weight:900; font-size:12px; letter-spacing:.3px;">${escapeAttr(outLabel)}</div>
+              <div style="font-size:11px; opacity:.85; line-height:1.35;">${escapeAttr(text)}${
+                (item.text || '').length > 70 ? '...' : ''
               }</div>
             </div>
           </label>
@@ -1092,12 +1125,12 @@ const renderIoTab = (data, isInputRow) => {
       })
       .join('');
 
-    const extChecked = !hasBundle && selectedIds.length === 0;
+    const extChecked = !hasBundle && selectedUids.length === 0;
 
     const summaryText = hasBundle
       ? `📦 ${bundleName || 'Pakket'}`
-      : selectedIds.length
-        ? escapeAttr(_formatLinkedSources(selectedIds, allOutputs))
+      : selectedUids.length
+        ? escapeAttr(_formatLinkedSources(selectedUids, uidMap))
         : '—';
 
     linkHtml = `
@@ -1105,7 +1138,7 @@ const renderIoTab = (data, isInputRow) => {
         <div class="modal-label" style="margin-top:0;">Input Bron (koppel aan 1+ Outputs)</div>
 
         <div class="io-helper" style="margin-top:6px; margin-bottom:12px;">
-          Selecteer meerdere outputs als deze processtap meerdere inputs nodig heeft (Excel: <strong>OUT1; OUT2</strong>).
+          Selecteer meerdere outputs als deze processtap meerdere inputs nodig heeft.
         </div>
 
         <div style="display:flex; align-items:center; gap:10px; margin-bottom:12px;">
@@ -1120,15 +1153,15 @@ const renderIoTab = (data, isInputRow) => {
         </div>
 
         <div id="inputSourcesList" style="display:grid; gap:8px; max-height: 260px; overflow:auto; padding-right:4px; ${
-          (hasBundle || selectedIds.length === 0)
+          (hasBundle || selectedUids.length === 0)
             ? 'opacity:0.55; pointer-events:none; filter: grayscale(0.2);'
             : ''
         }">
           ${listItems || '<div style="opacity:.7; font-size:12px;">Geen outputs beschikbaar.</div>'}
         </div>
 
-        <div id="linkedInfoText" style="display:${selectedIds.length ? 'block' : 'none'}; color:var(--ui-accent); font-size:11px; margin-top:10px; font-weight:700;">
-          🔗 Gekoppeld (${selectedIds.length}): ${escapeAttr(_formatLinkedSources(selectedIds, allOutputs))}
+        <div id="linkedInfoText" style="display:${selectedUids.length ? 'block' : 'none'}; color:var(--ui-accent); font-size:11px; margin-top:10px; font-weight:700;">
+          🔗 Gekoppeld (${selectedUids.length}): ${escapeAttr(_formatLinkedSources(selectedUids, uidMap))}
         </div>
 
         <div id="bundleActiveInfo" style="display:none; color:var(--ui-accent); font-size:11px; margin-top:10px; font-weight:800;"></div>
@@ -1846,6 +1879,7 @@ const setupPermanentListeners = () => {
       const ext = $('inputExternalToggle');
       if (ext) ext.checked = false;
 
+      // Hier UIDs opslaan
       const ids = Array.from(content.querySelectorAll('.input-source-cb'))
         .filter((cb) => cb.checked)
         .map((cb) => cb.value);
@@ -1878,7 +1912,6 @@ const setupPermanentListeners = () => {
     setActiveBundleId(data, id);
 
     if (id) {
-      // voorkom mixen (bron is bundle)
       data.text = '';
       setLinkedSourceIds(data, []);
       updateLinkedInfoUI([]);
@@ -1969,7 +2002,7 @@ const setupPermanentListeners = () => {
       return;
     }
 
-    // Use currently checked outputs as the bundle content
+    // Use currently checked outputs (UIDs) as the bundle content
     const ids = Array.from(content.querySelectorAll('.input-source-cb'))
       .filter((cb) => cb.checked)
       .map((cb) => cb.value);
@@ -1986,7 +2019,7 @@ const setupPermanentListeners = () => {
 
     if (!bundle) {
       // Create NEW
-      bundle = { id: makeLocalId('bundle'), name, outIds: [] };
+      bundle = { id: makeLocalId('bundle'), name, outputUids: [] };
       bundles.push(bundle);
 
       if (pick) {
@@ -2005,7 +2038,8 @@ const setupPermanentListeners = () => {
       }
     }
 
-    bundle.outIds = [...new Set(ids.map((x) => String(x ?? '').trim()).filter((x) => x))];
+    // Sla UIDs op in bundle
+    bundle.outputUids = [...new Set(ids.map((x) => String(x ?? '').trim()).filter((x) => x))];
 
     // Activate this bundle as the input source
     setActiveBundleId(data, bundle.id);
@@ -2018,7 +2052,7 @@ const setupPermanentListeners = () => {
     if (ext) ext.checked = false;
 
     updateLinkedInfoUI([]);
-    updateBundleInfoUI(data);          // ✅ dit vinkt nu ook de output-checks aan + disabled
+    updateBundleInfoUI(data);         
     syncOutputCheckboxesFromBundle(bundle);
 
     state.saveStickyDetails();
@@ -2192,6 +2226,7 @@ export function saveModalDetails(closeModal = true) {
         if (ext && ext.checked) {
           setLinkedSourceIds(data, []);
         } else {
+          // UIDs ophalen uit checkbox values
           const ids = Array.from(content.querySelectorAll('.input-source-cb'))
             .filter((cb) => cb.checked)
             .map((cb) => cb.value);
