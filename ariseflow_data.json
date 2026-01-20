@@ -11040,7 +11040,7 @@
     },
     {
       "id": "395f99f0-c1fa-48f8-a8db-52d87c074495",
-      "name": "Proces 7",
+      "name": "03 - Bepalen benodigde voorbereiding",
       "order": 1,
       "columns": [
         {
@@ -11440,7 +11440,7 @@
     },
     {
       "id": "82c5a0d7-dd02-4362-940e-76e2a3f5d814",
-      "name": "03 - Inplannen eerste consult",
+      "name": "04 - Inplannen eerste consult en voorbereiding",
       "order": 1,
       "columns": [
         {
@@ -11846,7 +11846,7 @@
     },
     {
       "id": "99dcbf7e-71ed-48c1-a451-39b75e1655d1",
-      "name": "04 - Eerste consult",
+      "name": "05 - Eerste consult",
       "order": 1,
       "columns": [
         {
@@ -13059,7 +13059,7 @@
     },
     {
       "id": "b2afde0c-1451-450c-85d7-c0f3b53e8757",
-      "name": "05 - Inplannen afspraken",
+      "name": "06 - Inplannen afspraken",
       "order": 1,
       "columns": [
         {
