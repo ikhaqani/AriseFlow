@@ -4,7 +4,7 @@
   "author": "Anoniem",
   "created": "2026-01-16T08:48:17.021Z",
   "version": "2.7",
-  "activeSheetId": "dc945f9e-80a8-454c-b355-ca66f4d539e8",
+  "activeSheetId": "858c26e5-f7ec-4311-b503-641f99e65c84",
   "sheets": [
     {
       "id": "819bb6d9-21cc-49cf-8c40-4b6d7df6b2e1",
@@ -3092,11 +3092,13 @@
               "disruptions": [],
               "workExp": null,
               "workExpNote": "",
-              "linkedBundleId": "bundle_1768598236759_ed0ef068ab7948",
+              "linkedBundleId": "bundle_1768902170711_939ad7ee4d83a8",
               "linkedBundleIds": [
-                "bundle_1768598236759_ed0ef068ab7948"
+                "bundle_1768902170711_939ad7ee4d83a8"
               ],
-              "linkedSourceIds": null
+              "linkedSourceIds": [],
+              "linkedSourceUids": [],
+              "linkedSourceUid": null
             },
             {
               "id": "ab2b2063-8efb-4cff-a7fa-2211e949aaa8",
@@ -4172,7 +4174,7 @@
             {
               "id": "24efa9f4-3715-4ffc-8fad-8d3f6dac24de",
               "created": 1768731369745,
-              "text": "Extern Ziekenhuissysteem",
+              "text": "Beveiligde mail / Brief per post",
               "linkedSourceId": null,
               "type": null,
               "processValue": null,
@@ -4249,7 +4251,7 @@
               "id": "5e3a6ec1-0597-46a1-9c00-6134152e0909",
               "created": 1768731369745,
               "text": "",
-              "linkedSourceId": "OUT1",
+              "linkedSourceId": null,
               "type": null,
               "processValue": null,
               "processStatus": null,
@@ -4307,16 +4309,13 @@
               "disruptions": [],
               "workExp": null,
               "workExpNote": "",
-              "linkedBundleId": null,
-              "linkedBundleIds": null,
-              "linkedSourceIds": [
-                "OUT1",
-                "OUT3",
-                "OUT4",
-                "OUT5",
-                "OUT6",
-                "OUT7"
-              ]
+              "linkedBundleId": "bundle_1768630597052_106a6a79ba69f",
+              "linkedBundleIds": [
+                "bundle_1768630597052_106a6a79ba69f"
+              ],
+              "linkedSourceIds": [],
+              "linkedSourceUids": [],
+              "linkedSourceUid": null
             },
             {
               "id": "89da75e4-5235-4ce1-8325-e7c0194e0a2e",
@@ -4384,7 +4383,7 @@
             {
               "id": "45d9beb3-de4f-42d1-aa36-5c2468156cb7",
               "created": 1768731369745,
-              "text": "Externe verwijzing",
+              "text": "Mail / Brief met verwijzing",
               "linkedSourceId": null,
               "type": null,
               "processValue": null,
@@ -4517,7 +4516,7 @@
           "order": 1,
           "isVisible": true,
           "isParallel": false,
-          "isVariant": false,
+          "isVariant": true,
           "hasTransition": false,
           "transitionNext": "",
           "outputId": null,
@@ -4652,7 +4651,7 @@
               "id": "1190a642-4a31-4b1c-b88c-0b7e0e05c5b1",
               "created": 1768733503005,
               "text": "",
-              "linkedSourceId": "OUT10",
+              "linkedSourceId": null,
               "type": null,
               "processValue": null,
               "processStatus": null,
@@ -4712,9 +4711,11 @@
               "workExpNote": "",
               "linkedBundleId": null,
               "linkedBundleIds": null,
-              "linkedSourceIds": [
-                "OUT10"
-              ]
+              "linkedSourceIds": [],
+              "linkedSourceUids": [
+                "out_ac057968-40e0-4e23-8197-f7eca3a79f1c"
+              ],
+              "linkedSourceUid": "out_ac057968-40e0-4e23-8197-f7eca3a79f1c"
             },
             {
               "id": "f6d1b6e2-0931-4ae1-9c27-f91725565387",
@@ -4913,7 +4914,7 @@
           "logic": {
             "condition": "Komt deze patiënt voor in het systeem?",
             "ifTrue": null,
-            "ifFalse": 5
+            "ifFalse": null
           }
         },
         {
@@ -4921,7 +4922,7 @@
           "order": 1,
           "isVisible": true,
           "isParallel": false,
-          "isVariant": false,
+          "isVariant": true,
           "hasTransition": false,
           "transitionNext": "",
           "outputId": null,
@@ -5114,11 +5115,13 @@
               "disruptions": [],
               "workExp": null,
               "workExpNote": "",
-              "linkedBundleId": "bundle_1768630597052_106a6a79ba69f",
-              "linkedBundleIds": [
-                "bundle_1768630597052_106a6a79ba69f"
+              "linkedBundleId": null,
+              "linkedBundleIds": null,
+              "linkedSourceIds": [],
+              "linkedSourceUids": [
+                "out_ac057968-40e0-4e23-8197-f7eca3a79f1c"
               ],
-              "linkedSourceIds": null
+              "linkedSourceUid": "out_ac057968-40e0-4e23-8197-f7eca3a79f1c"
             },
             {
               "id": "7659cfd0-ddaf-427c-a47a-15bda9209668",
@@ -5344,6 +5347,17 @@
             1,
             2,
             3
+          ]
+        },
+        {
+          "id": "var_4c30eef3-7d9c-4ff6-b0bd-062f961bdd83",
+          "parents": [
+            3
+          ],
+          "parentColIdx": 3,
+          "variants": [
+            4,
+            5
           ]
         }
       ]
@@ -17080,18 +17094,6 @@
   ],
   "outputBundles": [
     {
-      "id": "bundle_1768598236759_ed0ef068ab7948",
-      "name": "Verwijspakket",
-      "outIds": [
-        "OUT1",
-        "OUT3",
-        "OUT4",
-        "OUT5",
-        "OUT6",
-        "OUT7"
-      ]
-    },
-    {
       "id": "bundle_1768627890464_f2106058b78f3",
       "name": "Interne verwijzing",
       "outIds": [
@@ -17113,6 +17115,18 @@
         "OUT5",
         "OUT6",
         "OUT7"
+      ]
+    },
+    {
+      "id": "bundle_1768902170711_939ad7ee4d83a8",
+      "name": "Verwijspakket",
+      "outputUids": [
+        "out_8b660745-359a-4a05-b7e7-0b68c11c4489",
+        "out_b249521e-1821-426f-9ae2-5a2b2c0965f0",
+        "out_9950765e-0786-467f-85b2-942c01eefc98",
+        "out_70b779f0-e01b-4cd3-9ac4-e2574627a9a0",
+        "out_aaff57e0-47c6-49e3-838b-dc84d7b5a47c",
+        "out_047745c3-bb79-4682-8b22-4b9821f6d193"
       ]
     }
   ]
