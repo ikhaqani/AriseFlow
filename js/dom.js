@@ -1890,6 +1890,14 @@ function renderConnector({ frag, activeSheet, colIdx, variantLetterMap }) {
 
   const connEl = document.createElement('div');
 
+  // ✅ Variant + Parallel samen (routekolom kan óók parallel zijn)
+  if (hasVariant && hasParallel) {
+    connEl.className = 'col-connector combo-connector variant-connector';
+    connEl.innerHTML = `<div class="parallel-badge">||</div>`;
+    frag.appendChild(connEl);
+    return;
+  }
+
   // Variant: 0px connector
   if (hasVariant) {
     connEl.className = 'col-connector variant-connector';
@@ -1898,16 +1906,17 @@ function renderConnector({ frag, activeSheet, colIdx, variantLetterMap }) {
     return;
   }
 
-  // Alleen parallel als connector-badge
+  // Parallel: connector-badge
   if (hasParallel) {
     connEl.className = 'col-connector combo-connector';
     connEl.innerHTML = `<div class="parallel-badge">||</div>`;
-  } else {
-    // Normale connector
-    connEl.className = 'col-connector';
-    connEl.innerHTML = `<div class="connector-active"></div>`;
+    frag.appendChild(connEl);
+    return;
   }
 
+  // Normale connector
+  connEl.className = 'col-connector';
+  connEl.innerHTML = `<div class="connector-active"></div>`;
   frag.appendChild(connEl);
 }
 
