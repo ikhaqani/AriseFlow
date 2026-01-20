@@ -133,10 +133,10 @@ function getRouteColorByLetter(letter) {
   // Geen groen/oranje/rood. Palet t/m G: paars, roze, blauw, teal, indigo, amber, grijs
   if (L === 'A') return { bg: '#7C4DFF', text: '#FFFFFF' }; // paars (deep purple)
   if (L === 'B') return { bg: '#D81B60', text: '#FFFFFF' }; // roze/magenta
-  if (L === 'C') return { bg: '#2979FF', text: '#FFFFFF' }; // blauw
-  if (L === 'D') return { bg: '#00ACC1', text: '#FFFFFF' }; // teal/cyaan
-  if (L === 'E') return { bg: '#3949AB', text: '#FFFFFF' }; // indigo
-  if (L === 'F') return { bg: '#FFC107', text: '#111111' }; // amber/geel (donkere tekst voor contrast)
+  if (L === 'C') return { bg: '#257e2a', text: '#FFFFFF' }; // blauw
+  if (L === 'D') return { bg: 'rgb(160, 160, 160)', text: '#FFFFFF' }; // teal/cyaan
+  if (L === 'E') return { bg: 'rgb(174, 177, 198)', text: '#FFFFFF' }; // indigo
+  if (L === 'F') return { bg: 'rgb(48, 36, 0)', text: '#111111' }; // amber/geel (donkere tekst voor contrast)
   if (L === 'G') return { bg: '#546E7A', text: '#FFFFFF' }; // blauwgrijs
   return null;
 }
