@@ -1358,51 +1358,55 @@ function _toLetter(i0) {
 
 /** Computes the per-column route letter map for variant columns. */
 function computeVariantLetterMap(activeSheet) {
-  // NIEUWE LOGICA: Haal letters op uit de Variant Groups als die er zijn
-  // Fallback naar de oude logica voor backward compat of losse varianten
-  
   const map = {};
   if (!activeSheet?.columns?.length) return map;
 
-  // 1. Check groups
+  const colGroups = {}; // key: parentColIdx, val: array of child indices
+
   if (Array.isArray(activeSheet.variantGroups)) {
       activeSheet.variantGroups.forEach(vg => {
-          vg.variants.forEach((vIdx, i) => {
-              map[vIdx] = _toLetter(i);
-          });
+          // Use first parent for numbering logic (e.g. A.1) to avoid duplicate labels like A.1 AND B.1
+          const primaryParent = (vg.parents && vg.parents.length > 0) ? vg.parents[0] : vg.parentColIdx;
+          
+          if (primaryParent !== undefined) {
+              if (!colGroups[primaryParent]) colGroups[primaryParent] = [];
+              vg.variants.forEach(vIdx => colGroups[primaryParent].push(vIdx));
+          }
       });
   }
 
-  // 2. Vul aan voor varianten die NIET in een groep zitten (oude stijl)
-  let inRun = false;
-  let runIdx = 0;
+  function assignLabels(parentIdx, prefix) {
+      const children = colGroups[parentIdx];
+      if (!children) return;
 
-  for (let i = 0; i < activeSheet.columns.length; i++) {
-    // Als we al een letter hebben uit de groups, resetten we de 'run' teller niet, 
-    // want die kolommen tellen als 'behandeld'.
-    if (map[i]) {
-        inRun = false; 
-        runIdx = 0;
-        continue;
-    }
+      children.sort((a,b) => a - b); 
 
-    const col = activeSheet.columns[i];
-    if (col?.isVisible === false) continue;
-
-    const isVar = !!col?.isVariant;
-
-    if (isVar) {
-      if (!inRun) {
-        inRun = true;
-        runIdx = 0;
-      }
-      map[i] = _toLetter(runIdx);
-      runIdx += 1;
-    } else {
-      inRun = false;
-      runIdx = 0;
-    }
+      children.forEach((childIdx, i) => {
+          let myLabel = '';
+          if (!prefix) {
+              myLabel = _toLetter(i);
+          } else {
+              myLabel = `${prefix}.${i + 1}`;
+          }
+          
+          map[childIdx] = myLabel;
+          assignLabels(childIdx, myLabel);
+      });
   }
+
+  const allChildren = new Set();
+  Object.values(colGroups).forEach(list => list.forEach(c => allChildren.add(c)));
+
+  const rootParents = Object.keys(colGroups).map(Number).filter(p => !allChildren.has(p));
+
+  rootParents.forEach(root => assignLabels(root, ''));
+
+  let legacyCounter = 0;
+  activeSheet.columns.forEach((col, i) => {
+      if (col.isVariant && !map[i]) {
+          map[i] = _toLetter(legacyCounter++);
+      }
+  });
 
   return map;
 }
@@ -1504,16 +1508,17 @@ function buildSlotHTML({
   // Check voor handmatige route label of automatische variant letter
   if (slotIdx === 0) { // <--- AANGEPAST: NU BIJ LEVERANCIER (SLOT 0)
       const manualRoute = state.activeSheet?.columns[colIdx]?.routeLabel;
-      const isSplitStart = state.activeSheet?.columns[colIdx]?.isVariant; // Check of dit de split zelf is
+      const isSplitStart = state.activeSheet?.columns[colIdx]?.isVariant;
 
       // Alleen tonen als het een vervolgstap is (handmatig gezet) én GEEN split start
       if (manualRoute && !isSplitStart) {
           
           // Bereken nummering (A.1, A.2 etc)
           // We moeten tellen hoeveel keer deze route al is voorgekomen in VOORGAANDE kolommen
-          let count = 0;
-          for(let i=0; i<=colIdx; i++) {
+          let count = 1;
+          for(let i=0; i<colIdx; i++) {
               const c = state.activeSheet?.columns[i];
+              // Tel alleen mee als het dezelfde route is EN het geen split-start is
               if (c && c.routeLabel === manualRoute && !c.isVariant) {
                   count++;
               }

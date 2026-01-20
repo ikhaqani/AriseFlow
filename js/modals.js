@@ -256,13 +256,16 @@ const getVisibleColIdxs = () => {
    Input-linking (MULTI) helpers (UUIDs nu!)
    ========================================================= */
 
+// NOTE: Nu gebruiken we linkedSourceUids ipv linkedSourceIds (die OUTn bevatten)
 function normalizeLinkedSourceIds(data) {
   if (!data || typeof data !== 'object') return [];
   
+  // Prefer the NEW UIDs array
   if (Array.isArray(data.linkedSourceUids) && data.linkedSourceUids.length > 0) {
       return data.linkedSourceUids;
   }
   
+  // Fallback (zou door state.js migratie al opgelost moeten zijn)
   const arr = Array.isArray(data.linkedSourceIds)
     ? data.linkedSourceIds
     : data.linkedSourceId
@@ -279,13 +282,16 @@ function setLinkedSourceIds(data, uids) {
     .filter((x) => x !== '');
   const uniq = [...new Set(clean)];
 
+  // We slaan nu op in de UIDs array
   data.linkedSourceUids = uniq.length ? uniq : [];
   data.linkedSourceUid = uniq.length ? uniq[0] : null;
 
+  // Maak legacy velden leeg om verwarring te voorkomen
   data.linkedSourceIds = [];
   data.linkedSourceId = null;
 }
 
+// Hulpfunctie om map te maken van UID -> {outId, text}
 function getOutputUidMap() {
     const details = state.getAllOutputsDetailed();
     const map = {};
@@ -305,10 +311,10 @@ function _formatLinkedSources(ids, uidMap) {
       if (!key) return '';
       
       const entry = map[key];
-      if (!entry) return '???'; 
+      if (!entry) return '???'; // Onbekende link (zou niet moeten kunnen)
 
       const raw = String(entry.text ?? '').trim();
-      const label = entry.outId; 
+      const label = entry.outId; // Bijv OUT1
 
       if (!raw) return label;
       const short = raw.length > 42 ? `${raw.slice(0, 42)}...` : raw;
@@ -375,6 +381,7 @@ function findBundleById(bundleId) {
 
 function formatBundleOutputs(bundle, uidMap) {
   const map = uidMap || getOutputUidMap();
+  // LET OP: Bundle gebruikt nu 'outputUids' ipv 'outIds'
   const ids = Array.isArray(bundle?.outputUids) ? bundle.outputUids : [];
   
   const parts = ids
@@ -397,11 +404,12 @@ function formatBundleOutputs(bundle, uidMap) {
   return parts.join('; ');
 }
 
+/* ✅ NIEUW: checkbox sync met UIDs */
 function syncOutputCheckboxesFromLinkedSources(data) {
   const content = $('modalContent');
   if (!content) return;
 
-  const ids = new Set(normalizeLinkedSourceIds(data)); 
+  const ids = new Set(normalizeLinkedSourceIds(data)); // Dit zijn nu UIDs
   content.querySelectorAll('.input-source-cb').forEach((cb) => {
     cb.disabled = false;
     cb.checked = ids.has(String(cb.value || '').trim());
@@ -412,6 +420,7 @@ function syncOutputCheckboxesFromBundle(bundle) {
   const content = $('modalContent');
   if (!content) return;
 
+  // Bundle gebruikt 'outputUids'
   const ids = new Set(
     (Array.isArray(bundle?.outputUids) ? bundle.outputUids : []).map((x) => String(x ?? '').trim())
   );
@@ -419,7 +428,7 @@ function syncOutputCheckboxesFromBundle(bundle) {
   content.querySelectorAll('.input-source-cb').forEach((cb) => {
     const key = String(cb.value || '').trim();
     cb.checked = ids.has(key);
-    cb.disabled = true; 
+    cb.disabled = true; // bundle actief => read-only
   });
 }
 
@@ -437,9 +446,11 @@ function updateBundleInfoUI(data) {
   const activeId = getActiveBundleId(data);
   const bundle = activeId ? findBundleById(activeId) : null;
 
+  // UI fields
   if (bundlePick) bundlePick.value = bundle ? String(bundle.id) : '';
   if (bundleName) bundleName.value = bundle ? String(bundle.name || '').trim() : '';
 
+  // Active info line
   if (bundleInfo) {
     if (!bundle) {
       bundleInfo.style.display = 'none';
@@ -452,15 +463,18 @@ function updateBundleInfoUI(data) {
     }
   }
 
+  // Hint
   if (bundleHint) {
     if (!bundle) bundleHint.textContent = '';
     else bundleHint.textContent = `Bevat: ${(Array.isArray(bundle.outputUids) ? bundle.outputUids.length : 0)} outputs`;
   }
 
+  // Delete button visibility
   if(bundleDeleteBtn) {
     bundleDeleteBtn.style.display = bundle ? 'inline-block' : 'none';
   }
 
+  // ✅ BELANGRIJK: bundle => checkboxes aanvinken + locken
   if (bundle) {
     data.text = '';
     setLinkedSourceIds(data, []);
