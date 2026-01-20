@@ -130,17 +130,79 @@ function getRouteBaseLetter(routeLabel) {
 function getRouteColorByLetter(letter) {
   const L = String(letter || '').toUpperCase();
 
-  // Geen groen/oranje/rood. Palet t/m G: paars, roze, blauw, teal, indigo, amber, grijs
-  if (L === 'A') return { bg: '#7C4DFF', text: '#FFFFFF' }; // paars (deep purple)
-  if (L === 'B') return { bg: '#D81B60', text: '#FFFFFF' }; // roze/magenta
-  if (L === 'C') return { bg: '#257e2a', text: '#FFFFFF' }; // blauw
-  if (L === 'D') return { bg: 'rgb(160, 160, 160)', text: '#FFFFFF' }; // teal/cyaan
-  if (L === 'E') return { bg: 'rgb(174, 177, 198)', text: '#FFFFFF' }; // indigo
-  if (L === 'F') return { bg: 'rgb(48, 36, 0)', text: '#111111' }; // amber/geel (donkere tekst voor contrast)
+  // Geen groen/oranje/rood. Palet t/m G: paars, magenta, blauw, teal, indigo, amber, blauwgrijs
+  if (L === 'A') return { bg: '#7C4DFF', text: '#FFFFFF' }; // paars
+  if (L === 'B') return { bg: '#D81B60', text: '#FFFFFF' }; // magenta
+  if (L === 'C') return { bg: '#2979FF', text: '#FFFFFF' }; // blauw
+  if (L === 'D') return { bg: '#00ACC1', text: '#FFFFFF' }; // teal/cyaan
+  if (L === 'E') return { bg: '#3949AB', text: '#FFFFFF' }; // indigo
+  if (L === 'F') return { bg: '#FFC107', text: '#111111' }; // amber/geel
   if (L === 'G') return { bg: '#546E7A', text: '#FFFFFF' }; // blauwgrijs
   return null;
 }
 
+// =========================================================
+// MERGE GRADIENT HELPERS (diagonale multi-kleur merged stickies)
+// =========================================================
+function _parseColorToRgb(input) {
+  const s = String(input || '').trim();
+  if (!s) return null;
+
+  // #RRGGBB
+  if (s[0] === '#' && s.length === 7) {
+    const r = parseInt(s.slice(1, 3), 16);
+    const g = parseInt(s.slice(3, 5), 16);
+    const b = parseInt(s.slice(5, 7), 16);
+    if ([r, g, b].every((v) => Number.isFinite(v))) return { r, g, b };
+    return null;
+  }
+
+  // rgb(...) / rgba(...)
+  const m = s.match(/rgba?\(([^)]+)\)/i);
+  if (m) {
+    const parts = m[1].split(',').map((x) => parseFloat(x.trim()));
+    if (parts.length >= 3 && parts.slice(0, 3).every((v) => Number.isFinite(v))) {
+      return { r: parts[0], g: parts[1], b: parts[2] };
+    }
+  }
+
+  return null;
+}
+
+function _relLuminance({ r, g, b }) {
+  // sRGB -> linear
+  const toLin = (v) => {
+    const x = v / 255;
+    return x <= 0.03928 ? x / 12.92 : Math.pow((x + 0.055) / 1.055, 2.4);
+  };
+  const R = toLin(r);
+  const G = toLin(g);
+  const B = toLin(b);
+  return 0.2126 * R + 0.7152 * G + 0.0722 * B;
+}
+
+function _pickTextColorFromColors(colors) {
+  const rgbs = (colors || []).map(_parseColorToRgb).filter(Boolean);
+  if (!rgbs.length) return null;
+  const avgLum = rgbs.map(_relLuminance).reduce((a, b) => a + b, 0) / rgbs.length;
+  // Licht gradient -> donkere tekst, donker gradient -> witte tekst
+  return avgLum > 0.55 ? '#111111' : '#FFFFFF';
+}
+
+function buildDiagonalMergedGradient(colors, angleDeg = 135) {
+  const list = (colors || []).map((c) => String(c || '').trim()).filter(Boolean);
+  if (!list.length) return null;
+  if (list.length === 1) return list[0];
+
+  const n = list.length;
+  const stops = [];
+  for (let i = 0; i < n; i++) {
+    const a = (i / n) * 100;
+    const b = ((i + 1) / n) * 100;
+    stops.push(`${list[i]} ${a.toFixed(2)}% ${b.toFixed(2)}%`);
+  }
+  return `linear-gradient(${angleDeg}deg, ${stops.join(', ')})`;
+}
 
 function buildRoutePillHTML(routeLabel) {
   const s = String(routeLabel || '').trim();
@@ -1987,6 +2049,26 @@ function renderMergedOverlays(openModalFn) {
     const textEl = overlay.querySelector('.text');
     const stickyEl = overlay.querySelector('.sticky');
 
+    // ====== MERGED GRADIENT: combineer route-kleuren van alle kolommen in de merge-range ======
+    if (stickyEl) {
+      const variantLetterMap = computeVariantLetterMap(activeSheet);
+
+      const rootDefault = getComputedStyle(document.documentElement).getPropertyValue('--sticky-bg').trim() || '#ffd600';
+
+      const colors = visibleCols.map((cIdx) => {
+        const rl = getRouteLabelForColumn(cIdx, variantLetterMap);
+        const base = getRouteBaseLetter(rl);
+        const clr = base ? getRouteColorByLetter(base) : null;
+        return String(clr?.bg || rootDefault).trim();
+      });
+
+      const gradient = buildDiagonalMergedGradient(colors, 135);
+      if (gradient) stickyEl.style.setProperty('--merged-bg', gradient);
+
+      const mergedText = _pickTextColorFromColors(colors);
+      if (mergedText) stickyEl.style.setProperty('--sticky-text', mergedText);
+    }
+
     const activeEl = document.activeElement;
     const isFocused = activeEl && (activeEl === textEl || overlay.contains(activeEl));
 
@@ -2429,8 +2511,13 @@ export function setupDelegatedEvents() {
     const action = btn.dataset.action;
     if (!action) return;
 
-    if (e.type === 'mousedown' && performance.now() - _lastPointerDownTs < 250) return;
-    if (e.type === 'pointerdown') _lastPointerDownTs = performance.now();
+    const now = performance.now();
+
+    // Voorkom dubbele triggers (pointerdown -> mousedown/click)
+    if ((e.type === 'mousedown' || e.type === 'click') && now - _lastPointerDownTs < 250) return;
+
+    // Pointer/touch markeren
+    if (e.type === 'pointerdown' || e.type === 'touchstart') _lastPointerDownTs = now;
 
     e.preventDefault();
     e.stopPropagation();
@@ -2455,7 +2542,9 @@ export function setupDelegatedEvents() {
         state.setColVisibility(idx, false);
         break;
       case 'parallel':
-        state.toggleParallel?.(idx);
+        if (typeof state.toggleParallel === 'function') state.toggleParallel(idx);
+        else if (typeof state.toggleParallelColumn === 'function') state.toggleParallelColumn(idx);
+        else console.warn('Parallel toggle missing on state');
         break;
       case 'variant':
         openVariantModal(idx);
@@ -2474,5 +2563,6 @@ export function setupDelegatedEvents() {
 
   document.addEventListener('pointerdown', act, true);
   document.addEventListener('mousedown', act, true);
+  document.addEventListener('click', act, true);
   document.addEventListener('touchstart', act, { capture: true, passive: false });
 }

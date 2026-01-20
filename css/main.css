@@ -32,6 +32,9 @@
 
     --sticky-bg: #ffd600;
     --sticky-text: #111;
+
+    /* Optional: gebruikt door merged overlays om multi-kleur gradients te tonen (fallback: --sticky-bg) */
+    --merged-bg: unset;
     --sticky-font-family: "Inter", sans-serif;
     --sticky-font-size: 15px;
     --sticky-font-weight: 700;
@@ -677,7 +680,8 @@ body {
     display: flex;
     flex-direction: column;
     overflow: visible;
-    background: var(--sticky-bg);
+    /* Laat merged overlays een gradient/achtergrond injecteren via --merged-bg */
+    background: var(--merged-bg, var(--sticky-bg));
     color: var(--sticky-text);
     font-family: var(--sticky-font-family);
     border: 1px solid rgba(0, 0, 0, 0.05);
