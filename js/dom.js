@@ -25,25 +25,139 @@ function getDependencyDepth(colIdx) {
   let safety = 0;
 
   while (true) {
-    const parentGroup = sheet.variantGroups.find(g => g.variants.includes(currentIdx));
+    const parentGroup = sheet.variantGroups.find((g) => g.variants.includes(currentIdx));
     if (parentGroup) {
       depth++;
-      const p = parentGroup.parents && parentGroup.parents.length > 0 
-          ? parentGroup.parents[0] 
-          : parentGroup.parentColIdx;
-          
+      const p =
+        parentGroup.parents && parentGroup.parents.length > 0 ? parentGroup.parents[0] : parentGroup.parentColIdx;
+
       if (p !== undefined) {
-         if (typeof p === 'string' && p.includes('::')) break;
-         currentIdx = p;
+        if (typeof p === 'string' && p.includes('::')) break;
+        currentIdx = p;
       } else {
-         break;
+        break;
       }
     } else {
-      break; 
+      break;
     }
-    if (++safety > 10) break; 
+    if (++safety > 10) break;
   }
   return depth;
+}
+
+/* =========================================================
+   ROUTE PREFIX (OPTIE 2): sheetPrefix + routeLetter
+   - scoped route labels zoals: RF1-A, RF1-A.1, RF2-B.2, etc.
+   ========================================================= */
+function getSheetRoutePrefix() {
+  const project = state.project || state.data;
+  const sh = state.activeSheet;
+  if (!project || !sh) return 'RF?';
+
+  const idx = (project.sheets || []).findIndex((s) => s.id === sh.id);
+  const n = idx >= 0 ? idx + 1 : 1;
+
+  return `RF${n}`;
+}
+
+function getScopedRouteLabel(label) {
+  const p = getSheetRoutePrefix();
+  const s = String(label || '').trim();
+  return s ? `${p}-${s}` : `${p}-?`;
+}
+
+/** Follow-up route label (A.1/A.2/...) op basis van routeLabel + volgorde binnen sheet. */
+function getFollowupRouteLabel(colIdx) {
+  const sh = state.activeSheet;
+  if (!sh) return null;
+
+  const col = sh.columns?.[colIdx];
+  if (!col) return null;
+
+  const manualRoute = String(col.routeLabel || '').trim(); // "A" / "B" / ...
+  const isSplitStart = !!col.isVariant;
+  if (!manualRoute || isSplitStart) return null;
+
+  let count = 1;
+  for (let i = 0; i < colIdx; i++) {
+    const c = sh.columns?.[i];
+    if (!c) continue;
+    if (c.isVariant) continue;
+    if (String(c.routeLabel || '').trim() === manualRoute) count++;
+  }
+
+  return `${manualRoute}.${count}`; // A.1 / A.2 / ...
+}
+
+/* =========================================================
+   ROUTE INDENT + KLEUR + BADGE (jouw gewenste gedrag)
+   - hoofdproces: geen indent (level 0), default geel
+   - route A/B: indent level 1 + kleur
+   - A.1/A.2: indent level 2 + dezelfde kleur als A
+   - badge niet in connector, maar boven de Proces post-it (slotIdx 3)
+   ========================================================= */
+function getRouteLabelForColumn(colIdx, variantLetterMap) {
+  const sh = state.activeSheet;
+  const col = sh?.columns?.[colIdx];
+  if (!col) return null;
+
+  // Split-start (variant): label komt uit variantLetterMap (A / B / A.1 / etc)
+  if (col.isVariant) {
+    const v = String(variantLetterMap?.[colIdx] || '').trim();
+    return v || null;
+  }
+
+  // Follow-up subprocess: A.1 / A.2 / ...
+  const follow = getFollowupRouteLabel(colIdx);
+  if (follow) return follow;
+
+  // hoofdproces: geen route
+  return null;
+}
+
+function getIndentLevelFromRouteLabel(routeLabel) {
+  const s = String(routeLabel || '').trim();
+  if (!s) return 0;
+  return s.split('.').length; // A => 1, A.1 => 2, etc
+}
+
+function getRouteBaseLetter(routeLabel) {
+  const s = String(routeLabel || '').trim();
+  if (!s) return null;
+  return s.split('.')[0].toUpperCase();
+}
+
+function getRouteColorByLetter(letter) {
+  const L = String(letter || '').toUpperCase();
+
+  // Geen groen/oranje/rood. Palet t/m G: paars, roze, blauw, teal, indigo, amber, grijs
+  if (L === 'A') return { bg: '#7C4DFF', text: '#FFFFFF' }; // paars (deep purple)
+  if (L === 'B') return { bg: '#D81B60', text: '#FFFFFF' }; // roze/magenta
+  if (L === 'C') return { bg: '#2979FF', text: '#FFFFFF' }; // blauw
+  if (L === 'D') return { bg: '#00ACC1', text: '#FFFFFF' }; // teal/cyaan
+  if (L === 'E') return { bg: '#3949AB', text: '#FFFFFF' }; // indigo
+  if (L === 'F') return { bg: '#FFC107', text: '#111111' }; // amber/geel (donkere tekst voor contrast)
+  if (L === 'G') return { bg: '#546E7A', text: '#FFFFFF' }; // blauwgrijs
+  return null;
+}
+
+
+function buildRoutePillHTML(routeLabel) {
+  const s = String(routeLabel || '').trim();
+  if (!s) return '';
+  return `<div class="route-pill">Route ${escapeHTML(getScopedRouteLabel(s))}</div>`;
+}
+
+function buildConditionalPillHTML(isConditional) {
+  if (!isConditional) return '';
+  return `<div class="conditional-pill" title="Conditionele stap">⚡</div>`;
+}
+
+function buildSupplierTopBadgesHTML({ routeLabel, isConditional }) {
+  const a = buildRoutePillHTML(routeLabel);
+  const b = buildConditionalPillHTML(isConditional);
+  if (!a && !b) return '';
+  return `<div class="supplier-top-badges">${a}${b}</div>`;
 }
 
 /** Builds a stable localStorage key scoped to project and sheet. */
@@ -95,9 +209,7 @@ function isContiguousZeroBased(cols) {
 function _sanitizeGate(gate) {
   if (!gate || typeof gate !== 'object') return null;
   const enabled = !!gate.enabled;
-  const failTargetColIdx = Number.isFinite(Number(gate.failTargetColIdx))
-    ? Number(gate.failTargetColIdx)
-    : null;
+  const failTargetColIdx = Number.isFinite(Number(gate.failTargetColIdx)) ? Number(gate.failTargetColIdx) : null;
   return { enabled, failTargetColIdx };
 }
 
@@ -257,9 +369,7 @@ function getMergeGroupsSanitizedForSheet(project, sheet) {
 /** Returns the merge group that contains a given cell in a provided sheet. */
 function getMergeGroupForCellInSheet(groups, colIdx, slotIdx) {
   return (
-    (groups || []).find(
-      (x) => x.slotIdx === slotIdx && Array.isArray(x.cols) && x.cols.includes(colIdx)
-    ) || null
+    (groups || []).find((x) => x.slotIdx === slotIdx && Array.isArray(x.cols) && x.cols.includes(colIdx)) || null
   );
 }
 
@@ -462,9 +572,7 @@ function computeCountersBeforeActiveSheet(project, activeSheetId, outIdByUid) {
       const outSlot = col?.slots?.[4];
 
       const tokens = getLinkedSourcesFromInputSlot(inSlot);
-      const isLinked = tokens.some((t) =>
-        _looksLikeOutId(t) ? true : !!(t && outIdByUid && outIdByUid[t])
-      );
+      const isLinked = tokens.some((t) => (_looksLikeOutId(t) ? true : !!(t && outIdByUid && outIdByUid[t])));
 
       if (!isLinked && inSlot?.text?.trim()) inCount += 1;
 
@@ -662,7 +770,6 @@ function openMergeModal(clickedColIdx, slotIdx, openModalFn) {
     if (existing) {
       systemsMeta = existing;
     } else {
-      // FIX: Gebruik de tekst van de post-it als die er is
       const initialName = String(curText || '').trim();
       systemsMeta = {
         multi: false,
@@ -904,9 +1011,7 @@ function openMergeModal(clickedColIdx, slotIdx, openModalFn) {
     const clean = _sanitizeSystemsMeta(meta);
     if (!clean) return null;
 
-    const scores = (clean.systems || [])
-      .map((s) => _computeSystemScore(s))
-      .filter((x) => Number.isFinite(Number(x)));
+    const scores = (clean.systems || []).map((s) => _computeSystemScore(s)).filter((x) => Number.isFinite(Number(x)));
     if (!scores.length) return null;
 
     const avg = scores.reduce((a, b) => a + b, 0) / scores.length;
@@ -950,7 +1055,9 @@ function openMergeModal(clickedColIdx, slotIdx, openModalFn) {
         </div>
 
         <div style="font-size:12px; letter-spacing:0.06em; font-weight:800; opacity:0.75; margin-bottom:6px;">SYSTEEMNAAM</div>
-        <input data-sys-name="${idx}" class="modal-input" style="margin:0; height:40px;" placeholder="Bijv. ARIA / EPIC / Radiotherapieweb / Monaco..." value="${escapeAttr(sys.name || '')}" />
+        <input data-sys-name="${idx}" class="modal-input" style="margin:0; height:40px;" placeholder="Bijv. ARIA / EPIC / Radiotherapieweb / Monaco..." value="${escapeAttr(
+          sys.name || ''
+        )}" />
 
         <div style="display:grid; grid-template-columns: 1fr 1fr; gap:12px; margin-top:12px; align-items:end;">
           <label style="display:flex; gap:10px; align-items:center; cursor:pointer; font-size:14px;">
@@ -1095,9 +1202,7 @@ function openMergeModal(clickedColIdx, slotIdx, openModalFn) {
       systemsMeta.multi = multi;
 
       if (!multi) {
-        systemsMeta.systems = [
-          systemsMeta.systems?.[0] || { name: '', legacy: false, future: '', qa: {}, score: null }
-        ];
+        systemsMeta.systems = [systemsMeta.systems?.[0] || { name: '', legacy: false, future: '', qa: {}, score: null }];
       } else {
         if ((systemsMeta.systems?.length ?? 0) < 2) {
           systemsMeta.systems = [
@@ -1364,48 +1469,43 @@ function computeVariantLetterMap(activeSheet) {
   const colGroups = {}; // key: parentColIdx, val: array of child indices
 
   if (Array.isArray(activeSheet.variantGroups)) {
-      activeSheet.variantGroups.forEach(vg => {
-          // Use first parent for numbering logic (e.g. A.1) to avoid duplicate labels like A.1 AND B.1
-          const primaryParent = (vg.parents && vg.parents.length > 0) ? vg.parents[0] : vg.parentColIdx;
-          
-          if (primaryParent !== undefined) {
-              if (!colGroups[primaryParent]) colGroups[primaryParent] = [];
-              vg.variants.forEach(vIdx => colGroups[primaryParent].push(vIdx));
-          }
-      });
+    activeSheet.variantGroups.forEach((vg) => {
+      const primaryParent = vg.parents && vg.parents.length > 0 ? vg.parents[0] : vg.parentColIdx;
+
+      if (primaryParent !== undefined) {
+        if (!colGroups[primaryParent]) colGroups[primaryParent] = [];
+        vg.variants.forEach((vIdx) => colGroups[primaryParent].push(vIdx));
+      }
+    });
   }
 
   function assignLabels(parentIdx, prefix) {
-      const children = colGroups[parentIdx];
-      if (!children) return;
+    const children = colGroups[parentIdx];
+    if (!children) return;
 
-      children.sort((a,b) => a - b); 
+    children.sort((a, b) => a - b);
 
-      children.forEach((childIdx, i) => {
-          let myLabel = '';
-          if (!prefix) {
-              myLabel = _toLetter(i);
-          } else {
-              myLabel = `${prefix}.${i + 1}`;
-          }
-          
-          map[childIdx] = myLabel;
-          assignLabels(childIdx, myLabel);
-      });
+    children.forEach((childIdx, i) => {
+      let myLabel = '';
+      if (!prefix) myLabel = _toLetter(i);
+      else myLabel = `${prefix}.${i + 1}`;
+
+      map[childIdx] = myLabel;
+      assignLabels(childIdx, myLabel);
+    });
   }
 
   const allChildren = new Set();
-  Object.values(colGroups).forEach(list => list.forEach(c => allChildren.add(c)));
+  Object.values(colGroups).forEach((list) => list.forEach((c) => allChildren.add(c)));
 
-  const rootParents = Object.keys(colGroups).map(Number).filter(p => !allChildren.has(p));
-
-  rootParents.forEach(root => assignLabels(root, ''));
+  const rootParents = Object.keys(colGroups)
+    .map(Number)
+    .filter((p) => !allChildren.has(p));
+  rootParents.forEach((root) => assignLabels(root, ''));
 
   let legacyCounter = 0;
   activeSheet.columns.forEach((col, i) => {
-      if (col.isVariant && !map[i]) {
-          map[i] = _toLetter(legacyCounter++);
-      }
+    if (col.isVariant && !map[i]) map[i] = _toLetter(legacyCounter++);
   });
 
   return map;
@@ -1488,57 +1588,28 @@ function buildSlotHTML({
   myOutputId,
   isLinked,
   scoreBadgeHTML,
+  routeBadgeHTML = '',
   extraStickyClass = '',
   extraStickyStyle = ''
 }) {
   const procEmoji = slotIdx === 3 && slot.processStatus ? getProcessEmoji(slot.processStatus) : '';
   const leanIcon = slotIdx === 3 && slot.processValue ? getLeanIcon(slot.processValue) : '';
-  const workExpIcon = slotIdx === 3 ? (getWorkExpMeta(slot?.workExp)?.icon || '') : '';
+  const workExpIcon = slotIdx === 3 ? getWorkExpMeta(slot?.workExp)?.icon || '' : '';
   const linkIcon = isLinked ? '🔗' : '';
 
   const b1 = slotIdx === 3 && slot.type ? typeIcon : '';
   const b2 = slotIdx === 3 ? leanIcon : '';
-  const b3 = slotIdx === 3 ? workExpIcon : (slotIdx === 2 && isLinked ? linkIcon : '');
+  const b3 = slotIdx === 3 ? workExpIcon : slotIdx === 2 && isLinked ? linkIcon : '';
   const b4 = slotIdx === 3 ? procEmoji : '';
 
   const editableAttr = isLinked ? 'contenteditable="false" data-linked="true"' : 'contenteditable="true"';
-
-  // === NIEUWE LOGICA VOOR ROUTE BADGE ===
-  let extraHtml = '';
-  // Check voor handmatige route label of automatische variant letter
-  if (slotIdx === 0) { // <--- AANGEPAST: NU BIJ LEVERANCIER (SLOT 0)
-      const manualRoute = state.activeSheet?.columns[colIdx]?.routeLabel;
-      const isSplitStart = state.activeSheet?.columns[colIdx]?.isVariant;
-
-      // Alleen tonen als het een vervolgstap is (handmatig gezet) én GEEN split start
-      if (manualRoute && !isSplitStart) {
-          
-          // Bereken nummering (A.1, A.2 etc)
-          // We moeten tellen hoeveel keer deze route al is voorgekomen in VOORGAANDE kolommen
-          let count = 1;
-          for(let i=0; i<colIdx; i++) {
-              const c = state.activeSheet?.columns[i];
-              // Tel alleen mee als het dezelfde route is EN het geen split-start is
-              if (c && c.routeLabel === manualRoute && !c.isVariant) {
-                  count++;
-              }
-          }
-          
-          const label = `${manualRoute}.${count}`;
-
-          // AANGEPAST: CENTREREN EN IETS HOGER PLAATSEN
-          extraHtml += `<div class="sticky-route-tag" style="position: absolute; top: -10px; left: 50%; transform: translateX(-50%); background: #2196f3; color: white; font-size: 10px; font-weight: bold; padding: 2px 8px; border-radius: 4px; box-shadow: 0 2px 4px rgba(0,0,0,0.2); z-index: 10; white-space: nowrap;">Route ${escapeHTML(label)}</div>`;
-      }
-  }
-  // ======================================
 
   return `
     <div class="sticky ${statusClass} ${extraStickyClass}" style="${escapeAttr(
     extraStickyStyle
   )}" data-col="${colIdx}" data-slot="${slotIdx}">
+      ${routeBadgeHTML}
       <div class="sticky-grip"></div>
-      
-      ${extraHtml}
 
       <div class="badges-row">
         <div class="sticky-badge">${escapeHTML(b1)}</div>
@@ -1579,7 +1650,7 @@ function scheduleSyncRowHeights() {
     _syncRaf = 0;
     syncRowHeightsNow();
     renderMergedOverlays(_openModalFn);
-    renderGroupOverlays(); // FIX: Nu ook groepen renderen
+    renderGroupOverlays();
   });
 }
 
@@ -1593,7 +1664,6 @@ function syncRowHeightsNow() {
   const cols = colsContainer?.querySelectorAll?.('.col');
   if (!cols || !cols.length) return;
 
-  // 1) Reset heights so content can naturally expand before measuring.
   for (let r = 0; r < 6; r++) {
     if (rowHeaders[r]) rowHeaders[r].style.height = 'auto';
     cols.forEach((col) => {
@@ -1605,7 +1675,6 @@ function syncRowHeightsNow() {
     });
   }
 
-  // 2) Measure tallest sticky per row after reset.
   const MIN_ROW_HEIGHT = 160;
   const heights = Array(6).fill(MIN_ROW_HEIGHT);
 
@@ -1617,21 +1686,24 @@ function syncRowHeightsNow() {
       const sticky = slot.firstElementChild;
       if (!sticky) continue;
 
-      // Use scrollHeight as source-of-truth for content growth.
-      // FIX: Increase buffer from +2 to +32 to prevent any text cutoff or overlap.
-      const h = Math.ceil(
-        Math.max(sticky.scrollHeight || 0, sticky.getBoundingClientRect?.().height || 0)
-      ) + 32;
+      // ✅ FIX: neem margins mee (o.a. supplier-indent via margin-top),
+      // zodat de sticky niet "doorzakt" en strak tegen de volgende rij komt.
+      const cs = getComputedStyle(sticky);
+      const mt = parseFloat(cs.marginTop || '0') || 0;
+      const mb = parseFloat(cs.marginBottom || '0') || 0;
+
+      const rectH = sticky.getBoundingClientRect?.().height || 0;
+      const scrollH = sticky.scrollHeight || 0;
+
+      const h = Math.ceil(Math.max(scrollH, rectH) + mt + mb) + 32;
+
       if (h > heights[r]) heights[r] = h;
     }
   });
 
-  // 2b) Make ALL rows the same height for consistent layout across the entire board.
-  //     If one row grows, every row grows to match the largest row.
   const globalMax = Math.max(...heights);
   for (let r = 0; r < 6; r++) heights[r] = globalMax;
 
-  // 3) Apply unified heights across all columns per row.
   for (let r = 0; r < 6; r++) {
     const hStr = `${heights[r]}px`;
     if (rowHeaders[r]) rowHeaders[r].style.height = hStr;
@@ -1642,13 +1714,17 @@ function syncRowHeightsNow() {
     });
   }
 
-  // Keep connector vertical alignment correct.
   const gapSize = 20;
   const processOffset = heights[0] + heights[1] + heights[2] + 3 * gapSize;
 
   colsContainer.querySelectorAll('.col-connector').forEach((c) => {
     if (!c.classList.contains('parallel-connector') && !c.classList.contains('combo-connector')) {
-      c.style.paddingTop = `${processOffset}px`;
+      const colEl = c.closest('.col-connector').previousElementSibling; // de kolom ervoor
+      const indentLevel = colEl ? parseInt(colEl.dataset.indentLevel || 0, 10) : 0;
+
+      const extraPadding = indentLevel * 30; // 30px per niveau
+
+      c.style.paddingTop = `${processOffset + extraPadding}px`;
     }
   });
 }
@@ -1710,9 +1786,7 @@ function attachStickyInteractions({ stickyEl, textEl, colIdx, slotIdx, openModal
     if (e.detail && e.detail > 1) return;
 
     if (
-      e.target.closest(
-        '.sticky-grip, .qa-score-badge, .id-tag, .badges-row, .workexp-badge, .btn-col-action, .col-actions'
-      )
+      e.target.closest('.sticky-grip, .qa-score-badge, .id-tag, .badges-row, .workexp-badge, .btn-col-action, .col-actions')
     ) {
       return;
     }
@@ -1751,49 +1825,23 @@ function renderConnector({ frag, activeSheet, colIdx, variantLetterMap }) {
 
   const hasParallel = !!nextCol.isParallel;
   const hasVariant = !!nextCol.isVariant;
-  const hasQuestion = !!nextCol.isQuestion;
-  const hasConditional = !!nextCol.isConditional;
-  const hasGroup = !!nextCol.isGroup;
-
-  // NIEUWE LOGICA: Haal opgeslagen conditie-data op voor tooltip
-  const conditionData = nextCol.logic || null;
-  const conditionTooltip = conditionData && conditionData.condition
-    ? `Logica: ${escapeAttr(conditionData.condition)}`
-    : 'Conditionele stap';
-
-  let badgesHTML = '';
-
-  if (hasVariant) {
-    const letter = variantLetterMap?.[nextVisibleIdx] || 'A';
-    badgesHTML += `<div class="variant-badge">🔀${letter}</div>`;
-  }
-  if (hasParallel) {
-    badgesHTML += `<div class="parallel-badge">||</div>`;
-  }
-  
-  // LOGIC CHANGE: Conditional (Lightning) met tooltip
-  if (hasConditional) {
-    badgesHTML += `<div class="conditional-badge" title="${conditionTooltip}">⚡</div>`;
-  }
-  
-  if (hasQuestion) {
-    badgesHTML += `<div class="question-badge">❓</div>`;
-  }
-
-  const count = (hasParallel ? 1 : 0) + (hasVariant ? 1 : 0) + (hasQuestion ? 1 : 0) + (hasConditional ? 1 : 0) + (hasGroup ? 1 : 0);
 
   const connEl = document.createElement('div');
 
-  // If one or more special types are active, use the combo/stack logic
-  if (count > 0) {
+  // Variant: 0px connector
+  if (hasVariant) {
+    connEl.className = 'col-connector variant-connector';
+    connEl.innerHTML = '';
+    frag.appendChild(connEl);
+    return;
+  }
+
+  // Alleen parallel als connector-badge
+  if (hasParallel) {
     connEl.className = 'col-connector combo-connector';
-    connEl.innerHTML = `
-      <div class="combo-badge-stack">
-        ${badgesHTML}
-      </div>
-    `;
+    connEl.innerHTML = `<div class="parallel-badge">||</div>`;
   } else {
-    // Standard arrow
+    // Normale connector
     connEl.className = 'col-connector';
     connEl.innerHTML = `<div class="connector-active"></div>`;
   }
@@ -1827,9 +1875,9 @@ function _formatSystemsSummaryFromMeta(meta) {
   const lineHTML = (s) => {
     const nm = String(s?.name || '').trim() || '—';
     const legacy = !!s?.legacy;
-    return `<div class="sys-line"><span class="sys-name">${escapeHTML(
-      nm
-    )}</span>${legacy ? `<span class="legacy-tag" aria-label="Legacy">Legacy</span>` : ''}</div>`;
+    return `<div class="sys-line"><span class="sys-name">${escapeHTML(nm)}</span>${
+      legacy ? `<span class="legacy-tag" aria-label="Legacy">Legacy</span>` : ''
+    }</div>`;
   };
 
   if (!clean.multi) {
@@ -1849,16 +1897,13 @@ function renderMergedOverlays(openModalFn) {
 
   if (getComputedStyle(colsContainer).position === 'static') colsContainer.style.position = 'relative';
 
-  // REMOVED: clearMergedOverlays(colsContainer);
-
   const activeSheet = state.activeSheet;
   if (!activeSheet) return;
 
   const groups = getAllMergeGroupsSanitized();
-  
-  // FIX: Tracken welke overlays we deze frame verwerken, om te voorkomen dat we gefocuste elementen weggooien
+
   const processedKeys = new Set();
-  
+
   groups.forEach((g) => {
     const visibleCols = g.cols.filter((cIdx) => activeSheet.columns[cIdx]?.isVisible !== false);
     if (visibleCols.length < 2) return;
@@ -1888,7 +1933,6 @@ function renderMergedOverlays(openModalFn) {
     const width = p2.x + lastSlot.offsetWidth - p1.x;
     const height = firstSlot.offsetHeight;
 
-    // FIX: Unieke key per merge group om element te hergebruiken
     const mergeKey = `g-${g.slotIdx}-${g.master}`;
     processedKeys.add(mergeKey);
 
@@ -1896,78 +1940,74 @@ function renderMergedOverlays(openModalFn) {
     const isNew = !overlay;
 
     if (isNew) {
-        overlay = document.createElement('div');
-        overlay.className = 'merged-overlay';
-        overlay.dataset.mergeKey = mergeKey;
-        overlay.style.position = 'absolute';
-        overlay.style.zIndex = '500';
-        overlay.style.pointerEvents = 'auto';
+      overlay = document.createElement('div');
+      overlay.className = 'merged-overlay';
+      overlay.dataset.mergeKey = mergeKey;
+      overlay.style.position = 'absolute';
+      overlay.style.zIndex = '500';
+      overlay.style.pointerEvents = 'auto';
 
-        const cloned = masterSticky.cloneNode(true);
-        if (g.slotIdx === 1) cloned.classList.add('has-sys-summary');
+      const cloned = masterSticky.cloneNode(true);
+      if (g.slotIdx === 1) cloned.classList.add('has-sys-summary');
 
-        cloned.classList.remove('merged-source');
-        cloned.style.visibility = 'visible';
-        cloned.style.pointerEvents = 'auto';
-        cloned.style.width = '100%';
-        cloned.style.height = '100%';
-        cloned.classList.add('merged-sticky');
-        
-        const txt = cloned.querySelector('.text');
-        if (txt) {
-            txt.removeAttribute('data-linked');
-            txt.addEventListener(
-                'input',
-                () => {
-                  if (g.slotIdx === 1 && g.systemsMeta) return;
-                  state.updateStickyText(masterCol, g.slotIdx, txt.textContent);
-                  scheduleSyncRowHeights();
-                },
-                { passive: true }
-            );
-        }
+      cloned.classList.remove('merged-source');
+      cloned.style.visibility = 'visible';
+      cloned.style.pointerEvents = 'auto';
+      cloned.style.width = '100%';
+      cloned.style.height = '100%';
+      cloned.classList.add('merged-sticky');
 
-        const stickyEl = cloned;
-        const textEl = cloned.querySelector('.text');
-        attachStickyInteractions({ stickyEl, textEl, colIdx: masterCol, slotIdx: g.slotIdx, openModalFn });
-        
-        overlay.appendChild(cloned);
-        colsContainer.appendChild(overlay);
+      const txt = cloned.querySelector('.text');
+      if (txt) {
+        txt.removeAttribute('data-linked');
+        txt.addEventListener(
+          'input',
+          () => {
+            if (g.slotIdx === 1 && g.systemsMeta) return;
+            state.updateStickyText(masterCol, g.slotIdx, txt.textContent);
+            scheduleSyncRowHeights();
+          },
+          { passive: true }
+        );
+      }
+
+      const stickyEl = cloned;
+      const textEl = cloned.querySelector('.text');
+      attachStickyInteractions({ stickyEl, textEl, colIdx: masterCol, slotIdx: g.slotIdx, openModalFn });
+
+      overlay.appendChild(cloned);
+      colsContainer.appendChild(overlay);
     }
 
-    // UPDATE GEOMETRY (Always)
     overlay.style.left = `${Math.round(left)}px`;
     overlay.style.top = `${Math.round(top)}px`;
     overlay.style.width = `${Math.round(width)}px`;
     overlay.style.height = `${Math.round(height)}px`;
 
-    // UPDATE CONTENT (Only if not focused)
     const textEl = overlay.querySelector('.text');
     const stickyEl = overlay.querySelector('.sticky');
-    
-    // Check focus
+
     const activeEl = document.activeElement;
     const isFocused = activeEl && (activeEl === textEl || overlay.contains(activeEl));
 
     if (!isFocused && textEl) {
-        const masterData = activeSheet.columns[masterCol]?.slots?.[g.slotIdx];
-        const baseText = masterData?.text ?? '';
+      const masterData = activeSheet.columns[masterCol]?.slots?.[g.slotIdx];
+      const baseText = masterData?.text ?? '';
 
-        if (g.slotIdx === 1 && g.systemsMeta) {
-            const summaryHTML = _formatSystemsSummaryFromMeta(g.systemsMeta);
-            if (textEl.innerHTML !== summaryHTML) {
-                textEl.innerHTML = summaryHTML;
-                textEl.setAttribute('contenteditable', 'false');
-            }
-        } else {
-            if (textEl.textContent !== baseText) {
-                textEl.textContent = baseText;
-                textEl.setAttribute('contenteditable', 'true');
-            }
+      if (g.slotIdx === 1 && g.systemsMeta) {
+        const summaryHTML = _formatSystemsSummaryFromMeta(g.systemsMeta);
+        if (textEl.innerHTML !== summaryHTML) {
+          textEl.innerHTML = summaryHTML;
+          textEl.setAttribute('contenteditable', 'false');
         }
+      } else {
+        if (textEl.textContent !== baseText) {
+          textEl.textContent = baseText;
+          textEl.setAttribute('contenteditable', 'true');
+        }
+      }
     }
-    
-    // ALWAYS update Gate badges (in case enabled/disabled via modal)
+
     if (g.slotIdx === 4 && stickyEl) {
       const gate = _sanitizeGate(g?.gate);
       const passLabel = getPassLabelForGroup(g);
@@ -1980,10 +2020,9 @@ function renderMergedOverlays(openModalFn) {
     }
   });
 
-  // FIX: Cleanup old overlays
   const allOverlays = Array.from(colsContainer.querySelectorAll('.merged-overlay'));
-  allOverlays.forEach(el => {
-      if (!processedKeys.has(el.dataset.mergeKey)) el.remove();
+  allOverlays.forEach((el) => {
+    if (!processedKeys.has(el.dataset.mergeKey)) el.remove();
   });
 }
 
@@ -1997,36 +2036,33 @@ function renderGroupOverlays() {
   const sheet = state.activeSheet;
   if (!sheet || !Array.isArray(sheet.groups)) return;
 
-  // Verwijder oude overlays
-  colsContainer.querySelectorAll('.group-header-overlay').forEach(el => el.remove());
+  colsContainer.querySelectorAll('.group-header-overlay').forEach((el) => el.remove());
 
-  sheet.groups.forEach(g => {
-    // Vind de kolommen in de DOM op basis van de lijst
-    const colElements = g.cols.map(cIdx => colsContainer.querySelector(`.col[data-idx="${cIdx}"]`)).filter(Boolean);
+  sheet.groups.forEach((g) => {
+    const colElements = g.cols
+      .map((cIdx) => colsContainer.querySelector(`.col[data-idx="${cIdx}"]`))
+      .filter(Boolean);
 
     if (colElements.length === 0) return;
 
-    // Bereken positie: minimale linker en maximale rechter grens
     let minLeft = Infinity;
     let maxRight = -Infinity;
 
-    colElements.forEach(el => {
-        // Gebruik getOffsetWithin voor relatieve positie binnen colsContainer
-        const rect = getOffsetWithin(el, colsContainer);
-        if (rect.x < minLeft) minLeft = rect.x;
-        
-        const right = rect.x + el.offsetWidth;
-        if (right > maxRight) maxRight = right;
+    colElements.forEach((el) => {
+      const rect = getOffsetWithin(el, colsContainer);
+      if (rect.x < minLeft) minLeft = rect.x;
+
+      const right = rect.x + el.offsetWidth;
+      if (right > maxRight) maxRight = right;
     });
-    
+
     const width = maxRight - minLeft;
 
     const overlay = document.createElement('div');
     overlay.className = 'group-header-overlay';
     overlay.style.left = `${minLeft}px`;
     overlay.style.width = `${width}px`;
-    
-    // HTML: Titel label + witte lijn
+
     overlay.innerHTML = `
         <div class="group-header-label">${escapeHTML(g.title)}</div>
         <div class="group-header-line"></div>
@@ -2051,9 +2087,6 @@ function renderColumnsOnly(openModalFn) {
   const project = state.project || state.data;
   const { outIdByUid, outTextByUid, outTextByOutId } = buildGlobalOutputMaps(project);
 
-  // Fallback: UI-selecties gebruiken vaak OUTx labels (incl. merged-slaves).
-  // buildGlobalOutputMaps() slaat merged-slaves over, waardoor OUT2 soms geen tekst heeft.
-  // Daarom vullen we ontbrekende OUTx->tekst aan via state.getAllOutputs().
   try {
     const all = typeof state.getAllOutputs === 'function' ? state.getAllOutputs() : {};
     Object.keys(all || {}).forEach((k) => {
@@ -2082,12 +2115,10 @@ function renderColumnsOnly(openModalFn) {
     const bundleIdsForInput = getLinkedBundleIdsFromInputSlot(inputSlot);
     const bundleLabelsForInput = bundleIdsForInput.map((bid) => _getBundleLabel(project, bid));
 
-    // Direct links (outputs) + bundle links
     const tokens = getLinkedSourcesFromInputSlot(inputSlot);
     const resolved = resolveLinkedSourcesToOutAndText(tokens, outIdByUid, outTextByUid, outTextByOutId);
 
     if (bundleLabelsForInput.length) {
-      // Bundels zijn bedoeld om de input compact te houden: toon alleen bundelnaam/nam(en) in de tag.
       myInputId = _joinSemiText(bundleLabelsForInput);
     } else if (resolved.ids.length) {
       myInputId = _joinSemiText(resolved.ids);
@@ -2102,19 +2133,43 @@ function renderColumnsOnly(openModalFn) {
     }
 
     const colEl = document.createElement('div');
-    // NIEUW: is-group class toevoegen aan de kolom
-    colEl.className = `col ${col.isParallel ? 'is-parallel' : ''} ${col.isVariant ? 'is-variant' : ''} ${col.isGroup ? 'is-group' : ''}`;
+    colEl.className = `col ${col.isParallel ? 'is-parallel' : ''} ${col.isVariant ? 'is-variant' : ''} ${
+      col.isGroup ? 'is-group' : ''
+    }`;
     colEl.dataset.idx = colIdx;
 
-    // === NIEUW: Voeg diepte (nesting) level toe voor styling ===
     const depth = getDependencyDepth(colIdx);
     if (depth > 0) colEl.dataset.depth = depth;
-    // Visuele styling direct toepassen (je kunt dit later naar CSS verplaatsen)
     if (depth > 0) colEl.style.transformOrigin = 'top center';
-    // ============================================================
 
-    if (col.isVariant) colEl.dataset.route = variantLetterMap[colIdx] || 'A';
-    else colEl.dataset.route = '';
+    // ====== ROUTE LABEL + INDENT LEVEL + KLEUR (nieuw) ======
+    const routeLabel = getRouteLabelForColumn(colIdx, variantLetterMap); // "A" / "B" / "A.1" / ...
+    const indentLevel = getIndentLevelFromRouteLabel(routeLabel); // 0 / 1 / 2 / ...
+    const baseLetter = getRouteBaseLetter(routeLabel); // "A" / "B"
+
+    colEl.dataset.routeLabel = routeLabel || '';
+    colEl.dataset.indentLevel = String(indentLevel);
+    colEl.dataset.route = routeLabel || ''; // legacy/debug
+
+    if (indentLevel > 0) {
+      colEl.classList.add('is-route-col');
+      colEl.style.setProperty('--indent-level', String(indentLevel));
+
+      const clr = getRouteColorByLetter(baseLetter);
+      if (clr) {
+        // cascades into .sticky background/text via CSS variables
+        colEl.style.setProperty('--sticky-bg', clr.bg);
+        colEl.style.setProperty('--sticky-text', clr.text);
+      }
+    }
+
+    // Wrapper zodat background altijd achter content zit
+    const inner = document.createElement('div');
+    inner.className = 'col-inner';
+    Object.assign(inner.style, {
+      position: 'relative',
+      zIndex: '2'
+    });
 
     const actionsEl = document.createElement('div');
     actionsEl.className = 'col-actions';
@@ -2131,18 +2186,16 @@ function renderColumnsOnly(openModalFn) {
           ? `<button class="btn-col-action btn-variant ${col.isVariant ? 'active' : ''}" data-action="variant" type="button">🔀</button>`
           : ''
       }
-      
+
       <button class="btn-col-action btn-group ${col.isGroup ? 'active' : ''}" data-action="group" title="Markeer als onderdeel van groep" type="button">🧩</button>
-      
       <button class="btn-col-action btn-conditional ${col.isConditional ? 'active' : ''}" data-action="conditional" title="Voorwaardelijke stap (optioneel)" type="button">⚡</button>
-      
       <button class="btn-col-action btn-question ${col.isQuestion ? 'active' : ''}" data-action="question" title="Markeer als vraag" type="button">❓</button>
-      
+
       <button class="btn-col-action btn-hide-col" data-action="hide" type="button">👁️</button>
       <button class="btn-col-action btn-add-col-here" data-action="add" type="button">+</button>
       <button class="btn-col-action btn-delete-col" data-action="delete" type="button">×</button>
     `;
-    colEl.appendChild(actionsEl);
+    inner.appendChild(actionsEl);
 
     const slotsEl = document.createElement('div');
     slotsEl.className = 'slots';
@@ -2161,15 +2214,12 @@ function renderColumnsOnly(openModalFn) {
         const bundleIds = getLinkedBundleIdsFromInputSlot(slot);
         const bundleLabels = bundleIds.map((bid) => _getBundleLabel(project, bid));
 
-        const tokens = getLinkedSourcesFromInputSlot(slot);
-        const resolved = resolveLinkedSourcesToOutAndText(tokens, outIdByUid, outTextByUid, outTextByOutId);
+        const tokens2 = getLinkedSourcesFromInputSlot(slot);
+        const resolved2 = resolveLinkedSourcesToOutAndText(tokens2, outIdByUid, outTextByUid, outTextByOutId);
 
         const parts = [];
-        if (bundleLabels.length) {
-          parts.push(...bundleLabels);
-        } else if (resolved.texts.length) {
-          parts.push(...resolved.texts);
-        }
+        if (bundleLabels.length) parts.push(...bundleLabels);
+        else if (resolved2.texts.length) parts.push(...resolved2.texts);
 
         if (parts.length) {
           displayText = _joinSemiText(parts);
@@ -2193,6 +2243,16 @@ function renderColumnsOnly(openModalFn) {
         extraStickyStyle = 'visibility:hidden; pointer-events:none;';
       }
 
+      // Route badge (nu bij Leverancier, slotIdx 0)
+      const routeBadgeHTML =
+        slotIdx === 0 ? buildSupplierTopBadgesHTML({ routeLabel, isConditional: !!col.isConditional }) : '';
+
+      // Trapsgewijze inspringing voor Leverancier (slot 0)
+      if (slotIdx === 0 && indentLevel > 0) {
+        const indentPx = indentLevel * 30; // 30px per niveau omlaag
+        extraStickyStyle += `margin-top: ${indentPx}px;`;
+      }
+
       const slotDiv = document.createElement('div');
       slotDiv.className = 'slot';
       slotDiv.innerHTML = buildSlotHTML({
@@ -2205,6 +2265,7 @@ function renderColumnsOnly(openModalFn) {
         myOutputId,
         isLinked,
         scoreBadgeHTML,
+        routeBadgeHTML,
         extraStickyClass,
         extraStickyStyle
       });
@@ -2239,7 +2300,8 @@ function renderColumnsOnly(openModalFn) {
       slotsEl.appendChild(slotDiv);
     });
 
-    colEl.appendChild(slotsEl);
+    inner.appendChild(slotsEl);
+    colEl.appendChild(inner);
     frag.appendChild(colEl);
 
     renderConnector({ frag, activeSheet, colIdx, variantLetterMap });
@@ -2248,9 +2310,8 @@ function renderColumnsOnly(openModalFn) {
   colsContainer.replaceChildren(frag);
   renderStats(stats);
   scheduleSyncRowHeights();
-  
-  // RENDER GROUP OVERLAYS NA ELKE RENDER
-  requestAnimationFrame(() => renderGroupOverlays()); 
+
+  requestAnimationFrame(() => renderGroupOverlays());
 }
 
 /** Updates one rendered text cell when state signals a text-only change. */
@@ -2279,7 +2340,6 @@ function updateSingleText(colIdx, slotIdx) {
     const project = state.project || state.data;
     const { outIdByUid, outTextByUid, outTextByOutId } = buildGlobalOutputMaps(project);
 
-    // Zelfde fallback als in renderColumnsOnly(): OUTx labels uit UI moeten altijd een tekst kunnen tonen.
     try {
       const all = typeof state.getAllOutputs === 'function' ? state.getAllOutputs() : {};
       Object.keys(all || {}).forEach((k) => {
@@ -2398,7 +2458,6 @@ export function setupDelegatedEvents() {
         state.toggleParallel?.(idx);
         break;
       case 'variant':
-        // NIEUWE LOGICA: Open de modal ipv direct toggle
         openVariantModal(idx);
         break;
       case 'conditional':

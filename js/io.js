@@ -1,4 +1,4 @@
-// io.js (AANGEPAST: FIX VOOR GROEPSNAMEN UIT JUISTE SHEET)
+// io.js (AANGEPAST: ROUTES A/B/A.1 CORRECT IN CSV)
 
 import { state } from './state.js';
 import { Toast } from './toast.js';
@@ -156,7 +156,7 @@ function getFailTargetFromGate(sheet, gate) {
 }
 
 /* ==========================================================================
-   Variant route letters (UPDATE: MULTI-PARENT SUPPORT)
+   Variant route letters & Follow-up logic
    ========================================================================== */
 
 function toLetter(i0) {
@@ -170,7 +170,7 @@ function computeVariantLetterMap(sheet) {
   const map = {};
   if (!sheet?.columns?.length) return map;
 
-  const colGroups = {}; // key: parentColIdx, val: array of child indices
+  const colGroups = {}; 
 
   if (Array.isArray(sheet.variantGroups)) {
       sheet.variantGroups.forEach(vg => {
@@ -209,6 +209,31 @@ function computeVariantLetterMap(sheet) {
   });
 
   return map;
+}
+
+/**
+ * Berekent follow-up route labels (bijv. A.1, A.2) voor kolommen die
+ * geen variant-start zijn, maar wel bij een route horen.
+ */
+function getFollowupRouteLabel(sheet, colIdx) {
+  const col = sheet.columns?.[colIdx];
+  if (!col) return null;
+
+  const manualRoute = String(col.routeLabel || '').trim(); // "A", "B", etc.
+  const isSplitStart = !!col.isVariant;
+  
+  // Als er geen route is, of het is het startpunt (wordt al door map gedaan), return null
+  if (!manualRoute || isSplitStart) return null;
+
+  let count = 1;
+  for (let i = 0; i < colIdx; i++) {
+    const c = sheet.columns?.[i];
+    if (!c) continue;
+    if (c.isVariant) continue; // Startpunten tellen niet mee voor de .1, .2 reeks
+    if (String(c.routeLabel || '').trim() === manualRoute) count++;
+  }
+
+  return `${manualRoute}.${count}`; // A.1, A.2, ...
 }
 
 /* ==========================================================================
@@ -954,57 +979,7 @@ export function exportToCSV() {
     (project?.sheets || []).forEach((sheet) => {
       const mergeGroups = getMergeGroupsSanitized(project, sheet);
       
-      // PRE-CALCULATE GLOBAL COLUMN NUMBERS FOR THIS SHEET
-      // globalColNr is currently the count of *previous* sheets' columns.
-      // We need to simulate the loop to map local indices to future global numbers.
-      const localToGlobalMap = {};
-      let tempGlobalCounter = globalColNr; // Start where previous sheet left off
-
-      (sheet.columns || []).forEach((c, idx) => {
-          if (c.isVisible !== false) {
-              tempGlobalCounter++;
-              localToGlobalMap[idx] = tempGlobalCounter;
-          }
-      });
-
-      // === NIEUWE LOGICA VOOR ROUTE LABELS (GLOBAL NUMBERS) ===
-      const routeLookup = {};
-      if (Array.isArray(sheet.variantGroups)) {
-          sheet.variantGroups.forEach(vg => {
-              // 1. Vind namen van ALLE parents
-              const parentInfo = (Array.isArray(vg.parents) && vg.parents.length > 0)
-                 ? vg.parents
-                 : (vg.parentColIdx !== undefined ? [vg.parentColIdx] : []);
-                 
-              const parentNames = parentInfo.map(pid => {
-                  const pCol = sheet.columns[pid];
-                  // Gebruik global nummer
-                  const globNum = localToGlobalMap[pid] || '?';
-                  const txt = pCol?.slots?.[3]?.text || `Kolom ${globNum}`;
-                  return `${txt} (${globNum})`;
-              }).join(' & ');
-
-              // 2. Map local variant indices naar GLOBALE kolomnummers
-              const routeNums = vg.variants
-                  .map(v => localToGlobalMap[v]) 
-                  .filter(n => n) 
-                  .join(', ');
-              
-              // Zet label op de parents (optioneel, vaak niet nodig als ze zelf geen variant zijn)
-              parentInfo.forEach(pid => {
-                  routeLookup[pid] = `Main (Routes: ${routeNums})`;
-              });
-
-              // Zet label op de children
-              vg.variants.forEach((vIdx, i) => {
-                  const letter = String.fromCharCode(65 + i); 
-                  routeLookup[vIdx] = `Route ${letter} (van: ${parentNames})`;
-              });
-          });
-      }
-      // ========================================
-
-      // Fallback voor oude varianten (losse split knop)
+      // Fallback voor varianten + letters
       const variantMap = computeVariantLetterMap(sheet);
 
       const visibleColIdxs = (sheet.columns || [])
@@ -1054,8 +1029,12 @@ export function exportToCSV() {
 
         const isSplit = !!col.isVariant;
         
-        // AANGEPAST: Haal route info uit lookup of fallback map
-        const route = routeLookup[colIdx] || (isSplit ? (variantMap[colIdx] || 'Onbekende route') : '-');
+        // AANGEPAST: Correcte route berekening (Start A/B of vervolg A.1/A.2)
+        let calculatedRoute = variantMap[colIdx] || null; // Start (A, B)
+        if (!calculatedRoute) {
+            calculatedRoute = getFollowupRouteLabel(sheet, colIdx); // Follow (A.1)
+        }
+        const route = calculatedRoute ? `Route ${calculatedRoute}` : '-';
 
         // NIEUW: Conditioneel (Trigger) & Logica
         const isConditional = !!col.isConditional;

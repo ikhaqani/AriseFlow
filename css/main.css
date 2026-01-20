@@ -1,4 +1,4 @@
-/* main.css (VOLLEDIG - SCORES VERBORGEN IN DASHBOARD) */
+/* main.css (VOLLEDIG - MET NIEUWE BADGE STYLING) */
 
 /* ==========================================================================
    SCROLLBARS
@@ -887,6 +887,51 @@ body {
 }
 
 /* ==========================================================================
+   NIEUW: SUPPLIER TOP BADGES (BOVEN STICKY)
+   ========================================================================== */
+.supplier-top-badges {
+    position: absolute;
+    top: -22px; /* Iets boven de sticky */
+    left: 0;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 4px;
+    z-index: 5;
+    pointer-events: none;
+}
+
+.route-pill {
+    background: #455a64; /* Neutrale donkere achtergrond */
+    color: #fff;
+    font-size: 10px;
+    font-weight: 800;
+    padding: 2px 8px;
+    border-radius: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+    /* Als je wilt dat de pil meekleurt met de sticky (via DOM.js variabelen), kan je dit toevoegen: */
+    /* background: var(--sticky-bg, #455a64); */
+    /* color: var(--sticky-text, #fff); */
+}
+
+.conditional-pill {
+    background: #ff9800; /* Oranje voor conditioneel */
+    color: #fff;
+    font-size: 12px;
+    font-weight: 800;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+}
+
+/* ==========================================================================
    OVERIGE INDICATOREN
    ========================================================================== */
 .workexp-badge {
@@ -1255,6 +1300,10 @@ body {
     flex-direction: column;
     gap: 6px;
     pointer-events: none;
+
+    /* ✅ NIEUW: laat stack meeschalen met inhoud (RF1-A niet wrappen) */
+    width: auto;
+    min-width: max-content;
 }
 
 /* Als badges in de stack zitten, moeten ze niet absoluut positioneren */
@@ -1454,6 +1503,7 @@ body {
     pointer-events: none;
 }
 
+/* ✅ AANGEPAST: Variant badge auto-breedte + nowrap (RF1-A volledig zichtbaar) */
 .variant-badge {
     position: absolute;
     top: 50%;
@@ -1462,16 +1512,23 @@ body {
     z-index: 100;
     background: #7e57c2;
     color: #ffffff;
-    font-size: 12px;
-    font-weight: 800;
-    padding: 3px 6px;
-    border-radius: 4px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
-    display: flex;
+
+    display: inline-flex;
     align-items: center;
     justify-content: center;
-    height: 24px;
-    min-width: 24px;
+    white-space: nowrap;
+
+    width: auto;
+    max-width: none;
+    min-width: max-content;
+    height: auto;
+
+    padding: 7px 12px;
+
+    font-size: 12px;
+    font-weight: 800;
+    border-radius: 6px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
 }
 
 /* NIEUW: Question Badge Styling */
