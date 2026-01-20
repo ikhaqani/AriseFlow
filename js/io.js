@@ -1,4 +1,5 @@
-// io.js (AANGEPAST: ROUTES A/B/A.1 CORRECT IN CSV)
+// io.js (AANGEPAST: SCOPED ROUTES IN CSV: RF2-A / RF2-A.1 / ...)
+// + FIX: Groepsnamen zichtbaar in exportHD (html2canvas onclone)
 
 import { state } from './state.js';
 import { Toast } from './toast.js';
@@ -156,6 +157,24 @@ function getFailTargetFromGate(sheet, gate) {
 }
 
 /* ==========================================================================
+   ROUTE PREFIX (SCOPED): RF{sheetIndex}-{routeLabel}
+   ========================================================================== */
+
+function getSheetRoutePrefix(project, sheet) {
+  const p = project || state.data;
+  const sheets = Array.isArray(p?.sheets) ? p.sheets : [];
+  const idx = sheets.findIndex((s) => s?.id === sheet?.id);
+  const n = idx >= 0 ? idx + 1 : 1;
+  return `RF${n}`;
+}
+
+function getScopedRouteLabel(project, sheet, label) {
+  const base = String(label || '').trim();
+  if (!base) return '';
+  return `${getSheetRoutePrefix(project, sheet)}-${base}`;
+}
+
+/* ==========================================================================
    Variant route letters & Follow-up logic
    ========================================================================== */
 
@@ -170,42 +189,44 @@ function computeVariantLetterMap(sheet) {
   const map = {};
   if (!sheet?.columns?.length) return map;
 
-  const colGroups = {}; 
+  const colGroups = {};
 
   if (Array.isArray(sheet.variantGroups)) {
-      sheet.variantGroups.forEach(vg => {
-          const primaryParent = (vg.parents && vg.parents.length > 0) ? vg.parents[0] : vg.parentColIdx;
-          
-          if (primaryParent !== undefined) {
-              if (!colGroups[primaryParent]) colGroups[primaryParent] = [];
-              vg.variants.forEach(vIdx => colGroups[primaryParent].push(vIdx));
-          }
-      });
+    sheet.variantGroups.forEach((vg) => {
+      const primaryParent = vg.parents && vg.parents.length > 0 ? vg.parents[0] : vg.parentColIdx;
+
+      if (primaryParent !== undefined) {
+        if (!colGroups[primaryParent]) colGroups[primaryParent] = [];
+        vg.variants.forEach((vIdx) => colGroups[primaryParent].push(vIdx));
+      }
+    });
   }
 
   function assignLabels(parentIdx, prefix) {
-      const children = colGroups[parentIdx];
-      if (!children) return;
-      children.sort((a,b) => a - b); 
+    const children = colGroups[parentIdx];
+    if (!children) return;
+    children.sort((a, b) => a - b);
 
-      children.forEach((childIdx, i) => {
-          let myLabel = prefix ? `${prefix}.${i + 1}` : toLetter(i);
-          map[childIdx] = myLabel;
-          assignLabels(childIdx, myLabel);
-      });
+    children.forEach((childIdx, i) => {
+      const myLabel = prefix ? `${prefix}.${i + 1}` : toLetter(i);
+      map[childIdx] = myLabel;
+      assignLabels(childIdx, myLabel);
+    });
   }
 
   const allChildren = new Set();
-  Object.values(colGroups).forEach(list => list.forEach(c => allChildren.add(c)));
-  const rootParents = Object.keys(colGroups).map(Number).filter(p => !allChildren.has(p));
+  Object.values(colGroups).forEach((list) => list.forEach((c) => allChildren.add(c)));
+  const rootParents = Object.keys(colGroups)
+    .map(Number)
+    .filter((p) => !allChildren.has(p));
 
-  rootParents.forEach(root => assignLabels(root, ''));
+  rootParents.forEach((root) => assignLabels(root, ''));
 
   let legacyCounter = 0;
   sheet.columns.forEach((col, i) => {
-      if (col.isVariant && !map[i]) {
-          map[i] = toLetter(legacyCounter++);
-      }
+    if (col.isVariant && !map[i]) {
+      map[i] = toLetter(legacyCounter++);
+    }
   });
 
   return map;
@@ -221,15 +242,14 @@ function getFollowupRouteLabel(sheet, colIdx) {
 
   const manualRoute = String(col.routeLabel || '').trim(); // "A", "B", etc.
   const isSplitStart = !!col.isVariant;
-  
-  // Als er geen route is, of het is het startpunt (wordt al door map gedaan), return null
+
   if (!manualRoute || isSplitStart) return null;
 
   let count = 1;
   for (let i = 0; i < colIdx; i++) {
     const c = sheet.columns?.[i];
     if (!c) continue;
-    if (c.isVariant) continue; // Startpunten tellen niet mee voor de .1, .2 reeks
+    if (c.isVariant) continue;
     if (String(c.routeLabel || '').trim() === manualRoute) count++;
   }
 
@@ -317,7 +337,6 @@ function normalizeLinkedSources(inputSlot) {
   if (singleUid) out.push({ kind: 'uid', value: singleUid });
   if (singleId) out.push({ kind: 'id', value: singleId });
 
-  // dedupe while preserving order
   const seen = new Set();
   const uniq = [];
   for (const x of out) {
@@ -366,8 +385,6 @@ function resolveLinkedSourcesToOutPairs(sources, outIdByUid, outTextByUid, outTe
 
 /* ==========================================================================
    OUTPUT bundels (bundelnaam -> OUTx; OUTy) voor compacte input
-   Verwacht in project: project.outputBundles = [{ id, name, outIds: [] }]
-   Verwacht in inputSlot: linkedBundleId (string) of linkedBundleIds (array)
    ========================================================================== */
 
 function normalizeLinkedBundles(inputSlot) {
@@ -384,7 +401,6 @@ function normalizeLinkedBundles(inputSlot) {
   const single = String(inputSlot?.linkedBundleId || '').trim();
   if (single) out.push(single);
 
-  // dedupe while preserving order
   const seen = new Set();
   const uniq = [];
   for (const x of out) {
@@ -397,7 +413,7 @@ function normalizeLinkedBundles(inputSlot) {
 }
 
 function buildBundleMaps(project, outIdByUid, outTextByUid, outTextByOutId) {
-  buildGlobalOutputMaps(project); // no-op safety (ensures uids exist)
+  buildGlobalOutputMaps(project); // no-op safety
   const nameById = {};
   const outIdsById = {};
   const outTextsById = {};
@@ -413,7 +429,6 @@ function buildBundleMaps(project, outIdByUid, outTextByUid, outTextByOutId) {
     const name = String(b.name ?? '').trim();
     nameById[id] = name || id;
 
-    // NEW schema: outIds (OUT1..), legacy: outputUids
     const rawOutIds = Array.isArray(b.outIds) ? b.outIds : [];
     const rawUids = Array.isArray(b.outputUids) ? b.outputUids : [];
 
@@ -497,44 +512,28 @@ const SYSFIT_OPTS = {
   ]
 };
 
-/**
- * Checks if a meta object actually contains valid system data.
- * Returns true if at least one system has a name.
- */
 function hasValidSystems(meta) {
   if (!meta || typeof meta !== 'object') return false;
   if (!Array.isArray(meta.systems) || meta.systems.length === 0) return false;
-  
-  // Check if at least one system has a non-empty name
-  return meta.systems.some(s => s && String(s.name || '').trim() !== '');
+  return meta.systems.some((s) => s && String(s.name || '').trim() !== '');
 }
 
-/**
- * ROBUST FALLBACK: Builds system meta from slot data, ensuring we don't
- * return empty structures that override the post-it text.
- */
 function buildSystemsMetaFallbackFromSlot(sysSlot) {
   const slot = sysSlot && typeof sysSlot === 'object' ? sysSlot : {};
   const sd = slot.systemData && typeof slot.systemData === 'object' ? slot.systemData : null;
   const postItText = String(slot.text || '').trim();
 
-  // 1) Try explicit new metadata (sd.systemsMeta)
   if (sd?.systemsMeta && hasValidSystems(sd.systemsMeta)) {
     return sd.systemsMeta;
   }
 
-  // 2) Try legacy metadata (sd.systems)
   if (Array.isArray(sd?.systems) && sd.systems.length > 0) {
-    const validLegacy = sd.systems.filter(s => s && String(s.name || '').trim() !== '');
+    const validLegacy = sd.systems.filter((s) => s && String(s.name || '').trim() !== '');
     if (validLegacy.length > 0) {
-      return { 
-        multi: validLegacy.length > 1, 
-        systems: validLegacy 
-      };
+      return { multi: validLegacy.length > 1, systems: validLegacy };
     }
   }
 
-  // 3) Try simple legacy name (sd.systemName)
   const nameFromSd = String(sd?.systemName ?? '').trim();
   if (nameFromSd) {
     return {
@@ -543,7 +542,6 @@ function buildSystemsMetaFallbackFromSlot(sysSlot) {
     };
   }
 
-  // 4) Ultimate Fallback: The Post-it Text itself
   if (postItText) {
     return {
       multi: false,
@@ -551,7 +549,6 @@ function buildSystemsMetaFallbackFromSlot(sysSlot) {
     };
   }
 
-  // No data found at all
   return null;
 }
 
@@ -621,21 +618,21 @@ function computeTTFScoreListFromMeta(meta) {
 
 function systemsToLists(meta) {
   const clean = sanitizeSystemsMeta(meta);
-  const systems = (clean?.systems || []).filter(s => s && String(s.name || '').trim() !== '');
+  const systems = (clean?.systems || []).filter((s) => s && String(s.name || '').trim() !== '');
 
   if (systems.length === 0 && clean?.systems?.length > 0) {
-     return {
-         systemNames: '',
-         legacySystems: '',
-         targetSystems: '',
-         systemWorkarounds: '',
-         belemmering: '',
-         dubbelRegistreren: '',
-         foutgevoeligheid: '',
-         gevolgUitval: '',
-         ttfScores: '',
-         systemsCount: 1
-     };
+    return {
+      systemNames: '',
+      legacySystems: '',
+      targetSystems: '',
+      systemWorkarounds: '',
+      belemmering: '',
+      dubbelRegistreren: '',
+      foutgevoeligheid: '',
+      gevolgUitval: '',
+      ttfScores: '',
+      systemsCount: 1
+    };
   }
 
   const names = systems.map((s) => String(s?.name || '').trim()).filter(Boolean);
@@ -906,9 +903,9 @@ export function exportToCSV() {
       'Split?',
       'Route',
       'Conditioneel?',
-      'Logica', // <--- NIEUW: Logica kolom
+      'Logica',
       'Groep?',
-      'Groepsnaam', // <--- NIEUW: Groepsnaam kolom
+      'Groepsnaam',
       'Leverancier',
       'Systemen',
       'Legacy systemen',
@@ -969,7 +966,6 @@ export function exportToCSV() {
 
     const project = state.data;
 
-    // FIX: bouw eerst 1x project-brede OUT mapping + output teksten
     const { outIdByUid, outTextByUid, outTextByOutId } = buildGlobalOutputMaps(project);
     const bundleMaps = buildBundleMaps(project, outIdByUid, outTextByUid, outTextByOutId);
 
@@ -978,8 +974,6 @@ export function exportToCSV() {
 
     (project?.sheets || []).forEach((sheet) => {
       const mergeGroups = getMergeGroupsSanitized(project, sheet);
-      
-      // Fallback voor varianten + letters
       const variantMap = computeVariantLetterMap(sheet);
 
       const visibleColIdxs = (sheet.columns || [])
@@ -1001,81 +995,68 @@ export function exportToCSV() {
 
         const leverancier = String(col?.slots?.[0]?.text ?? '').trim();
 
-        // ============================
-        // SYSTEMS (ROBUUSTE FIX)
-        // ============================
         const sysSlot = col?.slots?.[1] || {};
         const sysGroup = getMergeGroupForCell(mergeGroups, colIdx, 1);
-        
+
         let sysMeta = null;
 
-        // 1. Check Merge Group Meta: ONLY use if it has actual names
         if (sysGroup?.systemsMeta && hasValidSystems(sysGroup.systemsMeta)) {
-             sysMeta = sysGroup.systemsMeta;
+          sysMeta = sysGroup.systemsMeta;
         }
 
-        // 2. Fallback to Slot Logic (Explicit meta -> Legacy meta -> Post-it Text)
         if (!sysMeta) {
-             sysMeta = buildSystemsMetaFallbackFromSlot(sysSlot);
+          sysMeta = buildSystemsMetaFallbackFromSlot(sysSlot);
         }
 
         const sysLists = systemsToLists(sysMeta);
         const systemsCount = sysLists.systemsCount;
 
-        // Parallel / Split / Route
         const isParallel = !!col.isParallel;
         const prevIdx = prevVisibleByIdx[colIdx];
         const parallelWith = isParallel && prevIdx != null ? getProcessLabel(sheet, prevIdx) : '-';
 
         const isSplit = !!col.isVariant;
-        
-        // AANGEPAST: Correcte route berekening (Start A/B of vervolg A.1/A.2)
-        let calculatedRoute = variantMap[colIdx] || null; // Start (A, B)
-        if (!calculatedRoute) {
-            calculatedRoute = getFollowupRouteLabel(sheet, colIdx); // Follow (A.1)
-        }
-        const route = calculatedRoute ? `Route ${calculatedRoute}` : '-';
 
-        // NIEUW: Conditioneel (Trigger) & Logica
+        let calculatedRoute = variantMap[colIdx] || null;
+        if (!calculatedRoute) {
+          calculatedRoute = getFollowupRouteLabel(sheet, colIdx);
+        }
+
+        const scoped = calculatedRoute ? getScopedRouteLabel(project, sheet, calculatedRoute) : '';
+        const route = scoped ? `Route ${scoped}` : '-';
+
         const isConditional = !!col.isConditional;
-        
-        // --- LOGICA EXTRACTIE VOOR CSV ---
+
         const logic = col.logic || {};
         let logicExport = '';
 
         if (isConditional && logic.condition) {
-            // Helper voor SKIP logica
-            const getLabel = (val) => {
-                if (val === 'SKIP') return 'SKIP (Overslaan)';
-                if (val !== null) return `Ga naar ${getProcessLabel(sheet, val)}`;
-                return 'Voer stap uit';
-            };
+          const getLabel = (val) => {
+            if (val === 'SKIP') return 'SKIP (Overslaan)';
+            if (val !== null) return `Ga naar ${getProcessLabel(sheet, val)}`;
+            return 'Voer stap uit';
+          };
 
-            const trueAction = getLabel(logic.ifTrue);
-            const falseAction = getLabel(logic.ifFalse);
+          const trueAction = getLabel(logic.ifTrue);
+          const falseAction = getLabel(logic.ifFalse);
 
-            logicExport = `VRAAG: ${logic.condition}`;
-            logicExport += `; INDIEN JA: ${trueAction}`;
-            logicExport += `; INDIEN NEE: ${falseAction}`;
+          logicExport = `VRAAG: ${logic.condition}`;
+          logicExport += `; INDIEN JA: ${trueAction}`;
+          logicExport += `; INDIEN NEE: ${falseAction}`;
         }
-        // ---------------------------------
-        
-        // NIEUW: Group - GEBRUIK LOKALE ZOEKEN (FIX)
-        const isGroup = !!col.isGroup;
-        const groupForThisCol = (sheet.groups || []).find(g => g.cols && g.cols.includes(colIdx));
-        const groupName = groupForThisCol ? (groupForThisCol.title || '') : '';
 
-        // Fase
+        const isGroup = !!col.isGroup;
+        const groupForThisCol = (sheet.groups || []).find((g) => g.cols && g.cols.includes(colIdx));
+        const groupName = groupForThisCol ? groupForThisCol.title || '' : '';
+
         const fase = `Procesflow ${globalColNr}`;
 
-        // Input + InputID (linked of nieuw) — ondersteunt single + multiple links + bundels
         const inputSlot = col?.slots?.[2];
         const outputSlot = col?.slots?.[4];
 
         let inputId = '';
         let inputText = String(inputSlot?.text ?? '').trim();
 
-        // 1) bundels (compact)
         const linkedBundleIds = normalizeLinkedBundles(inputSlot);
         const bundleResolved = resolveBundleIdsToLists(linkedBundleIds, bundleMaps);
 
@@ -1083,7 +1064,6 @@ export function exportToCSV() {
         const bundleOutIdsStr = joinSemi(bundleResolved.memberOutIds);
         const bundleOutTextsStr = joinSemi(bundleResolved.memberOutTexts);
 
-        // 2) losse OUT-links (single + multiple)
         const sources = normalizeLinkedSources(inputSlot);
         const resolved = resolveLinkedSourcesToOutPairs(sources, outIdByUid, outTextByUid, outTextByOutId);
 
@@ -1113,7 +1093,6 @@ export function exportToCSV() {
           inputText = joinSemi(partsText);
         }
 
-        // IO QA (Input slot qa) per systeem aligned
         const slotQa = inputSlot?.qa || {};
 
         const comp = getIOTripleForLabel(slotQa, 'Compleetheid', systemsCount);
@@ -1126,10 +1105,8 @@ export function exportToCSV() {
         const iqfScore = calculateIQFScore(slotQa);
         const iqfScoreStr = iqfScore == null ? '' : String(iqfScore);
 
-        // Input definitions -> items/types/specs
         const def = splitDefs(inputSlot?.inputDefinitions);
 
-        // Proces
         const procSlot = col?.slots?.[3] || {};
         const proces = String(procSlot?.text ?? '').trim();
         const typeActiviteit = String(procSlot?.type ?? '').trim();
@@ -1139,9 +1116,7 @@ export function exportToCSV() {
         const leanwaarde = getLeanValueLabel(procSlot?.processValue ?? '');
         const statusProces = getProcessStatusLabel(procSlot?.processStatus ?? '');
 
-        const oorzaken = Array.isArray(procSlot?.causes)
-          ? joinSemi(procSlot.causes)
-          : String(procSlot?.causes ?? '').trim();
+        const oorzaken = Array.isArray(procSlot?.causes) ? joinSemi(procSlot.causes) : String(procSlot?.causes ?? '').trim();
         const maatregelen = Array.isArray(procSlot?.improvements)
           ? joinSemi(procSlot.improvements)
           : String(procSlot?.improvements ?? '').trim();
@@ -1153,7 +1128,6 @@ export function exportToCSV() {
             ? joinSemi(procSlot.workarounds)
             : String(procSlot?.processWorkarounds ?? '').trim());
 
-        // Output + OutputID (stabiel via outputUid->OUTx) + Gate/routing
         const outGroup = getMergeGroupForCell(mergeGroups, colIdx, 4);
         const outText = String(outputSlot?.text ?? '').trim();
 
@@ -1167,7 +1141,6 @@ export function exportToCSV() {
         const routingRework = outGroup?.gate?.enabled ? getFailTargetFromGate(sheet, outGroup.gate) || '-' : '-';
         const routingPass = outGroup ? getPassTargetFromGroup(sheet, outGroup) || '-' : '-';
 
-        // Klant
         const klant = String(col?.slots?.[5]?.text ?? '').trim();
 
         const row = [
@@ -1178,12 +1151,10 @@ export function exportToCSV() {
           isSplit ? 'Ja' : 'Nee',
           route,
           isConditional ? 'Ja' : 'Nee',
-          logicExport, // <--- Logica data
+          logicExport,
           isGroup ? 'Ja' : 'Nee',
-          groupName, // <--- Groepsnaam
-
+          groupName,
           leverancier,
-
           sysLists.systemNames,
           sysLists.legacySystems,
           sysLists.targetSystems,
@@ -1193,64 +1164,49 @@ export function exportToCSV() {
           sysLists.foutgevoeligheid,
           sysLists.gevolgUitval,
           sysLists.ttfScores,
-
           inputId,
           inputText,
           inputBundlesStr,
           bundleOutIdsStr,
           bundleOutTextsStr,
-
           comp.result,
           comp.impact,
           comp.note,
-
           dq.result,
           dq.impact,
           dq.note,
-
           ed.result,
           ed.impact,
           ed.note,
-
           tj.result,
           tj.impact,
           tj.note,
-
           st.result,
           st.impact,
           st.note,
-
           ov.result,
           ov.impact,
           ov.note,
-
           iqfScoreStr,
-
           def.items,
           def.types,
           def.specs,
-
           proces,
           typeActiviteit,
           werkbeleving,
           toelichting,
           leanwaarde,
           statusProces,
-
           oorzaken,
           maatregelen,
-
           dis.scenarios,
           dis.frequencies,
           procesWorkarounds,
-
           outputId,
           outText,
-
           procesValidatie,
           routingRework,
           routingPass,
-
           klant
         ];
 
@@ -1289,6 +1245,7 @@ export async function exportHD(copyToClipboard = false) {
       ignoreElements: (el) => el.classList.contains('col-actions'),
       onclone: (doc) => {
         doc.body.classList.add('exporting');
+
         const v = doc.getElementById('viewport');
         const b = doc.getElementById('board');
 
@@ -1300,10 +1257,39 @@ export async function exportHD(copyToClipboard = false) {
         }
 
         if (b) {
-            b.style.transform = 'none'; 
-            b.style.marginTop = '80px'; 
-            b.style.padding = '20px';   
+          b.style.transform = 'none';
+          b.style.marginTop = '80px';
+          b.style.padding = '20px';
         }
+
+        // ✅ FIX: forceer groepsnamen zichtbaar in export (ook als .exporting CSS ze verbergt)
+        const style = doc.createElement('style');
+        style.textContent = `
+          .group-header-overlay,
+          .group-header-label {
+            display: block !important;
+            visibility: visible !important;
+            opacity: 1 !important;
+          }
+          .group-header-overlay { z-index: 9999 !important; }
+          .group-header-label { z-index: 10000 !important; }
+        `;
+        doc.head.appendChild(style);
+
+        // Extra safety: inline override (html2canvas kan soms computed styles missen)
+        doc.querySelectorAll('.group-header-overlay').forEach((el) => {
+          el.style.display = 'block';
+          el.style.visibility = 'visible';
+          el.style.opacity = '1';
+          el.style.zIndex = '9999';
+        });
+
+        doc.querySelectorAll('.group-header-label').forEach((el) => {
+          el.style.display = 'block';
+          el.style.visibility = 'visible';
+          el.style.opacity = '1';
+          el.style.zIndex = '10000';
+        });
       }
     });
 
@@ -1346,7 +1332,7 @@ function getGitHubConfig() {
     token: localStorage.getItem('gh_token'),
     owner: localStorage.getItem('gh_owner'),
     repo: localStorage.getItem('gh_repo'),
-    path: localStorage.getItem('gh_path') || 'ariseflow_data.json' // Naam van bestand in je repo
+    path: localStorage.getItem('gh_path') || 'ariseflow_data.json'
   };
 }
 
@@ -1355,56 +1341,54 @@ export async function loadFromGitHub() {
   const { token, owner, repo, path } = getGitHubConfig();
   if (!token || !owner || !repo) throw new Error('GitHub instellingen ontbreken.');
 
-  // URL naar het bestand via de API
   const url = `https://api.github.com/repos/${owner}/${repo}/contents/${path}`;
-  
+
   const response = await fetch(url, {
     headers: {
-      'Authorization': `token ${token}`,
-      'Accept': 'application/vnd.github.v3+json'
+      Authorization: `token ${token}`,
+      Accept: 'application/vnd.github.v3+json'
     }
   });
 
   if (!response.ok) throw new Error(`Fout bij laden: ${response.statusText}`);
 
   const data = await response.json();
-  const content = b64_to_utf8(data.content); // Decodeer de inhoud
-  
-  // Update de applicatie state
+  const content = b64_to_utf8(data.content);
+
   const parsed = JSON.parse(content);
   state.project = parsed;
   if (typeof state.notify === 'function') state.notify();
-  
+
   return true;
 }
 
 // 2. OPSLAAN NAAR GITHUB (OVERWRITE)
 export async function saveToGitHub() {
   const { token, owner, repo, path } = getGitHubConfig();
-  
+
   if (!token || !owner || !repo) {
     alert("Vul eerst je GitHub gegevens in via de knop 'Setup'.");
     return;
   }
 
   const url = `https://api.github.com/repos/${owner}/${repo}/contents/${path}`;
-  
-  // STAP A: Haal eerst de huidige SHA (versie-code) op van het bestand online
+
+  // STAP A: Haal eerst de huidige SHA op
   let sha = null;
   try {
     const getResp = await fetch(url, {
       method: 'GET',
-      headers: { 
-        'Authorization': `token ${token}`,
-        'Accept': 'application/vnd.github.v3+json'
+      headers: {
+        Authorization: `token ${token}`,
+        Accept: 'application/vnd.github.v3+json'
       }
     });
     if (getResp.ok) {
       const getData = await getResp.json();
-      sha = getData.sha; // Dit is de 'sleutel' om te mogen overschrijven
+      sha = getData.sha;
     }
   } catch (e) {
-    console.warn("Bestand bestaat nog niet, er wordt een nieuwe gemaakt.");
+    console.warn('Bestand bestaat nog niet, er wordt een nieuwe gemaakt.');
   }
 
   // STAP B: Bereid de nieuwe data voor
@@ -1412,14 +1396,14 @@ export async function saveToGitHub() {
   const body = {
     message: `Update via AriseFlow: ${new Date().toLocaleString()}`,
     content: utf8_to_b64(contentStr),
-    sha: sha // Als we deze SHA meesturen, weet GitHub dat we deze specifieke versie overschrijven
+    sha: sha
   };
 
-  // STAP C: Stuur de update (PUT request)
+  // STAP C: Stuur de update
   const putResp = await fetch(url, {
     method: 'PUT',
     headers: {
-      'Authorization': `token ${token}`,
+      Authorization: `token ${token}`,
       'Content-Type': 'application/json'
     },
     body: JSON.stringify(body)
