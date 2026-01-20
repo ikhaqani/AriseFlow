@@ -10979,20 +10979,23 @@
       ],
       "variantGroups": [
         {
-          "id": "var_115311c1-1541-4c34-82d3-e7afdaee8f98",
+          "id": "var_afa8fca3-36a2-43db-ba8c-f027d65027d8",
           "parents": [
+            0,
+            0,
+            0,
             null,
             null,
             null
           ],
-          "parentColIdx": null,
+          "parentColIdx": 0,
           "variants": [
             1,
             13
           ]
         },
         {
-          "id": "var_79cb0a14-1b36-4fc4-87cc-e50fc1e0cf48",
+          "id": "var_2dfba3a6-aa7b-4c8a-bea0-eac07d982548",
           "parents": [
             1
           ],
@@ -11001,8 +11004,8 @@
             2,
             3,
             4,
-            5,
             6,
+            5,
             7,
             8,
             9,
