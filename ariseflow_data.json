@@ -4,7 +4,7 @@
   "author": "Anoniem",
   "created": "2026-01-16T08:48:17.021Z",
   "version": "2.7",
-  "activeSheetId": "819bb6d9-21cc-49cf-8c40-4b6d7df6b2e1",
+  "activeSheetId": "dc945f9e-80a8-454c-b355-ca66f4d539e8",
   "sheets": [
     {
       "id": "819bb6d9-21cc-49cf-8c40-4b6d7df6b2e1",
@@ -5754,7 +5754,7 @@
           "order": 1,
           "isVisible": true,
           "isParallel": true,
-          "isVariant": false,
+          "isVariant": true,
           "hasTransition": false,
           "transitionNext": "",
           "outputId": null,
@@ -6165,7 +6165,7 @@
           "order": 1,
           "isVisible": true,
           "isParallel": false,
-          "isVariant": false,
+          "isVariant": true,
           "hasTransition": false,
           "transitionNext": "",
           "outputId": null,
@@ -6576,7 +6576,7 @@
           "order": 1,
           "isVisible": true,
           "isParallel": false,
-          "isVariant": false,
+          "isVariant": true,
           "hasTransition": false,
           "transitionNext": "",
           "outputId": null,
@@ -6974,7 +6974,7 @@
           "order": 1,
           "isVisible": true,
           "isParallel": false,
-          "isVariant": false,
+          "isVariant": true,
           "hasTransition": false,
           "transitionNext": "",
           "outputId": null,
@@ -7371,7 +7371,7 @@
           "order": 1,
           "isVisible": true,
           "isParallel": true,
-          "isVariant": false,
+          "isVariant": true,
           "hasTransition": false,
           "transitionNext": "",
           "outputId": null,
@@ -7762,7 +7762,7 @@
           "order": 1,
           "isVisible": true,
           "isParallel": false,
-          "isVariant": false,
+          "isVariant": true,
           "hasTransition": false,
           "transitionNext": "",
           "outputId": null,
@@ -8160,7 +8160,7 @@
           "order": 1,
           "isVisible": true,
           "isParallel": false,
-          "isVariant": false,
+          "isVariant": true,
           "hasTransition": false,
           "transitionNext": "",
           "outputId": null,
@@ -8558,7 +8558,7 @@
           "order": 1,
           "isVisible": true,
           "isParallel": false,
-          "isVariant": false,
+          "isVariant": true,
           "hasTransition": false,
           "transitionNext": "",
           "outputId": null,
@@ -8956,7 +8956,7 @@
           "order": 1,
           "isVisible": true,
           "isParallel": false,
-          "isVariant": false,
+          "isVariant": true,
           "hasTransition": false,
           "transitionNext": "",
           "outputId": null,
@@ -9354,7 +9354,7 @@
           "order": 1,
           "isVisible": true,
           "isParallel": false,
-          "isVariant": false,
+          "isVariant": true,
           "hasTransition": false,
           "transitionNext": "",
           "outputId": null,
@@ -9752,7 +9752,7 @@
           "order": 1,
           "isVisible": true,
           "isParallel": true,
-          "isVariant": false,
+          "isVariant": true,
           "hasTransition": false,
           "transitionNext": "",
           "outputId": null,
@@ -10150,7 +10150,7 @@
           "order": 1,
           "isVisible": true,
           "isParallel": false,
-          "isVariant": false,
+          "isVariant": true,
           "hasTransition": false,
           "transitionNext": "",
           "outputId": null,
@@ -10548,7 +10548,7 @@
           "order": 1,
           "isVisible": true,
           "isParallel": false,
-          "isVariant": false,
+          "isVariant": true,
           "hasTransition": false,
           "transitionNext": "",
           "outputId": null,
@@ -10977,7 +10977,41 @@
           "title": "Opstarten behandeling"
         }
       ],
-      "variantGroups": []
+      "variantGroups": [
+        {
+          "id": "var_115311c1-1541-4c34-82d3-e7afdaee8f98",
+          "parents": [
+            null,
+            null,
+            null
+          ],
+          "parentColIdx": null,
+          "variants": [
+            1,
+            13
+          ]
+        },
+        {
+          "id": "var_79cb0a14-1b36-4fc4-87cc-e50fc1e0cf48",
+          "parents": [
+            1
+          ],
+          "parentColIdx": 1,
+          "variants": [
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8,
+            9,
+            10,
+            11,
+            12
+          ]
+        }
+      ]
     },
     {
       "id": "af73f8e9-9286-4596-a418-93e5b3c50f57",
