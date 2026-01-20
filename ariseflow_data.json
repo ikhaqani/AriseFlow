@@ -4383,7 +4383,7 @@
             {
               "id": "45d9beb3-de4f-42d1-aa36-5c2468156cb7",
               "created": 1768731369745,
-              "text": "Dossier",
+              "text": "Mail / Brief met verwijzing",
               "linkedSourceId": null,
               "type": null,
               "processValue": null,
@@ -5126,7 +5126,7 @@
             {
               "id": "7659cfd0-ddaf-427c-a47a-15bda9209668",
               "created": 1768732173918,
-              "text": "Aanmaken triageorder",
+              "text": "Handmatig aanmaken triageorder",
               "linkedSourceId": null,
               "type": null,
               "processValue": null,
@@ -11119,7 +11119,7 @@
             {
               "id": "6c2d0e6c-b246-4eae-9f18-c31f4e61546e",
               "created": 1768913067610,
-              "text": "ePIC",
+              "text": "Epic",
               "linkedSourceId": null,
               "type": null,
               "processValue": null,
