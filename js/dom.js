@@ -131,13 +131,13 @@ function getRouteColorByLetter(letter) {
   const L = String(letter || '').toUpperCase();
 
   // Geen groen/oranje/rood. Palet t/m G: paars, magenta, blauw, teal, indigo, amber, blauwgrijs
-  if (L === 'A') return { bg: '#7C4DFF', text: '#FFFFFF' }; // paars
+  if (L === 'A') return { bg: 'rgb(49, 74, 12)', text: '#FFFFFF' }; // paars
   if (L === 'B') return { bg: '#D81B60', text: '#FFFFFF' }; // magenta
   if (L === 'C') return { bg: '#2979FF', text: '#FFFFFF' }; // blauw
   if (L === 'D') return { bg: '#00ACC1', text: '#FFFFFF' }; // teal/cyaan
   if (L === 'E') return { bg: '#3949AB', text: '#FFFFFF' }; // indigo
-  if (L === 'F') return { bg: '#FFC107', text: '#111111' }; // amber/geel
-  if (L === 'G') return { bg: '#546E7A', text: '#FFFFFF' }; // blauwgrijs
+  if (L === 'F') return { bg: 'rgb(121, 121, 121)', text: '#111111' }; // amber/geel
+  if (L === 'G') return { bg: '#3c7690', text: '#FFFFFF' }; // blauwgrijs
   return null;
 }
 
