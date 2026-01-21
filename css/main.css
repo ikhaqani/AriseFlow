@@ -34,7 +34,6 @@
     --sticky-text: #111;
 
     /* Optional: gebruikt door merged overlays om multi-kleur gradients te tonen (fallback: --sticky-bg) */
-    --merged-bg: unset;
     --sticky-font-family: "Inter", sans-serif;
     --sticky-font-size: 15px;
     --sticky-font-weight: 700;
@@ -790,19 +789,19 @@ body {
 
 /* Status kleuren */
 .sticky.status-happy {
-    background-color: #00c853 !important;
+    background: #00c853 !important;
     color: #ffffff !important;
     border: 1px solid #009624 !important;
 }
 
 .sticky.status-neutral {
-    background-color: #ff6d00 !important;
+    background: #ff6d00 !important;
     color: #ffffff !important;
     border: 1px solid #e65100 !important;
 }
 
 .sticky.status-sad {
-    background-color: #d50000 !important;
+    background: #d50000 !important;
     color: #ffffff !important;
     border: 1px solid #b71c1c !important;
 }
@@ -1433,8 +1432,8 @@ body {
 
 /* Parallel Column Styling */
 .col.is-parallel {
-    border-top: 2px dashed rgba(255, 255, 255, 0.15);
-    border-bottom: 2px dashed rgba(255, 255, 255, 0.15);
+    border-top: 2px solid rgba(255, 255, 255, 0.15);
+    border-bottom: 2px solid rgba(255, 255, 255, 0.15);
     background: rgba(255, 255, 255, 0.015);
     border-radius: 12px;
 }
@@ -1454,8 +1453,8 @@ body {
 .parallel-line {
     height: 100%;
     width: 10px;
-    border-left: 2px dashed rgba(255, 255, 255, 0.2);
-    border-right: 2px dashed rgba(255, 255, 255, 0.2);
+    border-left: 2px solid rgba(255, 255, 255, 0.2);
+    border-right: 2px solid rgba(255, 255, 255, 0.2);
 }
 
 .parallel-badge {
@@ -1480,8 +1479,8 @@ body {
 
 /* Variant (Split) Column Styling */
 .col.is-variant {
-    border-top: 2px dashed rgba(126, 87, 194, 0.4);
-    border-bottom: 2px dashed rgba(126, 87, 194, 0.4);
+    border-top: 2px solid rgba(126, 87, 194, 0.4);
+    border-bottom: 2px solid rgba(126, 87, 194, 0.4);
     background: rgba(126, 87, 194, 0.03);
     border-radius: 12px;
     margin-top: 0;

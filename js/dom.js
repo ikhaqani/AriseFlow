@@ -1,3 +1,5 @@
+// dom.js
+
 import { state } from './state.js';
 import { IO_CRITERIA, PROCESS_STATUSES } from './config.js';
 import { openEditModal, saveModalDetails, openLogicModal, openGroupModal, openVariantModal } from './modals.js';
@@ -131,13 +133,13 @@ function getRouteColorByLetter(letter) {
   const L = String(letter || '').toUpperCase();
 
   // Geen groen/oranje/rood. Palet t/m G: paars, magenta, blauw, teal, indigo, amber, blauwgrijs
-  if (L === 'A') return { bg: 'rgb(49, 74, 12)', text: '#FFFFFF' }; // paars
-  if (L === 'B') return { bg: '#D81B60', text: '#FFFFFF' }; // magenta
-  if (L === 'C') return { bg: '#2979FF', text: '#FFFFFF' }; // blauw
-  if (L === 'D') return { bg: '#00ACC1', text: '#FFFFFF' }; // teal/cyaan
-  if (L === 'E') return { bg: '#3949AB', text: '#FFFFFF' }; // indigo
-  if (L === 'F') return { bg: 'rgb(121, 121, 121)', text: '#111111' }; // amber/geel
-  if (L === 'G') return { bg: '#3c7690', text: '#FFFFFF' }; // blauwgrijs
+  if (L === 'A') return { bg: 'rgb(49, 74, 12)', text: '#FFFFFF' };
+  if (L === 'B') return { bg: '#D81B60', text: '#FFFFFF' };
+  if (L === 'C') return { bg: '#2979FF', text: '#FFFFFF' };
+  if (L === 'D') return { bg: '#00ACC1', text: '#FFFFFF' };
+  if (L === 'E') return { bg: '#3949AB', text: '#FFFFFF' };
+  if (L === 'F') return { bg: 'rgb(121, 121, 121)', text: '#111111' };
+  if (L === 'G') return { bg: '#3c7690', text: '#FFFFFF' };
   return null;
 }
 
@@ -185,7 +187,6 @@ function _pickTextColorFromColors(colors) {
   const rgbs = (colors || []).map(_parseColorToRgb).filter(Boolean);
   if (!rgbs.length) return null;
   const avgLum = rgbs.map(_relLuminance).reduce((a, b) => a + b, 0) / rgbs.length;
-  // Licht gradient -> donkere tekst, donker gradient -> witte tekst
   return avgLum > 0.55 ? '#111111' : '#FFFFFF';
 }
 
@@ -273,25 +274,6 @@ function _sanitizeGate(gate) {
   const enabled = !!gate.enabled;
   const failTargetColIdx = Number.isFinite(Number(gate.failTargetColIdx)) ? Number(gate.failTargetColIdx) : null;
   return { enabled, failTargetColIdx };
-}
-
-/**
- * ✅ NEW: Only persist a gate when it is actually "complete":
- * - enabled === true
- * - failTargetColIdx is a finite number
- * Otherwise return null so exports (Excel) should keep routing fields empty.
- */
-function _finalizeGateForPersistence(gate) {
-  const g = _sanitizeGate(gate);
-  if (!g?.enabled) return null;
-
-  const idx = g.failTargetColIdx;
-  if (idx == null) return null;
-
-  const n = Number(idx);
-  if (!Number.isFinite(n)) return null;
-
-  return { enabled: true, failTargetColIdx: n };
 }
 
 /** Normalizes systems meta to a safe schema and infers multi when 2+ systems exist. */
@@ -886,7 +868,7 @@ function openMergeModal(clickedColIdx, slotIdx, openModalFn) {
 
     <button id="addSystemBtn" class="std-btn primary" type="button" style="width:fit-content; padding:10px 14px;">+ Systeem toevoegen</button>
 
-    <div style="margin-top: hookup; font-size:14px; color:#cfd8dc;">
+    <div style="margin-top:10px; font-size:14px; color:#cfd8dc;">
       Overall score (kolom): <strong id="overallSystemScore">—</strong>
     </div>
   `
@@ -1381,6 +1363,14 @@ function openMergeModal(clickedColIdx, slotIdx, openModalFn) {
     const vEl = modal.querySelector('#mergeText');
     const v = vEl ? String(vEl.value ?? '') : String(curText || '');
 
+    // ✅ HARD REQUIREMENT: als Procesvalidatie aan staat, moet Rework routing gekozen zijn
+    if (slotIdx === 4 && gate?.enabled) {
+      if (gate.failTargetColIdx == null || !Number.isFinite(Number(gate.failTargetColIdx))) {
+        alert("Selecteer een waarde bij 'Routing bij Rework' of zet 'Validatiestap toevoegen' uit.");
+        return;
+      }
+    }
+
     if (!mergeEnabled) {
       setMergeGroupForSlot(slotIdx, null);
       state.updateStickyText(clickedColIdx, slotIdx, v);
@@ -1427,13 +1417,7 @@ function openMergeModal(clickedColIdx, slotIdx, openModalFn) {
       label: slotIdx === 1 ? 'Merged System' : 'Merged Output'
     };
 
-    // ✅ CHANGED: only persist gate if it is truly enabled + configured
-    if (slotIdx === 4) {
-      const finalGate = _finalizeGateForPersistence(gate);
-      if (finalGate) payload.gate = finalGate;
-      // else: do not add payload.gate at all
-    }
-
+    if (slotIdx === 4) payload.gate = _sanitizeGate(gate);
     if (slotIdx === 1) payload.systemsMeta = _sanitizeSystemsMeta(systemsMeta);
 
     setMergeGroupForSlot(slotIdx, payload);
@@ -1692,7 +1676,9 @@ function buildSlotHTML({
   const editableAttr = isLinked ? 'contenteditable="false" data-linked="true"' : 'contenteditable="true"';
 
   return `
-    <div class="sticky ${statusClass} ${extraStickyClass}" style="${escapeAttr(extraStickyStyle)}" data-col="${colIdx}" data-slot="${slotIdx}">
+    <div class="sticky ${statusClass} ${extraStickyClass}" style="${escapeAttr(
+    extraStickyStyle
+  )}" data-col="${colIdx}" data-slot="${slotIdx}">
       ${routeBadgeHTML}
       <div class="sticky-grip"></div>
 
@@ -1771,8 +1757,7 @@ function syncRowHeightsNow() {
       const sticky = slot.firstElementChild;
       if (!sticky) continue;
 
-      // ✅ FIX: neem margins mee (o.a. supplier-indent via margin-top),
-      // zodat de sticky niet "doorzakt" en strak tegen de volgende rij komt.
+      // ✅ FIX: neem margins mee (o.a. supplier-indent via margin-top)
       const cs = getComputedStyle(sticky);
       const mt = parseFloat(cs.marginTop || '0') || 0;
       const mb = parseFloat(cs.marginBottom || '0') || 0;
@@ -1804,10 +1789,10 @@ function syncRowHeightsNow() {
 
   colsContainer.querySelectorAll('.col-connector').forEach((c) => {
     if (!c.classList.contains('parallel-connector') && !c.classList.contains('combo-connector')) {
-      const colEl = c.closest('.col-connector').previousElementSibling; // de kolom ervoor
+      const colEl = c.closest('.col-connector').previousElementSibling;
       const indentLevel = colEl ? parseInt(colEl.dataset.indentLevel || 0, 10) : 0;
 
-      const extraPadding = indentLevel * 30; // 30px per niveau
+      const extraPadding = indentLevel * 30;
 
       c.style.paddingTop = `${processOffset + extraPadding}px`;
     }
@@ -1870,8 +1855,11 @@ function attachStickyInteractions({ stickyEl, textEl, colIdx, slotIdx, openModal
   const focusText = (e) => {
     if (e.detail && e.detail > 1) return;
 
+    // ✅ toegevoegd: help/vraagteken buttons mogen focus niet kapen
     if (
-      e.target.closest('.sticky-grip, .qa-score-badge, .id-tag, .badges-row, .workexp-badge, .btn-col-action, .col-actions')
+      e.target.closest(
+        '.sticky-grip, .qa-score-badge, .id-tag, .badges-row, .workexp-badge, .btn-col-action, .col-actions, .qmark-btn, [data-action="help"]'
+      )
     ) {
       return;
     }
@@ -1913,7 +1901,6 @@ function renderConnector({ frag, activeSheet, colIdx, variantLetterMap }) {
 
   const connEl = document.createElement('div');
 
-  // ✅ Variant + Parallel samen (routekolom kan óók parallel zijn)
   if (hasVariant && hasParallel) {
     connEl.className = 'col-connector combo-connector variant-connector';
     connEl.innerHTML = `<div class="parallel-badge">||</div>`;
@@ -1921,7 +1908,6 @@ function renderConnector({ frag, activeSheet, colIdx, variantLetterMap }) {
     return;
   }
 
-  // Variant: 0px connector
   if (hasVariant) {
     connEl.className = 'col-connector variant-connector';
     connEl.innerHTML = '';
@@ -1929,7 +1915,6 @@ function renderConnector({ frag, activeSheet, colIdx, variantLetterMap }) {
     return;
   }
 
-  // Parallel: connector-badge
   if (hasParallel) {
     connEl.className = 'col-connector combo-connector';
     connEl.innerHTML = `<div class="parallel-badge">||</div>`;
@@ -1937,7 +1922,6 @@ function renderConnector({ frag, activeSheet, colIdx, variantLetterMap }) {
     return;
   }
 
-  // Normale connector
   connEl.className = 'col-connector';
   connEl.innerHTML = `<div class="connector-active"></div>`;
   frag.appendChild(connEl);
@@ -1952,11 +1936,6 @@ function renderStats(stats) {
   if (happyEl) happyEl.textContent = stats.happy;
   if (neutralEl) neutralEl.textContent = stats.neutral;
   if (sadEl) sadEl.textContent = stats.sad;
-}
-
-/** Removes any previously rendered merged overlays from the columns container. */
-function clearMergedOverlays(colsContainer) {
-  colsContainer?.querySelectorAll?.('.merged-overlay')?.forEach((n) => n.remove());
 }
 
 /** Builds system summary HTML using inline Legacy pills for merged System overlays. */
@@ -2081,7 +2060,6 @@ function renderMergedOverlays(openModalFn) {
     const textEl = overlay.querySelector('.text');
     const stickyEl = overlay.querySelector('.sticky');
 
-    // ====== MERGED GRADIENT: combineer route-kleuren van alle kolommen in de merge-range ======
     if (stickyEl) {
       const variantLetterMap = computeVariantLetterMap(activeSheet);
 
@@ -2122,18 +2100,15 @@ function renderMergedOverlays(openModalFn) {
       }
     }
 
-    // ✅ CHANGED: Gate UI only if gate is actually complete (enabled + failTarget selected)
     if (g.slotIdx === 4 && stickyEl) {
-      const gate = _finalizeGateForPersistence(g?.gate);
-
-      if (!gate) {
-        // ensure any old gate markup is removed
-        applyGateToSticky(stickyEl, null);
-      } else {
-        const passLabel = getPassLabelForGroup(g);
-        const failLabel = Number.isFinite(Number(gate.failTargetColIdx)) ? getProcessLabel(gate.failTargetColIdx) : '—';
-        applyGateToSticky(stickyEl, gate, passLabel, failLabel);
+      const gate = _sanitizeGate(g?.gate);
+      const passLabel = getPassLabelForGroup(g);
+      let failLabel = '—';
+      if (gate?.enabled && gate.failTargetColIdx != null) {
+        const idx = gate.failTargetColIdx;
+        if (Number.isFinite(idx)) failLabel = getProcessLabel(idx);
       }
+      applyGateToSticky(stickyEl, gate, passLabel, failLabel);
     }
   });
 
@@ -2259,14 +2234,14 @@ function renderColumnsOnly(openModalFn) {
     if (depth > 0) colEl.dataset.depth = depth;
     if (depth > 0) colEl.style.transformOrigin = 'top center';
 
-    // ====== ROUTE LABEL + INDENT LEVEL + KLEUR (nieuw) ======
-    const routeLabel = getRouteLabelForColumn(colIdx, variantLetterMap); // "A" / "B" / "A.1" / ...
-    const indentLevel = getIndentLevelFromRouteLabel(routeLabel); // 0 / 1 / 2 / ...
-    const baseLetter = getRouteBaseLetter(routeLabel); // "A" / "B"
+    // ====== ROUTE LABEL + INDENT LEVEL + KLEUR ======
+    const routeLabel = getRouteLabelForColumn(colIdx, variantLetterMap);
+    const indentLevel = getIndentLevelFromRouteLabel(routeLabel);
+    const baseLetter = getRouteBaseLetter(routeLabel);
 
     colEl.dataset.routeLabel = routeLabel || '';
     colEl.dataset.indentLevel = String(indentLevel);
-    colEl.dataset.route = routeLabel || ''; // legacy/debug
+    colEl.dataset.route = routeLabel || '';
 
     if (indentLevel > 0) {
       colEl.classList.add('is-route-col');
@@ -2274,19 +2249,14 @@ function renderColumnsOnly(openModalFn) {
 
       const clr = getRouteColorByLetter(baseLetter);
       if (clr) {
-        // cascades into .sticky background/text via CSS variables
         colEl.style.setProperty('--sticky-bg', clr.bg);
         colEl.style.setProperty('--sticky-text', clr.text);
       }
     }
 
-    // Wrapper zodat background altijd achter content zit
     const inner = document.createElement('div');
     inner.className = 'col-inner';
-    Object.assign(inner.style, {
-      position: 'relative',
-      zIndex: '2'
-    });
+    Object.assign(inner.style, { position: 'relative', zIndex: '2' });
 
     const actionsEl = document.createElement('div');
     actionsEl.className = 'col-actions';
@@ -2360,13 +2330,11 @@ function renderColumnsOnly(openModalFn) {
         extraStickyStyle = 'visibility:hidden; pointer-events:none;';
       }
 
-      // Route badge (nu bij Leverancier, slotIdx 0)
       const routeBadgeHTML =
         slotIdx === 0 ? buildSupplierTopBadgesHTML({ routeLabel, isConditional: !!col.isConditional }) : '';
 
-      // Trapsgewijze inspringing voor Leverancier (slot 0)
       if (slotIdx === 0 && indentLevel > 0) {
-        const indentPx = indentLevel * 30; // 30px per niveau omlaag
+        const indentPx = indentLevel * 30;
         extraStickyStyle += `margin-top: ${indentPx}px;`;
       }
 
@@ -2540,13 +2508,34 @@ export function setupDelegatedEvents() {
   _delegatedBound = true;
 
   const act = (e) => {
+    const now = performance.now();
+
+    // ---- HELP / vraagteken buttons (niet de kolom ❓) ----
+    const helpBtn = e.target.closest?.('[data-action="help"], .qmark-btn');
+    if (helpBtn) {
+      if ((e.type === 'mousedown' || e.type === 'click') && now - _lastPointerDownTs < 250) return;
+      if (e.type === 'pointerdown' || e.type === 'touchstart') _lastPointerDownTs = now;
+
+      e.preventDefault();
+      e.stopPropagation();
+
+      const helpKey =
+        String(helpBtn.dataset.helpKey || helpBtn.dataset.criterionKey || helpBtn.dataset.key || '').trim() || null;
+
+      // Dispatch zodat je eigen help-module dit kan oppakken
+      document.dispatchEvent(
+        new CustomEvent('ssipoc:help', {
+          detail: { helpKey, source: 'dom', target: helpBtn }
+        })
+      );
+      return;
+    }
+
     const btn = e.target.closest('.btn-col-action');
     if (!btn) return;
 
     const action = btn.dataset.action;
     if (!action) return;
-
-    const now = performance.now();
 
     // Voorkom dubbele triggers (pointerdown -> mousedown/click)
     if ((e.type === 'mousedown' || e.type === 'click') && now - _lastPointerDownTs < 250) return;
@@ -2590,9 +2579,30 @@ export function setupDelegatedEvents() {
       case 'group':
         openGroupModal(idx);
         break;
-      case 'question':
-        state.toggleQuestion?.(idx);
+
+      // ✅ FIX: vraagteken (kolomactie) met fallbacks, zodat hij altijd werkt
+      case 'question': {
+        if (typeof state.toggleQuestion === 'function') {
+          state.toggleQuestion(idx);
+          break;
+        }
+        if (typeof state.toggleQuestionColumn === 'function') {
+          state.toggleQuestionColumn(idx);
+          break;
+        }
+
+        // absolute fallback: toggle flag in state + re-render
+        const sh = state.activeSheet;
+        const col = sh?.columns?.[idx];
+        if (col) {
+          col.isQuestion = !col.isQuestion;
+          if (typeof state.notify === 'function') state.notify({ reason: 'columns' });
+          else renderColumnsOnly(_openModalFn);
+        } else {
+          console.warn('Question toggle missing on state');
+        }
         break;
+      }
     }
   };
 
