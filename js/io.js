@@ -1,5 +1,7 @@
 // io.js (AANGEPAST: SCOPED ROUTES IN CSV: RF2-A / RF2-A.1 / ...)
 // + FIX: Groepsnamen zichtbaar in exportHD (html2canvas onclone)
+// + FIX (Procesvalidatie export): alleen exporteren als gate écht compleet is (enabled + failTargetColIdx)
+//   Anders blijven 'Procesvalidatie' en routing-velden leeg (geen bypass in Excel).
 
 import { state } from './state.js';
 import { Toast } from './toast.js';
@@ -77,6 +79,28 @@ function isContiguousZeroBased(cols) {
   return s.length === s[s.length - 1] - s[0] + 1;
 }
 
+function sanitizeGate(gate) {
+  if (!gate || typeof gate !== 'object') return null;
+  return {
+    enabled: !!gate.enabled,
+    failTargetColIdx: Number.isFinite(Number(gate.failTargetColIdx)) ? Number(gate.failTargetColIdx) : null
+  };
+}
+
+/**
+ * ✅ Alleen "geldige" procesvalidatie gate:
+ * - enabled === true
+ * - failTargetColIdx is finite number
+ * Anders: null (export blijft leeg, geen bypass route in Excel)
+ */
+function finalizeGate(gate) {
+  const g = sanitizeGate(gate);
+  if (!g?.enabled) return null;
+  if (g.failTargetColIdx == null) return null;
+  if (!Number.isFinite(Number(g.failTargetColIdx))) return null;
+  return { enabled: true, failTargetColIdx: Number(g.failTargetColIdx) };
+}
+
 function sanitizeMergeGroupForSheet(sheet, g) {
   const n = sheet?.columns?.length ?? 0;
   if (!n) return null;
@@ -92,15 +116,8 @@ function sanitizeMergeGroupForSheet(sheet, g) {
   let master = Number(g?.master);
   if (!Number.isFinite(master) || !uniq.includes(master)) master = uniq[0];
 
-  const gate =
-    slotIdx === 4 && g?.gate && typeof g.gate === 'object'
-      ? {
-          enabled: !!g.gate.enabled,
-          failTargetColIdx: Number.isFinite(Number(g.gate.failTargetColIdx))
-            ? Number(g.gate.failTargetColIdx)
-            : null
-        }
-      : null;
+  // ✅ Gate wordt alleen meegenomen als hij compleet is
+  const gate = slotIdx === 4 ? finalizeGate(g?.gate) : null;
 
   const systemsMeta =
     slotIdx === 1 && g?.systemsMeta && typeof g.systemsMeta === 'object' ? g.systemsMeta : null;
@@ -150,10 +167,9 @@ function getPassTargetFromGroup(sheet, group) {
 }
 
 function getFailTargetFromGate(sheet, gate) {
-  if (!gate?.enabled) return '';
-  const idx = gate.failTargetColIdx;
-  if (idx == null || !Number.isFinite(Number(idx))) return '';
-  return getProcessLabel(sheet, idx);
+  const g = finalizeGate(gate);
+  if (!g) return '';
+  return getProcessLabel(sheet, g.failTargetColIdx);
 }
 
 /* ==========================================================================
@@ -1116,7 +1132,10 @@ export function exportToCSV() {
         const leanwaarde = getLeanValueLabel(procSlot?.processValue ?? '');
         const statusProces = getProcessStatusLabel(procSlot?.processStatus ?? '');
 
-        const oorzaken = Array.isArray(procSlot?.causes) ? joinSemi(procSlot.causes) : String(procSlot?.causes ?? '').trim();
+        const oorzaken = Array.isArray(procSlot?.causes)
+          ? joinSemi(procSlot.causes)
+          : String(procSlot?.causes ?? '').trim();
+
         const maatregelen = Array.isArray(procSlot?.improvements)
           ? joinSemi(procSlot.improvements)
           : String(procSlot?.improvements ?? '').trim();
@@ -1137,9 +1156,12 @@ export function exportToCSV() {
           outputId = outUid && outIdByUid[outUid] ? outIdByUid[outUid] : '';
         }
 
-        const procesValidatie = outGroup?.gate?.enabled ? 'Ja' : 'Nee';
-        const routingRework = outGroup?.gate?.enabled ? getFailTargetFromGate(sheet, outGroup.gate) || '-' : '-';
-        const routingPass = outGroup ? getPassTargetFromGroup(sheet, outGroup) || '-' : '-';
+        // ✅ FIX: Procesvalidatie + routing alleen exporteren als gate compleet is
+        const validGate = finalizeGate(outGroup?.gate);
+
+        const procesValidatie = validGate ? 'Ja' : '';
+        const routingRework = validGate ? getFailTargetFromGate(sheet, validGate) : '';
+        const routingPass = validGate && outGroup ? getPassTargetFromGroup(sheet, outGroup) : '';
 
         const klant = String(col?.slots?.[5]?.text ?? '').trim();
 

@@ -275,6 +275,25 @@ function _sanitizeGate(gate) {
   return { enabled, failTargetColIdx };
 }
 
+/**
+ * ✅ NEW: Only persist a gate when it is actually "complete":
+ * - enabled === true
+ * - failTargetColIdx is a finite number
+ * Otherwise return null so exports (Excel) should keep routing fields empty.
+ */
+function _finalizeGateForPersistence(gate) {
+  const g = _sanitizeGate(gate);
+  if (!g?.enabled) return null;
+
+  const idx = g.failTargetColIdx;
+  if (idx == null) return null;
+
+  const n = Number(idx);
+  if (!Number.isFinite(n)) return null;
+
+  return { enabled: true, failTargetColIdx: n };
+}
+
 /** Normalizes systems meta to a safe schema and infers multi when 2+ systems exist. */
 function _sanitizeSystemsMeta(meta) {
   if (!meta || typeof meta !== 'object') return null;
@@ -867,7 +886,7 @@ function openMergeModal(clickedColIdx, slotIdx, openModalFn) {
 
     <button id="addSystemBtn" class="std-btn primary" type="button" style="width:fit-content; padding:10px 14px;">+ Systeem toevoegen</button>
 
-    <div style="margin-top:10px; font-size:14px; color:#cfd8dc;">
+    <div style="margin-top: hookup; font-size:14px; color:#cfd8dc;">
       Overall score (kolom): <strong id="overallSystemScore">—</strong>
     </div>
   `
@@ -1408,7 +1427,13 @@ function openMergeModal(clickedColIdx, slotIdx, openModalFn) {
       label: slotIdx === 1 ? 'Merged System' : 'Merged Output'
     };
 
-    if (slotIdx === 4) payload.gate = _sanitizeGate(gate);
+    // ✅ CHANGED: only persist gate if it is truly enabled + configured
+    if (slotIdx === 4) {
+      const finalGate = _finalizeGateForPersistence(gate);
+      if (finalGate) payload.gate = finalGate;
+      // else: do not add payload.gate at all
+    }
+
     if (slotIdx === 1) payload.systemsMeta = _sanitizeSystemsMeta(systemsMeta);
 
     setMergeGroupForSlot(slotIdx, payload);
@@ -1667,9 +1692,7 @@ function buildSlotHTML({
   const editableAttr = isLinked ? 'contenteditable="false" data-linked="true"' : 'contenteditable="true"';
 
   return `
-    <div class="sticky ${statusClass} ${extraStickyClass}" style="${escapeAttr(
-    extraStickyStyle
-  )}" data-col="${colIdx}" data-slot="${slotIdx}">
+    <div class="sticky ${statusClass} ${extraStickyClass}" style="${escapeAttr(extraStickyStyle)}" data-col="${colIdx}" data-slot="${slotIdx}">
       ${routeBadgeHTML}
       <div class="sticky-grip"></div>
 
@@ -2099,15 +2122,18 @@ function renderMergedOverlays(openModalFn) {
       }
     }
 
+    // ✅ CHANGED: Gate UI only if gate is actually complete (enabled + failTarget selected)
     if (g.slotIdx === 4 && stickyEl) {
-      const gate = _sanitizeGate(g?.gate);
-      const passLabel = getPassLabelForGroup(g);
-      let failLabel = '—';
-      if (gate?.enabled && gate.failTargetColIdx != null) {
-        const idx = gate.failTargetColIdx;
-        if (Number.isFinite(idx)) failLabel = getProcessLabel(idx);
+      const gate = _finalizeGateForPersistence(g?.gate);
+
+      if (!gate) {
+        // ensure any old gate markup is removed
+        applyGateToSticky(stickyEl, null);
+      } else {
+        const passLabel = getPassLabelForGroup(g);
+        const failLabel = Number.isFinite(Number(gate.failTargetColIdx)) ? getProcessLabel(gate.failTargetColIdx) : '—';
+        applyGateToSticky(stickyEl, gate, passLabel, failLabel);
       }
-      applyGateToSticky(stickyEl, gate, passLabel, failLabel);
     }
   });
 
