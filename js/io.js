@@ -1246,8 +1246,18 @@ export async function exportHD(copyToClipboard = false) {
       onclone: (doc) => {
         doc.body.classList.add('exporting');
 
+        // --- Target elements in cloned DOM ---
         const v = doc.getElementById('viewport');
         const b = doc.getElementById('board');
+        const bw = doc.querySelector('.board-scale-wrapper'); // wrapper that often carries transform
+        const bcw = doc.getElementById('board-content-wrapper');
+        const cols = doc.getElementById('cols');
+
+        // 1) Remove transforms/scroll clipping that can hide overlays
+        if (bw) {
+          bw.style.transform = 'none';
+          bw.style.transformOrigin = 'top left';
+        }
 
         if (v) {
           v.style.overflow = 'visible';
@@ -1260,35 +1270,91 @@ export async function exportHD(copyToClipboard = false) {
           b.style.transform = 'none';
           b.style.marginTop = '80px';
           b.style.padding = '20px';
+          b.style.overflow = 'visible';
         }
 
-        // ✅ FIX: forceer groepsnamen zichtbaar in export (ook als .exporting CSS ze verbergt)
-        const style = doc.createElement('style');
-        style.textContent = `
+        if (bcw) {
+          bcw.style.overflow = 'visible';
+          bcw.style.height = 'auto';
+          bcw.style.position = 'relative';
+        }
+
+        if (cols) {
+          cols.style.overflow = 'visible';
+          cols.style.position = 'relative';
+
+          // Reserve vertical space so group headers that normally sit “above” the board
+          // are not clipped in the export.
+          const padTop = cols.style.paddingTop || '';
+          if (!padTop || padTop === '0px') cols.style.paddingTop = '44px';
+        }
+
+        // 2) Force group headers to render INSIDE the capture area (avoid negative top clipping)
+        const forceStyle = doc.createElement('style');
+        forceStyle.textContent = `
           .group-header-overlay,
-          .group-header-label {
+          .group-header-label,
+          .group-header-line {
             display: block !important;
             visibility: visible !important;
             opacity: 1 !important;
           }
-          .group-header-overlay { z-index: 9999 !important; }
-          .group-header-label { z-index: 10000 !important; }
+          .group-header-overlay {
+            position: absolute !important;
+            top: 0px !important;
+            z-index: 9999 !important;
+            pointer-events: none !important;
+          }
+          .group-header-label {
+            position: absolute !important;
+            top: 0px !important;
+            left: 0px !important;
+            z-index: 10000 !important;
+            pointer-events: none !important;
+          }
+          .group-header-line {
+            position: absolute !important;
+            top: 22px !important;
+            left: 0px !important;
+            right: 0px !important;
+            z-index: 9999 !important;
+            pointer-events: none !important;
+          }
         `;
-        doc.head.appendChild(style);
+        doc.head.appendChild(forceStyle);
 
-        // Extra safety: inline override (html2canvas kan soms computed styles missen)
+        // Extra safety: inline overrides (html2canvas can be sensitive to computed styles)
         doc.querySelectorAll('.group-header-overlay').forEach((el) => {
           el.style.display = 'block';
           el.style.visibility = 'visible';
           el.style.opacity = '1';
+          el.style.position = 'absolute';
+          el.style.top = '0px';
           el.style.zIndex = '9999';
+          el.style.pointerEvents = 'none';
         });
 
         doc.querySelectorAll('.group-header-label').forEach((el) => {
           el.style.display = 'block';
           el.style.visibility = 'visible';
           el.style.opacity = '1';
+          el.style.position = 'absolute';
+          el.style.top = '0px';
+          el.style.left = '0px';
           el.style.zIndex = '10000';
+          el.style.pointerEvents = 'none';
+        });
+
+        doc.querySelectorAll('.group-header-line').forEach((el) => {
+          el.style.display = 'block';
+          el.style.visibility = 'visible';
+          el.style.opacity = '1';
+          el.style.position = 'absolute';
+          el.style.top = '22px';
+          el.style.left = '0px';
+          el.style.right = '0px';
+          el.style.zIndex = '9999';
+          el.style.pointerEvents = 'none';
         });
       }
     });
