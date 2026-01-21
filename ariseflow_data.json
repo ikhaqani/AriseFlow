@@ -4,7 +4,7 @@
   "author": "Anoniem",
   "created": "2026-01-16T08:48:17.021Z",
   "version": "2.7",
-  "activeSheetId": "dc945f9e-80a8-454c-b355-ca66f4d539e8",
+  "activeSheetId": "858c26e5-f7ec-4311-b503-641f99e65c84",
   "sheets": [
     {
       "id": "819bb6d9-21cc-49cf-8c40-4b6d7df6b2e1",
@@ -6984,7 +6984,8 @@
               "workExp": null,
               "workExpNote": ""
             }
-          ]
+          ],
+          "isQuestion": false
         },
         {
           "id": "885f3224-63bf-49df-8d55-f8fa539f7cda",
