@@ -1,7 +1,6 @@
-// io.js (AANGEPAST: SCOPED ROUTES IN CSV: RF2-A / RF2-A.1 / ...)
-// + FIX: Groepsnamen zichtbaar in exportHD (html2canvas onclone)
-// + FIX (Procesvalidatie export): alleen exporteren als gate écht compleet is (enabled + failTargetColIdx)
-//   Anders blijven 'Procesvalidatie' en routing-velden leeg (geen bypass in Excel).
+// io.js (AANGEPAST: System Fit Notes + 4-punts IQF schaal + Impact A/B/C)
+// + FIX: Groepsnamen zichtbaar in exportHD
+// + FIX: Procesvalidatie export checkt gate completeness
 
 import { state } from './state.js';
 import { Toast } from './toast.js';
@@ -248,10 +247,6 @@ function computeVariantLetterMap(sheet) {
   return map;
 }
 
-/**
- * Berekent follow-up route labels (bijv. A.1, A.2) voor kolommen die
- * geen variant-start zijn, maar wel bij een route horen.
- */
 function getFollowupRouteLabel(sheet, colIdx) {
   const col = sheet.columns?.[colIdx];
   if (!col) return null;
@@ -620,6 +615,12 @@ function getSysAnswerLabel(sys, qid) {
   return opt?.label || '';
 }
 
+// Helper om opmerking op te halen
+function getSysNote(sys, qid) {
+  const qa = sys?.qa && typeof sys.qa === 'object' ? sys.qa : {};
+  return String(qa[qid + '_note'] || '').trim();
+}
+
 function computeTTFScoreListFromMeta(meta) {
   const clean = sanitizeSystemsMeta(meta);
   if (!clean?.systems?.length) return [];
@@ -642,10 +643,15 @@ function systemsToLists(meta) {
       legacySystems: '',
       targetSystems: '',
       systemWorkarounds: '',
+      systemWorkaroundsNotes: '',
       belemmering: '',
+      belemmeringNotes: '',
       dubbelRegistreren: '',
+      dubbelRegistrerenNotes: '',
       foutgevoeligheid: '',
+      foutgevoeligheidNotes: '',
       gevolgUitval: '',
+      gevolgUitvalNotes: '',
       ttfScores: '',
       systemsCount: 1
     };
@@ -665,21 +671,36 @@ function systemsToLists(meta) {
     Number.isFinite(Number(v)) ? `${Number(v)}%` : '—'
   );
 
+  // Antwoorden + Notes
   const sysWorkarounds = systems.map((s) => getSysAnswerLabel(s, 'q1'));
+  const sysWorkaroundsNotes = systems.map((s) => getSysNote(s, 'q1'));
+
   const belemmering = systems.map((s) => getSysAnswerLabel(s, 'q2'));
+  const belemmeringNotes = systems.map((s) => getSysNote(s, 'q2'));
+
   const dubbelReg = systems.map((s) => getSysAnswerLabel(s, 'q3'));
+  const dubbelRegNotes = systems.map((s) => getSysNote(s, 'q3'));
+
   const foutgevoelig = systems.map((s) => getSysAnswerLabel(s, 'q4'));
+  const foutgevoeligNotes = systems.map((s) => getSysNote(s, 'q4'));
+
   const uitvalImpact = systems.map((s) => getSysAnswerLabel(s, 'q5'));
+  const uitvalImpactNotes = systems.map((s) => getSysNote(s, 'q5'));
 
   return {
     systemNames: joinSemi(names),
     legacySystems: joinSemi(legacyNames),
     targetSystems: joinSemi(targetNames),
     systemWorkarounds: joinSemi(sysWorkarounds),
+    systemWorkaroundsNotes: joinSemi(sysWorkaroundsNotes),
     belemmering: joinSemi(belemmering),
+    belemmeringNotes: joinSemi(belemmeringNotes),
     dubbelRegistreren: joinSemi(dubbelReg),
+    dubbelRegistrerenNotes: joinSemi(dubbelRegNotes),
     foutgevoeligheid: joinSemi(foutgevoelig),
+    foutgevoeligheidNotes: joinSemi(foutgevoeligNotes),
     gevolgUitval: joinSemi(uitvalImpact),
+    gevolgUitvalNotes: joinSemi(uitvalImpactNotes),
     ttfScores: joinSemi(ttfScores),
     systemsCount: Math.max(1, systems.length)
   };
@@ -714,13 +735,26 @@ function calculateIQFScore(qa) {
    IO criteria per systeem (result/impact/opmerking) met ";" alignment
    ========================================================================== */
 
+// ✅ 4-punts schaal conversie voor Excel
 function normalizeIOResultLabel(v) {
   const s = String(v ?? '').trim();
   if (!s) return '';
   const U = s.toUpperCase();
   if (U === 'OK' || U === 'GOOD' || U === 'PASS' || U === 'VOLDOET') return 'Voldoet';
-  if (U === 'NOT_OK' || U === 'FAIL' || U === 'NOK' || U === 'VOLDOET_NIET') return 'Voldoet niet';
-  if (U === 'NVT' || U === 'NA') return 'NVT';
+  if (U === 'MINOR') return 'Grotendeels';
+  if (U === 'MODERATE') return 'Matig';
+  if (U === 'NOT_OK' || U === 'FAIL' || U === 'POOR' || U === 'NOK' || U === 'VOLDOET_NIET') return 'Voldoet niet';
+  // NVT is eruit, dus als dat er staat maken we het leeg
+  if (U === 'NVT' || U === 'NA') return ''; 
+  return s;
+}
+
+// ✅ Impact vertalen naar leesbare tekst (A/B/C)
+function normalizeImpactLabel(v) {
+  const s = String(v ?? '').trim().toUpperCase();
+  if (s === 'A') return 'A. Blokkerend';
+  if (s === 'B') return 'B. Extra werk';
+  if (s === 'C') return 'C. Kleine frictie';
   return s;
 }
 
@@ -763,7 +797,7 @@ function getIOTripleForLabel(slotQa, label, systemsCount) {
   const q = slotQa?.[key];
 
   const resArr = extractPerSystem(q, systemsCount, 'result').map(normalizeIOResultLabel);
-  const impactArr = extractPerSystem(q, systemsCount, 'impact');
+  const impactArr = extractPerSystem(q, systemsCount, 'impact').map(normalizeImpactLabel); // ✅ Impact full text
   const noteArr = extractPerSystem(q, systemsCount, 'note');
 
   return {
@@ -927,10 +961,15 @@ export function exportToCSV() {
       'Legacy systemen',
       'Target systemen',
       'Systeem workarounds',
+      'Systeem workarounds opmerking', 
       'Belemmering',
+      'Belemmering opmerking', 
       'Dubbel registreren',
+      'Dubbel registreren opmerking', 
       'Foutgevoeligheid',
+      'Foutgevoeligheid opmerking', 
       'Gevolg bij uitval',
+      'Gevolg bij uitval opmerking', 
       'TTF Scores',
       'Input ID',
       'Input',
@@ -1181,10 +1220,15 @@ export function exportToCSV() {
           sysLists.legacySystems,
           sysLists.targetSystems,
           sysLists.systemWorkarounds,
+          sysLists.systemWorkaroundsNotes, // ADDED
           sysLists.belemmering,
+          sysLists.belemmeringNotes, // ADDED
           sysLists.dubbelRegistreren,
+          sysLists.dubbelRegistrerenNotes, // ADDED
           sysLists.foutgevoeligheid,
+          sysLists.foutgevoeligheidNotes, // ADDED
           sysLists.gevolgUitval,
+          sysLists.gevolgUitvalNotes, // ADDED
           sysLists.ttfScores,
           inputId,
           inputText,

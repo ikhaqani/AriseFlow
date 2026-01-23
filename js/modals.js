@@ -22,29 +22,12 @@ const deepClone = (obj) => {
   return JSON.parse(JSON.stringify(obj));
 };
 
-// --- NIEUWE HULPFUNCTIES VOOR ROUTES ---
+// --- ROUTE LETTERS HELPERS (Gebruikt in Variant modal) ---
 function _toLetter(i) {
   const n = Number(i);
   if (!Number.isFinite(n) || n < 0) return 'A';
   const base = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
   return base[n] || `R${n + 1}`;
-}
-
-function getAvailableRouteLetters() {
-  const sheet = state.activeSheet;
-  if (!sheet || !Array.isArray(sheet.variantGroups)) return [];
-  
-  const letters = new Set();
-  
-  // Verzamel letters uit alle variant groepen
-  sheet.variantGroups.forEach(vg => {
-      vg.variants.forEach((vIdx, i) => {
-          letters.add(_toLetter(i));
-      });
-  });
-  
-  // Sorteer A, B, C...
-  return Array.from(letters).sort();
 }
 // ---------------------------------------
 
@@ -182,20 +165,24 @@ const createRadioGroup = (name, options, selectedValue, isHorizontal = false) =>
       .map((opt) => {
         const val = opt.value ?? opt;
         const label = opt.label ?? opt;
+        const ttTitle = opt.ttTitle || '';
+        const ttBody = opt.ttBody || '';
         const isSelected =
           selectedValue !== null &&
           selectedValue !== undefined &&
           String(val) === String(selectedValue);
 
         return `
-          <div class="sys-opt ${isSelected ? 'selected' : ''}" data-value="${val}">
-            ${label}
+          <div class="sys-opt ${isSelected ? 'selected' : ''}" 
+               data-value="${escapeAttr(val)}"
+               ${ttBody ? `data-tt-title="${escapeAttr(ttTitle)}" data-tt-body="${escapeAttr(ttBody)}"` : ''}>
+            ${escapeAttr(label)}
           </div>
         `;
       })
       .join('')}
-    <input type="hidden" name="${name}" value="${
-      selectedValue !== null && selectedValue !== undefined ? selectedValue : ''
+    <input type="hidden" name="${escapeAttr(name)}" value="${
+      selectedValue !== null && selectedValue !== undefined ? escapeAttr(selectedValue) : ''
     }">
   </div>
 `;
@@ -256,22 +243,19 @@ const getVisibleColIdxs = () => {
    Input-linking (MULTI) helpers (UUIDs nu!)
    ========================================================= */
 
-// NOTE: Nu gebruiken we linkedSourceUids ipv linkedSourceIds (die OUTn bevatten)
 function normalizeLinkedSourceIds(data) {
   if (!data || typeof data !== 'object') return [];
-  
-  // Prefer the NEW UIDs array
+
   if (Array.isArray(data.linkedSourceUids) && data.linkedSourceUids.length > 0) {
-      return data.linkedSourceUids;
+    return data.linkedSourceUids;
   }
-  
-  // Fallback (zou door state.js migratie al opgelost moeten zijn)
+
   const arr = Array.isArray(data.linkedSourceIds)
     ? data.linkedSourceIds
     : data.linkedSourceId
       ? [data.linkedSourceId]
       : [];
-      
+
   return [...new Set(arr.map((x) => String(x ?? '').trim()).filter(Boolean))];
 }
 
@@ -282,23 +266,20 @@ function setLinkedSourceIds(data, uids) {
     .filter((x) => x !== '');
   const uniq = [...new Set(clean)];
 
-  // We slaan nu op in de UIDs array
   data.linkedSourceUids = uniq.length ? uniq : [];
   data.linkedSourceUid = uniq.length ? uniq[0] : null;
 
-  // Maak legacy velden leeg om verwarring te voorkomen
   data.linkedSourceIds = [];
   data.linkedSourceId = null;
 }
 
-// Hulpfunctie om map te maken van UID -> {outId, text}
 function getOutputUidMap() {
-    const details = state.getAllOutputsDetailed();
-    const map = {};
-    details.forEach(d => {
-        map[d.uid] = d;
-    });
-    return map;
+  const details = state.getAllOutputsDetailed();
+  const map = {};
+  details.forEach((d) => {
+    map[d.uid] = d;
+  });
+  return map;
 }
 
 function _formatLinkedSources(ids, uidMap) {
@@ -309,12 +290,12 @@ function _formatLinkedSources(ids, uidMap) {
     .map((uid) => {
       const key = String(uid ?? '').trim();
       if (!key) return '';
-      
+
       const entry = map[key];
-      if (!entry) return '???'; // Onbekende link (zou niet moeten kunnen)
+      if (!entry) return '???';
 
       const raw = String(entry.text ?? '').trim();
-      const label = entry.outId; // Bijv OUT1
+      const label = entry.outId;
 
       if (!raw) return label;
       const short = raw.length > 42 ? `${raw.slice(0, 42)}...` : raw;
@@ -381,35 +362,33 @@ function findBundleById(bundleId) {
 
 function formatBundleOutputs(bundle, uidMap) {
   const map = uidMap || getOutputUidMap();
-  // LET OP: Bundle gebruikt nu 'outputUids' ipv 'outIds'
   const ids = Array.isArray(bundle?.outputUids) ? bundle.outputUids : [];
-  
+
   const parts = ids
     .map((uid) => {
       const key = String(uid ?? '').trim();
       if (!key) return '';
-      
+
       const entry = map[key];
       if (!entry) return '???';
-      
+
       const raw = String(entry.text ?? '').trim();
       const label = entry.outId;
-      
+
       if (!raw) return label;
       const short = raw.length > 42 ? `${raw.slice(0, 42)}...` : raw;
       return `${short} (${label})`;
     })
     .filter((x) => x !== '');
-    
+
   return parts.join('; ');
 }
 
-/* ✅ NIEUW: checkbox sync met UIDs */
 function syncOutputCheckboxesFromLinkedSources(data) {
   const content = $('modalContent');
   if (!content) return;
 
-  const ids = new Set(normalizeLinkedSourceIds(data)); // Dit zijn nu UIDs
+  const ids = new Set(normalizeLinkedSourceIds(data));
   content.querySelectorAll('.input-source-cb').forEach((cb) => {
     cb.disabled = false;
     cb.checked = ids.has(String(cb.value || '').trim());
@@ -420,7 +399,6 @@ function syncOutputCheckboxesFromBundle(bundle) {
   const content = $('modalContent');
   if (!content) return;
 
-  // Bundle gebruikt 'outputUids'
   const ids = new Set(
     (Array.isArray(bundle?.outputUids) ? bundle.outputUids : []).map((x) => String(x ?? '').trim())
   );
@@ -428,7 +406,7 @@ function syncOutputCheckboxesFromBundle(bundle) {
   content.querySelectorAll('.input-source-cb').forEach((cb) => {
     const key = String(cb.value || '').trim();
     cb.checked = ids.has(key);
-    cb.disabled = true; // bundle actief => read-only
+    cb.disabled = true;
   });
 }
 
@@ -446,11 +424,9 @@ function updateBundleInfoUI(data) {
   const activeId = getActiveBundleId(data);
   const bundle = activeId ? findBundleById(activeId) : null;
 
-  // UI fields
   if (bundlePick) bundlePick.value = bundle ? String(bundle.id) : '';
   if (bundleName) bundleName.value = bundle ? String(bundle.name || '').trim() : '';
 
-  // Active info line
   if (bundleInfo) {
     if (!bundle) {
       bundleInfo.style.display = 'none';
@@ -463,18 +439,15 @@ function updateBundleInfoUI(data) {
     }
   }
 
-  // Hint
   if (bundleHint) {
     if (!bundle) bundleHint.textContent = '';
     else bundleHint.textContent = `Bevat: ${(Array.isArray(bundle.outputUids) ? bundle.outputUids.length : 0)} outputs`;
   }
 
-  // Delete button visibility
-  if(bundleDeleteBtn) {
+  if (bundleDeleteBtn) {
     bundleDeleteBtn.style.display = bundle ? 'inline-block' : 'none';
   }
 
-  // ✅ BELANGRIJK: bundle => checkboxes aanvinken + locken
   if (bundle) {
     data.text = '';
     setLinkedSourceIds(data, []);
@@ -668,6 +641,7 @@ function ensureSystemDataShape(data) {
   const sd = data.systemData;
 
   if (typeof sd.isMulti !== 'boolean') sd.isMulti = false;
+  if (typeof sd.noSystem !== 'boolean') sd.noSystem = false;
 
   if (!Array.isArray(sd.systems)) {
     const legacyName = typeof sd.systemName === 'string' ? sd.systemName.trim() : '';
@@ -693,6 +667,7 @@ function ensureSystemDataShape(data) {
           }
         ];
   }
+
   sd.systems = sd.systems.map((s) => ({
     id: String(s?.id || `${Date.now()}_${Math.random().toString(16).slice(2)}`),
     name: String(s?.name || ''),
@@ -701,6 +676,7 @@ function ensureSystemDataShape(data) {
     qa: s?.qa && typeof s.qa === 'object' ? { ...s.qa } : {},
     calculatedScore: Number.isFinite(Number(s?.calculatedScore)) ? Number(s.calculatedScore) : null
   }));
+
   if (sd.systems.length === 0) {
     sd.systems = [
       {
@@ -794,6 +770,7 @@ const renderSystemTab = (data) => {
   const sd = data.systemData || {};
   const isMulti = !!sd.isMulti;
   const systems = Array.isArray(sd.systems) ? sd.systems : [];
+  const noSystem = !!sd.noSystem;
 
   let html = `
     <div id="systemWrapper">
@@ -803,12 +780,17 @@ const renderSystemTab = (data) => {
         Geef aan hoe goed het systeem het proces ondersteunt. Werk je in meerdere systemen? Voeg ze toe en beantwoord System Fit per systeem.
       </div>
 
-      <label style="display:flex; align-items:center; gap:10px; font-size:13px; margin: 12px 0 14px 0; cursor:pointer;">
-        <input id="sysMultiEnable" type="checkbox" ${isMulti ? 'checked' : ''} />
+      <label style="display:flex; align-items:center; gap:10px; font-size:13px; margin: 12px 0 10px 0; cursor:pointer;">
+        <input id="sysNoSystem" type="checkbox" ${noSystem ? 'checked' : ''} />
+        Voor dit proces werk ik niet in een systeem
+      </label>
+
+      <label style="display:flex; align-items:center; gap:10px; font-size:13px; margin: 6px 0 14px 0; cursor:pointer; ${noSystem ? 'opacity:0.55; pointer-events:none;' : ''}">
+        <input id="sysMultiEnable" type="checkbox" ${isMulti ? 'checked' : ''} ${noSystem ? 'disabled' : ''} />
         Ik werk in meerdere systemen binnen deze processtap
       </label>
 
-      <div id="sysList" style="display:grid; gap:14px;">
+      <div id="sysList" style="display:grid; gap:14px; ${noSystem ? 'opacity:0.55; pointer-events:none; filter:grayscale(0.2);' : ''}">
   `;
 
   systems.forEach((sys, idx) => {
@@ -828,7 +810,7 @@ const renderSystemTab = (data) => {
 
           <button class="std-btn danger-text" type="button"
                   data-action="remove-system"
-                  ${systems.length <= 1 ? 'disabled' : ''}
+                  ${(noSystem || systems.length <= 1) ? 'disabled' : ''}
                   style="padding:6px 10px; font-size:12px;">
             Verwijderen
           </button>
@@ -839,12 +821,12 @@ const renderSystemTab = (data) => {
             <div class="modal-label" style="margin:0; font-size:11px;">Systeemnaam</div>
             <input class="modal-input sys-name" type="text" value="${escapeAttr(
               name
-            )}" placeholder="Bijv. ARIA / EPIC / Radiotherapieweb / Monaco..." />
+            )}" placeholder="Bijv. ARIA / EPIC / Radiotherapieweb / Monaco..." ${noSystem ? 'disabled' : ''} />
           </div>
 
           <div style="display:grid; grid-template-columns: 1fr 1fr; gap:10px;">
             <label style="display:flex; align-items:center; gap:10px; font-size:13px; cursor:pointer; margin:0;">
-              <input class="sys-legacy" type="checkbox" ${isLegacy ? 'checked' : ''} />
+              <input class="sys-legacy" type="checkbox" ${isLegacy ? 'checked' : ''} ${noSystem ? 'disabled' : ''} />
               Legacy systeem
             </label>
 
@@ -852,7 +834,7 @@ const renderSystemTab = (data) => {
               <div class="modal-label" style="margin:0; font-size:11px;">Toekomstig systeem (verwachting)</div>
               <input class="modal-input sys-future" type="text" value="${escapeAttr(
                 future
-              )}" placeholder="Bijv. ARIA / EPIC / nieuw portaal..." />
+              )}" placeholder="Bijv. ARIA / EPIC / nieuw portaal..." ${noSystem ? 'disabled' : ''} />
             </div>
           </div>
         </div>
@@ -863,27 +845,29 @@ const renderSystemTab = (data) => {
             Beantwoord per vraag hoe goed dit systeem jouw taak ondersteunt.
           </div>
 
-          ${SYSTEM_QUESTIONS
-            .map((q) => {
-              const currentVal = qa[q.id] !== undefined ? qa[q.id] : null;
-              const optionsMapped = q.options.map((optText, optIdx) => ({
-                value: optIdx,
-                label: optText
-              }));
+          <div style="${noSystem ? 'opacity:0.6; pointer-events:none; filter:grayscale(0.2);' : ''}">
+            ${SYSTEM_QUESTIONS
+              .map((q) => {
+                const currentVal = qa[q.id] !== undefined ? qa[q.id] : null;
+                const optionsMapped = q.options.map((optText, optIdx) => ({
+                  value: optIdx,
+                  label: optText
+                }));
 
-              return `
-              <div class="system-question" style="margin-bottom:12px;">
-                <div class="sys-q-title">${escapeAttr(q.label)}</div>
-                ${createRadioGroup(
-                  `sys_${escapeAttr(sysId)}_${escapeAttr(q.id)}`,
-                  optionsMapped,
-                  currentVal,
-                  true
-                )}
-              </div>
-            `;
-            })
-            .join('')}
+                return `
+                <div class="system-question" style="margin-bottom:12px;">
+                  <div class="sys-q-title">${escapeAttr(q.label)}</div>
+                  ${createRadioGroup(
+                    `sys_${escapeAttr(sysId)}_${escapeAttr(q.id)}`,
+                    optionsMapped,
+                    currentVal,
+                    true
+                  )}
+                </div>
+              `;
+              })
+              .join('')}
+          </div>
 
           <div style="margin-top:10px; font-size:12px; opacity:.9;">
             Score (dit systeem): <span class="sys-score" data-sys-score="${escapeAttr(sysId)}">${
@@ -898,9 +882,9 @@ const renderSystemTab = (data) => {
   html += `
       </div>
 
-      <button class="std-btn primary" id="btnAddSystem" data-action="add-system" type="button" style="margin-top:14px; display:${
+      <button class="std-btn primary" id="btnAddSystem" data-action="add-system" type="button" ${noSystem ? 'disabled' : ''} style="margin-top:14px; display:${
         isMulti ? 'inline-flex' : 'none'
-      };">
+      }; ${noSystem ? 'opacity:0.55; pointer-events:none;' : ''}">
         + Systeem toevoegen
       </button>
 
@@ -1036,23 +1020,6 @@ const renderProcessTab = (data) => {
 
   const analysisRows = createCombinedAnalysisRows(data.causes, data.improvements);
 
-  // NIEUW: Haal beschikbare routes op en maak dropdown
-  const availableRoutes = getAvailableRouteLetters();
-  const currentRoute = state.activeSheet.columns[editingSticky.colIdx]?.routeLabel || '';
-
-  const routeSelectHtml = `
-    <div style="margin-top:24px; padding:12px; background:rgba(255,255,255,0.05); border-radius:8px;">
-        <label class="modal-label" style="margin-top:0;">Onderdeel van Route</label>
-        <div class="io-helper" style="margin-bottom:8px;">Hoort deze stap bij een specifiek pad?</div>
-        <select id="colRouteLabel" class="modal-input">
-            <option value="">— Geen (Algemeen) —</option>
-            ${availableRoutes.map(L => `
-                <option value="${L}" ${currentRoute === L ? 'selected' : ''}>Route ${L}</option>
-            `).join('')}
-        </select>
-    </div>
-  `;
-
   return `
     <div class="modal-label">Type Activiteit ${!data.type ? '<span style="color:#ff5252">*</span>' : ''}</div>
     <div class="radio-group-container horizontal">
@@ -1084,7 +1051,7 @@ const renderProcessTab = (data) => {
     <div class="status-selector">${statusHtml}</div>
     <input type="hidden" id="processStatus" value="${escapeAttr(status || '')}">
 
-    ${routeSelectHtml} <div id="sectionAnalyse" style="margin-top:24px; padding-top:20px; border-top:1px solid rgba(255,255,255,0.1);">
+    <div id="sectionAnalyse" style="margin-top:24px; padding-top:20px; border-top:1px solid rgba(255,255,255,0.1);">
         
         <div id="wrapperSuccess" style="display: ${showSuccessFactors ? 'block' : 'none'};">
            <div class="modal-label" style="color:var(--ui-success)">Waarom werkt dit goed? (Succesfactoren)</div>
@@ -1133,11 +1100,9 @@ const renderIoTab = (data, isInputRow) => {
   let linkHtml = '';
 
   if (isInputRow) {
-    // Gebruik de gedetailleerde lijst om correcte mapping te hebben (UUID -> Text)
     const allDetails = state.getAllOutputsDetailed();
     const uidMap = getOutputUidMap();
-    
-    // De geselecteerde items zijn nu UUIDs
+
     const selectedUids = normalizeLinkedSourceIds(data);
     const selectedSet = new Set(selectedUids);
 
@@ -1151,9 +1116,9 @@ const renderIoTab = (data, isInputRow) => {
         const id = item.uid;
         const outLabel = item.outId;
         const text = (item.text || '').substring(0, 70);
-        
+
         const checked = selectedSet.has(id);
-        
+
         return `
           <label style="display:flex; align-items:flex-start; gap:10px; padding:8px 10px; border-radius:8px; cursor:pointer; background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08);">
             <input class="input-source-cb" type="checkbox" value="${escapeAttr(id)}" ${checked ? 'checked' : ''} style="margin-top:2px;" />
@@ -1254,28 +1219,21 @@ const renderIoTab = (data, isInputRow) => {
   const qaRows = IO_CRITERIA.map((c) => {
     const qa = data.qa?.[c.key] || {};
     const defs = IO_CRITERIA_DEFS[c.key] || {};
-    const currentRes = qa.result;
+    const currentRes = qa.result; // GOOD, MINOR, MODERATE, FAIL
 
-    const showImpact =
-      currentRes === 'FAIL' ||
-      currentRes === 'MODERATE' ||
-      currentRes === 'POOR' ||
-      currentRes === 'MINOR';
+    // We tonen het opmerkingenveld en de impact opties als het NIET 'GOOD' is
+    const showImpact = ['MINOR', 'MODERATE', 'FAIL', 'POOR'].includes(currentRes);
 
-    let initialValue = null;
-    if (currentRes === 'GOOD') initialValue = 'GOOD';
-    else if (currentRes === 'NA') initialValue = 'NA';
-    else if (['FAIL', 'MODERATE', 'POOR', 'MINOR'].includes(currentRes)) initialValue = 'FAIL';
-
+    // Bepaal de impact value obv resultaat
     let impactValue = null;
-    if (currentRes === 'POOR') impactValue = 'A';
+    if (currentRes === 'FAIL' || currentRes === 'POOR') impactValue = 'A';
     if (currentRes === 'MODERATE') impactValue = 'B';
     if (currentRes === 'MINOR') impactValue = 'C';
 
     return `
       <div class="qa-item-wrapper" style="margin-bottom: 24px; padding-bottom: 24px; border-bottom: 1px solid rgba(255,255,255,0.05);">
         <div style="display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:12px;">
-            <div style="max-width: 60%;">
+            <div style="max-width: 50%;">
                 <div style="font-weight:bold; color:#fff; font-size:14px; margin-bottom:4px;">${escapeAttr(
                   c.label
                 )}</div>
@@ -1289,16 +1247,17 @@ const renderIoTab = (data, isInputRow) => {
                    `qa_gate_${c.key}`,
                    [
                      { value: 'GOOD', label: 'Voldoet' },
-                     { value: 'FAIL', label: 'Voldoet niet' },
-                     { value: 'NA', label: 'N.V.T.' }
+                     { value: 'MINOR', label: 'Grotendeels' },
+                     { value: 'MODERATE', label: 'Matig' },
+                     { value: 'FAIL', label: 'Voldoet niet' }
                    ],
-                   initialValue,
-                   true
+                   currentRes,
+                   false
                  )}
             </div>
         </div>
 
-        <div id="impact_wrapper_${c.key}" style="display:${
+        <div id="impact_wrapper_${escapeAttr(c.key)}" style="display:${
       showImpact ? 'block' : 'none'
     }; background: rgba(255,82,82, 0.1); border-left: 3px solid #ff5252; padding: 12px; margin-top:8px; border-radius: 0 4px 4px 0;">
             <div style="font-size:11px; font-weight:bold; color:#ff5252; text-transform:uppercase; margin-bottom:8px;">Wat is de impact op jouw taak?</div>
@@ -1306,7 +1265,7 @@ const renderIoTab = (data, isInputRow) => {
             <div class="radio-group-container vertical">
                 <div class="sys-opt impact-opt ${impactValue === 'A' ? 'selected' : ''}" 
                      data-value="A" 
-                     data-key="${c.key}"
+                     data-key="${escapeAttr(c.key)}"
                      style="text-align:left; height:auto; padding:8px 12px; margin-bottom:6px;">
                     <div style="font-weight:bold; font-size:12px;">🔴 A. Blokkerend</div>
                     <div style="font-size:11px; opacity:0.8; font-weight:normal;">${escapeAttr(
@@ -1316,7 +1275,7 @@ const renderIoTab = (data, isInputRow) => {
                 
                 <div class="sys-opt impact-opt ${impactValue === 'B' ? 'selected' : ''}" 
                      data-value="B" 
-                     data-key="${c.key}"
+                     data-key="${escapeAttr(c.key)}"
                      style="text-align:left; height:auto; padding:8px 12px; margin-bottom:6px;">
                     <div style="font-weight:bold; font-size:12px;">🟠 B. Extra werk</div>
                     <div style="font-size:11px; opacity:0.8; font-weight:normal;">${escapeAttr(
@@ -1326,7 +1285,7 @@ const renderIoTab = (data, isInputRow) => {
 
                 <div class="sys-opt impact-opt ${impactValue === 'C' ? 'selected' : ''}" 
                      data-value="C" 
-                     data-key="${c.key}"
+                     data-key="${escapeAttr(c.key)}"
                      style="text-align:left; height:auto; padding:8px 12px;">
                     <div style="font-weight:bold; font-size:12px;">🟡 C. Kleine frictie</div>
                     <div style="font-size:11px; opacity:0.8; font-weight:normal;">${escapeAttr(
@@ -1334,12 +1293,14 @@ const renderIoTab = (data, isInputRow) => {
                     )}</div>
                 </div>
             </div>
-            <input type="hidden" name="qa_impact_${c.key}" value="${escapeAttr(impactValue || '')}">
+            <input type="hidden" name="qa_impact_${escapeAttr(c.key)}" value="${escapeAttr(impactValue || '')}">
         </div>
 
-        <textarea id="note_${c.key}" class="io-note" style="margin-top:12px;" placeholder="Opmerking (optioneel)...">${escapeAttr(
-          qa.note || ''
-        )}</textarea>
+        <div id="note_wrapper_${escapeAttr(c.key)}" style="display:${showImpact ? 'block' : 'none'};">
+            <textarea id="note_${escapeAttr(c.key)}" class="io-note" style="margin-top:12px; width:100%;" placeholder="Opmerking (optioneel)...">${escapeAttr(
+              qa.note || ''
+            )}</textarea>
+        </div>
       </div>
     `;
   }).join('');
@@ -1557,7 +1518,7 @@ const setupPermanentListeners = () => {
     if (e.key === 'Escape') hideTooltip();
   });
 
-  // merge enable toggle (Output)
+  // Output merge enable toggle
   content.addEventListener('change', (e) => {
     if (e.target?.id !== 'mergeEnable') return;
     const enabled = !!e.target.checked;
@@ -1570,7 +1531,23 @@ const setupPermanentListeners = () => {
     if (hint) hint.textContent = enabled ? hint.textContent || 'Actief' : 'Niet gemerged';
   });
 
-  // merge enable toggle (System)
+  // Output merge select change -> update hint live
+  content.addEventListener('change', (e) => {
+    if (e.target?.id !== 'mergeStartSelect' && e.target?.id !== 'mergeEndSelect') return;
+    const hint = $('mergeHint');
+    if (!hint || !editingSticky) return;
+
+    const colIdx = editingSticky.colIdx;
+    const startCol = parseInt($('mergeStartSelect')?.value ?? `${colIdx}`, 10);
+    const endCol = parseInt($('mergeEndSelect')?.value ?? `${colIdx}`, 10);
+    const s = Math.min(startCol, endCol);
+    const ee = Math.max(startCol, endCol);
+
+    const ok = s <= colIdx && ee >= colIdx && s !== ee;
+    hint.textContent = ok ? `Actief: kolom ${s + 1} t/m ${ee + 1}` : `⚠ Ongeldig: range moet huidige kolom bevatten`;
+  });
+
+  // System merge enable toggle
   content.addEventListener('change', (e) => {
     if (e.target?.id !== 'sysMergeEnable') return;
     const enabled = !!e.target.checked;
@@ -1583,6 +1560,22 @@ const setupPermanentListeners = () => {
     if (hint) hint.textContent = enabled ? hint.textContent || 'Actief' : 'Niet gemerged';
   });
 
+  // System merge select change -> update hint live
+  content.addEventListener('change', (e) => {
+    if (e.target?.id !== 'sysMergeStartSelect' && e.target?.id !== 'sysMergeEndSelect') return;
+    const hint = $('sysMergeHint');
+    if (!hint || !editingSticky) return;
+
+    const colIdx = editingSticky.colIdx;
+    const startCol = parseInt($('sysMergeStartSelect')?.value ?? `${colIdx}`, 10);
+    const endCol = parseInt($('sysMergeEndSelect')?.value ?? `${colIdx}`, 10);
+    const s = Math.min(startCol, endCol);
+    const ee = Math.max(startCol, endCol);
+
+    const ok = s <= colIdx && ee >= colIdx && s !== ee;
+    hint.textContent = ok ? `Actief: kolom ${s + 1} t/m ${ee + 1}` : `⚠ Ongeldig: range moet huidige kolom bevatten`;
+  });
+
   // Multi-system toggle + add/remove system rows
   content.addEventListener('change', (e) => {
     if (e.target?.id !== 'sysMultiEnable') return;
@@ -1590,10 +1583,50 @@ const setupPermanentListeners = () => {
     const data = getStickyData();
     if (!data) return;
 
+    ensureSystemDataShape(data);
+    if (data.systemData.noSystem) {
+      e.target.checked = false;
+      data.systemData.isMulti = false;
+      state.saveStickyDetails();
+      renderContent();
+      return;
+    }
+
     persistSystemTabFromDOM(content, data);
 
-    ensureSystemDataShape(data);
     data.systemData.isMulti = !!e.target.checked;
+
+    state.saveStickyDetails();
+    renderContent();
+  });
+
+  // No-system toggle
+  content.addEventListener('change', (e) => {
+    if (e.target?.id !== 'sysNoSystem') return;
+
+    const data = getStickyData();
+    if (!data) return;
+
+    ensureSystemDataShape(data);
+
+    const checked = !!e.target.checked;
+    data.systemData.noSystem = checked;
+
+    if (checked) {
+      data.systemData.isMulti = false;
+      data.systemData.systems = [
+        {
+          id: `${Date.now()}_${Math.random().toString(16).slice(2)}`,
+          name: '',
+          isLegacy: false,
+          futureSystem: '',
+          qa: {},
+          calculatedScore: null
+        }
+      ];
+      data.systemData.systemName = '';
+      data.systemData.calculatedScore = null;
+    }
 
     state.saveStickyDetails();
     renderContent();
@@ -1677,12 +1710,16 @@ const setupPermanentListeners = () => {
       if (input && input.name.startsWith('qa_gate_')) {
         const key = input.name.replace('qa_gate_', '');
         const impactWrapper = $(`impact_wrapper_${key}`);
+        const noteWrapper = $(`note_wrapper_${key}`);
         if (impactWrapper) impactWrapper.style.display = 'none';
+        if (noteWrapper) noteWrapper.style.display = 'none';
+        
         const impactInput = content.querySelector(`input[name="qa_impact_${key}"]`);
         if (impactInput) impactInput.value = '';
-        content
-          .querySelectorAll(`.impact-opt[data-key="${key}"]`)
-          .forEach((el) => el.classList.remove('selected'));
+        content.querySelectorAll(`.impact-opt[data-key="${CSS.escape(key)}"]`).forEach(el => el.classList.remove('selected'));
+        
+        const noteInput = content.querySelector(`#note_${key}`);
+        if (noteInput) noteInput.value = '';
       }
       return;
     }
@@ -1693,17 +1730,22 @@ const setupPermanentListeners = () => {
     if (input && input.name.startsWith('qa_gate_')) {
       const key = input.name.replace('qa_gate_', '');
       const impactWrapper = $(`impact_wrapper_${key}`);
-      if (!impactWrapper) return;
+      const noteWrapper = $(`note_wrapper_${key}`);
+      if (!impactWrapper || !noteWrapper) return;
 
-      if (opt.dataset.value === 'FAIL') {
+      if (['MINOR', 'MODERATE', 'FAIL'].includes(opt.dataset.value)) {
         impactWrapper.style.display = 'block';
+        noteWrapper.style.display = 'block';
       } else {
         impactWrapper.style.display = 'none';
+        noteWrapper.style.display = 'none';
+        
         const impactInput = content.querySelector(`input[name="qa_impact_${key}"]`);
         if (impactInput) impactInput.value = '';
-        content
-          .querySelectorAll(`.impact-opt[data-key="${key}"]`)
-          .forEach((el) => el.classList.remove('selected'));
+        content.querySelectorAll(`.impact-opt[data-key="${CSS.escape(key)}"]`).forEach(el => el.classList.remove('selected'));
+        
+        const noteInput = content.querySelector(`#note_${key}`);
+        if (noteInput) noteInput.value = '';
       }
     }
 
@@ -1718,13 +1760,13 @@ const setupPermanentListeners = () => {
     if (!key) return;
 
     const group = opt.closest('.radio-group-container') || opt.parentElement;
-    const hidden = content.querySelector(`input[name="qa_impact_${key}"]`);
+    const hidden = content.querySelector(`input[name="qa_impact_${CSS.escape(key)}"]`);
 
     const wasSelected = opt.classList.contains('selected');
 
     if (group) {
       group
-        .querySelectorAll(`.impact-opt[data-key="${key}"]`)
+        .querySelectorAll(`.impact-opt[data-key="${CSS.escape(key)}"]`)
         .forEach((el) => el.classList.remove('selected'));
     }
 
@@ -1767,10 +1809,11 @@ const setupPermanentListeners = () => {
     const overallEl = $('sysOverallScore');
     if (overallEl) {
       if (overallScores.length === 0) overallEl.textContent = '—';
-      else
+      else {
         overallEl.textContent = `${Math.round(
           overallScores.reduce((a, b) => a + b, 0) / overallScores.length
         )}%`;
+      }
     }
   }
 
@@ -1916,13 +1959,11 @@ const setupPermanentListeners = () => {
     }
 
     if (e.target?.classList?.contains('input-source-cb')) {
-      // bundle actief? dan UI is disabled, maar als dit toch gebeurt: stop
       if (getActiveBundleId(data)) return;
 
       const ext = $('inputExternalToggle');
       if (ext) ext.checked = false;
 
-      // Hier UIDs opslaan
       const ids = Array.from(content.querySelectorAll('.input-source-cb'))
         .filter((cb) => cb.checked)
         .map((cb) => cb.value);
@@ -1973,46 +2014,44 @@ const setupPermanentListeners = () => {
     const clearBtn = e.target?.closest?.('#bundleClearBtn');
     const deleteDefBtn = e.target?.closest?.('#bundleDeleteDefBtn');
 
-    // 1. Verwijder Pakket Definitie (NIEUW)
     if (deleteDefBtn) {
-        const pick = content.querySelector('#bundlePick');
-        const id = String(pick?.value || '').trim();
+      const pick = content.querySelector('#bundlePick');
+      const id = String(pick?.value || '').trim();
 
-        if (!id) return;
-        if (!confirm('Weet je zeker dat je dit pakket definitief wilt verwijderen? Het is dan nergens meer beschikbaar.')) return;
-
-        // Verwijder uit data
-        const bundles = ensureOutputBundlesArray();
-        const project = state.data;
-        project.outputBundles = bundles.filter(b => String(b.id) !== id);
-
-        // UI Reset
-        setActiveBundleId(data, '');
-        if(pick) {
-           pick.value = '';
-           const opt = pick.querySelector(`option[value="${escapeAttr(id)}"]`);
-           if(opt) opt.remove();
-        }
-        
-        content.querySelector('#bundleName').value = '';
-        updateBundleInfoUI(data);
-        
-        // Inputs weer vrijgeven
-        const ids = normalizeLinkedSourceIds(data);
-        const list = $('inputSourcesList');
-        if (list) {
-           list.style.opacity = '1';
-           list.style.pointerEvents = 'auto';
-           list.style.filter = 'none';
-        }
-        syncOutputCheckboxesFromLinkedSources(data);
-        updateLinkedInfoUI(ids);
-
-        state.saveStickyDetails();
+      if (!id) return;
+      if (!confirm('Weet je zeker dat je dit pakket definitief wilt verwijderen? Het is dan nergens meer beschikbaar.'))
         return;
+
+      const bundles = ensureOutputBundlesArray();
+      const project = state.data;
+      project.outputBundles = bundles.filter((b) => String(b.id) !== id);
+
+      setActiveBundleId(data, '');
+      if (pick) {
+        pick.value = '';
+        const opt = pick.querySelector(`option[value="${escapeAttr(id)}"]`);
+        if (opt) opt.remove();
+      }
+
+      const nameEl = content.querySelector('#bundleName');
+      if (nameEl) nameEl.value = '';
+
+      updateBundleInfoUI(data);
+
+      const ids = normalizeLinkedSourceIds(data);
+      const list = $('inputSourcesList');
+      if (list) {
+        list.style.opacity = '1';
+        list.style.pointerEvents = 'auto';
+        list.style.filter = 'none';
+      }
+      syncOutputCheckboxesFromLinkedSources(data);
+      updateLinkedInfoUI(ids);
+
+      state.saveStickyDetails();
+      return;
     }
 
-    // 2. Clear Selection
     if (clearBtn) {
       setActiveBundleId(data, '');
       updateBundleInfoUI(data);
@@ -2033,7 +2072,6 @@ const setupPermanentListeners = () => {
       return;
     }
 
-    // 3. Apply / Create / Update
     if (!applyBtn) return;
 
     const pick = content.querySelector('#bundlePick');
@@ -2045,7 +2083,6 @@ const setupPermanentListeners = () => {
       return;
     }
 
-    // Use currently checked outputs (UIDs) as the bundle content
     const ids = Array.from(content.querySelectorAll('.input-source-cb'))
       .filter((cb) => cb.checked)
       .map((cb) => cb.value);
@@ -2061,7 +2098,6 @@ const setupPermanentListeners = () => {
     let bundle = pickedId ? findBundleById(pickedId) : null;
 
     if (!bundle) {
-      // Create NEW
       bundle = { id: makeLocalId('bundle'), name, outputUids: [] };
       bundles.push(bundle);
 
@@ -2073,21 +2109,17 @@ const setupPermanentListeners = () => {
         pick.value = bundle.id;
       }
     } else {
-      // Update EXISTING (en update de UI naam)
       bundle.name = name;
       if (pick) {
-          const opt = pick.querySelector(`option[value="${bundle.id}"]`);
-          if (opt) opt.textContent = name;
+        const opt = pick.querySelector(`option[value="${bundle.id}"]`);
+        if (opt) opt.textContent = name;
       }
     }
 
-    // Sla UIDs op in bundle
     bundle.outputUids = [...new Set(ids.map((x) => String(x ?? '').trim()).filter((x) => x))];
 
-    // Activate this bundle as the input source
     setActiveBundleId(data, bundle.id);
 
-    // Avoid mixing bundle with direct linked outputs or free text
     setLinkedSourceIds(data, []);
     data.text = '';
 
@@ -2095,7 +2127,7 @@ const setupPermanentListeners = () => {
     if (ext) ext.checked = false;
 
     updateLinkedInfoUI([]);
-    updateBundleInfoUI(data);         
+    updateBundleInfoUI(data);
     syncOutputCheckboxesFromBundle(bundle);
 
     state.saveStickyDetails();
@@ -2119,7 +2151,6 @@ export function openEditModal(colIdx, slotIdx) {
   const modal = $('editModal');
   if (modal) modal.style.display = 'grid';
 
-  // Ensure info label is correct after render for multi input + bundle
   if (slotIdx === 2) {
     const data = getStickyData();
     const ids = normalizeLinkedSourceIds(data);
@@ -2175,67 +2206,76 @@ export function saveModalDetails(closeModal = true) {
         .filter((d) => d.scenario.trim());
     }
 
-    // NIEUW: Sla route label op in de KOLOM (niet de slot/sticky, maar de col zelf)
-    const routeSelect = $('colRouteLabel');
-    const sheet = state.activeSheet;
-    if (routeSelect && sheet && sheet.columns[editingSticky.colIdx]) {
-        sheet.columns[editingSticky.colIdx].routeLabel = routeSelect.value || null;
-        // Trigger een 'columns' update zodat de header ververst
-        state.notify({ reason: 'columns' }, { clone: false });
-    }
   } else if (slotIdx === 1) {
-    // ===== SYSTEM TAB SAVE (multi-system) =====
     ensureSystemDataShape(data);
     const sd = data.systemData;
 
-    sd.isMulti = !!content.querySelector('#sysMultiEnable')?.checked;
+    sd.noSystem = !!content.querySelector('#sysNoSystem')?.checked;
 
-    const cards = content.querySelectorAll('.system-card');
-    const nextSystems = [];
-
-    cards.forEach((card) => {
-      const sysId = card.dataset.sysId;
-      const name = card.querySelector('.sys-name')?.value || '';
-      const isLegacy = !!card.querySelector('.sys-legacy')?.checked;
-      const futureSystem = card.querySelector('.sys-future')?.value || '';
-
-      const qa = {};
-      SYSTEM_QUESTIONS.forEach((q) => {
-        const vStr =
-          content.querySelector(
-            `input[name="sys_${CSS.escape(sysId)}_${CSS.escape(q.id)}"]`
-          )?.value ?? '';
-        if (vStr === '') {
-          qa[q.id] = null;
-          return;
+    if (sd.noSystem) {
+      sd.isMulti = false;
+      sd.systems = [
+        {
+          id: `${Date.now()}_${Math.random().toString(16).slice(2)}`,
+          name: '',
+          isLegacy: false,
+          futureSystem: '',
+          qa: {},
+          calculatedScore: null
         }
-        const n = parseInt(vStr, 10);
-        qa[q.id] = Number.isFinite(n) ? n : null;
+      ];
+      sd.systemName = '';
+      sd.calculatedScore = null;
+    }
+
+    sd.isMulti = sd.noSystem ? false : !!content.querySelector('#sysMultiEnable')?.checked;
+
+    if (!sd.noSystem) {
+      const cards = content.querySelectorAll('.system-card');
+      const nextSystems = [];
+
+      cards.forEach((card) => {
+        const sysId = card.dataset.sysId;
+        const name = card.querySelector('.sys-name')?.value || '';
+        const isLegacy = !!card.querySelector('.sys-legacy')?.checked;
+        const futureSystem = card.querySelector('.sys-future')?.value || '';
+
+        const qa = {};
+        SYSTEM_QUESTIONS.forEach((q) => {
+          const sel = `input[name="sys_${CSS.escape(sysId)}_${CSS.escape(q.id)}"]`;
+          const vStr = contentEl.querySelector(sel)?.value ?? '';
+          if (vStr === '') {
+            qa[q.id] = null;
+            return;
+          }
+          const n = parseInt(vStr, 10);
+          qa[q.id] = Number.isFinite(n) ? n : null;
+        });
+
+        const score = computeSystemScoreFromAnswers(
+          Object.fromEntries(Object.entries(qa).filter(([, v]) => Number.isFinite(Number(v))))
+        );
+
+        nextSystems.push({
+          id: String(sysId),
+          name: String(name),
+          isLegacy,
+          futureSystem: String(futureSystem),
+          qa,
+          calculatedScore: score
+        });
       });
 
-      const score = computeSystemScoreFromAnswers(
-        Object.fromEntries(Object.entries(qa).filter(([, v]) => Number.isFinite(Number(v))))
-      );
+      sd.systems = nextSystems.length ? nextSystems : sd.systems;
 
-      nextSystems.push({
-        id: String(sysId),
-        name: String(name),
-        isLegacy,
-        futureSystem: String(futureSystem),
-        qa,
-        calculatedScore: score
-      });
-    });
+      sd.systemName = sd.systems?.[0]?.name || '';
 
-    sd.systems = nextSystems.length ? nextSystems : sd.systems;
+      const scores = sd.systems.map((s) => s.calculatedScore).filter((x) => x != null);
+      sd.calculatedScore =
+        scores.length === 0 ? null : Math.round(scores.reduce((a, b) => a + b, 0) / scores.length);
+    }
 
-    sd.systemName = sd.systems?.[0]?.name || '';
-
-    const scores = sd.systems.map((s) => s.calculatedScore).filter((x) => x != null);
-    sd.calculatedScore =
-      scores.length === 0 ? null : Math.round(scores.reduce((a, b) => a + b, 0) / scores.length);
-
-    // ===== SYSTEM MERGE APPLY (slotIdx === 1) =====
+    // ===== SYSTEM MERGE APPLY =====
     const enable = $('sysMergeEnable')?.checked ?? false;
     const startSel = $('sysMergeStartSelect');
     const endSel = $('sysMergeEndSelect');
@@ -2268,24 +2308,20 @@ export function saveModalDetails(closeModal = true) {
       }
     }
   } else if (slotIdx === 2 || slotIdx === 4) {
-    // ===== INPUT / OUTPUT SAVE =====
     if (slotIdx === 2) {
       const activeBundleId = getActiveBundleId(data);
 
-      // bundle actief => geen linkedSourceIds opslaan
       if (!activeBundleId) {
         const ext = $('inputExternalToggle');
         if (ext && ext.checked) {
           setLinkedSourceIds(data, []);
         } else {
-          // UIDs ophalen uit checkbox values
           const ids = Array.from(content.querySelectorAll('.input-source-cb'))
             .filter((cb) => cb.checked)
             .map((cb) => cb.value);
           setLinkedSourceIds(data, ids);
         }
       } else {
-        // bundle actief: name update (optioneel)
         const b = findBundleById(activeBundleId);
         const nm = String(content.querySelector('#bundleName')?.value || '').trim();
         if (b && nm) b.name = nm;
@@ -2316,32 +2352,32 @@ export function saveModalDetails(closeModal = true) {
     if (ioQual) {
       data.qa = data.qa || {};
       IO_CRITERIA.forEach((c) => {
-        const gateInput = content.querySelector(`input[name="qa_gate_${c.key}"]`);
-        const impactInput = content.querySelector(`input[name="qa_impact_${c.key}"]`);
+        const gateInput = content.querySelector(`input[name="qa_gate_${CSS.escape(c.key)}"]`);
+        const impactInput = content.querySelector(`input[name="qa_impact_${CSS.escape(c.key)}"]`);
         const noteInput = $(`note_${c.key}`);
 
         let finalResult = null;
+        let finalImpact = null;
+
         if (gateInput) {
-          const gateVal = gateInput.value;
-          if (gateVal === 'GOOD') finalResult = 'GOOD';
-          else if (gateVal === 'NA') finalResult = 'NA';
-          else if (gateVal === 'FAIL') {
-            const impactVal = impactInput ? impactInput.value : '';
-            if (impactVal === 'A') finalResult = 'POOR';
-            else if (impactVal === 'B') finalResult = 'MODERATE';
-            else if (impactVal === 'C') finalResult = 'MINOR';
-            else finalResult = 'FAIL';
-          }
+          finalResult = gateInput.value || null;
         }
+        if (impactInput) {
+          finalImpact = impactInput.value || null;
+        }
+
+        // If 'GOOD' is selected, reset impact
+        if (finalResult === 'GOOD') finalImpact = null;
 
         data.qa[c.key] = {
           result: finalResult,
+          impact: finalImpact,
           note: noteInput ? noteInput.value : ''
         };
       });
     }
 
-    // Output merge selection handling (slotIdx === 4)
+    // ===== OUTPUT MERGE APPLY =====
     if (slotIdx === 4) {
       const enable = $('mergeEnable')?.checked ?? false;
       const startSel = $('mergeStartSelect');
@@ -2395,21 +2431,22 @@ export function openLogicModal(colIdx) {
   const logic = col.logic || { condition: '', ifTrue: null, ifFalse: null };
 
   const createStepOptions = (selectedVal) => {
-    // NIEUW: Expliciete SKIP optie bovenaan
     let html = `<option value="SKIP" ${selectedVal === 'SKIP' ? 'selected' : ''}>⏭️ Sla deze stap over (SKIP)</option>`;
-    
-    // Daarna de normale stappen (voor sprongen)
-    html += sheet.columns.map((c, i) => {
-      if (c.isVisible === false) return '';
-      
-      const label = c.slots?.[3]?.text || `Stap ${i + 1}`;
-      const isSelected = (selectedVal !== null && String(selectedVal) === String(i)) ? 'selected' : '';
-      
-      if (i === colIdx) return ''; // Geen optie om naar zichzelf te springen
 
-      return `<option value="${i}" ${isSelected}>Ga naar: ${i + 1}. ${escapeAttr(label)}</option>`;
-    }).join('');
-    
+    html += sheet.columns
+      .map((c, i) => {
+        if (c.isVisible === false) return '';
+
+        const label = c.slots?.[3]?.text || `Stap ${i + 1}`;
+        const isSelected =
+          selectedVal !== null && String(selectedVal) === String(i) ? 'selected' : '';
+
+        if (i === colIdx) return '';
+
+        return `<option value="${i}" ${isSelected}>Ga naar: ${i + 1}. ${escapeAttr(label)}</option>`;
+      })
+      .join('');
+
     return html;
   };
 
@@ -2422,7 +2459,9 @@ export function openLogicModal(colIdx) {
 
     <div style="margin-top:16px;">
       <label class="modal-label">De Conditie (Vraag)</label>
-      <textarea id="logicCondition" class="modal-input" rows="2" placeholder="Bijv: Komt patiënt voor in systeem?">${escapeAttr(logic.condition)}</textarea>
+      <textarea id="logicCondition" class="modal-input" rows="2" placeholder="Bijv: Komt patiënt voor in systeem?">${escapeAttr(
+        logic.condition
+      )}</textarea>
     </div>
 
     <div style="margin-top:20px; display:grid; grid-template-columns: 1fr 1fr; gap:20px;">
@@ -2473,11 +2512,13 @@ export function openLogicModal(colIdx) {
 
   const close = () => overlay.remove();
 
-  overlay.addEventListener('click', (e) => { if(e.target === overlay) close(); });
+  overlay.addEventListener('click', (e) => {
+    if (e.target === overlay) close();
+  });
   modal.querySelector('#logicCancelBtn').onclick = close;
 
   modal.querySelector('#logicRemoveBtn').onclick = () => {
-    state.toggleConditional(colIdx); 
+    state.toggleConditional(colIdx);
     close();
   };
 
@@ -2498,67 +2539,63 @@ export function openGroupModal(colIdx) {
 
   const existingGroup = state.getGroupForCol(colIdx);
   const titleVal = existingGroup ? existingGroup.title : '';
-  
-  // Begin met bestaande kolommen of de huidige kolom
-  let currentCols = existingGroup && Array.isArray(existingGroup.cols) 
-      ? [...existingGroup.cols] 
-      : [colIdx];
 
-  // Helper om de lijst te renderen
+  let currentCols =
+    existingGroup && Array.isArray(existingGroup.cols) ? [...existingGroup.cols] : [colIdx];
+
   const renderColsList = () => {
-      const listEl = document.getElementById('groupColList');
-      if(!listEl) return;
-      
-      listEl.innerHTML = '';
-      
-      if(currentCols.length === 0) {
-          listEl.innerHTML = '<div style="font-size:12px; opacity:0.6; padding:8px;">Geen kolommen geselecteerd.</div>';
-          return;
-      }
+    const listEl = document.getElementById('groupColList');
+    if (!listEl) return;
 
-      // Sorteer voor netheid
-      currentCols.sort((a,b) => a - b);
+    listEl.innerHTML = '';
 
-      currentCols.forEach(cIdx => {
-          const col = sheet.columns[cIdx];
-          if(!col || col.isVisible === false) return;
-          
-          const label = col.slots?.[3]?.text || `Kolom ${cIdx + 1}`;
-          
-          const item = document.createElement('div');
-          item.className = 'col-manager-item';
-          item.innerHTML = `
+    if (currentCols.length === 0) {
+      listEl.innerHTML =
+        '<div style="font-size:12px; opacity:0.6; padding:8px;">Geen kolommen geselecteerd.</div>';
+      return;
+    }
+
+    currentCols.sort((a, b) => a - b);
+
+    currentCols.forEach((cIdx) => {
+      const col = sheet.columns[cIdx];
+      if (!col || col.isVisible === false) return;
+
+      const label = col.slots?.[3]?.text || `Kolom ${cIdx + 1}`;
+
+      const item = document.createElement('div');
+      item.className = 'col-manager-item';
+      item.innerHTML = `
              <span style="font-size:13px;"><strong>${cIdx + 1}.</strong> ${escapeAttr(label)}</span>
              <button class="btn-icon danger" type="button" style="width:24px; height:24px; min-width:24px;">×</button>
           `;
-          
-          item.querySelector('button').onclick = () => {
-              currentCols = currentCols.filter(x => x !== cIdx);
-              renderColsList();
-              renderAddOptions(); // Refresh dropdown zodat de verwijderde weer beschikbaar is
-          };
-          
-          listEl.appendChild(item);
-      });
+
+      item.querySelector('button').onclick = () => {
+        currentCols = currentCols.filter((x) => x !== cIdx);
+        renderColsList();
+        renderAddOptions();
+      };
+
+      listEl.appendChild(item);
+    });
   };
 
-  // Helper voor dropdown opties (alle kolommen behalve die er al in zitten)
   const renderAddOptions = () => {
-      const select = document.getElementById('groupAddSelect');
-      if(!select) return;
-      
-      select.innerHTML = '<option value="">-- Kies een kolom --</option>';
-      
-      sheet.columns.forEach((c, i) => {
-          if (c.isVisible === false) return;
-          if (currentCols.includes(i)) return; // Sla over als al in lijst
-          
-          const label = c.slots?.[3]?.text || `Kolom ${i + 1}`;
-          const opt = document.createElement('option');
-          opt.value = i;
-          opt.textContent = `${i + 1}. ${label}`;
-          select.appendChild(opt);
-      });
+    const select = document.getElementById('groupAddSelect');
+    if (!select) return;
+
+    select.innerHTML = '<option value="">-- Kies een kolom --</option>';
+
+    sheet.columns.forEach((c, i) => {
+      if (c.isVisible === false) return;
+      if (currentCols.includes(i)) return;
+
+      const label = c.slots?.[3]?.text || `Kolom ${i + 1}`;
+      const opt = document.createElement('option');
+      opt.value = i;
+      opt.textContent = `${i + 1}. ${label}`;
+      select.appendChild(opt);
+    });
   };
 
   const html = `
@@ -2567,7 +2604,9 @@ export function openGroupModal(colIdx) {
 
     <div style="margin-top:16px;">
       <label class="modal-label">Naam van de groep</label>
-      <input id="groupTitle" class="modal-input" type="text" placeholder="Bijv. Triage Fase" value="${escapeAttr(titleVal)}">
+      <input id="groupTitle" class="modal-input" type="text" placeholder="Bijv. Triage Fase" value="${escapeAttr(
+        titleVal
+      )}">
     </div>
 
     <div style="margin-top:24px;">
@@ -2581,7 +2620,11 @@ export function openGroupModal(colIdx) {
     </div>
 
     <div class="modal-btns">
-      ${existingGroup ? `<button id="groupRemoveBtn" class="std-btn danger-text" type="button">Groep opheffen</button>` : '<div></div>'}
+      ${
+        existingGroup
+          ? `<button id="groupRemoveBtn" class="std-btn danger-text" type="button">Groep opheffen</button>`
+          : '<div></div>'
+      }
       <button id="groupCancelBtn" class="std-btn" type="button">Annuleren</button>
       <button id="groupSaveBtn" class="std-btn primary" type="button">Opslaan</button>
     </div>
@@ -2594,60 +2637,59 @@ export function openGroupModal(colIdx) {
   overlay.id = 'groupModalOverlay';
   overlay.className = 'modal-overlay';
   overlay.style.display = 'grid';
-  
+
   const modal = document.createElement('div');
   modal.className = 'modal';
   modal.innerHTML = html;
-  
+
   overlay.appendChild(modal);
   document.body.appendChild(overlay);
 
-  // Initial render
   renderColsList();
   renderAddOptions();
 
-  // Events
   const addBtn = document.getElementById('groupAddBtn');
   const addSelect = document.getElementById('groupAddSelect');
 
   addBtn.onclick = () => {
-      const val = addSelect.value;
-      if(!val) return;
-      const idx = parseInt(val, 10);
-      if(!currentCols.includes(idx)) {
-          currentCols.push(idx);
-          renderColsList();
-          renderAddOptions();
-      }
+    const val = addSelect.value;
+    if (!val) return;
+    const idx = parseInt(val, 10);
+    if (!currentCols.includes(idx)) {
+      currentCols.push(idx);
+      renderColsList();
+      renderAddOptions();
+    }
   };
 
   const close = () => overlay.remove();
 
-  overlay.addEventListener('click', (e) => { if(e.target === overlay) close(); });
+  overlay.addEventListener('click', (e) => {
+    if (e.target === overlay) close();
+  });
   modal.querySelector('#groupCancelBtn').onclick = close;
 
   const removeBtn = modal.querySelector('#groupRemoveBtn');
   if (removeBtn) {
     removeBtn.onclick = () => {
-        if(confirm('Weet je zeker dat je deze groep wilt opheffen? De kolommen blijven gewoon bestaan.')) {
-            state.removeGroup(existingGroup.id);
-            close();
-        }
+      if (confirm('Weet je zeker dat je deze groep wilt opheffen? De kolommen blijven gewoon bestaan.')) {
+        state.removeGroup(existingGroup.id);
+        close();
+      }
     };
   }
 
   modal.querySelector('#groupSaveBtn').onclick = () => {
     const title = document.getElementById('groupTitle').value;
-    
+
     if (currentCols.length === 0) {
-        // Als leeg, verwijder groep
-        if(existingGroup) state.removeGroup(existingGroup.id);
+      if (existingGroup) state.removeGroup(existingGroup.id);
     } else {
-        state.setColumnGroup({ 
-            id: existingGroup ? existingGroup.id : null,
-            cols: currentCols, 
-            title 
-        });
+      state.setColumnGroup({
+        id: existingGroup ? existingGroup.id : null,
+        cols: currentCols,
+        title
+      });
     }
     close();
   };
@@ -2660,93 +2702,84 @@ export function openVariantModal(colIdx) {
 
   const col = sheet.columns[colIdx];
 
-  // Huidige status ophalen
   const info = state.getVariantGroupForCol(colIdx);
   const existingGroup = info ? info.group : null;
   const isVariant = col.isVariant || !!existingGroup;
 
-  // Huidige parents ophalen (array of single)
   let currentParents = [];
   if (existingGroup) {
-      if (Array.isArray(existingGroup.parents)) currentParents = [...existingGroup.parents];
-      else if (existingGroup.parentColIdx !== undefined) currentParents = [existingGroup.parentColIdx];
+    if (Array.isArray(existingGroup.parents)) currentParents = [...existingGroup.parents];
+    else if (existingGroup.parentColIdx !== undefined) currentParents = [existingGroup.parentColIdx];
   } else {
-      // Default: als we op een 'nieuwe' kolom klikken die nog nergens bij hoort, is hij zelf parent kandidaat.
-      currentParents = [colIdx];
+    currentParents = [colIdx];
   }
 
   let currentVariants = existingGroup ? [...existingGroup.variants] : [];
 
-  const getLetter = (i) => String.fromCharCode(65 + i);
+  const getLetter = (i) => _toLetter(i);
 
-  // Render lijst met mogelijke parents (checkboxes)
   const renderParentList = () => {
-      const container = document.getElementById('variantParentList');
-      if(!container) return;
-      container.innerHTML = '';
+    const container = document.getElementById('variantParentList');
+    if (!container) return;
+    container.innerHTML = '';
 
-      // LOOP OVER ALLE SHEETS
-      (state.project.sheets || []).forEach(s => {
-          const isCurrentSheet = (s.id === sheet.id);
-          
-          const header = document.createElement('div');
-          header.style.fontSize = '11px';
-          header.style.fontWeight = 'bold';
-          header.style.marginTop = '12px';
-          header.style.marginBottom = '4px';
-          header.style.color = isCurrentSheet ? 'var(--ui-accent)' : '#aaa';
-          header.style.textTransform = 'uppercase';
-          header.textContent = s.name;
-          container.appendChild(header);
+    (state.project.sheets || []).forEach((s) => {
+      const isCurrentSheet = s.id === sheet.id;
 
-          (s.columns || []).forEach((c, i) => {
-              if (c.isVisible === false) return;
-              
-              // Child kan niet zijn eigen parent zijn (alleen op huidige sheet relevant)
-              if (isCurrentSheet && currentVariants.includes(i)) return; 
+      const header = document.createElement('div');
+      header.style.fontSize = '11px';
+      header.style.fontWeight = 'bold';
+      header.style.marginTop = '12px';
+      header.style.marginBottom = '4px';
+      header.style.color = isCurrentSheet ? 'var(--ui-accent)' : '#aaa';
+      header.style.textTransform = 'uppercase';
+      header.textContent = s.name;
+      container.appendChild(header);
 
-              // Waarde is index (lokaal) of "ID::index" (remote)
-              const val = isCurrentSheet ? i : `${s.id}::${i}`;
-              const valStr = String(val);
+      (s.columns || []).forEach((c, i) => {
+        if (c.isVisible === false) return;
 
-              // Check of geselecteerd (vergelijk strings voor veiligheid)
-              const isSelected = currentParents.some(p => String(p) === valStr);
-              const isCurrentCol = (isCurrentSheet && i === colIdx);
+        if (isCurrentSheet && currentVariants.includes(i)) return;
 
-              const div = document.createElement('label');
-              div.className = 'sys-opt'; 
-              div.style.display = 'flex';
-              div.style.alignItems = 'center';
-              div.style.gap = '10px';
-              div.style.cursor = 'pointer';
-              div.style.padding = '6px 10px';
-              if(isSelected) div.classList.add('selected');
+        const val = isCurrentSheet ? i : `${s.id}::${i}`;
+        const valStr = String(val);
 
-              const labelText = c.slots?.[3]?.text || `Kolom ${i + 1}`;
+        const isSelected = currentParents.some((p) => String(p) === valStr);
+        const isCurrentCol = isCurrentSheet && i === colIdx;
 
-              div.innerHTML = `
-                 <input type="checkbox" value="${val}" ${isSelected ? 'checked' : ''} style="accent-color:var(--ui-accent);">
+        const div = document.createElement('label');
+        div.className = 'sys-opt';
+        div.style.display = 'flex';
+        div.style.alignItems = 'center';
+        div.style.gap = '10px';
+        div.style.cursor = 'pointer';
+        div.style.padding = '6px 10px';
+        if (isSelected) div.classList.add('selected');
+
+        const labelText = c.slots?.[3]?.text || `Kolom ${i + 1}`;
+
+        div.innerHTML = `
+                 <input type="checkbox" value="${escapeAttr(val)}" ${isSelected ? 'checked' : ''} style="accent-color:var(--ui-accent);">
                  <span style="flex:1; font-size:13px; color:${isCurrentSheet ? '#fff' : '#ccc'};">
-                    ${i + 1}. ${escapeAttr(labelText)} ${isCurrentCol ? '<strong>(Dit)</strong>' : ''}
+                   ${i + 1}. ${escapeAttr(labelText)} ${isCurrentCol ? '<strong>(Dit)</strong>' : ''}
                  </span>
               `;
 
-              div.querySelector('input').onchange = (e) => {
-                  if (e.target.checked) {
-                      // Als lokaal, sla op als getal. Als remote, als string.
-                      const storeVal = isCurrentSheet ? i : val;
-                      currentParents.push(storeVal);
-                      div.classList.add('selected');
-                  } else {
-                      currentParents = currentParents.filter(p => String(p) !== valStr);
-                      div.classList.remove('selected');
-                  }
-                  renderAddOptions();
-              };
+        div.querySelector('input').onchange = (e) => {
+          if (e.target.checked) {
+            const storeVal = isCurrentSheet ? i : val;
+            currentParents.push(storeVal);
+            div.classList.add('selected');
+          } else {
+            currentParents = currentParents.filter((p) => String(p) !== valStr);
+            div.classList.remove('selected');
+          }
+          renderAddOptions();
+        };
 
-              container.appendChild(div);
-          });
+        container.appendChild(div);
       });
+    });
   };
 
   const renderVariantList = () => {
@@ -2755,58 +2788,59 @@ export function openVariantModal(colIdx) {
     listEl.innerHTML = '';
 
     if (currentVariants.length === 0) {
-        listEl.innerHTML = '<div style="font-size:12px; opacity:0.6; padding:8px;">Nog geen routes toegevoegd.</div>';
-        return;
+      listEl.innerHTML =
+        '<div style="font-size:12px; opacity:0.6; padding:8px;">Nog geen routes toegevoegd.</div>';
+      return;
     }
 
     currentVariants.forEach((vIdx, i) => {
-        const c = sheet.columns[vIdx];
-        if (!c || c.isVisible === false) return;
+      const c = sheet.columns[vIdx];
+      if (!c || c.isVisible === false) return;
 
-        const label = c.slots?.[3]?.text || `Kolom ${vIdx + 1}`;
-        const letter = getLetter(i);
+      const label = c.slots?.[3]?.text || `Kolom ${vIdx + 1}`;
+      const letter = getLetter(i);
 
-        const item = document.createElement('div');
-        item.className = 'col-manager-item'; 
-        item.style.display = 'grid';
-        item.style.gridTemplateColumns = '30px 1fr 30px';
-        item.style.alignItems = 'center';
-        
-        item.innerHTML = `
-           <div style="font-weight:bold; color:var(--ui-accent);">${letter}</div>
+      const item = document.createElement('div');
+      item.className = 'col-manager-item';
+      item.style.display = 'grid';
+      item.style.gridTemplateColumns = '30px 1fr 30px';
+      item.style.alignItems = 'center';
+
+      item.innerHTML = `
+           <div style="font-weight:bold; color:var(--ui-accent);">${escapeAttr(letter)}</div>
            <div style="font-size:13px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">
-              ${vIdx + 1}. ${escapeAttr(label)}
+             ${vIdx + 1}. ${escapeAttr(label)}
            </div>
            <button class="btn-icon danger" type="button" style="width:24px; height:24px;">×</button>
         `;
 
-        item.querySelector('button').onclick = () => {
-            currentVariants = currentVariants.filter(x => x !== vIdx);
-            renderVariantList();
-            renderAddOptions(); // Refresh dropdown (variant is weer beschikbaar als parent)
-            renderParentList(); // Refresh parents (variant is weer beschikbaar)
-        };
+      item.querySelector('button').onclick = () => {
+        currentVariants = currentVariants.filter((x) => x !== vIdx);
+        renderVariantList();
+        renderAddOptions();
+        renderParentList();
+      };
 
-        listEl.appendChild(item);
+      listEl.appendChild(item);
     });
   };
 
   const renderAddOptions = () => {
-      const select = document.getElementById('variantAddSelect');
-      if(!select) return;
-      select.innerHTML = '<option value="">-- Kies een route stap --</option>';
+    const select = document.getElementById('variantAddSelect');
+    if (!select) return;
+    select.innerHTML = '<option value="">-- Kies een route stap --</option>';
 
-      sheet.columns.forEach((c, i) => {
-          if (c.isVisible === false) return;
-          if (currentParents.includes(i)) return; // Een parent kan geen child zijn
-          if (currentVariants.includes(i)) return; // Al geselecteerd
+    sheet.columns.forEach((c, i) => {
+      if (c.isVisible === false) return;
+      if (currentParents.includes(i)) return;
+      if (currentVariants.includes(i)) return;
 
-          const label = c.slots?.[3]?.text || `Kolom ${i + 1}`;
-          const opt = document.createElement('option');
-          opt.value = i;
-          opt.textContent = `${i + 1}. ${label}`;
-          select.appendChild(opt);
-      });
+      const label = c.slots?.[3]?.text || `Kolom ${i + 1}`;
+      const opt = document.createElement('option');
+      opt.value = i;
+      opt.textContent = `${i + 1}. ${label}`;
+      select.appendChild(opt);
+    });
   };
 
   const html = `
@@ -2841,11 +2875,11 @@ export function openVariantModal(colIdx) {
   overlay.id = 'variantModalOverlay';
   overlay.className = 'modal-overlay';
   overlay.style.display = 'grid';
-  
+
   const modal = document.createElement('div');
   modal.className = 'modal';
   modal.innerHTML = html;
-  
+
   overlay.appendChild(modal);
   document.body.appendChild(overlay);
 
@@ -2854,45 +2888,47 @@ export function openVariantModal(colIdx) {
   renderAddOptions();
 
   document.getElementById('variantAddBtn').onclick = () => {
-      const val = document.getElementById('variantAddSelect').value;
-      if(!val) return;
-      currentVariants.push(parseInt(val, 10));
-      renderVariantList();
-      renderAddOptions();
-      renderParentList(); // Update parents (child kan geen parent meer zijn)
+    const val = document.getElementById('variantAddSelect').value;
+    if (!val) return;
+    currentVariants.push(parseInt(val, 10));
+    renderVariantList();
+    renderAddOptions();
+    renderParentList();
   };
 
   const close = () => overlay.remove();
-  overlay.addEventListener('click', (e) => { if(e.target === overlay) close(); });
+  overlay.addEventListener('click', (e) => {
+    if (e.target === overlay) close();
+  });
   modal.querySelector('#variantCancelBtn').onclick = close;
 
   const rmBtn = modal.querySelector('#variantRemoveBtn');
   if (rmBtn) {
-      rmBtn.onclick = () => {
-          if(confirm('Weet je zeker dat je de split wilt opheffen?')) {
-              if(existingGroup) {
-                  state.removeVariantGroup(existingGroup.id);
-              } else {
-                  state.toggleVariant(colIdx);
-              }
-              close();
-          }
-      };
+    rmBtn.onclick = () => {
+      if (confirm('Weet je zeker dat je de split wilt opheffen?')) {
+        if (existingGroup) {
+          state.removeVariantGroup(existingGroup.id);
+        } else {
+          state.toggleVariant(colIdx);
+        }
+        close();
+      }
+    };
   }
 
   modal.querySelector('#variantSaveBtn').onclick = () => {
-      if (currentParents.length === 0) {
-          alert("Selecteer minimaal één hoofdproces.");
-          return;
-      }
-      if (currentVariants.length === 0) {
-          if(existingGroup) state.removeVariantGroup(existingGroup.id);
-      } else {
-          state.setVariantGroup({
-              parents: currentParents,
-              variants: currentVariants
-          });
-      }
-      close();
+    if (currentParents.length === 0) {
+      alert('Selecteer minimaal één hoofdproces.');
+      return;
+    }
+    if (currentVariants.length === 0) {
+      if (existingGroup) state.removeVariantGroup(existingGroup.id);
+    } else {
+      state.setVariantGroup({
+        parents: currentParents,
+        variants: currentVariants
+      });
+    }
+    close();
   };
 }

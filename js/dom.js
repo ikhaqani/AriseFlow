@@ -1184,9 +1184,20 @@ function openMergeModal(clickedColIdx, slotIdx, openModalFn) {
               })
               .join('')}
           </div>
+          <div style="margin-top:10px;">
+            <input
+              type="text"
+              class="modal-input"
+              data-qid-note="${q.id}"
+              placeholder="Opmerking (optioneel)..."
+              value="${escapeAttr(qa[q.id + '_note'] || '')}"
+              style="margin:0; font-size:13px; opacity:0.8; height:36px;"
+            />
+          </div>
         `;
         qWrap.appendChild(row);
 
+        // Listener voor knoppen (update score)
         row.querySelectorAll('button[data-qid]').forEach((btn) => {
           btn.addEventListener('click', () => {
             const qid = btn.getAttribute('data-qid');
@@ -1205,8 +1216,19 @@ function openMergeModal(clickedColIdx, slotIdx, openModalFn) {
             _renderSystemCards();
           });
         });
+
+        // Listener voor opmerkingen (TOEGEVOEGD)
+        row.querySelectorAll('input[data-qid-note]').forEach((inp) => {
+          inp.addEventListener('input', () => {
+            const qid = inp.getAttribute('data-qid-note');
+            if (!qid) return;
+            systemsMeta.systems[idx].qa = systemsMeta.systems[idx].qa || {};
+            systemsMeta.systems[idx].qa[qid + '_note'] = inp.value;
+          });
+        });
       });
 
+      // Overige listeners
       card.querySelectorAll('input[data-sys-name]').forEach((inp) => {
         inp.addEventListener('input', () => {
           systemsMeta.systems[idx].name = String(inp.value ?? '');

@@ -1,4 +1,12 @@
-import { createProjectState, createSheet, createColumn, createSticky, STORAGE_KEY, uid } from './config.js';
+// state.js
+import {
+  createProjectState,
+  createSheet,
+  createColumn,
+  createSticky,
+  STORAGE_KEY,
+  uid
+} from './config.js';
 
 class StateManager {
   constructor() {
@@ -45,7 +53,8 @@ class StateManager {
       (sheet.columns || []).forEach((col) => {
         const outSlot = col?.slots?.[4];
         if (!outSlot) return;
-        if (!outSlot.outputUid || String(outSlot.outputUid).trim() === '') outSlot.outputUid = this._makeId('out');
+        if (!outSlot.outputUid || String(outSlot.outputUid).trim() === '')
+          outSlot.outputUid = this._makeId('out');
       });
     });
   }
@@ -77,7 +86,9 @@ class StateManager {
           const single = String(inSlot.linkedBundleId || '').trim();
           inSlot.linkedBundleIds = single ? [single] : [];
         } else {
-          inSlot.linkedBundleIds = inSlot.linkedBundleIds.map((x) => String(x || '').trim()).filter(Boolean);
+          inSlot.linkedBundleIds = inSlot.linkedBundleIds
+            .map((x) => String(x || '').trim())
+            .filter(Boolean);
         }
 
         // Keep legacy field in sync (first item) for backward compatibility
@@ -97,7 +108,8 @@ class StateManager {
         const outSlot = col?.slots?.[4];
         if (!outSlot?.text?.trim()) return;
 
-        if (!outSlot.outputUid || String(outSlot.outputUid).trim() === '') outSlot.outputUid = this._makeId('out');
+        if (!outSlot.outputUid || String(outSlot.outputUid).trim() === '')
+          outSlot.outputUid = this._makeId('out');
 
         counter += 1;
         map[`OUT${counter}`] = outSlot.outputUid;
@@ -113,17 +125,17 @@ class StateManager {
 
     // 1. Migreer Output Bundles (van outIds ["OUT1"] -> naar outputUids ["uuid..."])
     if (Array.isArray(project.outputBundles)) {
-        project.outputBundles.forEach(b => {
-            if (Array.isArray(b.outIds) && b.outIds.length > 0) {
-                if (!Array.isArray(b.outputUids)) b.outputUids = [];
-                
-                b.outIds.forEach(oid => {
-                    const uid = outIdToUid[oid];
-                    if (uid) b.outputUids.push(uid);
-                });
-                b.outputUids = [...new Set(b.outputUids)];
-            }
-        });
+      project.outputBundles.forEach((b) => {
+        if (Array.isArray(b.outIds) && b.outIds.length > 0) {
+          if (!Array.isArray(b.outputUids)) b.outputUids = [];
+
+          b.outIds.forEach((oid) => {
+            const u = outIdToUid[oid];
+            if (u) b.outputUids.push(u);
+          });
+          b.outputUids = [...new Set(b.outputUids)];
+        }
+      });
     }
 
     // 2. Migreer Inputs in kolommen
@@ -137,27 +149,27 @@ class StateManager {
         // A. Migreer enkele legacy ID (linkedSourceId)
         const singleLegacy = String(inSlot.linkedSourceId || '').trim();
         if (/^OUT\d+$/.test(singleLegacy)) {
-             const uid = outIdToUid[singleLegacy];
-             if (uid) inSlot.linkedSourceUids.push(uid);
+          const u = outIdToUid[singleLegacy];
+          if (u) inSlot.linkedSourceUids.push(u);
         }
 
         // B. Migreer meervoudige legacy IDs (linkedSourceIds)
         if (Array.isArray(inSlot.linkedSourceIds)) {
-            inSlot.linkedSourceIds.forEach(lid => {
-                const s = String(lid).trim();
-                if (/^OUT\d+$/.test(s)) {
-                    const uid = outIdToUid[s];
-                    if (uid) inSlot.linkedSourceUids.push(uid);
-                }
-            });
+          inSlot.linkedSourceIds.forEach((lid) => {
+            const s = String(lid).trim();
+            if (/^OUT\d+$/.test(s)) {
+              const u = outIdToUid[s];
+              if (u) inSlot.linkedSourceUids.push(u);
+            }
+          });
         }
-        
+
         // Opruimen en synchroniseren
         inSlot.linkedSourceUids = [...new Set(inSlot.linkedSourceUids)];
-        
+
         // Als er data is, update de single pointer ook voor compatibiliteit
         if (inSlot.linkedSourceUids.length > 0) {
-            inSlot.linkedSourceUid = inSlot.linkedSourceUids[0];
+          inSlot.linkedSourceUid = inSlot.linkedSourceUids[0];
         }
       });
     });
@@ -171,7 +183,9 @@ class StateManager {
       legacy: !!(x.legacy ?? x.isLegacy),
       future: String(x.future ?? x.futureSystem ?? '').trim(),
       qa: x.qa && typeof x.qa === 'object' ? { ...x.qa } : {},
-      score: Number.isFinite(Number(x.score ?? x.calculatedScore)) ? Number(x.score ?? x.calculatedScore) : null
+      score: Number.isFinite(Number(x.score ?? x.calculatedScore))
+        ? Number(x.score ?? x.calculatedScore)
+        : null
     };
   }
 
@@ -185,16 +199,22 @@ class StateManager {
 
     if (!Array.isArray(sd.systemsMeta?.systems)) {
       const legacyName = typeof sd.systemName === 'string' ? sd.systemName.trim() : '';
-      const base = legacyName ? [this._sanitizeSystemEntry({ name: legacyName })] : [this._sanitizeSystemEntry({})];
+      const base = legacyName
+        ? [this._sanitizeSystemEntry({ name: legacyName })]
+        : [this._sanitizeSystemEntry({})];
       sd.systemsMeta = { multi: false, systems: base, activeSystemIdx: 0 };
     } else {
       const meta = sd.systemsMeta && typeof sd.systemsMeta === 'object' ? sd.systemsMeta : {};
-      const systems = Array.isArray(meta.systems) ? meta.systems.map((x) => this._sanitizeSystemEntry(x)) : [];
+      const systems = Array.isArray(meta.systems)
+        ? meta.systems.map((x) => this._sanitizeSystemEntry(x))
+        : [];
       const safeSystems = systems.length ? systems : [this._sanitizeSystemEntry({})];
 
       const inferredMulti = safeSystems.length > 1;
       const multi = typeof meta.multi === 'boolean' ? meta.multi : inferredMulti;
-      const activeSystemIdx = Number.isFinite(Number(meta.activeSystemIdx)) ? Number(meta.activeSystemIdx) : 0;
+      const activeSystemIdx = Number.isFinite(Number(meta.activeSystemIdx))
+        ? Number(meta.activeSystemIdx)
+        : 0;
 
       sd.systemsMeta = {
         multi,
@@ -246,7 +266,10 @@ class StateManager {
   getOutputMergeForCol(colIdx) {
     const sheet = this.activeSheet;
     if (!sheet || !Array.isArray(sheet.outputMerges)) return null;
-    return sheet.outputMerges.find((r) => r.slotIdx === 4 && colIdx >= r.startCol && colIdx <= r.endCol) || null;
+    return (
+      sheet.outputMerges.find((r) => r.slotIdx === 4 && colIdx >= r.startCol && colIdx <= r.endCol) ||
+      null
+    );
   }
 
   setOutputMergeRangeForCol(colIdx, startCol, endCol) {
@@ -287,7 +310,10 @@ class StateManager {
   getSystemMergeForCol(colIdx) {
     const sheet = this.activeSheet;
     if (!sheet || !Array.isArray(sheet.systemMerges)) return null;
-    return sheet.systemMerges.find((r) => r.slotIdx === 1 && colIdx >= r.startCol && colIdx <= r.endCol) || null;
+    return (
+      sheet.systemMerges.find((r) => r.slotIdx === 1 && colIdx >= r.startCol && colIdx <= r.endCol) ||
+      null
+    );
   }
 
   setSystemMergeRangeForCol(colIdx, startCol, endCol) {
@@ -440,7 +466,7 @@ class StateManager {
     // === CRITICAL FIX ORDER ===
     // 1. Zorg dat alle outputs een UID hebben
     this._ensureOutputUids(merged);
-    
+
     // 2. MIGREER DE OUDE REFERENTIES (OUTx -> UID)
     // Dit moet gebeuren voordat bundels of inputs worden schoongemaakt.
     this._migrateLegacyRefs(merged);
@@ -453,28 +479,31 @@ class StateManager {
     merged.sheets.forEach((sheet) => {
       // === GROUPS: Ensure array exists ===
       if (!Array.isArray(sheet.groups)) sheet.groups = [];
-      
+
       // Valideer bestaande groups op nieuwe structuur
-      sheet.groups = sheet.groups.map(g => {
-         if (!Array.isArray(g.cols)) {
-             // Migratie van oude Start/End naar Array
-             if (Number.isFinite(g.startCol) && Number.isFinite(g.endCol)) {
-                 const newCols = [];
-                 for(let i=g.startCol; i<=g.endCol; i++) newCols.push(i);
-                 g.cols = newCols;
-             } else {
-                 g.cols = [];
-             }
-         }
-         return g;
-      }).filter(g => g.cols.length > 0);
-      
+      sheet.groups = sheet.groups
+        .map((g) => {
+          if (!Array.isArray(g.cols)) {
+            // Migratie van oude Start/End naar Array
+            if (Number.isFinite(g.startCol) && Number.isFinite(g.endCol)) {
+              const newCols = [];
+              for (let i = g.startCol; i <= g.endCol; i++) newCols.push(i);
+              g.cols = newCols;
+            } else {
+              g.cols = [];
+            }
+          }
+          return g;
+        })
+        .filter((g) => g.cols.length > 0);
+
       // === NIEUW: Variant Groups initialiseren ===
       if (!Array.isArray(sheet.variantGroups)) sheet.variantGroups = [];
       // Schoon lege groups op
-      sheet.variantGroups = sheet.variantGroups.filter(vg => 
-          (vg.parentColIdx !== undefined || (Array.isArray(vg.parents) && vg.parents.length > 0)) && 
-          Array.isArray(vg.variants) && 
+      sheet.variantGroups = sheet.variantGroups.filter(
+        (vg) =>
+          (vg.parentColIdx !== undefined || (Array.isArray(vg.parents) && vg.parents.length > 0)) &&
+          Array.isArray(vg.variants) &&
           vg.variants.length > 0
       );
       // ===========================================
@@ -490,25 +519,25 @@ class StateManager {
         if (typeof col.isVariant !== 'boolean') col.isVariant = false;
         if (typeof col.isParallel !== 'boolean') col.isParallel = !!col.isParallel;
         if (typeof col.isQuestion !== 'boolean') col.isQuestion = !!col.isQuestion;
-        
-        if (typeof col.isConditional !== 'boolean') col.isConditional = !!col.isConditional; 
-        
-        if (col.logic && typeof col.logic === 'object') {
-           const sanitizeTarget = (val) => {
-               if (val === 'SKIP') return 'SKIP';
-               if (val !== null && val !== '' && Number.isFinite(Number(val))) return Number(val);
-               return null;
-           };
 
-           col.logic = {
-             condition: String(col.logic.condition || ''),
-             ifTrue: sanitizeTarget(col.logic.ifTrue),
-             ifFalse: sanitizeTarget(col.logic.ifFalse)
-           };
+        if (typeof col.isConditional !== 'boolean') col.isConditional = !!col.isConditional;
+
+        if (col.logic && typeof col.logic === 'object') {
+          const sanitizeTarget = (val) => {
+            if (val === 'SKIP') return 'SKIP';
+            if (val !== null && val !== '' && Number.isFinite(Number(val))) return Number(val);
+            return null;
+          };
+
+          col.logic = {
+            condition: String(col.logic.condition || ''),
+            ifTrue: sanitizeTarget(col.logic.ifTrue),
+            ifFalse: sanitizeTarget(col.logic.ifFalse)
+          };
         } else {
-           col.logic = null;
+          col.logic = null;
         }
-        
+
         if (typeof col.isGroup !== 'boolean') col.isGroup = !!col.isGroup;
 
         if (typeof col.isVisible !== 'boolean') col.isVisible = col.isVisible !== false;
@@ -527,41 +556,44 @@ class StateManager {
           const cleanGate = clean.gate && typeof clean.gate === 'object' ? clean.gate : {};
           const sGate = s.gate && typeof s.gate === 'object' ? s.gate : {};
 
-        const mergedSlot = {
-          ...clean,
-          ...s,
-          qa: { ...clean.qa, ...(s.qa || {}) },
-          systemData: { ...clean.systemData, ...(s.systemData || {}) },
+          const mergedSlot = {
+            ...clean,
+            ...s,
+            qa: { ...clean.qa, ...(s.qa || {}) },
+            systemData: { ...clean.systemData, ...(s.systemData || {}) },
 
-          linkedSourceId: s.linkedSourceId ?? clean.linkedSourceId,
-          linkedSourceUid: s.linkedSourceUid ?? clean.linkedSourceUid,
-          linkedSourceUids: Array.isArray(s.linkedSourceUids)
-            ? s.linkedSourceUids.map((x) => String(x || '').trim()).filter(Boolean)
-            : Array.isArray(clean.linkedSourceUids)
-              ? clean.linkedSourceUids
-              : [],
-          linkedBundleId: s.linkedBundleId ?? clean.linkedBundleId,
-          linkedBundleIds: Array.isArray(s.linkedBundleIds)
-            ? s.linkedBundleIds.map((x) => String(x || '').trim()).filter(Boolean)
-            : Array.isArray(clean.linkedBundleIds)
-              ? clean.linkedBundleIds
-              : [],
+            linkedSourceId: s.linkedSourceId ?? clean.linkedSourceId,
+            linkedSourceUid: s.linkedSourceUid ?? clean.linkedSourceUid,
+            linkedSourceUids: Array.isArray(s.linkedSourceUids)
+              ? s.linkedSourceUids.map((x) => String(x || '').trim()).filter(Boolean)
+              : Array.isArray(clean.linkedSourceUids)
+                ? clean.linkedSourceUids
+                : [],
+            linkedBundleId: s.linkedBundleId ?? clean.linkedBundleId,
+            linkedBundleIds: Array.isArray(s.linkedBundleIds)
+              ? s.linkedBundleIds.map((x) => String(x || '').trim()).filter(Boolean)
+              : Array.isArray(clean.linkedBundleIds)
+                ? clean.linkedBundleIds
+                : [],
 
-          inputDefinitions: Array.isArray(s.inputDefinitions) ? s.inputDefinitions : clean.inputDefinitions,
-          disruptions: Array.isArray(s.disruptions) ? s.disruptions : clean.disruptions,
-          workExp: s.workExp ?? clean.workExp,
-          workExpNote: s.workExpNote ?? clean.workExpNote,
-          id: s.id ?? clean.id,
-          isGate: s.isGate ?? clean.isGate,
-          gate: { ...cleanGate, ...sGate }
-        };
+            inputDefinitions: Array.isArray(s.inputDefinitions) ? s.inputDefinitions : clean.inputDefinitions,
+            disruptions: Array.isArray(s.disruptions) ? s.disruptions : clean.disruptions,
+            workExp: s.workExp ?? clean.workExp,
+            workExpNote: s.workExpNote ?? clean.workExpNote,
+            id: s.id ?? clean.id,
+            isGate: s.isGate ?? clean.isGate,
+            gate: { ...cleanGate, ...sGate }
+          };
 
-          if (slotIdx === 3 && (!mergedSlot.id || String(mergedSlot.id).trim() === '')) mergedSlot.id = this._makeId('proc');
+          if (slotIdx === 3 && (!mergedSlot.id || String(mergedSlot.id).trim() === ''))
+            mergedSlot.id = this._makeId('proc');
 
           if (mergedSlot.gate) {
             if (!Array.isArray(mergedSlot.gate.checkProcessIds)) mergedSlot.gate.checkProcessIds = [];
-            if (mergedSlot.gate.onFailTargetProcessId === undefined) mergedSlot.gate.onFailTargetProcessId = null;
-            if (mergedSlot.gate.onPassTargetProcessId === undefined) mergedSlot.gate.onPassTargetProcessId = null;
+            if (mergedSlot.gate.onFailTargetProcessId === undefined)
+              mergedSlot.gate.onFailTargetProcessId = null;
+            if (mergedSlot.gate.onPassTargetProcessId === undefined)
+              mergedSlot.gate.onPassTargetProcessId = null;
             if (!mergedSlot.gate.rule) mergedSlot.gate.rule = 'ALL_OK';
             if (mergedSlot.gate.note === undefined) mergedSlot.gate.note = '';
           }
@@ -570,7 +602,9 @@ class StateManager {
 
           if (slotIdx === 2) {
             if (!Array.isArray(mergedSlot.linkedSourceUids)) mergedSlot.linkedSourceUids = [];
-            mergedSlot.linkedSourceUids = mergedSlot.linkedSourceUids.map((x) => String(x || '').trim()).filter(Boolean);
+            mergedSlot.linkedSourceUids = mergedSlot.linkedSourceUids
+              .map((x) => String(x || '').trim())
+              .filter(Boolean);
 
             if (mergedSlot.linkedSourceUids.length === 0) {
               const singleUid = String(mergedSlot.linkedSourceUid || '').trim();
@@ -580,7 +614,9 @@ class StateManager {
             mergedSlot.linkedSourceUid = String(mergedSlot.linkedSourceUids[0] || '').trim() || null;
 
             if (!Array.isArray(mergedSlot.linkedBundleIds)) mergedSlot.linkedBundleIds = [];
-            mergedSlot.linkedBundleIds = mergedSlot.linkedBundleIds.map((x) => String(x || '').trim()).filter(Boolean);
+            mergedSlot.linkedBundleIds = mergedSlot.linkedBundleIds
+              .map((x) => String(x || '').trim())
+              .filter(Boolean);
 
             if (mergedSlot.linkedBundleIds.length === 0) {
               const singleB = String(mergedSlot.linkedBundleId || '').trim();
@@ -594,7 +630,8 @@ class StateManager {
         });
 
         const outSlot = col?.slots?.[4];
-        if (outSlot && (!outSlot.outputUid || String(outSlot.outputUid).trim() === '')) outSlot.outputUid = this._makeId('out');
+        if (outSlot && (!outSlot.outputUid || String(outSlot.outputUid).trim() === ''))
+          outSlot.outputUid = this._makeId('out');
       });
     });
 
@@ -736,40 +773,48 @@ class StateManager {
     sheet.columns.splice(index, 1);
 
     if (Array.isArray(sheet.groups)) {
-        sheet.groups = sheet.groups.map(g => {
-            const newCols = g.cols.filter(c => c !== index)
-                .map(c => c > index ? c - 1 : c);
-            return { ...g, cols: newCols };
-        }).filter(g => g.cols.length > 0);
+      sheet.groups = sheet.groups
+        .map((g) => {
+          const newCols = g.cols
+            .filter((c) => c !== index)
+            .map((c) => (c > index ? c - 1 : c));
+          return { ...g, cols: newCols };
+        })
+        .filter((g) => g.cols.length > 0);
     }
-    
+
     // NIEUW: Variant Groups updaten bij verwijderen kolom
     if (Array.isArray(sheet.variantGroups)) {
-        sheet.variantGroups = sheet.variantGroups.map(vg => {
-             // 1. Update Parent indices (kan nu een array zijn)
-             let parents = [];
-             if (Array.isArray(vg.parents)) {
-                 // Filter verwijderde parent eruit
-                 parents = vg.parents.filter(p => p !== index)
-                     .map(p => p > index ? p - 1 : p);
-                 // Als alle parents weg zijn, is de groep ongeldig
-                 if (parents.length === 0) return null;
-             } else if (Number.isFinite(vg.parentColIdx)) {
-                 // Legacy support
-                 if (vg.parentColIdx === index) return null; // Parent verwijderd
-                 const newP = vg.parentColIdx > index ? vg.parentColIdx - 1 : vg.parentColIdx;
-                 parents = [newP];
-             } else {
-                 return null; // Geen geldige parent data
-             }
-             
-             // 2. Update Variants
-             const newVariants = vg.variants.filter(v => v !== index).map(v => v > index ? v - 1 : v);
-             
-             if (newVariants.length === 0) return null; // Geen variants over
+      sheet.variantGroups = sheet.variantGroups
+        .map((vg) => {
+          // 1. Update Parent indices (kan nu een array zijn)
+          let parents = [];
+          if (Array.isArray(vg.parents)) {
+            // Filter verwijderde parent eruit
+            parents = vg.parents
+              .filter((p) => p !== index)
+              .map((p) => (p > index ? p - 1 : p));
+            // Als alle parents weg zijn, is de groep ongeldig
+            if (parents.length === 0) return null;
+          } else if (Number.isFinite(vg.parentColIdx)) {
+            // Legacy support
+            if (vg.parentColIdx === index) return null; // Parent verwijderd
+            const newP = vg.parentColIdx > index ? vg.parentColIdx - 1 : vg.parentColIdx;
+            parents = [newP];
+          } else {
+            return null; // Geen geldige parent data
+          }
 
-             return { ...vg, parents: parents, parentColIdx: parents[0], variants: newVariants };
-        }).filter(Boolean);
+          // 2. Update Variants
+          const newVariants = vg.variants
+            .filter((v) => v !== index)
+            .map((v) => (v > index ? v - 1 : v));
+
+          if (newVariants.length === 0) return null; // Geen variants over
+
+          return { ...vg, parents: parents, parentColIdx: parents[0], variants: newVariants };
+        })
+        .filter(Boolean);
     }
 
     this._normalizeOutputMerges(sheet);
@@ -788,38 +833,38 @@ class StateManager {
     [sheet.columns[index], sheet.columns[targetIndex]] = [sheet.columns[targetIndex], sheet.columns[index]];
 
     if (Array.isArray(sheet.groups)) {
-        sheet.groups.forEach(g => {
-            g.cols = g.cols.map(c => {
-                if (c === index) return targetIndex;
-                if (c === targetIndex) return index;
-                return c;
-            });
+      sheet.groups.forEach((g) => {
+        g.cols = g.cols.map((c) => {
+          if (c === index) return targetIndex;
+          if (c === targetIndex) return index;
+          return c;
         });
+      });
     }
 
     // NIEUW: Variant Groups updaten bij verplaatsen
     if (Array.isArray(sheet.variantGroups)) {
-        sheet.variantGroups.forEach(vg => {
-            // Update Parents (Array)
-            if (Array.isArray(vg.parents)) {
-                vg.parents = vg.parents.map(p => {
-                    if (p === index) return targetIndex;
-                    if (p === targetIndex) return index;
-                    return p;
-                });
-            } else if (Number.isFinite(vg.parentColIdx)) {
-                // Legacy
-                if (vg.parentColIdx === index) vg.parentColIdx = targetIndex;
-                else if (vg.parentColIdx === targetIndex) vg.parentColIdx = index;
-            }
-            
-            // Update Variants
-            vg.variants = vg.variants.map(v => {
-                if (v === index) return targetIndex;
-                if (v === targetIndex) return index;
-                return v;
-            });
+      sheet.variantGroups.forEach((vg) => {
+        // Update Parents (Array)
+        if (Array.isArray(vg.parents)) {
+          vg.parents = vg.parents.map((p) => {
+            if (p === index) return targetIndex;
+            if (p === targetIndex) return index;
+            return p;
+          });
+        } else if (Number.isFinite(vg.parentColIdx)) {
+          // Legacy
+          if (vg.parentColIdx === index) vg.parentColIdx = targetIndex;
+          else if (vg.parentColIdx === targetIndex) vg.parentColIdx = index;
+        }
+
+        // Update Variants
+        vg.variants = vg.variants.map((v) => {
+          if (v === index) return targetIndex;
+          if (v === targetIndex) return index;
+          return v;
         });
+      });
     }
 
     sheet.outputMerges = [];
@@ -864,20 +909,20 @@ class StateManager {
   }
 
   // === NIEUWE FUNCTIES VOOR VARIANTS (ROUTES) - SUPPORT VOOR MEERDERE PARENTS ===
-  
+
   getVariantGroupForCol(colIdx) {
     const sheet = this.activeSheet;
     if (!sheet || !Array.isArray(sheet.variantGroups)) return null;
-    
+
     // Check of deze kolom een 'Main' (Parent) is (in de nieuwe parents array of oude parentColIdx)
-    const asParent = sheet.variantGroups.find(vg => 
-        (Array.isArray(vg.parents) && vg.parents.includes(colIdx)) || 
-        vg.parentColIdx === colIdx
+    const asParent = sheet.variantGroups.find(
+      (vg) =>
+        (Array.isArray(vg.parents) && vg.parents.includes(colIdx)) || vg.parentColIdx === colIdx
     );
     if (asParent) return { role: 'parent', group: asParent };
 
     // Check of deze kolom een 'Variant' (Child) is
-    const asChild = sheet.variantGroups.find(vg => vg.variants.includes(colIdx));
+    const asChild = sheet.variantGroups.find((vg) => vg.variants.includes(colIdx));
     if (asChild) return { role: 'child', group: asChild };
 
     return null;
@@ -893,57 +938,57 @@ class StateManager {
     // Support voor enkele parent (legacy) of meerdere (nieuw)
     let parents = [];
     if (Array.isArray(data.parents)) {
-        parents = data.parents.map(Number);
+      parents = data.parents.map(Number);
     } else if (data.parentColIdx !== undefined && data.parentColIdx !== null) {
-        parents = [Number(data.parentColIdx)];
+      parents = [Number(data.parentColIdx)];
     }
 
     const variantIndices = Array.isArray(data.variants) ? data.variants.map(Number) : [];
 
     // Verwijder eerst varianten uit andere groepen (een kind heeft maar 1 set ouders in dit model)
-    sheet.variantGroups.forEach(vg => {
-        vg.variants = vg.variants.filter(v => !variantIndices.includes(v));
+    sheet.variantGroups.forEach((vg) => {
+      vg.variants = vg.variants.filter((v) => !variantIndices.includes(v));
     });
-    sheet.variantGroups = sheet.variantGroups.filter(vg => vg.variants.length > 0);
+    sheet.variantGroups = sheet.variantGroups.filter((vg) => vg.variants.length > 0);
 
     if (variantIndices.length > 0 && parents.length > 0) {
-        sheet.variantGroups.push({
-            id: this._makeId('var'),
-            parents: parents, // We slaan nu een array op!
-            parentColIdx: parents[0], // Voor backward compatibility
-            variants: variantIndices
-        });
-        
-        const allCols = sheet.columns;
-        
-        // Markeer kinderen als variant
-        variantIndices.forEach(idx => {
-            if(allCols[idx]) allCols[idx].isVariant = true;
-        });
-        
-        // Parents markeren we NIET automatisch als variant (ze kunnen zelf Main zijn).
+      sheet.variantGroups.push({
+        id: this._makeId('var'),
+        parents: parents, // We slaan nu een array op!
+        parentColIdx: parents[0], // Voor backward compatibility
+        variants: variantIndices
+      });
+
+      const allCols = sheet.columns;
+
+      // Markeer kinderen als variant
+      variantIndices.forEach((idx) => {
+        if (allCols[idx]) allCols[idx].isVariant = true;
+      });
+
+      // Parents markeren we NIET automatisch als variant (ze kunnen zelf Main zijn).
     }
 
     this.notify({ reason: 'columns' }, { clone: false });
   }
 
   removeVariantGroup(groupId) {
-      this.pushHistory();
-      const sheet = this.activeSheet;
-      if (!sheet || !Array.isArray(sheet.variantGroups)) return;
+    this.pushHistory();
+    const sheet = this.activeSheet;
+    if (!sheet || !Array.isArray(sheet.variantGroups)) return;
 
-      const group = sheet.variantGroups.find(g => g.id === groupId);
-      if(group) {
-          const cols = sheet.columns;
-          group.variants.forEach(idx => {
-              if(cols[idx]) cols[idx].isVariant = false;
-          });
-      }
+    const group = sheet.variantGroups.find((g) => g.id === groupId);
+    if (group) {
+      const cols = sheet.columns;
+      group.variants.forEach((idx) => {
+        if (cols[idx]) cols[idx].isVariant = false;
+      });
+    }
 
-      sheet.variantGroups = sheet.variantGroups.filter(g => g.id !== groupId);
-      this.notify({ reason: 'columns' }, { clone: false });
+    sheet.variantGroups = sheet.variantGroups.filter((g) => g.id !== groupId);
+    this.notify({ reason: 'columns' }, { clone: false });
   }
-  
+
   // ===============================================
 
   toggleQuestion(colIdx) {
@@ -995,7 +1040,7 @@ class StateManager {
   getGroupForCol(colIdx) {
     const sheet = this.activeSheet;
     if (!sheet || !Array.isArray(sheet.groups)) return null;
-    return sheet.groups.find(g => Array.isArray(g.cols) && g.cols.includes(colIdx)) || null;
+    return sheet.groups.find((g) => Array.isArray(g.cols) && g.cols.includes(colIdx)) || null;
   }
 
   setColumnGroup(groupData) {
@@ -1006,24 +1051,24 @@ class StateManager {
     if (!Array.isArray(sheet.groups)) sheet.groups = [];
 
     const newCols = Array.isArray(groupData.cols) ? groupData.cols : [];
-    
-    sheet.groups.forEach(g => {
-        g.cols = g.cols.filter(c => !newCols.includes(c));
+
+    sheet.groups.forEach((g) => {
+      g.cols = g.cols.filter((c) => !newCols.includes(c));
     });
-    sheet.groups = sheet.groups.filter(g => g.cols.length > 0);
+    sheet.groups = sheet.groups.filter((g) => g.cols.length > 0);
 
     if (newCols.length > 0) {
-      const existingIdx = groupData.id ? sheet.groups.findIndex(g => g.id === groupData.id) : -1;
-      
+      const existingIdx = groupData.id ? sheet.groups.findIndex((g) => g.id === groupData.id) : -1;
+
       if (existingIdx !== -1) {
-          sheet.groups[existingIdx].cols = newCols;
-          sheet.groups[existingIdx].title = String(groupData.title || '').trim();
+        sheet.groups[existingIdx].cols = newCols;
+        sheet.groups[existingIdx].title = String(groupData.title || '').trim();
       } else {
-          sheet.groups.push({
-            id: this._makeId('grp'),
-            cols: newCols,
-            title: String(groupData.title || '').trim()
-          });
+        sheet.groups.push({
+          id: this._makeId('grp'),
+          cols: newCols,
+          title: String(groupData.title || '').trim()
+        });
       }
     }
 
@@ -1035,7 +1080,7 @@ class StateManager {
     const sheet = this.activeSheet;
     if (!sheet || !Array.isArray(sheet.groups)) return;
 
-    sheet.groups = sheet.groups.filter(g => g.id !== groupId);
+    sheet.groups = sheet.groups.filter((g) => g.id !== groupId);
     this.notify({ reason: 'groups' }, { clone: false });
   }
 
@@ -1082,18 +1127,29 @@ class StateManager {
     let counter = 0;
 
     (this.project.sheets || []).forEach((sheet) => {
-      (sheet.columns || []).forEach((col) => {
+      (sheet.columns || []).forEach((col, colIdx) => {
         if (col?.isVisible === false) return;
         const outSlot = col?.slots?.[4];
         if (!outSlot?.text?.trim()) return;
 
-        if (!outSlot.outputUid || String(outSlot.outputUid).trim() === '') outSlot.outputUid = this._makeId('out');
+        if (!outSlot.outputUid || String(outSlot.outputUid).trim() === '')
+          outSlot.outputUid = this._makeId('out');
 
         counter += 1;
+
+        // ✅ Uitgebreid: voeg QA + pointers toe voor gating zonder merge
         list.push({
           outId: `OUT${counter}`,
           uid: outSlot.outputUid,
-          text: outSlot.text
+          text: outSlot.text,
+
+          // pointers
+          sheetId: sheet.id,
+          colIdx,
+          slotIdx: 4,
+
+          // QA (output-kwaliteitscriteria)
+          qa: outSlot.qa && typeof outSlot.qa === 'object' ? outSlot.qa : null
         });
       });
     });
@@ -1144,7 +1200,13 @@ class StateManager {
 
     if (name !== undefined) b.name = String(name || '').trim();
     if (outputUids !== undefined) {
-      b.outputUids = [...new Set((Array.isArray(outputUids) ? outputUids : []).map((v) => String(v || '').trim()).filter(Boolean))];
+      b.outputUids = [
+        ...new Set(
+          (Array.isArray(outputUids) ? outputUids : [])
+            .map((v) => String(v || '').trim())
+            .filter(Boolean)
+        )
+      ];
     }
 
     this.notify({ reason: 'details' }, { clone: false });
@@ -1166,7 +1228,10 @@ class StateManager {
         const inSlot = col?.slots?.[2];
         if (!inSlot) return;
         if (!Array.isArray(inSlot.linkedBundleIds)) inSlot.linkedBundleIds = [];
-        inSlot.linkedBundleIds = inSlot.linkedBundleIds.map((x) => String(x || '').trim()).filter(Boolean).filter((x) => x !== id);
+        inSlot.linkedBundleIds = inSlot.linkedBundleIds
+          .map((x) => String(x || '').trim())
+          .filter(Boolean)
+          .filter((x) => x !== id);
         inSlot.linkedBundleId = String(inSlot.linkedBundleIds[0] || '').trim() || null;
       });
     });

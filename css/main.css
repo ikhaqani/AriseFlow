@@ -691,6 +691,32 @@ body {
     transition: box-shadow 0.2s, transform 0.2s;
 }
 
+/* ==========================================================================
+   NO-SYSTEM PATTERN (SYSTEM POST-IT)
+   - Actief als DOM.js een class of data-attribuut zet.
+   ========================================================================== */
+.sticky.no-system,
+.sticky[data-no-system="1"] {
+    position: relative;
+}
+
+.sticky.no-system::before,
+.sticky[data-no-system="1"]::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    pointer-events: none;
+    background-image: repeating-linear-gradient(
+        45deg,
+        rgba(0, 0, 0, 0.10) 0,
+        rgba(0, 0, 0, 0.10) 6px,
+        rgba(0, 0, 0, 0.00) 6px,
+        rgba(0, 0, 0, 0.00) 12px
+    );
+    opacity: 0.35;
+}
+
 .sticky:hover {
     transform: scale(1.02) translateY(-2px);
     box-shadow:
@@ -1479,8 +1505,8 @@ body {
 
 /* Variant (Split) Column Styling */
 .col.is-variant {
-    border-top: 2px solid rgba(126, 87, 194, 0.4);
-    border-bottom: 2px solid rgba(126, 87, 194, 0.4);
+    border-top: 2px solid rgba(126, 87, 194, 0.35);
+    border-bottom: 2px solid rgba(126, 87, 194, 0.35);
     background: rgba(126, 87, 194, 0.03);
     border-radius: 12px;
     margin-top: 0;
