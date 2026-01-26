@@ -2243,7 +2243,7 @@ export function saveModalDetails(closeModal = true) {
         const qa = {};
         SYSTEM_QUESTIONS.forEach((q) => {
           const sel = `input[name="sys_${CSS.escape(sysId)}_${CSS.escape(q.id)}"]`;
-          const vStr = contentEl.querySelector(sel)?.value ?? '';
+          const vStr = content.querySelector(sel)?.value ?? '';
           if (vStr === '') {
             qa[q.id] = null;
             return;
