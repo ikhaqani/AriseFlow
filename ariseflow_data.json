@@ -21971,7 +21971,7 @@
             {
               "id": "9bad3c83-6887-4b48-8861-bc336a096a3a",
               "created": 1769416858754,
-              "text": "",
+              "text": "MBB'er (CT)",
               "linkedSourceId": null,
               "type": null,
               "processValue": null,
@@ -22034,7 +22034,7 @@
             {
               "id": "4308b023-faec-4e94-a055-78bfc24ac7de",
               "created": 1769416858754,
-              "text": "",
+              "text": "CT-computer",
               "linkedSourceId": null,
               "type": null,
               "processValue": null,
@@ -22107,27 +22107,33 @@
               "improvements": [],
               "qa": {
                 "compleet": {
-                  "result": "",
+                  "result": null,
+                  "impact": null,
                   "note": ""
                 },
                 "kwaliteit": {
-                  "result": "",
+                  "result": null,
+                  "impact": null,
                   "note": ""
                 },
                 "duidelijkheid": {
-                  "result": "",
+                  "result": null,
+                  "impact": null,
                   "note": ""
                 },
                 "tijdigheid": {
-                  "result": "",
+                  "result": null,
+                  "impact": null,
                   "note": ""
                 },
                 "standaard": {
-                  "result": "",
+                  "result": null,
+                  "impact": null,
                   "note": ""
                 },
                 "overdracht": {
-                  "result": "",
+                  "result": null,
+                  "impact": null,
                   "note": ""
                 }
               },
@@ -22155,12 +22161,19 @@
               "inputDefinitions": [],
               "disruptions": [],
               "workExp": null,
-              "workExpNote": ""
+              "workExpNote": "",
+              "linkedBundleId": null,
+              "linkedBundleIds": null,
+              "linkedSourceUids": [
+                "out_eda3e661-17fb-4799-bb0d-739f94f1865b"
+              ],
+              "linkedSourceUid": "out_eda3e661-17fb-4799-bb0d-739f94f1865b",
+              "linkedSourceIds": []
             },
             {
               "id": "ffdc5f3b-b1b2-4448-8fb0-7ed69fdfe9d6",
               "created": 1769416858754,
-              "text": "",
+              "text": "Versturen CT-beelden",
               "linkedSourceId": null,
               "type": null,
               "processValue": null,
@@ -22223,7 +22236,7 @@
             {
               "id": "cfab48f4-7755-4824-9b79-9814295be287",
               "created": 1769416858754,
-              "text": "",
+              "text": "DICOM-CT",
               "linkedSourceId": null,
               "type": null,
               "processValue": null,
@@ -22287,7 +22300,7 @@
             {
               "id": "e7275703-9922-4037-8608-ad84b388230c",
               "created": 1769416858754,
-              "text": "",
+              "text": "MBB'er (CT/Planning)",
               "linkedSourceId": null,
               "type": null,
               "processValue": null,
