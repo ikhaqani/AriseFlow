@@ -4,7 +4,7 @@
   "author": "Anoniem",
   "created": "2026-01-16T08:48:17.021Z",
   "version": "2.7",
-  "activeSheetId": "46861a1b-aeb5-4480-83a8-860bae246f52",
+  "activeSheetId": "708221c4-508e-4384-a1c9-0cc33372fdf6",
   "sheets": [
     {
       "id": "819bb6d9-21cc-49cf-8c40-4b6d7df6b2e1",
@@ -14926,7 +14926,7 @@
             {
               "id": "bdbaffc7-505c-4043-ac0c-6a25308633ea",
               "created": 1769004739851,
-              "text": "Aanmaken mouldroom taak",
+              "text": "Aanmaken mouldroomtaak",
               "linkedSourceId": null,
               "type": null,
               "processValue": null,
@@ -15053,7 +15053,7 @@
             {
               "id": "668025f8-f307-44a1-bdf6-d532cbcae6a7",
               "created": 1769004739851,
-              "text": "MBB'er (CT)",
+              "text": "MBB'er (Mouldroom)",
               "linkedSourceId": null,
               "type": null,
               "processValue": null,
@@ -15589,7 +15589,7 @@
             {
               "id": "1b0df8bf-1490-4e7f-bde1-7e052367a602",
               "created": 1769005404203,
-              "text": "Foto camera",
+              "text": "Fotocamera",
               "linkedSourceId": null,
               "type": null,
               "processValue": null,
@@ -15722,7 +15722,7 @@
             {
               "id": "11ace36d-9358-47b9-af6d-d3d4fbd2444e",
               "created": 1769005404203,
-              "text": "Maken foto's van de ligging met hulpmiddel",
+              "text": "Maken instelfoto's",
               "linkedSourceId": null,
               "type": null,
               "processValue": null,
@@ -15993,7 +15993,7 @@
             {
               "id": "3b42f58c-54e2-4315-b8b2-0b63fb691620",
               "created": 1769006963828,
-              "text": "Mouldroom PC",
+              "text": "Mouldroom-PC",
               "linkedSourceId": null,
               "type": null,
               "processValue": null,
@@ -16471,26 +16471,32 @@
               "qa": {
                 "compleet": {
                   "result": null,
+                  "impact": null,
                   "note": ""
                 },
                 "kwaliteit": {
                   "result": null,
+                  "impact": null,
                   "note": ""
                 },
                 "duidelijkheid": {
                   "result": null,
+                  "impact": null,
                   "note": ""
                 },
                 "tijdigheid": {
                   "result": null,
+                  "impact": null,
                   "note": ""
                 },
                 "standaard": {
                   "result": null,
+                  "impact": null,
                   "note": ""
                 },
                 "overdracht": {
                   "result": null,
+                  "impact": null,
                   "note": ""
                 }
               },
@@ -16522,10 +16528,10 @@
               "linkedBundleId": null,
               "linkedBundleIds": null,
               "linkedSourceUids": [
-                "out_76f6b29b-b27e-4c70-847f-25e5bc6866fd",
-                "out_5b9a6976-c4ff-4ac7-98a0-0ad2124cb94c"
+                "out_a4665b8a-b790-4ef7-96b8-6dafcd405fa8",
+                "out_dac2bcd9-cc07-4e70-af7f-15de59bd8e3e"
               ],
-              "linkedSourceUid": "out_76f6b29b-b27e-4c70-847f-25e5bc6866fd",
+              "linkedSourceUid": "out_a4665b8a-b790-4ef7-96b8-6dafcd405fa8",
               "linkedSourceIds": []
             },
             {
@@ -16594,7 +16600,7 @@
             {
               "id": "f3cde463-f6c4-4582-be86-da2c153a3552",
               "created": 1769007777072,
-              "text": "Gelabeld en verpakte masker",
+              "text": "Gelabeld en verpakt masker",
               "linkedSourceId": null,
               "type": null,
               "processValue": null,
@@ -16870,26 +16876,32 @@
               "qa": {
                 "compleet": {
                   "result": null,
+                  "impact": null,
                   "note": ""
                 },
                 "kwaliteit": {
                   "result": null,
+                  "impact": null,
                   "note": ""
                 },
                 "duidelijkheid": {
                   "result": null,
+                  "impact": null,
                   "note": ""
                 },
                 "tijdigheid": {
                   "result": null,
+                  "impact": null,
                   "note": ""
                 },
                 "standaard": {
                   "result": null,
+                  "impact": null,
                   "note": ""
                 },
                 "overdracht": {
                   "result": null,
+                  "impact": null,
                   "note": ""
                 }
               },
@@ -16992,7 +17004,7 @@
             {
               "id": "00789047-d5d0-46da-a3e5-2f43cb3019f3",
               "created": 1769008283070,
-              "text": "Masker beschikbaar",
+              "text": "Beschikbaar masker",
               "linkedSourceId": null,
               "type": null,
               "processValue": null,
@@ -17257,7 +17269,7 @@
             {
               "id": "e5b1b4b4-8c94-4fde-9836-42f00e879a01",
               "created": 1769006832942,
-              "text": "Gebruikte materialen",
+              "text": "Verbruikte materialen",
               "linkedSourceId": null,
               "type": null,
               "processValue": null,
@@ -17383,7 +17395,7 @@
             {
               "id": "c0b972b7-ded3-40fa-a055-5003030f04f9",
               "created": 1769006832942,
-              "text": "Geregistreerde voorraad",
+              "text": "Bijgewerkte voorraadregistratie",
               "linkedSourceId": null,
               "type": null,
               "processValue": null,
@@ -17648,7 +17660,7 @@
             {
               "id": "52b3cc53-3fe8-4fe3-8b8e-686fc2979d57",
               "created": 1769008963705,
-              "text": "Mouldroom taak",
+              "text": "",
               "linkedSourceId": null,
               "type": null,
               "processValue": null,
@@ -17658,27 +17670,33 @@
               "improvements": [],
               "qa": {
                 "compleet": {
-                  "result": "",
+                  "result": null,
+                  "impact": null,
                   "note": ""
                 },
                 "kwaliteit": {
-                  "result": "",
+                  "result": null,
+                  "impact": null,
                   "note": ""
                 },
                 "duidelijkheid": {
-                  "result": "",
+                  "result": null,
+                  "impact": null,
                   "note": ""
                 },
                 "tijdigheid": {
-                  "result": "",
+                  "result": null,
+                  "impact": null,
                   "note": ""
                 },
                 "standaard": {
-                  "result": "",
+                  "result": null,
+                  "impact": null,
                   "note": ""
                 },
                 "overdracht": {
-                  "result": "",
+                  "result": null,
+                  "impact": null,
                   "note": ""
                 }
               },
@@ -17706,12 +17724,19 @@
               "inputDefinitions": [],
               "disruptions": [],
               "workExp": null,
-              "workExpNote": ""
+              "workExpNote": "",
+              "linkedBundleId": null,
+              "linkedBundleIds": null,
+              "linkedSourceUids": [
+                "out_76f6b29b-b27e-4c70-847f-25e5bc6866fd"
+              ],
+              "linkedSourceUid": "out_76f6b29b-b27e-4c70-847f-25e5bc6866fd",
+              "linkedSourceIds": []
             },
             {
               "id": "5a459229-cbb1-4a48-933b-ee12790c7858",
               "created": 1769008963705,
-              "text": "Afronden taak",
+              "text": "Afronden mouldroomtaak",
               "linkedSourceId": null,
               "type": null,
               "processValue": null,
@@ -17774,7 +17799,7 @@
             {
               "id": "8529c69a-e499-4ded-9c46-f7a6bb5fe49a",
               "created": 1769008963705,
-              "text": "Mouldroom taak afgerond",
+              "text": "Afgeronde mouldroomtaak",
               "linkedSourceId": null,
               "type": null,
               "processValue": null,
@@ -17838,7 +17863,7 @@
             {
               "id": "e8d5cf8c-40fa-45c6-8c9d-46945f9ee76b",
               "created": 1769008963705,
-              "text": "MBB'er (CT)",
+              "text": "MBB'er (Mouldroom)",
               "linkedSourceId": null,
               "type": null,
               "processValue": null,
@@ -18845,7 +18870,7 @@
             {
               "id": "8264e2d8-54db-4f0b-8c86-01afad6b7f3c",
               "created": 1769011045579,
-              "text": "Worklist protocols",
+              "text": "Werklijst CT-protocollen",
               "linkedSourceId": null,
               "type": null,
               "processValue": null,
@@ -19306,7 +19331,7 @@
             {
               "id": "6ea05485-a3dd-4a58-bae1-828dc70998fa",
               "created": 1769011131980,
-              "text": "Kiezen CT-protocol",
+              "text": "Selecteren CT-protocol",
               "linkedSourceId": null,
               "type": null,
               "processValue": null,
@@ -19704,7 +19729,7 @@
             {
               "id": "0953f684-02c5-43fa-a567-83b193bb4af1",
               "created": 1769011201679,
-              "text": "Fixeren en positioneren ",
+              "text": "Fixeren en positioneren  patiënt",
               "linkedSourceId": null,
               "type": null,
               "processValue": null,
@@ -19767,7 +19792,7 @@
             {
               "id": "fe88fef3-b63e-461d-8c2d-68126fe4b687",
               "created": 1769011201679,
-              "text": "Gefixeerde/gepositioneerde patiënt",
+              "text": "Gefixeerde en gepositioneerde patiënt",
               "linkedSourceId": null,
               "type": null,
               "processValue": null,
@@ -19969,7 +19994,7 @@
             {
               "id": "7e4f428b-fed3-492d-ac94-11438388ea21",
               "created": 1769074194503,
-              "text": "Camera",
+              "text": "Fotocamera",
               "linkedSourceId": null,
               "type": null,
               "processValue": null,
@@ -20043,26 +20068,32 @@
               "qa": {
                 "compleet": {
                   "result": null,
+                  "impact": null,
                   "note": ""
                 },
                 "kwaliteit": {
                   "result": null,
+                  "impact": null,
                   "note": ""
                 },
                 "duidelijkheid": {
                   "result": null,
+                  "impact": null,
                   "note": ""
                 },
                 "tijdigheid": {
                   "result": null,
+                  "impact": null,
                   "note": ""
                 },
                 "standaard": {
                   "result": null,
+                  "impact": null,
                   "note": ""
                 },
                 "overdracht": {
                   "result": null,
+                  "impact": null,
                   "note": ""
                 }
               },
@@ -20102,7 +20133,7 @@
             {
               "id": "44297e36-3ea2-43fe-81d3-f85ddd095ef8",
               "created": 1769074194503,
-              "text": "Maken foto's",
+              "text": "Maken houdingfoto's",
               "linkedSourceId": null,
               "type": null,
               "processValue": null,
@@ -20165,7 +20196,7 @@
             {
               "id": "8f841c7c-1711-4b4d-a954-ad94476df897",
               "created": 1769074194503,
-              "text": "Foto's houding",
+              "text": "Houdingfoto's",
               "linkedSourceId": null,
               "type": null,
               "processValue": null,
@@ -20461,26 +20492,32 @@
               "qa": {
                 "compleet": {
                   "result": null,
+                  "impact": null,
                   "note": ""
                 },
                 "kwaliteit": {
                   "result": null,
+                  "impact": null,
                   "note": ""
                 },
                 "duidelijkheid": {
                   "result": null,
+                  "impact": null,
                   "note": ""
                 },
                 "tijdigheid": {
                   "result": null,
+                  "impact": null,
                   "note": ""
                 },
                 "standaard": {
                   "result": null,
+                  "impact": null,
                   "note": ""
                 },
                 "overdracht": {
                   "result": null,
+                  "impact": null,
                   "note": ""
                 }
               },
@@ -20520,7 +20557,7 @@
             {
               "id": "81bcfecf-2978-41a8-8490-3b9ffeac153b",
               "created": 1769074314686,
-              "text": "Uploaden foto's",
+              "text": "Uploaden houdingfoto's",
               "linkedSourceId": null,
               "type": null,
               "processValue": null,
@@ -20583,7 +20620,7 @@
             {
               "id": "703d933e-b68b-4391-8301-51d0b4b8ebb1",
               "created": 1769074314686,
-              "text": "Foto's houding beschikbaar",
+              "text": "Houdingfoto's beschikbaar",
               "linkedSourceId": null,
               "type": null,
               "processValue": null,
@@ -20647,7 +20684,7 @@
             {
               "id": "d2a119b3-8fa7-419b-9df7-6ef840d102d8",
               "created": 1769074314686,
-              "text": "",
+              "text": "MBB'er (CT)",
               "linkedSourceId": null,
               "type": null,
               "processValue": null,
@@ -20722,7 +20759,7 @@
             {
               "id": "2315fb98-c99f-41aa-b9f0-b88e28bf8b7e",
               "created": 1769074443372,
-              "text": "",
+              "text": "MBB'er (CT)",
               "linkedSourceId": null,
               "type": null,
               "processValue": null,
