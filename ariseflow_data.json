@@ -21024,7 +21024,7 @@
             {
               "id": "50d4136c-cd63-46a0-9715-70ff5ca0a307",
               "created": 1769074443372,
-              "text": "TIme-out 1 geslaagd",
+              "text": "TIme-out  1 status: geslaagd",
               "linkedSourceId": null,
               "type": null,
               "processValue": null,
@@ -31280,7 +31280,7 @@
     },
     {
       "id": "bundle_1769416518774_be6cc2de38ff9",
-      "name": "Controle voorbereiding CT TO1",
+      "name": "Voorbereidingscontrole CT (TO1)",
       "outputUids": [
         "out_cdc99293-2006-4870-9f3a-104c3e5c82e9",
         "out_0811f091-d6a5-46b8-acd7-795bcfba7654",
