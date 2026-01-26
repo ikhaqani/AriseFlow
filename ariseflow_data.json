@@ -23169,6 +23169,1226 @@
               "workExpNote": ""
             }
           ]
+        },
+        {
+          "id": "d570838e-96fa-4aa1-b241-0d3d42d1930e",
+          "order": 1,
+          "isVisible": true,
+          "isParallel": false,
+          "isVariant": false,
+          "hasTransition": false,
+          "transitionNext": "",
+          "outputId": null,
+          "slots": [
+            {
+              "id": "168a837c-def9-454d-850e-3bf2980728c8",
+              "created": 1769420594353,
+              "text": "MBB'er (CT)",
+              "linkedSourceId": null,
+              "type": null,
+              "processValue": null,
+              "processStatus": null,
+              "successFactors": "",
+              "causes": [],
+              "improvements": [],
+              "qa": {
+                "compleet": {
+                  "result": "",
+                  "note": ""
+                },
+                "kwaliteit": {
+                  "result": "",
+                  "note": ""
+                },
+                "duidelijkheid": {
+                  "result": "",
+                  "note": ""
+                },
+                "tijdigheid": {
+                  "result": "",
+                  "note": ""
+                },
+                "standaard": {
+                  "result": "",
+                  "note": ""
+                },
+                "overdracht": {
+                  "result": "",
+                  "note": ""
+                }
+              },
+              "systemData": {
+                "isMulti": false,
+                "systemName": "",
+                "calculatedScore": null,
+                "systems": [
+                  {
+                    "id": "4287275d-b243-490c-a2d9-a50c623e22f3",
+                    "name": "",
+                    "isLegacy": false,
+                    "futureSystem": "",
+                    "qa": {
+                      "workarounds": null,
+                      "performance": null,
+                      "double": null,
+                      "error": null,
+                      "depend": null
+                    },
+                    "calculatedScore": null
+                  }
+                ]
+              },
+              "inputDefinitions": [],
+              "disruptions": [],
+              "workExp": null,
+              "workExpNote": ""
+            },
+            {
+              "id": "8820beed-b9c9-4b3a-af6f-7aa8a2dc5925",
+              "created": 1769420594353,
+              "text": "Radiotherapie Web",
+              "linkedSourceId": null,
+              "type": null,
+              "processValue": null,
+              "processStatus": null,
+              "successFactors": "",
+              "causes": [],
+              "improvements": [],
+              "qa": {
+                "compleet": {
+                  "result": "",
+                  "note": ""
+                },
+                "kwaliteit": {
+                  "result": "",
+                  "note": ""
+                },
+                "duidelijkheid": {
+                  "result": "",
+                  "note": ""
+                },
+                "tijdigheid": {
+                  "result": "",
+                  "note": ""
+                },
+                "standaard": {
+                  "result": "",
+                  "note": ""
+                },
+                "overdracht": {
+                  "result": "",
+                  "note": ""
+                }
+              },
+              "systemData": {
+                "isMulti": false,
+                "systemName": "",
+                "calculatedScore": null,
+                "systems": [
+                  {
+                    "id": "953c30cd-a0a8-4a1c-af69-ba692c17dfcd",
+                    "name": "",
+                    "isLegacy": false,
+                    "futureSystem": "",
+                    "qa": {
+                      "workarounds": null,
+                      "performance": null,
+                      "double": null,
+                      "error": null,
+                      "depend": null
+                    },
+                    "calculatedScore": null
+                  }
+                ]
+              },
+              "inputDefinitions": [],
+              "disruptions": [],
+              "workExp": null,
+              "workExpNote": ""
+            },
+            {
+              "id": "a146e043-033f-4901-b5fb-f4935e878580",
+              "created": 1769420594353,
+              "text": "Afgeronde CT-scan",
+              "linkedSourceId": null,
+              "type": null,
+              "processValue": null,
+              "processStatus": null,
+              "successFactors": "",
+              "causes": [],
+              "improvements": [],
+              "qa": {
+                "compleet": {
+                  "result": "",
+                  "note": ""
+                },
+                "kwaliteit": {
+                  "result": "",
+                  "note": ""
+                },
+                "duidelijkheid": {
+                  "result": "",
+                  "note": ""
+                },
+                "tijdigheid": {
+                  "result": "",
+                  "note": ""
+                },
+                "standaard": {
+                  "result": "",
+                  "note": ""
+                },
+                "overdracht": {
+                  "result": "",
+                  "note": ""
+                }
+              },
+              "systemData": {
+                "isMulti": false,
+                "systemName": "",
+                "calculatedScore": null,
+                "systems": [
+                  {
+                    "id": "8d25b2c9-662c-4f87-b8a4-87ca3169ea82",
+                    "name": "",
+                    "isLegacy": false,
+                    "futureSystem": "",
+                    "qa": {
+                      "workarounds": null,
+                      "performance": null,
+                      "double": null,
+                      "error": null,
+                      "depend": null
+                    },
+                    "calculatedScore": null
+                  }
+                ]
+              },
+              "inputDefinitions": [],
+              "disruptions": [],
+              "workExp": null,
+              "workExpNote": ""
+            },
+            {
+              "id": "95375f1b-a295-458a-b8a7-c16ea2f89e33",
+              "created": 1769420594353,
+              "text": "Aanmaken planningstaak",
+              "linkedSourceId": null,
+              "type": null,
+              "processValue": null,
+              "processStatus": null,
+              "successFactors": "",
+              "causes": [],
+              "improvements": [],
+              "qa": {
+                "compleet": {
+                  "result": "",
+                  "note": ""
+                },
+                "kwaliteit": {
+                  "result": "",
+                  "note": ""
+                },
+                "duidelijkheid": {
+                  "result": "",
+                  "note": ""
+                },
+                "tijdigheid": {
+                  "result": "",
+                  "note": ""
+                },
+                "standaard": {
+                  "result": "",
+                  "note": ""
+                },
+                "overdracht": {
+                  "result": "",
+                  "note": ""
+                }
+              },
+              "systemData": {
+                "isMulti": false,
+                "systemName": "",
+                "calculatedScore": null,
+                "systems": [
+                  {
+                    "id": "371e2b4e-810a-4fa6-b727-6c34037a049a",
+                    "name": "",
+                    "isLegacy": false,
+                    "futureSystem": "",
+                    "qa": {
+                      "workarounds": null,
+                      "performance": null,
+                      "double": null,
+                      "error": null,
+                      "depend": null
+                    },
+                    "calculatedScore": null
+                  }
+                ]
+              },
+              "inputDefinitions": [],
+              "disruptions": [],
+              "workExp": null,
+              "workExpNote": ""
+            },
+            {
+              "id": "04253d0d-678c-4979-be39-47a392500fbf",
+              "created": 1769420594353,
+              "text": "Planningstaak",
+              "linkedSourceId": null,
+              "type": null,
+              "processValue": null,
+              "processStatus": null,
+              "successFactors": "",
+              "causes": [],
+              "improvements": [],
+              "qa": {
+                "compleet": {
+                  "result": "",
+                  "note": ""
+                },
+                "kwaliteit": {
+                  "result": "",
+                  "note": ""
+                },
+                "duidelijkheid": {
+                  "result": "",
+                  "note": ""
+                },
+                "tijdigheid": {
+                  "result": "",
+                  "note": ""
+                },
+                "standaard": {
+                  "result": "",
+                  "note": ""
+                },
+                "overdracht": {
+                  "result": "",
+                  "note": ""
+                }
+              },
+              "systemData": {
+                "isMulti": false,
+                "systemName": "",
+                "calculatedScore": null,
+                "systems": [
+                  {
+                    "id": "12aa0dd6-efbf-49f7-b354-891becc58828",
+                    "name": "",
+                    "isLegacy": false,
+                    "futureSystem": "",
+                    "qa": {
+                      "workarounds": null,
+                      "performance": null,
+                      "double": null,
+                      "error": null,
+                      "depend": null
+                    },
+                    "calculatedScore": null
+                  }
+                ]
+              },
+              "inputDefinitions": [],
+              "disruptions": [],
+              "workExp": null,
+              "workExpNote": "",
+              "outputUid": "out_5edbbecd-cf3d-41a6-be75-85b9e4c96a37"
+            },
+            {
+              "id": "75365cca-e34c-40e8-b2eb-7047d60a7e93",
+              "created": 1769420594353,
+              "text": "MBB'er (Planning)",
+              "linkedSourceId": null,
+              "type": null,
+              "processValue": null,
+              "processStatus": null,
+              "successFactors": "",
+              "causes": [],
+              "improvements": [],
+              "qa": {
+                "compleet": {
+                  "result": "",
+                  "note": ""
+                },
+                "kwaliteit": {
+                  "result": "",
+                  "note": ""
+                },
+                "duidelijkheid": {
+                  "result": "",
+                  "note": ""
+                },
+                "tijdigheid": {
+                  "result": "",
+                  "note": ""
+                },
+                "standaard": {
+                  "result": "",
+                  "note": ""
+                },
+                "overdracht": {
+                  "result": "",
+                  "note": ""
+                }
+              },
+              "systemData": {
+                "isMulti": false,
+                "systemName": "",
+                "calculatedScore": null,
+                "systems": [
+                  {
+                    "id": "ed55ac75-61b7-458f-a75d-22f4678750c2",
+                    "name": "",
+                    "isLegacy": false,
+                    "futureSystem": "",
+                    "qa": {
+                      "workarounds": null,
+                      "performance": null,
+                      "double": null,
+                      "error": null,
+                      "depend": null
+                    },
+                    "calculatedScore": null
+                  }
+                ]
+              },
+              "inputDefinitions": [],
+              "disruptions": [],
+              "workExp": null,
+              "workExpNote": ""
+            }
+          ]
+        },
+        {
+          "id": "6bc3184b-ac57-4eda-9300-b2f9337df5c0",
+          "order": 1,
+          "isVisible": true,
+          "isParallel": false,
+          "isVariant": false,
+          "hasTransition": false,
+          "transitionNext": "",
+          "outputId": null,
+          "slots": [
+            {
+              "id": "65eff8b3-6035-4eb1-809e-4a4f651e56b4",
+              "created": 1769420677095,
+              "text": "MBB'er (CT)",
+              "linkedSourceId": null,
+              "type": null,
+              "processValue": null,
+              "processStatus": null,
+              "successFactors": "",
+              "causes": [],
+              "improvements": [],
+              "qa": {
+                "compleet": {
+                  "result": "",
+                  "note": ""
+                },
+                "kwaliteit": {
+                  "result": "",
+                  "note": ""
+                },
+                "duidelijkheid": {
+                  "result": "",
+                  "note": ""
+                },
+                "tijdigheid": {
+                  "result": "",
+                  "note": ""
+                },
+                "standaard": {
+                  "result": "",
+                  "note": ""
+                },
+                "overdracht": {
+                  "result": "",
+                  "note": ""
+                }
+              },
+              "systemData": {
+                "isMulti": false,
+                "systemName": "",
+                "calculatedScore": null,
+                "systems": [
+                  {
+                    "id": "f548fc83-4c2a-4de8-9b12-9ccaa8738a90",
+                    "name": "",
+                    "isLegacy": false,
+                    "futureSystem": "",
+                    "qa": {
+                      "workarounds": null,
+                      "performance": null,
+                      "double": null,
+                      "error": null,
+                      "depend": null
+                    },
+                    "calculatedScore": null
+                  }
+                ]
+              },
+              "inputDefinitions": [],
+              "disruptions": [],
+              "workExp": null,
+              "workExpNote": ""
+            },
+            {
+              "id": "649451d7-229a-43c6-bcec-302402e0b5d8",
+              "created": 1769420677095,
+              "text": "Epic / Aria / LimbusAI / Pinnacle",
+              "linkedSourceId": null,
+              "type": null,
+              "processValue": null,
+              "processStatus": null,
+              "successFactors": "",
+              "causes": [],
+              "improvements": [],
+              "qa": {
+                "compleet": {
+                  "result": "",
+                  "note": ""
+                },
+                "kwaliteit": {
+                  "result": "",
+                  "note": ""
+                },
+                "duidelijkheid": {
+                  "result": "",
+                  "note": ""
+                },
+                "tijdigheid": {
+                  "result": "",
+                  "note": ""
+                },
+                "standaard": {
+                  "result": "",
+                  "note": ""
+                },
+                "overdracht": {
+                  "result": "",
+                  "note": ""
+                }
+              },
+              "systemData": {
+                "isMulti": false,
+                "systemName": "",
+                "calculatedScore": 0,
+                "systems": [
+                  {
+                    "id": "bec018f7-25cb-4421-8773-9d1bc55183c9",
+                    "name": "",
+                    "isLegacy": false,
+                    "futureSystem": "",
+                    "qa": {
+                      "workarounds": null,
+                      "performance": null,
+                      "double": null,
+                      "error": null,
+                      "depend": null
+                    },
+                    "calculatedScore": null
+                  }
+                ],
+                "systemsMeta": {
+                  "multi": true,
+                  "systems": [
+                    {
+                      "name": "Epic",
+                      "legacy": false,
+                      "future": "",
+                      "qa": {},
+                      "score": null
+                    },
+                    {
+                      "name": "Aria",
+                      "legacy": false,
+                      "future": "",
+                      "qa": {},
+                      "score": null
+                    },
+                    {
+                      "name": "LimbusAI",
+                      "legacy": false,
+                      "future": "",
+                      "qa": {},
+                      "score": null
+                    },
+                    {
+                      "name": "Pinnacle",
+                      "legacy": true,
+                      "future": "Aria",
+                      "qa": {},
+                      "score": null
+                    }
+                  ],
+                  "activeSystemIdx": 0
+                }
+              },
+              "inputDefinitions": [],
+              "disruptions": [],
+              "workExp": null,
+              "workExpNote": ""
+            },
+            {
+              "id": "53576fb8-3c3a-4339-b2e8-7f31e4a5dbfc",
+              "created": 1769420677095,
+              "text": "",
+              "linkedSourceId": null,
+              "type": null,
+              "processValue": null,
+              "processStatus": null,
+              "successFactors": "",
+              "causes": [],
+              "improvements": [],
+              "qa": {
+                "compleet": {
+                  "result": null,
+                  "impact": null,
+                  "note": ""
+                },
+                "kwaliteit": {
+                  "result": null,
+                  "impact": null,
+                  "note": ""
+                },
+                "duidelijkheid": {
+                  "result": null,
+                  "impact": null,
+                  "note": ""
+                },
+                "tijdigheid": {
+                  "result": null,
+                  "impact": null,
+                  "note": ""
+                },
+                "standaard": {
+                  "result": null,
+                  "impact": null,
+                  "note": ""
+                },
+                "overdracht": {
+                  "result": null,
+                  "impact": null,
+                  "note": ""
+                }
+              },
+              "systemData": {
+                "isMulti": false,
+                "systemName": "",
+                "calculatedScore": null,
+                "systems": [
+                  {
+                    "id": "a768750d-3417-4a3b-9457-b6230727db02",
+                    "name": "",
+                    "isLegacy": false,
+                    "futureSystem": "",
+                    "qa": {
+                      "workarounds": null,
+                      "performance": null,
+                      "double": null,
+                      "error": null,
+                      "depend": null
+                    },
+                    "calculatedScore": null
+                  }
+                ]
+              },
+              "inputDefinitions": [],
+              "disruptions": [],
+              "workExp": null,
+              "workExpNote": "",
+              "linkedBundleId": null,
+              "linkedBundleIds": null,
+              "linkedSourceUids": [
+                "out_4bb20366-cf4f-4a27-ae64-f5daff5d9e2c"
+              ],
+              "linkedSourceUid": "out_4bb20366-cf4f-4a27-ae64-f5daff5d9e2c",
+              "linkedSourceIds": []
+            },
+            {
+              "id": "416f297c-504d-4cf1-8d73-0b7cbea0f772",
+              "created": 1769420677095,
+              "text": "Importeren DICOM-CT in Epic / Aria/ LimbusAI / Pinnacle",
+              "linkedSourceId": null,
+              "type": null,
+              "processValue": null,
+              "processStatus": null,
+              "successFactors": "",
+              "causes": [],
+              "improvements": [],
+              "qa": {
+                "compleet": {
+                  "result": "",
+                  "note": ""
+                },
+                "kwaliteit": {
+                  "result": "",
+                  "note": ""
+                },
+                "duidelijkheid": {
+                  "result": "",
+                  "note": ""
+                },
+                "tijdigheid": {
+                  "result": "",
+                  "note": ""
+                },
+                "standaard": {
+                  "result": "",
+                  "note": ""
+                },
+                "overdracht": {
+                  "result": "",
+                  "note": ""
+                }
+              },
+              "systemData": {
+                "isMulti": false,
+                "systemName": "",
+                "calculatedScore": null,
+                "systems": [
+                  {
+                    "id": "3c1dfb7b-8c0c-4665-8320-cad92c861719",
+                    "name": "",
+                    "isLegacy": false,
+                    "futureSystem": "",
+                    "qa": {
+                      "workarounds": null,
+                      "performance": null,
+                      "double": null,
+                      "error": null,
+                      "depend": null
+                    },
+                    "calculatedScore": null
+                  }
+                ]
+              },
+              "inputDefinitions": [],
+              "disruptions": [],
+              "workExp": null,
+              "workExpNote": ""
+            },
+            {
+              "id": "8f6b2920-1df7-4950-9735-5b7cd1f5d65a",
+              "created": 1769420677095,
+              "text": "DICOM-CT beschikbaar ",
+              "linkedSourceId": null,
+              "type": null,
+              "processValue": null,
+              "processStatus": null,
+              "successFactors": "",
+              "causes": [],
+              "improvements": [],
+              "qa": {
+                "compleet": {
+                  "result": "",
+                  "note": ""
+                },
+                "kwaliteit": {
+                  "result": "",
+                  "note": ""
+                },
+                "duidelijkheid": {
+                  "result": "",
+                  "note": ""
+                },
+                "tijdigheid": {
+                  "result": "",
+                  "note": ""
+                },
+                "standaard": {
+                  "result": "",
+                  "note": ""
+                },
+                "overdracht": {
+                  "result": "",
+                  "note": ""
+                }
+              },
+              "systemData": {
+                "isMulti": false,
+                "systemName": "",
+                "calculatedScore": null,
+                "systems": [
+                  {
+                    "id": "9e9d0f92-c6d6-44d7-a872-7ba2c7fb4e64",
+                    "name": "",
+                    "isLegacy": false,
+                    "futureSystem": "",
+                    "qa": {
+                      "workarounds": null,
+                      "performance": null,
+                      "double": null,
+                      "error": null,
+                      "depend": null
+                    },
+                    "calculatedScore": null
+                  }
+                ]
+              },
+              "inputDefinitions": [],
+              "disruptions": [],
+              "workExp": null,
+              "workExpNote": "",
+              "outputUid": "out_bc7b2c5b-e41f-4f54-a827-571ce8f87b04"
+            },
+            {
+              "id": "1483c3aa-1084-4ce2-82a2-5d685de6c41f",
+              "created": 1769420677095,
+              "text": "MBB'er (Planning)",
+              "linkedSourceId": null,
+              "type": null,
+              "processValue": null,
+              "processStatus": null,
+              "successFactors": "",
+              "causes": [],
+              "improvements": [],
+              "qa": {
+                "compleet": {
+                  "result": "",
+                  "note": ""
+                },
+                "kwaliteit": {
+                  "result": "",
+                  "note": ""
+                },
+                "duidelijkheid": {
+                  "result": "",
+                  "note": ""
+                },
+                "tijdigheid": {
+                  "result": "",
+                  "note": ""
+                },
+                "standaard": {
+                  "result": "",
+                  "note": ""
+                },
+                "overdracht": {
+                  "result": "",
+                  "note": ""
+                }
+              },
+              "systemData": {
+                "isMulti": false,
+                "systemName": "",
+                "calculatedScore": null,
+                "systems": [
+                  {
+                    "id": "7f21836c-8dab-4c33-aab0-eafec4b57cad",
+                    "name": "",
+                    "isLegacy": false,
+                    "futureSystem": "",
+                    "qa": {
+                      "workarounds": null,
+                      "performance": null,
+                      "double": null,
+                      "error": null,
+                      "depend": null
+                    },
+                    "calculatedScore": null
+                  }
+                ]
+              },
+              "inputDefinitions": [],
+              "disruptions": [],
+              "workExp": null,
+              "workExpNote": ""
+            }
+          ]
+        },
+        {
+          "id": "f786605b-d811-4984-b222-3fb6c42733b2",
+          "order": 1,
+          "isVisible": true,
+          "isParallel": false,
+          "isVariant": false,
+          "hasTransition": false,
+          "transitionNext": "",
+          "outputId": null,
+          "slots": [
+            {
+              "id": "d241b146-a6a5-4917-8f10-7fbd2b0bd678",
+              "created": 1769421027397,
+              "text": "",
+              "linkedSourceId": null,
+              "type": null,
+              "processValue": null,
+              "processStatus": null,
+              "successFactors": "",
+              "causes": [],
+              "improvements": [],
+              "qa": {
+                "compleet": {
+                  "result": "",
+                  "note": ""
+                },
+                "kwaliteit": {
+                  "result": "",
+                  "note": ""
+                },
+                "duidelijkheid": {
+                  "result": "",
+                  "note": ""
+                },
+                "tijdigheid": {
+                  "result": "",
+                  "note": ""
+                },
+                "standaard": {
+                  "result": "",
+                  "note": ""
+                },
+                "overdracht": {
+                  "result": "",
+                  "note": ""
+                }
+              },
+              "systemData": {
+                "isMulti": false,
+                "systemName": "",
+                "calculatedScore": null,
+                "systems": [
+                  {
+                    "id": "d7d5ee54-8667-446e-b210-0043fd99dfad",
+                    "name": "",
+                    "isLegacy": false,
+                    "futureSystem": "",
+                    "qa": {
+                      "workarounds": null,
+                      "performance": null,
+                      "double": null,
+                      "error": null,
+                      "depend": null
+                    },
+                    "calculatedScore": null
+                  }
+                ]
+              },
+              "inputDefinitions": [],
+              "disruptions": [],
+              "workExp": null,
+              "workExpNote": ""
+            },
+            {
+              "id": "cd981e49-0456-4ef5-a8ca-1d47ea456488",
+              "created": 1769421027397,
+              "text": "",
+              "linkedSourceId": null,
+              "type": null,
+              "processValue": null,
+              "processStatus": null,
+              "successFactors": "",
+              "causes": [],
+              "improvements": [],
+              "qa": {
+                "compleet": {
+                  "result": "",
+                  "note": ""
+                },
+                "kwaliteit": {
+                  "result": "",
+                  "note": ""
+                },
+                "duidelijkheid": {
+                  "result": "",
+                  "note": ""
+                },
+                "tijdigheid": {
+                  "result": "",
+                  "note": ""
+                },
+                "standaard": {
+                  "result": "",
+                  "note": ""
+                },
+                "overdracht": {
+                  "result": "",
+                  "note": ""
+                }
+              },
+              "systemData": {
+                "isMulti": false,
+                "systemName": "",
+                "calculatedScore": null,
+                "systems": [
+                  {
+                    "id": "e686b37c-d93d-4225-b9a3-e5e2a46343cd",
+                    "name": "",
+                    "isLegacy": false,
+                    "futureSystem": "",
+                    "qa": {
+                      "workarounds": null,
+                      "performance": null,
+                      "double": null,
+                      "error": null,
+                      "depend": null
+                    },
+                    "calculatedScore": null
+                  }
+                ]
+              },
+              "inputDefinitions": [],
+              "disruptions": [],
+              "workExp": null,
+              "workExpNote": ""
+            },
+            {
+              "id": "84206400-b75c-4985-b2ab-c681e51b9d83",
+              "created": 1769421027397,
+              "text": "",
+              "linkedSourceId": null,
+              "type": null,
+              "processValue": null,
+              "processStatus": null,
+              "successFactors": "",
+              "causes": [],
+              "improvements": [],
+              "qa": {
+                "compleet": {
+                  "result": "",
+                  "note": ""
+                },
+                "kwaliteit": {
+                  "result": "",
+                  "note": ""
+                },
+                "duidelijkheid": {
+                  "result": "",
+                  "note": ""
+                },
+                "tijdigheid": {
+                  "result": "",
+                  "note": ""
+                },
+                "standaard": {
+                  "result": "",
+                  "note": ""
+                },
+                "overdracht": {
+                  "result": "",
+                  "note": ""
+                }
+              },
+              "systemData": {
+                "isMulti": false,
+                "systemName": "",
+                "calculatedScore": null,
+                "systems": [
+                  {
+                    "id": "1f55c9de-b1ff-4951-93a8-5f1fa15a6e76",
+                    "name": "",
+                    "isLegacy": false,
+                    "futureSystem": "",
+                    "qa": {
+                      "workarounds": null,
+                      "performance": null,
+                      "double": null,
+                      "error": null,
+                      "depend": null
+                    },
+                    "calculatedScore": null
+                  }
+                ]
+              },
+              "inputDefinitions": [],
+              "disruptions": [],
+              "workExp": null,
+              "workExpNote": ""
+            },
+            {
+              "id": "468c13e4-8b47-46c0-883a-69d9a03e1b7f",
+              "created": 1769421027397,
+              "text": "",
+              "linkedSourceId": null,
+              "type": null,
+              "processValue": null,
+              "processStatus": null,
+              "successFactors": "",
+              "causes": [],
+              "improvements": [],
+              "qa": {
+                "compleet": {
+                  "result": "",
+                  "note": ""
+                },
+                "kwaliteit": {
+                  "result": "",
+                  "note": ""
+                },
+                "duidelijkheid": {
+                  "result": "",
+                  "note": ""
+                },
+                "tijdigheid": {
+                  "result": "",
+                  "note": ""
+                },
+                "standaard": {
+                  "result": "",
+                  "note": ""
+                },
+                "overdracht": {
+                  "result": "",
+                  "note": ""
+                }
+              },
+              "systemData": {
+                "isMulti": false,
+                "systemName": "",
+                "calculatedScore": null,
+                "systems": [
+                  {
+                    "id": "b19254d2-581e-417b-a8ae-78463ca309c9",
+                    "name": "",
+                    "isLegacy": false,
+                    "futureSystem": "",
+                    "qa": {
+                      "workarounds": null,
+                      "performance": null,
+                      "double": null,
+                      "error": null,
+                      "depend": null
+                    },
+                    "calculatedScore": null
+                  }
+                ]
+              },
+              "inputDefinitions": [],
+              "disruptions": [],
+              "workExp": null,
+              "workExpNote": ""
+            },
+            {
+              "id": "0ee55019-7eef-4c0c-ae86-84c1ae665778",
+              "created": 1769421027397,
+              "text": "",
+              "linkedSourceId": null,
+              "type": null,
+              "processValue": null,
+              "processStatus": null,
+              "successFactors": "",
+              "causes": [],
+              "improvements": [],
+              "qa": {
+                "compleet": {
+                  "result": "",
+                  "note": ""
+                },
+                "kwaliteit": {
+                  "result": "",
+                  "note": ""
+                },
+                "duidelijkheid": {
+                  "result": "",
+                  "note": ""
+                },
+                "tijdigheid": {
+                  "result": "",
+                  "note": ""
+                },
+                "standaard": {
+                  "result": "",
+                  "note": ""
+                },
+                "overdracht": {
+                  "result": "",
+                  "note": ""
+                }
+              },
+              "systemData": {
+                "isMulti": false,
+                "systemName": "",
+                "calculatedScore": null,
+                "systems": [
+                  {
+                    "id": "21cbfe89-1299-4b4e-8ab2-f783905093b5",
+                    "name": "",
+                    "isLegacy": false,
+                    "futureSystem": "",
+                    "qa": {
+                      "workarounds": null,
+                      "performance": null,
+                      "double": null,
+                      "error": null,
+                      "depend": null
+                    },
+                    "calculatedScore": null
+                  }
+                ]
+              },
+              "inputDefinitions": [],
+              "disruptions": [],
+              "workExp": null,
+              "workExpNote": "",
+              "outputUid": "out_fda0629f-e98e-4db5-8a6d-6709b4823348"
+            },
+            {
+              "id": "f844fa3c-1e4d-4512-9efe-ff2cd0e121a8",
+              "created": 1769421027397,
+              "text": "",
+              "linkedSourceId": null,
+              "type": null,
+              "processValue": null,
+              "processStatus": null,
+              "successFactors": "",
+              "causes": [],
+              "improvements": [],
+              "qa": {
+                "compleet": {
+                  "result": "",
+                  "note": ""
+                },
+                "kwaliteit": {
+                  "result": "",
+                  "note": ""
+                },
+                "duidelijkheid": {
+                  "result": "",
+                  "note": ""
+                },
+                "tijdigheid": {
+                  "result": "",
+                  "note": ""
+                },
+                "standaard": {
+                  "result": "",
+                  "note": ""
+                },
+                "overdracht": {
+                  "result": "",
+                  "note": ""
+                }
+              },
+              "systemData": {
+                "isMulti": false,
+                "systemName": "",
+                "calculatedScore": null,
+                "systems": [
+                  {
+                    "id": "520e4c78-2842-4109-941c-d0bae1b3b566",
+                    "name": "",
+                    "isLegacy": false,
+                    "futureSystem": "",
+                    "qa": {
+                      "workarounds": null,
+                      "performance": null,
+                      "double": null,
+                      "error": null,
+                      "depend": null
+                    },
+                    "calculatedScore": null
+                  }
+                ]
+              },
+              "inputDefinitions": [],
+              "disruptions": [],
+              "workExp": null,
+              "workExpNote": ""
+            }
+          ]
         }
       ],
       "outputMerges": [],
