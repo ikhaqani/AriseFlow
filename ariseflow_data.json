@@ -4,7 +4,7 @@
   "author": "Anoniem",
   "created": "2026-01-16T08:48:17.021Z",
   "version": "2.7",
-  "activeSheetId": "dc945f9e-80a8-454c-b355-ca66f4d539e8",
+  "activeSheetId": "858c26e5-f7ec-4311-b503-641f99e65c84",
   "sheets": [
     {
       "id": "819bb6d9-21cc-49cf-8c40-4b6d7df6b2e1",
@@ -3850,27 +3850,33 @@
               "improvements": [],
               "qa": {
                 "compleet": {
-                  "result": null,
-                  "note": ""
+                  "result": "FAIL",
+                  "impact": "A",
+                  "note": "Bellen en mailen om aan te vullen. Verwijzing wel doorgaan, maar wel notitie dat we wachten op aanvullende gegevens"
                 },
                 "kwaliteit": {
-                  "result": null,
-                  "note": ""
+                  "result": "MINOR",
+                  "impact": "C",
+                  "note": "Bij ingescand documenten kun je de tekst niet kopieeren"
                 },
                 "duidelijkheid": {
-                  "result": null,
+                  "result": "GOOD",
+                  "impact": null,
                   "note": ""
                 },
                 "tijdigheid": {
-                  "result": null,
+                  "result": "GOOD",
+                  "impact": null,
                   "note": ""
                 },
                 "standaard": {
-                  "result": null,
+                  "result": "GOOD",
+                  "impact": null,
                   "note": ""
                 },
                 "overdracht": {
-                  "result": null,
+                  "result": "GOOD",
+                  "impact": null,
                   "note": ""
                 }
               },
@@ -3895,27 +3901,61 @@
                   }
                 ]
               },
-              "inputDefinitions": [],
+              "inputDefinitions": [
+                {
+                  "item": "Persoonsgegevens",
+                  "specifications": "BSN, geboortedatum, achternaam, telefoonnummer en mailadres. ",
+                  "type": "HARD"
+                },
+                {
+                  "item": "Verwijsbrief",
+                  "specifications": "Verwijzer, afdeling verwijzer, diagnose, verslag ",
+                  "type": "HARD"
+                },
+                {
+                  "item": "Alle verslagen",
+                  "specifications": "MDO/OK/Scopie",
+                  "type": "HARD"
+                },
+                {
+                  "item": "Beeldvorming",
+                  "specifications": "CT/MRI/PET",
+                  "type": "HARD"
+                },
+                {
+                  "item": "Labuitslagen",
+                  "specifications": "",
+                  "type": "SOFT"
+                }
+              ],
               "disruptions": [],
               "workExp": null,
               "workExpNote": "",
-              "linkedSourceIds": null,
+              "linkedSourceIds": [],
               "linkedBundleId": "bundle_1768630597052_106a6a79ba69f",
               "linkedBundleIds": [
                 "bundle_1768630597052_106a6a79ba69f"
-              ]
+              ],
+              "linkedSourceUids": [],
+              "linkedSourceUid": null
             },
             {
               "id": "78bafda9-5260-4f20-8575-03ea9fd70503",
               "created": 1768628357825,
               "text": "Verwijzen patiënt",
               "linkedSourceId": null,
-              "type": null,
-              "processValue": null,
-              "processStatus": null,
+              "type": "Taak",
+              "processValue": "BNVA",
+              "processStatus": "NEUTRAL",
               "successFactors": "",
-              "causes": [],
-              "improvements": [],
+              "causes": [
+                "Werkwijze is niet uniform",
+                "Systeem wachten op care for everywhere. Er staat nergens concreet bij wat de documenten betekenen. "
+              ],
+              "improvements": [
+                "Duidelijke afspraken maken en bespreken tijdens werkoverleg",
+                "Systeem inrichting moet beter "
+              ],
               "qa": {
                 "compleet": {
                   "result": "",
@@ -3964,14 +4004,25 @@
                 ]
               },
               "inputDefinitions": [],
-              "disruptions": [],
-              "workExp": null,
-              "workExpNote": ""
+              "disruptions": [
+                {
+                  "scenario": "Veel verwijzingen komen binnen ",
+                  "frequency": "Soms",
+                  "workaround": "Prioriteren op basis van doelgebied"
+                },
+                {
+                  "scenario": "Alle verwijzingen willen oppakken",
+                  "frequency": "Altijd",
+                  "workaround": "Bespreken hoe dit aan te pakken"
+                }
+              ],
+              "workExp": "FLOW",
+              "workExpNote": "Wij zorgen ervoor dat de arts alle gegevens krijgt. "
             },
             {
               "id": "877afd93-f9cd-4f69-a163-f0498546da0b",
               "created": 1768628357825,
-              "text": "Werklijst triage arts",
+              "text": "Handmatig aanmaken triageorder",
               "linkedSourceId": null,
               "type": null,
               "processValue": null,
@@ -4030,7 +4081,17 @@
               "disruptions": [],
               "workExp": null,
               "workExpNote": "",
-              "outputUid": "out_22c97b1f-6209-4a5b-b30b-c96e1c4aa9a3"
+              "outputUid": "out_22c97b1f-6209-4a5b-b30b-c96e1c4aa9a3",
+              "outputData": {
+                "gate": {
+                  "enabled": false,
+                  "failTargetColIdx": 0
+                }
+              },
+              "gate": {
+                "enabled": false,
+                "failTargetColIdx": 0
+              }
             },
             {
               "id": "350dbc30-2370-4a01-9acc-18ebc9154ceb",
@@ -4211,7 +4272,7 @@
               "systemData": {
                 "isMulti": false,
                 "systemName": "",
-                "calculatedScore": 0,
+                "calculatedScore": 93,
                 "systems": [
                   {
                     "id": "9e42f818-2e56-4fff-b93c-be2d970ce45a",
@@ -4235,8 +4296,15 @@
                       "name": "Extern Ziekenhuissysteem",
                       "legacy": false,
                       "future": "",
-                      "qa": {},
-                      "score": null
+                      "qa": {
+                        "q1": "NEVER",
+                        "q1_note": "Het is een basis mailtje. ",
+                        "q2": "NEVER",
+                        "q3": "NEVER",
+                        "q4": "NEVER",
+                        "q5": "DELAY"
+                      },
+                      "score": 93
                     }
                   ],
                   "activeSystemIdx": 0
@@ -4722,12 +4790,16 @@
               "created": 1768733503005,
               "text": "Aanmaken dossier",
               "linkedSourceId": null,
-              "type": null,
-              "processValue": null,
-              "processStatus": null,
+              "type": "Taak",
+              "processValue": "BNVA",
+              "processStatus": "NEUTRAL",
               "successFactors": "",
-              "causes": [],
-              "improvements": [],
+              "causes": [
+                "Externe patienten worden niet herkend in het systeem"
+              ],
+              "improvements": [
+                "Systemen moeten met elkaar kunnen communiceren"
+              ],
               "qa": {
                 "compleet": {
                   "result": "",
@@ -4776,9 +4848,15 @@
                 ]
               },
               "inputDefinitions": [],
-              "disruptions": [],
-              "workExp": null,
-              "workExpNote": ""
+              "disruptions": [
+                {
+                  "scenario": "Aanmaken dossier",
+                  "frequency": "Zelden",
+                  "workaround": "volledig stilstand"
+                }
+              ],
+              "workExp": "ROUTINE",
+              "workExpNote": "Gegevens bij elkaar zoeken en dat kost tijd"
             },
             {
               "id": "8c4bd5db-98b6-4c9b-b6a3-63458b43ceef",
@@ -5128,10 +5206,10 @@
               "created": 1768732173918,
               "text": "Handmatig aanmaken triageorder",
               "linkedSourceId": null,
-              "type": null,
-              "processValue": null,
-              "processStatus": null,
-              "successFactors": "",
+              "type": "Taak",
+              "processValue": "BNVA",
+              "processStatus": "HAPPY",
+              "successFactors": "Checklist zorgt ervoor dat de taak goed uitgevoerd wordt. Je moet altijd een behandeling openen in RTHweb. Daarin zit een checklist met order aanmaken en die vink je dan af. ",
               "causes": [],
               "improvements": [],
               "qa": {
@@ -5182,8 +5260,14 @@
                 ]
               },
               "inputDefinitions": [],
-              "disruptions": [],
-              "workExp": null,
+              "disruptions": [
+                {
+                  "scenario": "Oude behandeling niet afgesloten",
+                  "frequency": "Soms",
+                  "workaround": "Vragen of je behandeling mag afsluiten aan de arts om een nieuwe behandeling aan te maken"
+                }
+              ],
+              "workExp": "ROUTINE",
               "workExpNote": ""
             },
             {
@@ -5360,21 +5444,6 @@
             4,
             5
           ]
-        }
-      ],
-      "mergeGroupsV2": [
-        {
-          "slotIdx": 4,
-          "cols": [
-            1,
-            2
-          ],
-          "master": 2,
-          "label": "Merged Output",
-          "gate": {
-            "enabled": false,
-            "failTargetColIdx": 0
-          }
         }
       ]
     },
