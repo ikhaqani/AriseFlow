@@ -824,7 +824,10 @@ function openMergeModal(clickedColIdx, slotIdx, openModalFn) {
   const masterCol = cur?.master ?? clickedColIdx;
   const curText = sh.columns?.[masterCol]?.slots?.[slotIdx]?.text ?? '';
 
-  let gate = slotIdx === 4 ? _sanitizeGate(cur?.gate) || { enabled: false, failTargetColIdx: null } : null;
+  const _slot4 = state.activeSheet?.columns?.[clickedColIdx]?.slots?.[4];
+let gate = slotIdx === 4
+  ? (_sanitizeGate(cur?.gate) || _sanitizeGate(_slot4?.outputData?.gate) || _sanitizeGate(_slot4?.gate) || { enabled: false, failTargetColIdx: null })
+  : null;
 
   let systemsMeta = null;
 
@@ -1397,6 +1400,18 @@ function openMergeModal(clickedColIdx, slotIdx, openModalFn) {
       setMergeGroupForSlot(slotIdx, null);
       state.updateStickyText(clickedColIdx, slotIdx, v);
 
+
+      // SINGLE-COL: persist Procesvalidatie (gate) also when merge is OFF
+      if (slotIdx === 4) {
+        const cleanGate = _sanitizeGate(gate);
+        const slot = state.activeSheet?.columns?.[clickedColIdx]?.slots?.[4];
+        if (slot) {
+          const od = slot.outputData && typeof slot.outputData === 'object' ? slot.outputData : {};
+          slot.outputData = { ...od, gate: cleanGate };
+          slot.gate = cleanGate; // legacy compatibility
+        }
+        state.notify({ reason: 'columns' }, { clone: false });
+      }
       if (slotIdx === 1) {
         const cleanMeta = _sanitizeSystemsMeta(systemsMeta);
         if (cleanMeta) {
@@ -2379,6 +2394,24 @@ function renderColumnsOnly(openModalFn) {
 
       const textEl = slotDiv.querySelector('.text');
       const stickyEl = slotDiv.querySelector('.sticky');
+      // SINGLE-COL: render gate on normal sticky (no merge required)
+      if (stickyEl && Number(stickyEl?.dataset?.slot) === 4) {
+        const _colIdx = Number(stickyEl?.dataset?.col);
+        const _slot = state.activeSheet?.columns?.[_colIdx]?.slots?.[4];
+        const gate = _sanitizeGate(_slot?.outputData?.gate) || _sanitizeGate(_slot?.gate);
+
+        const passLabel = (typeof getPassLabelForGroup === 'function')
+          ? getPassLabelForGroup({ slotIdx: 4, cols: [_colIdx], master: _colIdx })
+          : ((state.activeSheet?.columns?.[_colIdx + 1]) ? getProcessLabel(_colIdx + 1) : '—');
+
+        let failLabel = '—';
+        if (gate?.enabled && gate.failTargetColIdx != null) {
+          const idx = Number(gate.failTargetColIdx);
+          if (Number.isFinite(idx)) failLabel = getProcessLabel(idx);
+        }
+
+        applyGateToSticky(stickyEl, gate, passLabel, failLabel);
+      }
       if (textEl) textEl.textContent = displayText;
 
       const isMergedSource = !!getMergeGroup(colIdx, slotIdx);
