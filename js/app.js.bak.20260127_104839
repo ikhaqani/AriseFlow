@@ -4,7 +4,6 @@ import { openEditModal, saveModalDetails } from './modals.js';
 // GITHUB INTEGRATIE: Imports toegevoegd
 import { saveToFile, loadFromFile, exportToCSV, exportHD, saveToGitHub, loadFromGitHub } from './io.js';
 import { Toast } from './toast.js';
-import { initStickyFontSizeUI } from "./sticky_font_ui.js";
 
 const $ = (id) => document.getElementById(id);
 
@@ -713,12 +712,3 @@ const initApp = () => {
 };
 
 document.addEventListener('DOMContentLoaded', initApp);
-/* ===== Sticky font size UI init (post-it) ===== */
-if (!window.__stickyFontUIInit) {
-  window.__stickyFontUIInit = true;
-  const _run = () => {
-    try { initStickyFontSizeUI(); } catch (e) { console.warn("stickyFont UI init failed", e); }
-  };
-  if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", _run);
-  else _run();
-}
