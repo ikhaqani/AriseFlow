@@ -3494,7 +3494,9 @@
               "linkedBundleIds": [
                 "bundle_1768627890464_f2106058b78f3"
               ],
-              "linkedSourceIds": null
+              "linkedSourceIds": [],
+              "linkedSourceUids": [],
+              "linkedSourceUid": null
             },
             {
               "id": "7efbaa22-d31a-4f0a-ae09-cb83db71121b",
@@ -3851,13 +3853,13 @@
               "qa": {
                 "compleet": {
                   "result": "FAIL",
-                  "impact": "A",
-                  "note": "Bellen en mailen om aan te vullen. Verwijzing wel doorgaan, maar wel notitie dat we wachten op aanvullende gegevens"
+                  "impact": "B",
+                  "note": "Bij ontvangst van de verwijzing controleren we de volledigheid van de gegevens. Indien noodzakelijk, nemen we contact op via telefoon of e-mail om ontbrekende informatie aan te vullen, terwijl de verwijzing doorgaat. We maken aantekening dat aanvullende gegevens nog worden verwacht."
                 },
                 "kwaliteit": {
                   "result": "MINOR",
                   "impact": "C",
-                  "note": "Bij ingescand documenten kun je de tekst niet kopieeren"
+                  "note": "Bij ingescande documenten die niet te kopiëren zijn, worden de gegevens handmatig overgetypt om de ontbrekende informatie te verwerken."
                 },
                 "duidelijkheid": {
                   "result": "GOOD",
@@ -3904,17 +3906,17 @@
               "inputDefinitions": [
                 {
                   "item": "Persoonsgegevens",
-                  "specifications": "BSN, geboortedatum, achternaam, telefoonnummer en mailadres. ",
+                  "specifications": "BSN, geboortedatum, achternaam, telefoonnummer, e-mailadres.",
                   "type": "HARD"
                 },
                 {
                   "item": "Verwijsbrief",
-                  "specifications": "Verwijzer, afdeling verwijzer, diagnose, verslag ",
+                  "specifications": "Verwijzer, afdeling verwijzer, diagnose, verslag.",
                   "type": "HARD"
                 },
                 {
-                  "item": "Alle verslagen",
-                  "specifications": "MDO/OK/Scopie",
+                  "item": "Medische verslagen",
+                  "specifications": "MDO/OK, consultverslagen, behandelingsplannen, operatierapporten.",
                   "type": "HARD"
                 },
                 {
@@ -3924,7 +3926,7 @@
                 },
                 {
                   "item": "Labuitslagen",
-                  "specifications": "",
+                  "specifications": "Specifieke gegevens per labuitslag",
                   "type": "SOFT"
                 }
               ],
@@ -3950,11 +3952,11 @@
               "successFactors": "",
               "causes": [
                 "Werkwijze is niet uniform",
-                "Systeem wachten op care for everywhere. Er staat nergens concreet bij wat de documenten betekenen. "
+                "Het systeem 'Care for Everywhere' levert meerdere documenten, maar deze documenten zijn niet goed gemarkeerd of geïdentificeerd, waardoor het onduidelijk is wat voor soort document het is (bijv. verwijsbrief, onderzoeksrapport, etc.). Hierdoor moet elk document handmatig worden geopend om te achterhalen wat het is"
               ],
               "improvements": [
                 "Duidelijke afspraken maken en bespreken tijdens werkoverleg",
-                "Systeem inrichting moet beter "
+                "Implementeer een functionaliteit binnen 'Care for Everywhere' die de documenten automatisch labelt of categoriseert (bijv. verwijsbrief, onderzoeksrapport, etc.) zodat de gebruiker direct weet wat voor document het is"
               ],
               "qa": {
                 "compleet": {
@@ -4006,18 +4008,18 @@
               "inputDefinitions": [],
               "disruptions": [
                 {
-                  "scenario": "Veel verwijzingen komen binnen ",
+                  "scenario": "Te hoge instroom van verwijzingen vertraagt het proces",
                   "frequency": "Soms",
-                  "workaround": "Prioriteren op basis van doelgebied"
+                  "workaround": "Om de werkdruk beheersbaar te houden, wordt er een prioritering aangebracht. Verwijzingen worden op basis van urgentie en patiëntbehoefte geprioriteerd, zodat de meest kritieke gevallen snel en efficiënt worden behandeld. Dit helpt bij het behouden van focus op de belangrijkste taken zonder de zorgkwaliteit te compromitteren."
                 },
                 {
-                  "scenario": "Alle verwijzingen willen oppakken",
+                  "scenario": "Proberen elke verwijzing onmiddellijk aan te pakken leidt tot inefficiëntie",
                   "frequency": "Altijd",
-                  "workaround": "Bespreken hoe dit aan te pakken"
+                  "workaround": "Bespreken en afstemmen over een efficiënte aanpak"
                 }
               ],
               "workExp": "FLOW",
-              "workExpNote": "Wij zorgen ervoor dat de arts alle gegevens krijgt. "
+              "workExpNote": "Wij zorgen ervoor dat de arts altijd de meest actuele en volledige patiëntgegevens ontvangt"
             },
             {
               "id": "877afd93-f9cd-4f69-a163-f0498546da0b",
@@ -4390,9 +4392,9 @@
               "created": 1768731369745,
               "text": "Verwijzen patiënt",
               "linkedSourceId": null,
-              "type": null,
-              "processValue": null,
-              "processStatus": null,
+              "type": "Taak",
+              "processValue": "BNVA",
+              "processStatus": "NEUTRAL",
               "successFactors": "",
               "causes": [],
               "improvements": [],
@@ -4445,8 +4447,8 @@
               },
               "inputDefinitions": [],
               "disruptions": [],
-              "workExp": null,
-              "workExpNote": ""
+              "workExp": "FLOW",
+              "workExpNote": "Wij zorgen ervoor dat de arts alle gegevens krijgt. "
             },
             {
               "id": "45d9beb3-de4f-42d1-aa36-5c2468156cb7",
