@@ -1000,7 +1000,6 @@ export function loadFromFile(file, onSuccess) {
       restoreMergeGroupsToLocalStorage(parsed);
 
       // ✅ Update state
-      state.data = parsed;
       state.project = parsed;
 
       if (typeof state.notify === 'function') state.notify();
@@ -1561,7 +1560,6 @@ export async function loadFromGitHub() {
   // ✅ Restore merge-groups naar localStorage vóór render
   restoreMergeGroupsToLocalStorage(parsed);
 
-  state.data = parsed;
   state.project = parsed;
   if (typeof state.notify === 'function') state.notify();
 
