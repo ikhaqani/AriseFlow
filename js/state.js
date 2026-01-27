@@ -273,35 +273,41 @@ class StateManager {
   }
 
   setOutputMergeRangeForCol(colIdx, startCol, endCol) {
-    const sheet = this.activeSheet;
-    if (!sheet) return;
+  const sheet = this.activeSheet;
+  if (!sheet) return;
 
-    this.pushHistory();
+  const s0 = Number(startCol);
+  const e0 = Number(endCol);
+  if (!Number.isFinite(s0) || !Number.isFinite(e0)) return;
 
-    if (!Array.isArray(sheet.outputMerges)) sheet.outputMerges = [];
+  const s = Math.min(s0, e0);
+  const e = Math.max(s0, e0);
 
-    const s = Number(startCol);
-    const e = Number(endCol);
+  if (!Array.isArray(sheet.outputMerges)) sheet.outputMerges = [];
 
-    sheet.outputMerges = sheet.outputMerges.filter((r) => {
-      if (!r || r.slotIdx !== 4) return true;
-      const overlaps = !(e < r.startCol || s > r.endCol);
-      const includesCol = colIdx >= r.startCol && colIdx <= r.endCol;
-      return !(overlaps || includesCol);
-    });
+  // carry metadata from existing range that contains this col (if any)
+  const existing = sheet.outputMerges.find(
+    (r) => r?.slotIdx === 4 && colIdx >= Number(r.startCol) && colIdx <= Number(r.endCol)
+  );
+  const carry = existing && typeof existing === "object" ? { ...existing } : {};
+  delete carry.slotIdx;
+  delete carry.startCol;
+  delete carry.endCol;
 
-    if (Number.isFinite(s) && Number.isFinite(e) && s !== e) {
-      sheet.outputMerges.push({
-        id: uid(),
-        slotIdx: 4,
-        startCol: Math.min(s, e),
-        endCol: Math.max(s, e)
-      });
-    }
+  // remove overlapping ranges for slot 4
+  sheet.outputMerges = sheet.outputMerges.filter((r) => {
+    if (r?.slotIdx !== 4) return true;
+    const rs = Number(r.startCol);
+    const re = Number(r.endCol);
+    if (!Number.isFinite(rs) || !Number.isFinite(re)) return false;
+    return re < s || rs > e;
+  });
 
-    this._normalizeOutputMerges(sheet);
-    this.notify({ reason: 'columns' }, { clone: false });
-  }
+  // IMPORTANT: store even single-col ranges
+  sheet.outputMerges.push({ slotIdx: 4, startCol: s, endCol: e, ...carry });
+
+  this._normalizeOutputMerges(sheet);
+}
 
   _normalizeSystemMerges(sheet) {
     this._normalizeMergeRanges(sheet, 'systemMerges', 1);
@@ -317,35 +323,41 @@ class StateManager {
   }
 
   setSystemMergeRangeForCol(colIdx, startCol, endCol) {
-    const sheet = this.activeSheet;
-    if (!sheet) return;
+  const sheet = this.activeSheet;
+  if (!sheet) return;
 
-    this.pushHistory();
+  const s0 = Number(startCol);
+  const e0 = Number(endCol);
+  if (!Number.isFinite(s0) || !Number.isFinite(e0)) return;
 
-    if (!Array.isArray(sheet.systemMerges)) sheet.systemMerges = [];
+  const s = Math.min(s0, e0);
+  const e = Math.max(s0, e0);
 
-    const s = Number(startCol);
-    const e = Number(endCol);
+  if (!Array.isArray(sheet.systemMerges)) sheet.systemMerges = [];
 
-    sheet.systemMerges = sheet.systemMerges.filter((r) => {
-      if (!r || r.slotIdx !== 1) return true;
-      const overlaps = !(e < r.startCol || s > r.endCol);
-      const includesCol = colIdx >= r.startCol && colIdx <= r.endCol;
-      return !(overlaps || includesCol);
-    });
+  // carry metadata from existing range that contains this col (if any)
+  const existing = sheet.systemMerges.find(
+    (r) => r?.slotIdx === 1 && colIdx >= Number(r.startCol) && colIdx <= Number(r.endCol)
+  );
+  const carry = existing && typeof existing === "object" ? { ...existing } : {};
+  delete carry.slotIdx;
+  delete carry.startCol;
+  delete carry.endCol;
 
-    if (Number.isFinite(s) && Number.isFinite(e) && s !== e) {
-      sheet.systemMerges.push({
-        id: uid(),
-        slotIdx: 1,
-        startCol: Math.min(s, e),
-        endCol: Math.max(s, e)
-      });
-    }
+  // remove overlapping ranges for slot 1
+  sheet.systemMerges = sheet.systemMerges.filter((r) => {
+    if (r?.slotIdx !== 1) return true;
+    const rs = Number(r.startCol);
+    const re = Number(r.endCol);
+    if (!Number.isFinite(rs) || !Number.isFinite(re)) return false;
+    return re < s || rs > e;
+  });
 
-    this._normalizeSystemMerges(sheet);
-    this.notify({ reason: 'columns' }, { clone: false });
-  }
+  // IMPORTANT: store even single-col ranges
+  sheet.systemMerges.push({ slotIdx: 1, startCol: s, endCol: e, ...carry });
+
+  this._normalizeSystemMerges(sheet);
+}
 
   subscribe(listenerFn) {
     this.listeners.add(listenerFn);
