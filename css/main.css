@@ -2325,3 +2325,24 @@ input, textarea, [contenteditable], [contenteditable="true"], .text[contentedita
   line-height: 1.05 !important;
 }
 
+
+
+
+/* ARISE EMOJI LABEL SIZE OVERRIDES */
+:root{
+  --emoji-font-size: 24px;
+}
+
+/* Werkbeleving emoji (rechts-onder op sticky) */
+.workexp-badge{
+  font-size: var(--emoji-font-size) !important;
+  line-height: 1.05 !important;
+}
+
+/* Fallbacks (als je elders emoji labels/badges hebt) */
+.emoji-badge,
+.emoji-label{
+  font-size: var(--emoji-font-size) !important;
+  line-height: 1.05 !important;
+}
+
