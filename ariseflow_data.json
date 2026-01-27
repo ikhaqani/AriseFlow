@@ -4,7 +4,7 @@
   "author": "Anoniem",
   "created": "2026-01-16T08:48:17.021Z",
   "version": "2.7",
-  "activeSheetId": "858c26e5-f7ec-4311-b503-641f99e65c84",
+  "activeSheetId": "dc945f9e-80a8-454c-b355-ca66f4d539e8",
   "sheets": [
     {
       "id": "819bb6d9-21cc-49cf-8c40-4b6d7df6b2e1",
@@ -6794,7 +6794,7 @@
             {
               "id": "c9417a1a-c84b-4b4e-ab04-6e3d2bbd91e6",
               "created": 1768841085648,
-              "text": "Polikliniek",
+              "text": "Verwijzer / Polikliniek",
               "linkedSourceId": null,
               "type": null,
               "processValue": null,
@@ -6857,7 +6857,7 @@
             {
               "id": "2223c1dd-733c-4619-971d-5f93ae23df68",
               "created": 1768841085648,
-              "text": "Radiotherapie Web",
+              "text": "Epic",
               "linkedSourceId": null,
               "type": null,
               "processValue": null,
@@ -6988,7 +6988,7 @@
             {
               "id": "6a12120c-5d4e-413f-92fa-aa214b288f3b",
               "created": 1768841085648,
-              "text": "Aanmaken triagetaak",
+              "text": "Triëren patiënt",
               "linkedSourceId": null,
               "type": null,
               "processValue": null,
@@ -7051,7 +7051,7 @@
             {
               "id": "a92af0dd-1e5b-455b-a07e-b18968681501",
               "created": 1768841085648,
-              "text": "Triagetaak",
+              "text": "Werklijst triage arts",
               "linkedSourceId": null,
               "type": null,
               "processValue": null,
@@ -7115,7 +7115,7 @@
             {
               "id": "5917c4f5-0276-41f6-88e9-1297484e32c0",
               "created": 1768841085648,
-              "text": "Polikliniek",
+              "text": "Triage arts",
               "linkedSourceId": null,
               "type": null,
               "processValue": null,
