@@ -4,7 +4,7 @@
   "author": "Anoniem",
   "created": "2026-01-16T08:48:17.021Z",
   "version": "2.7",
-  "activeSheetId": "dc945f9e-80a8-454c-b355-ca66f4d539e8",
+  "activeSheetId": "858c26e5-f7ec-4311-b503-641f99e65c84",
   "sheets": [
     {
       "id": "819bb6d9-21cc-49cf-8c40-4b6d7df6b2e1",
@@ -3441,9 +3441,9 @@
               "improvements": [],
               "qa": {
                 "compleet": {
-                  "result": "MINOR",
-                  "impact": "C",
-                  "note": "Het kan voorkomen dat er nog informatie mist, maar dat horen we dus later in het proces van de arts. "
+                  "result": "GOOD",
+                  "impact": null,
+                  "note": ""
                 },
                 "kwaliteit": {
                   "result": "GOOD",
@@ -3961,7 +3961,7 @@
             {
               "id": "78bafda9-5260-4f20-8575-03ea9fd70503",
               "created": 1768628357825,
-              "text": "Verwijzen patiënt",
+              "text": "Plaatsen verwijsorder",
               "linkedSourceId": null,
               "type": "Taak",
               "processValue": "BNVA",
@@ -4041,7 +4041,7 @@
             {
               "id": "877afd93-f9cd-4f69-a163-f0498546da0b",
               "created": 1768628357825,
-              "text": "Handmatig aanmaken triageorder",
+              "text": "Werklijst triage arts",
               "linkedSourceId": null,
               "type": null,
               "processValue": null,
@@ -4254,7 +4254,7 @@
             {
               "id": "24efa9f4-3715-4ffc-8fad-8d3f6dac24de",
               "created": 1768731369745,
-              "text": "Beveiligde mail / Brief per post",
+              "text": "",
               "linkedSourceId": null,
               "type": null,
               "processValue": null,
@@ -4674,7 +4674,7 @@
             {
               "id": "371a2937-5326-47a4-8899-c467af417c77",
               "created": 1768733503005,
-              "text": "Beveiligde mail / Brief per post",
+              "text": "",
               "linkedSourceId": null,
               "type": null,
               "processValue": null,
@@ -4827,7 +4827,7 @@
             {
               "id": "f6d1b6e2-0931-4ae1-9c27-f91725565387",
               "created": 1768733503005,
-              "text": "Aanmaken dossier",
+              "text": "Aanmaken/ dossier",
               "linkedSourceId": null,
               "type": "Taak",
               "processValue": "BNVA",
@@ -4900,7 +4900,7 @@
             {
               "id": "8c4bd5db-98b6-4c9b-b6a3-63458b43ceef",
               "created": 1768733503005,
-              "text": "Dossier",
+              "text": "Dossier in Epic",
               "linkedSourceId": null,
               "type": null,
               "processValue": null,
@@ -4964,7 +4964,7 @@
             {
               "id": "55cdabb0-df10-4fb0-a8ee-aa0fca1c9a9b",
               "created": 1768733503005,
-              "text": "Polikliniek",
+              "text": "Polikliniek / Triage arts / Behandelend arts",
               "linkedSourceId": null,
               "type": null,
               "processValue": null,
@@ -5033,6 +5033,430 @@
             "ifTrue": null,
             "ifFalse": null
           }
+        },
+        {
+          "id": "35e70d28-0140-4e97-8fcb-e09a9a6210f1",
+          "order": 1,
+          "isVisible": true,
+          "isParallel": true,
+          "isVariant": true,
+          "hasTransition": false,
+          "transitionNext": "",
+          "outputId": null,
+          "slots": [
+            {
+              "id": "6f261309-a1c2-49cd-addb-de31879f6666",
+              "created": 1769525379149,
+              "text": "Polikliniek",
+              "linkedSourceId": null,
+              "type": null,
+              "processValue": null,
+              "processStatus": null,
+              "successFactors": "",
+              "causes": [],
+              "improvements": [],
+              "qa": {
+                "compleet": {
+                  "result": "",
+                  "note": ""
+                },
+                "kwaliteit": {
+                  "result": "",
+                  "note": ""
+                },
+                "duidelijkheid": {
+                  "result": "",
+                  "note": ""
+                },
+                "tijdigheid": {
+                  "result": "",
+                  "note": ""
+                },
+                "standaard": {
+                  "result": "",
+                  "note": ""
+                },
+                "overdracht": {
+                  "result": "",
+                  "note": ""
+                }
+              },
+              "systemData": {
+                "isMulti": false,
+                "systemName": "",
+                "calculatedScore": null,
+                "systems": [
+                  {
+                    "id": "7ab654b4-3b44-492e-8507-05d8cdea409c",
+                    "name": "",
+                    "isLegacy": false,
+                    "futureSystem": "",
+                    "qa": {
+                      "workarounds": null,
+                      "performance": null,
+                      "double": null,
+                      "error": null,
+                      "depend": null
+                    },
+                    "calculatedScore": null
+                  }
+                ]
+              },
+              "inputDefinitions": [],
+              "disruptions": [],
+              "workExp": null,
+              "workExpNote": ""
+            },
+            {
+              "id": "67e29aa6-7eb7-4375-b56c-c34300eadf55",
+              "created": 1769525379149,
+              "text": "",
+              "linkedSourceId": null,
+              "type": null,
+              "processValue": null,
+              "processStatus": null,
+              "successFactors": "",
+              "causes": [],
+              "improvements": [],
+              "qa": {
+                "compleet": {
+                  "result": "",
+                  "note": ""
+                },
+                "kwaliteit": {
+                  "result": "",
+                  "note": ""
+                },
+                "duidelijkheid": {
+                  "result": "",
+                  "note": ""
+                },
+                "tijdigheid": {
+                  "result": "",
+                  "note": ""
+                },
+                "standaard": {
+                  "result": "",
+                  "note": ""
+                },
+                "overdracht": {
+                  "result": "",
+                  "note": ""
+                }
+              },
+              "systemData": {
+                "isMulti": false,
+                "systemName": "",
+                "calculatedScore": 80,
+                "systems": [
+                  {
+                    "id": "65376924-6ec4-47e6-8fe3-01f39d44d1ac",
+                    "name": "",
+                    "isLegacy": false,
+                    "futureSystem": "",
+                    "qa": {
+                      "workarounds": null,
+                      "performance": null,
+                      "double": null,
+                      "error": null,
+                      "depend": null
+                    },
+                    "calculatedScore": null
+                  }
+                ],
+                "systemsMeta": {
+                  "multi": true,
+                  "systems": [
+                    {
+                      "name": "Beveiligde mail / Brief per post",
+                      "legacy": false,
+                      "future": "",
+                      "qa": {
+                        "q1": "NEVER",
+                        "q2": "NEVER",
+                        "q3": "SOMETIMES",
+                        "q4": "SOMETIMES",
+                        "q4_note": "Je kan een mail ontvangen zonder bijlage, maar dat ligt buiten ons ",
+                        "q5": "DELAY"
+                      },
+                      "score": 80
+                    }
+                  ],
+                  "activeSystemIdx": 0
+                }
+              },
+              "inputDefinitions": [],
+              "disruptions": [],
+              "workExp": null,
+              "workExpNote": ""
+            },
+            {
+              "id": "175259ee-9843-48f4-aa3b-573a4fed1aad",
+              "created": 1769525379149,
+              "text": "",
+              "linkedSourceId": null,
+              "type": null,
+              "processValue": null,
+              "processStatus": null,
+              "successFactors": "",
+              "causes": [],
+              "improvements": [],
+              "qa": {
+                "compleet": {
+                  "result": null,
+                  "impact": null,
+                  "note": ""
+                },
+                "kwaliteit": {
+                  "result": null,
+                  "impact": null,
+                  "note": ""
+                },
+                "duidelijkheid": {
+                  "result": null,
+                  "impact": null,
+                  "note": ""
+                },
+                "tijdigheid": {
+                  "result": null,
+                  "impact": null,
+                  "note": ""
+                },
+                "standaard": {
+                  "result": null,
+                  "impact": null,
+                  "note": ""
+                },
+                "overdracht": {
+                  "result": null,
+                  "impact": null,
+                  "note": ""
+                }
+              },
+              "systemData": {
+                "isMulti": false,
+                "systemName": "",
+                "calculatedScore": null,
+                "systems": [
+                  {
+                    "id": "c233174e-fff7-4fd4-b244-f33fddc75c82",
+                    "name": "",
+                    "isLegacy": false,
+                    "futureSystem": "",
+                    "qa": {
+                      "workarounds": null,
+                      "performance": null,
+                      "double": null,
+                      "error": null,
+                      "depend": null
+                    },
+                    "calculatedScore": null
+                  }
+                ]
+              },
+              "inputDefinitions": [],
+              "disruptions": [],
+              "workExp": null,
+              "workExpNote": "",
+              "linkedBundleId": null,
+              "linkedBundleIds": null,
+              "linkedSourceUids": [
+                "out_ac057968-40e0-4e23-8197-f7eca3a79f1c"
+              ],
+              "linkedSourceUid": "out_ac057968-40e0-4e23-8197-f7eca3a79f1c",
+              "linkedSourceIds": []
+            },
+            {
+              "id": "33dcb2ce-3e60-4967-8e99-3cd58a64d37b",
+              "created": 1769525379149,
+              "text": "Aanmaken nieuwe behandeling",
+              "linkedSourceId": null,
+              "type": "Taak",
+              "processValue": "BNVA",
+              "processStatus": "HAPPY",
+              "successFactors": "Werkt heel eenvoudig ",
+              "causes": [],
+              "improvements": [],
+              "qa": {
+                "compleet": {
+                  "result": "",
+                  "note": ""
+                },
+                "kwaliteit": {
+                  "result": "",
+                  "note": ""
+                },
+                "duidelijkheid": {
+                  "result": "",
+                  "note": ""
+                },
+                "tijdigheid": {
+                  "result": "",
+                  "note": ""
+                },
+                "standaard": {
+                  "result": "",
+                  "note": ""
+                },
+                "overdracht": {
+                  "result": "",
+                  "note": ""
+                }
+              },
+              "systemData": {
+                "isMulti": false,
+                "systemName": "",
+                "calculatedScore": null,
+                "systems": [
+                  {
+                    "id": "982b8196-eabe-43ab-a1b3-7dc9b64ac1ec",
+                    "name": "",
+                    "isLegacy": false,
+                    "futureSystem": "",
+                    "qa": {
+                      "workarounds": null,
+                      "performance": null,
+                      "double": null,
+                      "error": null,
+                      "depend": null
+                    },
+                    "calculatedScore": null
+                  }
+                ]
+              },
+              "inputDefinitions": [],
+              "disruptions": [],
+              "workExp": "ROUTINE",
+              "workExpNote": ""
+            },
+            {
+              "id": "2d032d72-899f-415c-83a0-34f0d7a06e82",
+              "created": 1769525379149,
+              "text": "Nieuwe behandeling in Radiotherapie Web",
+              "linkedSourceId": null,
+              "type": null,
+              "processValue": null,
+              "processStatus": null,
+              "successFactors": "",
+              "causes": [],
+              "improvements": [],
+              "qa": {
+                "compleet": {
+                  "result": "",
+                  "note": ""
+                },
+                "kwaliteit": {
+                  "result": "",
+                  "note": ""
+                },
+                "duidelijkheid": {
+                  "result": "",
+                  "note": ""
+                },
+                "tijdigheid": {
+                  "result": "",
+                  "note": ""
+                },
+                "standaard": {
+                  "result": "",
+                  "note": ""
+                },
+                "overdracht": {
+                  "result": "",
+                  "note": ""
+                }
+              },
+              "systemData": {
+                "isMulti": false,
+                "systemName": "",
+                "calculatedScore": null,
+                "systems": [
+                  {
+                    "id": "f8d75b65-3627-47e2-9bee-beb0b3accb4d",
+                    "name": "",
+                    "isLegacy": false,
+                    "futureSystem": "",
+                    "qa": {
+                      "workarounds": null,
+                      "performance": null,
+                      "double": null,
+                      "error": null,
+                      "depend": null
+                    },
+                    "calculatedScore": null
+                  }
+                ]
+              },
+              "inputDefinitions": [],
+              "disruptions": [],
+              "workExp": null,
+              "workExpNote": "",
+              "outputUid": "out_b8e441b1-21a6-42b8-a180-7d8389ddc95b"
+            },
+            {
+              "id": "04d345a6-4384-441f-a0ee-ca7e7178525c",
+              "created": 1769525379149,
+              "text": "Triage arts / Behandelend arts",
+              "linkedSourceId": null,
+              "type": null,
+              "processValue": null,
+              "processStatus": null,
+              "successFactors": "",
+              "causes": [],
+              "improvements": [],
+              "qa": {
+                "compleet": {
+                  "result": "",
+                  "note": ""
+                },
+                "kwaliteit": {
+                  "result": "",
+                  "note": ""
+                },
+                "duidelijkheid": {
+                  "result": "",
+                  "note": ""
+                },
+                "tijdigheid": {
+                  "result": "",
+                  "note": ""
+                },
+                "standaard": {
+                  "result": "",
+                  "note": ""
+                },
+                "overdracht": {
+                  "result": "",
+                  "note": ""
+                }
+              },
+              "systemData": {
+                "isMulti": false,
+                "systemName": "",
+                "calculatedScore": null,
+                "systems": [
+                  {
+                    "id": "09ac3e48-66c6-4f7b-8370-6e581076f416",
+                    "name": "",
+                    "isLegacy": false,
+                    "futureSystem": "",
+                    "qa": {
+                      "workarounds": null,
+                      "performance": null,
+                      "double": null,
+                      "error": null,
+                      "depend": null
+                    },
+                    "calculatedScore": null
+                  }
+                ]
+              },
+              "inputDefinitions": [],
+              "disruptions": [],
+              "workExp": null,
+              "workExpNote": ""
+            }
+          ]
         },
         {
           "id": "97f546fa-a317-4a5a-abe8-cba26deebe85",
@@ -5110,7 +5534,7 @@
             {
               "id": "4869b4a0-8576-4c7d-999b-318d3b580dec",
               "created": 1768732173918,
-              "text": "Beveiligde mail / Brief per post",
+              "text": "",
               "linkedSourceId": null,
               "type": null,
               "processValue": null,
@@ -5263,7 +5687,7 @@
             {
               "id": "7659cfd0-ddaf-427c-a47a-15bda9209668",
               "created": 1768732173918,
-              "text": "Handmatig aanmaken triageorder",
+              "text": "Plaatsen verwijsorder",
               "linkedSourceId": null,
               "type": "Taak",
               "processValue": "BNVA",
@@ -5467,8 +5891,7 @@
         {
           "id": "grp_ab73dc6e-45f7-44e4-8af6-d48481868e9b",
           "cols": [
-            4,
-            5
+            4
           ],
           "title": "Verwijzing verwerken"
         },
@@ -5491,17 +5914,21 @@
             1,
             2,
             3
+          ],
+          "parents": [
+            0
           ]
         },
         {
-          "id": "var_4c30eef3-7d9c-4ff6-b0bd-062f961bdd83",
+          "id": "var_057d11fa-d39c-405b-9003-0866d5551029",
           "parents": [
             3
           ],
           "parentColIdx": 3,
           "variants": [
             4,
-            5
+            5,
+            6
           ]
         }
       ],
@@ -5511,9 +5938,10 @@
           "cols": [
             3,
             4,
-            5
+            5,
+            6
           ],
-          "master": 5,
+          "master": 6,
           "label": "Merged System",
           "systemsMeta": {
             "multi": true,
@@ -8604,32 +9032,32 @@
               "improvements": [],
               "qa": {
                 "compleet": {
-                  "result": null,
-                  "impact": null,
-                  "note": ""
+                  "result": "MINOR",
+                  "impact": "C",
+                  "note": "Aanvullende gegevens worden opgevraagd bij het externe ziekenhuis, maar sommige gegevens kunnen niet worden verkregen."
                 },
                 "kwaliteit": {
-                  "result": null,
+                  "result": "GOOD",
                   "impact": null,
                   "note": ""
                 },
                 "duidelijkheid": {
-                  "result": null,
+                  "result": "GOOD",
                   "impact": null,
                   "note": ""
                 },
                 "tijdigheid": {
-                  "result": null,
+                  "result": "GOOD",
                   "impact": null,
                   "note": ""
                 },
                 "standaard": {
-                  "result": null,
+                  "result": "GOOD",
                   "impact": null,
                   "note": ""
                 },
                 "overdracht": {
-                  "result": null,
+                  "result": "GOOD",
                   "impact": null,
                   "note": ""
                 }
