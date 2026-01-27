@@ -34,7 +34,7 @@
 
     /* Optional: gebruikt door merged overlays om multi-kleur gradients te tonen (fallback: --sticky-bg) */
     --sticky-font-family: "Inter", sans-serif;
-    --sticky-font-size: 22px;
+    --sticky-font-size: 18px;
     --sticky-font-weight: 700;
 
     --bg-color: #121212;
