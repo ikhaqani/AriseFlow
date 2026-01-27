@@ -1,8 +1,8 @@
 import { state } from './state.js';
-import { renderBoard, setupDelegatedEvents, applyStateUpdate } from './dom.js';
+import { renderBoard, setupDelegatedEvents, applyStateUpdate } from './dom.js?v=20260127_1450';
 import { openEditModal, saveModalDetails } from './modals.js';
 // GITHUB INTEGRATIE: Imports toegevoegd
-import { saveToFile, loadFromFile, exportToCSV, exportHD, saveToGitHub, loadFromGitHub } from './io.js';
+import { saveToFile, loadFromFile, exportToCSV, exportHD, saveToGitHub, loadFromGitHub } from './io.js?v=20260127_1450';
 import { Toast } from './toast.js';
 import { initStickyFontSizeUI } from "./sticky_font_ui.js";
 

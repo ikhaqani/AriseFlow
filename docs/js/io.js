@@ -2,7 +2,6 @@
 // + FIX: Groepsnamen zichtbaar in exportHD
 // + FIX: Procesvalidatie export checkt gate completeness
 // + FIX: Merge-groups (incl. gate + systemsMeta) worden nu ook persistente data bij Save/Load (JSON + GitHub)
-// + FIX: NVT (System Fit) wordt meegenomen in CSV export: TTF Scores = "NVT", overige sysfit velden leeg
 
 import { state } from './state.js';
 import { Toast } from './toast.js';
@@ -645,10 +644,6 @@ function sanitizeSystemsMeta(meta) {
 
 function computeTTFSystemScore(sys) {
   const qa = sys?.qa && typeof sys.qa === 'object' ? sys.qa : {};
-
-  // NVT: niet meenemen in scoreberekening
-  if (qa.__nvt === true) return null;
-
   let sum = 0;
   let nAns = 0;
 
@@ -667,8 +662,6 @@ function computeTTFSystemScore(sys) {
 
 function getSysAnswerLabel(sys, qid) {
   const qa = sys?.qa && typeof sys.qa === 'object' ? sys.qa : {};
-  if (qa.__nvt === true) return '';
-
   const q = SYSFIT_Q.find((x) => x.id === qid);
   if (!q) return '';
   const key = qa[qid];
@@ -679,7 +672,6 @@ function getSysAnswerLabel(sys, qid) {
 
 function getSysNote(sys, qid) {
   const qa = sys?.qa && typeof sys.qa === 'object' ? sys.qa : {};
-  if (qa.__nvt === true) return '';
   return String(qa[qid + '_note'] || '').trim();
 }
 
@@ -729,17 +721,9 @@ function systemsToLists(meta) {
     .map((s) => String(s?.future || '').trim())
     .filter(Boolean);
 
-  // ✅ NVT export: TTF Scores = "NVT"
-  const ttfScores = systems.map((sys) => {
-    const qa = sys?.qa && typeof sys.qa === 'object' ? sys.qa : {};
-    if (qa.__nvt === true) return 'NVT';
-
-    const stored = sys?.score;
-    if (Number.isFinite(Number(stored))) return `${Number(stored)}%`;
-
-    const computed = computeTTFSystemScore(sys);
-    return computed == null ? '' : `${Number(computed)}%`;
-  });
+  const ttfScores = computeTTFScoreListFromMeta({ ...clean, systems }).map((v) =>
+    Number.isFinite(Number(v)) ? `${Number(v)}%` : '—'
+  );
 
   const sysWorkarounds = systems.map((s) => getSysAnswerLabel(s, 'q1'));
   const sysWorkaroundsNotes = systems.map((s) => getSysNote(s, 'q1'));
@@ -1015,13 +999,8 @@ export function loadFromFile(file, onSuccess) {
       // ✅ Restore merge groups naar localStorage vóór render
       restoreMergeGroupsToLocalStorage(parsed);
 
-      // ✅ Update state (compat: data + project)
-      state.data = parsed;
-      try {
-        state.project = parsed;
-      } catch {
-        /* ignore */
-      }
+      // ✅ Update state
+      state.project = parsed;
 
       if (typeof state.notify === 'function') state.notify();
       if (onSuccess) onSuccess();
@@ -1114,10 +1093,6 @@ export function exportToCSV() {
     const lines = [headers.map(toCsvField).join(';')];
 
     const project = state.data;
-
-    if (!project || !Array.isArray(project.sheets)) {
-      throw new Error('Geen project data gevonden (state.data ontbreekt of is ongeldig).');
-    }
 
     // Output UIDs afdwingen voor stabiele mapping (ook zonder eerdere exports)
     ensureOutputUids(project);
@@ -1384,9 +1359,8 @@ export function exportToCSV() {
     const blob = new Blob(['\uFEFF' + lines.join('\n')], { type: 'text/csv;charset=utf-8;' });
     downloadBlob(blob, getFileName('csv'));
   } catch (e) {
-    console.error('CSV export error:', e);
-    const msg = e && (e.message || String(e)) ? (e.message || String(e)) : 'onbekend';
-    Toast.show('Fout bij genereren CSV: ' + msg, 'error', 6000);
+    console.error(e);
+    Toast.show('Fout bij genereren CSV', 'error');
   }
 }
 
@@ -1586,14 +1560,7 @@ export async function loadFromGitHub() {
   // ✅ Restore merge-groups naar localStorage vóór render
   restoreMergeGroupsToLocalStorage(parsed);
 
-  // ✅ Update state (compat: data + project)
-  state.data = parsed;
-  try {
-    state.project = parsed;
-  } catch {
-    /* ignore */
-  }
-
+  state.project = parsed;
   if (typeof state.notify === 'function') state.notify();
 
   return true;
@@ -1623,7 +1590,7 @@ export async function saveToGitHub() {
       const getData = await getResp.json();
       sha = getData.sha;
     }
-  } catch {
+  } catch (e) {
     console.warn('Bestand bestaat nog niet, er wordt een nieuwe gemaakt.');
   }
 

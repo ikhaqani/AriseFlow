@@ -10,6 +10,25 @@ import {
   DEFINITION_TYPES
 } from './config.js';
 
+
+/* ===== SYSFIT NVT HELPERS ===== */
+function _sysfitSetNvt(system, isNvt) {
+  if (!system || typeof system !== "object") return;
+  if (!system.qa || typeof system.qa !== "object") system.qa = {};
+  system.qa.__nvt = !!isNvt;
+
+  // Als NVT: maak antwoorden/notes leeg zodat je niet "per ongeluk" toch iets scoort
+  if (system.qa.__nvt) {
+    ["q1","q2","q3","q4","q5"].forEach((k) => { delete system.qa[k]; });
+    ["q1_note","q2_note","q3_note","q4_note","q5_note"].forEach((k) => { delete system.qa[k]; });
+    delete system.score; // force recompute/empty
+  }
+}
+function _sysfitIsNvt(system) {
+  return !!(system && system.qa && typeof system.qa === "object" && system.qa.__nvt === true);
+}
+/* ===== END SYSFIT NVT HELPERS ===== */
+
 let editingSticky = null;
 let areListenersAttached = false;
 
@@ -729,8 +748,31 @@ function persistSystemTabFromDOM(contentEl, data) {
     const isLegacy = !!card.querySelector('.sys-legacy')?.checked;
     const futureSystem = card.querySelector('.sys-future')?.value || '';
 
+    // --- FIX START: Check ALL types of NVT inputs + DOM ATTRIBUTE ---
+    const cb1 = card.querySelector('.sysfitNvtCheck');
+    const cb2 = card.querySelector('.sysfitNvtCheckGlobal');
+    const btn = card.querySelector('.sysfitNvtBtn');
+    
+    // Check if the card itself was marked as NVT via the live handler
+    const dataAttr = card.getAttribute('data-is-nvt') === 'true';
+
+    const isNvt = dataAttr ||
+                  (cb1 && cb1.checked) || 
+                  (cb2 && cb2.checked) || 
+                  (btn && btn.getAttribute('aria-pressed') === 'true');
+    // --- FIX END ---
+
     const qa = {};
+    if (isNvt) {
+        qa.__nvt = true;
+    }
+
     SYSTEM_QUESTIONS.forEach((q) => {
+      // Als NVT aanstaat, slaan we geen antwoorden op (null)
+      if (isNvt) {
+          qa[q.id] = null;
+          return;
+      }
       const sel = `input[name="sys_${CSS.escape(sysId)}_${CSS.escape(q.id)}"]`;
       const vStr = contentEl.querySelector(sel)?.value ?? '';
       if (vStr === '') {
@@ -741,9 +783,14 @@ function persistSystemTabFromDOM(contentEl, data) {
       qa[q.id] = Number.isFinite(n) ? n : null;
     });
 
-    const score = computeSystemScoreFromAnswers(
-      Object.fromEntries(Object.entries(qa).filter(([, v]) => Number.isFinite(Number(v))))
-    );
+    // --- FIX START: Score is NULL als NVT aanstaat ---
+    let score = null;
+    if (!isNvt) {
+        score = computeSystemScoreFromAnswers(
+          Object.fromEntries(Object.entries(qa).filter(([, v]) => Number.isFinite(Number(v))))
+        );
+    }
+    // --- FIX END ---
 
     nextSystems.push({
       id: sysId,
@@ -798,17 +845,29 @@ const renderSystemTab = (data) => {
     const name = sys.name || '';
     const isLegacy = !!sys.isLegacy;
     const future = sys.futureSystem || '';
+    window.__sysfitSystemsById = window.__sysfitSystemsById || {};
+    window.__sysfitSystemsById[String(sysId)] = sys;
     const qa = sys.qa || {};
 
+    const isNvt = !!(qa && qa.__nvt === true);
+    const isDisabled = noSystem || isNvt;
+
+    // Added data-is-nvt attribute to ensure sync
     html += `
-      <div class="system-card" data-sys-id="${escapeAttr(sysId)}"
+      <div class="system-card" data-sys-id="${escapeAttr(sysId)}" data-is-nvt="${isNvt ? 'true' : 'false'}"
            style="background: rgba(0,0,0,0.18); border: 1px solid rgba(255,255,255,0.10); border-radius: 12px; padding: 12px;">
         <div style="display:flex; justify-content:space-between; align-items:center; gap:10px; margin-bottom:10px;">
           <div style="font-weight:900; font-size:12px; letter-spacing:.6px; text-transform:uppercase; opacity:.9;">
             ${isMulti ? `Systeem ${idx + 1}` : 'Systeem'}
           </div>
 
-          <button class="std-btn danger-text" type="button"
+          
+          <label class="sysfit-nvt-toggle" style="display:flex;align-items:center;gap:8px;font-size:13px;opacity:.92;">
+            <input type="checkbox" class="sysfitNvtCheck" data-sys-id="${escapeAttr(sysId)}"
+              ${isNvt ? "checked" : ""} />
+            NVT
+          </label>
+<button class="std-btn danger-text" type="button"
                   data-action="remove-system"
                   ${(noSystem || systems.length <= 1) ? 'disabled' : ''}
                   style="padding:6px 10px; font-size:12px;">
@@ -840,12 +899,37 @@ const renderSystemTab = (data) => {
         </div>
 
         <div style="margin-top:12px; padding-top:12px; border-top:1px solid rgba(255,255,255,0.08);">
-          <div class="modal-label" style="margin-top:0;">System Fit vragen</div>
-          <div class="io-helper" style="margin-top:6px; margin-bottom:10px;">
+          
+<div class="modal-label" style="margin-top:0;">
+System Fit vragen</div>
+
+<div class="sysfit-nvt-row" style="display:flex;align-items:center;gap:12px;margin:10px 0 14px 0;">
+  <label style="display:flex;align-items:center;gap:10px;font-size:14px;cursor:pointer;">
+    <input type="checkbox" class="sysfitNvtCheckGlobal" ${isNvt ? "checked" : ""} />
+    <strong style="letter-spacing:.2px;">NVT (niet beoordeelbaar)</strong>
+  </label>
+  <span class="sysfitNvtHintGlobal" style="opacity:.78;font-size:13px;">
+    Bijv. extern systeem / geen zicht op performance.
+  </span>
+</div>
+
+
+<div class="sysfit-nvt-row" style="display:flex;align-items:center;gap:10px;margin:6px 0 10px 0;">
+  <button type="button" class="sysfitNvtBtn"
+    style="font-weight:800;padding:6px 10px;border-radius:10px;border:1px solid rgba(255,255,255,.18);background:rgba(255,255,255,.08);color:#fff;cursor:pointer;"
+    aria-pressed="${isNvt ? "true" : "false"}">
+    ${isNvt ? "✓ NVT" : "NVT"}
+  </button>
+  <span class="sysfitNvtHint" style="opacity:.75;font-size:13px;">
+    ${isNvt ? "NVT actief: System Fit vragen worden niet meegenomen in score/export." : "Bijv. extern systeem / geen zicht op performance."}
+  </span>
+</div>
+
+<div class="io-helper" style="margin-top:6px; margin-bottom:10px;">
             Beantwoord per vraag hoe goed dit systeem jouw taak ondersteunt.
           </div>
 
-          <div style="${noSystem ? 'opacity:0.6; pointer-events:none; filter:grayscale(0.2);' : ''}">
+          <div class="system-questions-container" style="${isDisabled ? 'opacity:0.4; pointer-events:none; filter:grayscale(1);' : ''}">
             ${SYSTEM_QUESTIONS
               .map((q) => {
                 const currentVal = qa[q.id] !== undefined ? qa[q.id] : null;
@@ -870,9 +954,7 @@ const renderSystemTab = (data) => {
           </div>
 
           <div style="margin-top:10px; font-size:12px; opacity:.9;">
-            Score (dit systeem): <span class="sys-score" data-sys-score="${escapeAttr(sysId)}">${
-              Number.isFinite(Number(sys.calculatedScore)) ? `${sys.calculatedScore}%` : '—'
-            }</span>
+            Score (dit systeem): <span class="sys-score" data-sys-score="${escapeAttr(sysId)}">${isNvt ? "" : (Number.isFinite(Number(sys.calculatedScore)) ? (String(sys.calculatedScore) + "%") : "—")}</span>
           </div>
         </div>
       </div>
@@ -2231,48 +2313,8 @@ export function saveModalDetails(closeModal = true) {
     sd.isMulti = sd.noSystem ? false : !!content.querySelector('#sysMultiEnable')?.checked;
 
     if (!sd.noSystem) {
-      const cards = content.querySelectorAll('.system-card');
-      const nextSystems = [];
-
-      cards.forEach((card) => {
-        const sysId = card.dataset.sysId;
-        const name = card.querySelector('.sys-name')?.value || '';
-        const isLegacy = !!card.querySelector('.sys-legacy')?.checked;
-        const futureSystem = card.querySelector('.sys-future')?.value || '';
-
-        const qa = {};
-        SYSTEM_QUESTIONS.forEach((q) => {
-          const sel = `input[name="sys_${CSS.escape(sysId)}_${CSS.escape(q.id)}"]`;
-          const vStr = content.querySelector(sel)?.value ?? '';
-          if (vStr === '') {
-            qa[q.id] = null;
-            return;
-          }
-          const n = parseInt(vStr, 10);
-          qa[q.id] = Number.isFinite(n) ? n : null;
-        });
-
-        const score = computeSystemScoreFromAnswers(
-          Object.fromEntries(Object.entries(qa).filter(([, v]) => Number.isFinite(Number(v))))
-        );
-
-        nextSystems.push({
-          id: String(sysId),
-          name: String(name),
-          isLegacy,
-          futureSystem: String(futureSystem),
-          qa,
-          calculatedScore: score
-        });
-      });
-
-      sd.systems = nextSystems.length ? nextSystems : sd.systems;
-
-      sd.systemName = sd.systems?.[0]?.name || '';
-
-      const scores = sd.systems.map((s) => s.calculatedScore).filter((x) => x != null);
-      sd.calculatedScore =
-        scores.length === 0 ? null : Math.round(scores.reduce((a, b) => a + b, 0) / scores.length);
+      // GEBRUIK GEDEELDE FUNCTIE VOOR HET OPSLAAN VAN SYSTEEMDATA
+      persistSystemTabFromDOM(content, data);
     }
 
     // ===== SYSTEM MERGE APPLY =====
@@ -2932,3 +2974,112 @@ export function openVariantModal(colIdx) {
     close();
   };
 }
+
+
+/* ===== SYSFIT NVT HANDLER (GLOBAL CHECK) ===== */
+(function(){
+  // Helper to find system object from the DOM element (checkbox)
+  function _getSystemFromEl(el) {
+    const card = el.closest('.system-card');
+    if (!card) return null;
+    const sysId = card.dataset.sysId;
+    if (window.__sysfitSystemsById && window.__sysfitSystemsById[sysId]) {
+      return window.__sysfitSystemsById[sysId];
+    }
+    return null;
+  }
+
+  // Update UI for a specific card based on NVT state
+  function _updateCardUi(card, isNvt) {
+    if (!card) return;
+    
+    // 0. Update DATA attribute (Crucial for persistence)
+    card.setAttribute('data-is-nvt', isNvt ? 'true' : 'false');
+
+    // 1. Header Checkbox
+    const cbHead = card.querySelector('.sysfitNvtCheck');
+    if (cbHead) cbHead.checked = isNvt;
+
+    // 2. Global Checkbox
+    const cbGlob = card.querySelector('.sysfitNvtCheckGlobal');
+    if (cbGlob) cbGlob.checked = isNvt;
+
+    // 3. Button
+    const btn = card.querySelector('.sysfitNvtBtn');
+    if (btn) {
+        btn.textContent = isNvt ? "✓ NVT" : "NVT";
+        btn.setAttribute("aria-pressed", isNvt ? "true" : "false");
+    }
+    
+    // 4. Hint Text
+    const hint = card.querySelector('.sysfitNvtHint');
+    if (hint) {
+       hint.textContent = isNvt
+        ? "NVT actief: System Fit vragen worden niet meegenomen in score/export."
+        : "Bijv. extern systeem / geen zicht op performance.";
+    }
+
+    // 5. Disable Questions (Visual)
+    const questionsContainer = card.querySelector('.system-questions-container');
+    if (questionsContainer) {
+        questionsContainer.style.opacity = isNvt ? '0.4' : '1';
+        questionsContainer.style.pointerEvents = isNvt ? 'none' : 'auto';
+        questionsContainer.style.filter = isNvt ? 'grayscale(1)' : 'none';
+    }
+    
+    // 6. Clear Score Display
+    const scoreEl = card.querySelector('.sys-score');
+    if (scoreEl) {
+        if (isNvt) scoreEl.textContent = "";
+    }
+  }
+
+  document.addEventListener("change", (ev) => {
+    // Handle Global Checkbox
+    if (ev.target && ev.target.classList.contains("sysfitNvtCheckGlobal")) {
+        const cb = ev.target;
+        const isNvt = cb.checked;
+        const sys = _getSystemFromEl(cb);
+        
+        if (sys) {
+             _sysfitSetNvt(sys, isNvt); // Updates the data object
+        }
+        
+        const card = cb.closest('.system-card');
+        _updateCardUi(card, isNvt);
+        return;
+    }
+    
+    // Handle Header Checkbox (sysfitNvtCheck)
+    if (ev.target && ev.target.classList.contains("sysfitNvtCheck")) {
+        const cb = ev.target;
+        const isNvt = cb.checked;
+        const sys = _getSystemFromEl(cb);
+        if (sys) {
+             _sysfitSetNvt(sys, isNvt);
+        }
+        const card = cb.closest('.system-card');
+        _updateCardUi(card, isNvt);
+        return;
+    }
+  });
+
+  // Handle Button Click (sysfitNvtBtn)
+  document.addEventListener("click", (ev) => {
+    const btn = ev.target && ev.target.closest ? ev.target.closest(".sysfitNvtBtn") : null;
+    if (!btn) return;
+    
+    const card = btn.closest('.system-card');
+    // Toggle state
+    const currentPressed = btn.getAttribute("aria-pressed") === "true";
+    const nextState = !currentPressed;
+    
+    const sys = _getSystemFromEl(btn);
+    if (sys) {
+        _sysfitSetNvt(sys, nextState);
+    }
+    
+    _updateCardUi(card, nextState);
+  });
+})();
+/* ===== SYSFIT NVT END HANDLER (GLOBAL CHECK) ===== */

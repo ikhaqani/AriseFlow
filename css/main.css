@@ -2346,3 +2346,11 @@ input, textarea, [contenteditable], [contenteditable="true"], .text[contentedita
   line-height: 1.05 !important;
 }
 
+
+/* ===== SYSFIT NVT (visible) ===== */
+.sysfit-nvt-toggle{
+  border: 2px solid #ff3b30 !important;
+  background: rgba(255,59,48,0.12) !important;
+}
+/* ===== END SYSFIT NVT (visible) ===== */
+

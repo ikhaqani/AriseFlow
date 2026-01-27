@@ -202,7 +202,8 @@ class StateManager {
       const base = legacyName
         ? [this._sanitizeSystemEntry({ name: legacyName })]
         : [this._sanitizeSystemEntry({})];
-      sd.systemsMeta = { multi: false, systems: base, activeSystemIdx: 0 };
+      sd.systemsMeta = StateManager.__preserveSysfitNvt(sd.systemsMeta, { multi: false, systems: base, activeSystemIdx: 0 });
+
     } else {
       const meta = sd.systemsMeta && typeof sd.systemsMeta === 'object' ? sd.systemsMeta : {};
       const systems = Array.isArray(meta.systems)
@@ -216,11 +217,12 @@ class StateManager {
         ? Number(meta.activeSystemIdx)
         : 0;
 
-      sd.systemsMeta = {
+      sd.systemsMeta = StateManager.__preserveSysfitNvt(sd.systemsMeta, {
         multi,
         systems: safeSystems,
         activeSystemIdx: Math.max(0, Math.min(safeSystems.length - 1, activeSystemIdx))
-      };
+      });
+
     }
 
     if (!Number.isFinite(Number(sd.calculatedScore))) sd.calculatedScore = null;
