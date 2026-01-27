@@ -34,7 +34,7 @@
 
     /* Optional: gebruikt door merged overlays om multi-kleur gradients te tonen (fallback: --sticky-bg) */
     --sticky-font-family: "Inter", sans-serif;
-    --sticky-font-size: 15px;
+    --sticky-font-size: 22px;
     --sticky-font-weight: 700;
 
     --bg-color: #121212;
@@ -2239,3 +2239,11 @@ input, textarea, [contenteditable], [contenteditable="true"], .text[contentedita
   box-sizing: border-box;
 }
 
+
+/* Sticky font sizing */
+.sticky,
+.sticky textarea,
+.sticky .content,
+.sticky .sticky-text{
+  font-size: var(--sticky-font-size) !important;
+}
