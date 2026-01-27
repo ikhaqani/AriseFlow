@@ -189,7 +189,7 @@ body {
 }
 
 .toggle-icon {
-    font-size: 10px;
+    font-size: 18px;
     transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 
@@ -2291,3 +2291,37 @@ input, textarea, [contenteditable], [contenteditable="true"], .text[contentedita
 .sticky{
   overflow: visible !important;
 }
+
+
+
+/* ARISE LABEL/ID SIZE OVERRIDES */
+:root{
+  --label-font-size: 24px;
+}
+
+/* OUT/IN id tags */
+.id-tag{
+  font-size: var(--label-font-size) !important;
+  line-height: 1.05 !important;
+}
+
+/* Score badges (bijv. TTF/QA score) */
+.qa-score-badge{
+  font-size: var(--label-font-size) !important;
+  line-height: 1.05 !important;
+  padding: 3px 8px !important; /* iets ruimer voor 24px */
+}
+
+/* Gate footer labels (TTF e.d.) — fallback op meerdere classnames */
+.auth-badge,
+.sticky .auth-badge,
+.auth-label,
+.sticky .auth-label,
+.auth-kv .k,
+.sticky .auth-kv .k,
+.auth-kv .v,
+.sticky .auth-kv .v{
+  font-size: var(--label-font-size) !important;
+  line-height: 1.05 !important;
+}
+
