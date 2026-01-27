@@ -5361,6 +5361,21 @@
             5
           ]
         }
+      ],
+      "mergeGroupsV2": [
+        {
+          "slotIdx": 4,
+          "cols": [
+            1,
+            2
+          ],
+          "master": 2,
+          "label": "Merged Output",
+          "gate": {
+            "enabled": false,
+            "failTargetColIdx": 0
+          }
+        }
       ]
     },
     {
@@ -21024,7 +21039,7 @@
             {
               "id": "50d4136c-cd63-46a0-9715-70ff5ca0a307",
               "created": 1769074443372,
-              "text": "",
+              "text": "Time-out status: geslaagd",
               "linkedSourceId": null,
               "type": null,
               "processValue": null,
@@ -21083,7 +21098,17 @@
               "disruptions": [],
               "workExp": null,
               "workExpNote": "",
-              "outputUid": "out_ef25774b-ad43-41f7-b026-d4e535317e02"
+              "outputUid": "out_ef25774b-ad43-41f7-b026-d4e535317e02",
+              "outputData": {
+                "gate": {
+                  "enabled": true,
+                  "failTargetColIdx": 2
+                }
+              },
+              "gate": {
+                "enabled": true,
+                "failTargetColIdx": 2
+              }
             },
             {
               "id": "212a7a55-e9f0-4c4c-9a50-141354f32cf5",
