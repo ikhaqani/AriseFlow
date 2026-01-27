@@ -4,7 +4,7 @@
   "author": "Anoniem",
   "created": "2026-01-16T08:48:17.021Z",
   "version": "2.7",
-  "activeSheetId": "858c26e5-f7ec-4311-b503-641f99e65c84",
+  "activeSheetId": "dc945f9e-80a8-454c-b355-ca66f4d539e8",
   "sheets": [
     {
       "id": "819bb6d9-21cc-49cf-8c40-4b6d7df6b2e1",
@@ -3441,27 +3441,33 @@
               "improvements": [],
               "qa": {
                 "compleet": {
-                  "result": null,
-                  "note": ""
+                  "result": "MINOR",
+                  "impact": "C",
+                  "note": "Het kan voorkomen dat er nog informatie mist, maar dat horen we dus later in het proces van de arts. "
                 },
                 "kwaliteit": {
-                  "result": null,
+                  "result": "GOOD",
+                  "impact": null,
                   "note": ""
                 },
                 "duidelijkheid": {
-                  "result": null,
+                  "result": "GOOD",
+                  "impact": null,
                   "note": ""
                 },
                 "tijdigheid": {
-                  "result": null,
+                  "result": "GOOD",
+                  "impact": null,
                   "note": ""
                 },
                 "standaard": {
-                  "result": null,
+                  "result": "GOOD",
+                  "impact": null,
                   "note": ""
                 },
                 "overdracht": {
-                  "result": null,
+                  "result": "GOOD",
+                  "impact": null,
                   "note": ""
                 }
               },
@@ -3486,7 +3492,18 @@
                   }
                 ]
               },
-              "inputDefinitions": [],
+              "inputDefinitions": [
+                {
+                  "item": "Persoonsgegevens",
+                  "specifications": "BSN, geboortedatum, achternaam, telefoonnummer, e-mailadres.",
+                  "type": "HARD"
+                },
+                {
+                  "item": "Verwijsbrief",
+                  "specifications": "Verwijzer, afdeling verwijzer, diagnose, verslag.",
+                  "type": "HARD"
+                }
+              ],
               "disruptions": [],
               "workExp": null,
               "workExpNote": "",
@@ -3503,9 +3520,9 @@
               "created": 1768627856705,
               "text": "Verwijzen patiënt",
               "linkedSourceId": null,
-              "type": null,
-              "processValue": null,
-              "processStatus": null,
+              "type": "Taak",
+              "processValue": "BNVA",
+              "processStatus": "HAPPY",
               "successFactors": "",
               "causes": [],
               "improvements": [],
@@ -3558,7 +3575,7 @@
               },
               "inputDefinitions": [],
               "disruptions": [],
-              "workExp": null,
+              "workExp": "ROUTINE",
               "workExpNote": ""
             },
             {
@@ -4274,7 +4291,7 @@
               "systemData": {
                 "isMulti": false,
                 "systemName": "",
-                "calculatedScore": 93,
+                "calculatedScore": 80,
                 "systems": [
                   {
                     "id": "9e42f818-2e56-4fff-b93c-be2d970ce45a",
@@ -4292,21 +4309,21 @@
                   }
                 ],
                 "systemsMeta": {
-                  "multi": false,
+                  "multi": true,
                   "systems": [
                     {
-                      "name": "Extern Ziekenhuissysteem",
+                      "name": "Beveiligde mail / Brief per post",
                       "legacy": false,
                       "future": "",
                       "qa": {
                         "q1": "NEVER",
-                        "q1_note": "Het is een basis mailtje. ",
                         "q2": "NEVER",
-                        "q3": "NEVER",
-                        "q4": "NEVER",
+                        "q3": "SOMETIMES",
+                        "q4": "SOMETIMES",
+                        "q4_note": "Je kan een mail ontvangen zonder bijlage, maar dat ligt buiten ons ",
                         "q5": "DELAY"
                       },
-                      "score": 93
+                      "score": 80
                     }
                   ],
                   "activeSystemIdx": 0
@@ -4694,7 +4711,7 @@
               "systemData": {
                 "isMulti": false,
                 "systemName": "",
-                "calculatedScore": null,
+                "calculatedScore": 80,
                 "systems": [
                   {
                     "id": "c68d96ba-2fbf-48f1-827a-5202bc908a0c",
@@ -4710,7 +4727,27 @@
                     },
                     "calculatedScore": null
                   }
-                ]
+                ],
+                "systemsMeta": {
+                  "multi": true,
+                  "systems": [
+                    {
+                      "name": "Beveiligde mail / Brief per post",
+                      "legacy": false,
+                      "future": "",
+                      "qa": {
+                        "q1": "NEVER",
+                        "q2": "NEVER",
+                        "q3": "SOMETIMES",
+                        "q4": "SOMETIMES",
+                        "q4_note": "Je kan een mail ontvangen zonder bijlage, maar dat ligt buiten ons ",
+                        "q5": "DELAY"
+                      },
+                      "score": 80
+                    }
+                  ],
+                  "activeSystemIdx": 0
+                }
               },
               "inputDefinitions": [],
               "disruptions": [],
@@ -5110,7 +5147,7 @@
               "systemData": {
                 "isMulti": false,
                 "systemName": "",
-                "calculatedScore": null,
+                "calculatedScore": 80,
                 "systems": [
                   {
                     "id": "15a870c6-5644-4276-acf5-19b689f9fa71",
@@ -5126,7 +5163,27 @@
                     },
                     "calculatedScore": null
                   }
-                ]
+                ],
+                "systemsMeta": {
+                  "multi": true,
+                  "systems": [
+                    {
+                      "name": "Beveiligde mail / Brief per post",
+                      "legacy": false,
+                      "future": "",
+                      "qa": {
+                        "q1": "NEVER",
+                        "q2": "NEVER",
+                        "q3": "SOMETIMES",
+                        "q4": "SOMETIMES",
+                        "q4_note": "Je kan een mail ontvangen zonder bijlage, maar dat ligt buiten ons ",
+                        "q5": "DELAY"
+                      },
+                      "score": 80
+                    }
+                  ],
+                  "activeSystemIdx": 0
+                }
               },
               "inputDefinitions": [],
               "disruptions": [],
@@ -5446,6 +5503,38 @@
             4,
             5
           ]
+        }
+      ],
+      "mergeGroupsV2": [
+        {
+          "slotIdx": 1,
+          "cols": [
+            3,
+            4,
+            5
+          ],
+          "master": 5,
+          "label": "Merged System",
+          "systemsMeta": {
+            "multi": true,
+            "systems": [
+              {
+                "name": "Beveiligde mail / Brief per post",
+                "legacy": false,
+                "future": "",
+                "qa": {
+                  "q1": "NEVER",
+                  "q2": "NEVER",
+                  "q3": "SOMETIMES",
+                  "q4": "SOMETIMES",
+                  "q4_note": "Je kan een mail ontvangen zonder bijlage, maar dat ligt buiten ons ",
+                  "q5": "DELAY"
+                },
+                "score": 80
+              }
+            ],
+            "activeSystemIdx": 0
+          }
         }
       ]
     },
@@ -7568,7 +7657,7 @@
               "systemData": {
                 "isMulti": false,
                 "systemName": "",
-                "calculatedScore": 64,
+                "calculatedScore": 67,
                 "systems": [
                   {
                     "id": "4023d367-4c39-4823-9f7a-1700ee4c02d5",
@@ -7598,9 +7687,10 @@
                         "q3_note": "Geen dubbel registratie maar wel werken in meerdere systemen",
                         "q4": "ALWAYS",
                         "q4_note": "Die ruimte bestaat maar gebeurd niet vaak",
-                        "q5": "DELAY"
+                        "q5": "DELAY",
+                        "q3": "NEVER"
                       },
-                      "score": 67
+                      "score": 73
                     },
                     {
                       "name": "Epic",
@@ -7640,28 +7730,28 @@
               "qa": {
                 "compleet": {
                   "result": "MINOR",
-                  "impact": "B",
-                  "note": "Arts contacteren om te achterhalen wat ze concreeet willen"
+                  "impact": "C",
+                  "note": "Indien het gegevensverzoek onduidelijk is, wordt de arts gecontacteerd om te verduidelijken welke specifieke informatie vereist is."
                 },
                 "kwaliteit": {
-                  "result": "MINOR",
+                  "result": "GOOD",
                   "impact": null,
                   "note": ""
                 },
                 "duidelijkheid": {
                   "result": "MINOR",
-                  "impact": "B",
-                  "note": "Vaak goed, maar sommige artsen communiceren niet duidelijk"
+                  "impact": "C",
+                  "note": "De communicatie is meestal eenduidig, maar bij bepaalde artsen is er soms onduidelijkheid, waardoor verdere toelichting nodig is."
                 },
                 "tijdigheid": {
                   "result": "MINOR",
-                  "impact": "B",
-                  "note": "Afhankelijk van externe partijen"
+                  "impact": "C",
+                  "note": "De tijdigheid van de informatie is afhankelijk van externe partijen, waardoor vertragingen mogelijk zijn."
                 },
                 "standaard": {
                   "result": "FAIL",
-                  "impact": null,
-                  "note": "Kan veel meerdere systemen zoals epic, radiotherapie web, bellen, binnenlopen.  1 systeem is voorkeur.  Standaardiseren niet vaak mogelijk omdat heel veel  uitzonderingen daarom vrije tekst veld.  "
+                  "impact": "A",
+                  "note": "Hoewel één systeem de voorkeur heeft, worden meerdere systemen gebruikt (zoals Epic, Radiotherapie Web, telefonische communicatie en persoonlijk contact), wat de standaardisatie bemoeilijkt. Omdat er veel uitzonderingen zijn, wordt in veel gevallen gebruikgemaakt van vrije tekstvelden om flexibiliteit te behouden."
                 },
                 "overdracht": {
                   "result": "GOOD",
@@ -7712,10 +7802,12 @@
               "processStatus": "NEUTRAL",
               "successFactors": "",
               "causes": [
-                "Gegevens komen incompleet binnen"
+                "Incomplete verwijzingen van externe ziekenhuizen, wat extra werk en vertragingen veroorzaakt.",
+                "Inefficiëntie en verwarring die ontstaat door het werken met verschillende systemen"
               ],
               "improvements": [
-                "Gegevens compleet binnnen krijgen"
+                "Duidelijke richtlijnen over welke gegevens nodig zijn",
+                "De oplossing is werken vanuit één systeem, wat zorgt voor minder afleidingen en betere focus op de belangrijkste taken, zonder de extra belasting van meerdere platforms."
               ],
               "qa": {
                 "compleet": {
@@ -7905,430 +7997,6 @@
           "isConditional": true
         },
         {
-          "id": "72e7d0b3-c56b-4bc9-b34a-15bf38f8c6d9",
-          "order": 1,
-          "isVisible": true,
-          "isParallel": false,
-          "isVariant": true,
-          "hasTransition": false,
-          "transitionNext": "",
-          "outputId": null,
-          "slots": [
-            {
-              "id": "8e217223-2799-4bda-be31-afaae7fd8bdf",
-              "created": 1768844193710,
-              "text": "Huisarts / Medisch specialist",
-              "linkedSourceId": null,
-              "type": null,
-              "processValue": null,
-              "processStatus": null,
-              "successFactors": "",
-              "causes": [],
-              "improvements": [],
-              "qa": {
-                "compleet": {
-                  "result": "",
-                  "note": ""
-                },
-                "kwaliteit": {
-                  "result": "",
-                  "note": ""
-                },
-                "duidelijkheid": {
-                  "result": "",
-                  "note": ""
-                },
-                "tijdigheid": {
-                  "result": "",
-                  "note": ""
-                },
-                "standaard": {
-                  "result": "",
-                  "note": ""
-                },
-                "overdracht": {
-                  "result": "",
-                  "note": ""
-                }
-              },
-              "systemData": {
-                "isMulti": false,
-                "systemName": "",
-                "calculatedScore": null,
-                "systems": [
-                  {
-                    "id": "33973af9-c79b-4d18-ac7c-55394a418acb",
-                    "name": "",
-                    "isLegacy": false,
-                    "futureSystem": "",
-                    "qa": {
-                      "workarounds": null,
-                      "performance": null,
-                      "double": null,
-                      "error": null,
-                      "depend": null
-                    },
-                    "calculatedScore": null
-                  }
-                ]
-              },
-              "inputDefinitions": [],
-              "disruptions": [],
-              "workExp": null,
-              "workExpNote": ""
-            },
-            {
-              "id": "7e65627d-3cb3-4e0e-bbad-d961dd40c092",
-              "created": 1768844193710,
-              "text": "Epic / Beveiligde mail / Brief per post / Telefoonsysteem",
-              "linkedSourceId": null,
-              "type": null,
-              "processValue": null,
-              "processStatus": null,
-              "successFactors": "",
-              "causes": [],
-              "improvements": [],
-              "qa": {
-                "compleet": {
-                  "result": "",
-                  "note": ""
-                },
-                "kwaliteit": {
-                  "result": "",
-                  "note": ""
-                },
-                "duidelijkheid": {
-                  "result": "",
-                  "note": ""
-                },
-                "tijdigheid": {
-                  "result": "",
-                  "note": ""
-                },
-                "standaard": {
-                  "result": "",
-                  "note": ""
-                },
-                "overdracht": {
-                  "result": "",
-                  "note": ""
-                }
-              },
-              "systemData": {
-                "isMulti": false,
-                "systemName": "",
-                "calculatedScore": 0,
-                "systems": [
-                  {
-                    "id": "ccd92b0d-0566-48a2-a5d9-5adbd58892f9",
-                    "name": "",
-                    "isLegacy": false,
-                    "futureSystem": "",
-                    "qa": {
-                      "workarounds": null,
-                      "performance": null,
-                      "double": null,
-                      "error": null,
-                      "depend": null
-                    },
-                    "calculatedScore": null
-                  }
-                ],
-                "systemsMeta": {
-                  "multi": true,
-                  "systems": [
-                    {
-                      "name": "Hix / Beveiligde mail / Telefoonsysteem",
-                      "legacy": false,
-                      "future": "",
-                      "qa": {},
-                      "score": null
-                    },
-                    {
-                      "name": "Hix",
-                      "legacy": false,
-                      "future": "",
-                      "qa": {},
-                      "score": null
-                    }
-                  ],
-                  "activeSystemIdx": 0
-                }
-              },
-              "inputDefinitions": [],
-              "disruptions": [],
-              "workExp": null,
-              "workExpNote": ""
-            },
-            {
-              "id": "ed43fd37-4acb-478b-9ad5-48c3078c1dab",
-              "created": 1768844193710,
-              "text": "",
-              "linkedSourceId": null,
-              "type": null,
-              "processValue": null,
-              "processStatus": null,
-              "successFactors": "",
-              "causes": [],
-              "improvements": [],
-              "qa": {
-                "compleet": {
-                  "result": null,
-                  "note": ""
-                },
-                "kwaliteit": {
-                  "result": null,
-                  "note": ""
-                },
-                "duidelijkheid": {
-                  "result": null,
-                  "note": ""
-                },
-                "tijdigheid": {
-                  "result": null,
-                  "note": ""
-                },
-                "standaard": {
-                  "result": null,
-                  "note": ""
-                },
-                "overdracht": {
-                  "result": null,
-                  "note": ""
-                }
-              },
-              "systemData": {
-                "isMulti": false,
-                "systemName": "",
-                "calculatedScore": null,
-                "systems": [
-                  {
-                    "id": "8ed36801-8a06-480b-bff0-a0e51dfddb37",
-                    "name": "",
-                    "isLegacy": false,
-                    "futureSystem": "",
-                    "qa": {
-                      "workarounds": null,
-                      "performance": null,
-                      "double": null,
-                      "error": null,
-                      "depend": null
-                    },
-                    "calculatedScore": null
-                  }
-                ]
-              },
-              "inputDefinitions": [],
-              "disruptions": [],
-              "workExp": null,
-              "workExpNote": "",
-              "linkedBundleId": null,
-              "linkedBundleIds": null,
-              "linkedSourceUids": [
-                "out_38d4cc9d-fc8a-4b77-afe2-df6a6df41deb"
-              ],
-              "linkedSourceUid": "out_38d4cc9d-fc8a-4b77-afe2-df6a6df41deb",
-              "linkedSourceIds": []
-            },
-            {
-              "id": "6195810e-aa9f-47dd-90a7-520f9089c29f",
-              "created": 1768844193710,
-              "text": "Versturen gegevens",
-              "linkedSourceId": null,
-              "type": null,
-              "processValue": null,
-              "processStatus": null,
-              "successFactors": "",
-              "causes": [],
-              "improvements": [],
-              "qa": {
-                "compleet": {
-                  "result": "",
-                  "note": ""
-                },
-                "kwaliteit": {
-                  "result": "",
-                  "note": ""
-                },
-                "duidelijkheid": {
-                  "result": "",
-                  "note": ""
-                },
-                "tijdigheid": {
-                  "result": "",
-                  "note": ""
-                },
-                "standaard": {
-                  "result": "",
-                  "note": ""
-                },
-                "overdracht": {
-                  "result": "",
-                  "note": ""
-                }
-              },
-              "systemData": {
-                "isMulti": false,
-                "systemName": "",
-                "calculatedScore": null,
-                "systems": [
-                  {
-                    "id": "2caa4eae-fada-4745-8f9f-40aad345528a",
-                    "name": "",
-                    "isLegacy": false,
-                    "futureSystem": "",
-                    "qa": {
-                      "workarounds": null,
-                      "performance": null,
-                      "double": null,
-                      "error": null,
-                      "depend": null
-                    },
-                    "calculatedScore": null
-                  }
-                ]
-              },
-              "inputDefinitions": [],
-              "disruptions": [],
-              "workExp": null,
-              "workExpNote": ""
-            },
-            {
-              "id": "3dcaadf5-23cd-4849-8c71-e33bc44ecb27",
-              "created": 1768844193710,
-              "text": "Aanvullende gegevens",
-              "linkedSourceId": null,
-              "type": null,
-              "processValue": null,
-              "processStatus": null,
-              "successFactors": "",
-              "causes": [],
-              "improvements": [],
-              "qa": {
-                "compleet": {
-                  "result": "",
-                  "note": ""
-                },
-                "kwaliteit": {
-                  "result": "",
-                  "note": ""
-                },
-                "duidelijkheid": {
-                  "result": "",
-                  "note": ""
-                },
-                "tijdigheid": {
-                  "result": "",
-                  "note": ""
-                },
-                "standaard": {
-                  "result": "",
-                  "note": ""
-                },
-                "overdracht": {
-                  "result": "",
-                  "note": ""
-                }
-              },
-              "systemData": {
-                "isMulti": false,
-                "systemName": "",
-                "calculatedScore": null,
-                "systems": [
-                  {
-                    "id": "c5098788-f343-4de4-ada6-a81a09e3ca7d",
-                    "name": "",
-                    "isLegacy": false,
-                    "futureSystem": "",
-                    "qa": {
-                      "workarounds": null,
-                      "performance": null,
-                      "double": null,
-                      "error": null,
-                      "depend": null
-                    },
-                    "calculatedScore": null
-                  }
-                ]
-              },
-              "inputDefinitions": [],
-              "disruptions": [],
-              "workExp": null,
-              "workExpNote": "",
-              "outputUid": "out_7c98b7cb-fa9b-4a56-80da-d5702aca6651"
-            },
-            {
-              "id": "23189367-5592-4c00-af62-b64d3c964656",
-              "created": 1768844193710,
-              "text": "Polikliniek",
-              "linkedSourceId": null,
-              "type": null,
-              "processValue": null,
-              "processStatus": null,
-              "successFactors": "",
-              "causes": [],
-              "improvements": [],
-              "qa": {
-                "compleet": {
-                  "result": "",
-                  "note": ""
-                },
-                "kwaliteit": {
-                  "result": "",
-                  "note": ""
-                },
-                "duidelijkheid": {
-                  "result": "",
-                  "note": ""
-                },
-                "tijdigheid": {
-                  "result": "",
-                  "note": ""
-                },
-                "standaard": {
-                  "result": "",
-                  "note": ""
-                },
-                "overdracht": {
-                  "result": "",
-                  "note": ""
-                }
-              },
-              "systemData": {
-                "isMulti": false,
-                "systemName": "",
-                "calculatedScore": null,
-                "systems": [
-                  {
-                    "id": "3e5686ed-b153-4d42-961d-5490ac52e2fb",
-                    "name": "",
-                    "isLegacy": false,
-                    "futureSystem": "",
-                    "qa": {
-                      "workarounds": null,
-                      "performance": null,
-                      "double": null,
-                      "error": null,
-                      "depend": null
-                    },
-                    "calculatedScore": null
-                  }
-                ]
-              },
-              "inputDefinitions": [],
-              "disruptions": [],
-              "workExp": null,
-              "workExpNote": ""
-            }
-          ],
-          "logic": {
-            "condition": "Moet er aanvullende gegevens opgevraagd worden?",
-            "ifTrue": null,
-            "ifFalse": null
-          },
-          "isConditional": true
-        },
-        {
           "id": "9d875c0d-55f7-4b54-b3f1-6b84030c2d83",
           "order": 1,
           "isVisible": true,
@@ -8441,7 +8109,7 @@
               "systemData": {
                 "isMulti": false,
                 "systemName": "",
-                "calculatedScore": null,
+                "calculatedScore": 86,
                 "systems": [
                   {
                     "id": "1ba3fd33-a37b-4be3-b7d0-dec1fc2de5e3",
@@ -8457,7 +8125,39 @@
                     },
                     "calculatedScore": null
                   }
-                ]
+                ],
+                "systemsMeta": {
+                  "multi": true,
+                  "systems": [
+                    {
+                      "name": "Epic",
+                      "legacy": false,
+                      "future": "",
+                      "qa": {
+                        "q1": "NEVER",
+                        "q2": "NEVER",
+                        "q3": "NEVER",
+                        "q4": "SOMETIMES",
+                        "q5": "DELAY"
+                      },
+                      "score": 86
+                    },
+                    {
+                      "name": "Beveiligde mail",
+                      "legacy": false,
+                      "future": "",
+                      "qa": {
+                        "q1": "NEVER",
+                        "q2": "NEVER",
+                        "q3": "NEVER",
+                        "q4": "SOMETIMES",
+                        "q5": "DELAY"
+                      },
+                      "score": 86
+                    }
+                  ],
+                  "activeSystemIdx": 0
+                }
               },
               "inputDefinitions": [],
               "disruptions": [],
@@ -8467,7 +8167,7 @@
             {
               "id": "2411c284-c77d-406e-bf27-17b03e2f359f",
               "created": 1768844341988,
-              "text": "",
+              "text": "Aanvullende gegevens",
               "linkedSourceId": null,
               "type": null,
               "processValue": null,
@@ -8477,27 +8177,33 @@
               "improvements": [],
               "qa": {
                 "compleet": {
-                  "result": null,
-                  "note": ""
+                  "result": "MINOR",
+                  "impact": "B",
+                  "note": "Benodigde gegevens zijn grotendeels aanwezig, maar niet alles is volledig te verkrijgen. Er is een actieve poging gedaan om de informatie te verkrijgen (door bijvoorbeeld contact op te nemen met de verwijzer) en de ontbrekende gegevens zijn gedocumenteerd."
                 },
                 "kwaliteit": {
-                  "result": null,
+                  "result": "GOOD",
+                  "impact": null,
                   "note": ""
                 },
                 "duidelijkheid": {
-                  "result": null,
+                  "result": "GOOD",
+                  "impact": null,
                   "note": ""
                 },
                 "tijdigheid": {
-                  "result": null,
-                  "note": ""
+                  "result": "MINOR",
+                  "impact": "B",
+                  "note": "De tijdigheid van de benodigde informatie is afhankelijk van externe aanlevering (verwijzend ziekenhuis/poli). Hierdoor ontstaan wisselende doorlooptijden; bij ontbrekende stukken moeten we nabellen/mailen en tijdelijk doorwerken met ‘in afwachting’-notitie."
                 },
                 "standaard": {
-                  "result": null,
+                  "result": "GOOD",
+                  "impact": null,
                   "note": ""
                 },
                 "overdracht": {
-                  "result": null,
+                  "result": "GOOD",
+                  "impact": null,
                   "note": ""
                 }
               },
@@ -8528,10 +8234,8 @@
               "workExpNote": "",
               "linkedBundleId": null,
               "linkedBundleIds": null,
-              "linkedSourceUids": [
-                "out_7c98b7cb-fa9b-4a56-80da-d5702aca6651"
-              ],
-              "linkedSourceUid": "out_7c98b7cb-fa9b-4a56-80da-d5702aca6651",
+              "linkedSourceUids": [],
+              "linkedSourceUid": null,
               "linkedSourceIds": []
             },
             {
@@ -8845,7 +8549,7 @@
               "systemData": {
                 "isMulti": false,
                 "systemName": "",
-                "calculatedScore": null,
+                "calculatedScore": 86,
                 "systems": [
                   {
                     "id": "01e0e9ea-d7a2-418c-b935-b94a56a099ae",
@@ -8861,7 +8565,26 @@
                     },
                     "calculatedScore": null
                   }
-                ]
+                ],
+                "systemsMeta": {
+                  "multi": false,
+                  "systems": [
+                    {
+                      "name": "Radiotherapie Web",
+                      "legacy": false,
+                      "future": "",
+                      "qa": {
+                        "q1": "NEVER",
+                        "q2": "NEVER",
+                        "q3": "NEVER",
+                        "q4": "SOMETIMES",
+                        "q5": "DELAY"
+                      },
+                      "score": 86
+                    }
+                  ],
+                  "activeSystemIdx": 0
+                }
               },
               "inputDefinitions": [],
               "disruptions": [],
@@ -8882,26 +8605,32 @@
               "qa": {
                 "compleet": {
                   "result": null,
+                  "impact": null,
                   "note": ""
                 },
                 "kwaliteit": {
                   "result": null,
+                  "impact": null,
                   "note": ""
                 },
                 "duidelijkheid": {
                   "result": null,
+                  "impact": null,
                   "note": ""
                 },
                 "tijdigheid": {
                   "result": null,
+                  "impact": null,
                   "note": ""
                 },
                 "standaard": {
                   "result": null,
+                  "impact": null,
                   "note": ""
                 },
                 "overdracht": {
                   "result": null,
+                  "impact": null,
                   "note": ""
                 }
               },
@@ -10345,8 +10074,8 @@
         {
           "id": "grp_ddf3ef20-0ba6-4d74-9d74-afc5b53c8da8",
           "cols": [
-            10,
-            11
+            9,
+            10
           ],
           "title": "Opstarten behandeling"
         },
@@ -10358,8 +10087,7 @@
             4,
             6,
             7,
-            8,
-            9
+            8
           ],
           "title": "Opvragen aanvullende gegevens"
         },
@@ -10403,8 +10131,7 @@
             7,
             8,
             9,
-            10,
-            11
+            10
           ]
         }
       ]
