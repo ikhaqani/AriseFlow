@@ -993,8 +993,8 @@ body {
 
 .qa-score-badge {
     position: absolute;
-    bottom: -8px;
-    right: 4px;
+    bottom: 8px;
+    right: 8px;
     font-size: 12px;
     font-weight: 800;
     padding: 2px 6px;
