@@ -4,7 +4,7 @@
   "author": "Anoniem",
   "created": "2026-01-16T08:48:17.021Z",
   "version": "2.7",
-  "activeSheetId": "858c26e5-f7ec-4311-b503-641f99e65c84",
+  "activeSheetId": "dc945f9e-80a8-454c-b355-ca66f4d539e8",
   "sheets": [
     {
       "id": "819bb6d9-21cc-49cf-8c40-4b6d7df6b2e1",
@@ -7566,7 +7566,7 @@
               "systemData": {
                 "isMulti": false,
                 "systemName": "",
-                "calculatedScore": null,
+                "calculatedScore": 64,
                 "systems": [
                   {
                     "id": "4023d367-4c39-4823-9f7a-1700ee4c02d5",
@@ -7582,7 +7582,42 @@
                     },
                     "calculatedScore": null
                   }
-                ]
+                ],
+                "systemsMeta": {
+                  "multi": true,
+                  "systems": [
+                    {
+                      "name": "Radiotherapie Web",
+                      "legacy": false,
+                      "future": "",
+                      "qa": {
+                        "q1": "NEVER",
+                        "q2": "NEVER",
+                        "q3_note": "Geen dubbel registratie maar wel werken in meerdere systemen",
+                        "q4": "ALWAYS",
+                        "q4_note": "Die ruimte bestaat maar gebeurd niet vaak",
+                        "q5": "DELAY"
+                      },
+                      "score": 67
+                    },
+                    {
+                      "name": "Epic",
+                      "legacy": false,
+                      "future": "",
+                      "qa": {
+                        "q1": "NEVER",
+                        "q2": "SOMETIMES",
+                        "q2_note": "Beelden / documenten uploaden zorgt ervoor dat het systeem erg traag wordt. ",
+                        "q3": "NEVER",
+                        "q4": "OFTEN",
+                        "q4_note": "Je kunt verkeerde informatie zette. Bijvoorbeeld verkeerde arts/diagnose ",
+                        "q5": "STOP"
+                      },
+                      "score": 60
+                    }
+                  ],
+                  "activeSystemIdx": 0
+                }
               },
               "inputDefinitions": [],
               "disruptions": [],
@@ -7602,27 +7637,33 @@
               "improvements": [],
               "qa": {
                 "compleet": {
-                  "result": null,
-                  "note": ""
+                  "result": "MINOR",
+                  "impact": "B",
+                  "note": "Arts contacteren om te achterhalen wat ze concreeet willen"
                 },
                 "kwaliteit": {
-                  "result": null,
+                  "result": "MINOR",
+                  "impact": null,
                   "note": ""
                 },
                 "duidelijkheid": {
-                  "result": null,
-                  "note": ""
+                  "result": "MINOR",
+                  "impact": "B",
+                  "note": "Vaak goed, maar sommige artsen communiceren niet duidelijk"
                 },
                 "tijdigheid": {
-                  "result": null,
-                  "note": ""
+                  "result": "MINOR",
+                  "impact": "B",
+                  "note": "Afhankelijk van externe partijen"
                 },
                 "standaard": {
-                  "result": null,
-                  "note": ""
+                  "result": "FAIL",
+                  "impact": null,
+                  "note": "Kan veel meerdere systemen zoals epic, radiotherapie web, bellen, binnenlopen.  1 systeem is voorkeur.  Standaardiseren niet vaak mogelijk omdat heel veel  uitzonderingen daarom vrije tekst veld.  "
                 },
                 "overdracht": {
-                  "result": null,
+                  "result": "GOOD",
+                  "impact": null,
                   "note": ""
                 }
               },
@@ -7664,12 +7705,16 @@
               "created": 1768841975608,
               "text": "Opvragen gegevens",
               "linkedSourceId": null,
-              "type": null,
-              "processValue": null,
-              "processStatus": null,
+              "type": "Taak",
+              "processValue": "BNVA",
+              "processStatus": "NEUTRAL",
               "successFactors": "",
-              "causes": [],
-              "improvements": [],
+              "causes": [
+                "Gegevens komen incompleet binnen"
+              ],
+              "improvements": [
+                "Gegevens compleet binnnen krijgen"
+              ],
               "qa": {
                 "compleet": {
                   "result": "",
@@ -7719,8 +7764,8 @@
               },
               "inputDefinitions": [],
               "disruptions": [],
-              "workExp": null,
-              "workExpNote": ""
+              "workExp": "OBSTACLE",
+              "workExpNote": "Het kost veel tijd om de gegevens uit te zoeken. "
             },
             {
               "id": "75348287-9d81-4471-b8a6-c31738fe0ee0",
@@ -7970,7 +8015,7 @@
               "systemData": {
                 "isMulti": false,
                 "systemName": "",
-                "calculatedScore": null,
+                "calculatedScore": 0,
                 "systems": [
                   {
                     "id": "ccd92b0d-0566-48a2-a5d9-5adbd58892f9",
@@ -7986,7 +8031,27 @@
                     },
                     "calculatedScore": null
                   }
-                ]
+                ],
+                "systemsMeta": {
+                  "multi": true,
+                  "systems": [
+                    {
+                      "name": "Hix / Beveiligde mail / Telefoonsysteem",
+                      "legacy": false,
+                      "future": "",
+                      "qa": {},
+                      "score": null
+                    },
+                    {
+                      "name": "Hix",
+                      "legacy": false,
+                      "future": "",
+                      "qa": {},
+                      "score": null
+                    }
+                  ],
+                  "activeSystemIdx": 0
+                }
               },
               "inputDefinitions": [],
               "disruptions": [],
@@ -8472,10 +8537,10 @@
               "created": 1768844341988,
               "text": "Aanvullen dossier",
               "linkedSourceId": null,
-              "type": null,
-              "processValue": null,
-              "processStatus": null,
-              "successFactors": "",
+              "type": "Taak",
+              "processValue": "BNVA",
+              "processStatus": "HAPPY",
+              "successFactors": "Aanvullen dossier kent geen problemen",
               "causes": [],
               "improvements": [],
               "qa": {
@@ -8527,7 +8592,7 @@
               },
               "inputDefinitions": [],
               "disruptions": [],
-              "workExp": null,
+              "workExp": "ROUTINE",
               "workExpNote": ""
             },
             {
@@ -8876,12 +8941,16 @@
               "created": 1768844912891,
               "text": "Informeren arts",
               "linkedSourceId": null,
-              "type": null,
-              "processValue": null,
-              "processStatus": null,
+              "type": "Taak",
+              "processValue": "NVA",
+              "processStatus": "NEUTRAL",
               "successFactors": "",
-              "causes": [],
-              "improvements": [],
+              "causes": [
+                "Arts informeren is fijn voor de arts maar wel versplling van de tijd"
+              ],
+              "improvements": [
+                "Automatische meldingen"
+              ],
               "qa": {
                 "compleet": {
                   "result": "",
@@ -8931,8 +9000,8 @@
               },
               "inputDefinitions": [],
               "disruptions": [],
-              "workExp": null,
-              "workExpNote": ""
+              "workExp": "ROUTINE",
+              "workExpNote": "Arts kan ook automatisch melding krijgen als iets is bijgewerkt"
             },
             {
               "id": "7229ad2c-958f-4891-b796-1c9524292bd4",
