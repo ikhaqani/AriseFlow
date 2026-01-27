@@ -1,8 +1,7 @@
 // io.js (AANGEPAST: System Fit Notes + 4-punts IQF schaal + Impact A/B/C)
 // + FIX: Groepsnamen zichtbaar in exportHD
 // + FIX: Procesvalidatie export checkt gate completeness
-// + FIX: Gate export werkt ook zonder merge-group (single-col gate in outputSlot.outputData.gate)
-// + FIX: Merge-groups (localStorage) worden mee-opgeslagen in JSON/GitHub en teruggezet bij load
+// + FIX: Merge-groups (incl. gate + systemsMeta) worden nu ook persistente data bij Save/Load (JSON + GitHub)
 
 import { state } from './state.js';
 import { Toast } from './toast.js';
@@ -55,6 +54,7 @@ function downloadCanvas(canvas) {
 
 /* ==========================================================================
    Merge groups (System + Output) — gelezen uit localStorage
+   + Persist/restore naar project JSON (sheet.mergeGroupsV2)
    ========================================================================== */
 
 function mergeKeyForSheet(project, sheet) {
@@ -74,48 +74,31 @@ function loadMergeGroupsRaw(project, sheet) {
   }
 }
 
-/* ==========================================================================
-   ✅ Persist merge groups into project JSON (save) + restore back to localStorage (load)
-   ========================================================================== */
-
+// ✅ Persist merge-groups (raw) mee in het project-bestand
 function snapshotMergeGroupsIntoProject(project) {
-  const sheets = Array.isArray(project?.sheets) ? project.sheets : [];
-  const snap = {};
+  const p = project || state.data;
+  if (!p || !Array.isArray(p.sheets)) return;
 
-  sheets.forEach((sheet, idx) => {
-    const sid = sheet?.id || sheet?.name || String(idx);
-    const groups = loadMergeGroupsRaw(project, sheet);
-    if (Array.isArray(groups) && groups.length) snap[sid] = groups;
+  (p.sheets || []).forEach((sheet) => {
+    const raw = loadMergeGroupsRaw(p, sheet);
+    if (Array.isArray(raw) && raw.length) sheet.mergeGroupsV2 = raw;
+    else if ('mergeGroupsV2' in sheet) delete sheet.mergeGroupsV2;
   });
-
-  if (Object.keys(snap).length) {
-    project._mergeGroupsV2 = snap; // nieuw veld in project JSON
-  } else {
-    // optioneel: schoon houden
-    if (project && typeof project === 'object' && '_mergeGroupsV2' in project) {
-      try {
-        delete project._mergeGroupsV2;
-      } catch {
-        /* ignore */
-      }
-    }
-  }
 }
 
-function restoreMergeGroupsFromProject(project) {
-  const snap = project?._mergeGroupsV2;
-  if (!snap || typeof snap !== 'object') return;
+// ✅ Restore merge-groups (raw) terug naar localStorage na load
+function restoreMergeGroupsToLocalStorage(project) {
+  const p = project || state.data;
+  if (!p || !Array.isArray(p.sheets)) return;
 
-  const sheets = Array.isArray(project?.sheets) ? project.sheets : [];
-  sheets.forEach((sheet, idx) => {
-    const sid = sheet?.id || sheet?.name || String(idx);
-    const groups = snap[sid];
-    if (Array.isArray(groups)) {
-      try {
-        localStorage.setItem(mergeKeyForSheet(project, sheet), JSON.stringify(groups));
-      } catch {
-        /* ignore storage failures */
-      }
+  (p.sheets || []).forEach((sheet) => {
+    const raw = Array.isArray(sheet?.mergeGroupsV2) ? sheet.mergeGroupsV2 : null;
+    if (!raw) return;
+
+    try {
+      localStorage.setItem(mergeKeyForSheet(p, sheet), JSON.stringify(raw));
+    } catch {
+      // ignore (storage full / blocked)
     }
   });
 }
@@ -324,6 +307,30 @@ function makeId(prefix = 'id') {
     return `${prefix}_${crypto.randomUUID()}`;
   }
   return `${prefix}_${Date.now()}_${Math.random().toString(16).slice(2)}`;
+}
+
+// ✅ Zorg dat outputs altijd outputUid krijgen vóór persist (zodat linking stabiel is)
+function ensureOutputUids(project) {
+  const p = project || state.data;
+  if (!p?.sheets?.length) return;
+
+  (p.sheets || []).forEach((sheet) => {
+    const groups = getMergeGroupsSanitized(p, sheet);
+
+    (sheet?.columns || []).forEach((col, colIdx) => {
+      if (col?.isVisible === false) return;
+
+      const outSlot = col?.slots?.[4];
+      const outText = String(outSlot?.text ?? '').trim();
+      if (!outText) return;
+
+      if (isMergedSlaveInSheet(groups, colIdx, 4)) return;
+
+      if (!outSlot.outputUid || String(outSlot.outputUid).trim() === '') {
+        outSlot.outputUid = makeId('out');
+      }
+    });
+  });
 }
 
 function buildGlobalOutputMaps(project) {
@@ -663,7 +670,6 @@ function getSysAnswerLabel(sys, qid) {
   return opt?.label || '';
 }
 
-// Helper om opmerking op te halen
 function getSysNote(sys, qid) {
   const qa = sys?.qa && typeof sys.qa === 'object' ? sys.qa : {};
   return String(qa[qid + '_note'] || '').trim();
@@ -719,7 +725,6 @@ function systemsToLists(meta) {
     Number.isFinite(Number(v)) ? `${Number(v)}%` : '—'
   );
 
-  // Antwoorden + Notes
   const sysWorkarounds = systems.map((s) => getSysAnswerLabel(s, 'q1'));
   const sysWorkaroundsNotes = systems.map((s) => getSysNote(s, 'q1'));
 
@@ -783,7 +788,6 @@ function calculateIQFScore(qa) {
    IO criteria per systeem (result/impact/opmerking) met ";" alignment
    ========================================================================== */
 
-// ✅ 4-punts schaal conversie voor Excel
 function normalizeIOResultLabel(v) {
   const s = String(v ?? '').trim();
   if (!s) return '';
@@ -791,14 +795,11 @@ function normalizeIOResultLabel(v) {
   if (U === 'OK' || U === 'GOOD' || U === 'PASS' || U === 'VOLDOET') return 'Voldoet';
   if (U === 'MINOR') return 'Grotendeels';
   if (U === 'MODERATE') return 'Matig';
-  if (U === 'NOT_OK' || U === 'FAIL' || U === 'POOR' || U === 'NOK' || U === 'VOLDOET_NIET')
-    return 'Voldoet niet';
-  // NVT is eruit, dus als dat er staat maken we het leeg
+  if (U === 'NOT_OK' || U === 'FAIL' || U === 'POOR' || U === 'NOK' || U === 'VOLDOET_NIET') return 'Voldoet niet';
   if (U === 'NVT' || U === 'NA') return '';
   return s;
 }
 
-// ✅ Impact vertalen naar leesbare tekst (A/B/C)
 function normalizeImpactLabel(v) {
   const s = String(v ?? '').trim().toUpperCase();
   if (s === 'A') return 'A. Blokkerend';
@@ -846,7 +847,7 @@ function getIOTripleForLabel(slotQa, label, systemsCount) {
   const q = slotQa?.[key];
 
   const resArr = extractPerSystem(q, systemsCount, 'result').map(normalizeIOResultLabel);
-  const impactArr = extractPerSystem(q, systemsCount, 'impact').map(normalizeImpactLabel); // ✅ Impact full text
+  const impactArr = extractPerSystem(q, systemsCount, 'impact').map(normalizeImpactLabel);
   const noteArr = extractPerSystem(q, systemsCount, 'note');
 
   return {
@@ -942,15 +943,29 @@ function getProcessStatusLabel(v) {
 }
 
 /* ==========================================================================
+   Persist helpers (voor Save/Load/GitHub)
+   ========================================================================== */
+
+function prepareProjectForPersist(project) {
+  const p = project || state.data;
+  if (!p) return p;
+
+  // 1) Merge-groups mee in JSON (incl gate + systemsMeta)
+  snapshotMergeGroupsIntoProject(p);
+
+  // 2) OutputUids afdwingen vóór save (zodat links stabiel blijven)
+  ensureOutputUids(p);
+
+  return p;
+}
+
+/* ==========================================================================
    JSON save/load
    ========================================================================== */
 
 export async function saveToFile() {
-  // ✅ Clone + snapshot merge groups into JSON payload
-  const dataToSave = JSON.parse(JSON.stringify(state.data));
-  snapshotMergeGroupsIntoProject(dataToSave);
-
-  const dataStr = JSON.stringify(dataToSave, null, 2);
+  const p = prepareProjectForPersist(state.data);
+  const dataStr = JSON.stringify(p, null, 2);
   const fileName = getFileName('json');
 
   try {
@@ -981,10 +996,12 @@ export function loadFromFile(file, onSuccess) {
       const parsed = JSON.parse(ev.target.result);
       if (!parsed || !Array.isArray(parsed.sheets)) throw new Error('Ongeldig formaat: Geen sheets gevonden.');
 
-      state.project = parsed;
+      // ✅ Restore merge groups naar localStorage vóór render
+      restoreMergeGroupsToLocalStorage(parsed);
 
-      // ✅ Restore merge groups from JSON snapshot into localStorage
-      restoreMergeGroupsFromProject(parsed);
+      // ✅ Update state
+      state.data = parsed;
+      state.project = parsed;
 
       if (typeof state.notify === 'function') state.notify();
       if (onSuccess) onSuccess();
@@ -1077,6 +1094,9 @@ export function exportToCSV() {
     const lines = [headers.map(toCsvField).join(';')];
 
     const project = state.data;
+
+    // Output UIDs afdwingen voor stabiele mapping (ook zonder eerdere exports)
+    ensureOutputUids(project);
 
     const { outIdByUid, outTextByUid, outTextByOutId } = buildGlobalOutputMaps(project);
     const bundleMaps = buildBundleMaps(project, outIdByUid, outTextByUid, outTextByOutId);
@@ -1177,12 +1197,7 @@ export function exportToCSV() {
         const bundleOutTextsStr = joinSemi(bundleResolved.memberOutTexts);
 
         const sources = normalizeLinkedSources(inputSlot);
-        const resolved = resolveLinkedSourcesToOutPairs(
-          sources,
-          outIdByUid,
-          outTextByUid,
-          outTextByOutId
-        );
+        const resolved = resolveLinkedSourcesToOutPairs(sources, outIdByUid, outTextByUid, outTextByOutId);
 
         const partsId = [];
         const partsText = [];
@@ -1227,12 +1242,8 @@ export function exportToCSV() {
         const procSlot = col?.slots?.[3] || {};
         const proces = String(procSlot?.text ?? '').trim();
         const typeActiviteit = String(procSlot?.type ?? '').trim();
-        const werkbeleving = formatWorkExp(
-          procSlot?.workExp ?? procSlot?.workjoy ?? procSlot?.workJoy ?? ''
-        );
-        const toelichting = String(
-          procSlot?.note ?? procSlot?.toelichting ?? procSlot?.context ?? ''
-        ).trim();
+        const werkbeleving = formatWorkExp(procSlot?.workExp ?? procSlot?.workjoy ?? procSlot?.workJoy ?? '');
+        const toelichting = String(procSlot?.note ?? procSlot?.toelichting ?? procSlot?.context ?? '').trim();
 
         const leanwaarde = getLeanValueLabel(procSlot?.processValue ?? '');
         const statusProces = getProcessStatusLabel(procSlot?.processStatus ?? '');
@@ -1262,26 +1273,11 @@ export function exportToCSV() {
         }
 
         // ✅ FIX: Procesvalidatie + routing alleen exporteren als gate compleet is
-        // Gate kan komen uit merge-group (outGroup.gate) OF uit slot zelf (outputSlot.outputData.gate of outputSlot.gate)
-        const gateFromGroup = finalizeGate(outGroup?.gate);
-        const gateFromSlot = finalizeGate(outputSlot?.outputData?.gate || outputSlot?.gate);
-        const validGate = gateFromGroup || gateFromSlot;
+        const validGate = finalizeGate(outGroup?.gate);
 
         const procesValidatie = validGate ? 'Ja' : '';
         const routingRework = validGate ? getFailTargetFromGate(sheet, validGate) : '';
-
-        // PASS target:
-        // - bij merge group: na laatste col van de group
-        // - bij single-col: volgende zichtbare kolom na huidige col
-        let routingPass = '';
-        if (validGate) {
-          if (outGroup) {
-            routingPass = getPassTargetFromGroup(sheet, outGroup);
-          } else {
-            const nextIdx = getNextVisibleColIdx(sheet, colIdx);
-            routingPass = nextIdx == null ? 'Einde proces' : getProcessLabel(sheet, nextIdx);
-          }
-        }
+        const routingPass = validGate && outGroup ? getPassTargetFromGroup(sheet, outGroup) : '';
 
         const klant = String(col?.slots?.[5]?.text ?? '').trim();
 
@@ -1301,15 +1297,15 @@ export function exportToCSV() {
           sysLists.legacySystems,
           sysLists.targetSystems,
           sysLists.systemWorkarounds,
-          sysLists.systemWorkaroundsNotes, // ADDED
+          sysLists.systemWorkaroundsNotes,
           sysLists.belemmering,
-          sysLists.belemmeringNotes, // ADDED
+          sysLists.belemmeringNotes,
           sysLists.dubbelRegistreren,
-          sysLists.dubbelRegistrerenNotes, // ADDED
+          sysLists.dubbelRegistrerenNotes,
           sysLists.foutgevoeligheid,
-          sysLists.foutgevoeligheidNotes, // ADDED
+          sysLists.foutgevoeligheidNotes,
           sysLists.gevolgUitval,
-          sysLists.gevolgUitvalNotes, // ADDED
+          sysLists.gevolgUitvalNotes,
           sysLists.ttfScores,
           inputId,
           inputText,
@@ -1393,14 +1389,12 @@ export async function exportHD(copyToClipboard = false) {
       onclone: (doc) => {
         doc.body.classList.add('exporting');
 
-        // --- Target elements in cloned DOM ---
         const v = doc.getElementById('viewport');
         const b = doc.getElementById('board');
-        const bw = doc.querySelector('.board-scale-wrapper'); // wrapper that often carries transform
+        const bw = doc.querySelector('.board-scale-wrapper');
         const bcw = doc.getElementById('board-content-wrapper');
         const cols = doc.getElementById('cols');
 
-        // 1) Remove transforms/scroll clipping that can hide overlays
         if (bw) {
           bw.style.transform = 'none';
           bw.style.transformOrigin = 'top left';
@@ -1430,13 +1424,10 @@ export async function exportHD(copyToClipboard = false) {
           cols.style.overflow = 'visible';
           cols.style.position = 'relative';
 
-          // Reserve vertical space so group headers that normally sit “above” the board
-          // are not clipped in the export.
           const padTop = cols.style.paddingTop || '';
           if (!padTop || padTop === '0px') cols.style.paddingTop = '44px';
         }
 
-        // 2) Force group headers to render INSIDE the capture area (avoid negative top clipping)
         const forceStyle = doc.createElement('style');
         forceStyle.textContent = `
           .group-header-overlay,
@@ -1470,7 +1461,6 @@ export async function exportHD(copyToClipboard = false) {
         `;
         doc.head.appendChild(forceStyle);
 
-        // Extra safety: inline overrides (html2canvas can be sensitive to computed styles)
         doc.querySelectorAll('.group-header-overlay').forEach((el) => {
           el.style.display = 'block';
           el.style.visibility = 'visible';
@@ -1530,7 +1520,6 @@ export async function exportHD(copyToClipboard = false) {
    GITHUB CLOUD OPSLAG
    ========================================================================== */
 
-// Helpers voor tekst-codering (nodig voor GitHub API)
 function utf8_to_b64(str) {
   return window.btoa(unescape(encodeURIComponent(str)));
 }
@@ -1539,7 +1528,6 @@ function b64_to_utf8(str) {
   return decodeURIComponent(escape(window.atob(str)));
 }
 
-// Haal instellingen op
 function getGitHubConfig() {
   return {
     token: localStorage.getItem('gh_token'),
@@ -1569,11 +1557,12 @@ export async function loadFromGitHub() {
   const content = b64_to_utf8(data.content);
 
   const parsed = JSON.parse(content);
+
+  // ✅ Restore merge-groups naar localStorage vóór render
+  restoreMergeGroupsToLocalStorage(parsed);
+
+  state.data = parsed;
   state.project = parsed;
-
-  // ✅ Restore merge groups snapshot into localStorage
-  restoreMergeGroupsFromProject(parsed);
-
   if (typeof state.notify === 'function') state.notify();
 
   return true;
@@ -1590,7 +1579,6 @@ export async function saveToGitHub() {
 
   const url = `https://api.github.com/repos/${owner}/${repo}/contents/${path}`;
 
-  // STAP A: Haal eerst de huidige SHA op
   let sha = null;
   try {
     const getResp = await fetch(url, {
@@ -1608,18 +1596,16 @@ export async function saveToGitHub() {
     console.warn('Bestand bestaat nog niet, er wordt een nieuwe gemaakt.');
   }
 
-  // STAP B: Bereid de nieuwe data voor (incl. merge groups snapshot)
-  const dataToSave = JSON.parse(JSON.stringify(state.data));
-  snapshotMergeGroupsIntoProject(dataToSave);
+  // ✅ Project voorbereiden: merge-groups + outputUids mee saven
+  const p = prepareProjectForPersist(state.data);
 
-  const contentStr = JSON.stringify(dataToSave, null, 2);
+  const contentStr = JSON.stringify(p, null, 2);
   const body = {
     message: `Update via AriseFlow: ${new Date().toLocaleString()}`,
     content: utf8_to_b64(contentStr),
     sha: sha
   };
 
-  // STAP C: Stuur de update
   const putResp = await fetch(url, {
     method: 'PUT',
     headers: {
