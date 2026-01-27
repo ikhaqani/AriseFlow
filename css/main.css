@@ -731,8 +731,7 @@ body {
 }
 
 .sticky-grip {
-    height: 12px;
-    width: 100%;
+        width: 100%;
     cursor: default;
     background: rgba(0, 0, 0, 0.06);
     border-bottom: 1px solid rgba(0,  0,  0,  0.05);
@@ -1811,7 +1810,8 @@ body.exporting .connector-text-export {
     box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.2);
 }
 
-textarea { resize: vertical; min-height: 80px; line-height: 1.5; }
+textarea { resize: vertical; min-height: var(--slot-min-height);
+ line-height: 1.5; }
 
 .io-helper {
     margin-bottom: 32px;
@@ -2246,4 +2246,48 @@ input, textarea, [contenteditable], [contenteditable="true"], .text[contentedita
 .sticky .content,
 .sticky .sticky-text{
   font-size: var(--sticky-font-size) !important;
+}
+
+/* Prevent score badges from being clipped */
+.slot,
+.slot-inner,
+.sticky{
+  overflow: visible !important;
+}
+
+/* ===== Sticky font size control (menu/topbar) ===== */
+.sticky-font-control{
+  display:flex;
+  align-items:center;
+  gap:8px;
+  margin-left:12px;
+}
+.sticky-font-label{
+  font-size:12px;
+  opacity:0.85;
+  white-space:nowrap;
+}
+.sticky-font-select{
+  font-size:12px;
+  padding:4px 8px;
+  border-radius:10px;
+  border:1px solid rgba(255,255,255,0.18);
+  background: rgba(0,0,0,0.25);
+  color: rgba(255,255,255,0.92);
+}
+.sticky-font-select:focus{
+  outline:none;
+  border-color: rgba(255,255,255,0.35);
+}
+
+/* ===== Force post-it font size to CSS variable ===== */
+.sticky textarea,
+.sticky .slot-text,
+.sticky .sticky-text{
+  font-size: var(--sticky-font-size, 18px) !important;
+}
+
+/* ===== Prevent badge clipping on stickies ===== */
+.sticky{
+  overflow: visible !important;
 }
