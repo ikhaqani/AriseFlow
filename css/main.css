@@ -1,5 +1,4 @@
 /* main.css (VOLLEDIG - MET NIEUWE BADGE STYLING) */
-
 /* ==========================================================================
    SCROLLBARS
    ========================================================================== */
@@ -27,7 +26,7 @@
 :root {
     --gap: 12px;
     --col-gap: 25px; 
-    --col-width: 250px;
+    --col-width: 420px;
     --slot-min-height: 140px;
 
     --sticky-bg: #ffd600;
@@ -759,7 +758,6 @@ body {
     font-weight: var(--sticky-font-weight);
     text-align: center;
     outline: none;
-    word-break: break-word;
     white-space: pre-wrap;
     font-family: var(--sticky-font-family);
     direction: ltr;
@@ -768,6 +766,8 @@ body {
     min-height: 0;
     overflow: visible;
     text-overflow: unset;
+  overflow-wrap: anywhere;
+  word-break: break-word;
 }
 
 /* Merged items */
@@ -982,8 +982,8 @@ body {
 
 .id-tag {
     position: absolute;
-    bottom: 2px;
-    left: 4px;
+    bottom:  12px;
+    left:  16px;
     font-size: 15px;
     font-weight: 900;
     opacity: 0.7;
@@ -1031,14 +1031,19 @@ body {
     box-sizing: border-box;
     font-family: inherit;
     overflow: visible;
+    padding-left: 118px; /* ruimte voor OUT1 links */
+    padding-right: 12px;
+    transform: translateY(-18px);
 }
 
 .auth-header {
     display: flex;
-    justify-content: space-between;
+    justify-content: flex-start;
     align-items: center;
     padding-bottom: 6px;
     border-bottom: 1px solid rgba(0,0,0,.10);
+    gap: 8px;
+    flex-wrap: wrap;
 }
 
 .auth-badge {
@@ -2171,3 +2176,66 @@ input, textarea, [contenteditable], [contenteditable="true"], .text[contentedita
     border-radius: 2px;
     box-shadow: 0 2px 4px rgba(0,0,0,0.5);
 }
+
+/* Sticky text wrapping */
+.sticky .text{
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+  word-break: break-word;
+}
+
+
+/* ARISE OVERRIDES: gate no-overlap
+   - keep gate footer inside sticky (no bleed into neighbor columns)
+   - make OUT/IN id-tag absolute so it never overlaps gate footer
+*/
+.sticky{
+  position: relative;
+  overflow: hidden;
+}
+
+/* OUT1 / IN1 label should not affect layout */
+.id-tag{
+  position: absolute;
+  left: 10px;
+  bottom: 10px;
+  z-index: 3;
+  pointer-events: none;
+
+  max-width: 45%;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Gate footer layout */
+.sticky .auth-module{
+  max-width: 100%;
+  overflow:  visible;
+
+  /* reserve some breathing room; OUT1 is absolute now */
+  padding-left:    12px;
+  padding-right:  12px;
+
+  transform:   translateY(-35px);
+}  align-items: center;
+}
+
+.sticky .auth-header{
+  gap: 8px;
+  flex-wrap:  nowrap;
+  justify-content: center;
+}  width: 100%;
+}
+/* END ARISE OVERRIDES */
+
+
+/* FORCE FIXED COLUMN WIDTH (prevents needle cols) */
+#cols .col{
+  flex: 0 0 var(--col-width) !important;
+  width: var(--col-width) !important;
+  min-width: var(--col-width) !important;
+  max-width: var(--col-width) !important;
+  box-sizing: border-box;
+}
+

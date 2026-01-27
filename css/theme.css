@@ -1,4 +1,6 @@
 :root {
+    --col-width: 420px;
+
     /* --- 1. Modern Dark Palette (Deep & Rich) --- */
     --bg-color: #121619;       /* Diep, neutraal donkergrijs (bijna zwart) */
     --bg-secondary: #1a2024;   /* Iets lichter voor contrast */
@@ -40,7 +42,7 @@
     --status-sad-bg: #fca5a5; /* Red 300 */
 
     /* --- 7. Layout & Geometry --- */
-    --col-width: 210px;       /* Iets breder voor betere leesbaarheid */
+    $1360px;       /* Iets breder voor betere leesbaarheid */
     --slot-min-height: 140px; /* Compactere default */
     --gap: 12px;              /* Meer ademruimte tussen elementen */
     
@@ -55,6 +57,7 @@
     --shadow-glow: 0 0 20px rgba(59, 130, 246, 0.15); /* Accent glow */
 
     --ease-out: cubic-bezier(0.16, 1, 0.3, 1); /* Apple-style smooth easing */
+
 }
 
 /* --- Base Reset --- */
@@ -94,3 +97,4 @@ body {
     background: rgba(59, 130, 246, 0.3); /* Transparant blauw */
     color: white;
 }
+
