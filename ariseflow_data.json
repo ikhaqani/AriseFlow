@@ -8534,27 +8534,33 @@
               "improvements": [],
               "qa": {
                 "compleet": {
-                  "result": "",
+                  "result": null,
+                  "impact": null,
                   "note": ""
                 },
                 "kwaliteit": {
-                  "result": "",
+                  "result": null,
+                  "impact": null,
                   "note": ""
                 },
                 "duidelijkheid": {
-                  "result": "",
+                  "result": null,
+                  "impact": null,
                   "note": ""
                 },
                 "tijdigheid": {
-                  "result": "",
+                  "result": null,
+                  "impact": null,
                   "note": ""
                 },
                 "standaard": {
-                  "result": "",
+                  "result": null,
+                  "impact": null,
                   "note": ""
                 },
                 "overdracht": {
-                  "result": "",
+                  "result": null,
+                  "impact": null,
                   "note": ""
                 }
               },
@@ -8582,7 +8588,10 @@
               "inputDefinitions": [],
               "disruptions": [],
               "workExp": null,
-              "workExpNote": ""
+              "workExpNote": "",
+              "linkedSourceUids": [],
+              "linkedSourceUid": null,
+              "linkedSourceIds": []
             },
             {
               "id": "6385524f-1516-42cb-9b3b-f05abe9875d9",
@@ -11371,6 +11380,17 @@
             9,
             10
           ]
+        }
+      ],
+      "mergeGroupsV2": [
+        {
+          "slotIdx": 2,
+          "cols": [
+            3,
+            4
+          ],
+          "master": 4,
+          "label": "Merged Output"
         }
       ]
     },
