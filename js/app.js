@@ -1,10 +1,10 @@
-import { saveToFile, loadFromFile, exportToCSV, exportHD, saveToGitHub, loadFromGitHub } from './io.js?v=20260128070929';
 import { state } from './state.js';
 import { renderBoard, setupDelegatedEvents, applyStateUpdate } from './dom.js';
 import { openEditModal, saveModalDetails } from './modals.js';
 // GITHUB INTEGRATIE: Imports toegevoegd
 import { Toast } from './toast.js';
 import { initStickyFontSizeUI } from "./sticky_font_ui.js";
+import { saveToFile, loadFromFile, exportToCSV, exportHD, saveToGitHub, loadFromGitHub } from './io.js?v=20260128072556';
 
 const $ = (id) => document.getElementById(id);
 
