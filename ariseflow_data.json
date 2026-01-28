@@ -3951,8 +3951,10 @@
               "workExp": null,
               "workExpNote": "",
               "linkedSourceIds": [],
-              "linkedBundleId": null,
-              "linkedBundleIds": null,
+              "linkedBundleId": "bundle_1769585360336_15ff274999c05",
+              "linkedBundleIds": [
+                "bundle_1769585360336_15ff274999c05"
+              ],
               "linkedSourceUids": [],
               "linkedSourceUid": null
             },
@@ -4345,32 +4347,32 @@
               "improvements": [],
               "qa": {
                 "compleet": {
-                  "result": null,
-                  "impact": null,
-                  "note": ""
+                  "result": "FAIL",
+                  "impact": "A",
+                  "note": "Bij ontvangst van de verwijzing controleren we de volledigheid van de gegevens. Indien noodzakelijk, nemen we contact op via telefoon of e-mail om ontbrekende informatie aan te vullen, terwijl de verwijzing doorgaat. We maken aantekening dat aanvullende gegevens nog worden verwacht."
                 },
                 "kwaliteit": {
-                  "result": null,
-                  "impact": null,
-                  "note": ""
+                  "result": "MINOR",
+                  "impact": "C",
+                  "note": "Bij ingescande documenten die niet te kopiëren zijn, worden de gegevens handmatig overgetypt om de ontbrekende informatie te verwerken."
                 },
                 "duidelijkheid": {
-                  "result": null,
+                  "result": "GOOD",
                   "impact": null,
                   "note": ""
                 },
                 "tijdigheid": {
-                  "result": null,
+                  "result": "GOOD",
                   "impact": null,
                   "note": ""
                 },
                 "standaard": {
-                  "result": null,
+                  "result": "GOOD",
                   "impact": null,
                   "note": ""
                 },
                 "overdracht": {
-                  "result": null,
+                  "result": "GOOD",
                   "impact": null,
                   "note": ""
                 }
@@ -4396,7 +4398,33 @@
                   }
                 ]
               },
-              "inputDefinitions": [],
+              "inputDefinitions": [
+                {
+                  "item": "Persoonsgegevens",
+                  "specifications": "BSN, geboortedatum, achternaam, telefoonnummer, e-mailadres.",
+                  "type": "HARD"
+                },
+                {
+                  "item": "Verwijsbrief",
+                  "specifications": "• Soort tumor waarvoor de patiënt bestraald moet worden\n• Uit welk ziekenhuis de verwijzing afkomstig is\n• de naam van de zorgverlener die doorverwijst",
+                  "type": "HARD"
+                },
+                {
+                  "item": "Medische verslagen",
+                  "specifications": "MDO/OK, consultverslagen, behandelingsplannen, operatierapporten.",
+                  "type": "HARD"
+                },
+                {
+                  "item": "Beeldvorming",
+                  "specifications": "CT/MRI/PET",
+                  "type": "HARD"
+                },
+                {
+                  "item": "Labuitslagen",
+                  "specifications": "Specifieke gegevens per labuitslag",
+                  "type": "SOFT"
+                }
+              ],
               "disruptions": [],
               "workExp": null,
               "workExpNote": "",
@@ -6787,11 +6815,13 @@
         {
           "slotIdx": 2,
           "cols": [
+            2,
+            3,
             4,
             5,
             6
           ],
-          "master": 4,
+          "master": 2,
           "label": "Merged Output"
         }
       ]
