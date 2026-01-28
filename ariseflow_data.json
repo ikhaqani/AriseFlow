@@ -4,7 +4,7 @@
   "author": "Anoniem",
   "created": "2026-01-16T08:48:17.021Z",
   "version": "2.7",
-  "activeSheetId": "dc945f9e-80a8-454c-b355-ca66f4d539e8",
+  "activeSheetId": "858c26e5-f7ec-4311-b503-641f99e65c84",
   "sheets": [
     {
       "id": "819bb6d9-21cc-49cf-8c40-4b6d7df6b2e1",
@@ -6773,6 +6773,15 @@
             ],
             "activeSystemIdx": 0
           }
+        },
+        {
+          "slotIdx": 2,
+          "cols": [
+            2,
+            3
+          ],
+          "master": 2,
+          "label": "Merged Output"
         }
       ]
     },
@@ -8534,27 +8543,33 @@
               "improvements": [],
               "qa": {
                 "compleet": {
-                  "result": "",
+                  "result": null,
+                  "impact": null,
                   "note": ""
                 },
                 "kwaliteit": {
-                  "result": "",
+                  "result": null,
+                  "impact": null,
                   "note": ""
                 },
                 "duidelijkheid": {
-                  "result": "",
+                  "result": null,
+                  "impact": null,
                   "note": ""
                 },
                 "tijdigheid": {
-                  "result": "",
+                  "result": null,
+                  "impact": null,
                   "note": ""
                 },
                 "standaard": {
-                  "result": "",
+                  "result": null,
+                  "impact": null,
                   "note": ""
                 },
                 "overdracht": {
-                  "result": "",
+                  "result": null,
+                  "impact": null,
                   "note": ""
                 }
               },
@@ -8582,7 +8597,10 @@
               "inputDefinitions": [],
               "disruptions": [],
               "workExp": null,
-              "workExpNote": ""
+              "workExpNote": "",
+              "linkedSourceUids": [],
+              "linkedSourceUid": null,
+              "linkedSourceIds": []
             },
             {
               "id": "6385524f-1516-42cb-9b3b-f05abe9875d9",
@@ -11371,6 +11389,17 @@
             9,
             10
           ]
+        }
+      ],
+      "mergeGroupsV2": [
+        {
+          "slotIdx": 2,
+          "cols": [
+            3,
+            4
+          ],
+          "master": 4,
+          "label": "Merged Output"
         }
       ]
     },
