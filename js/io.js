@@ -4,7 +4,7 @@
 // + FIX: Merge-groups (incl. gate + systemsMeta) worden nu ook persistente data bij Save/Load (JSON + GitHub)
 // + FIX: NVT (System Fit) wordt meegenomen in CSV export: TTF Scores = "NVT", overige sysfit velden leeg
 // + FIX (EXPORT): Lane labels (row-headers) altijd zichtbaar + geen "rare letters" in PNG (html2canvas-safe)
-// + FIX (GITHUB): Ondersteuning voor bestanden > 1MB (via download_url fallback)
+// + FIX (GITHUB): Robust laden van grote bestanden via API 'Raw' header (voorkomt CORS/Size errors)
 
 import { state } from './state.js';
 import { Toast } from './toast.js';
@@ -1643,37 +1643,33 @@ export async function loadFromGitHub() {
 
   const url = `https://api.github.com/repos/${owner}/${repo}/contents/${path}`;
 
+  // GEWIJZIGD: Gebruik de "Raw" header. 
+  // Hierdoor krijgen we direct de inhoud van het bestand (JSON string) terug,
+  // ongeacht de grootte (tot 100MB) en zonder Base64 gedoe of redirects.
   const response = await fetch(url, {
     headers: {
       Authorization: `token ${token}`,
-      Accept: 'application/vnd.github.v3+json'
+      Accept: 'application/vnd.github.v3.raw' 
     }
   });
 
-  if (!response.ok) throw new Error(`Fout bij laden: ${response.statusText}`);
-
-  const data = await response.json();
-  let content;
-
-  // FIX: GitHub API geeft lege 'content' bij bestanden > 1MB.
-  // Gebruik in dat geval de 'download_url'.
-  if (data.content && data.content.trim().length > 0) {
-    // Klein bestand (<1MB): Base64 decode
-    // (Newlines strippen voor veiligheid bij atob)
-    const cleanB64 = data.content.replace(/\r?\n/g, '');
-    content = b64_to_utf8(cleanB64);
-  } else if (data.download_url) {
-    // Groot bestand (>1MB): Raw fetch
-    const rawResponse = await fetch(data.download_url, {
-       headers: { Authorization: `token ${token}` }
-    });
-    if (!rawResponse.ok) throw new Error(`Fout bij downloaden raw content: ${rawResponse.statusText}`);
-    content = await rawResponse.text();
-  } else {
-    throw new Error('Geen bestandsinhoud gevonden in GitHub response (mogelijk leeg of te groot).');
+  if (!response.ok) {
+     // Probeer nuttige info te geven als het faalt (bv 404 of 401)
+     if (response.status === 404) throw new Error('Bestand niet gevonden op GitHub.');
+     if (response.status === 401) throw new Error('GitHub Token ongeldig of geen toegang.');
+     throw new Error(`Fout bij laden (${response.status}): ${response.statusText}`);
   }
 
-  const parsed = JSON.parse(content);
+  // De body is nu direct de JSON string van ons bestand
+  const content = await response.text(); 
+  
+  // Parse de inhoud
+  let parsed;
+  try {
+    parsed = JSON.parse(content);
+  } catch (e) {
+    throw new Error('Bestand is geen geldige JSON.');
+  }
 
   // ✅ Restore merge-groups naar localStorage vóór render
   restoreMergeGroupsToLocalStorage(parsed);
