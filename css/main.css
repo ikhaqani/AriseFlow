@@ -1557,8 +1557,8 @@ body {
     height: auto;
 
     padding: 7px 12px;
-
-    font-size: 12px;
+    font-size: 20px;
+    line-height: 20px;
     font-weight: 800;
     border-radius: 6px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
