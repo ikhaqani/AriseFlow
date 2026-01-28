@@ -99,25 +99,51 @@ body {
 }
 
 
-#fff !important;
-}
+/* === AriseFlow: verticale lane labels wit + strepen wit === */
 
-
-/* === AriseFlow: lane labels links + lane-separators wit (GEEN sticky/post-it borders) === */
-#laneLabels,
-#laneLabels * {
+/* 1) Tekst wit (ook SVG text) */
+.lane-label,
+.vertical-label,
+.row-label,
+.side-label,
+.lane-title,
+.lane-header-label,
+.lane-name,
+.lane-caption,
+.lane-vert,
+.lane-text,
+#laneLabels *,
+#rowTitles *,
+#sideLabels *,
+svg text {
   color: #fff !important;
-  fill: #fff !important;   /* voor SVG text */
-  opacity: 1 !important;
+  fill: #fff !important;
 }
 
-/* Alleen separators binnen laneLabels (veilig: raakt post-its niet) */
-#laneLabels * {
+/* 2) Verticale labels (writing-mode/rotate) */
+[style*="writing-mode: vertical"],
+[style*="rotate("],
+[style*="transform: rotate"] {
+  color: #fff !important;
+  fill: #fff !important;
+}
+
+/* 3) Strepen/dividers wit (alleen separators; geen post-it borders) */
+.lane-divider,
+.lane-sep,
+.row-divider,
+.col-divider,
+.grid-line,
+.gridline,
+.group-header-line,
+hr {
   border-color: #fff !important;
 }
 
-/* Als separators in #laneLabels als SVG lijnen worden getekend */
-#laneLabels svg line,
-#laneLabels svg path {
+
+/* 4) SVG lijnen wit */
+svg line,
+svg path {
   stroke: #fff !important;
 }
+

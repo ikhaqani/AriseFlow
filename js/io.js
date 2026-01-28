@@ -3,6 +3,7 @@
 // + FIX: Procesvalidatie export checkt gate completeness
 // + FIX: Merge-groups (incl. gate + systemsMeta) worden nu ook persistente data bij Save/Load (JSON + GitHub)
 // + FIX: NVT (System Fit) wordt meegenomen in CSV export: TTF Scores = "NVT", overige sysfit velden leeg
+// + FIX (EXPORT): Lane labels (row-headers) altijd zichtbaar + geen "rare letters" in PNG (html2canvas-safe)
 
 import { state } from './state.js';
 import { Toast } from './toast.js';
@@ -811,7 +812,8 @@ function normalizeIOResultLabel(v) {
   if (U === 'OK' || U === 'GOOD' || U === 'PASS' || U === 'VOLDOET') return 'Voldoet';
   if (U === 'MINOR') return 'Grotendeels';
   if (U === 'MODERATE') return 'Matig';
-  if (U === 'NOT_OK' || U === 'FAIL' || U === 'POOR' || U === 'NOK' || U === 'VOLDOET_NIET') return 'Voldoet niet';
+  if (U === 'NOT_OK' || U === 'FAIL' || U === 'POOR' || U === 'NOK' || U === 'VOLDOET_NIET')
+    return 'Voldoet niet';
   if (U === 'NVT' || U === 'NA') return '';
   return s;
 }
@@ -1403,10 +1405,14 @@ export async function exportHD(copyToClipboard = false) {
   const board = document.getElementById('board');
   if (!board) return;
 
+  // IMPORTANT: capture viewport if present (this is what contains row-headers + cols)
+  const viewport = document.getElementById('viewport');
+  const target = viewport || board;
+
   Toast.show('Afbeelding genereren...', 'info', 2000);
 
   try {
-    const canvas = await html2canvas(board, {
+    const canvas = await html2canvas(target, {
       backgroundColor: '#121619',
       scale: 2.5,
       logging: false,
@@ -1414,45 +1420,80 @@ export async function exportHD(copyToClipboard = false) {
       onclone: (doc) => {
         doc.body.classList.add('exporting');
 
-        const v = doc.getElementById('viewport');
-        const b = doc.getElementById('board');
-        const bw = doc.querySelector('.board-scale-wrapper');
-        const bcw = doc.getElementById('board-content-wrapper');
-        const cols = doc.getElementById('cols');
+        // =========================================================
+        // EXPORT FIX (ROBUST): rebuild lane labels as SVG (no CSS rotate)
+// (html2canvas heeft bugs met CSS rotate/writing-mode => glyphs/rare letters)
+(() => {
+  const rh = doc.getElementById('row-headers');
+  if (!rh) return;
 
-        if (bw) {
-          bw.style.transform = 'none';
-          bw.style.transformOrigin = 'top left';
-        }
+  const win = doc.defaultView || window;
 
-        if (v) {
-          v.style.overflow = 'visible';
-          v.style.width = 'fit-content';
-          v.style.height = 'auto';
-          v.style.position = 'static';
-        }
+  // labels + heights uit bestaande nodes
+  const rows = Array.from(rh.querySelectorAll('.row-header'));
+  const labels = rows.map((r) => {
+    const el = r.querySelector('.lane-label-text') || r.querySelector('span') || r;
+    return String(el?.textContent || '').trim();
+  });
 
-        if (b) {
-          b.style.transform = 'none';
-          b.style.marginTop = '80px';
-          b.style.padding = '20px';
-          b.style.overflow = 'visible';
-        }
+  const heights = rows.map((r) => {
+    const cssH = parseFloat((win.getComputedStyle(r).height || '').replace('px', ''));
+    if (Number.isFinite(cssH) && cssH > 0) return cssH;
+    const rectH = (r.getBoundingClientRect && r.getBoundingClientRect().height) ? r.getBoundingClientRect().height : 0;
+    return rectH > 0 ? rectH : 160;
+  });
 
-        if (bcw) {
-          bcw.style.overflow = 'visible';
-          bcw.style.height = 'auto';
-          bcw.style.position = 'relative';
-        }
+  // container strak (minder padding/gap)
+  rh.innerHTML = '';
+  rh.style.width = '74px';
+rh.style.minWidth = '74px';
+rh.style.marginRight = '0px';
+rh.style.overflow = 'visible';
+  rh.style.position = 'relative';
+  rh.style.zIndex = '5';
 
-        if (cols) {
-          cols.style.overflow = 'visible';
-          cols.style.position = 'relative';
+  const totalH = Math.max(1, Math.round(heights.reduce((a, b) => a + b, 0)));
 
-          const padTop = cols.style.paddingTop || '';
-          if (!padTop || padTop === '0px') cols.style.paddingTop = '44px';
-        }
+  // één SVG met per rij een rotated <text> (geen CSS rotate)
+  const svgNS = 'http://www.w3.org/2000/svg';
+  const svg = doc.createElementNS(svgNS, 'svg');
+  svg.setAttribute('width', '110');
+  svg.setAttribute('height', String(totalH));
+  svg.setAttribute('viewBox', `0 0 110 ${totalH}`);
+  svg.style.overflow = 'visible';
+  svg.style.display = 'block';
 
+  let y = 0;
+  for (let i = 0; i < labels.length; i++) {
+    const h = Math.max(40, Math.round(heights[i] || 160));
+    const text = labels[i] || '';
+
+    const cx = 55;
+    const cy = y + h / 2;
+
+    const g = doc.createElementNS(svgNS, 'g');
+    g.setAttribute('transform', `rotate(-90 ${cx} ${cy})`);
+
+    const t = doc.createElementNS(svgNS, 'text');
+    t.setAttribute('x', String(cx));
+    t.setAttribute('y', String(cy));
+    t.setAttribute('text-anchor', 'middle');
+    t.setAttribute('dominant-baseline', 'middle');
+    t.setAttribute('fill', 'rgba(255,255,255,0.95)');
+    t.setAttribute('font-size', '24');
+    t.setAttribute('font-weight', '800');
+    t.setAttribute('font-family', 'ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial');
+    t.setAttribute('letter-spacing', '0');
+    t.textContent = text;
+
+    g.appendChild(t);
+    svg.appendChild(g);
+
+    y += h;
+  }
+
+  rh.appendChild(svg);
+})();
         const forceStyle = doc.createElement('style');
         forceStyle.textContent = `
           .group-header-overlay,

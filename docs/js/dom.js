@@ -6,6 +6,45 @@ import { openEditModal, saveModalDetails, openLogicModal, openGroupModal, openVa
 
 const $ = (id) => document.getElementById(id);
 
+
+// === Emoji rendering (board post-its) =======================================
+function _escapeHtml(s) {
+  return String(s ?? "")
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#39;");
+}
+
+// Emoji sequences incl. ZWJ (👨‍⚕️) + optional variation selector
+
+let _EMOJI_SEQ_RE;
+try {
+  _EMOJI_SEQ_RE = new RegExp(
+    "(\\p{Extended_Pictographic}(?:\\uFE0F)?(?:\\u200D\\p{Extended_Pictographic}(?:\\uFE0F)?)*)",
+    "gu"
+  );
+} catch (e) {
+  // Fallback: surrogate-pair emoji (less perfect, but safe)
+  _EMOJI_SEQ_RE = /([\uD83C-\uDBFF][\uDC00-\uDFFF])/g;
+}
+
+function renderTextWithEmojiSpan(rawText) {
+  const s = String(rawText ?? "");
+  if (!s) return "";
+  const parts = s.split(_EMOJI_SEQ_RE); // keeps captures
+  let out = "";
+  for (let i = 0; i < parts.length; i++) {
+    const part = parts[i] ?? "";
+    if (!part) continue;
+    if (i % 2 === 1) out += `<span class="emoji-inline">${part}</span>`;
+    else out += _escapeHtml(part);
+  }
+  return out;
+}
+// ============================================================================
+
 let _openModalFn = null;
 let _delegatedBound = false;
 let _syncRaf = 0;
@@ -426,7 +465,7 @@ function sanitizeGroupForSheet(sheet, g) {
   if (!n) return null;
 
   const slotIdx = Number(g?.slotIdx);
-  if (![1, 4].includes(slotIdx)) return null;
+  if (![1, 2, 4].includes(slotIdx)) return null;
 
   const cols = Array.isArray(g?.cols) ? g.cols.map((x) => Number(x)).filter(Number.isFinite) : [];
   const uniq = [...new Set(cols)].filter((c) => c >= 0 && c < n);
@@ -824,9 +863,9 @@ function openMergeModal(clickedColIdx, slotIdx, openModalFn) {
   const n = sh.columns?.length ?? 0;
   if (!n) return;
 
-  if (![1, 4].includes(slotIdx)) return;
+  if (![1, 2, 4].includes(slotIdx)) return;
 
-  const slotName = slotIdx === 1 ? 'Systeem' : 'Output';
+  const slotName = slotIdx === 1 ? 'Systeem' : slotIdx === 2 ? 'Input' : 'Output';
 
   const cur = getAllMergeGroupsSanitized().find((g) => g.slotIdx === slotIdx) || null;
   const curCols = cur?.cols?.length ? cur.cols : [];
@@ -964,9 +1003,8 @@ let gate = slotIdx === 4
 
   const grid = modal.querySelector('#mergeColsGrid');
   const txt = modal.querySelector('#mergeText');
-  if (txt) txt.value = String(curText || '');
-
-  const mergeEnabledEl = modal.querySelector('#mergeEnabled');
+  if (txt) txt.value = String(curText || "");
+const mergeEnabledEl = modal.querySelector('#mergeEnabled');
   const mergeRangeWrapEl = modal.querySelector('#mergeRangeWrap');
   const mergeStatusLineEl = modal.querySelector('#mergeStatusLine');
 
@@ -1431,7 +1469,7 @@ const qa = sys.qa && typeof sys.qa === "object" ? sys.qa : {};
 
     if (!mergeEnabled) {
       setMergeGroupForSlot(slotIdx, null);
-      state.updateStickyText(clickedColIdx, slotIdx, v);
+      if (slotIdx !== 2) state.updateStickyText(clickedColIdx, slotIdx, v);
 
 
       // SINGLE-COL: persist Procesvalidatie (gate) also when merge is OFF
@@ -1493,7 +1531,7 @@ const qa = sys.qa && typeof sys.qa === "object" ? sys.qa : {};
     setMergeGroupForSlot(slotIdx, payload);
 
     selected.forEach((cIdx) => {
-      state.updateStickyText(cIdx, slotIdx, v);
+      if (slotIdx !== 2) state.updateStickyText(cIdx, slotIdx, v);
     });
 
     if (slotIdx === 1) {
@@ -1896,7 +1934,7 @@ function ensureRowHeaders() {
   ['Leverancier', 'Systeem', 'Input', 'Proces', 'Output', 'Klant'].forEach((label) => {
     const div = document.createElement('div');
     div.className = 'row-header';
-    div.innerHTML = `<span>${label}</span>`;
+    div.innerHTML = `<span class="lane-label-text">${escapeHTML(label)}</span>`;
     rowHeaderContainer.appendChild(div);
   });
 }
@@ -2126,7 +2164,7 @@ function renderMergedOverlays(openModalFn) {
           'input',
           () => {
             if (g.slotIdx === 1 && g.systemsMeta) return;
-            state.updateStickyText(masterCol, g.slotIdx, txt.textContent);
+            if (g.slotIdx !== 2) state.updateStickyText(masterCol, g.slotIdx, txt.textContent);
             scheduleSyncRowHeights();
           },
           { passive: true }
@@ -2303,7 +2341,7 @@ function renderColumnsOnly(openModalFn) {
       myInputId = _joinSemiText(bundleLabelsForInput);
     } else if (resolved.ids.length) {
       myInputId = _joinSemiText(resolved.ids);
-    } else if (inputSlot?.text?.trim()) {
+    } else if (inputSlot?.text?.trim() && !isMergedSlave(colIdx, 2)) {
       localInCounter += 1;
       myInputId = `IN${offsets.inStart + localInCounter}`;
     }
@@ -2466,7 +2504,7 @@ function renderColumnsOnly(openModalFn) {
       }
       if (textEl) textEl.textContent = displayText;
 
-      const isMergedSource = !!getMergeGroup(colIdx, slotIdx);
+      const isMergedSource = (slotIdx === 2) ? isMergedSlave(colIdx, 2) : !!getMergeGroup(colIdx, slotIdx);
 
       if (!isMergedSource) attachStickyInteractions({ stickyEl, textEl, colIdx, slotIdx, openModalFn });
 
@@ -2474,7 +2512,7 @@ function renderColumnsOnly(openModalFn) {
         textEl.addEventListener(
           'input',
           () => {
-            state.updateStickyText(colIdx, slotIdx, textEl.textContent);
+            if (!(slotIdx === 2 && isMergedSlave(colIdx, 2))) state.updateStickyText(colIdx, slotIdx, textEl.textContent);
             scheduleSyncRowHeights();
           },
           { passive: true }
@@ -2482,7 +2520,7 @@ function renderColumnsOnly(openModalFn) {
         textEl.addEventListener(
           'blur',
           () => {
-            state.updateStickyText(colIdx, slotIdx, textEl.textContent);
+            if (!(slotIdx === 2 && isMergedSlave(colIdx, 2))) state.updateStickyText(colIdx, slotIdx, textEl.textContent);
             scheduleSyncRowHeights();
           },
           { passive: true }
@@ -2553,14 +2591,24 @@ function updateSingleText(colIdx, slotIdx) {
     }
 
     if (parts.length) {
-      slotEl.textContent = _joinSemiText(parts);
+      slotEl.innerHTML = renderTextWithEmojiSpan(_joinSemiText(parts));
       return true;
     }
   }
 
-  slotEl.textContent = slot.text ?? '';
+  slotEl.innerHTML = renderTextWithEmojiSpan(slot.text ?? "");
   return true;
 }
+
+
+// Bridge: allow modals.js to open merge modal without importing dom.js
+window.addEventListener("ssipoc:openMergeModal", (ev) => {
+  const d = (ev && ev.detail) ? ev.detail : {};
+  const colIdx = Number(d.colIdx);
+  const slotIdx = Number(d.slotIdx);
+  if (!Number.isFinite(colIdx) || !Number.isFinite(slotIdx)) return;
+  openMergeModal(colIdx, slotIdx, _openModalFn);
+});
 
 /** Renders the full board for the currently active sheet. */
 export function renderBoard(openModalFn) {
@@ -3251,3 +3299,65 @@ function __dbgSysfitDump(tag){
   });
 })();
 
+
+/* ==========================================================================
+   INLINE EMOJI WRAPPER (post-its): make emoji bigger only
+   ========================================================================== */
+(function(){
+  function _esc(s){
+    return String(s)
+      .replace(/&/g,"&amp;")
+      .replace(/</g,"&lt;")
+      .replace(/>/g,"&gt;")
+      .replace(/"/g,"&quot;")
+      .replace(/'/g,"&#39;");
+  }
+
+  function _isEmojiChar(ch){
+    try { 
+try {
+      return new RegExp("\\p{Extended_Pictographic}", "u").test(ch);
+    } catch (e) {
+      // fallback: treat surrogate pairs as emoji-ish
+      return /[\uD83C-\uDBFF][\uDC00-\uDFFF]/.test(ch);
+    } }
+    catch(e){ return false; }
+  }
+
+  function _wrapInlineEmoji(el){
+    if (!el) return;
+    // Don't interfere while editing
+    if (el === document.activeElement) return;
+
+    const t = el.textContent ?? "";
+    if (!t) return;
+
+    // Avoid re-processing the same content
+    if (el.dataset && el.dataset.emojiSrc === t) return;
+
+    let out = "";
+    for (const ch of Array.from(t)){
+      if (_isEmojiChar(ch)){
+        out += `<span class="emoji-inline">${_esc(ch)}</span>`;
+      } else {
+        out += _esc(ch);
+      }
+    }
+
+    // Replace content; remember source to prevent loops
+    el.innerHTML = out;
+    if (el.dataset) el.dataset.emojiSrc = t;
+  }
+
+  function _applyAll(){
+    document.querySelectorAll(".sticky .text").forEach(_wrapInlineEmoji);
+  }
+
+  // Initial + keep up-to-date after renders/changes
+  window.addEventListener("DOMContentLoaded", () => {
+    _applyAll();
+    const target = document.getElementById("board") || document.body;
+    const obs = new MutationObserver(() => { _applyAll(); });
+    obs.observe(target, { childList: true, subtree: true, characterData: true });
+  });
+})();

@@ -1,4 +1,5 @@
 /* main.css (VOLLEDIG - MET NIEUWE BADGE STYLING) */
+
 /* ==========================================================================
    SCROLLBARS
    ========================================================================== */
@@ -25,7 +26,7 @@
    ========================================================================== */
 :root {
     --gap: 12px;
-    --col-gap: 25px; 
+    --col-gap: 25px;
     --col-width: 420px;
     --slot-min-height: 140px;
 
@@ -56,8 +57,8 @@
     --topbar-height: 72px;
 
     /* Hoogte definities voor automatische uitlijning */
-    --actions-height: 40px;      
-    --group-header-height: 40px; 
+    --actions-height: 40px;
+    --group-header-height: 40px;
 }
 
 /* ==========================================================================
@@ -67,7 +68,7 @@ body {
     margin: 0;
     padding: 0;
     background-color: var(--bg-color);
-    background-image: 
+    background-image:
         radial-gradient(circle at 50% 0%, #1e2228 0%, transparent 60%),
         linear-gradient(0deg, rgba(0,0,0,0.2) 0%, transparent 100%);
     font-family: "Inter", sans-serif;
@@ -120,7 +121,7 @@ body {
     min-height: var(--topbar-height); /* Min-height ipv fixed height */
     height: auto; /* Laat hoogte meegroeien */
     z-index: 1000;
-    background: #141414; 
+    background: #141414;
     border-bottom: 1px solid rgba(255, 255, 255, 0.08);
     box-shadow: 0 4px 20px rgba(0,0,0,0.4);
     display: flex;
@@ -241,7 +242,7 @@ body {
 }
 
 .project-title-wrapper {
-    position: relative; 
+    position: relative;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -251,7 +252,7 @@ body {
 
 .project-title-input {
     background: transparent;
-    border: 1px solid transparent; 
+    border: 1px solid transparent;
     color: #ffffff;
     font-family: "Inter", sans-serif;
     font-weight: 900;
@@ -409,11 +410,11 @@ body {
    ========================================================================== */
 .dashboard-bar {
     position: absolute;
-    top: 84px; 
+    top: 84px;
     left: 50%;
     transform: translateX(-50%);
     z-index: 990;
-    
+
     background: rgba(0, 0, 0, 0.8);
     backdrop-filter: blur(10px);
     border: 1px solid rgba(255, 255, 255, 0.15);
@@ -439,7 +440,7 @@ body {
 }
 
 .stat-item span:first-child {
-    font-size: 16px; 
+    font-size: 16px;
     line-height: 1;
 }
 
@@ -459,7 +460,7 @@ body {
     gap: var(--gap);
     margin-right: 16px;
     /* FIX: 0px zodat ze uitlijnen met de eerste rij stickies die op 0 beginnen */
-    padding-top: 0px; 
+    padding-top: 0px;
     width: 40px;
     flex-shrink: 0;
 }
@@ -532,7 +533,7 @@ body {
 .col-actions {
     position: absolute;
     /* AUTOMATISCH: Boven de kolom */
-    top: calc(-1 * var(--actions-height)); 
+    top: calc(-1 * var(--actions-height));
     left: 0;
     width: 100%;
     height: var(--actions-height);
@@ -631,6 +632,7 @@ body {
     border-color: var(--ui-accent);
 }
 
+/* Group columns (subtle block styling) */
 .col.is-group {
     border-top: 2px solid rgba(233, 30, 99, 0.3);
     border-bottom: 2px solid rgba(233, 30, 99, 0.3);
@@ -677,13 +679,19 @@ body {
     padding: 0;
     display: flex;
     flex-direction: column;
+
+    /* BELANGRIJK:
+       - overflow visible zodat badges (boven/onder) niet afkappen
+       - gate-overflow fixen we in .auth-module (overflow hidden)
+    */
     overflow: visible;
+
     /* Laat merged overlays een gradient/achtergrond injecteren via --merged-bg */
     background: var(--merged-bg, var(--sticky-bg));
     color: var(--sticky-text);
     font-family: var(--sticky-font-family);
     border: 1px solid rgba(0, 0, 0, 0.05);
-    border-radius: 0; 
+    border-radius: 0;
     box-shadow:
         0 2px 4px rgba(0, 0, 0, 0.15),
         0 8px 16px rgba(0, 0, 0, 0.1);
@@ -692,7 +700,6 @@ body {
 
 /* ==========================================================================
    NO-SYSTEM PATTERN (SYSTEM POST-IT)
-   - Actief als DOM.js een class of data-attribuut zet.
    ========================================================================== */
 .sticky.no-system,
 .sticky[data-no-system="1"] {
@@ -731,7 +738,7 @@ body {
 }
 
 .sticky-grip {
-        width: 100%;
+    width: 100%;
     cursor: default;
     background: rgba(0, 0, 0, 0.06);
     border-bottom: 1px solid rgba(0,  0,  0,  0.05);
@@ -765,8 +772,8 @@ body {
     min-height: 0;
     overflow: visible;
     text-overflow: unset;
-  overflow-wrap: anywhere;
-  word-break: break-word;
+    overflow-wrap: anywhere;
+    word-break: break-word;
 }
 
 /* Merged items */
@@ -940,9 +947,6 @@ body {
     text-transform: uppercase;
     letter-spacing: 0.5px;
     box-shadow: 0 2px 4px rgba(0,0,0,0.2);
-    /* Als je wilt dat de pil meekleurt met de sticky (via DOM.js variabelen), kan je dit toevoegen: */
-    /* background: var(--sticky-bg, #455a64); */
-    /* color: var(--sticky-text, #fff); */
 }
 
 .conditional-pill {
@@ -981,13 +985,20 @@ body {
 
 .id-tag {
     position: absolute;
-    bottom:  12px;
-    left:  16px;
+    left: 10px;
+    bottom: 10px;
+    z-index: 3;
+    pointer-events: none;
+
     font-size: 15px;
     font-weight: 900;
     opacity: 0.7;
     color: #090148;
-    pointer-events: none;
+
+    max-width: 45%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .qa-score-badge {
@@ -1029,10 +1040,16 @@ body {
     flex-direction: column;
     box-sizing: border-box;
     font-family: inherit;
-    overflow: visible;
-    padding-left: 118px; /* ruimte voor OUT1 links */
+
+    /* FIX: gate mag NIET buiten sticky "lekken" */
+    overflow: hidden;
+    max-width: 100%;
+
+    padding-left: 12px;
     padding-right: 12px;
-    transform: translateY(-18px);
+
+    /* GEEN negatieve translateY (dit veroorzaakte bleed) */
+    transform: none;
 }
 
 .auth-header {
@@ -1102,7 +1119,7 @@ body {
     display: block;
     white-space: pre-wrap;
     word-break: break-word;
-    overflow: visible;
+    overflow: hidden; /* binnen auth-module houden */
 }
 
 .auth-footer {
@@ -1146,9 +1163,9 @@ body {
     text-align: right;
     white-space: normal;
     word-break: break-word;
-    overflow: visible;
-    text-overflow: unset;
-    max-width: none;
+    overflow: hidden; /* binnen auth-module houden */
+    text-overflow: ellipsis;
+    max-width: 100%;
 }
 
 .logic-line.fail .logic-key,
@@ -1233,10 +1250,10 @@ body {
 .sticky.is-auth-gate .auth-footer .logic-line > span:nth-child(3) {
     font-weight: 850 !important;
     opacity: .94 !important;
-    max-width: none !important;
-    overflow: visible !important;
-    text-overflow: unset !important;
-    white-space: normal !important;
+    max-width: 100% !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+    white-space: nowrap !important;
     letter-spacing: .1px !important;
 }
 
@@ -1290,7 +1307,7 @@ body {
 }
 
 /* ==========================================================================
-   SPACING & CONNECTORS (AANGEPAST: 80PX SPACING, 0PX VOOR VARIANTS)
+   SPACING & CONNECTORS
    ========================================================================== */
 .col-connector {
     position: relative;
@@ -1298,17 +1315,17 @@ body {
     flex-direction: column;
     justify-content: flex-start;
     align-items: center;
-    width: var(--col-gap); /* 80px */
+    width: var(--col-gap);
     flex-shrink: 0;
     padding-top: 0;
-    z-index: 1000; /* Zorg dat connector boven sticky staat (indien geen hover) */
-    overflow: visible; 
+    z-index: 1000;
+    overflow: visible;
 }
 
 .col-connector.parallel-connector,
 .col-connector.variant-connector,
 .col-connector.combo-connector {
-    width: 0 !important; 
+    width: 0 !important;
     padding: 0 !important;
     margin: 0 !important;
     overflow: visible;
@@ -1322,24 +1339,22 @@ body {
     display: none !important;
 }
 
-/* Combo (Parallel + Split + Question + Conditional + Group) connector: toon alle badges onder elkaar */
+/* Combo connector: toon alle badges onder elkaar */
 .combo-badge-stack {
     position: absolute;
     top: 50%;
     left: 0;
     transform: translate(-50%, -50%);
-    z-index: 2000; /* AANGEPAST: Zeer hoge z-index voor emojis/badges */
+    z-index: 2000;
     display: flex;
     flex-direction: column;
     gap: 6px;
     pointer-events: none;
 
-    /* ✅ NIEUW: laat stack meeschalen met inhoud (RF1-A niet wrappen) */
     width: auto;
     min-width: max-content;
 }
 
-/* Als badges in de stack zitten, moeten ze niet absoluut positioneren */
 .combo-badge-stack .parallel-badge,
 .combo-badge-stack .variant-badge,
 .combo-badge-stack .question-badge,
@@ -1351,7 +1366,7 @@ body {
     transform: none !important;
     margin: 0 !important;
     pointer-events: none;
-    z-index: 2001; /* Extra zekerheid */
+    z-index: 2001;
 }
 
 .connector-active {
@@ -1387,12 +1402,12 @@ body {
 }
 
 .connector-arrow-minimal {
-    width: 50px; /* Iets breder voor de 80px gap */
+    width: 50px;
     height: 2px;
     background: rgba(255, 255, 255, 0.3);
     position: relative;
     transition: background 0.2s;
-    margin-top: 50px; /* Verticaal centreren */
+    margin-top: 50px;
 }
 
 .connector-active:hover .connector-arrow-minimal { background: rgba(255, 255, 255, 0.6); }
@@ -1529,14 +1544,10 @@ body {
     border-right: none;
 }
 
-/* NIEUW: ROUTE INDICATOR (Subtiele badge op de post-it zelf) */
-.sticky-route-tag {
-    /* Styles staan al in de HTML via inline styles in buildSlotHTML */
-    /* Maar hier kun je defaults zetten als je wilt */
-    pointer-events: none;
-}
+/* Route indicator (subtle badge op de post-it zelf) */
+.sticky-route-tag { pointer-events: none; }
 
-/* ✅ AANGEPAST: Variant badge auto-breedte + nowrap (RF1-A volledig zichtbaar) */
+/* Variant badge auto-breedte + nowrap (RF1-A volledig zichtbaar) */
 .variant-badge {
     position: absolute;
     top: 50%;
@@ -1564,14 +1575,14 @@ body {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
 }
 
-/* NIEUW: Question Badge Styling */
+/* Question Badge Styling */
 .question-badge {
     position: absolute;
     top: 50%;
     left: 0;
     transform: translate(-50%, -50%);
     z-index: 100;
-    background: #00bcd4; /* Cyaan blauw */
+    background: #00bcd4;
     color: #ffffff;
     font-size: 12px;
     font-weight: 800;
@@ -1585,14 +1596,14 @@ body {
     min-width: 24px;
 }
 
-/* NIEUW: Conditional Badge Styling */
+/* Conditional Badge Styling */
 .conditional-badge {
     position: absolute;
     top: 50%;
     left: 0;
     transform: translate(-50%, -50%);
     z-index: 100;
-    background: #ff9800; /* Oranje */
+    background: #ff9800;
     color: #ffffff;
     font-size: 14px;
     font-weight: 800;
@@ -1606,14 +1617,14 @@ body {
     min-width: 24px;
 }
 
-/* NIEUW: Group Badge Styling (Puzzelstuk) */
+/* Group Badge Styling */
 .group-badge {
     position: absolute;
     top: 50%;
     left: 0;
     transform: translate(-50%, -50%);
     z-index: 100;
-    background: #e91e63; /* Roze */
+    background: #e91e63;
     color: #ffffff;
     font-size: 14px;
     font-weight: 800;
@@ -1625,27 +1636,6 @@ body {
     justify-content: center;
     height: 24px;
     min-width: 24px;
-}
-
-/* NIEUW: Group Column Styling (Subtiele visualisatie voor het blok zelf) */
-.col.is-group {
-    border-top: 2px solid rgba(233, 30, 99, 0.3);
-    border-bottom: 2px solid rgba(233, 30, 99, 0.3);
-    background: rgba(233, 30, 99, 0.02);
-    border-radius: 12px;
-    position: relative;
-}
-
-.col.is-group + .col.is-group {
-    border-left: 1px solid rgba(233, 30, 99, 0.2);
-    border-top-left-radius: 0;
-    border-bottom-left-radius: 0;
-}
-
-.col.is-group:has(+ .col.is-group) {
-    border-top-right-radius: 0;
-    border-bottom-right-radius: 0;
-    border-right: none;
 }
 
 /* ==========================================================================
@@ -1810,8 +1800,11 @@ body.exporting .connector-text-export {
     box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.2);
 }
 
-textarea { resize: vertical; min-height: var(--slot-min-height);
- line-height: 1.5; }
+textarea {
+    resize: vertical;
+    min-height: var(--slot-min-height);
+    line-height: 1.5;
+}
 
 .io-helper {
     margin-bottom: 32px;
@@ -2105,20 +2098,19 @@ input, textarea, [contenteditable], [contenteditable="true"], .text[contentedita
 }
 
 /* ==========================================================================
-   MENU TOGGLE LOGIC (FIX VOOR MENU IN/UITKLAPPEN)
+   MENU TOGGLE LOGIC
    ========================================================================== */
 .topbar.collapsed {
     transform: translateY(-100%);
 }
 
 .topbar.collapsed .topbar-content {
-    opacity: 0; 
+    opacity: 0;
     pointer-events: none;
 }
 
 .topbar.collapsed .topbar-toggle-bar {
-    /* Duw het hendeltje naar beneden zodat het zichtbaar blijft */
-    transform: translateY(100%); 
+    transform: translateY(100%);
     opacity: 0.8;
     background: #141414;
     border-top: 1px solid rgba(255,255,255,0.1);
@@ -2133,25 +2125,22 @@ input, textarea, [contenteditable], [contenteditable="true"], .text[contentedita
 }
 
 .viewport.expanded-view {
-    /* Verwijder de padding van de topbar zodat content omhoog schuift */
     padding-top: 40px !important;
 }
 
 /* ==========================================================================
    GROUP OVERLAYS (NEW)
    ========================================================================== */
-/* Verwijder border, voegt titel toe boven de groep */
 .group-header-overlay {
     position: absolute;
-    /* Left/Width are set via JS */
-    top: -65px; /* Negative value to move it ABOVE the columns (40px knoppen + 25px marge) */
+    top: -65px;
     height: 30px;
     pointer-events: none;
-    z-index: 100; /* Behind modal, but distinct */
+    z-index: 100;
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: flex-end; /* Align line at bottom */
+    justify-content: flex-end;
 }
 
 .group-header-label {
@@ -2184,52 +2173,6 @@ input, textarea, [contenteditable], [contenteditable="true"], .text[contentedita
   word-break: break-word;
 }
 
-
-/* ARISE OVERRIDES: gate no-overlap
-   - keep gate footer inside sticky (no bleed into neighbor columns)
-   - make OUT/IN id-tag absolute so it never overlaps gate footer
-*/
-.sticky{
-  position: relative;
-  overflow: hidden;
-}
-
-/* OUT1 / IN1 label should not affect layout */
-.id-tag{
-  position: absolute;
-  left: 10px;
-  bottom: 10px;
-  z-index: 3;
-  pointer-events: none;
-
-  max-width: 45%;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-
-/* Gate footer layout */
-.sticky .auth-module{
-  max-width: 100%;
-  overflow:  visible;
-
-  /* reserve some breathing room; OUT1 is absolute now */
-  padding-left:    12px;
-  padding-right:  12px;
-
-  transform:   translateY(-35px);
-}  align-items: center;
-}
-
-.sticky .auth-header{
-  gap: 8px;
-  flex-wrap:  nowrap;
-  justify-content: center;
-}  width: 100%;
-}
-/* END ARISE OVERRIDES */
-
-
 /* FORCE FIXED COLUMN WIDTH (prevents needle cols) */
 #cols .col{
   flex: 0 0 var(--col-width) !important;
@@ -2239,20 +2182,12 @@ input, textarea, [contenteditable], [contenteditable="true"], .text[contentedita
   box-sizing: border-box;
 }
 
-
 /* Sticky font sizing */
 .sticky,
 .sticky textarea,
 .sticky .content,
 .sticky .sticky-text{
   font-size: var(--sticky-font-size) !important;
-}
-
-/* Prevent score badges from being clipped */
-.slot,
-.slot-inner,
-.sticky{
-  overflow: visible !important;
 }
 
 /* ===== Sticky font size control (menu/topbar) ===== */
@@ -2287,13 +2222,6 @@ input, textarea, [contenteditable], [contenteditable="true"], .text[contentedita
   font-size: var(--sticky-font-size, 18px) !important;
 }
 
-/* ===== Prevent badge clipping on stickies ===== */
-.sticky{
-  overflow: visible !important;
-}
-
-
-
 /* ARISE LABEL/ID SIZE OVERRIDES */
 :root{
   --label-font-size: 24px;
@@ -2309,10 +2237,10 @@ input, textarea, [contenteditable], [contenteditable="true"], .text[contentedita
 .qa-score-badge{
   font-size: var(--label-font-size) !important;
   line-height: 1.05 !important;
-  padding: 3px 8px !important; /* iets ruimer voor 24px */
+  padding: 3px 8px !important;
 }
 
-/* Gate footer labels (TTF e.d.) — fallback op meerdere classnames */
+/* Gate footer labels (fallback op meerdere classnames) */
 .auth-badge,
 .sticky .auth-badge,
 .auth-label,
@@ -2324,9 +2252,6 @@ input, textarea, [contenteditable], [contenteditable="true"], .text[contentedita
   font-size: var(--label-font-size) !important;
   line-height: 1.05 !important;
 }
-
-
-
 
 /* ARISE EMOJI LABEL SIZE OVERRIDES */
 :root{
@@ -2346,7 +2271,6 @@ input, textarea, [contenteditable], [contenteditable="true"], .text[contentedita
   line-height: 1.05 !important;
 }
 
-
 /* ===== SYSFIT NVT (visible) ===== */
 .sysfit-nvt-toggle{
   border: 2px solid #ff3b30 !important;
@@ -2354,316 +2278,109 @@ input, textarea, [contenteditable], [contenteditable="true"], .text[contentedita
 }
 /* ===== END SYSFIT NVT (visible) ===== */
 
-
-/* =========================
-   BADGES: 36px + ruimte voor titel/tekst
-   ========================= */
-.qa-score-badge,
-.workexp-badge,
-.route-pill,
-.conditional-pill,
-.sticky-badge{
-  font-size: 36px !important;
-  line-height: 1 !important;
+/* ==========================================================================
+   LANE LABELS: alleen tekst wit (Leverancier/Systeem/Input/Proces/Output/Klant)
+   - geen borders, geen background, geen layout
+   ========================================================================== */
+#laneLabels,
+#laneLabels *{
+  color: #fff !important;
 }
 
-/* Emoji-only badge (process status emoji etc.) */
-.sticky-badge.emoji-only{
-  font-size: 36px !important;
-  line-height: 1 !important;
+/* als labels als SVG text worden getekend */
+#laneLabels text,
+#laneLabels svg text{
+  fill: #fff !important;
+  opacity: 1 !important;
 }
 
-/* Extra ruimte zodat tekst niet tegen badges plakt */
-.sticky .badges-row{
-  min-height: 44px !important;
-}
-.sticky .text{
-  padding-top: 14px !important;
+/* als er een opacity/filter op parent staat */
+#laneLabels{
+  opacity: 1 !important;
+  filter: none !important;
 }
 
-/* =========================
-   LANE LABELS: 30px, ROTATE 270° (naar links), GEEN writing-mode
-   ========================= */
-#row-headers{
-  width: 120px !important;
+/* ==========================================================================
+   LANE LABELS BRIGHT WHITE (high contrast)
+   ========================================================================== */
+#laneLabels{
+  opacity: 1 !important;
+  filter: none !important;
+  mix-blend-mode: normal !important;
 }
 
-#row-headers .row-header{
-  /* kill vertical writing-mode ergens anders */
-  writing-mode: horizontal-tb !important;
-  text-orientation: mixed !important;
-  transform: none !important;
-
-  overflow: visible !important;
-  display: flex !important;
-  align-items: center !important;
-  justify-content: center !important;
-
-  font-size: 30px !important;
-  font-weight: 800 !important;
-  letter-spacing: 0.08em !important;
-  color: rgba(255,255,255,0.95) !important;
+#laneLabels, #laneLabels *{
+  color: #ffffff !important;
+  opacity: 1 !important;
+  filter: none !important;
+  mix-blend-mode: normal !important;
+  text-shadow: 0 2px 8px rgba(0,0,0,0.75) !important;
 }
 
-#row-headers .row-header .lane-label-text{
-  writing-mode: horizontal-tb !important;
-  text-orientation: mixed !important;
+/* SVG-rendered text */
+#laneLabels text,
+#laneLabels svg text{
+  fill: #ffffff !important;
+  fill-opacity: 1 !important;
+  opacity: 1 !important;
+  filter: none !important;
+  text-shadow: none !important;
+}
 
-  display: inline-block !important;
-  transform: rotate(-90deg) !important;  /* 270° */
-  transform-origin: center center !important;
-  white-space: nowrap !important;
+/* ==========================================================================
+   LABELS LINKS (ROW HEADERS + LANE LABEL CONTAINERS) — HIGH CONTRAST
+   ========================================================================== */
 
-  line-height: 1 !important;
+/* 1) Row headers (Leverancier/Systeem/Input/Proces/Output/Klant) */
+.row-header,
+.row-header span{
+  color: #ffffff !important;
+  opacity: 1 !important;
   text-shadow: 0 2px 10px rgba(0,0,0,0.85) !important;
 }
 
-/* Override legacy rule that targets ALL row-header spans */
-#row-headers .row-header > span{
-  transform: rotate(-90deg) !important;
-  writing-mode: horizontal-tb !important;
-  text-orientation: mixed !important;
-}
-
-#row-headers, #row-headers *{
-  writing-mode: horizontal-tb !important;
-  text-orientation: mixed !important;
-}
-
-/* ===== LANE LABELS: FORCE WORD ROTATE (no vertical writing-mode) ===== */
-#row-headers,
-#row-headers *{
-  writing-mode: horizontal-tb !important;
-  text-orientation: mixed !important;
-}
-
-#row-headers{
-  width: 120px !important;          /* genoeg ruimte, geen afkappen */
-}
-
-#row-headers .row-header{
-  display: flex !important;
-  align-items: center !important;
-  justify-content: center !important;
-  overflow: visible !important;
-  transform: none !important;        /* kill eerdere rotates op container */
-}
-
-#row-headers .row-header > span,
-#row-headers .row-header .lane-label-text{
-  display: inline-block !important;
-  white-space: nowrap !important;
-
-  font-size: 30px !important;
-  font-weight: 800 !important;
-  letter-spacing: 0.08em !important;
-  line-height: 1 !important;
-  color: rgba(255,255,255,0.95) !important;
+/* 2) Als jouw app ook laneLabels/rowTitles/sideLabels containers gebruikt */
+#laneLabels, #rowTitles, #sideLabels,
+#laneLabels *, #rowTitles *, #sideLabels *{
+  color: #ffffff !important;
+  opacity: 1 !important;
+  filter: none !important;
   text-shadow: 0 2px 10px rgba(0,0,0,0.85) !important;
-
-  transform: rotate(-90deg) !important;  /* woord 270° */
-  transform-origin: center center !important;
 }
 
-/* ===== LANE LABELS: ABSOLUTE FINAL (rotate word -90, NO vertical writing-mode) ===== */
-#row-headers,
-#row-headers *{
-  writing-mode: horizontal-tb !important;
-  text-orientation: mixed !important;
+/* SVG-text varianten */
+#laneLabels text, #laneLabels svg text,
+#rowTitles text, #rowTitles svg text,
+#sideLabels text, #sideLabels svg text{
+  fill: #ffffff !important;
+  fill-opacity: 1 !important;
+  opacity: 1 !important;
+  filter: none !important;
 }
 
-#row-headers .row-header{
-  overflow: visible !important;
-  display: flex !important;
-  align-items: center !important;
-  justify-content: center !important;
-  transform: none !important;
+/* ==========================================================================
+   LABEL STREPEN LINKS — WIT CONTRAST (row headers / lane labels)
+   ========================================================================== */
+
+/* Row header: de verticale streep rechts */
+.row-header{
+  border-right-color: rgba(255,255,255,0.75) !important;
 }
 
-#row-headers .row-header > span,
-#row-headers .row-header .lane-label-text{
-  writing-mode: horizontal-tb !important;
-  text-orientation: mixed !important;
-
-  display: inline-block !important;
-  white-space: nowrap !important;
-
-  font-size: 30px !important;
-  font-weight: 800 !important;
-  letter-spacing: 0.08em !important;
-  line-height: 1 !important;
-  color: rgba(255,255,255,0.95) !important;
-  text-shadow: 0 2px 10px rgba(0,0,0,0.85) !important;
-
-  transform: rotate(-90deg) !important;   /* woord verticaal */
-  transform-origin: center center !important;
+/* Als laneLabels/rowTitles/sideLabels eigen separators tekenen */
+#laneLabels .lane-divider, #laneLabels .lane-sep, #laneLabels .row-divider,
+#rowTitles .lane-divider, #rowTitles .lane-sep, #rowTitles .row-divider,
+#sideLabels .lane-divider, #sideLabels .lane-sep, #sideLabels .row-divider{
+  border-color: rgba(255,255,255,0.75) !important;
+  background-color: rgba(255,255,255,0.75) !important;
+  opacity: 1 !important;
 }
 
-/* ===== LANE LABELS: ABSOLUTE FINAL (rotate word -90, NO vertical writing-mode) ===== */
-#row-headers,
-#row-headers *{
-  writing-mode: horizontal-tb !important;
-  text-orientation: mixed !important;
+/* SVG-lijnen in die label-containers (verticale strepen worden soms als line/path getekend) */
+#laneLabels svg line, #laneLabels svg path,
+#rowTitles svg line, #rowTitles svg path,
+#sideLabels svg line, #sideLabels svg path{
+  stroke: rgba(255,255,255,0.75) !important;
+  stroke-opacity: 1 !important;
 }
 
-#row-headers .row-header{
-  overflow: visible !important;
-  display: flex !important;
-  align-items: center !important;
-  justify-content: center !important;
-  transform: none !important;
-}
-
-#row-headers .row-header > span,
-#row-headers .row-header .lane-label-text{
-  writing-mode: horizontal-tb !important;
-  text-orientation: mixed !important;
-
-  display: inline-block !important;
-  white-space: nowrap !important;
-
-  font-size: 30px !important;
-  font-weight: 800 !important;
-  letter-spacing: 0.08em !important;
-  line-height: 1 !important;
-  color: rgba(255,255,255,0.95) !important;
-  text-shadow: 0 2px 10px rgba(0,0,0,0.85) !important;
-
-  transform: rotate(-90deg) !important;   /* woord verticaal */
-  transform-origin: center center !important;
-}
-
-/* ===== LANE LABELS FINAL (single source of truth) ===== */
-#row-headers{
-  width: 110px; /* pas aan indien nodig */
-}
-
-#row-headers .row-header{
-  overflow: visible;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  /* basis typografie */
-  font-family: "JetBrains Mono", monospace;
-  font-size:  24px;
-  font-weight: 800;
-  letter-spacing: 0.08em;
-  line-height: 1;
-  color: rgba(255,255,255,0.95);
-  text-shadow: 0 2px 10px rgba(0,0,0,0.85);
-
-  /* reset alles wat eerder kan storen */
-  writing-mode: horizontal-tb;
-  text-orientation: mixed;
-  transform: none;
-}
-
-#row-headers .row-header .lane-label-text{
-  display: inline-block;
-  white-space: nowrap;
-
-  /* woord verticaal (270°) */
-  writing-mode: horizontal-tb;
-  text-orientation: mixed;
-  transform: rotate(-90deg);
-  transform-origin: center center;
-}
-
-/* ===== LANE LABELS ABSOLUTE LAST OVERRIDE ===== */
-html body #row-headers .row-header{
-  font-size: 24px !important;
-}
-
-html body #row-headers .row-header > span,
-html body #row-headers .row-header .lane-label-text{
-  font-size: 24px !important;
-}
-
-/* ===== LANE LABELS ABSOLUTE LAST OVERRIDE ===== */
-html body #row-headers .row-header{
-  font-size: 24px !important;
-}
-
-html body #row-headers .row-header > span,
-html body #row-headers .row-header .lane-label-text{
-  font-size: 20px !important;
-}
-
-/* ===== LANE LABELS ABSOLUTE LAST OVERRIDE ===== */
-html body #row-headers .row-header{
-  font-size: 20px !important;
-}
-
-html body #row-headers .row-header > span,
-html body #row-headers .row-header .lane-label-text{
-  font-size: 20px !important;
-}
-
-/* ===== LANE LABELS ABSOLUTE LAST OVERRIDE ===== */
-html body #row-headers .row-header{
-  font-size: 18px !important;
-}
-
-html body #row-headers .row-header > span,
-html body #row-headers .row-header .lane-label-text{
-  font-size: 18px !important;
-}
-
-/* ===== ROW-HEADERS: reduce gap to post-its ===== */
-html body #row-headers{
-  width: 72px !important;           /* was ~120px; 72 is meestal netjes */
-  margin-right: 0 !important;
-  padding-right: 0 !important;
-}
-
-html body #row-headers .row-header{
-  padding: 0 !important;
-  margin: 0 !important;
-  border-right: 0 !important;       /* als die lijn extra ruimte “lijkt” te geven */
-}
-/* Micro nudge: pull sticky grid closer to row headers */
-html body #board,
-html body #cols,
-html body #columns,
-html body #columns-grid,
-html body #cols-container{
-  padding-left: 0 !important;
-  margin-left: 0 !important;
-}
-
-html body #row-headers{
-  transform: translateX(0) !important;
-}
-
-/* ===== ROW HEADER GAP TIGHTEN (ABSOLUTE LAST) ===== */
-html body #row-headers{
-  width: 70px !important;        /* kleiner = dichterbij post-its */
-  margin-right: 8px !important;  /* kleine ruimte, niet groot */
-  padding: 0 !important;
-}
-
-html body #board{
-  padding-left: 0 !important;    /* voorkom extra “lucht” links */
-  margin-left: 0 !important;
-}
-
-/* ===== EXPORT FIX: row headers must not be clipped in html2canvas ===== */
-body.exporting #row-headers{
-  width: 140px !important;          /* genoeg ruimte voor geroteerde tekst */
-  margin-right: 12px !important;
-  overflow: visible !important;
-}
-
-body.exporting #row-headers .row-header{
-  overflow: visible !important;
-}
-
-body.exporting #row-headers .row-header > span,
-body.exporting #row-headers .row-header .lane-label-text{
-  display: inline-block !important;
-  white-space: nowrap !important;
-  font-size: 24px !important;
-  transform: rotate(-90deg) !important;
-  transform-origin: center center !important;
-}

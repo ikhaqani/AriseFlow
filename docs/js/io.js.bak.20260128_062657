@@ -1453,8 +1453,8 @@ export async function exportHD(copyToClipboard = false) {
 
   // container strak (minder padding/gap)
   rh.innerHTML = '';
-  rh.style.width = '74px';
-rh.style.minWidth = '74px';
+  rh.style.width = '62px';
+rh.style.minWidth = '62px';
 rh.style.marginRight = '0px';
 rh.style.overflow = 'visible';
   rh.style.position = 'relative';

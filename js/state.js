@@ -1030,15 +1030,23 @@ class StateManager {
     const col = this.activeSheet?.columns?.[colIdx];
     if (!col) return;
 
+    const norm = (v) => {
+      const s = String(v ?? "").trim();
+      if (!s) return null;
+      if (s === "SKIP") return "SKIP";
+      const n = Number(s);
+      return Number.isFinite(n) ? n : null;
+    };
+
     col.logic = {
-      condition: String(logicData.condition || ''),
-      ifTrue: logicData.ifTrue !== '' && logicData.ifTrue !== null ? Number(logicData.ifTrue) : null,
-      ifFalse: logicData.ifFalse !== '' && logicData.ifFalse !== null ? Number(logicData.ifFalse) : null
+      condition: String(logicData.condition || ""),
+      ifTrue: norm(logicData.ifTrue),
+      ifFalse: norm(logicData.ifFalse)
     };
 
     col.isConditional = true;
 
-    this.notify({ reason: 'columns' }, { clone: false });
+    this.notify({ reason: "columns" }, { clone: false });
   }
 
   toggleGroup(colIdx) {

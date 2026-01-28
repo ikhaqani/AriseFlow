@@ -2587,16 +2587,8 @@ export function openLogicModal(colIdx) {
 
   modal.querySelector('#logicSaveBtn').onclick = () => {
     const condition = document.getElementById('logicCondition').value;
-    const _normLogicTarget = (v) => {
-      const s = String(v ?? "").trim();
-      if (!s) return null;
-      if (s === "SKIP") return "SKIP";
-      const n = Number(s);
-      return Number.isFinite(n) ? n : null;
-    };
-
-    const ifTrue = _normLogicTarget(document.getElementById("logicIfTrue").value);
-    const ifFalse = _normLogicTarget(document.getElementById("logicIfFalse").value);
+    const ifTrue = document.getElementById('logicIfTrue').value;
+    const ifFalse = document.getElementById('logicIfFalse').value;
 
     state.setColumnLogic(colIdx, { condition, ifTrue, ifFalse });
     close();
@@ -3112,4 +3104,3 @@ export function openVariantModal(colIdx) {
   });
 })();
 /* ===== SYSFIT NVT END HANDLER (GLOBAL CHECK) ===== */
-
