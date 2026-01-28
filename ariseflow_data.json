@@ -4347,27 +4347,33 @@
               "improvements": [],
               "qa": {
                 "compleet": {
-                  "result": null,
-                  "note": ""
+                  "result": "FAIL",
+                  "impact": "A",
+                  "note": "Bij ontvangst van de verwijzing controleren we de volledigheid van de gegevens. Indien noodzakelijk, nemen we contact op via telefoon of e-mail om ontbrekende informatie aan te vullen, terwijl de verwijzing doorgaat. We maken aantekening dat aanvullende gegevens nog worden verwacht."
                 },
                 "kwaliteit": {
-                  "result": null,
-                  "note": ""
+                  "result": "MINOR",
+                  "impact": "C",
+                  "note": "Bij ingescande documenten die niet te kopiëren zijn, worden de gegevens handmatig overgetypt om de ontbrekende informatie te verwerken."
                 },
                 "duidelijkheid": {
-                  "result": null,
+                  "result": "GOOD",
+                  "impact": null,
                   "note": ""
                 },
                 "tijdigheid": {
-                  "result": null,
+                  "result": "GOOD",
+                  "impact": null,
                   "note": ""
                 },
                 "standaard": {
-                  "result": null,
+                  "result": "GOOD",
+                  "impact": null,
                   "note": ""
                 },
                 "overdracht": {
-                  "result": null,
+                  "result": "GOOD",
+                  "impact": null,
                   "note": ""
                 }
               },
@@ -4392,13 +4398,39 @@
                   }
                 ]
               },
-              "inputDefinitions": [],
+              "inputDefinitions": [
+                {
+                  "item": "Persoonsgegevens",
+                  "specifications": "BSN, geboortedatum, achternaam, telefoonnummer, e-mailadres.",
+                  "type": "HARD"
+                },
+                {
+                  "item": "Verwijsbrief",
+                  "specifications": "• Soort tumor waarvoor de patiënt bestraald moet worden\n• Uit welk ziekenhuis de verwijzing afkomstig is\n• de naam van de zorgverlener die doorverwijst",
+                  "type": "HARD"
+                },
+                {
+                  "item": "Medische verslagen",
+                  "specifications": "MDO/OK, consultverslagen, behandelingsplannen, operatierapporten.",
+                  "type": "HARD"
+                },
+                {
+                  "item": "Beeldvorming",
+                  "specifications": "CT/MRI/PET",
+                  "type": "HARD"
+                },
+                {
+                  "item": "Labuitslagen",
+                  "specifications": "Specifieke gegevens per labuitslag",
+                  "type": "SOFT"
+                }
+              ],
               "disruptions": [],
               "workExp": null,
               "workExpNote": "",
-              "linkedBundleId": "bundle_1768630597052_106a6a79ba69f",
+              "linkedBundleId": "bundle_1769585360336_15ff274999c05",
               "linkedBundleIds": [
-                "bundle_1768630597052_106a6a79ba69f"
+                "bundle_1769585360336_15ff274999c05"
               ],
               "linkedSourceIds": [],
               "linkedSourceUids": [],
@@ -4470,7 +4502,7 @@
             {
               "id": "45d9beb3-de4f-42d1-aa36-5c2468156cb7",
               "created": 1768731369745,
-              "text": "Mail / Brief met verwijzing",
+              "text": "Externe verwijzing",
               "linkedSourceId": null,
               "type": null,
               "processValue": null,
@@ -6107,10 +6139,10 @@
               "created": 1769528186483,
               "text": "Aanmaken taken serie",
               "linkedSourceId": null,
-              "type": null,
-              "processValue": null,
-              "processStatus": null,
-              "successFactors": "",
+              "type": "Taak",
+              "processValue": "BNVA",
+              "processStatus": "HAPPY",
+              "successFactors": "Het aanmaken van de taak gaat probleemloos",
               "causes": [],
               "improvements": [],
               "qa": {
@@ -6162,7 +6194,7 @@
               },
               "inputDefinitions": [],
               "disruptions": [],
-              "workExp": null,
+              "workExp": "ROUTINE",
               "workExpNote": ""
             },
             {
@@ -6511,10 +6543,10 @@
               "created": 1769528387223,
               "text": "Afronden taak",
               "linkedSourceId": null,
-              "type": null,
-              "processValue": null,
-              "processStatus": null,
-              "successFactors": "",
+              "type": "Taak",
+              "processValue": "BNVA",
+              "processStatus": "HAPPY",
+              "successFactors": "Het afronden van de taak gaat probleemloos",
               "causes": [],
               "improvements": [],
               "qa": {
@@ -6566,7 +6598,7 @@
               },
               "inputDefinitions": [],
               "disruptions": [],
-              "workExp": null,
+              "workExp": "ROUTINE",
               "workExpNote": ""
             },
             {
@@ -6784,19 +6816,12 @@
           "slotIdx": 2,
           "cols": [
             2,
-            3
-          ],
-          "master": 2,
-          "label": "Merged Output"
-        },
-        {
-          "slotIdx": 2,
-          "cols": [
+            3,
             4,
             5,
             6
           ],
-          "master": 4,
+          "master": 2,
           "label": "Merged Output"
         }
       ]
