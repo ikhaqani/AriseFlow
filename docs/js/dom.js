@@ -325,6 +325,27 @@ function getMergedMasterColIdx(colIdx, slotIdx) {
   return null;
 }
 
+// ==========================================================================
+// SAFE: effective input slot for merged INPUT (slotIdx=2)
+// - returns inputSlot on any error (prevents board from disappearing)
+// ==========================================================================
+function getEffectiveInputSlot(colIdx, inputSlot) {
+  try {
+    if (!inputSlot) return inputSlot;
+    if (typeof isMergedSlave !== "function") return inputSlot;
+    if (typeof getMergedMasterColIdx !== "function") return inputSlot;
+    if (!isMergedSlave(colIdx, 2)) return inputSlot;
+
+    const m = getMergedMasterColIdx(colIdx, 2);
+    const mi = Number(m);
+    if (!Number.isFinite(mi)) return inputSlot;
+
+    return (state?.activeSheet?.columns?.[mi]?.slots?.[2]) || inputSlot;
+  } catch (_) {
+    return inputSlot;
+  }
+}
+
 
 /** Returns true when the given zero-based column indices are a contiguous range. */
 function isContiguousZeroBased(cols) {
@@ -2359,10 +2380,10 @@ function renderColumnsOnly(openModalFn) {
     const inputSlot = col.slots?.[2];
     const outputSlot = col.slots?.[4];
 
-    const bundleIdsForInput = getLinkedBundleIdsFromInputSlot(inputSlot);
+    const bundleIdsForInput = getLinkedBundleIdsFromInputSlot(getEffectiveInputSlot(colIdx, inputSlot));
     const bundleLabelsForInput = bundleIdsForInput.map((bid) => _getBundleLabel(project, bid));
 
-    const tokens = getLinkedSourcesFromInputSlot(inputSlot);
+    const tokens = getLinkedSourcesFromInputSlot(getEffectiveInputSlot(colIdx, inputSlot));
     const resolved = resolveLinkedSourcesToOutAndText(tokens, outIdByUid, outTextByUid, outTextByOutId);
 
     if (bundleLabelsForInput.length) {
