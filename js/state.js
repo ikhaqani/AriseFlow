@@ -1286,4 +1286,32 @@ class StateManager {
   }
 }
 
+// ==========================================================================
+// Load project object (robust) — voorkomt 'readonly property' issues
+// ==========================================================================
+StateManager.prototype.loadProjectFromObject = function (projectObj) {
+  if (!projectObj || typeof projectObj !== 'object') return;
+
+  // Zet interne project state
+  this.project = projectObj;
+
+  // Compat: sommige modules gebruiken state.data (kan readonly zijn)
+  try { this.data = projectObj; } catch (_) {}
+
+  // Forceer sheet 0 indien nodig
+  try {
+    if (this.project && Array.isArray(this.project.sheets) && this.project.sheets.length) {
+      const s0 = this.project.sheets[0];
+      if ('activeSheetId' in this.project && !this.project.activeSheetId) this.project.activeSheetId = s0.id;
+      if ('activeSheetIndex' in this.project && (this.project.activeSheetIndex == null)) this.project.activeSheetIndex = 0;
+    }
+  } catch (_) {}
+
+  // Trigger render
+  try { this.notify({ reason: "load" }, { clone: false }); }
+  catch (_) { try { this.notify(); } catch (_2) {} }
+};
+
+
+
 export const state = new StateManager();

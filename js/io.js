@@ -28,7 +28,7 @@ function joinSemi(arr) {
 }
 
 function getFileName(ext) {
-  const title = state.data?.projectTitle || 'sipoc_project';
+  const title = (state.data || state.project)?.projectTitle || 'sipoc_project';
   const safeTitle = String(title).replace(/[^a-z0-9]/gi, '_').toLowerCase();
   const now = new Date();
   const dateStr = now.toISOString().slice(0, 10);
@@ -982,7 +982,7 @@ function prepareProjectForPersist(project) {
    ========================================================================== */
 
 export async function saveToFile() {
-  const p = prepareProjectForPersist(state.data);
+  const p = prepareProjectForPersist(state.data || state.project);
   const dataStr = JSON.stringify(p, null, 2);
   const fileName = getFileName('json');
 
@@ -1017,15 +1017,16 @@ export function loadFromFile(file, onSuccess) {
       // ✅ Restore merge groups naar localStorage vóór render
       restoreMergeGroupsToLocalStorage(parsed);
 
-      // ✅ Update state (compat: data + project)
-      state.data = parsed;
-      try {
-        state.project = parsed;
-      } catch {
-        /* ignore */
-      }
+  // ✅ Update state (robust: state.data kan readonly zijn)
+  if (typeof state.loadProjectFromObject === 'function') {
+    state.loadProjectFromObject(parsed);
+  } else {
+    try { state.project = parsed; } catch {}
+    try { state.data = parsed; } catch {}
+    try { if (typeof state.notify === 'function') state.notify({ reason: 'load' }, { clone: false }); }
+    catch { try { state.notify(); } catch {} }
+  }
 
-      if (typeof state.notify === 'function') state.notify();
       if (onSuccess) onSuccess();
     } catch (err) {
       console.error('Load Error:', err);
@@ -1115,7 +1116,7 @@ export function exportToCSV() {
 
     const lines = [headers.map(toCsvField).join(';')];
 
-    const project = state.data;
+    const project = state.data || state.project;
 
     if (!project || !Array.isArray(project.sheets)) {
       throw new Error('Geen project data gevonden (state.data ontbreekt of is ongeldig).');
@@ -1658,15 +1659,15 @@ export async function loadFromGitHub() {
   // ✅ Restore merge-groups naar localStorage vóór render
   restoreMergeGroupsToLocalStorage(parsed);
 
-  // ✅ Update state (compat: data + project)
-  state.data = parsed;
-  try {
-    state.project = parsed;
-  } catch {
-    /* ignore */
+  // ✅ Update state (robust: state.data kan readonly zijn)
+  if (typeof state.loadProjectFromObject === 'function') {
+    state.loadProjectFromObject(parsed);
+  } else {
+    try { state.project = parsed; } catch {}
+    try { state.data = parsed; } catch {}
+    try { if (typeof state.notify === 'function') state.notify({ reason: 'load' }, { clone: false }); }
+    catch { try { state.notify(); } catch {} }
   }
-
-  if (typeof state.notify === 'function') state.notify();
 
   return true;
 }
@@ -1700,7 +1701,7 @@ export async function saveToGitHub() {
   }
 
   // ✅ Project voorbereiden: merge-groups + outputUids mee saven
-  const p = prepareProjectForPersist(state.data);
+  const p = prepareProjectForPersist(state.data || state.project);
 
   const contentStr = JSON.stringify(p, null, 2);
   const body = {
