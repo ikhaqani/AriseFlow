@@ -6,3 +6,4 @@ build/
 
 # Local backups created during terminal patching
 *.bak.*
+*.premergefix.bak

@@ -2380,12 +2380,48 @@ function renderColumnsOnly(openModalFn) {
     const inputSlot = col.slots?.[2];
     const outputSlot = col.slots?.[4];
 
-    const bundleIdsForInput = getLinkedBundleIdsFromInputSlot(getEffectiveInputSlot(colIdx, inputSlot));
-    const bundleLabelsForInput = bundleIdsForInput.map((bid) => _getBundleLabel(project, bid));
+    const effectiveInputSlot = getEffectiveInputSlot(colIdx, inputSlot);
 
-    const tokens = getLinkedSourcesFromInputSlot(getEffectiveInputSlot(colIdx, inputSlot));
+    let bundleIdsForInput = getLinkedBundleIdsFromInputSlot(effectiveInputSlot);
+    let tokens = getLinkedSourcesFromInputSlot(effectiveInputSlot);
+
+    // If INPUT is merged: union bundleIds/tokens across all cols in the merge-group
+    try {
+      const masterCol = isMergedSlave(colIdx, 2) ? getMergedMasterColIdx(colIdx, 2) : colIdx;
+      const g = getMergeGroup(masterCol, 2) || getMergeGroup(colIdx, 2);
+      if (g && Array.isArray(g.cols) && g.cols.length) {
+        const seenB = new Set((bundleIdsForInput || []).map((x) => String(x)));
+        const allB = [...(bundleIdsForInput || [])];
+
+        const seenT = new Set();
+        const allT = [...(tokens || [])];
+        for (const t of allT) {
+          const k = (typeof t === "string") ? t : JSON.stringify(t);
+          if (k) seenT.add(k);
+        }
+
+        for (const ci of g.cols) {
+          const s = activeSheet.columns?.[ci]?.slots?.[2];
+
+          for (const bid of (getLinkedBundleIdsFromInputSlot(s) || [])) {
+            const k = String(bid);
+            if (k && !seenB.has(k)) { seenB.add(k); allB.push(bid); }
+          }
+
+          for (const t of (getLinkedSourcesFromInputSlot(s) || [])) {
+            const k = (typeof t === "string") ? t : JSON.stringify(t);
+            if (k && !seenT.has(k)) { seenT.add(k); allT.push(t); }
+          }
+        }
+
+        bundleIdsForInput = allB;
+        tokens = allT;
+      }
+    } catch {}
+
+    const bundleLabelsForInput = (bundleIdsForInput || []).map((bid) => _getBundleLabel(project, bid));
+
     const resolved = resolveLinkedSourcesToOutAndText(tokens, outIdByUid, outTextByUid, outTextByOutId);
-
     if (bundleLabelsForInput.length) {
       myInputId = _joinSemiText(bundleLabelsForInput);
     } else if (resolved.ids.length) {
