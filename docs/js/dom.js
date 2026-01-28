@@ -298,6 +298,34 @@ function ensureMergeGroupsLoaded() {
   }
 }
 
+
+/** Returns master column index for a merged slave cell (or null). */
+function getMergedMasterColIdx(colIdx, slotIdx) {
+  try { ensureMergeGroupsLoaded(); } catch (_) {}
+  const c = Number(colIdx);
+  const s = Number(slotIdx);
+
+  const groups = Array.isArray(_mergeGroups) ? _mergeGroups : [];
+  const g = groups.find((g) =>
+    Number(g?.slotIdx) === s &&
+    Array.isArray(g?.cols) &&
+    g.cols.map(Number).includes(c)
+  );
+  if (!g) return null;
+
+  const candidates = [
+    g.masterCol, g.masterIdx, g.master, g.masterColIdx,
+    Array.isArray(g.cols) && g.cols.length ? Math.min(...g.cols.map(Number)) : null
+  ];
+
+  for (const v of candidates) {
+    const n = Number(v);
+    if (Number.isFinite(n)) return n;
+  }
+  return null;
+}
+
+
 /** Returns true when the given zero-based column indices are a contiguous range. */
 function isContiguousZeroBased(cols) {
   if (!cols || cols.length < 2) return false;
@@ -2512,16 +2540,24 @@ function renderColumnsOnly(openModalFn) {
         textEl.addEventListener(
           'input',
           () => {
-            if (!(slotIdx === 2 && isMergedSlave(colIdx, 2))) state.updateStickyText(colIdx, slotIdx, textEl.textContent);
-            scheduleSyncRowHeights();
+            if (slotIdx === 2 && isMergedSlave(colIdx, 2)) {
+  const masterCol = getMergedMasterColIdx(colIdx, 2);
+  if (masterCol != null) state.updateStickyText(masterCol, slotIdx, textEl.textContent);
+} else {
+  state.updateStickyText(colIdx, slotIdx, textEl.textContent);
+}scheduleSyncRowHeights();
           },
           { passive: true }
         );
         textEl.addEventListener(
           'blur',
           () => {
-            if (!(slotIdx === 2 && isMergedSlave(colIdx, 2))) state.updateStickyText(colIdx, slotIdx, textEl.textContent);
-            scheduleSyncRowHeights();
+            if (slotIdx === 2 && isMergedSlave(colIdx, 2)) {
+  const masterCol = getMergedMasterColIdx(colIdx, 2);
+  if (masterCol != null) state.updateStickyText(masterCol, slotIdx, textEl.textContent);
+} else {
+  state.updateStickyText(colIdx, slotIdx, textEl.textContent);
+}scheduleSyncRowHeights();
           },
           { passive: true }
         );
