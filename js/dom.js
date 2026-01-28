@@ -1,5 +1,5 @@
 // dom.js
-console.info("[AriseFlow dom.js] build=20260127_1450");
+console.info("[AriseFlow dom.js] build=20260127_1450_FIXED");
 import { state } from './state.js';
 import { IO_CRITERIA, PROCESS_STATUSES } from './config.js';
 import { openEditModal, saveModalDetails, openLogicModal, openGroupModal, openVariantModal } from './modals.js';
@@ -2178,23 +2178,45 @@ function renderMergedOverlays(openModalFn) {
 
   function _renderInputDisplayText(slot) {
     const eff = getEffectiveInputSlot(-1, slot); // safe; does nothing unless merged slave
+    
+    // 1. Ophalen van zowel bundels als directe links
+    const bundleIds = getLinkedBundleIdsFromInputSlot(eff);
     const tokens = getLinkedSourcesFromInputSlot(eff);
 
     // Determine if any token resolves to a known OUT id
-    const isLinked = tokens.some((t) => {
+    const hasTokens = tokens.some((t) => {
       const s = String(t || '').trim();
       if (!s) return false;
       if (_looksLikeOutId(s)) return true;
       return !!outIdByUid[s];
     });
 
-    if (!isLinked) {
+    const hasBundles = bundleIds.length > 0;
+
+    // Als er GEEN bundels en GEEN tokens zijn, toon gewone tekst
+    if (!hasTokens && !hasBundles) {
       return { isLinked: false, text: String(eff?.text || '') };
     }
 
-    const resolved = resolveLinkedSourcesToOutAndText(tokens, outIdByUid, outTextByUid, outTextByOutId);
-    const txt = _joinSemiText(resolved?.texts) || _joinSemiText(resolved?.ids) || '';
-    return { isLinked: true, text: txt };
+    // Resolven van tekst (Bundels + Directe links)
+    const parts = [];
+
+    // A. Bundel namen toevoegen
+    if (hasBundles) {
+      bundleIds.forEach(bid => {
+        const lbl = _getBundleLabel(project, bid);
+        if (lbl) parts.push(lbl);
+      });
+    }
+
+    // B. Directe links toevoegen
+    if (hasTokens) {
+      const resolved = resolveLinkedSourcesToOutAndText(tokens, outIdByUid, outTextByUid, outTextByOutId);
+      const txt = _joinSemiText(resolved?.texts) || _joinSemiText(resolved?.ids) || '';
+      if (txt) parts.push(txt);
+    }
+
+    return { isLinked: true, text: _joinSemiText(parts) };
   }
 
   const processedKeys = new Set();
