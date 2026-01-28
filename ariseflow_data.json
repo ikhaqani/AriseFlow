@@ -3951,9 +3951,9 @@
               "workExp": null,
               "workExpNote": "",
               "linkedSourceIds": [],
-              "linkedBundleId": "bundle_1768630597052_106a6a79ba69f",
+              "linkedBundleId": "bundle_1769585360336_15ff274999c05",
               "linkedBundleIds": [
-                "bundle_1768630597052_106a6a79ba69f"
+                "bundle_1769585360336_15ff274999c05"
               ],
               "linkedSourceUids": [],
               "linkedSourceUid": null
@@ -32023,6 +32023,18 @@
         "out_91c30fc6-fb1d-4931-8b47-574de2fec225",
         "out_780f0a68-e7b7-4204-b4d8-b4b2c1f67b38",
         "out_067c7913-2073-404a-92ed-8569a7683cd2"
+      ]
+    },
+    {
+      "id": "bundle_1769585360336_15ff274999c05",
+      "name": "Externe verwijzing",
+      "outputUids": [
+        "out_8b660745-359a-4a05-b7e7-0b68c11c4489",
+        "out_b249521e-1821-426f-9ae2-5a2b2c0965f0",
+        "out_9950765e-0786-467f-85b2-942c01eefc98",
+        "out_70b779f0-e01b-4cd3-9ac4-e2574627a9a0",
+        "out_aaff57e0-47c6-49e3-838b-dc84d7b5a47c",
+        "out_047745c3-bb79-4682-8b22-4b9821f6d193"
       ]
     }
   ]
