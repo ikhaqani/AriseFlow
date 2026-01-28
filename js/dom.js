@@ -382,6 +382,11 @@ function _sanitizeSystemsMeta(meta) {
       const qa = s.qa && typeof s.qa === 'object' ? { ...s.qa } : {};
       const score = s.score == null || !Number.isFinite(Number(s.score)) ? null : Number(s.score);
 
+      // preserve explicit NVT flag if present
+      if (qa && qa.__nvt === true) {
+        return { name, legacy, future, qa: { __nvt: true }, score: null };
+      }
+
       return { name, legacy, future, qa, score };
     })
     .filter(Boolean);
@@ -394,25 +399,6 @@ function _sanitizeSystemsMeta(meta) {
   if (activeSystemIdx >= systems.length) activeSystemIdx = 0;
 
   return { multi, systems, activeSystemIdx };
-
-  /* __PRESERVE_SYSFIT_NVT__ */
-  try {
-    // Preserve __nvt from SOURCE meta -> clean (sanitize may rebuild qa)
-    const srcSys = (meta && Array.isArray(meta.systems)) ? meta.systems : [];
-    const dstSys = (clean && Array.isArray(clean.systems)) ? clean.systems : [];
-    const n = Math.min(srcSys.length, dstSys.length);
-
-    for (let i = 0; i < n; i++) {
-      const srcQa = (srcSys[i] && srcSys[i].qa && typeof srcSys[i].qa === "object") ? srcSys[i].qa : null;
-      if (srcQa && srcQa.__nvt === true) {
-        if (!dstSys[i].qa || typeof dstSys[i].qa !== "object") dstSys[i].qa = {};
-        dstSys[i].qa = { __nvt: true };
-        dstSys[i].score = null;
-      }
-    }
-  } catch {}
-
-
 }
 
 /** Sanitizes one merge group to the active sheet bounds and schema. */
@@ -1207,10 +1193,35 @@ const mergeEnabledEl = modal.querySelector('#mergeEnabled');
     systemsWrapEl.innerHTML = '';
     const systems = systemsMeta.systems || [];
 
-    /* __SYSFIT_NVT_BIND_TO_SYSTEMSMETA_V7__ */
-    try { window.__sysfitActiveSystemsMeta = systemsMeta; } catch {}
+    // --- SYSFIT helpers (NVT) ---
+    function _isSysfitNvt(sysObj) {
+      const qa = sysObj?.qa && typeof sysObj.qa === 'object' ? sysObj.qa : null;
+      return !!(qa && qa.__nvt === true);
+    }
+
+    function _setSysfitNvt(sysIdx, enabled) {
+      if (!systemsMeta?.systems?.[sysIdx]) return;
+      const cur = systemsMeta.systems[sysIdx];
+      const qa = cur.qa && typeof cur.qa === 'object' ? cur.qa : {};
+
+      if (enabled) {
+        // NVT: wipe answers and lock scoring
+        cur.qa = { __nvt: true };
+        cur.score = null;
+      } else {
+        // re-open: remove the flag, keep structure empty
+        const next = { ...qa };
+        delete next.__nvt;
+        // if the only thing present was __nvt, collapse to empty object
+        cur.qa = Object.keys(next).length ? next : {};
+        // score will be recomputed on next answer
+        cur.score = Number.isFinite(Number(cur.score)) ? cur.score : null;
+      }
+    }
+
     systems.forEach((sys, idx) => {
       const card = document.createElement('div');
+      card.className = 'system-card';
       card.style.background = 'rgba(0,0,0,0.08)';
       card.style.border = '1px solid rgba(255,255,255,0.08)';
       card.style.borderRadius = '12px';
@@ -1218,6 +1229,7 @@ const mergeEnabledEl = modal.querySelector('#mergeEnabled');
 
       const showDelete = !!systemsMeta.multi && systems.length > 1;
       const legacyChecked = !!sys.legacy;
+      const isNvt = _isSysfitNvt(sys);
 
       card.innerHTML = `
         <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">
@@ -1251,7 +1263,7 @@ const mergeEnabledEl = modal.querySelector('#mergeEnabled');
         <div style="margin-top:16px; border-top:1px solid rgba(255,255,255,0.08); padding-top:14px;">
           <div style="font-weight:900; letter-spacing:0.06em; opacity:0.85; margin-bottom:6px;">SYSTEM FIT VRAGEN</div>
           <label class="sysfit-nvt-toggle" style="display:flex;align-items:center;gap:10px;margin:8px 0 12px 0;font-size:14px;cursor:pointer;opacity:.95;">
-            <input type="checkbox" class="sysfitNvtCheck" data-sys-idx="${idx}" ${(sys.qa && typeof sys.qa === "object" && sys.qa.__nvt===true) ? "checked" : ""} />
+            <input type="checkbox" class="sysfitNvtCheck" data-sys-idx="${idx}" ${isNvt ? "checked" : ""} />
             <strong>NVT</strong> <span style="opacity:.75;font-weight:500;">(niet beoordeelbaar, bv. extern systeem)</span>
           </label>
           <div style="font-size:13px; opacity:0.75; margin-bottom:12px;">Beantwoord per vraag hoe goed dit systeem jouw taak ondersteunt.</div>
@@ -1267,13 +1279,6 @@ const mergeEnabledEl = modal.querySelector('#mergeEnabled');
       systemsWrapEl.appendChild(card);
 
       const qWrap = card.querySelector(`[data-sys-qs="${idx}"]`);
-
-      window.__sysfitDomSystemsByIdx = window.__sysfitDomSystemsByIdx || {};
-      window.__sysfitDomSystemsByIdx[String(idx)] = sys;
-      /* __SYSFIT_DOM_SYSID_MAP_V1__ */
-window.__sysfitDomSystemsById = window.__sysfitDomSystemsById || {};
-// sysId: gebruik sys.id als aanwezig, anders idx
-try { window.__sysfitDomSystemsById[String(sys.id ?? idx)] = sys; } catch {}
 const qa = sys.qa && typeof sys.qa === "object" ? sys.qa : {};
 
       SYSFIT_Q.forEach((q, qi) => {
@@ -1291,6 +1296,7 @@ const qa = sys.qa && typeof sys.qa === "object" ? sys.qa : {};
                     type="button"
                     data-qid="${q.id}"
                     data-opt="${o.key}"
+                    ${isNvt ? 'disabled="disabled"' : ''}
                     style="
                       height:54px;
                       border-radius:14px;
@@ -1298,7 +1304,9 @@ const qa = sys.qa && typeof sys.qa === "object" ? sys.qa : {};
                       background:${selectedBtn ? 'rgba(25,118,210,0.25)' : 'rgba(255,255,255,0.04)'};
                       color:inherit;
                       font-size:15px;
-                      cursor:pointer;
+                      cursor:${isNvt ? 'not-allowed' : 'pointer'};
+                      opacity:${isNvt ? '0.35' : '1'};
+                      pointer-events:${isNvt ? 'none' : 'auto'};
                     "
                   >
                     ${escapeHTML(o.label)}
@@ -1314,7 +1322,8 @@ const qa = sys.qa && typeof sys.qa === "object" ? sys.qa : {};
               data-qid-note="${q.id}"
               placeholder="Opmerking (optioneel)..."
               value="${escapeAttr(qa[q.id + '_note'] || '')}"
-              style="margin:0; font-size:13px; opacity:0.8; height:36px;"
+              ${isNvt ? 'disabled="disabled"' : ''}
+              style="margin:0; font-size:13px; opacity:${isNvt ? '0.35' : '0.8'}; height:36px;"
             />
           </div>
         `;
@@ -1335,7 +1344,6 @@ const qa = sys.qa && typeof sys.qa === "object" ? sys.qa : {};
 
             const sScore = _computeSystemScore(systemsMeta.systems[idx]);
             systemsMeta.systems[idx].score = Number.isFinite(Number(sScore)) ? Number(sScore) : null;
-
             _renderSystemCards();
           });
         });
@@ -1384,8 +1392,18 @@ const qa = sys.qa && typeof sys.qa === "object" ? sys.qa : {};
         });
       });
 
-      const scoreEl = card.querySelector(`[data-sys-score=""]`);
-      const sScore = _computeSystemScore(sys);
+      // --- SYSFIT NVT toggle (single source of truth) ---
+      const nvtChk = card.querySelector(`.sysfitNvtCheck[data-sys-idx="${idx}"]`);
+      if (nvtChk) {
+        nvtChk.addEventListener('change', () => {
+          const enabled = !!nvtChk.checked;
+          _setSysfitNvt(idx, enabled);
+          _renderSystemCards();
+        });
+      }
+
+      const scoreEl = card.querySelector(`[data-sys-score="${idx}"]`);
+      const sScore = _isSysfitNvt(sys) ? null : _computeSystemScore(sys);
       if (scoreEl) scoreEl.textContent = Number.isFinite(Number(sScore)) ? `${Number(sScore)}%` : '—';
     });
 
@@ -2151,6 +2169,34 @@ function renderMergedOverlays(openModalFn) {
 
   const groups = getAllMergeGroupsSanitized();
 
+  // Build global OUT maps so merged INPUT (slotIdx=2) can show linked text
+  const project = state.project || state.data;
+  const _outMaps = buildGlobalOutputMaps(project || {});
+  const outIdByUid = _outMaps?.outIdByUid || {};
+  const outTextByUid = _outMaps?.outTextByUid || {};
+  const outTextByOutId = _outMaps?.outTextByOutId || {};
+
+  function _renderInputDisplayText(slot) {
+    const eff = getEffectiveInputSlot(-1, slot); // safe; does nothing unless merged slave
+    const tokens = getLinkedSourcesFromInputSlot(eff);
+
+    // Determine if any token resolves to a known OUT id
+    const isLinked = tokens.some((t) => {
+      const s = String(t || '').trim();
+      if (!s) return false;
+      if (_looksLikeOutId(s)) return true;
+      return !!outIdByUid[s];
+    });
+
+    if (!isLinked) {
+      return { isLinked: false, text: String(eff?.text || '') };
+    }
+
+    const resolved = resolveLinkedSourcesToOutAndText(tokens, outIdByUid, outTextByUid, outTextByOutId);
+    const txt = _joinSemiText(resolved?.texts) || _joinSemiText(resolved?.ids) || '';
+    return { isLinked: true, text: txt };
+  }
+
   const processedKeys = new Set();
 
   groups.forEach((g) => {
@@ -2262,18 +2308,41 @@ function renderMergedOverlays(openModalFn) {
       const masterData = activeSheet.columns[masterCol]?.slots?.[g.slotIdx];
       const baseText = masterData?.text ?? '';
 
+      // System merged overlay summary
       if (g.slotIdx === 1 && g.systemsMeta) {
         const summaryHTML = _formatSystemsSummaryFromMeta(g.systemsMeta);
         if (textEl.innerHTML !== summaryHTML) {
           textEl.innerHTML = summaryHTML;
           textEl.setAttribute('contenteditable', 'false');
         }
-      } else {
-        if (textEl.textContent !== baseText) {
-          textEl.textContent = baseText;
-          textEl.setAttribute('contenteditable', 'true');
-        }
+        return;
       }
+
+      // ✅ INPUT merged overlay must show either raw text OR resolved linked text
+      if (g.slotIdx === 2) {
+        const disp = _renderInputDisplayText(masterData);
+        const nextText = String(disp?.text || '');
+
+        if (textEl.textContent !== nextText) {
+          textEl.textContent = nextText;
+        }
+
+        if (disp?.isLinked) {
+          textEl.setAttribute('contenteditable', 'false');
+          textEl.setAttribute('data-linked', 'true');
+        } else {
+          textEl.setAttribute('contenteditable', 'true');
+          textEl.removeAttribute('data-linked');
+        }
+        return;
+      }
+
+      // Default behavior (Proces/Output/etc.)
+      if (textEl.textContent !== baseText) {
+        textEl.textContent = baseText;
+      }
+      textEl.setAttribute('contenteditable', 'true');
+      textEl.removeAttribute('data-linked');
     }
 
     if (g.slotIdx === 4 && stickyEl) {
