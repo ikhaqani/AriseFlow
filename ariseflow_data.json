@@ -3951,8 +3951,10 @@
               "workExp": null,
               "workExpNote": "",
               "linkedSourceIds": [],
-              "linkedBundleId": null,
-              "linkedBundleIds": null,
+              "linkedBundleId": "bundle_1769585360336_15ff274999c05",
+              "linkedBundleIds": [
+                "bundle_1769585360336_15ff274999c05"
+              ],
               "linkedSourceUids": [],
               "linkedSourceUid": null
             },
@@ -4766,26 +4768,32 @@
               "qa": {
                 "compleet": {
                   "result": null,
+                  "impact": null,
                   "note": ""
                 },
                 "kwaliteit": {
                   "result": null,
+                  "impact": null,
                   "note": ""
                 },
                 "duidelijkheid": {
                   "result": null,
+                  "impact": null,
                   "note": ""
                 },
                 "tijdigheid": {
                   "result": null,
+                  "impact": null,
                   "note": ""
                 },
                 "standaard": {
                   "result": null,
+                  "impact": null,
                   "note": ""
                 },
                 "overdracht": {
                   "result": null,
+                  "impact": null,
                   "note": ""
                 }
               },
@@ -6779,6 +6787,16 @@
             3
           ],
           "master": 2,
+          "label": "Merged Output"
+        },
+        {
+          "slotIdx": 2,
+          "cols": [
+            4,
+            5,
+            6
+          ],
+          "master": 4,
           "label": "Merged Output"
         }
       ]
@@ -31977,18 +31995,6 @@
     {
       "id": "bundle_1768627890464_f2106058b78f3",
       "name": "Interne verwijzing",
-      "outIds": [
-        "OUT1",
-        "OUT3",
-        "OUT4",
-        "OUT5",
-        "OUT6",
-        "OUT7"
-      ]
-    },
-    {
-      "id": "bundle_1768630597052_106a6a79ba69f",
-      "name": "Externe verwijzing",
       "outIds": [
         "OUT1",
         "OUT3",
