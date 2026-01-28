@@ -3951,10 +3951,8 @@
               "workExp": null,
               "workExpNote": "",
               "linkedSourceIds": [],
-              "linkedBundleId": "bundle_1769585360336_15ff274999c05",
-              "linkedBundleIds": [
-                "bundle_1769585360336_15ff274999c05"
-              ],
+              "linkedBundleId": null,
+              "linkedBundleIds": null,
               "linkedSourceUids": [],
               "linkedSourceUid": null
             },
