@@ -6777,11 +6777,10 @@
         {
           "slotIdx": 2,
           "cols": [
-            4,
-            5,
-            6
+            2,
+            3
           ],
-          "master": 6,
+          "master": 2,
           "label": "Merged Output"
         }
       ]
