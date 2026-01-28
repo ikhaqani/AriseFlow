@@ -1536,6 +1536,15 @@ body {
     pointer-events: none;
 }
 
+
+/* FORCE: route labels size (RF3 etc) */
+.sticky-route-tag,
+.supplier-top-badges .workexp-badge,
+.supplier-top-badges .sticky-badge,
+.badges-row .sticky-badge{
+  font-size: 20px !important;
+  line-height: 20px !important;
+}
 /* ✅ AANGEPAST: Variant badge auto-breedte + nowrap (RF1-A volledig zichtbaar) */
 .variant-badge {
     position: absolute;
