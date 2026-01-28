@@ -1,5 +1,5 @@
 // dom.js
-console.info("[AriseFlow dom.js] build=20260127_1450_FIXED");
+console.info("[AriseFlow dom.js] build=20260128_MULTI_MERGE_FIX");
 import { state } from './state.js';
 import { IO_CRITERIA, PROCESS_STATUSES } from './config.js';
 import { openEditModal, saveModalDetails, openLogicModal, openGroupModal, openVariantModal } from './modals.js';
@@ -445,14 +445,59 @@ function getAllMergeGroupsSanitized() {
   return out;
 }
 
-/** Sets or clears a merge group for a slot index and persists it. */
-function setMergeGroupForSlot(slotIdx, groupOrNull) {
+/** * SMART MERGE UPDATE:
+ * - Removes existing groups in 'slotIdx' ONLY if they overlap with 
+ * 'groupToAdd.cols' OR 'colsToClear'.
+ * - Keeps other non-overlapping groups intact (allowing multi-merge).
+ * - Adds 'groupToAdd' if provided.
+ */
+function updateMergeStorage(slotIdx, groupToAdd, colsToClear) {
   ensureMergeGroupsLoaded();
-  const kept = _mergeGroups.filter((g) => Number(g?.slotIdx) !== Number(slotIdx));
-  if (groupOrNull) kept.push(groupOrNull);
-  _mergeGroups = kept;
+  const s = Number(slotIdx);
+  const next = [];
+
+  // Calculate exclusion set (cols that are being modified)
+  const excludeCols = new Set();
+  
+  if (groupToAdd && Array.isArray(groupToAdd.cols)) {
+    groupToAdd.cols.forEach(c => excludeCols.add(Number(c)));
+  }
+  if (Array.isArray(colsToClear)) {
+    colsToClear.forEach(c => excludeCols.add(Number(c)));
+  }
+
+  for (const g of _mergeGroups) {
+    // Keep groups for other slots
+    if (Number(g.slotIdx) !== s) {
+      next.push(g);
+      continue;
+    }
+
+    // For this slot, check overlap
+    const gCols = Array.isArray(g.cols) ? g.cols.map(Number) : [];
+    const hasOverlap = gCols.some(c => excludeCols.has(c));
+
+    // If it doesn't overlap with what we are changing, keep it.
+    if (!hasOverlap) {
+      next.push(g);
+    }
+  }
+
+  if (groupToAdd) {
+    next.push(groupToAdd);
+  }
+
+  _mergeGroups = next;
   _mergeGroups.__key = _mergeKey();
   saveMergeGroups(_mergeGroups);
+}
+
+// Deprecated wrapper to maintain potential backward compatibility,
+// but effectively replaced by updateMergeStorage logic usage below.
+function setMergeGroupForSlot(slotIdx, groupOrNull) {
+  // Fallback behavior: if called legacy style, it assumes replacement.
+  // Ideally, use updateMergeStorage directly.
+  updateMergeStorage(slotIdx, groupOrNull, groupOrNull?.cols || []);
 }
 
 /** Returns the merge group that contains the given column for a slot if present. */
@@ -585,14 +630,22 @@ function getLinkedBundleIdsFromInputSlot(slot) {
 
   const tokens = [];
 
-  const arr = Array.isArray(slot.linkedBundleIds) ? slot.linkedBundleIds : [];
-  arr.forEach((x) => {
-    const s = String(x || '').trim();
-    if (s) tokens.push(s);
-  });
+  // Check of de array property expliciet bestaat (ook al is hij leeg)
+  const hasArray = Array.isArray(slot.linkedBundleIds);
 
-  const single = String(slot.linkedBundleId || '').trim();
-  if (single) tokens.push(single);
+  if (hasArray) {
+    slot.linkedBundleIds.forEach((x) => {
+      const s = String(x || '').trim();
+      if (s) tokens.push(s);
+    });
+  }
+
+  // ALLEEN terugvallen op legacy 'linkedBundleId' als er GEEN array is.
+  // Dit voorkomt dat een "ghost" legacy waarde verschijnt nadat je de lijst leeg hebt gemaakt.
+  if (!hasArray) {
+    const single = String(slot.linkedBundleId || '').trim();
+    if (single) tokens.push(single);
+  }
 
   const seen = new Set();
   const out = [];
@@ -1516,7 +1569,7 @@ const qa = sys.qa && typeof sys.qa === "object" ? sys.qa : {};
   modal.querySelector('#mergeCancelBtn')?.addEventListener('click', close);
 
   modal.querySelector('#mergeOffBtn')?.addEventListener('click', () => {
-    setMergeGroupForSlot(slotIdx, null);
+    updateMergeStorage(slotIdx, null, selected);
     close();
     renderColumnsOnly(_openModalFn);
     scheduleSyncRowHeights();
@@ -1535,7 +1588,7 @@ const qa = sys.qa && typeof sys.qa === "object" ? sys.qa : {};
     }
 
     if (!mergeEnabled) {
-      setMergeGroupForSlot(slotIdx, null);
+      updateMergeStorage(slotIdx, null, selected);
       if (slotIdx !== 2) state.updateStickyText(clickedColIdx, slotIdx, v);
 
 
@@ -1595,7 +1648,7 @@ const qa = sys.qa && typeof sys.qa === "object" ? sys.qa : {};
     if (slotIdx === 4) payload.gate = _sanitizeGate(gate);
     if (slotIdx === 1) payload.systemsMeta = _sanitizeSystemsMeta(systemsMeta);
 
-    setMergeGroupForSlot(slotIdx, payload);
+    updateMergeStorage(slotIdx, payload, null);
 
     selected.forEach((cIdx) => {
       if (slotIdx !== 2) state.updateStickyText(cIdx, slotIdx, v);
