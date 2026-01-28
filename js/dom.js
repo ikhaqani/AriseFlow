@@ -1,5 +1,5 @@
 // dom.js
-console.info("[AriseFlow dom.js] build=20260128_MULTI_MERGE_FIX");
+console.info("[AriseFlow dom.js] build=20260128_CLEANSE_FIX");
 import { state } from './state.js';
 import { IO_CRITERIA, PROCESS_STATUSES } from './config.js';
 import { openEditModal, saveModalDetails, openLogicModal, openGroupModal, openVariantModal } from './modals.js';
@@ -631,6 +631,9 @@ function getLinkedBundleIdsFromInputSlot(slot) {
   const tokens = [];
 
   // Check of de array property expliciet bestaat (ook al is hij leeg)
+  // Dit voorkomt dat we terugvallen op legacy 'linkedBundleId' als de array property bestaat maar leeg is.
+  // We checken 'in' slot zodat ook null/undefined array properties herkend worden als "aanwezig maar leeg".
+  const modernKeyExists = 'linkedBundleIds' in slot;
   const hasArray = Array.isArray(slot.linkedBundleIds);
 
   if (hasArray) {
@@ -640,9 +643,9 @@ function getLinkedBundleIdsFromInputSlot(slot) {
     });
   }
 
-  // ALLEEN terugvallen op legacy 'linkedBundleId' als er GEEN array is.
-  // Dit voorkomt dat een "ghost" legacy waarde verschijnt nadat je de lijst leeg hebt gemaakt.
-  if (!hasArray) {
+  // ALLEEN terugvallen op legacy 'linkedBundleId' als er GEEN modern veld is.
+  // Dit is de cruciale fix voor ghost-data.
+  if (!modernKeyExists && !hasArray) {
     const single = String(slot.linkedBundleId || '').trim();
     if (single) tokens.push(single);
   }
@@ -672,6 +675,10 @@ function _findBundleById(project, bundleId) {
 
 function _getBundleLabel(project, bundleId) {
   const b = _findBundleById(project, bundleId);
+  // Als bundel niet bestaat, retourneer NULL. Toon GEEN ID.
+  // Dit "cleansed" de view van verwijderde/ongeldige bundels.
+  if (!b) return null;
+
   const nm = String(b?.name || '').trim();
   return nm || String(bundleId || '').trim();
 }
