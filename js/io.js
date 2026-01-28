@@ -4,6 +4,7 @@
 // + FIX: Merge-groups (incl. gate + systemsMeta) worden nu ook persistente data bij Save/Load (JSON + GitHub)
 // + FIX: NVT (System Fit) wordt meegenomen in CSV export: TTF Scores = "NVT", overige sysfit velden leeg
 // + FIX (EXPORT): Lane labels (row-headers) altijd zichtbaar + geen "rare letters" in PNG (html2canvas-safe)
+// + FIX (GITHUB): Ondersteuning voor bestanden > 1MB (via download_url fallback)
 
 import { state } from './state.js';
 import { Toast } from './toast.js';
@@ -1652,7 +1653,25 @@ export async function loadFromGitHub() {
   if (!response.ok) throw new Error(`Fout bij laden: ${response.statusText}`);
 
   const data = await response.json();
-  const content = b64_to_utf8(data.content);
+  let content;
+
+  // FIX: GitHub API geeft lege 'content' bij bestanden > 1MB.
+  // Gebruik in dat geval de 'download_url'.
+  if (data.content && data.content.trim().length > 0) {
+    // Klein bestand (<1MB): Base64 decode
+    // (Newlines strippen voor veiligheid bij atob)
+    const cleanB64 = data.content.replace(/\r?\n/g, '');
+    content = b64_to_utf8(cleanB64);
+  } else if (data.download_url) {
+    // Groot bestand (>1MB): Raw fetch
+    const rawResponse = await fetch(data.download_url, {
+       headers: { Authorization: `token ${token}` }
+    });
+    if (!rawResponse.ok) throw new Error(`Fout bij downloaden raw content: ${rawResponse.statusText}`);
+    content = await rawResponse.text();
+  } else {
+    throw new Error('Geen bestandsinhoud gevonden in GitHub response (mogelijk leeg of te groot).');
+  }
 
   const parsed = JSON.parse(content);
 
