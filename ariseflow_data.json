@@ -3951,10 +3951,8 @@
               "workExp": null,
               "workExpNote": "",
               "linkedSourceIds": [],
-              "linkedBundleId": "bundle_1769585360336_15ff274999c05",
-              "linkedBundleIds": [
-                "bundle_1769585360336_15ff274999c05"
-              ],
+              "linkedBundleId": null,
+              "linkedBundleIds": null,
               "linkedSourceUids": [],
               "linkedSourceUid": null
             },
@@ -4348,26 +4346,32 @@
               "qa": {
                 "compleet": {
                   "result": null,
+                  "impact": null,
                   "note": ""
                 },
                 "kwaliteit": {
                   "result": null,
+                  "impact": null,
                   "note": ""
                 },
                 "duidelijkheid": {
                   "result": null,
+                  "impact": null,
                   "note": ""
                 },
                 "tijdigheid": {
                   "result": null,
+                  "impact": null,
                   "note": ""
                 },
                 "standaard": {
                   "result": null,
+                  "impact": null,
                   "note": ""
                 },
                 "overdracht": {
                   "result": null,
+                  "impact": null,
                   "note": ""
                 }
               },
@@ -4396,9 +4400,9 @@
               "disruptions": [],
               "workExp": null,
               "workExpNote": "",
-              "linkedBundleId": "bundle_1768630597052_106a6a79ba69f",
+              "linkedBundleId": "bundle_1769585360336_15ff274999c05",
               "linkedBundleIds": [
-                "bundle_1768630597052_106a6a79ba69f"
+                "bundle_1769585360336_15ff274999c05"
               ],
               "linkedSourceIds": [],
               "linkedSourceUids": [],
@@ -4470,7 +4474,7 @@
             {
               "id": "45d9beb3-de4f-42d1-aa36-5c2468156cb7",
               "created": 1768731369745,
-              "text": "Mail / Brief met verwijzing",
+              "text": "Externe verwijzing",
               "linkedSourceId": null,
               "type": null,
               "processValue": null,
@@ -6107,10 +6111,10 @@
               "created": 1769528186483,
               "text": "Aanmaken taken serie",
               "linkedSourceId": null,
-              "type": null,
-              "processValue": null,
-              "processStatus": null,
-              "successFactors": "",
+              "type": "Taak",
+              "processValue": "BNVA",
+              "processStatus": "HAPPY",
+              "successFactors": "Het aanmaken van de taak gaat probleemloos",
               "causes": [],
               "improvements": [],
               "qa": {
@@ -6162,7 +6166,7 @@
               },
               "inputDefinitions": [],
               "disruptions": [],
-              "workExp": null,
+              "workExp": "ROUTINE",
               "workExpNote": ""
             },
             {
@@ -6511,10 +6515,10 @@
               "created": 1769528387223,
               "text": "Afronden taak",
               "linkedSourceId": null,
-              "type": null,
-              "processValue": null,
-              "processStatus": null,
-              "successFactors": "",
+              "type": "Taak",
+              "processValue": "BNVA",
+              "processStatus": "HAPPY",
+              "successFactors": "Het afronden van de taak gaat probleemloos",
               "causes": [],
               "improvements": [],
               "qa": {
@@ -6566,7 +6570,7 @@
               },
               "inputDefinitions": [],
               "disruptions": [],
-              "workExp": null,
+              "workExp": "ROUTINE",
               "workExpNote": ""
             },
             {
@@ -6779,15 +6783,6 @@
             ],
             "activeSystemIdx": 0
           }
-        },
-        {
-          "slotIdx": 2,
-          "cols": [
-            2,
-            3
-          ],
-          "master": 2,
-          "label": "Merged Output"
         },
         {
           "slotIdx": 2,
