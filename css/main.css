@@ -2676,3 +2676,9 @@ body.exporting #row-headers .row-header .lane-label-text{
   transform: rotate(-90deg) !important;
   transform-origin: center center !important;
 }
+
+/* ===== ROUTE PILL: force 20px (override the 36px badges rule) ===== */
+.route-pill{
+  font-size: 20px !important;
+  line-height: 20px !important;
+}
