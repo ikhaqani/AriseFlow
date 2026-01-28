@@ -3,7 +3,6 @@
 // + FIX: Procesvalidatie export checkt gate completeness
 // + FIX: Merge-groups (incl. gate + systemsMeta) worden nu ook persistente data bij Save/Load (JSON + GitHub)
 // + FIX: NVT (System Fit) wordt meegenomen in CSV export: TTF Scores = "NVT", overige sysfit velden leeg
-// + FIX (EXPORT): Lane labels (row-headers) altijd zichtbaar + geen "rare letters" in PNG (html2canvas-safe)
 
 import { state } from './state.js';
 import { Toast } from './toast.js';
@@ -138,7 +137,7 @@ function sanitizeMergeGroupForSheet(sheet, g) {
   if (!n) return null;
 
   const slotIdx = Number(g?.slotIdx);
-  if (![1, 4].includes(slotIdx)) return null;
+  if (![1, 2, 4].includes(slotIdx)) return null;
 
   const cols = Array.isArray(g?.cols) ? g.cols.map((x) => Number(x)).filter(Number.isFinite) : [];
   const uniq = [...new Set(cols)].filter((c) => c >= 0 && c < n);
@@ -812,8 +811,7 @@ function normalizeIOResultLabel(v) {
   if (U === 'OK' || U === 'GOOD' || U === 'PASS' || U === 'VOLDOET') return 'Voldoet';
   if (U === 'MINOR') return 'Grotendeels';
   if (U === 'MODERATE') return 'Matig';
-  if (U === 'NOT_OK' || U === 'FAIL' || U === 'POOR' || U === 'NOK' || U === 'VOLDOET_NIET')
-    return 'Voldoet niet';
+  if (U === 'NOT_OK' || U === 'FAIL' || U === 'POOR' || U === 'NOK' || U === 'VOLDOET_NIET') return 'Voldoet niet';
   if (U === 'NVT' || U === 'NA') return '';
   return s;
 }
@@ -1210,6 +1208,10 @@ export function exportToCSV() {
         const fase = `Procesflow ${globalColNr}`;
 
         const inputSlot = col?.slots?.[2];
+
+        const inGroup = getMergeGroupForCell(mergeGroups, colIdx, 2);
+        const isInSlave = !!inGroup && isMergedSlaveInSheet(mergeGroups, colIdx, 2);
+
         const outputSlot = col?.slots?.[4];
 
         let inputId = '';
@@ -1218,9 +1220,15 @@ export function exportToCSV() {
         const linkedBundleIds = normalizeLinkedBundles(inputSlot);
         const bundleResolved = resolveBundleIdsToLists(linkedBundleIds, bundleMaps);
 
-        const inputBundlesStr = joinSemi(bundleResolved.bundleNames);
-        const bundleOutIdsStr = joinSemi(bundleResolved.memberOutIds);
-        const bundleOutTextsStr = joinSemi(bundleResolved.memberOutTexts);
+        let inputBundlesStr = joinSemi(bundleResolved.bundleNames);
+        let bundleOutIdsStr = joinSemi(bundleResolved.memberOutIds);
+        let bundleOutTextsStr = joinSemi(bundleResolved.memberOutTexts);
+        
+        if (isInSlave) {
+          inputBundlesStr = '';
+          bundleOutIdsStr = '';
+          bundleOutTextsStr = '';
+        }
 
         const sources = normalizeLinkedSources(inputSlot);
         const resolved = resolveLinkedSourcesToOutPairs(sources, outIdByUid, outTextByUid, outTextByOutId);
@@ -1250,8 +1258,12 @@ export function exportToCSV() {
           inputId = joinSemi(partsId);
           inputText = joinSemi(partsText);
         }
+        if (isInSlave) {
+          inputId = '';
+          inputText = '';
+        }
 
-        const slotQa = inputSlot?.qa || {};
+        const slotQa = isInSlave ? {} : (inputSlot?.qa || {});
 
         const comp = getIOTripleForLabel(slotQa, 'Compleetheid', systemsCount);
         const dq = getIOTripleForLabel(slotQa, 'Datakwaliteit', systemsCount);
@@ -1263,7 +1275,7 @@ export function exportToCSV() {
         const iqfScore = calculateIQFScore(slotQa);
         const iqfScoreStr = iqfScore == null ? '' : String(iqfScore);
 
-        const def = splitDefs(inputSlot?.inputDefinitions);
+        const def = isInSlave ? splitDefs(null) : splitDefs(inputSlot?.inputDefinitions);
 
         const procSlot = col?.slots?.[3] || {};
         const proces = String(procSlot?.text ?? '').trim();
@@ -1405,14 +1417,10 @@ export async function exportHD(copyToClipboard = false) {
   const board = document.getElementById('board');
   if (!board) return;
 
-  // IMPORTANT: capture viewport if present (this is what contains row-headers + cols)
-  const viewport = document.getElementById('viewport');
-  const target = viewport || board;
-
   Toast.show('Afbeelding genereren...', 'info', 2000);
 
   try {
-    const canvas = await html2canvas(target, {
+    const canvas = await html2canvas(board, {
       backgroundColor: '#121619',
       scale: 2.5,
       logging: false,
@@ -1510,6 +1518,7 @@ rh.style.overflow = 'visible';
 
   rh.appendChild(svg);
 })();
+
         const forceStyle = doc.createElement('style');
         forceStyle.textContent = `
           /* --- EXPORT: lane labels closer to columns --- */

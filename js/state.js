@@ -202,7 +202,8 @@ class StateManager {
       const base = legacyName
         ? [this._sanitizeSystemEntry({ name: legacyName })]
         : [this._sanitizeSystemEntry({})];
-      sd.systemsMeta = { multi: false, systems: base, activeSystemIdx: 0 };
+      sd.systemsMeta = StateManager.__preserveSysfitNvt(sd.systemsMeta, { multi: false, systems: base, activeSystemIdx: 0 });
+
     } else {
       const meta = sd.systemsMeta && typeof sd.systemsMeta === 'object' ? sd.systemsMeta : {};
       const systems = Array.isArray(meta.systems)
@@ -216,11 +217,12 @@ class StateManager {
         ? Number(meta.activeSystemIdx)
         : 0;
 
-      sd.systemsMeta = {
+      sd.systemsMeta = StateManager.__preserveSysfitNvt(sd.systemsMeta, {
         multi,
         systems: safeSystems,
         activeSystemIdx: Math.max(0, Math.min(safeSystems.length - 1, activeSystemIdx))
-      };
+      });
+
     }
 
     if (!Number.isFinite(Number(sd.calculatedScore))) sd.calculatedScore = null;
@@ -1028,15 +1030,23 @@ class StateManager {
     const col = this.activeSheet?.columns?.[colIdx];
     if (!col) return;
 
+    const norm = (v) => {
+      const s = String(v ?? "").trim();
+      if (!s) return null;
+      if (s === "SKIP") return "SKIP";
+      const n = Number(s);
+      return Number.isFinite(n) ? n : null;
+    };
+
     col.logic = {
-      condition: String(logicData.condition || ''),
-      ifTrue: logicData.ifTrue !== '' && logicData.ifTrue !== null ? Number(logicData.ifTrue) : null,
-      ifFalse: logicData.ifFalse !== '' && logicData.ifFalse !== null ? Number(logicData.ifFalse) : null
+      condition: String(logicData.condition || ""),
+      ifTrue: norm(logicData.ifTrue),
+      ifFalse: norm(logicData.ifFalse)
     };
 
     col.isConditional = true;
 
-    this.notify({ reason: 'columns' }, { clone: false });
+    this.notify({ reason: "columns" }, { clone: false });
   }
 
   toggleGroup(colIdx) {

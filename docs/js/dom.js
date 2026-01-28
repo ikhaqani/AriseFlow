@@ -1,9 +1,49 @@
 // dom.js
+console.info("[AriseFlow dom.js] build=20260127_1450");
 import { state } from './state.js';
 import { IO_CRITERIA, PROCESS_STATUSES } from './config.js';
 import { openEditModal, saveModalDetails, openLogicModal, openGroupModal, openVariantModal } from './modals.js';
 
 const $ = (id) => document.getElementById(id);
+
+
+// === Emoji rendering (board post-its) =======================================
+function _escapeHtml(s) {
+  return String(s ?? "")
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#39;");
+}
+
+// Emoji sequences incl. ZWJ (👨‍⚕️) + optional variation selector
+
+let _EMOJI_SEQ_RE;
+try {
+  _EMOJI_SEQ_RE = new RegExp(
+    "(\\p{Extended_Pictographic}(?:\\uFE0F)?(?:\\u200D\\p{Extended_Pictographic}(?:\\uFE0F)?)*)",
+    "gu"
+  );
+} catch (e) {
+  // Fallback: surrogate-pair emoji (less perfect, but safe)
+  _EMOJI_SEQ_RE = /([\uD83C-\uDBFF][\uDC00-\uDFFF])/g;
+}
+
+function renderTextWithEmojiSpan(rawText) {
+  const s = String(rawText ?? "");
+  if (!s) return "";
+  const parts = s.split(_EMOJI_SEQ_RE); // keeps captures
+  let out = "";
+  for (let i = 0; i < parts.length; i++) {
+    const part = parts[i] ?? "";
+    if (!part) continue;
+    if (i % 2 === 1) out += `<span class="emoji-inline">${part}</span>`;
+    else out += _escapeHtml(part);
+  }
+  return out;
+}
+// ============================================================================
 
 let _openModalFn = null;
 let _delegatedBound = false;
@@ -305,6 +345,25 @@ function _sanitizeSystemsMeta(meta) {
   if (activeSystemIdx >= systems.length) activeSystemIdx = 0;
 
   return { multi, systems, activeSystemIdx };
+
+  /* __PRESERVE_SYSFIT_NVT__ */
+  try {
+    // Preserve __nvt from SOURCE meta -> clean (sanitize may rebuild qa)
+    const srcSys = (meta && Array.isArray(meta.systems)) ? meta.systems : [];
+    const dstSys = (clean && Array.isArray(clean.systems)) ? clean.systems : [];
+    const n = Math.min(srcSys.length, dstSys.length);
+
+    for (let i = 0; i < n; i++) {
+      const srcQa = (srcSys[i] && srcSys[i].qa && typeof srcSys[i].qa === "object") ? srcSys[i].qa : null;
+      if (srcQa && srcQa.__nvt === true) {
+        if (!dstSys[i].qa || typeof dstSys[i].qa !== "object") dstSys[i].qa = {};
+        dstSys[i].qa = { __nvt: true };
+        dstSys[i].score = null;
+      }
+    }
+  } catch {}
+
+
 }
 
 /** Sanitizes one merge group to the active sheet bounds and schema. */
@@ -406,7 +465,7 @@ function sanitizeGroupForSheet(sheet, g) {
   if (!n) return null;
 
   const slotIdx = Number(g?.slotIdx);
-  if (![1, 4].includes(slotIdx)) return null;
+  if (![1, 2, 4].includes(slotIdx)) return null;
 
   const cols = Array.isArray(g?.cols) ? g.cols.map((x) => Number(x)).filter(Number.isFinite) : [];
   const uniq = [...new Set(cols)].filter((c) => c >= 0 && c < n);
@@ -804,9 +863,9 @@ function openMergeModal(clickedColIdx, slotIdx, openModalFn) {
   const n = sh.columns?.length ?? 0;
   if (!n) return;
 
-  if (![1, 4].includes(slotIdx)) return;
+  if (![1, 2, 4].includes(slotIdx)) return;
 
-  const slotName = slotIdx === 1 ? 'Systeem' : 'Output';
+  const slotName = slotIdx === 1 ? 'Systeem' : slotIdx === 2 ? 'Input' : 'Output';
 
   const cur = getAllMergeGroupsSanitized().find((g) => g.slotIdx === slotIdx) || null;
   const curCols = cur?.cols?.length ? cur.cols : [];
@@ -944,9 +1003,8 @@ let gate = slotIdx === 4
 
   const grid = modal.querySelector('#mergeColsGrid');
   const txt = modal.querySelector('#mergeText');
-  if (txt) txt.value = String(curText || '');
-
-  const mergeEnabledEl = modal.querySelector('#mergeEnabled');
+  if (txt) txt.value = String(curText || "");
+const mergeEnabledEl = modal.querySelector('#mergeEnabled');
   const mergeRangeWrapEl = modal.querySelector('#mergeRangeWrap');
   const mergeStatusLineEl = modal.querySelector('#mergeStatusLine');
 
@@ -1056,6 +1114,7 @@ let gate = slotIdx === 4
 
   function _computeSystemScore(sys) {
     const qa = sys?.qa && typeof sys.qa === 'object' ? sys.qa : {};
+  if (qa && qa.__nvt === true) return null;
     let sum = 0;
     let nAns = 0;
 
@@ -1099,6 +1158,8 @@ let gate = slotIdx === 4
     systemsWrapEl.innerHTML = '';
     const systems = systemsMeta.systems || [];
 
+    /* __SYSFIT_NVT_BIND_TO_SYSTEMSMETA_V7__ */
+    try { window.__sysfitActiveSystemsMeta = systemsMeta; } catch {}
     systems.forEach((sys, idx) => {
       const card = document.createElement('div');
       card.style.background = 'rgba(0,0,0,0.08)';
@@ -1141,7 +1202,7 @@ let gate = slotIdx === 4
         <div style="margin-top:16px; border-top:1px solid rgba(255,255,255,0.08); padding-top:14px;">
           <div style="font-weight:900; letter-spacing:0.06em; opacity:0.85; margin-bottom:6px;">SYSTEM FIT VRAGEN</div>
           <label class="sysfit-nvt-toggle" style="display:flex;align-items:center;gap:10px;margin:8px 0 12px 0;font-size:14px;cursor:pointer;opacity:.95;">
-            <input type="checkbox" class="sysfitNvtCheck" ${(sys.qa && typeof sys.qa === "object" && sys.qa.__nvt===true) ? "checked" : ""} />
+            <input type="checkbox" class="sysfitNvtCheck" data-sys-idx="${idx}" ${(sys.qa && typeof sys.qa === "object" && sys.qa.__nvt===true) ? "checked" : ""} />
             <strong>NVT</strong> <span style="opacity:.75;font-weight:500;">(niet beoordeelbaar, bv. extern systeem)</span>
           </label>
           <div style="font-size:13px; opacity:0.75; margin-bottom:12px;">Beantwoord per vraag hoe goed dit systeem jouw taak ondersteunt.</div>
@@ -1408,7 +1469,7 @@ const qa = sys.qa && typeof sys.qa === "object" ? sys.qa : {};
 
     if (!mergeEnabled) {
       setMergeGroupForSlot(slotIdx, null);
-      state.updateStickyText(clickedColIdx, slotIdx, v);
+      if (slotIdx !== 2) state.updateStickyText(clickedColIdx, slotIdx, v);
 
 
       // SINGLE-COL: persist Procesvalidatie (gate) also when merge is OFF
@@ -1434,7 +1495,7 @@ const qa = sys.qa && typeof sys.qa === "object" ? sys.qa : {};
             slot.systemData = {
               ...sd,
               systemsMeta: cleanMeta,
-              calculatedScore: Number.isFinite(Number(overall)) ? Number(overall) : sd.calculatedScore
+              calculatedScore: Number.isFinite(Number(overall)) ? Number(overall) : null
             };
           }
         }
@@ -1470,7 +1531,7 @@ const qa = sys.qa && typeof sys.qa === "object" ? sys.qa : {};
     setMergeGroupForSlot(slotIdx, payload);
 
     selected.forEach((cIdx) => {
-      state.updateStickyText(cIdx, slotIdx, v);
+      if (slotIdx !== 2) state.updateStickyText(cIdx, slotIdx, v);
     });
 
     if (slotIdx === 1) {
@@ -1486,7 +1547,7 @@ const qa = sys.qa && typeof sys.qa === "object" ? sys.qa : {};
           slot.systemData = {
             ...sd,
             systemsMeta: cleanMeta,
-            calculatedScore: Number.isFinite(Number(overall)) ? Number(overall) : sd.calculatedScore
+            calculatedScore: Number.isFinite(Number(overall)) ? Number(overall) : null
           };
         });
       }
@@ -1658,7 +1719,23 @@ function buildScoreBadges({ slotIdx, slot }) {
 
   if (slotIdx === 1) {
     const meta = slot.systemData?.systemsMeta;
-    const scoreList = computeTTFScoreListFromMeta(meta);
+    /* __SYSFIT_ALLNVT_BADGE_GUARD__ */
+    const _sysArr = (meta && Array.isArray(meta.systems)) ? meta.systems : [];
+    const _allNvt = (_sysArr.length > 0) && _sysArr.every((x) => {
+      const qa = x && x.qa && typeof x.qa === "object" ? x.qa : null;
+      return !!(qa && qa.__nvt === true);
+    });
+
+    if (_allNvt) {
+
+
+      html += `<div class="qa-score-badge score-med">TTF: NVT</div>`;
+
+
+    } else {
+
+
+      const scoreList = computeTTFScoreListFromMeta(meta);
 
     if (scoreList.length) {
       const scores = scoreList.map((v) => (Number.isFinite(Number(v)) ? `${Number(v)}%` : '—'));
@@ -1684,8 +1761,11 @@ function buildScoreBadges({ slotIdx, slot }) {
       html += `<div class="qa-score-badge ${badgeClass}">${escapeHTML(label)}</div>`;
       return html;
     }
+    }
+    /* __SYSFIT_ALLNVT_BADGE_GUARD_END__ */
 
-    if (slot.systemData?.calculatedScore != null) {
+
+    if (!_allNvt && slot.systemData?.calculatedScore != null) {
       const sysScore = slot.systemData.calculatedScore;
       const badgeClass = sysScore >= 80 ? 'score-high' : sysScore >= 60 ? 'score-med' : 'score-low';
       html += `<div class="qa-score-badge ${badgeClass}">TTF: ${sysScore}%</div>`;
@@ -1854,7 +1934,7 @@ function ensureRowHeaders() {
   ['Leverancier', 'Systeem', 'Input', 'Proces', 'Output', 'Klant'].forEach((label) => {
     const div = document.createElement('div');
     div.className = 'row-header';
-    div.innerHTML = `<span>${label}</span>`;
+    div.innerHTML = `<span class="lane-label-text">${escapeHTML(label)}</span>`;
     rowHeaderContainer.appendChild(div);
   });
 }
@@ -2084,7 +2164,7 @@ function renderMergedOverlays(openModalFn) {
           'input',
           () => {
             if (g.slotIdx === 1 && g.systemsMeta) return;
-            state.updateStickyText(masterCol, g.slotIdx, txt.textContent);
+            if (g.slotIdx !== 2) state.updateStickyText(masterCol, g.slotIdx, txt.textContent);
             scheduleSyncRowHeights();
           },
           { passive: true }
@@ -2261,7 +2341,7 @@ function renderColumnsOnly(openModalFn) {
       myInputId = _joinSemiText(bundleLabelsForInput);
     } else if (resolved.ids.length) {
       myInputId = _joinSemiText(resolved.ids);
-    } else if (inputSlot?.text?.trim()) {
+    } else if (inputSlot?.text?.trim() && !isMergedSlave(colIdx, 2)) {
       localInCounter += 1;
       myInputId = `IN${offsets.inStart + localInCounter}`;
     }
@@ -2424,7 +2504,7 @@ function renderColumnsOnly(openModalFn) {
       }
       if (textEl) textEl.textContent = displayText;
 
-      const isMergedSource = !!getMergeGroup(colIdx, slotIdx);
+      const isMergedSource = (slotIdx === 2) ? isMergedSlave(colIdx, 2) : !!getMergeGroup(colIdx, slotIdx);
 
       if (!isMergedSource) attachStickyInteractions({ stickyEl, textEl, colIdx, slotIdx, openModalFn });
 
@@ -2432,7 +2512,7 @@ function renderColumnsOnly(openModalFn) {
         textEl.addEventListener(
           'input',
           () => {
-            state.updateStickyText(colIdx, slotIdx, textEl.textContent);
+            if (!(slotIdx === 2 && isMergedSlave(colIdx, 2))) state.updateStickyText(colIdx, slotIdx, textEl.textContent);
             scheduleSyncRowHeights();
           },
           { passive: true }
@@ -2440,7 +2520,7 @@ function renderColumnsOnly(openModalFn) {
         textEl.addEventListener(
           'blur',
           () => {
-            state.updateStickyText(colIdx, slotIdx, textEl.textContent);
+            if (!(slotIdx === 2 && isMergedSlave(colIdx, 2))) state.updateStickyText(colIdx, slotIdx, textEl.textContent);
             scheduleSyncRowHeights();
           },
           { passive: true }
@@ -2511,14 +2591,24 @@ function updateSingleText(colIdx, slotIdx) {
     }
 
     if (parts.length) {
-      slotEl.textContent = _joinSemiText(parts);
+      slotEl.innerHTML = renderTextWithEmojiSpan(_joinSemiText(parts));
       return true;
     }
   }
 
-  slotEl.textContent = slot.text ?? '';
+  slotEl.innerHTML = renderTextWithEmojiSpan(slot.text ?? "");
   return true;
 }
+
+
+// Bridge: allow modals.js to open merge modal without importing dom.js
+window.addEventListener("ssipoc:openMergeModal", (ev) => {
+  const d = (ev && ev.detail) ? ev.detail : {};
+  const colIdx = Number(d.colIdx);
+  const slotIdx = Number(d.slotIdx);
+  if (!Number.isFinite(colIdx) || !Number.isFinite(slotIdx)) return;
+  openMergeModal(colIdx, slotIdx, _openModalFn);
+});
 
 /** Renders the full board for the currently active sheet. */
 export function renderBoard(openModalFn) {
@@ -2709,7 +2799,18 @@ export function setupDelegatedEvents() {
         qWrap.style.opacity = isNvt ? "0.35" : "1";
         qWrap.style.pointerEvents = isNvt ? "none" : "auto";
       }
+    
+    /* __SYSFIT_DISABLE_WHEN_NVT__ */
+    try {
+      const inputs = qWrap ? qWrap.querySelectorAll("input, textarea, select, button") : [];
+      inputs.forEach((el) => {
+        if (!el) return;
+        // keep NVT checkbox itself enabled
+        if (el.classList && el.classList.contains("sysfitNvtCheck")) return;
+        el.disabled = !!isNvt;
+      });
     } catch {}
+} catch {}
   }
 
   document.addEventListener("change", (ev) => {
@@ -2964,14 +3065,37 @@ export function setupDelegatedEvents() {
 
 
 
-/* __SYSFIT_DOM_NVT_PERSIST_V4__ */
+
+
+
+
+
+
+/* __SYSFIT_DOM_NVT_PERSIST_V5__ */
+/* __SYSFIT_DEBUG_APPLY__ */
+function __dbgSysfitDump(tag){
+  try{
+    const m = window.__sysfitDomSystemsByIdx && typeof window.__sysfitDomSystemsByIdx==="object"
+      ? window.__sysfitDomSystemsByIdx : {};
+    const keys = Object.keys(m);
+    const snap = keys.map(k=>{
+      const sys=m[k];
+      const qa=(sys&&sys.qa&&typeof sys.qa==="object")?sys.qa:{};
+      return { idx:k, nvt: qa.__nvt===true, qaKeys:Object.keys(qa) };
+    });
+    console.log("[SYSFIT DBG]", tag, snap);
+  }catch(e){ console.warn("[SYSFIT DBG] dump failed", e); }
+}
+
 (() => {
-  function _getSysById(sysId) {
-    const m = (window.__sysfitDomSystemsById && typeof window.__sysfitDomSystemsById === "object")
-      ? window.__sysfitDomSystemsById
+  // sys objects worden in dom.js al in window.__sysfitDomSystemsByIdx gezet
+  function _getSysByIdx(idx) {
+    const m = (window.__sysfitDomSystemsByIdx && typeof window.__sysfitDomSystemsByIdx === "object")
+      ? window.__sysfitDomSystemsByIdx
       : null;
-    if (m && sysId != null && m[String(sysId)]) return m[String(sysId)];
-    return null;
+    if (!m) return null;
+    const k = String(idx ?? "");
+    return m[k] || null;
   }
 
   function _ensureQa(sys) {
@@ -2993,10 +3117,28 @@ export function setupDelegatedEvents() {
     }
   }
 
-  function _syncCardUi(card, isNvt) {
+  function _getCardIdx(card) {
+    if (!card) return null;
+    // 1) direct via checkbox attr (als aanwezig)
+    const cb = card.querySelector(".sysfitNvtCheck");
+    const a = cb ? cb.getAttribute("data-sys-idx") : null;
+    if (a != null && String(a).trim() !== "") return Number(a);
+
+    // 2) via data-sys-qs attr (bestaat in dom.js)
+    const qs = card.querySelector("[data-sys-qs]");
+    const b = qs ? qs.getAttribute("data-sys-qs") : null;
+    if (b != null && String(b).trim() !== "") return Number(b);
+
+    // 3) fallback: probeer card dataset
+    const c = card.getAttribute("data-sys-idx") || (card.dataset ? card.dataset.sysIdx : null);
+    if (c != null && String(c).trim() !== "") return Number(c);
+
+    return null;
+  }
+
+  function _syncQuestionsUI(card, isNvt) {
     if (!card) return;
 
-    // vragenblok (in dom.js is dit meestal de div met data-sys-qs)
     const qWrap = card.querySelector("[data-sys-qs]");
     if (qWrap) {
       qWrap.style.opacity = isNvt ? "0.35" : "1";
@@ -3007,21 +3149,17 @@ export function setupDelegatedEvents() {
         if (!el) return;
 
         if (isNvt) {
-          // markeer alleen als wij hem uitzetten (zodat we later niet per ongeluk andere disables overschrijven)
           if (!el.disabled) el.dataset.nvtDisabled = "1";
           el.disabled = true;
 
-          // leeg maken zodat je niet NVT + antwoorden tegelijk hebt
+          // clear selections/inputs (mutual exclusive)
           if (el.tagName === "INPUT") {
             const t = (el.getAttribute("type") || "").toLowerCase();
             if (t === "radio" || t === "checkbox") el.checked = false;
-          }
-          if (el.tagName === "TEXTAREA" || el.tagName === "INPUT") {
-            const t = (el.getAttribute("type") || "").toLowerCase();
             if (t === "text") el.value = "";
           }
+          if (el.tagName === "TEXTAREA") el.value = "";
         } else {
-          // alleen terugzetten als wij hem eerder disabled hebben
           if (el.dataset && el.dataset.nvtDisabled === "1") {
             el.disabled = false;
             delete el.dataset.nvtDisabled;
@@ -3030,70 +3168,196 @@ export function setupDelegatedEvents() {
       });
     }
 
-    // score UI (leeglaten is het makkelijkst/duidelijkst)
-    const scoreEl = card.querySelector('[data-sys-score], .sys-score, strong[data-sys-score]');
+    // score tekst (leeglaten is simplest)
+    const scoreEl = card.querySelector('strong[data-sys-score], [data-sys-score], .sys-score');
     if (scoreEl) scoreEl.textContent = isNvt ? "" : (scoreEl.textContent || "—");
   }
 
-  function _syncAll() {
-    document.querySelectorAll(".system-card").forEach((card) => {
-      const cb = card.querySelector(".sysfitNvtCheck");
-      const isNvt = !!(cb && cb.checked);
-      _syncCardUi(card, isNvt);
-    });
+  function _syncCard(card) {
+    const cb = card ? card.querySelector(".sysfitNvtCheck") : null;
+    const isNvt = !!(cb && cb.checked);
+
+    const idx = _getCardIdx(card);
+    const sys = (idx != null && Number.isFinite(idx)) ? _getSysByIdx(idx) : null;
+
+    if (sys) _setNvt(sys, isNvt);
+    _syncQuestionsUI(card, isNvt);
   }
 
-  // CHANGE handler: NVT opslaan + UI sync
+  function _syncAll() {
+    document.querySelectorAll(".system-card").forEach(_syncCard);
+  }
+
+  // 1) Wanneer NVT toggled: direct persist + UI lock
   document.addEventListener("change", (ev) => {
     const cb = ev.target && ev.target.closest ? ev.target.closest(".sysfitNvtCheck") : null;
     if (!cb) return;
-
     const card = cb.closest(".system-card");
-    const sysId = (card && (card.getAttribute("data-sys-id") || (card.dataset ? card.dataset.sysId : ""))) || null;
-    const sys = _getSysById(sysId);
-
-    if (!sys) {
-      console.warn("NVT: geen sys object gevonden voor sysId=", sysId);
-      _syncAll();
-      return;
-    }
-
-    const next = !!cb.checked;
-    _setNvt(sys, next);
-
-    // ook mirrors (systemData / systemsMeta) best-effort, zodat export/score nooit terugvalt naar 0%
-    try {
-      const sysSlot = (window.__sysfitActiveSysSlot && typeof window.__sysfitActiveSysSlot === "object")
-        ? window.__sysfitActiveSysSlot
-        : null;
-      const sd = sysSlot && sysSlot.systemData && typeof sysSlot.systemData === "object" ? sysSlot.systemData : null;
-
-      const sid = String(sys.id ?? sysId ?? "");
-      if (sd && Array.isArray(sd.systems)) {
-        const tgt = sd.systems.find(x => x && String(x.id ?? "") === sid);
-        if (tgt) _setNvt(tgt, next);
-      }
-      if (sd && sd.systemsMeta && Array.isArray(sd.systemsMeta.systems)) {
-        const tgt2 = sd.systemsMeta.systems.find(x => x && String(x.id ?? "") === sid);
-        if (tgt2) _setNvt(tgt2, next);
-      }
-    } catch {}
-
-    _syncCardUi(card, next);
-
+    _syncCard(card);
     try { if (typeof state !== "undefined" && typeof state.notify === "function") state.notify(); } catch {}
   }, true);
 
-  // Init sync + keep in sync bij rerenders
-  const _init = () => {
+  // 2) Cruciaal: na "Toepassen" (apply/save) opnieuw afdwingen, omdat apply qa kan overschrijven
+  document.addEventListener("click", (ev) => {
+    const btn = ev.target && ev.target.closest ? ev.target.closest("button") : null;
+    if (!btn) return;
+
+    const txt = (btn.textContent || "").trim().toLowerCase();
+    if (txt !== "toepassen") return;
+
+    
+    __dbgSysfitDump("before-apply-click");
+// Alleen relevant als dit binnen een sysfit modal is
+    const modal = btn.closest(".modal, .modal-overlay, [role='dialog']") || document;
+    if (!modal.querySelector(".sysfitNvtCheck")) return;
+
+    // Run AFTER existing apply handlers
+    setTimeout(() => {
+      __dbgSysfitDump("after-apply-timeout-start");
+
+      _syncAll();
+      try { if (typeof state !== "undefined" && typeof state.notify === "function") state.notify(); } catch {}
+      __dbgSysfitDump("after-apply-timeout-end");
+
+    }, 0);
+
+  }, true);
+
+  // init + rerender safety
+  const init = () => {
     _syncAll();
     const mo = new MutationObserver(() => _syncAll());
     mo.observe(document.body, { childList: true, subtree: true });
   };
 
-  if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", _init);
-  else _init();
+  if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", init);
+  else init();
 })();
-/* __END_SYSFIT_DOM_NVT_PERSIST_V4__ */
+/* __END_SYSFIT_DOM_NVT_PERSIST_V5__ */
 
 
+
+
+/* __SYSFIT_NVT_BIND_TO_SYSTEMSMETA_V7__ */
+(function () {
+  if (window.__sysfitNvtBoundV7) return;
+  window.__sysfitNvtBoundV7 = true;
+
+  function _setDisabledWithinCard(card, isNvt) {
+    try {
+      const qWrap = card ? card.querySelector('[data-sys-qs]') : null;
+      if (!qWrap) return;
+      const els = qWrap.querySelectorAll('input, textarea, select, button');
+      els.forEach((el) => { if (el) el.disabled = !!isNvt; });
+    } catch {}
+  }
+
+  function _syncScoreText(card, isNvt) {
+    try {
+      const scoreEl = card ? card.querySelector('strong[data-sys-score]') : null;
+      if (scoreEl) scoreEl.textContent = isNvt ? "" : (scoreEl.textContent || "—");
+    } catch {}
+  }
+
+  document.addEventListener("change", (ev) => {
+    const cb = ev.target && ev.target.classList && ev.target.classList.contains("sysfitNvtCheck") ? ev.target : null;
+    if (!cb) return;
+
+    const idxRaw = cb.getAttribute("data-sys-idx");
+    const idx = Number.isFinite(Number(idxRaw)) ? Number(idxRaw) : null;
+    if (idx == null) {
+      console.warn("SYSFIT NVT: missing data-sys-idx");
+      return;
+    }
+
+    const meta = window.__sysfitActiveSystemsMeta;
+    if (!meta || !Array.isArray(meta.systems) || !meta.systems[idx]) {
+      console.warn("SYSFIT NVT: active systemsMeta not available / idx out of range", idx);
+      return;
+    }
+
+    const sys = meta.systems[idx];
+    if (!sys.qa || typeof sys.qa !== "object") sys.qa = {};
+
+    const isNvt = !!cb.checked;
+
+    if (isNvt) {
+      // Forceer NVT-only QA zodat Apply/sanitize dit niet “weg-normaliseert”
+      sys.qa = { __nvt: true };
+      sys.score = null;
+    } else {
+      // haal alleen de vlag weg, laat overige antwoorden leeg (gebruiker vult opnieuw in)
+      if (sys.qa && typeof sys.qa === "object") delete sys.qa.__nvt;
+    }
+
+    const card = cb.closest(".system-card") || cb.closest('[data-sys-qs]')?.closest("div");
+    _setDisabledWithinCard(card, isNvt);
+    _syncScoreText(card, isNvt);
+
+    // Optioneel: trigger render elders (best-effort)
+    try { if (typeof state !== "undefined" && typeof state.notify === "function") state.notify(); } catch {}
+  });
+})();
+
+
+/* ==========================================================================
+   INLINE EMOJI WRAPPER (post-its): make emoji bigger only
+   ========================================================================== */
+(function(){
+  function _esc(s){
+    return String(s)
+      .replace(/&/g,"&amp;")
+      .replace(/</g,"&lt;")
+      .replace(/>/g,"&gt;")
+      .replace(/"/g,"&quot;")
+      .replace(/'/g,"&#39;");
+  }
+
+  function _isEmojiChar(ch){
+    try { 
+try {
+      return new RegExp("\\p{Extended_Pictographic}", "u").test(ch);
+    } catch (e) {
+      // fallback: treat surrogate pairs as emoji-ish
+      return /[\uD83C-\uDBFF][\uDC00-\uDFFF]/.test(ch);
+    } }
+    catch(e){ return false; }
+  }
+
+  function _wrapInlineEmoji(el){
+    if (!el) return;
+    // Don't interfere while editing
+    if (el === document.activeElement) return;
+
+    const t = el.textContent ?? "";
+    if (!t) return;
+
+    // Avoid re-processing the same content
+    if (el.dataset && el.dataset.emojiSrc === t) return;
+
+    let out = "";
+    for (const ch of Array.from(t)){
+      if (_isEmojiChar(ch)){
+        out += `<span class="emoji-inline">${_esc(ch)}</span>`;
+      } else {
+        out += _esc(ch);
+      }
+    }
+
+    // Replace content; remember source to prevent loops
+    el.innerHTML = out;
+    if (el.dataset) el.dataset.emojiSrc = t;
+  }
+
+  function _applyAll(){
+    document.querySelectorAll(".sticky .text").forEach(_wrapInlineEmoji);
+  }
+
+  // Initial + keep up-to-date after renders/changes
+  window.addEventListener("DOMContentLoaded", () => {
+    _applyAll();
+    const target = document.getElementById("board") || document.body;
+    const obs = new MutationObserver(() => { _applyAll(); });
+    obs.observe(target, { childList: true, subtree: true, characterData: true });
+  });
+})();

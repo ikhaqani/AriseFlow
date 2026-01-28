@@ -6,45 +6,6 @@ import { openEditModal, saveModalDetails, openLogicModal, openGroupModal, openVa
 
 const $ = (id) => document.getElementById(id);
 
-
-// === Emoji rendering (board post-its) =======================================
-function _escapeHtml(s) {
-  return String(s ?? "")
-    .replace(/&/g, "&amp;")
-    .replace(/</g, "&lt;")
-    .replace(/>/g, "&gt;")
-    .replace(/"/g, "&quot;")
-    .replace(/'/g, "&#39;");
-}
-
-// Emoji sequences incl. ZWJ (👨‍⚕️) + optional variation selector
-
-let _EMOJI_SEQ_RE;
-try {
-  _EMOJI_SEQ_RE = new RegExp(
-    "(\\p{Extended_Pictographic}(?:\\uFE0F)?(?:\\u200D\\p{Extended_Pictographic}(?:\\uFE0F)?)*)",
-    "gu"
-  );
-} catch (e) {
-  // Fallback: surrogate-pair emoji (less perfect, but safe)
-  _EMOJI_SEQ_RE = /([\uD83C-\uDBFF][\uDC00-\uDFFF])/g;
-}
-
-function renderTextWithEmojiSpan(rawText) {
-  const s = String(rawText ?? "");
-  if (!s) return "";
-  const parts = s.split(_EMOJI_SEQ_RE); // keeps captures
-  let out = "";
-  for (let i = 0; i < parts.length; i++) {
-    const part = parts[i] ?? "";
-    if (!part) continue;
-    if (i % 2 === 1) out += `<span class="emoji-inline">${part}</span>`;
-    else out += _escapeHtml(part);
-  }
-  return out;
-}
-// ============================================================================
-
 let _openModalFn = null;
 let _delegatedBound = false;
 let _syncRaf = 0;
@@ -1934,7 +1895,7 @@ function ensureRowHeaders() {
   ['Leverancier', 'Systeem', 'Input', 'Proces', 'Output', 'Klant'].forEach((label) => {
     const div = document.createElement('div');
     div.className = 'row-header';
-    div.innerHTML = `<span class="lane-label-text">${escapeHTML(label)}</span>`;
+    div.innerHTML = `<span>${label}</span>`;
     rowHeaderContainer.appendChild(div);
   });
 }
@@ -2591,12 +2552,12 @@ function updateSingleText(colIdx, slotIdx) {
     }
 
     if (parts.length) {
-      slotEl.innerHTML = renderTextWithEmojiSpan(_joinSemiText(parts));
+      slotEl.textContent = _joinSemiText(parts);
       return true;
     }
   }
 
-  slotEl.innerHTML = renderTextWithEmojiSpan(slot.text ?? "");
+  slotEl.textContent = slot.text ?? '';
   return true;
 }
 
@@ -3299,65 +3260,3 @@ function __dbgSysfitDump(tag){
   });
 })();
 
-
-/* ==========================================================================
-   INLINE EMOJI WRAPPER (post-its): make emoji bigger only
-   ========================================================================== */
-(function(){
-  function _esc(s){
-    return String(s)
-      .replace(/&/g,"&amp;")
-      .replace(/</g,"&lt;")
-      .replace(/>/g,"&gt;")
-      .replace(/"/g,"&quot;")
-      .replace(/'/g,"&#39;");
-  }
-
-  function _isEmojiChar(ch){
-    try { 
-try {
-      return new RegExp("\\p{Extended_Pictographic}", "u").test(ch);
-    } catch (e) {
-      // fallback: treat surrogate pairs as emoji-ish
-      return /[\uD83C-\uDBFF][\uDC00-\uDFFF]/.test(ch);
-    } }
-    catch(e){ return false; }
-  }
-
-  function _wrapInlineEmoji(el){
-    if (!el) return;
-    // Don't interfere while editing
-    if (el === document.activeElement) return;
-
-    const t = el.textContent ?? "";
-    if (!t) return;
-
-    // Avoid re-processing the same content
-    if (el.dataset && el.dataset.emojiSrc === t) return;
-
-    let out = "";
-    for (const ch of Array.from(t)){
-      if (_isEmojiChar(ch)){
-        out += `<span class="emoji-inline">${_esc(ch)}</span>`;
-      } else {
-        out += _esc(ch);
-      }
-    }
-
-    // Replace content; remember source to prevent loops
-    el.innerHTML = out;
-    if (el.dataset) el.dataset.emojiSrc = t;
-  }
-
-  function _applyAll(){
-    document.querySelectorAll(".sticky .text").forEach(_wrapInlineEmoji);
-  }
-
-  // Initial + keep up-to-date after renders/changes
-  window.addEventListener("DOMContentLoaded", () => {
-    _applyAll();
-    const target = document.getElementById("board") || document.body;
-    const obs = new MutationObserver(() => { _applyAll(); });
-    obs.observe(target, { childList: true, subtree: true, characterData: true });
-  });
-})();

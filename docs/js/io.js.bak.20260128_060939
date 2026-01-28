@@ -3,7 +3,6 @@
 // + FIX: Procesvalidatie export checkt gate completeness
 // + FIX: Merge-groups (incl. gate + systemsMeta) worden nu ook persistente data bij Save/Load (JSON + GitHub)
 // + FIX: NVT (System Fit) wordt meegenomen in CSV export: TTF Scores = "NVT", overige sysfit velden leeg
-// + FIX (EXPORT): Lane labels (row-headers) altijd zichtbaar + geen "rare letters" in PNG (html2canvas-safe)
 
 import { state } from './state.js';
 import { Toast } from './toast.js';
@@ -138,7 +137,7 @@ function sanitizeMergeGroupForSheet(sheet, g) {
   if (!n) return null;
 
   const slotIdx = Number(g?.slotIdx);
-  if (![1, 4].includes(slotIdx)) return null;
+  if (![1, 2, 4].includes(slotIdx)) return null;
 
   const cols = Array.isArray(g?.cols) ? g.cols.map((x) => Number(x)).filter(Number.isFinite) : [];
   const uniq = [...new Set(cols)].filter((c) => c >= 0 && c < n);
@@ -812,8 +811,7 @@ function normalizeIOResultLabel(v) {
   if (U === 'OK' || U === 'GOOD' || U === 'PASS' || U === 'VOLDOET') return 'Voldoet';
   if (U === 'MINOR') return 'Grotendeels';
   if (U === 'MODERATE') return 'Matig';
-  if (U === 'NOT_OK' || U === 'FAIL' || U === 'POOR' || U === 'NOK' || U === 'VOLDOET_NIET')
-    return 'Voldoet niet';
+  if (U === 'NOT_OK' || U === 'FAIL' || U === 'POOR' || U === 'NOK' || U === 'VOLDOET_NIET') return 'Voldoet niet';
   if (U === 'NVT' || U === 'NA') return '';
   return s;
 }
@@ -1210,6 +1208,10 @@ export function exportToCSV() {
         const fase = `Procesflow ${globalColNr}`;
 
         const inputSlot = col?.slots?.[2];
+
+        const inGroup = getMergeGroupForCell(mergeGroups, colIdx, 2);
+        const isInSlave = !!inGroup && isMergedSlaveInSheet(mergeGroups, colIdx, 2);
+
         const outputSlot = col?.slots?.[4];
 
         let inputId = '';
@@ -1218,9 +1220,15 @@ export function exportToCSV() {
         const linkedBundleIds = normalizeLinkedBundles(inputSlot);
         const bundleResolved = resolveBundleIdsToLists(linkedBundleIds, bundleMaps);
 
-        const inputBundlesStr = joinSemi(bundleResolved.bundleNames);
-        const bundleOutIdsStr = joinSemi(bundleResolved.memberOutIds);
-        const bundleOutTextsStr = joinSemi(bundleResolved.memberOutTexts);
+        let inputBundlesStr = joinSemi(bundleResolved.bundleNames);
+        let bundleOutIdsStr = joinSemi(bundleResolved.memberOutIds);
+        let bundleOutTextsStr = joinSemi(bundleResolved.memberOutTexts);
+        
+        if (isInSlave) {
+          inputBundlesStr = '';
+          bundleOutIdsStr = '';
+          bundleOutTextsStr = '';
+        }
 
         const sources = normalizeLinkedSources(inputSlot);
         const resolved = resolveLinkedSourcesToOutPairs(sources, outIdByUid, outTextByUid, outTextByOutId);
@@ -1250,8 +1258,12 @@ export function exportToCSV() {
           inputId = joinSemi(partsId);
           inputText = joinSemi(partsText);
         }
+        if (isInSlave) {
+          inputId = '';
+          inputText = '';
+        }
 
-        const slotQa = inputSlot?.qa || {};
+        const slotQa = isInSlave ? {} : (inputSlot?.qa || {});
 
         const comp = getIOTripleForLabel(slotQa, 'Compleetheid', systemsCount);
         const dq = getIOTripleForLabel(slotQa, 'Datakwaliteit', systemsCount);
@@ -1263,7 +1275,7 @@ export function exportToCSV() {
         const iqfScore = calculateIQFScore(slotQa);
         const iqfScoreStr = iqfScore == null ? '' : String(iqfScore);
 
-        const def = splitDefs(inputSlot?.inputDefinitions);
+        const def = isInSlave ? splitDefs(null) : splitDefs(inputSlot?.inputDefinitions);
 
         const procSlot = col?.slots?.[3] || {};
         const proces = String(procSlot?.text ?? '').trim();
@@ -1405,128 +1417,58 @@ export async function exportHD(copyToClipboard = false) {
   const board = document.getElementById('board');
   if (!board) return;
 
-  // IMPORTANT: capture viewport if present (this is what contains row-headers + cols)
-  const viewport = document.getElementById('viewport');
-  const target = viewport || board;
-
   Toast.show('Afbeelding genereren...', 'info', 2000);
 
   try {
-    const canvas = await html2canvas(target, {
+    const canvas = await html2canvas(board, {
       backgroundColor: '#121619',
       scale: 2.5,
       logging: false,
       ignoreElements: (el) => el.classList.contains('col-actions'),
       onclone: (doc) => {
         doc.body.classList.add('exporting');
-        // EXPORT FIX: left-align viewport for export
-        const v_exp = doc.getElementById('viewport');
-        if (v_exp) {
-          v_exp.style.display = 'block';
-          v_exp.style.width = 'fit-content';
-          v_exp.style.height = 'auto';
-          v_exp.style.overflow = 'visible';
-          v_exp.style.justifyContent = 'flex-start';
-          v_exp.style.alignItems = 'flex-start';
-        }
-        const bcw_exp = doc.getElementById('board-content-wrapper');
-        if (bcw_exp) {
-          bcw_exp.style.justifyContent = 'flex-start';
-          bcw_exp.style.alignItems = 'flex-start';
+
+        const v = doc.getElementById('viewport');
+        const b = doc.getElementById('board');
+        const bw = doc.querySelector('.board-scale-wrapper');
+        const bcw = doc.getElementById('board-content-wrapper');
+        const cols = doc.getElementById('cols');
+
+        if (bw) {
+          bw.style.transform = 'none';
+          bw.style.transformOrigin = 'top left';
         }
 
+        if (v) {
+          v.style.overflow = 'visible';
+          v.style.width = 'fit-content';
+          v.style.height = 'auto';
+          v.style.position = 'static';
+        }
 
-        // =========================================================
-        // EXPORT FIX (ROBUST): rebuild lane labels as SVG (no CSS rotate)
-// (html2canvas heeft bugs met CSS rotate/writing-mode => glyphs/rare letters)
-(() => {
-  const rh = doc.getElementById('row-headers');
-  if (!rh) return;
+        if (b) {
+          b.style.transform = 'none';
+          b.style.marginTop = '80px';
+          b.style.padding = '20px';
+          b.style.overflow = 'visible';
+        }
 
-  const win = doc.defaultView || window;
+        if (bcw) {
+          bcw.style.overflow = 'visible';
+          bcw.style.height = 'auto';
+          bcw.style.position = 'relative';
+        }
 
-  // labels + heights uit bestaande nodes
-  const rows = Array.from(rh.querySelectorAll('.row-header'));
-  const labels = rows.map((r) => {
-    const el = r.querySelector('.lane-label-text') || r.querySelector('span') || r;
-    return String(el?.textContent || '').trim();
-  });
+        if (cols) {
+          cols.style.overflow = 'visible';
+          cols.style.position = 'relative';
 
-  const heights = rows.map((r) => {
-    const cssH = parseFloat((win.getComputedStyle(r).height || '').replace('px', ''));
-    if (Number.isFinite(cssH) && cssH > 0) return cssH;
-    const rectH = (r.getBoundingClientRect && r.getBoundingClientRect().height) ? r.getBoundingClientRect().height : 0;
-    return rectH > 0 ? rectH : 160;
-  });
+          const padTop = cols.style.paddingTop || '';
+          if (!padTop || padTop === '0px') cols.style.paddingTop = '44px';
+        }
 
-  // container strak (minder padding/gap)
-  rh.innerHTML = '';
-  rh.style.width = '58px';
-rh.style.minWidth = '58px';
-rh.style.marginRight = '0px';
-rh.style.overflow = 'visible';
-  rh.style.position = 'relative';
-  rh.style.zIndex = '5';
-
-  const totalH = Math.max(1, Math.round(heights.reduce((a, b) => a + b, 0)));
-
-  // één SVG met per rij een rotated <text> (geen CSS rotate)
-  const svgNS = 'http://www.w3.org/2000/svg';
-  const svg = doc.createElementNS(svgNS, 'svg');
-  svg.setAttribute('width', '58');
-  svg.setAttribute('height', String(totalH));
-  svg.setAttribute('viewBox', `0 0 58 ${totalH}`);
-  svg.style.overflow = 'visible';
-  svg.style.display = 'block';
-
-  let y = 0;
-  for (let i = 0; i < labels.length; i++) {
-    const h = Math.max(40, Math.round(heights[i] || 160));
-    const text = labels[i] || '';
-
-    const cx = 29;
-    const cy = y + h / 2;
-
-    const g = doc.createElementNS(svgNS, 'g');
-    g.setAttribute('transform', `rotate(-90 ${cx} ${cy})`);
-
-    const t = doc.createElementNS(svgNS, 'text');
-    t.setAttribute('x', String(cx));
-    t.setAttribute('y', String(cy));
-    t.setAttribute('text-anchor', 'middle');
-    t.setAttribute('dominant-baseline', 'middle');
-    t.setAttribute('fill', 'rgba(255,255,255,0.95)');
-    t.setAttribute('font-size', '24');
-    t.setAttribute('font-weight', '800');
-    t.setAttribute('font-family', 'ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial');
-    t.setAttribute('letter-spacing', '0');
-    t.textContent = text;
-
-    g.appendChild(t);
-    svg.appendChild(g);
-
-    y += h;
-  }
-
-  rh.appendChild(svg);
-})();
         const forceStyle = doc.createElement('style');
         forceStyle.textContent = `
-          /* --- EXPORT: lane labels closer to columns --- */
-          /* --- EXPORT: force left alignment (remove empty left gutter) --- */
-          #viewport { justify-content: flex-start !important; align-items: flex-start !important; }
-          #board-content-wrapper { justify-content: flex-start !important; align-items: flex-start !important; }
-          #cols { margin-left: 0px !important; }
-
-          #row-headers { margin-right: 0px !important; }
-          .exporting-row-header{
-            justify-content: flex-end !important;   /* label naar rechts in de header-cel */
-            padding-right: 0px !important;          /* 0–2px, zet op 0 voor 'heel dicht' */
-          }
-          .exporting-row-header svg{
-            overflow: visible !important;
-          }
-
           .group-header-overlay,
           .group-header-label,
           .group-header-line {

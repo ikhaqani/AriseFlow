@@ -1419,22 +1419,6 @@ export async function exportHD(copyToClipboard = false) {
       ignoreElements: (el) => el.classList.contains('col-actions'),
       onclone: (doc) => {
         doc.body.classList.add('exporting');
-        // EXPORT FIX: left-align viewport for export
-        const v_exp = doc.getElementById('viewport');
-        if (v_exp) {
-          v_exp.style.display = 'block';
-          v_exp.style.width = 'fit-content';
-          v_exp.style.height = 'auto';
-          v_exp.style.overflow = 'visible';
-          v_exp.style.justifyContent = 'flex-start';
-          v_exp.style.alignItems = 'flex-start';
-        }
-        const bcw_exp = doc.getElementById('board-content-wrapper');
-        if (bcw_exp) {
-          bcw_exp.style.justifyContent = 'flex-start';
-          bcw_exp.style.alignItems = 'flex-start';
-        }
-
 
         // =========================================================
         // EXPORT FIX (ROBUST): rebuild lane labels as SVG (no CSS rotate)
@@ -1461,8 +1445,8 @@ export async function exportHD(copyToClipboard = false) {
 
   // container strak (minder padding/gap)
   rh.innerHTML = '';
-  rh.style.width = '58px';
-rh.style.minWidth = '58px';
+  rh.style.width = '62px';
+rh.style.minWidth = '62px';
 rh.style.marginRight = '0px';
 rh.style.overflow = 'visible';
   rh.style.position = 'relative';
@@ -1473,9 +1457,9 @@ rh.style.overflow = 'visible';
   // één SVG met per rij een rotated <text> (geen CSS rotate)
   const svgNS = 'http://www.w3.org/2000/svg';
   const svg = doc.createElementNS(svgNS, 'svg');
-  svg.setAttribute('width', '58');
+  svg.setAttribute('width', '110');
   svg.setAttribute('height', String(totalH));
-  svg.setAttribute('viewBox', `0 0 58 ${totalH}`);
+  svg.setAttribute('viewBox', `0 0 110 ${totalH}`);
   svg.style.overflow = 'visible';
   svg.style.display = 'block';
 
@@ -1484,7 +1468,7 @@ rh.style.overflow = 'visible';
     const h = Math.max(40, Math.round(heights[i] || 160));
     const text = labels[i] || '';
 
-    const cx = 29;
+    const cx = 55;
     const cy = y + h / 2;
 
     const g = doc.createElementNS(svgNS, 'g');
@@ -1512,21 +1496,6 @@ rh.style.overflow = 'visible';
 })();
         const forceStyle = doc.createElement('style');
         forceStyle.textContent = `
-          /* --- EXPORT: lane labels closer to columns --- */
-          /* --- EXPORT: force left alignment (remove empty left gutter) --- */
-          #viewport { justify-content: flex-start !important; align-items: flex-start !important; }
-          #board-content-wrapper { justify-content: flex-start !important; align-items: flex-start !important; }
-          #cols { margin-left: 0px !important; }
-
-          #row-headers { margin-right: 0px !important; }
-          .exporting-row-header{
-            justify-content: flex-end !important;   /* label naar rechts in de header-cel */
-            padding-right: 0px !important;          /* 0–2px, zet op 0 voor 'heel dicht' */
-          }
-          .exporting-row-header svg{
-            overflow: visible !important;
-          }
-
           .group-header-overlay,
           .group-header-label,
           .group-header-line {
