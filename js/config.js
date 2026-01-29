@@ -9,11 +9,22 @@ const deepFreeze = (obj) => {
 };
 
 export const APP_CONFIG = deepFreeze({
-  SLOT_COUNT: 6,
+  SLOT_COUNT: 7, // AANGEPAST: Nu 7 rijen
   MAX_SCORE_SYSTEM: 100,
   VERSION: '2.7',
   LOCALE: 'nl-NL'
 });
+
+// AANGEPAST: Configuratie voor de rijen (Layout)
+export const SLOT_CONFIG = deepFreeze([
+  { id: 0, label: 'Bron', type: 'text', height: '100px', bg: '#2B3137' },
+  { id: 1, label: 'Systeem', type: 'system', height: '140px', bg: '#252A2E' },
+  { id: 2, label: 'Input', type: 'input', height: '220px', bg: '#202428' },
+  { id: 3, label: 'Actor', type: 'text', height: '100px', bg: '#252A2E' },  
+  { id: 4, label: 'Proces', type: 'process', height: '300px', bg: '#1A1E22' }, // Was 3
+  { id: 5, label: 'Output', type: 'output', height: '180px', bg: '#202428' },  // Was 4
+  { id: 6, label: 'Klant', type: 'text', height: '100px', bg: '#2B3137' }      // Was 5
+]);
 
 export const DEFAULTS = deepFreeze({
   PROJECT_TITLE: 'Nieuw Proces Project',
@@ -149,6 +160,7 @@ export const createColumn = (order = 1) => ({
   hasTransition: false,
   transitionNext: '',
   outputId: null,
+  // AANGEPAST: Maakt nu 7 slots aan op basis van APP_CONFIG.SLOT_COUNT
   slots: Array.from({ length: APP_CONFIG.SLOT_COUNT }, () => createSticky())
 });
 

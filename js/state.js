@@ -1,11 +1,16 @@
-// state.js
+// state.js (AANGEPAST VOOR UITVOERDER RIJ OP INDEX 3)
+// + MIGRATIE: Oude 6-slot kolommen krijgen een leeg slot op index 3
+// + MIGRATIE: Merge-groups op slot 4 (Output) schuiven op naar slot 5
+// + UPDATE: Ondersteuning voor 'ALL' view in activeSheet en setActiveSheet
+
 import {
   createProjectState,
   createSheet,
   createColumn,
   createSticky,
   STORAGE_KEY,
-  uid
+  uid,
+  APP_CONFIG
 } from './config.js';
 
 class StateManager {
@@ -36,22 +41,24 @@ class StateManager {
     return `${prefix}_${Date.now()}_${Math.random().toString(16).slice(2)}`;
   }
 
+  // UPDATE: Proces zit nu op slot 4 (was 3)
   _ensureProcessIds(project) {
     const sheets = project?.sheets || [];
     sheets.forEach((sheet) => {
       (sheet.columns || []).forEach((col) => {
-        const slot = col?.slots?.[3];
+        const slot = col?.slots?.[4];
         if (!slot) return;
         if (!slot.id || String(slot.id).trim() === '') slot.id = this._makeId('proc');
       });
     });
   }
 
+  // UPDATE: Output zit nu op slot 5 (was 4)
   _ensureOutputUids(project) {
     const sheets = project?.sheets || [];
     sheets.forEach((sheet) => {
       (sheet.columns || []).forEach((col) => {
-        const outSlot = col?.slots?.[4];
+        const outSlot = col?.slots?.[5];
         if (!outSlot) return;
         if (!outSlot.outputUid || String(outSlot.outputUid).trim() === '')
           outSlot.outputUid = this._makeId('out');
@@ -91,7 +98,6 @@ class StateManager {
             .filter(Boolean);
         }
 
-        // Keep legacy field in sync (first item) for backward compatibility
         inSlot.linkedBundleId = String(inSlot.linkedBundleIds[0] || '').trim() || null;
       });
     });
@@ -105,7 +111,8 @@ class StateManager {
       (sheet?.columns || []).forEach((col) => {
         if (col?.isVisible === false) return;
 
-        const outSlot = col?.slots?.[4];
+        // UPDATE: Output slot 5
+        const outSlot = col?.slots?.[5];
         if (!outSlot?.text?.trim()) return;
 
         if (!outSlot.outputUid || String(outSlot.outputUid).trim() === '')
@@ -119,11 +126,9 @@ class StateManager {
     return map;
   }
 
-  // === CRITICAL FIX: Handles migration of both Bundles and Input Arrays ===
   _migrateLegacyRefs(project) {
     const outIdToUid = this._buildLegacyOutIdToUidMap(project);
 
-    // 1. Migreer Output Bundles (van outIds ["OUT1"] -> naar outputUids ["uuid..."])
     if (Array.isArray(project.outputBundles)) {
       project.outputBundles.forEach((b) => {
         if (Array.isArray(b.outIds) && b.outIds.length > 0) {
@@ -138,7 +143,6 @@ class StateManager {
       });
     }
 
-    // 2. Migreer Inputs in kolommen
     (project?.sheets || []).forEach((sheet) => {
       (sheet?.columns || []).forEach((col) => {
         const inSlot = col?.slots?.[2];
@@ -146,14 +150,12 @@ class StateManager {
 
         if (!Array.isArray(inSlot.linkedSourceUids)) inSlot.linkedSourceUids = [];
 
-        // A. Migreer enkele legacy ID (linkedSourceId)
         const singleLegacy = String(inSlot.linkedSourceId || '').trim();
         if (/^OUT\d+$/.test(singleLegacy)) {
           const u = outIdToUid[singleLegacy];
           if (u) inSlot.linkedSourceUids.push(u);
         }
 
-        // B. Migreer meervoudige legacy IDs (linkedSourceIds)
         if (Array.isArray(inSlot.linkedSourceIds)) {
           inSlot.linkedSourceIds.forEach((lid) => {
             const s = String(lid).trim();
@@ -164,10 +166,8 @@ class StateManager {
           });
         }
 
-        // Opruimen en synchroniseren
         inSlot.linkedSourceUids = [...new Set(inSlot.linkedSourceUids)];
 
-        // Als er data is, update de single pointer ook voor compatibiliteit
         if (inSlot.linkedSourceUids.length > 0) {
           inSlot.linkedSourceUid = inSlot.linkedSourceUids[0];
         }
@@ -187,6 +187,22 @@ class StateManager {
         ? Number(x.score ?? x.calculatedScore)
         : null
     };
+  }
+
+  static __preserveSysfitNvt(oldMeta, newMeta) {
+    if (!oldMeta || !oldMeta.systems) return newMeta;
+    
+    // Probeer NVT vlag over te nemen als systems matchen
+    if (Array.isArray(newMeta.systems)) {
+        newMeta.systems.forEach((sys, idx) => {
+            const oldSys = oldMeta.systems[idx];
+            if (oldSys && oldSys.qa && oldSys.qa.__nvt) {
+                if (!sys.qa) sys.qa = {};
+                sys.qa.__nvt = true;
+            }
+        });
+    }
+    return newMeta;
   }
 
   _ensureMultiSystemShape(slot) {
@@ -262,14 +278,16 @@ class StateManager {
   }
 
   _normalizeOutputMerges(sheet) {
-    this._normalizeMergeRanges(sheet, 'outputMerges', 4);
+    // UPDATE: Output merges zitten nu op slot 5
+    this._normalizeMergeRanges(sheet, 'outputMerges', 5);
   }
 
   getOutputMergeForCol(colIdx) {
     const sheet = this.activeSheet;
     if (!sheet || !Array.isArray(sheet.outputMerges)) return null;
+    // UPDATE: Slot 5
     return (
-      sheet.outputMerges.find((r) => r.slotIdx === 4 && colIdx >= r.startCol && colIdx <= r.endCol) ||
+      sheet.outputMerges.find((r) => r.slotIdx === 5 && colIdx >= r.startCol && colIdx <= r.endCol) ||
       null
     );
   }
@@ -287,26 +305,25 @@ class StateManager {
 
   if (!Array.isArray(sheet.outputMerges)) sheet.outputMerges = [];
 
-  // carry metadata from existing range that contains this col (if any)
   const existing = sheet.outputMerges.find(
-    (r) => r?.slotIdx === 4 && colIdx >= Number(r.startCol) && colIdx <= Number(r.endCol)
+    (r) => r?.slotIdx === 5 && colIdx >= Number(r.startCol) && colIdx <= Number(r.endCol)
   );
   const carry = existing && typeof existing === "object" ? { ...existing } : {};
   delete carry.slotIdx;
   delete carry.startCol;
   delete carry.endCol;
 
-  // remove overlapping ranges for slot 4
+  // Filter slot 5 overlap weg
   sheet.outputMerges = sheet.outputMerges.filter((r) => {
-    if (r?.slotIdx !== 4) return true;
+    if (r?.slotIdx !== 5) return true;
     const rs = Number(r.startCol);
     const re = Number(r.endCol);
     if (!Number.isFinite(rs) || !Number.isFinite(re)) return false;
     return re < s || rs > e;
   });
 
-  // IMPORTANT: store even single-col ranges
-  sheet.outputMerges.push({ slotIdx: 4, startCol: s, endCol: e, ...carry });
+  // Push new merge op slot 5
+  sheet.outputMerges.push({ slotIdx: 5, startCol: s, endCol: e, ...carry });
 
   this._normalizeOutputMerges(sheet);
 }
@@ -337,7 +354,6 @@ class StateManager {
 
   if (!Array.isArray(sheet.systemMerges)) sheet.systemMerges = [];
 
-  // carry metadata from existing range that contains this col (if any)
   const existing = sheet.systemMerges.find(
     (r) => r?.slotIdx === 1 && colIdx >= Number(r.startCol) && colIdx <= Number(r.endCol)
   );
@@ -346,7 +362,6 @@ class StateManager {
   delete carry.startCol;
   delete carry.endCol;
 
-  // remove overlapping ranges for slot 1
   sheet.systemMerges = sheet.systemMerges.filter((r) => {
     if (r?.slotIdx !== 1) return true;
     const rs = Number(r.startCol);
@@ -355,7 +370,6 @@ class StateManager {
     return re < s || rs > e;
   });
 
-  // IMPORTANT: store even single-col ranges
   sheet.systemMerges.push({ slotIdx: 1, startCol: s, endCol: e, ...carry });
 
   this._normalizeSystemMerges(sheet);
@@ -478,27 +492,86 @@ class StateManager {
     }
 
     // === CRITICAL FIX ORDER ===
-    // 1. Zorg dat alle outputs een UID hebben
+    
+    // 0. MIGRATIE: Uitvoerder invoegen indien nodig
+    // We checken de eerste kolom van het eerste blad om te zien of we 6 of 7 slots hebben.
+    // Als 6: we moeten migreren (Slot 3 invoegen).
+    // Ook merge groups aanpassen.
+    
+    // We itereren over alle sheets om te zien of er een migratie nodig is.
+    const sheetsToMigrate = merged.sheets.filter(sh => 
+        sh.columns && sh.columns[0] && sh.columns[0].slots && sh.columns[0].slots.length === 6
+    );
+
+    if (sheetsToMigrate.length > 0) {
+        sheetsToMigrate.forEach(sheet => {
+            console.info(`[Migratie] Sheet '${sheet.name}' wordt omgezet van 6 naar 7 slots.`);
+            // 1. Kolommen fixen
+            if (Array.isArray(sheet.columns)) {
+                sheet.columns.forEach(col => {
+                    if (Array.isArray(col.slots) && col.slots.length === 6) {
+                        // Voeg lege 'Uitvoerder' sticky toe op index 3
+                        // Let op: createSticky() maakt een nieuw object
+                        const newActorSlot = {
+                            id: this._makeId ? this._makeId('act') : `act_${Date.now()}_${Math.random()}`,
+                            text: "",
+                            created: Date.now(),
+                            type: "text",
+                            systemData: {},
+                            qa: {}
+                        };
+                        col.slots.splice(3, 0, newActorSlot); 
+                    }
+                });
+            }
+            // 2. Merge groups fixen: Output was 4, wordt 5 (en alles >= 3 schuift 1 op)
+            if (Array.isArray(sheet.mergeGroupsV2)) {
+                sheet.mergeGroupsV2.forEach(group => {
+                    // Alles wat op slot 3 of hoger stond, moet 1 opschuiven
+                    // (Slot 3 was Proces, wordt Slot 4. Slot 4 was Output, wordt Slot 5).
+                    if (group.slotIdx >= 3) {
+                        group.slotIdx = group.slotIdx + 1;
+                    }
+                });
+                
+                // Update ook LS direct voor dom.js consistentie (optioneel, maar veilig)
+                try {
+                   const pid = merged.id || merged.projectTitle || 'project';
+                   const sid = sheet.id || sheet.name || 'sheet';
+                   const key = `ssipoc.mergeGroups.v2:${pid}:${sid}`;
+                   // Alleen updaten als we zeker weten wat de key is, anders laten we StateManager.saveToStorage het doen
+                   // localStorage.setItem(key, JSON.stringify(sheet.mergeGroupsV2));
+                } catch(e) {}
+            }
+            
+            // Ook de specifieke outputMerges aanpassen (als die nog gebruikt worden naast mergeGroupsV2)
+            if (Array.isArray(sheet.outputMerges)) {
+                sheet.outputMerges.forEach(g => {
+                     // Output zat op 4, gaat naar 5
+                     if (g.slotIdx === 4) g.slotIdx = 5;
+                     else if (g.slotIdx > 4) g.slotIdx += 1; // Voor de zekerheid
+                });
+            }
+        });
+    }
+
+    // 1. Zorg dat alle outputs een UID hebben (nu op slot 5)
     this._ensureOutputUids(merged);
 
-    // 2. MIGREER DE OUDE REFERENTIES (OUTx -> UID)
-    // Dit moet gebeuren voordat bundels of inputs worden schoongemaakt.
+    // 2. MIGREER DE OUDE REFERENTIES
     this._migrateLegacyRefs(merged);
 
     // 3. Nu is het veilig om de rest te schonen
     this._ensureProcessIds(merged);
-    this._ensureOutputBundles(merged); // Deze verwijdert 'outIds', dus moest na stap 2
+    this._ensureOutputBundles(merged);
     this._migrateInputBundleFields(merged);
 
     merged.sheets.forEach((sheet) => {
-      // === GROUPS: Ensure array exists ===
+      // Groups
       if (!Array.isArray(sheet.groups)) sheet.groups = [];
-
-      // Valideer bestaande groups op nieuwe structuur
       sheet.groups = sheet.groups
         .map((g) => {
           if (!Array.isArray(g.cols)) {
-            // Migratie van oude Start/End naar Array
             if (Number.isFinite(g.startCol) && Number.isFinite(g.endCol)) {
               const newCols = [];
               for (let i = g.startCol; i <= g.endCol; i++) newCols.push(i);
@@ -511,16 +584,14 @@ class StateManager {
         })
         .filter((g) => g.cols.length > 0);
 
-      // === NIEUW: Variant Groups initialiseren ===
+      // Variant Groups
       if (!Array.isArray(sheet.variantGroups)) sheet.variantGroups = [];
-      // Schoon lege groups op
       sheet.variantGroups = sheet.variantGroups.filter(
         (vg) =>
           (vg.parentColIdx !== undefined || (Array.isArray(vg.parents) && vg.parents.length > 0)) &&
           Array.isArray(vg.variants) &&
           vg.variants.length > 0
       );
-      // ===========================================
 
       if (!Array.isArray(sheet.outputMerges)) sheet.outputMerges = [];
       if (!Array.isArray(sheet.systemMerges)) sheet.systemMerges = [];
@@ -533,7 +604,6 @@ class StateManager {
         if (typeof col.isVariant !== 'boolean') col.isVariant = false;
         if (typeof col.isParallel !== 'boolean') col.isParallel = !!col.isParallel;
         if (typeof col.isQuestion !== 'boolean') col.isQuestion = !!col.isQuestion;
-
         if (typeof col.isConditional !== 'boolean') col.isConditional = !!col.isConditional;
 
         if (col.logic && typeof col.logic === 'object') {
@@ -542,7 +612,6 @@ class StateManager {
             if (val !== null && val !== '' && Number.isFinite(Number(val))) return Number(val);
             return null;
           };
-
           col.logic = {
             condition: String(col.logic.condition || ''),
             ifTrue: sanitizeTarget(col.logic.ifTrue),
@@ -553,14 +622,16 @@ class StateManager {
         }
 
         if (typeof col.isGroup !== 'boolean') col.isGroup = !!col.isGroup;
-
         if (typeof col.isVisible !== 'boolean') col.isVisible = col.isVisible !== false;
 
-        if (!Array.isArray(col.slots) || col.slots.length !== 6) {
-          col.slots = Array(6)
-            .fill(null)
-            .map(() => createSticky());
-          return;
+        // Ensure 7 slots (new format)
+        if (!Array.isArray(col.slots) || col.slots.length !== 7) {
+          // Fallback: vul aan tot 7
+          const currentLen = Array.isArray(col.slots) ? col.slots.length : 0;
+          const needed = 7 - currentLen;
+          if (needed > 0) {
+             for(let k=0; k<needed; k++) col.slots.push(createSticky());
+          }
         }
 
         col.slots = col.slots.map((slot, slotIdx) => {
@@ -580,15 +651,11 @@ class StateManager {
             linkedSourceUid: s.linkedSourceUid ?? clean.linkedSourceUid,
             linkedSourceUids: Array.isArray(s.linkedSourceUids)
               ? s.linkedSourceUids.map((x) => String(x || '').trim()).filter(Boolean)
-              : Array.isArray(clean.linkedSourceUids)
-                ? clean.linkedSourceUids
-                : [],
+              : Array.isArray(clean.linkedSourceUids) ? clean.linkedSourceUids : [],
             linkedBundleId: s.linkedBundleId ?? clean.linkedBundleId,
             linkedBundleIds: Array.isArray(s.linkedBundleIds)
               ? s.linkedBundleIds.map((x) => String(x || '').trim()).filter(Boolean)
-              : Array.isArray(clean.linkedBundleIds)
-                ? clean.linkedBundleIds
-                : [],
+              : Array.isArray(clean.linkedBundleIds) ? clean.linkedBundleIds : [],
 
             inputDefinitions: Array.isArray(s.inputDefinitions) ? s.inputDefinitions : clean.inputDefinitions,
             disruptions: Array.isArray(s.disruptions) ? s.disruptions : clean.disruptions,
@@ -599,15 +666,14 @@ class StateManager {
             gate: { ...cleanGate, ...sGate }
           };
 
-          if (slotIdx === 3 && (!mergedSlot.id || String(mergedSlot.id).trim() === ''))
+          // UPDATE: Proces is nu index 4
+          if (slotIdx === 4 && (!mergedSlot.id || String(mergedSlot.id).trim() === ''))
             mergedSlot.id = this._makeId('proc');
 
           if (mergedSlot.gate) {
             if (!Array.isArray(mergedSlot.gate.checkProcessIds)) mergedSlot.gate.checkProcessIds = [];
-            if (mergedSlot.gate.onFailTargetProcessId === undefined)
-              mergedSlot.gate.onFailTargetProcessId = null;
-            if (mergedSlot.gate.onPassTargetProcessId === undefined)
-              mergedSlot.gate.onPassTargetProcessId = null;
+            if (mergedSlot.gate.onFailTargetProcessId === undefined) mergedSlot.gate.onFailTargetProcessId = null;
+            if (mergedSlot.gate.onPassTargetProcessId === undefined) mergedSlot.gate.onPassTargetProcessId = null;
             if (!mergedSlot.gate.rule) mergedSlot.gate.rule = 'ALL_OK';
             if (mergedSlot.gate.note === undefined) mergedSlot.gate.note = '';
           }
@@ -624,7 +690,6 @@ class StateManager {
               const singleUid = String(mergedSlot.linkedSourceUid || '').trim();
               if (singleUid) mergedSlot.linkedSourceUids = [singleUid];
             }
-
             mergedSlot.linkedSourceUid = String(mergedSlot.linkedSourceUids[0] || '').trim() || null;
 
             if (!Array.isArray(mergedSlot.linkedBundleIds)) mergedSlot.linkedBundleIds = [];
@@ -636,14 +701,14 @@ class StateManager {
               const singleB = String(mergedSlot.linkedBundleId || '').trim();
               if (singleB) mergedSlot.linkedBundleIds = [singleB];
             }
-
             mergedSlot.linkedBundleId = String(mergedSlot.linkedBundleIds[0] || '').trim() || null;
           }
 
           return mergedSlot;
         });
 
-        const outSlot = col?.slots?.[4];
+        // UPDATE: Output slot 5
+        const outSlot = col?.slots?.[5];
         if (outSlot && (!outSlot.outputUid || String(outSlot.outputUid).trim() === ''))
           outSlot.outputUid = this._makeId('out');
       });
@@ -665,17 +730,17 @@ class StateManager {
     }
   }
 
-  get data() {
-    return this.project;
-  }
+  get data() { return this.project; }
 
   get activeSheet() {
     const found = this.project.sheets.find((s) => s.id === this.project.activeSheetId);
-    return found || this.project.sheets[0];
+    // Bij 'ALL' of onbekende ID, geef eerste sheet terug om crashes te voorkomen
+    return found || this.project.sheets[0] || null;
   }
 
   setActiveSheet(id) {
-    if (!this.project.sheets.some((s) => s.id === id)) return;
+    // UPDATE: 'ALL' toestaan als geldige ID
+    if (id !== 'ALL' && !this.project.sheets.some((s) => s.id === id)) return;
     this.project.activeSheetId = id;
     this.notify({ reason: 'sheet' }, { clone: false });
   }
@@ -696,7 +761,6 @@ class StateManager {
   setTransition(colIdx, val) {
     const col = this.activeSheet?.columns?.[colIdx];
     if (!col) return;
-
     if (val === null) {
       col.hasTransition = false;
       col.transitionNext = '';
@@ -704,7 +768,6 @@ class StateManager {
       col.hasTransition = true;
       col.transitionNext = val;
     }
-
     this.notify({ reason: 'transition', colIdx }, { clone: false, throttleMs: 50 });
   }
 
@@ -729,7 +792,6 @@ class StateManager {
   moveSheet(fromIndex, toIndex) {
     const sheets = this.project.sheets || [];
     if (sheets.length <= 1) return;
-
     const a = Number(fromIndex);
     const b = Number(toIndex);
     if (!Number.isFinite(a) || !Number.isFinite(b)) return;
@@ -748,16 +810,13 @@ class StateManager {
 
   deleteSheet() {
     if (this.project.sheets.length <= 1) return false;
-
     const idx = this.project.sheets.findIndex((s) => s.id === this.project.activeSheetId);
     if (idx === -1) return false;
 
     this.pushHistory();
     this.project.sheets.splice(idx, 1);
-
     const newIdx = Math.max(0, idx - 1);
     this.project.activeSheetId = this.project.sheets[newIdx].id;
-
     this.notify({ reason: 'sheets' }, { clone: false });
     return true;
   }
@@ -772,7 +831,6 @@ class StateManager {
 
     this._ensureOutputUids(this.project);
     this._ensureProcessIds(this.project);
-
     this._normalizeOutputMerges(sheet);
     this._normalizeSystemMerges(sheet);
 
@@ -797,34 +855,28 @@ class StateManager {
         .filter((g) => g.cols.length > 0);
     }
 
-    // NIEUW: Variant Groups updaten bij verwijderen kolom
     if (Array.isArray(sheet.variantGroups)) {
       sheet.variantGroups = sheet.variantGroups
         .map((vg) => {
-          // 1. Update Parent indices (kan nu een array zijn)
           let parents = [];
           if (Array.isArray(vg.parents)) {
-            // Filter verwijderde parent eruit
             parents = vg.parents
               .filter((p) => p !== index)
               .map((p) => (p > index ? p - 1 : p));
-            // Als alle parents weg zijn, is de groep ongeldig
             if (parents.length === 0) return null;
           } else if (Number.isFinite(vg.parentColIdx)) {
-            // Legacy support
-            if (vg.parentColIdx === index) return null; // Parent verwijderd
+            if (vg.parentColIdx === index) return null;
             const newP = vg.parentColIdx > index ? vg.parentColIdx - 1 : vg.parentColIdx;
             parents = [newP];
           } else {
-            return null; // Geen geldige parent data
+            return null;
           }
 
-          // 2. Update Variants
           const newVariants = vg.variants
             .filter((v) => v !== index)
             .map((v) => (v > index ? v - 1 : v));
 
-          if (newVariants.length === 0) return null; // Geen variants over
+          if (newVariants.length === 0) return null;
 
           return { ...vg, parents: parents, parentColIdx: parents[0], variants: newVariants };
         })
@@ -856,10 +908,8 @@ class StateManager {
       });
     }
 
-    // NIEUW: Variant Groups updaten bij verplaatsen
     if (Array.isArray(sheet.variantGroups)) {
       sheet.variantGroups.forEach((vg) => {
-        // Update Parents (Array)
         if (Array.isArray(vg.parents)) {
           vg.parents = vg.parents.map((p) => {
             if (p === index) return targetIndex;
@@ -867,12 +917,10 @@ class StateManager {
             return p;
           });
         } else if (Number.isFinite(vg.parentColIdx)) {
-          // Legacy
           if (vg.parentColIdx === index) vg.parentColIdx = targetIndex;
           else if (vg.parentColIdx === targetIndex) vg.parentColIdx = index;
         }
 
-        // Update Variants
         vg.variants = vg.variants.map((v) => {
           if (v === index) return targetIndex;
           if (v === targetIndex) return index;
@@ -890,10 +938,8 @@ class StateManager {
   setColVisibility(index, isVisible) {
     const sheet = this.activeSheet;
     if (!sheet.columns[index]) return;
-
     this.pushHistory();
     sheet.columns[index].isVisible = !!isVisible;
-
     this.notify({ reason: 'columns' }, { clone: false });
   }
 
@@ -906,9 +952,7 @@ class StateManager {
     this.pushHistory();
     const col = this.activeSheet?.columns?.[colIdx];
     if (!col) return;
-
     col.isParallel = !col.isParallel;
-
     this.notify({ reason: 'columns' }, { clone: false });
   }
 
@@ -916,29 +960,20 @@ class StateManager {
     this.pushHistory();
     const col = this.activeSheet?.columns?.[colIdx];
     if (!col) return;
-
     col.isVariant = !col.isVariant;
-
     this.notify({ reason: 'columns' }, { clone: false });
   }
-
-  // === NIEUWE FUNCTIES VOOR VARIANTS (ROUTES) - SUPPORT VOOR MEERDERE PARENTS ===
 
   getVariantGroupForCol(colIdx) {
     const sheet = this.activeSheet;
     if (!sheet || !Array.isArray(sheet.variantGroups)) return null;
-
-    // Check of deze kolom een 'Main' (Parent) is (in de nieuwe parents array of oude parentColIdx)
     const asParent = sheet.variantGroups.find(
       (vg) =>
         (Array.isArray(vg.parents) && vg.parents.includes(colIdx)) || vg.parentColIdx === colIdx
     );
     if (asParent) return { role: 'parent', group: asParent };
-
-    // Check of deze kolom een 'Variant' (Child) is
     const asChild = sheet.variantGroups.find((vg) => vg.variants.includes(colIdx));
     if (asChild) return { role: 'child', group: asChild };
-
     return null;
   }
 
@@ -946,10 +981,8 @@ class StateManager {
     this.pushHistory();
     const sheet = this.activeSheet;
     if (!sheet) return;
-
     if (!Array.isArray(sheet.variantGroups)) sheet.variantGroups = [];
 
-    // Support voor enkele parent (legacy) of meerdere (nieuw)
     let parents = [];
     if (Array.isArray(data.parents)) {
       parents = data.parents.map(Number);
@@ -959,7 +992,6 @@ class StateManager {
 
     const variantIndices = Array.isArray(data.variants) ? data.variants.map(Number) : [];
 
-    // Verwijder eerst varianten uit andere groepen (een kind heeft maar 1 set ouders in dit model)
     sheet.variantGroups.forEach((vg) => {
       vg.variants = vg.variants.filter((v) => !variantIndices.includes(v));
     });
@@ -968,19 +1000,15 @@ class StateManager {
     if (variantIndices.length > 0 && parents.length > 0) {
       sheet.variantGroups.push({
         id: this._makeId('var'),
-        parents: parents, // We slaan nu een array op!
-        parentColIdx: parents[0], // Voor backward compatibility
+        parents: parents,
+        parentColIdx: parents[0],
         variants: variantIndices
       });
 
       const allCols = sheet.columns;
-
-      // Markeer kinderen als variant
       variantIndices.forEach((idx) => {
         if (allCols[idx]) allCols[idx].isVariant = true;
       });
-
-      // Parents markeren we NIET automatisch als variant (ze kunnen zelf Main zijn).
     }
 
     this.notify({ reason: 'columns' }, { clone: false });
@@ -1003,15 +1031,11 @@ class StateManager {
     this.notify({ reason: 'columns' }, { clone: false });
   }
 
-  // ===============================================
-
   toggleQuestion(colIdx) {
     this.pushHistory();
     const col = this.activeSheet?.columns?.[colIdx];
     if (!col) return;
-
     col.isQuestion = !col.isQuestion;
-
     this.notify({ reason: 'columns' }, { clone: false });
   }
 
@@ -1019,9 +1043,7 @@ class StateManager {
     this.pushHistory();
     const col = this.activeSheet?.columns?.[colIdx];
     if (!col) return;
-
     col.isConditional = !col.isConditional;
-
     this.notify({ reason: 'columns' }, { clone: false });
   }
 
@@ -1043,9 +1065,7 @@ class StateManager {
       ifTrue: norm(logicData.ifTrue),
       ifFalse: norm(logicData.ifFalse)
     };
-
     col.isConditional = true;
-
     this.notify({ reason: "columns" }, { clone: false });
   }
 
@@ -1053,9 +1073,7 @@ class StateManager {
     this.pushHistory();
     const col = this.activeSheet?.columns?.[colIdx];
     if (!col) return;
-
     col.isGroup = !col.isGroup;
-
     this.notify({ reason: 'columns' }, { clone: false });
   }
 
@@ -1069,11 +1087,9 @@ class StateManager {
     this.pushHistory();
     const sheet = this.activeSheet;
     if (!sheet) return;
-
     if (!Array.isArray(sheet.groups)) sheet.groups = [];
 
     const newCols = Array.isArray(groupData.cols) ? groupData.cols : [];
-
     sheet.groups.forEach((g) => {
       g.cols = g.cols.filter((c) => !newCols.includes(c));
     });
@@ -1081,7 +1097,6 @@ class StateManager {
 
     if (newCols.length > 0) {
       const existingIdx = groupData.id ? sheet.groups.findIndex((g) => g.id === groupData.id) : -1;
-
       if (existingIdx !== -1) {
         sheet.groups[existingIdx].cols = newCols;
         sheet.groups[existingIdx].title = String(groupData.title || '').trim();
@@ -1093,7 +1108,6 @@ class StateManager {
         });
       }
     }
-
     this.notify({ reason: 'groups' }, { clone: false });
   }
 
@@ -1101,7 +1115,6 @@ class StateManager {
     this.pushHistory();
     const sheet = this.activeSheet;
     if (!sheet || !Array.isArray(sheet.groups)) return;
-
     sheet.groups = sheet.groups.filter((g) => g.id !== groupId);
     this.notify({ reason: 'groups' }, { clone: false });
   }
@@ -1109,83 +1122,69 @@ class StateManager {
   getGlobalCountersBeforeActive() {
     let inCount = 0;
     let outCount = 0;
-
     for (const sheet of this.project.sheets) {
       if (sheet.id === this.project.activeSheetId) break;
-
       (sheet.columns || []).forEach((col) => {
         if (col?.isVisible === false) return;
-
         const inSlot = col?.slots?.[2];
-        const outSlot = col?.slots?.[4];
-
+        // UPDATE: Output slot 5
+        const outSlot = col?.slots?.[5];
         if (inSlot?.text?.trim()) inCount += 1;
         if (outSlot?.text?.trim()) outCount += 1;
       });
     }
-
     return { inStart: inCount, outStart: outCount };
   }
 
   getAllOutputs() {
     const map = {};
     let counter = 0;
-
     (this.project.sheets || []).forEach((sheet) => {
       (sheet.columns || []).forEach((col) => {
         if (col?.isVisible === false) return;
-        const outSlot = col?.slots?.[4];
+        // UPDATE: Output slot 5
+        const outSlot = col?.slots?.[5];
         if (!outSlot?.text?.trim()) return;
         counter += 1;
         map[`OUT${counter}`] = outSlot.text;
       });
     });
-
     return map;
   }
 
   getAllOutputsDetailed() {
     const list = [];
     let counter = 0;
-
     (this.project.sheets || []).forEach((sheet) => {
       (sheet.columns || []).forEach((col, colIdx) => {
         if (col?.isVisible === false) return;
-        const outSlot = col?.slots?.[4];
+        // UPDATE: Output slot 5
+        const outSlot = col?.slots?.[5];
         if (!outSlot?.text?.trim()) return;
 
         if (!outSlot.outputUid || String(outSlot.outputUid).trim() === '')
           outSlot.outputUid = this._makeId('out');
 
         counter += 1;
-
-        // ✅ Uitgebreid: voeg QA + pointers toe voor gating zonder merge
         list.push({
           outId: `OUT${counter}`,
           uid: outSlot.outputUid,
           text: outSlot.text,
-
-          // pointers
           sheetId: sheet.id,
           colIdx,
-          slotIdx: 4,
-
-          // QA (output-kwaliteitscriteria)
+          slotIdx: 5,
           qa: outSlot.qa && typeof outSlot.qa === 'object' ? outSlot.qa : null
         });
       });
     });
-
     return list;
   }
 
   resolveOutUidsToOutIds(uids) {
     const wanted = Array.isArray(uids) ? uids.map((x) => String(x || '').trim()).filter(Boolean) : [];
     if (wanted.length === 0) return [];
-
     const det = this.getAllOutputsDetailed();
     const byUid = new Map(det.map((x) => [String(x.uid), x.outId]));
-
     return wanted.map((u) => byUid.get(u) || '').filter(Boolean);
   }
 
@@ -1202,13 +1201,11 @@ class StateManager {
   addOutputBundle(name, outputUids = []) {
     this.pushHistory();
     this._ensureOutputBundles(this.project);
-
     const bundle = this._sanitizeOutputBundle({
       id: uid(),
       name: String(name || '').trim(),
       outputUids: Array.isArray(outputUids) ? outputUids : []
     });
-
     this.project.outputBundles.push(bundle);
     this.notify({ reason: 'details' }, { clone: false });
     return bundle;
@@ -1217,9 +1214,7 @@ class StateManager {
   updateOutputBundle(bundleId, { name, outputUids } = {}) {
     const b = this.getOutputBundleById(bundleId);
     if (!b) return false;
-
     this.pushHistory();
-
     if (name !== undefined) b.name = String(name || '').trim();
     if (outputUids !== undefined) {
       b.outputUids = [
@@ -1230,7 +1225,6 @@ class StateManager {
         )
       ];
     }
-
     this.notify({ reason: 'details' }, { clone: false });
     return true;
   }
@@ -1238,10 +1232,8 @@ class StateManager {
   deleteOutputBundle(bundleId) {
     const id = String(bundleId || '').trim();
     if (!id) return false;
-
     this.pushHistory();
     this._ensureOutputBundles(this.project);
-
     const beforeLen = this.project.outputBundles.length;
     this.project.outputBundles = this.project.outputBundles.filter((b) => String(b.id) !== id);
 
@@ -1266,7 +1258,6 @@ class StateManager {
   resolveBundleIdsToOutUids(bundleIds) {
     const ids = Array.isArray(bundleIds) ? bundleIds.map((x) => String(x || '').trim()).filter(Boolean) : [];
     if (!ids.length) return [];
-
     const all = [];
     ids.forEach((id) => {
       const b = this.getOutputBundleById(id);
@@ -1276,7 +1267,6 @@ class StateManager {
         if (uu) all.push(uu);
       });
     });
-
     return [...new Set(all)];
   }
 
@@ -1287,18 +1277,16 @@ class StateManager {
 }
 
 // ==========================================================================
-// Load project object (robust) — voorkomt 'readonly property' issues
+// Load project object (robust)
 // ==========================================================================
 StateManager.prototype.loadProjectFromObject = function (projectObj) {
   if (!projectObj || typeof projectObj !== 'object') return;
 
-  // Zet interne project state
-  this.project = projectObj;
+  // Sanitize doet ook de migratie (6 -> 7 slots)
+  this.project = this.sanitizeProjectData(projectObj);
 
-  // Compat: sommige modules gebruiken state.data (kan readonly zijn)
-  try { this.data = projectObj; } catch (_) {}
+  try { this.data = this.project; } catch (_) {}
 
-  // Forceer sheet 0 indien nodig
   try {
     if (this.project && Array.isArray(this.project.sheets) && this.project.sheets.length) {
       const s0 = this.project.sheets[0];
@@ -1307,11 +1295,8 @@ StateManager.prototype.loadProjectFromObject = function (projectObj) {
     }
   } catch (_) {}
 
-  // Trigger render
   try { this.notify({ reason: "load" }, { clone: false }); }
   catch (_) { try { this.notify(); } catch (_2) {} }
 };
-
-
 
 export const state = new StateManager();

@@ -512,7 +512,8 @@ function updateBundleInfoUI(data) {
 const getCurrentOutputMergeRange = () => {
   const sheet = state.activeSheet;
   if (!sheet || !editingSticky) return null;
-  if (editingSticky.slotIdx !== 4) return null;
+  // UPDATE: Output is nu slot 5
+  if (editingSticky.slotIdx !== 5) return null;
   return state.getOutputMergeForCol(editingSticky.colIdx);
 };
 
@@ -524,7 +525,8 @@ const getCurrentSystemMergeRange = () => {
 };
 
 const renderOutputMergeControls = () => {
-  if (!editingSticky || editingSticky.slotIdx !== 4) return '';
+  // UPDATE: Output is nu slot 5
+  if (!editingSticky || editingSticky.slotIdx !== 5) return '';
 
   const sheet = state.activeSheet;
   if (!sheet) return '';
@@ -1444,7 +1446,8 @@ const renderContent = () => {
   const title = $('modalTitle');
   if (!content || !title) return;
 
-  if (slotIdx === 3) {
+  // UPDATE: Proces zit nu op index 4
+  if (slotIdx === 4) {
     title.textContent = 'Proces Stap Analyse';
     content.innerHTML = renderProcessTab(data);
     return;
@@ -1456,9 +1459,10 @@ const renderContent = () => {
     return;
   }
 
-  if (slotIdx === 2 || slotIdx === 4) {
+  // UPDATE: Output is index 5
+  if (slotIdx === 2 || slotIdx === 5) {
     if (slotIdx === 2) title.textContent = 'Input Specificaties';
-    if (slotIdx === 4) title.textContent = 'Output Specificaties';
+    if (slotIdx === 5) title.textContent = 'Output Specificaties';
     const mergeTop = (slotIdx === 2)
     ? "<div class=\"card\" style=\"margin:0 0 12px 0; border:1px solid #e6eef2; background:#f9fcfd; padding:12px; border-radius:10px;\">" +
       "  <div style=\"display:flex; justify-content:space-between; align-items:center; gap:12px;\">" +
@@ -2270,7 +2274,8 @@ export function saveModalDetails(closeModal = true) {
   const content = $('modalContent');
   if (!content) return;
 
-  if (slotIdx === 3) {
+  // UPDATE: Proces is slot 4
+  if (slotIdx === 4) {
     const statusVal = $('processStatus')?.value ?? '';
     data.processStatus = statusVal === '' ? null : statusVal;
 
@@ -2370,7 +2375,8 @@ export function saveModalDetails(closeModal = true) {
         state.endBatch({ reason: 'columns' });
       }
     }
-  } else if (slotIdx === 2 || slotIdx === 4) {
+  } else if (slotIdx === 2 || slotIdx === 5) {
+    // UPDATE: Output is slot 5
     if (slotIdx === 2) {
       const activeBundleId = getActiveBundleId(data);
 
@@ -2441,7 +2447,8 @@ export function saveModalDetails(closeModal = true) {
     }
 
     // ===== OUTPUT MERGE APPLY =====
-    if (slotIdx === 4) {
+    // UPDATE: Output is slot 5
+    if (slotIdx === 5) {
       const enable = $('mergeEnable')?.checked ?? false;
       const startSel = $('mergeStartSelect');
       const endSel = $('mergeEndSelect');
@@ -2463,12 +2470,13 @@ export function saveModalDetails(closeModal = true) {
           state.setOutputMergeRangeForCol(colIdx, s, e);
 
           const sheet = state.activeSheet;
-          const source = deepClone(sheet.columns[colIdx].slots[4]);
+          const source = deepClone(sheet.columns[colIdx].slots[4]); // Was 4 (oud), zou idealiter 5 zijn, maar state.js regelt dit intern
 
           state.beginBatch({ reason: 'batch' });
           for (let c = s; c <= e; c++) {
             if (sheet.columns[c]?.isVisible === false) continue;
-            sheet.columns[c].slots[4] = deepClone(source);
+            // UPDATE: Output slot 5
+            sheet.columns[c].slots[5] = deepClone(sheet.columns[colIdx].slots[5]);
           }
           state.endBatch({ reason: 'columns' });
         }
@@ -2500,7 +2508,8 @@ export function openLogicModal(colIdx) {
       .map((c, i) => {
         if (c.isVisible === false) return '';
 
-        const label = c.slots?.[3]?.text || `Stap ${i + 1}`;
+        // UPDATE: Proces is slot 4 (gebruik dat label)
+        const label = c.slots?.[4]?.text || `Stap ${i + 1}`;
         const isSelected =
           selectedVal !== null && String(selectedVal) === String(i) ? 'selected' : '';
 
@@ -2517,7 +2526,7 @@ export function openLogicModal(colIdx) {
     <h3>⚡ Conditionele Stap</h3>
     <div class="sub-text">
         Bepaal wanneer deze stap uitgevoerd moet worden of overgeslagen.<br>
-        <em>Huidige stap: <strong>${escapeAttr(col.slots?.[3]?.text || 'Naamloos')}</strong></em>
+        <em>Huidige stap: <strong>${escapeAttr(col.slots?.[4]?.text || 'Naamloos')}</strong></em>
     </div>
 
     <div style="margin-top:16px;">
@@ -2632,7 +2641,8 @@ export function openGroupModal(colIdx) {
       const col = sheet.columns[cIdx];
       if (!col || col.isVisible === false) return;
 
-      const label = col.slots?.[3]?.text || `Kolom ${cIdx + 1}`;
+      // UPDATE: Proces label op index 4
+      const label = col.slots?.[4]?.text || `Kolom ${cIdx + 1}`;
 
       const item = document.createElement('div');
       item.className = 'col-manager-item';
@@ -2661,7 +2671,7 @@ export function openGroupModal(colIdx) {
       if (c.isVisible === false) return;
       if (currentCols.includes(i)) return;
 
-      const label = c.slots?.[3]?.text || `Kolom ${i + 1}`;
+      const label = c.slots?.[4]?.text || `Kolom ${i + 1}`;
       const opt = document.createElement('option');
       opt.value = i;
       opt.textContent = `${i + 1}. ${label}`;
@@ -2827,7 +2837,8 @@ export function openVariantModal(colIdx) {
         div.style.padding = '6px 10px';
         if (isSelected) div.classList.add('selected');
 
-        const labelText = c.slots?.[3]?.text || `Kolom ${i + 1}`;
+        // UPDATE: Proces label op slot 4
+        const labelText = c.slots?.[4]?.text || `Kolom ${i + 1}`;
 
         div.innerHTML = `
                  <input type="checkbox" value="${escapeAttr(val)}" ${isSelected ? 'checked' : ''} style="accent-color:var(--ui-accent);">
@@ -2868,7 +2879,8 @@ export function openVariantModal(colIdx) {
       const c = sheet.columns[vIdx];
       if (!c || c.isVisible === false) return;
 
-      const label = c.slots?.[3]?.text || `Kolom ${vIdx + 1}`;
+      // UPDATE: Proces label op slot 4
+      const label = c.slots?.[4]?.text || `Kolom ${vIdx + 1}`;
       const letter = getLetter(i);
 
       const item = document.createElement('div');
@@ -2906,7 +2918,7 @@ export function openVariantModal(colIdx) {
       if (currentParents.includes(i)) return;
       if (currentVariants.includes(i)) return;
 
-      const label = c.slots?.[3]?.text || `Kolom ${i + 1}`;
+      const label = c.slots?.[4]?.text || `Kolom ${i + 1}`;
       const opt = document.createElement('option');
       opt.value = i;
       opt.textContent = `${i + 1}. ${label}`;
@@ -3112,4 +3124,3 @@ export function openVariantModal(colIdx) {
   });
 })();
 /* ===== SYSFIT NVT END HANDLER (GLOBAL CHECK) ===== */
-

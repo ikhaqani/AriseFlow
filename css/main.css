@@ -2611,12 +2611,12 @@ html body #row-headers .row-header .lane-label-text{
 
 /* ===== LANE LABELS ABSOLUTE LAST OVERRIDE ===== */
 html body #row-headers .row-header{
-  font-size: 18px !important;
+  font-size: 20px !important;
 }
 
 html body #row-headers .row-header > span,
 html body #row-headers .row-header .lane-label-text{
-  font-size: 18px !important;
+  font-size: 36px !important;
 }
 
 /* ===== ROW-HEADERS: reduce gap to post-its ===== */

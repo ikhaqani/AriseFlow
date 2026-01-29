@@ -68,6 +68,11 @@ const syncOpenModal = () => {
 const renameActiveSheet = () => {
   syncOpenModal();
 
+  if (state.project && state.project.activeSheetId === 'ALL') {
+    safeToast('Hernoemen niet mogelijk in Totaaloverzicht', 'error');
+    return;
+  }
+
   const currentName = state.activeSheet?.name || '';
   const newName = prompt('Hernoem proces:', currentName);
   if (!newName || !newName.trim() || newName.trim() === currentName) return;
@@ -101,7 +106,7 @@ const tryReindexAfterSheetOrderChange = () => {
 
 /** Produces a readable listing of current sheets for reorder prompts. */
 const buildSheetOrderPromptText = () => {
-  const sheets = Array.isArray(state?.data?.sheets) ? state.project.sheets : [];
+  const sheets = Array.isArray(state?.project?.sheets) ? state.project.sheets : [];
   const lines = sheets.map((s, i) => `${i + 1}. ${String(s?.name || `Proces ${i + 1}`)}`);
   return `Huidige volgorde:\n${lines.join('\n')}\n\nNieuwe volgorde (komma-gescheiden indices, bv: 2,1,3):`;
 };
@@ -122,7 +127,7 @@ const isPermutation1ToN = (arr, n) => {
 const reorderSheetsByPrompt = () => {
   syncOpenModal();
 
-  const sheets = Array.isArray(state?.data?.sheets) ? state.project.sheets : [];
+  const sheets = Array.isArray(state?.project?.sheets) ? state.project.sheets : [];
   const n = sheets.length;
   if (n <= 1) return;
 
@@ -265,6 +270,9 @@ const buildMergedStickyEl = (textValue) => {
 
 /** Synchronizes a legacy merged overlay example for the active sheet. */
 const syncMergedApprovalOutput = () => {
+  // Schakel dit uit in de "Alle Flows" weergave omdat de index-logica [1,2,3] per sheet verschilt
+  if (state.project && state.project.activeSheetId === 'ALL') return;
+
   const layer = ensureMergeLayer();
   if (!layer) return;
 
@@ -331,7 +339,6 @@ const syncMergedApprovalOutput = () => {
 
 /** Schedules a merge overlay refresh with an optional delay. */
 const scheduleMergeRefresh = (delay = 0) => {
-  // FIX: Niet refreshen als we in de merged note aan het typen zijn
   const activeEl = document.activeElement;
   if (activeEl && activeEl.closest('#merged-approval-output')) {
     return;
@@ -367,8 +374,16 @@ const setupSheetControls = () => {
   if (sheetSelect) {
     sheetSelect.addEventListener('change', (e) => {
       syncOpenModal();
-      if (typeof state.setActiveSheet === 'function') state.setActiveSheet(e.target.value);
-      safeToast(`Gewisseld naar: ${state.activeSheet?.name || ''}`, 'info', 1000);
+      const val = e.target.value;
+      
+      if (val === 'ALL') {
+        state.setActiveSheet('ALL');
+        safeToast('Totaaloverzicht geladen', 'info', 1000);
+      } else {
+        state.setActiveSheet(val);
+        safeToast(`Gewisseld naar: ${state.activeSheet?.name || ''}`, 'info', 1000);
+      }
+      
       scheduleMergeRefresh(50);
     });
   }
@@ -389,7 +404,8 @@ const setupSheetControls = () => {
   const btnAdd = pickEl('btnAddSheet', '#btnAddSheet', "[data-action='add-sheet']", '#addSheetBtn');
   bindClickEl(btnAdd, () => {
     syncOpenModal();
-    const name = prompt('Nieuw procesblad naam:', `Proces ${state.project.sheets.length + 1}`);
+    const sheetsCount = (state.project?.sheets || state.data?.sheets || []).length;
+    const name = prompt('Nieuw procesblad naam:', `Proces ${sheetsCount + 1}`);
     if (!name || !name.trim()) return;
     if (typeof state.addSheet === 'function') state.addSheet(name.trim());
     safeToast('Procesblad toegevoegd', 'success');
@@ -399,12 +415,18 @@ const setupSheetControls = () => {
   const btnDel = pickEl('btnDelSheet', '#btnDelSheet', "[data-action='delete-sheet']", '#deleteSheetBtn');
   bindClickEl(btnDel, () => {
     syncOpenModal();
+    
+    if (state.project && state.project.activeSheetId === 'ALL') {
+      safeToast('Verwijderen niet mogelijk in Totaaloverzicht', 'error');
+      return;
+    }
 
-    if (state.project.sheets.length <= 1) {
+    const sheets = (state.project?.sheets || state.data?.sheets || []);
+    if (sheets.length <= 1) {
       safeToast('Laatste blad kan niet verwijderd worden', 'error');
       return;
     }
-    if (!confirm(`Weet je zeker dat je "${state.activeSheet.name}" wilt verwijderen?`)) return;
+    if (!confirm(`Weet je zeker dat je "${state.activeSheet?.name || 'dit blad'}" wilt verwijderen?`)) return;
     if (typeof state.deleteSheet === 'function') state.deleteSheet();
     safeToast('Procesblad verwijderd', 'info');
     scheduleMergeRefresh(50);
@@ -422,7 +444,7 @@ const setupSheetControls = () => {
 /** Setup functie voor GitHub configuratie prompt */
 const setupGitHubConfig = () => {
   const t = prompt("GitHub Token:", localStorage.getItem('gh_token') || '');
-  if (t === null) return; // Geannuleerd
+  if (t === null) return; 
   const o = prompt("GitHub Gebruikersnaam (Owner):", localStorage.getItem('gh_owner') || '');
   const r = prompt("Repository naam:", localStorage.getItem('gh_repo') || '');
   
@@ -436,7 +458,6 @@ const setupGitHubConfig = () => {
 
 /** Koppel acties aan cloud knoppen */
 const setupCloudActions = () => {
-  // Knop: Opslaan naar GitHub
   bindClick('ghSaveBtn', async () => {
     syncOpenModal();
     const btn = document.getElementById('ghSaveBtn');
@@ -454,7 +475,6 @@ const setupCloudActions = () => {
     }
   });
 
-  // Knop: Laden van GitHub
   bindClick('ghLoadBtn', async () => {
     syncOpenModal();
     if(!confirm("Huidige wijzigingen overschrijven met versie van GitHub?")) return;
@@ -469,7 +489,6 @@ const setupCloudActions = () => {
     }
   });
 
-  // Knop: Instellingen
   bindClick('ghSetupBtn', setupGitHubConfig);
 };
 
@@ -574,14 +593,19 @@ const setupColumnManager = () => {
   bindClick('btnManageCols', () => {
     syncOpenModal();
 
+    if (state.activeSheetId === 'ALL') {
+      safeToast('Beheer alleen mogelijk in specifieke flow', 'error');
+      return;
+    }
+
     const list = $('colManagerList');
     const modal = $('colManagerModal');
-    if (!list || !modal) return;
+    if (!list || !modal || !state.activeSheet) return;
 
     list.innerHTML = '';
 
     state.activeSheet.columns.forEach((col, idx) => {
-      const raw = col.slots?.[3]?.text || '';
+      const raw = col.slots?.[4]?.text || '';
       const procText = raw ? `${raw.substring(0, 25)}${raw.length > 25 ? '...' : ''}` : '<i>(Leeg)</i>';
 
       const item = document.createElement('div');
@@ -635,11 +659,12 @@ const setupStateSubscription = () => {
   state.subscribe((_, meta) => {
     applyStateUpdate(meta, openEditModal);
 
-    if (titleInput && state.project.projectTitle && document.activeElement !== titleInput) {
-      titleInput.value = state.project.projectTitle;
+    const projectTitle = state.project?.projectTitle || state.data?.projectTitle;
+    if (titleInput && projectTitle && document.activeElement !== titleInput) {
+      titleInput.value = projectTitle;
     }
 
-    document.title = state.project.projectTitle ? `${state.project.projectTitle} - SIPOC` : 'SIPOC Board';
+    document.title = projectTitle ? `${projectTitle} - SIPOC` : 'SIPOC Board';
 
     const header = $('board-header-display');
     if (header) {
@@ -705,7 +730,8 @@ const initApp = () => {
   renderBoard(openEditModal);
 
   const titleInput = $('boardTitle');
-  if (titleInput) titleInput.value = state.project.projectTitle;
+  const projectTitle = state.project?.projectTitle || state.data?.projectTitle;
+  if (titleInput && projectTitle) titleInput.value = projectTitle;
 
   scheduleMergeRefresh(120);
 
