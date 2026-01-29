@@ -1,4 +1,4 @@
-// io.js (FINAL VERSION: Precision Headers + Transparent PNG + Dark PDF + Actor CSV)
+// io.js (FINAL VERSION: Precision Headers + Transparent PNG + Dark PDF + Actor CSV + GitHub SHA Fix)
 // + FIX: Header breedte = Exacte afstand van start pagina tot start 1e kolom (dus incl gap)
 // + FIX: Header wordt op ELKE pagina links herhaald voor strakke uitlijning
 // + FIX: PNG screenshot is volledig transparant
@@ -6,6 +6,7 @@
 // + FIX: Content-slice wordt op ELKE pagina gerenderd in een vaste (viewport) breedte (strak aligned)
 // + FIX: Canonical header cut en Row-header labels exact dezelfde typografie (JetBrains Mono)
 // + NEW FIX: "Actor" veld toegevoegd aan CSV export (vóór Proces kolom)
+// + SECURITY FIX: GitHub SHA check toegevoegd voor veilige updates
 
 import { state } from './state.js';
 import { Toast } from './toast.js';
@@ -1025,20 +1026,36 @@ export async function saveToGitHub() {
   if (!token || !owner || !repo) { alert("Vul eerst GitHub settings in"); return; }
   const url = `https://api.github.com/repos/${owner}/${repo}/contents/${path}`;
 
+  // 1. SHA ophalen (als bestand bestaat)
   if (!currentLoadedSha) {
     try {
-      const getResp = await fetch(url, { method: 'GET', headers: { Authorization: `token ${token}`, Accept: 'application/vnd.github.v3+json' } });
-      if (getResp.ok) { const d = await getResp.json(); currentLoadedSha = d.sha; }
+      const getResp = await fetch(url, { 
+        method: 'GET', 
+        headers: { 
+          Authorization: `token ${token}`, 
+          Accept: 'application/vnd.github.v3+json' 
+        } 
+      });
+      if (getResp.ok) { 
+        const d = await getResp.json(); 
+        currentLoadedSha = d.sha; 
+      }
     } catch {}
   }
 
   const p = prepareProjectForPersist(state.data || state.project);
+  
+  // 2. Body opbouwen MET SHA (indien aanwezig)
   const body = {
     message: `Update via AriseFlow: ${new Date().toLocaleString()}`,
-    content: utf8_to_b64(JSON.stringify(p, null, 2)),
-    sha: currentLoadedSha
+    content: utf8_to_b64(JSON.stringify(p, null, 2))
   };
+  
+  if (currentLoadedSha) {
+    body.sha = currentLoadedSha;
+  }
 
+  // 3. Opslaan
   const putResp = await fetch(url, {
     method: 'PUT',
     headers: { Authorization: `token ${token}`, 'Content-Type': 'application/json' },
@@ -1048,6 +1065,12 @@ export async function saveToGitHub() {
   if (putResp.status === 409) {
     alert("LET OP: Iemand anders heeft dit bestand tussentijds gewijzigd!\n\nJe kunt niet opslaan om overschrijven te voorkomen.\n\nDownload je werk lokaal (Save JSON) en ververs de pagina.");
     throw new Error('Versieconflict');
+  }
+
+  if (putResp.status === 422) {
+     // Soms is de SHA toch verouderd, probeer een retry als je zeker weet dat je wilt overschrijven?
+     // Voor nu: error gooien
+     throw new Error("GitHub weigert update (SHA mismatch of validatiefout). Ververs de pagina en probeer opnieuw.");
   }
 
   if (!putResp.ok) {
