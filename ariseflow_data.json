@@ -25244,26 +25244,32 @@
               "qa": {
                 "compleet": {
                   "result": null,
+                  "impact": null,
                   "note": ""
                 },
                 "kwaliteit": {
                   "result": null,
+                  "impact": null,
                   "note": ""
                 },
                 "duidelijkheid": {
                   "result": null,
+                  "impact": null,
                   "note": ""
                 },
                 "tijdigheid": {
                   "result": null,
+                  "impact": null,
                   "note": ""
                 },
                 "standaard": {
                   "result": null,
+                  "impact": null,
                   "note": ""
                 },
                 "overdracht": {
                   "result": null,
+                  "impact": null,
                   "note": ""
                 }
               },
@@ -25293,10 +25299,9 @@
               "workExp": null,
               "workExpNote": "",
               "linkedBundleId": null,
-              "linkedBundleIds": [],
+              "linkedBundleIds": null,
               "linkedSourceUids": [
-                "out_df1ca23f-9705-44b9-a8aa-f9ae572cfa5d",
-                "out_2166a4d2-1f8a-452a-b010-989a5c8ca6f2"
+                "out_df1ca23f-9705-44b9-a8aa-f9ae572cfa5d"
               ],
               "linkedSourceUid": "out_df1ca23f-9705-44b9-a8aa-f9ae572cfa5d",
               "linkedSourceIds": [],
