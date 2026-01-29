@@ -45585,583 +45585,6 @@
           "isGroup": false
         },
         {
-          "id": "7a4b1e63-0ee6-45d1-8544-5a811a7e43f0",
-          "order": 1,
-          "isVisible": true,
-          "isParallel": false,
-          "isVariant": false,
-          "hasTransition": false,
-          "transitionNext": "",
-          "outputId": null,
-          "slots": [
-            {
-              "id": "afe32403-79c3-4aac-9197-a2d76275295e",
-              "created": 1769084178307,
-              "text": "MBB'er (omloop)",
-              "linkedSourceId": null,
-              "type": null,
-              "processValue": null,
-              "processStatus": null,
-              "successFactors": "",
-              "causes": [],
-              "improvements": [],
-              "qa": {
-                "compleet": {
-                  "result": "",
-                  "note": ""
-                },
-                "kwaliteit": {
-                  "result": "",
-                  "note": ""
-                },
-                "duidelijkheid": {
-                  "result": "",
-                  "note": ""
-                },
-                "tijdigheid": {
-                  "result": "",
-                  "note": ""
-                },
-                "standaard": {
-                  "result": "",
-                  "note": ""
-                },
-                "overdracht": {
-                  "result": "",
-                  "note": ""
-                }
-              },
-              "systemData": {
-                "isMulti": false,
-                "systemName": "",
-                "calculatedScore": null,
-                "systems": [
-                  {
-                    "id": "c6317cca-712b-4f6b-a112-5a6cf2bc7317",
-                    "name": "",
-                    "isLegacy": false,
-                    "futureSystem": "",
-                    "qa": {
-                      "workarounds": null,
-                      "performance": null,
-                      "double": null,
-                      "error": null,
-                      "depend": null
-                    },
-                    "calculatedScore": null
-                  }
-                ]
-              },
-              "inputDefinitions": [],
-              "disruptions": [],
-              "workExp": null,
-              "workExpNote": "",
-              "linkedSourceUids": [],
-              "linkedBundleIds": [],
-              "gate": {
-                "checkProcessIds": [],
-                "onFailTargetProcessId": null,
-                "onPassTargetProcessId": null,
-                "rule": "ALL_OK",
-                "note": ""
-              }
-            },
-            {
-              "id": "3cb1de20-c3cf-4595-b86c-1b049b653437",
-              "created": 1769084178307,
-              "text": "Radiotherapie Web",
-              "linkedSourceId": null,
-              "type": null,
-              "processValue": null,
-              "processStatus": null,
-              "successFactors": "",
-              "causes": [],
-              "improvements": [],
-              "qa": {
-                "compleet": {
-                  "result": "",
-                  "note": ""
-                },
-                "kwaliteit": {
-                  "result": "",
-                  "note": ""
-                },
-                "duidelijkheid": {
-                  "result": "",
-                  "note": ""
-                },
-                "tijdigheid": {
-                  "result": "",
-                  "note": ""
-                },
-                "standaard": {
-                  "result": "",
-                  "note": ""
-                },
-                "overdracht": {
-                  "result": "",
-                  "note": ""
-                }
-              },
-              "systemData": {
-                "isMulti": false,
-                "systemName": "",
-                "calculatedScore": 53,
-                "systems": [
-                  {
-                    "id": "7bec53ee-ccc7-4022-8804-820f5ead21d1",
-                    "name": "",
-                    "isLegacy": false,
-                    "futureSystem": "",
-                    "qa": {
-                      "workarounds": null,
-                      "performance": null,
-                      "double": null,
-                      "error": null,
-                      "depend": null
-                    },
-                    "calculatedScore": null
-                  }
-                ],
-                "systemsMeta": {
-                  "multi": false,
-                  "systems": [
-                    {
-                      "id": "9edca7f3-ec61-4e16-99f2-552d92d07fa1",
-                      "name": "Radiotherapie Web",
-                      "legacy": false,
-                      "future": "",
-                      "qa": {
-                        "q1": "SOMETIMES",
-                        "q2": "SOMETIMES",
-                        "q3": "ALWAYS",
-                        "q4": "SOMETIMES",
-                        "q5": "DELAY"
-                      },
-                      "score": 53
-                    }
-                  ],
-                  "activeSystemIdx": 0
-                }
-              },
-              "inputDefinitions": [],
-              "disruptions": [],
-              "workExp": null,
-              "workExpNote": "",
-              "linkedSourceUids": [],
-              "linkedBundleIds": [],
-              "gate": {
-                "checkProcessIds": [],
-                "onFailTargetProcessId": null,
-                "onPassTargetProcessId": null,
-                "rule": "ALL_OK",
-                "note": ""
-              }
-            },
-            {
-              "id": "daa45e32-33e7-4e85-87cb-e8675c981ed6",
-              "created": 1769084178307,
-              "text": "",
-              "linkedSourceId": null,
-              "type": null,
-              "processValue": null,
-              "processStatus": null,
-              "successFactors": "",
-              "causes": [],
-              "improvements": [],
-              "qa": {
-                "compleet": {
-                  "result": "GOOD",
-                  "note": "Maar als het niet voldoet, dan extra werk. Nagaan hoe de patiënt gelegen heeft op CT en met Ct-laborant communiceren. "
-                },
-                "kwaliteit": {
-                  "result": "GOOD",
-                  "note": ""
-                },
-                "duidelijkheid": {
-                  "result": "FAIL",
-                  "note": "Bijvoorbeeld onduidelijk hoe een flab geplakt moet worden.  Anders  kleine frictie.  Communiceren met collega indien beschikbaar"
-                },
-                "tijdigheid": {
-                  "result": "GOOD",
-                  "note": ""
-                },
-                "standaard": {
-                  "result": "GOOD",
-                  "note": ""
-                },
-                "overdracht": {
-                  "result": "GOOD",
-                  "note": ""
-                }
-              },
-              "systemData": {
-                "isMulti": false,
-                "systemName": "",
-                "calculatedScore": null,
-                "systems": [
-                  {
-                    "id": "3c297848-7a8d-4082-a0c0-e4a778ee463a",
-                    "name": "",
-                    "isLegacy": false,
-                    "futureSystem": "",
-                    "qa": {
-                      "workarounds": null,
-                      "performance": null,
-                      "double": null,
-                      "error": null,
-                      "depend": null
-                    },
-                    "calculatedScore": null
-                  }
-                ]
-              },
-              "inputDefinitions": [
-                {
-                  "item": "Liggingsgegevens",
-                  "specifications": "Instellen toestel",
-                  "type": "HARD"
-                },
-                {
-                  "item": "Doelgebied",
-                  "specifications": "Weten wat je moet bestralen",
-                  "type": "HARD"
-                },
-                {
-                  "item": "CT-laborantnaam",
-                  "specifications": "Voor escalatie",
-                  "type": "SOFT"
-                }
-              ],
-              "disruptions": [],
-              "workExp": null,
-              "workExpNote": "",
-              "linkedBundleId": null,
-              "linkedBundleIds": [],
-              "linkedSourceUids": [
-                "out_cdc99293-2006-4870-9f3a-104c3e5c82e9"
-              ],
-              "linkedSourceUid": "out_cdc99293-2006-4870-9f3a-104c3e5c82e9",
-              "linkedSourceIds": [],
-              "gate": {
-                "checkProcessIds": [],
-                "onFailTargetProcessId": null,
-                "onPassTargetProcessId": null,
-                "rule": "ALL_OK",
-                "note": ""
-              }
-            },
-            {
-              "id": "act_477201e8-28a0-4686-9267-e0a50ad5581b",
-              "created": 1769679069538,
-              "text": "",
-              "linkedSourceId": null,
-              "type": "text",
-              "processValue": null,
-              "processStatus": null,
-              "successFactors": "",
-              "causes": [],
-              "improvements": [],
-              "qa": {
-                "compleet": {
-                  "result": "",
-                  "note": ""
-                },
-                "kwaliteit": {
-                  "result": "",
-                  "note": ""
-                },
-                "duidelijkheid": {
-                  "result": "",
-                  "note": ""
-                },
-                "tijdigheid": {
-                  "result": "",
-                  "note": ""
-                },
-                "standaard": {
-                  "result": "",
-                  "note": ""
-                },
-                "overdracht": {
-                  "result": "",
-                  "note": ""
-                }
-              },
-              "systemData": {
-                "isMulti": false,
-                "systemName": "",
-                "calculatedScore": null,
-                "systems": [
-                  {
-                    "id": "cd74abf0-56a6-4e6b-9c28-567e045839de",
-                    "name": "",
-                    "isLegacy": false,
-                    "futureSystem": "",
-                    "qa": {
-                      "workarounds": null,
-                      "performance": null,
-                      "double": null,
-                      "error": null,
-                      "depend": null
-                    },
-                    "calculatedScore": null
-                  }
-                ]
-              },
-              "inputDefinitions": [],
-              "disruptions": [],
-              "workExp": null,
-              "workExpNote": "",
-              "linkedSourceUids": [],
-              "linkedBundleIds": [],
-              "gate": {
-                "checkProcessIds": [],
-                "onFailTargetProcessId": null,
-                "onPassTargetProcessId": null,
-                "rule": "ALL_OK",
-                "note": ""
-              }
-            },
-            {
-              "id": "d6eb8b1e-bbba-40b5-8050-02179d971e3d",
-              "created": 1769084178307,
-              "text": "Liggingsgegevens in digitale stralenkaart ",
-              "linkedSourceId": null,
-              "type": "Taak",
-              "processValue": "BNVA",
-              "processStatus": "NEUTRAL",
-              "successFactors": "",
-              "causes": [
-                "Onduidelijkheid in communicatie  op papier"
-              ],
-              "improvements": [],
-              "qa": {
-                "compleet": {
-                  "result": "",
-                  "note": ""
-                },
-                "kwaliteit": {
-                  "result": "",
-                  "note": ""
-                },
-                "duidelijkheid": {
-                  "result": "",
-                  "note": ""
-                },
-                "tijdigheid": {
-                  "result": "",
-                  "note": ""
-                },
-                "standaard": {
-                  "result": "",
-                  "note": ""
-                },
-                "overdracht": {
-                  "result": "",
-                  "note": ""
-                }
-              },
-              "systemData": {
-                "isMulti": false,
-                "systemName": "",
-                "calculatedScore": null,
-                "systems": [
-                  {
-                    "id": "b8aa8f1d-6b62-4b54-ad46-0ab8cf809e85",
-                    "name": "",
-                    "isLegacy": false,
-                    "futureSystem": "",
-                    "qa": {
-                      "workarounds": null,
-                      "performance": null,
-                      "double": null,
-                      "error": null,
-                      "depend": null
-                    },
-                    "calculatedScore": null
-                  }
-                ]
-              },
-              "inputDefinitions": [],
-              "disruptions": [
-                {
-                  "scenario": "Liggegevens onvolledig gekopieerd in DSK",
-                  "frequency": "Soms",
-                  "workaround": "CT-formulier erbij pakken en corriger in DSK"
-                },
-                {
-                  "scenario": "Instelfoto's missen (foto van de houding)",
-                  "frequency": "Vaak",
-                  "workaround": "Extra controle foto's maken voor ligging (je dient dan onnodig rontgenstraling toe)"
-                }
-              ],
-              "workExp": "ROUTINE",
-              "workExpNote": "",
-              "linkedSourceUids": [],
-              "linkedBundleIds": [],
-              "gate": {
-                "checkProcessIds": [],
-                "onFailTargetProcessId": null,
-                "onPassTargetProcessId": null,
-                "rule": "ALL_OK",
-                "note": ""
-              },
-              "outputUid": "out_65a4fbc6-1c74-4eff-821e-83173aa026b8"
-            },
-            {
-              "id": "affe800b-06aa-441f-9bff-19abc42e221a",
-              "created": 1769084178307,
-              "text": "Bestralingsplan",
-              "linkedSourceId": null,
-              "type": null,
-              "processValue": null,
-              "processStatus": null,
-              "successFactors": "",
-              "causes": [],
-              "improvements": [],
-              "qa": {
-                "compleet": {
-                  "result": "",
-                  "note": ""
-                },
-                "kwaliteit": {
-                  "result": "",
-                  "note": ""
-                },
-                "duidelijkheid": {
-                  "result": "",
-                  "note": ""
-                },
-                "tijdigheid": {
-                  "result": "",
-                  "note": ""
-                },
-                "standaard": {
-                  "result": "",
-                  "note": ""
-                },
-                "overdracht": {
-                  "result": "",
-                  "note": ""
-                }
-              },
-              "systemData": {
-                "isMulti": false,
-                "systemName": "",
-                "calculatedScore": null,
-                "systems": [
-                  {
-                    "id": "e2852f73-603e-4384-bb91-351f2be8e35f",
-                    "name": "",
-                    "isLegacy": false,
-                    "futureSystem": "",
-                    "qa": {
-                      "workarounds": null,
-                      "performance": null,
-                      "double": null,
-                      "error": null,
-                      "depend": null
-                    },
-                    "calculatedScore": null
-                  }
-                ]
-              },
-              "inputDefinitions": [],
-              "disruptions": [],
-              "workExp": null,
-              "workExpNote": "",
-              "outputUid": "out_54deab68-0338-4d71-b0fc-47b7d5c286ae",
-              "linkedSourceUids": [],
-              "linkedBundleIds": [],
-              "gate": {
-                "checkProcessIds": [],
-                "onFailTargetProcessId": null,
-                "onPassTargetProcessId": null,
-                "rule": "ALL_OK",
-                "note": ""
-              }
-            },
-            {
-              "id": "953aefcb-5fb9-4b9b-b253-c12777919103",
-              "created": 1769084178307,
-              "text": "MBB'er (Toestel)",
-              "linkedSourceId": null,
-              "type": null,
-              "processValue": null,
-              "processStatus": null,
-              "successFactors": "",
-              "causes": [],
-              "improvements": [],
-              "qa": {
-                "compleet": {
-                  "result": "",
-                  "note": ""
-                },
-                "kwaliteit": {
-                  "result": "",
-                  "note": ""
-                },
-                "duidelijkheid": {
-                  "result": "",
-                  "note": ""
-                },
-                "tijdigheid": {
-                  "result": "",
-                  "note": ""
-                },
-                "standaard": {
-                  "result": "",
-                  "note": ""
-                },
-                "overdracht": {
-                  "result": "",
-                  "note": ""
-                }
-              },
-              "systemData": {
-                "isMulti": false,
-                "systemName": "",
-                "calculatedScore": null,
-                "systems": [
-                  {
-                    "id": "57a79541-1ff5-45fa-be15-188596cc2f36",
-                    "name": "",
-                    "isLegacy": false,
-                    "futureSystem": "",
-                    "qa": {
-                      "workarounds": null,
-                      "performance": null,
-                      "double": null,
-                      "error": null,
-                      "depend": null
-                    },
-                    "calculatedScore": null
-                  }
-                ]
-              },
-              "inputDefinitions": [],
-              "disruptions": [],
-              "workExp": null,
-              "workExpNote": "",
-              "linkedSourceUids": [],
-              "linkedBundleIds": [],
-              "gate": {
-                "checkProcessIds": [],
-                "onFailTargetProcessId": null,
-                "onPassTargetProcessId": null,
-                "rule": "ALL_OK",
-                "note": ""
-              }
-            }
-          ],
-          "routeLabel": null,
-          "isQuestion": false,
-          "isConditional": false,
-          "logic": null,
-          "isGroup": false
-        },
-        {
           "id": "9446ecd8-b1a6-463f-83c6-a04654c88c04",
           "order": 1,
           "isVisible": true,
@@ -48338,928 +47761,6 @@
           "isGroup": false
         },
         {
-          "id": "97aca99c-538c-4bbe-8e20-444f2a3967e9",
-          "order": 1,
-          "isVisible": true,
-          "isParallel": false,
-          "isVariant": false,
-          "hasTransition": false,
-          "transitionNext": "",
-          "outputId": null,
-          "slots": [
-            {
-              "id": "00fdf334-31c5-4f40-beed-ffb7ad303c6c",
-              "created": 1769683211785,
-              "text": "MBB'er (Toestel)",
-              "linkedSourceId": null,
-              "type": null,
-              "processValue": null,
-              "processStatus": null,
-              "successFactors": "",
-              "causes": [],
-              "improvements": [],
-              "qa": {
-                "compleet": {
-                  "result": "",
-                  "note": ""
-                },
-                "kwaliteit": {
-                  "result": "",
-                  "note": ""
-                },
-                "duidelijkheid": {
-                  "result": "",
-                  "note": ""
-                },
-                "tijdigheid": {
-                  "result": "",
-                  "note": ""
-                },
-                "standaard": {
-                  "result": "",
-                  "note": ""
-                },
-                "overdracht": {
-                  "result": "",
-                  "note": ""
-                }
-              },
-              "systemData": {
-                "isMulti": false,
-                "systemName": "",
-                "calculatedScore": null,
-                "systems": [
-                  {
-                    "id": "16babb16-5453-448f-b4b8-c907c16fd3cf",
-                    "name": "",
-                    "isLegacy": false,
-                    "futureSystem": "",
-                    "qa": {
-                      "workarounds": null,
-                      "performance": null,
-                      "double": null,
-                      "error": null,
-                      "depend": null
-                    },
-                    "calculatedScore": null
-                  }
-                ]
-              },
-              "inputDefinitions": [],
-              "disruptions": [],
-              "workExp": null,
-              "workExpNote": ""
-            },
-            {
-              "id": "ae8edfe4-93c3-467e-b1e6-52231dc50d52",
-              "created": 1769683211785,
-              "text": "ARIA",
-              "linkedSourceId": null,
-              "type": null,
-              "processValue": null,
-              "processStatus": null,
-              "successFactors": "",
-              "causes": [],
-              "improvements": [],
-              "qa": {
-                "compleet": {
-                  "result": "",
-                  "note": ""
-                },
-                "kwaliteit": {
-                  "result": "",
-                  "note": ""
-                },
-                "duidelijkheid": {
-                  "result": "",
-                  "note": ""
-                },
-                "tijdigheid": {
-                  "result": "",
-                  "note": ""
-                },
-                "standaard": {
-                  "result": "",
-                  "note": ""
-                },
-                "overdracht": {
-                  "result": "",
-                  "note": ""
-                }
-              },
-              "systemData": {
-                "isMulti": false,
-                "systemName": "",
-                "calculatedScore": null,
-                "systems": [
-                  {
-                    "id": "a0c25c27-64f8-413d-8511-b0f3f0b9fc60",
-                    "name": "",
-                    "isLegacy": false,
-                    "futureSystem": "",
-                    "qa": {
-                      "workarounds": null,
-                      "performance": null,
-                      "double": null,
-                      "error": null,
-                      "depend": null
-                    },
-                    "calculatedScore": null
-                  }
-                ]
-              },
-              "inputDefinitions": [],
-              "disruptions": [],
-              "workExp": null,
-              "workExpNote": ""
-            },
-            {
-              "id": "34e94097-62b4-4750-92b9-7ac5176016f7",
-              "created": 1769683211785,
-              "text": "",
-              "linkedSourceId": null,
-              "type": null,
-              "processValue": null,
-              "processStatus": null,
-              "successFactors": "",
-              "causes": [],
-              "improvements": [],
-              "qa": {
-                "compleet": {
-                  "result": null,
-                  "impact": null,
-                  "note": ""
-                },
-                "kwaliteit": {
-                  "result": null,
-                  "impact": null,
-                  "note": ""
-                },
-                "duidelijkheid": {
-                  "result": null,
-                  "impact": null,
-                  "note": ""
-                },
-                "tijdigheid": {
-                  "result": null,
-                  "impact": null,
-                  "note": ""
-                },
-                "standaard": {
-                  "result": null,
-                  "impact": null,
-                  "note": ""
-                },
-                "overdracht": {
-                  "result": null,
-                  "impact": null,
-                  "note": ""
-                }
-              },
-              "systemData": {
-                "isMulti": false,
-                "systemName": "",
-                "calculatedScore": null,
-                "systems": [
-                  {
-                    "id": "6133bc21-5c52-4370-aa89-c38a9c9d8ebf",
-                    "name": "",
-                    "isLegacy": false,
-                    "futureSystem": "",
-                    "qa": {
-                      "workarounds": null,
-                      "performance": null,
-                      "double": null,
-                      "error": null,
-                      "depend": null
-                    },
-                    "calculatedScore": null
-                  }
-                ]
-              },
-              "inputDefinitions": [],
-              "disruptions": [],
-              "workExp": null,
-              "workExpNote": "",
-              "linkedBundleId": null,
-              "linkedBundleIds": null,
-              "linkedSourceUids": [
-                "out_ee947e96-fca9-4af4-9c0e-b1c2d9e87c99"
-              ],
-              "linkedSourceUid": "out_ee947e96-fca9-4af4-9c0e-b1c2d9e87c99",
-              "linkedSourceIds": []
-            },
-            {
-              "id": "fdad21b4-3ab1-461f-a47a-3197ce251a66",
-              "created": 1769683211785,
-              "text": "MBB'er (Toestel)",
-              "linkedSourceId": null,
-              "type": null,
-              "processValue": null,
-              "processStatus": null,
-              "successFactors": "",
-              "causes": [],
-              "improvements": [],
-              "qa": {
-                "compleet": {
-                  "result": "",
-                  "note": ""
-                },
-                "kwaliteit": {
-                  "result": "",
-                  "note": ""
-                },
-                "duidelijkheid": {
-                  "result": "",
-                  "note": ""
-                },
-                "tijdigheid": {
-                  "result": "",
-                  "note": ""
-                },
-                "standaard": {
-                  "result": "",
-                  "note": ""
-                },
-                "overdracht": {
-                  "result": "",
-                  "note": ""
-                }
-              },
-              "systemData": {
-                "isMulti": false,
-                "systemName": "",
-                "calculatedScore": null,
-                "systems": [
-                  {
-                    "id": "ed9ccd29-3ea8-4af0-9745-eefee919cdbc",
-                    "name": "",
-                    "isLegacy": false,
-                    "futureSystem": "",
-                    "qa": {
-                      "workarounds": null,
-                      "performance": null,
-                      "double": null,
-                      "error": null,
-                      "depend": null
-                    },
-                    "calculatedScore": null
-                  }
-                ]
-              },
-              "inputDefinitions": [],
-              "disruptions": [],
-              "workExp": null,
-              "workExpNote": ""
-            },
-            {
-              "id": "b9223884-0469-4748-9167-1e53269542e2",
-              "created": 1769683211785,
-              "text": "Controleren Digitale stralenkaart",
-              "linkedSourceId": null,
-              "type": null,
-              "processValue": null,
-              "processStatus": null,
-              "successFactors": "",
-              "causes": [],
-              "improvements": [],
-              "qa": {
-                "compleet": {
-                  "result": "",
-                  "note": ""
-                },
-                "kwaliteit": {
-                  "result": "",
-                  "note": ""
-                },
-                "duidelijkheid": {
-                  "result": "",
-                  "note": ""
-                },
-                "tijdigheid": {
-                  "result": "",
-                  "note": ""
-                },
-                "standaard": {
-                  "result": "",
-                  "note": ""
-                },
-                "overdracht": {
-                  "result": "",
-                  "note": ""
-                }
-              },
-              "systemData": {
-                "isMulti": false,
-                "systemName": "",
-                "calculatedScore": null,
-                "systems": [
-                  {
-                    "id": "181e7910-b382-4d37-90f5-0143b272b9a3",
-                    "name": "",
-                    "isLegacy": false,
-                    "futureSystem": "",
-                    "qa": {
-                      "workarounds": null,
-                      "performance": null,
-                      "double": null,
-                      "error": null,
-                      "depend": null
-                    },
-                    "calculatedScore": null
-                  }
-                ]
-              },
-              "inputDefinitions": [],
-              "disruptions": [],
-              "workExp": null,
-              "workExpNote": "",
-              "outputUid": "out_54a22f81-9cc3-43eb-8575-497813ba0625"
-            },
-            {
-              "id": "6569d26c-31ab-4184-b765-c21a7cb361b9",
-              "created": 1769683211785,
-              "text": "Gecontroleerde digitale stralenkaart",
-              "linkedSourceId": null,
-              "type": null,
-              "processValue": null,
-              "processStatus": null,
-              "successFactors": "",
-              "causes": [],
-              "improvements": [],
-              "qa": {
-                "compleet": {
-                  "result": "",
-                  "note": ""
-                },
-                "kwaliteit": {
-                  "result": "",
-                  "note": ""
-                },
-                "duidelijkheid": {
-                  "result": "",
-                  "note": ""
-                },
-                "tijdigheid": {
-                  "result": "",
-                  "note": ""
-                },
-                "standaard": {
-                  "result": "",
-                  "note": ""
-                },
-                "overdracht": {
-                  "result": "",
-                  "note": ""
-                }
-              },
-              "systemData": {
-                "isMulti": false,
-                "systemName": "",
-                "calculatedScore": null,
-                "systems": [
-                  {
-                    "id": "c4c29583-e3ec-4245-821a-99e91eb7e59b",
-                    "name": "",
-                    "isLegacy": false,
-                    "futureSystem": "",
-                    "qa": {
-                      "workarounds": null,
-                      "performance": null,
-                      "double": null,
-                      "error": null,
-                      "depend": null
-                    },
-                    "calculatedScore": null
-                  }
-                ]
-              },
-              "inputDefinitions": [],
-              "disruptions": [],
-              "workExp": null,
-              "workExpNote": "",
-              "outputUid": "out_18ba6ec6-6c80-4d03-84f6-a36d775f9834"
-            },
-            {
-              "id": "befbe6ba-70ad-4d21-bd6d-ddfd99dc4b42",
-              "created": 1769683211785,
-              "text": "MBB'er (Toestel)",
-              "linkedSourceId": null,
-              "type": null,
-              "processValue": null,
-              "processStatus": null,
-              "successFactors": "",
-              "causes": [],
-              "improvements": [],
-              "qa": {
-                "compleet": {
-                  "result": "",
-                  "note": ""
-                },
-                "kwaliteit": {
-                  "result": "",
-                  "note": ""
-                },
-                "duidelijkheid": {
-                  "result": "",
-                  "note": ""
-                },
-                "tijdigheid": {
-                  "result": "",
-                  "note": ""
-                },
-                "standaard": {
-                  "result": "",
-                  "note": ""
-                },
-                "overdracht": {
-                  "result": "",
-                  "note": ""
-                }
-              },
-              "systemData": {
-                "isMulti": false,
-                "systemName": "",
-                "calculatedScore": null,
-                "systems": [
-                  {
-                    "id": "450b33b3-9399-4dcf-a955-ec012ad73165",
-                    "name": "",
-                    "isLegacy": false,
-                    "futureSystem": "",
-                    "qa": {
-                      "workarounds": null,
-                      "performance": null,
-                      "double": null,
-                      "error": null,
-                      "depend": null
-                    },
-                    "calculatedScore": null
-                  }
-                ]
-              },
-              "inputDefinitions": [],
-              "disruptions": [],
-              "workExp": null,
-              "workExpNote": ""
-            }
-          ]
-        },
-        {
-          "id": "106208ad-c277-4feb-bcad-536cbb5f9126",
-          "order": 1,
-          "isVisible": true,
-          "isParallel": false,
-          "isVariant": false,
-          "hasTransition": false,
-          "transitionNext": "",
-          "outputId": null,
-          "slots": [
-            {
-              "id": "3f54ae50-4667-42db-9d1e-6e7d641db21e",
-              "created": 1769683302276,
-              "text": "MBB'er  (Omloop)",
-              "linkedSourceId": null,
-              "type": null,
-              "processValue": null,
-              "processStatus": null,
-              "successFactors": "",
-              "causes": [],
-              "improvements": [],
-              "qa": {
-                "compleet": {
-                  "result": "",
-                  "note": ""
-                },
-                "kwaliteit": {
-                  "result": "",
-                  "note": ""
-                },
-                "duidelijkheid": {
-                  "result": "",
-                  "note": ""
-                },
-                "tijdigheid": {
-                  "result": "",
-                  "note": ""
-                },
-                "standaard": {
-                  "result": "",
-                  "note": ""
-                },
-                "overdracht": {
-                  "result": "",
-                  "note": ""
-                }
-              },
-              "systemData": {
-                "isMulti": false,
-                "systemName": "",
-                "calculatedScore": null,
-                "systems": [
-                  {
-                    "id": "efbb6c97-5ac1-4761-afbc-55dd28336efa",
-                    "name": "",
-                    "isLegacy": false,
-                    "futureSystem": "",
-                    "qa": {
-                      "workarounds": null,
-                      "performance": null,
-                      "double": null,
-                      "error": null,
-                      "depend": null
-                    },
-                    "calculatedScore": null
-                  }
-                ]
-              },
-              "inputDefinitions": [],
-              "disruptions": [],
-              "workExp": null,
-              "workExpNote": ""
-            },
-            {
-              "id": "77820219-ba9b-47f1-b6f7-a7e236173594",
-              "created": 1769683302276,
-              "text": "Radiotherapie Web",
-              "linkedSourceId": null,
-              "type": null,
-              "processValue": null,
-              "processStatus": null,
-              "successFactors": "",
-              "causes": [],
-              "improvements": [],
-              "qa": {
-                "compleet": {
-                  "result": "",
-                  "note": ""
-                },
-                "kwaliteit": {
-                  "result": "",
-                  "note": ""
-                },
-                "duidelijkheid": {
-                  "result": "",
-                  "note": ""
-                },
-                "tijdigheid": {
-                  "result": "",
-                  "note": ""
-                },
-                "standaard": {
-                  "result": "",
-                  "note": ""
-                },
-                "overdracht": {
-                  "result": "",
-                  "note": ""
-                }
-              },
-              "systemData": {
-                "isMulti": false,
-                "systemName": "",
-                "calculatedScore": null,
-                "systems": [
-                  {
-                    "id": "a49abd4a-c782-418c-acee-1d72572b996a",
-                    "name": "",
-                    "isLegacy": false,
-                    "futureSystem": "",
-                    "qa": {
-                      "workarounds": null,
-                      "performance": null,
-                      "double": null,
-                      "error": null,
-                      "depend": null
-                    },
-                    "calculatedScore": null
-                  }
-                ]
-              },
-              "inputDefinitions": [],
-              "disruptions": [],
-              "workExp": null,
-              "workExpNote": ""
-            },
-            {
-              "id": "4e8300f2-7a5e-4267-8e3d-af11a1dbf6ef",
-              "created": 1769683302276,
-              "text": "Digitale stralenkaart",
-              "linkedSourceId": null,
-              "type": null,
-              "processValue": null,
-              "processStatus": null,
-              "successFactors": "",
-              "causes": [],
-              "improvements": [],
-              "qa": {
-                "compleet": {
-                  "result": "",
-                  "note": ""
-                },
-                "kwaliteit": {
-                  "result": "",
-                  "note": ""
-                },
-                "duidelijkheid": {
-                  "result": "",
-                  "note": ""
-                },
-                "tijdigheid": {
-                  "result": "",
-                  "note": ""
-                },
-                "standaard": {
-                  "result": "",
-                  "note": ""
-                },
-                "overdracht": {
-                  "result": "",
-                  "note": ""
-                }
-              },
-              "systemData": {
-                "isMulti": false,
-                "systemName": "",
-                "calculatedScore": null,
-                "systems": [
-                  {
-                    "id": "ce0c6241-8030-4b28-9314-d3a606c7bc76",
-                    "name": "",
-                    "isLegacy": false,
-                    "futureSystem": "",
-                    "qa": {
-                      "workarounds": null,
-                      "performance": null,
-                      "double": null,
-                      "error": null,
-                      "depend": null
-                    },
-                    "calculatedScore": null
-                  }
-                ]
-              },
-              "inputDefinitions": [],
-              "disruptions": [],
-              "workExp": null,
-              "workExpNote": ""
-            },
-            {
-              "id": "59c69e40-de12-45c0-98f6-77ccdd9c56b9",
-              "created": 1769683302276,
-              "text": "MBB'er (Toestel)",
-              "linkedSourceId": null,
-              "type": null,
-              "processValue": null,
-              "processStatus": null,
-              "successFactors": "",
-              "causes": [],
-              "improvements": [],
-              "qa": {
-                "compleet": {
-                  "result": "",
-                  "note": ""
-                },
-                "kwaliteit": {
-                  "result": "",
-                  "note": ""
-                },
-                "duidelijkheid": {
-                  "result": "",
-                  "note": ""
-                },
-                "tijdigheid": {
-                  "result": "",
-                  "note": ""
-                },
-                "standaard": {
-                  "result": "",
-                  "note": ""
-                },
-                "overdracht": {
-                  "result": "",
-                  "note": ""
-                }
-              },
-              "systemData": {
-                "isMulti": false,
-                "systemName": "",
-                "calculatedScore": null,
-                "systems": [
-                  {
-                    "id": "31042a7d-320c-49a8-ae0c-173c7ec7d47c",
-                    "name": "",
-                    "isLegacy": false,
-                    "futureSystem": "",
-                    "qa": {
-                      "workarounds": null,
-                      "performance": null,
-                      "double": null,
-                      "error": null,
-                      "depend": null
-                    },
-                    "calculatedScore": null
-                  }
-                ]
-              },
-              "inputDefinitions": [],
-              "disruptions": [],
-              "workExp": null,
-              "workExpNote": ""
-            },
-            {
-              "id": "811483b1-22b3-42a6-b3b0-9f0b7b42b170",
-              "created": 1769683302276,
-              "text": "",
-              "linkedSourceId": null,
-              "type": null,
-              "processValue": null,
-              "processStatus": null,
-              "successFactors": "",
-              "causes": [],
-              "improvements": [],
-              "qa": {
-                "compleet": {
-                  "result": "",
-                  "note": ""
-                },
-                "kwaliteit": {
-                  "result": "",
-                  "note": ""
-                },
-                "duidelijkheid": {
-                  "result": "",
-                  "note": ""
-                },
-                "tijdigheid": {
-                  "result": "",
-                  "note": ""
-                },
-                "standaard": {
-                  "result": "",
-                  "note": ""
-                },
-                "overdracht": {
-                  "result": "",
-                  "note": ""
-                }
-              },
-              "systemData": {
-                "isMulti": false,
-                "systemName": "",
-                "calculatedScore": null,
-                "systems": [
-                  {
-                    "id": "310e1888-b3cc-4f78-8087-d7d3699e6b68",
-                    "name": "",
-                    "isLegacy": false,
-                    "futureSystem": "",
-                    "qa": {
-                      "workarounds": null,
-                      "performance": null,
-                      "double": null,
-                      "error": null,
-                      "depend": null
-                    },
-                    "calculatedScore": null
-                  }
-                ]
-              },
-              "inputDefinitions": [],
-              "disruptions": [],
-              "workExp": null,
-              "workExpNote": ""
-            },
-            {
-              "id": "bcd240e3-ef40-4431-bff0-1b508cb1f43a",
-              "created": 1769683302276,
-              "text": "",
-              "linkedSourceId": null,
-              "type": null,
-              "processValue": null,
-              "processStatus": null,
-              "successFactors": "",
-              "causes": [],
-              "improvements": [],
-              "qa": {
-                "compleet": {
-                  "result": "",
-                  "note": ""
-                },
-                "kwaliteit": {
-                  "result": "",
-                  "note": ""
-                },
-                "duidelijkheid": {
-                  "result": "",
-                  "note": ""
-                },
-                "tijdigheid": {
-                  "result": "",
-                  "note": ""
-                },
-                "standaard": {
-                  "result": "",
-                  "note": ""
-                },
-                "overdracht": {
-                  "result": "",
-                  "note": ""
-                }
-              },
-              "systemData": {
-                "isMulti": false,
-                "systemName": "",
-                "calculatedScore": null,
-                "systems": [
-                  {
-                    "id": "24e825e3-c4fd-475a-987d-30dffa4ec3f3",
-                    "name": "",
-                    "isLegacy": false,
-                    "futureSystem": "",
-                    "qa": {
-                      "workarounds": null,
-                      "performance": null,
-                      "double": null,
-                      "error": null,
-                      "depend": null
-                    },
-                    "calculatedScore": null
-                  }
-                ]
-              },
-              "inputDefinitions": [],
-              "disruptions": [],
-              "workExp": null,
-              "workExpNote": "",
-              "outputUid": "out_d78cc6fb-d4a9-4ab7-90d3-c0c523907fb4"
-            },
-            {
-              "id": "656fc30e-ed1f-4e7f-a6ef-2f9d8b5278e8",
-              "created": 1769683302276,
-              "text": "",
-              "linkedSourceId": null,
-              "type": null,
-              "processValue": null,
-              "processStatus": null,
-              "successFactors": "",
-              "causes": [],
-              "improvements": [],
-              "qa": {
-                "compleet": {
-                  "result": "",
-                  "note": ""
-                },
-                "kwaliteit": {
-                  "result": "",
-                  "note": ""
-                },
-                "duidelijkheid": {
-                  "result": "",
-                  "note": ""
-                },
-                "tijdigheid": {
-                  "result": "",
-                  "note": ""
-                },
-                "standaard": {
-                  "result": "",
-                  "note": ""
-                },
-                "overdracht": {
-                  "result": "",
-                  "note": ""
-                }
-              },
-              "systemData": {
-                "isMulti": false,
-                "systemName": "",
-                "calculatedScore": null,
-                "systems": [
-                  {
-                    "id": "3038a175-01b0-40e0-8d03-1ad4da45d0ea",
-                    "name": "",
-                    "isLegacy": false,
-                    "futureSystem": "",
-                    "qa": {
-                      "workarounds": null,
-                      "performance": null,
-                      "double": null,
-                      "error": null,
-                      "depend": null
-                    },
-                    "calculatedScore": null
-                  }
-                ]
-              },
-              "inputDefinitions": [],
-              "disruptions": [],
-              "workExp": null,
-              "workExpNote": ""
-            }
-          ]
-        },
-        {
           "id": "b584d32b-3efc-4186-8162-589e043c95f5",
           "order": 1,
           "isVisible": true,
@@ -49807,6 +48308,501 @@
           "isGroup": false
         },
         {
+          "id": "106208ad-c277-4feb-bcad-536cbb5f9126",
+          "order": 1,
+          "isVisible": true,
+          "isParallel": false,
+          "isVariant": false,
+          "hasTransition": false,
+          "transitionNext": "",
+          "outputId": null,
+          "slots": [
+            {
+              "id": "3f54ae50-4667-42db-9d1e-6e7d641db21e",
+              "created": 1769683302276,
+              "text": "MBB'er  (Omloop)",
+              "linkedSourceId": null,
+              "type": null,
+              "processValue": null,
+              "processStatus": null,
+              "successFactors": "",
+              "causes": [],
+              "improvements": [],
+              "qa": {
+                "compleet": {
+                  "result": "",
+                  "note": ""
+                },
+                "kwaliteit": {
+                  "result": "",
+                  "note": ""
+                },
+                "duidelijkheid": {
+                  "result": "",
+                  "note": ""
+                },
+                "tijdigheid": {
+                  "result": "",
+                  "note": ""
+                },
+                "standaard": {
+                  "result": "",
+                  "note": ""
+                },
+                "overdracht": {
+                  "result": "",
+                  "note": ""
+                }
+              },
+              "systemData": {
+                "isMulti": false,
+                "systemName": "",
+                "calculatedScore": null,
+                "systems": [
+                  {
+                    "id": "efbb6c97-5ac1-4761-afbc-55dd28336efa",
+                    "name": "",
+                    "isLegacy": false,
+                    "futureSystem": "",
+                    "qa": {
+                      "workarounds": null,
+                      "performance": null,
+                      "double": null,
+                      "error": null,
+                      "depend": null
+                    },
+                    "calculatedScore": null
+                  }
+                ]
+              },
+              "inputDefinitions": [],
+              "disruptions": [],
+              "workExp": null,
+              "workExpNote": ""
+            },
+            {
+              "id": "77820219-ba9b-47f1-b6f7-a7e236173594",
+              "created": 1769683302276,
+              "text": "Radiotherapie Web",
+              "linkedSourceId": null,
+              "type": null,
+              "processValue": null,
+              "processStatus": null,
+              "successFactors": "",
+              "causes": [],
+              "improvements": [],
+              "qa": {
+                "compleet": {
+                  "result": "",
+                  "note": ""
+                },
+                "kwaliteit": {
+                  "result": "",
+                  "note": ""
+                },
+                "duidelijkheid": {
+                  "result": "",
+                  "note": ""
+                },
+                "tijdigheid": {
+                  "result": "",
+                  "note": ""
+                },
+                "standaard": {
+                  "result": "",
+                  "note": ""
+                },
+                "overdracht": {
+                  "result": "",
+                  "note": ""
+                }
+              },
+              "systemData": {
+                "isMulti": false,
+                "systemName": "",
+                "calculatedScore": null,
+                "systems": [
+                  {
+                    "id": "a49abd4a-c782-418c-acee-1d72572b996a",
+                    "name": "",
+                    "isLegacy": false,
+                    "futureSystem": "",
+                    "qa": {
+                      "workarounds": null,
+                      "performance": null,
+                      "double": null,
+                      "error": null,
+                      "depend": null
+                    },
+                    "calculatedScore": null
+                  }
+                ]
+              },
+              "inputDefinitions": [],
+              "disruptions": [],
+              "workExp": null,
+              "workExpNote": ""
+            },
+            {
+              "id": "4e8300f2-7a5e-4267-8e3d-af11a1dbf6ef",
+              "created": 1769683302276,
+              "text": "Liggegevens in digitale stralenkaart",
+              "linkedSourceId": null,
+              "type": null,
+              "processValue": null,
+              "processStatus": null,
+              "successFactors": "",
+              "causes": [],
+              "improvements": [],
+              "qa": {
+                "compleet": {
+                  "result": "GOOD",
+                  "impact": null,
+                  "note": ""
+                },
+                "kwaliteit": {
+                  "result": "GOOD",
+                  "impact": null,
+                  "note": ""
+                },
+                "duidelijkheid": {
+                  "result": "FAIL",
+                  "impact": "A",
+                  "note": "Bijvoorbeeld onduidelijk hoe een flab geplakt moet worden."
+                },
+                "tijdigheid": {
+                  "result": "GOOD",
+                  "impact": null,
+                  "note": ""
+                },
+                "standaard": {
+                  "result": "GOOD",
+                  "impact": null,
+                  "note": ""
+                },
+                "overdracht": {
+                  "result": "GOOD",
+                  "impact": null,
+                  "note": ""
+                }
+              },
+              "systemData": {
+                "isMulti": false,
+                "systemName": "",
+                "calculatedScore": null,
+                "systems": [
+                  {
+                    "id": "ce0c6241-8030-4b28-9314-d3a606c7bc76",
+                    "name": "",
+                    "isLegacy": false,
+                    "futureSystem": "",
+                    "qa": {
+                      "workarounds": null,
+                      "performance": null,
+                      "double": null,
+                      "error": null,
+                      "depend": null
+                    },
+                    "calculatedScore": null
+                  }
+                ]
+              },
+              "inputDefinitions": [
+                {
+                  "item": "Liggingsgegevens",
+                  "specifications": "Voor het instellen van de toestel",
+                  "type": "HARD"
+                },
+                {
+                  "item": "Doelgebied",
+                  "specifications": "Zodat je weet wat je moet bestralen",
+                  "type": "HARD"
+                },
+                {
+                  "item": "Naam CT-laborant",
+                  "specifications": "Voor escaleren",
+                  "type": "SOFT"
+                }
+              ],
+              "disruptions": [],
+              "workExp": null,
+              "workExpNote": "",
+              "linkedSourceUids": [],
+              "linkedSourceUid": null,
+              "linkedSourceIds": []
+            },
+            {
+              "id": "59c69e40-de12-45c0-98f6-77ccdd9c56b9",
+              "created": 1769683302276,
+              "text": "MBB'er (Toestel)",
+              "linkedSourceId": null,
+              "type": null,
+              "processValue": null,
+              "processStatus": null,
+              "successFactors": "",
+              "causes": [],
+              "improvements": [],
+              "qa": {
+                "compleet": {
+                  "result": "",
+                  "note": ""
+                },
+                "kwaliteit": {
+                  "result": "",
+                  "note": ""
+                },
+                "duidelijkheid": {
+                  "result": "",
+                  "note": ""
+                },
+                "tijdigheid": {
+                  "result": "",
+                  "note": ""
+                },
+                "standaard": {
+                  "result": "",
+                  "note": ""
+                },
+                "overdracht": {
+                  "result": "",
+                  "note": ""
+                }
+              },
+              "systemData": {
+                "isMulti": false,
+                "systemName": "",
+                "calculatedScore": null,
+                "systems": [
+                  {
+                    "id": "31042a7d-320c-49a8-ae0c-173c7ec7d47c",
+                    "name": "",
+                    "isLegacy": false,
+                    "futureSystem": "",
+                    "qa": {
+                      "workarounds": null,
+                      "performance": null,
+                      "double": null,
+                      "error": null,
+                      "depend": null
+                    },
+                    "calculatedScore": null
+                  }
+                ]
+              },
+              "inputDefinitions": [],
+              "disruptions": [],
+              "workExp": null,
+              "workExpNote": ""
+            },
+            {
+              "id": "811483b1-22b3-42a6-b3b0-9f0b7b42b170",
+              "created": 1769683302276,
+              "text": "Controleren liggegevens",
+              "linkedSourceId": null,
+              "type": "Taak",
+              "processValue": "BNVA",
+              "processStatus": "NEUTRAL",
+              "successFactors": "",
+              "causes": [
+                "Communicatie niet altijd even duidelijk"
+              ],
+              "improvements": [
+                "Beter communiceren"
+              ],
+              "qa": {
+                "compleet": {
+                  "result": "",
+                  "note": ""
+                },
+                "kwaliteit": {
+                  "result": "",
+                  "note": ""
+                },
+                "duidelijkheid": {
+                  "result": "",
+                  "note": ""
+                },
+                "tijdigheid": {
+                  "result": "",
+                  "note": ""
+                },
+                "standaard": {
+                  "result": "",
+                  "note": ""
+                },
+                "overdracht": {
+                  "result": "",
+                  "note": ""
+                }
+              },
+              "systemData": {
+                "isMulti": false,
+                "systemName": "",
+                "calculatedScore": null,
+                "systems": [
+                  {
+                    "id": "310e1888-b3cc-4f78-8087-d7d3699e6b68",
+                    "name": "",
+                    "isLegacy": false,
+                    "futureSystem": "",
+                    "qa": {
+                      "workarounds": null,
+                      "performance": null,
+                      "double": null,
+                      "error": null,
+                      "depend": null
+                    },
+                    "calculatedScore": null
+                  }
+                ]
+              },
+              "inputDefinitions": [],
+              "disruptions": [
+                {
+                  "scenario": "Liggegevens niet volledig gekopieerd in DSK",
+                  "frequency": "Soms",
+                  "workaround": "CT-formulier erbij pakken en corriger in DSK"
+                },
+                {
+                  "scenario": "Instelfoto's missen (foto van de houding)",
+                  "frequency": "Vaak",
+                  "workaround": "Extra controle foto's maken voor ligging (je dient dan onnodig rontgenstraling toe)"
+                }
+              ],
+              "workExp": "ROUTINE",
+              "workExpNote": "",
+              "outputUid": "out_d4217498-c5ee-483d-8038-dfb9c09eecef"
+            },
+            {
+              "id": "bcd240e3-ef40-4431-bff0-1b508cb1f43a",
+              "created": 1769683302276,
+              "text": "Gecontroleerde liggegevens",
+              "linkedSourceId": null,
+              "type": null,
+              "processValue": null,
+              "processStatus": null,
+              "successFactors": "",
+              "causes": [],
+              "improvements": [],
+              "qa": {
+                "compleet": {
+                  "result": "",
+                  "note": ""
+                },
+                "kwaliteit": {
+                  "result": "",
+                  "note": ""
+                },
+                "duidelijkheid": {
+                  "result": "",
+                  "note": ""
+                },
+                "tijdigheid": {
+                  "result": "",
+                  "note": ""
+                },
+                "standaard": {
+                  "result": "",
+                  "note": ""
+                },
+                "overdracht": {
+                  "result": "",
+                  "note": ""
+                }
+              },
+              "systemData": {
+                "isMulti": false,
+                "systemName": "",
+                "calculatedScore": null,
+                "systems": [
+                  {
+                    "id": "24e825e3-c4fd-475a-987d-30dffa4ec3f3",
+                    "name": "",
+                    "isLegacy": false,
+                    "futureSystem": "",
+                    "qa": {
+                      "workarounds": null,
+                      "performance": null,
+                      "double": null,
+                      "error": null,
+                      "depend": null
+                    },
+                    "calculatedScore": null
+                  }
+                ]
+              },
+              "inputDefinitions": [],
+              "disruptions": [],
+              "workExp": null,
+              "workExpNote": "",
+              "outputUid": "out_d78cc6fb-d4a9-4ab7-90d3-c0c523907fb4"
+            },
+            {
+              "id": "656fc30e-ed1f-4e7f-a6ef-2f9d8b5278e8",
+              "created": 1769683302276,
+              "text": "MBB'er (Toestel)",
+              "linkedSourceId": null,
+              "type": null,
+              "processValue": null,
+              "processStatus": null,
+              "successFactors": "",
+              "causes": [],
+              "improvements": [],
+              "qa": {
+                "compleet": {
+                  "result": "",
+                  "note": ""
+                },
+                "kwaliteit": {
+                  "result": "",
+                  "note": ""
+                },
+                "duidelijkheid": {
+                  "result": "",
+                  "note": ""
+                },
+                "tijdigheid": {
+                  "result": "",
+                  "note": ""
+                },
+                "standaard": {
+                  "result": "",
+                  "note": ""
+                },
+                "overdracht": {
+                  "result": "",
+                  "note": ""
+                }
+              },
+              "systemData": {
+                "isMulti": false,
+                "systemName": "",
+                "calculatedScore": null,
+                "systems": [
+                  {
+                    "id": "3038a175-01b0-40e0-8d03-1ad4da45d0ea",
+                    "name": "",
+                    "isLegacy": false,
+                    "futureSystem": "",
+                    "qa": {
+                      "workarounds": null,
+                      "performance": null,
+                      "double": null,
+                      "error": null,
+                      "depend": null
+                    },
+                    "calculatedScore": null
+                  }
+                ]
+              },
+              "inputDefinitions": [],
+              "disruptions": [],
+              "workExp": null,
+              "workExpNote": ""
+            }
+          ]
+        },
+        {
           "id": "c3f0fc02-19a5-4100-b63e-884b410030e4",
           "order": 1,
           "isVisible": true,
@@ -49819,7 +48815,7 @@
             {
               "id": "4a3c9783-5393-45b7-8343-be04b8568f8b",
               "created": 1769085023900,
-              "text": "MBB'er (Toestel)",
+              "text": "MBB'er (Omloop)",
               "linkedSourceId": null,
               "type": null,
               "processValue": null,
@@ -50068,7 +49064,7 @@
             {
               "id": "act_4c29f86d-cc85-4977-ac3b-ed32781c3d35",
               "created": 1769679069538,
-              "text": "",
+              "text": "MBB'er (Toestel)",
               "linkedSourceId": null,
               "type": "text",
               "processValue": null,
@@ -50140,7 +49136,7 @@
             {
               "id": "e54c9ef0-3bc9-49d9-bd39-077c483e3c1e",
               "created": 1769085023900,
-              "text": "Verplaatsen van instel ISOC naar bestralings ISOC",
+              "text": "Instellen tafelverplaatsing",
               "linkedSourceId": null,
               "type": null,
               "processValue": null,
@@ -50213,7 +49209,7 @@
             {
               "id": "aad84aa9-6452-4f11-8289-742b8a273127",
               "created": 1769085023900,
-              "text": "Elekta toestel ingesteld",
+              "text": "Ingestelde tafelverplaatsing",
               "linkedSourceId": null,
               "type": null,
               "processValue": null,
