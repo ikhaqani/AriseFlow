@@ -47609,7 +47609,7 @@
             {
               "id": "f972c4b2-231c-4fa3-b144-dd08be446dfd",
               "created": 1769084740335,
-              "text": "Tim-out 1 status: Geslaagd",
+              "text": "Time-out 1 status: Geslaagd",
               "linkedSourceId": null,
               "type": null,
               "processValue": null,
