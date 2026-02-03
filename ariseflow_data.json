@@ -5680,7 +5680,7 @@
               "systemData": {
                 "isMulti": false,
                 "systemName": "",
-                "calculatedScore": 80,
+                "calculatedScore": 0,
                 "systems": [
                   {
                     "id": "9e42f818-2e56-4fff-b93c-be2d970ce45a",
@@ -5701,19 +5701,11 @@
                   "multi": true,
                   "systems": [
                     {
-                      "id": "787f02c5-50ad-4888-8589-bfbf968f3c6e",
                       "name": "Beveiligde mail / Brief per post",
                       "legacy": false,
                       "future": "",
-                      "qa": {
-                        "q1": "NEVER",
-                        "q2": "NEVER",
-                        "q3": "SOMETIMES",
-                        "q4": "SOMETIMES",
-                        "q4_note": "Je kan een mail ontvangen zonder bijlage, maar dat ligt buiten ons ",
-                        "q5": "DELAY"
-                      },
-                      "score": 80
+                      "qa": {},
+                      "score": null
                     }
                   ],
                   "activeSystemIdx": 0
@@ -6260,7 +6252,7 @@
               "systemData": {
                 "isMulti": false,
                 "systemName": "",
-                "calculatedScore": 80,
+                "calculatedScore": 0,
                 "systems": [
                   {
                     "id": "c68d96ba-2fbf-48f1-827a-5202bc908a0c",
@@ -6281,19 +6273,11 @@
                   "multi": true,
                   "systems": [
                     {
-                      "id": "04a6732c-67d2-480f-906e-e9c1d87036d0",
                       "name": "Beveiligde mail / Brief per post",
                       "legacy": false,
                       "future": "",
-                      "qa": {
-                        "q1": "NEVER",
-                        "q2": "NEVER",
-                        "q3": "SOMETIMES",
-                        "q4": "SOMETIMES",
-                        "q4_note": "Je kan een mail ontvangen zonder bijlage, maar dat ligt buiten ons ",
-                        "q5": "DELAY"
-                      },
-                      "score": 80
+                      "qa": {},
+                      "score": null
                     }
                   ],
                   "activeSystemIdx": 0
@@ -6828,7 +6812,7 @@
               "systemData": {
                 "isMulti": false,
                 "systemName": "",
-                "calculatedScore": 80,
+                "calculatedScore": 0,
                 "systems": [
                   {
                     "id": "15a870c6-5644-4276-acf5-19b689f9fa71",
@@ -6849,19 +6833,11 @@
                   "multi": true,
                   "systems": [
                     {
-                      "id": "f0eac357-a88a-43f7-9b97-d480137b408c",
                       "name": "Beveiligde mail / Brief per post",
                       "legacy": false,
                       "future": "",
-                      "qa": {
-                        "q1": "NEVER",
-                        "q2": "NEVER",
-                        "q3": "SOMETIMES",
-                        "q4": "SOMETIMES",
-                        "q4_note": "Je kan een mail ontvangen zonder bijlage, maar dat ligt buiten ons ",
-                        "q5": "DELAY"
-                      },
-                      "score": 80
+                      "qa": {},
+                      "score": null
                     }
                   ],
                   "activeSystemIdx": 0
@@ -7382,7 +7358,7 @@
               "systemData": {
                 "isMulti": false,
                 "systemName": "",
-                "calculatedScore": 80,
+                "calculatedScore": 0,
                 "systems": [
                   {
                     "id": "65376924-6ec4-47e6-8fe3-01f39d44d1ac",
@@ -7403,19 +7379,11 @@
                   "multi": true,
                   "systems": [
                     {
-                      "id": "7b5f4543-0131-4df6-8799-2ab17dd66a0e",
                       "name": "Beveiligde mail / Brief per post",
                       "legacy": false,
                       "future": "",
-                      "qa": {
-                        "q1": "NEVER",
-                        "q2": "NEVER",
-                        "q3": "SOMETIMES",
-                        "q4": "SOMETIMES",
-                        "q4_note": "Je kan een mail ontvangen zonder bijlage, maar dat ligt buiten ons ",
-                        "q5": "DELAY"
-                      },
-                      "score": 80
+                      "qa": {},
+                      "score": null
                     }
                   ],
                   "activeSystemIdx": 0
@@ -9503,37 +9471,6 @@
       ],
       "mergeGroupsV2": [
         {
-          "slotIdx": 1,
-          "cols": [
-            3,
-            4,
-            5,
-            6
-          ],
-          "master": 6,
-          "label": "Merged System",
-          "systemsMeta": {
-            "multi": true,
-            "systems": [
-              {
-                "name": "Beveiligde mail / Brief per post",
-                "legacy": false,
-                "future": "",
-                "qa": {
-                  "q1": "NEVER",
-                  "q2": "NEVER",
-                  "q3": "SOMETIMES",
-                  "q4": "SOMETIMES",
-                  "q4_note": "Je kan een mail ontvangen zonder bijlage, maar dat ligt buiten ons ",
-                  "q5": "DELAY"
-                },
-                "score": 80
-              }
-            ],
-            "activeSystemIdx": 0
-          }
-        },
-        {
           "slotIdx": 2,
           "cols": [
             2,
@@ -9545,6 +9482,30 @@
           ],
           "master": 2,
           "label": "Merged Output"
+        },
+        {
+          "slotIdx": 1,
+          "cols": [
+            3,
+            4,
+            5,
+            6
+          ],
+          "master": 3,
+          "label": "Merged System",
+          "systemsMeta": {
+            "multi": true,
+            "systems": [
+              {
+                "name": "Beveiligde mail / Brief per post",
+                "legacy": false,
+                "future": "",
+                "qa": {},
+                "score": null
+              }
+            ],
+            "activeSystemIdx": 0
+          }
         }
       ]
     },
