@@ -4,7 +4,7 @@
   "author": "Anoniem",
   "created": "2026-01-16T08:48:17.021Z",
   "version": "2.7",
-  "activeSheetId": "c4a6645b-7d6d-4f06-971d-aa395fd39c3d",
+  "activeSheetId": "3a6a5e6a-f875-43f8-bf84-0d926377627a",
   "sheets": [
     {
       "id": "819bb6d9-21cc-49cf-8c40-4b6d7df6b2e1",
@@ -49774,7 +49774,7 @@
               "systemData": {
                 "isMulti": false,
                 "systemName": "",
-                "calculatedScore": null,
+                "calculatedScore": 80,
                 "systems": [
                   {
                     "id": "5036423d-02bf-46a5-aaff-90e13b2ef428",
@@ -49795,12 +49795,18 @@
                   "multi": false,
                   "systems": [
                     {
-                      "id": "182e9f06-7ba4-42bf-9afb-ce5413919036",
+                      "id": "87f5b43b-0652-49e6-9c7d-c7bb677cbd40",
                       "name": "",
                       "legacy": false,
                       "future": "",
-                      "qa": {},
-                      "score": null
+                      "qa": {
+                        "q1": "NEVER",
+                        "q2": "NEVER",
+                        "q3": "NEVER",
+                        "q4": "NEVER",
+                        "q5": "STOP"
+                      },
+                      "score": 80
                     }
                   ],
                   "activeSystemIdx": 0
@@ -49833,32 +49839,32 @@
               "improvements": [],
               "qa": {
                 "compleet": {
-                  "result": null,
-                  "impact": null,
-                  "note": ""
+                  "result": "MINOR",
+                  "impact": "B",
+                  "note": "Of blokkerend hangt er vanaf"
                 },
                 "kwaliteit": {
-                  "result": null,
+                  "result": "GOOD",
                   "impact": null,
                   "note": ""
                 },
                 "duidelijkheid": {
-                  "result": null,
+                  "result": "GOOD",
                   "impact": null,
                   "note": ""
                 },
                 "tijdigheid": {
-                  "result": null,
+                  "result": "GOOD",
                   "impact": null,
                   "note": ""
                 },
                 "standaard": {
-                  "result": null,
+                  "result": "GOOD",
                   "impact": null,
                   "note": ""
                 },
                 "overdracht": {
-                  "result": null,
+                  "result": "GOOD",
                   "impact": null,
                   "note": ""
                 }
@@ -49884,7 +49890,18 @@
                   }
                 ]
               },
-              "inputDefinitions": [],
+              "inputDefinitions": [
+                {
+                  "item": "Radiotherapie Web",
+                  "specifications": "",
+                  "type": "HARD"
+                },
+                {
+                  "item": "Pinnacle",
+                  "specifications": "",
+                  "type": "HARD"
+                }
+              ],
               "disruptions": [],
               "workExp": null,
               "workExpNote": "",
@@ -49978,12 +49995,12 @@
             {
               "id": "41e8fde6-ecdf-4084-a690-92dee618911b",
               "created": 1770185369072,
-              "text": "Importeren plan",
+              "text": "Afronden OB_intekening taak",
               "linkedSourceId": null,
-              "type": null,
+              "type": "Taak",
               "processValue": null,
-              "processStatus": null,
-              "successFactors": "",
+              "processStatus": "HAPPY",
+              "successFactors": "Je hoeft alleen een taak af te ronden",
               "causes": [],
               "improvements": [],
               "qa": {
@@ -50034,8 +50051,14 @@
                 ]
               },
               "inputDefinitions": [],
-              "disruptions": [],
-              "workExp": null,
+              "disruptions": [
+                {
+                  "scenario": "Radiotherapie Web doet het niet",
+                  "frequency": "Zelden",
+                  "workaround": "Afwachten totdat we weer verder kunnen"
+                }
+              ],
+              "workExp": "ROUTINE",
               "workExpNote": "",
               "outputUid": "out_745ea0ec-6a96-4753-9720-34ab6e535412",
               "linkedSourceUids": [],
@@ -50051,7 +50074,7 @@
             {
               "id": "feca6c1e-03b4-4e41-ac03-eb673e7b984e",
               "created": 1770185369072,
-              "text": "Geïmporteerd plan",
+              "text": "Taak maken planning",
               "linkedSourceId": null,
               "type": null,
               "processValue": null,
@@ -50124,7 +50147,7 @@
             {
               "id": "ac81a9b2-da5c-49af-921f-1ed2615490e5",
               "created": 1770185369072,
-              "text": "MBB'er (planning)",
+              "text": "MBB'er (Planning)",
               "linkedSourceId": null,
               "type": null,
               "processValue": null,
@@ -50203,7 +50226,7 @@
           "id": "8086eb61-4247-49df-86be-5808eee69387",
           "order": 1,
           "isVisible": true,
-          "isParallel": false,
+          "isParallel": true,
           "isVariant": false,
           "hasTransition": false,
           "transitionNext": "",
@@ -50212,7 +50235,7 @@
             {
               "id": "0aa2306d-6f6a-4005-bd9a-91d98d77c004",
               "created": 1770189571694,
-              "text": "MBB'er (Planning)",
+              "text": "Behandelend arts",
               "linkedSourceId": null,
               "type": null,
               "processValue": null,
@@ -50284,7 +50307,7 @@
             {
               "id": "d32491e5-35d2-4a58-99da-7952338307eb",
               "created": 1770189571695,
-              "text": "Pinnacle",
+              "text": "Radiotherapie Web",
               "linkedSourceId": null,
               "type": null,
               "processValue": null,
@@ -50321,7 +50344,7 @@
               "systemData": {
                 "isMulti": false,
                 "systemName": "",
-                "calculatedScore": null,
+                "calculatedScore": 93,
                 "systems": [
                   {
                     "id": "4b8c7dca-f77f-490a-b7f8-f95802a713b7",
@@ -50342,12 +50365,18 @@
                   "multi": false,
                   "systems": [
                     {
-                      "id": "e2bc8a56-6328-4409-9ae3-48bf87ba25f4",
+                      "id": "3c436079-ea52-4c37-95e2-d726e57101c0",
                       "name": "",
                       "legacy": false,
                       "future": "",
-                      "qa": {},
-                      "score": null
+                      "qa": {
+                        "q1": "NEVER",
+                        "q2": "NEVER",
+                        "q3": "NEVER",
+                        "q4": "NEVER",
+                        "q5": "DELAY"
+                      },
+                      "score": 93
                     }
                   ],
                   "activeSystemIdx": 0
@@ -50370,7 +50399,7 @@
             {
               "id": "9f1cf5f4-e57a-494e-8c70-9c4171e24879",
               "created": 1770189571695,
-              "text": "",
+              "text": "Ingevulde Planningsformulier",
               "linkedSourceId": null,
               "type": null,
               "processValue": null,
@@ -50380,32 +50409,32 @@
               "improvements": [],
               "qa": {
                 "compleet": {
-                  "result": null,
-                  "impact": null,
-                  "note": ""
+                  "result": "MODERATE",
+                  "impact": "B",
+                  "note": "Vaak vullen artsen het formulier niet  of niet volledig in, waardoor wij na moeten vragen of wij ergens rekening mee moeten houden."
                 },
                 "kwaliteit": {
-                  "result": null,
+                  "result": "GOOD",
                   "impact": null,
                   "note": ""
                 },
                 "duidelijkheid": {
-                  "result": null,
-                  "impact": null,
-                  "note": ""
+                  "result": "MODERATE",
+                  "impact": "B",
+                  "note": "Vaak wel navragen bij de arts wat ze bedoelen\\willen."
                 },
                 "tijdigheid": {
-                  "result": null,
-                  "impact": null,
-                  "note": ""
+                  "result": "MINOR",
+                  "impact": "B",
+                  "note": "Beschikbaar als ze het invullen, maar als ze toch iets willen wat ze niet hebben aangegeven dan was het dus niet beschikbaar."
                 },
                 "standaard": {
-                  "result": null,
-                  "impact": null,
+                  "result": "MINOR",
+                  "impact": "B",
                   "note": ""
                 },
                 "overdracht": {
-                  "result": null,
+                  "result": "GOOD",
                   "impact": null,
                   "note": ""
                 }
@@ -50431,16 +50460,20 @@
                   }
                 ]
               },
-              "inputDefinitions": [],
+              "inputDefinitions": [
+                {
+                  "item": "radiotherapieweb",
+                  "specifications": "In radiotherapieweb staat het formulier",
+                  "type": "HARD"
+                }
+              ],
               "disruptions": [],
               "workExp": null,
               "workExpNote": "",
               "linkedBundleId": null,
               "linkedBundleIds": [],
-              "linkedSourceUids": [
-                "out_b69afb76-aa4a-40a1-80e8-9c6224100b11"
-              ],
-              "linkedSourceUid": "out_b69afb76-aa4a-40a1-80e8-9c6224100b11",
+              "linkedSourceUids": [],
+              "linkedSourceUid": null,
               "linkedSourceIds": [],
               "gate": {
                 "checkProcessIds": [],
@@ -50525,11 +50558,11 @@
             {
               "id": "ad475eda-b225-482d-90d9-26e110a6dfea",
               "created": 1770189571695,
-              "text": "Matchen beelden",
+              "text": "Controleren Planningsformulier",
               "linkedSourceId": null,
-              "type": null,
+              "type": "TimeOut",
               "processValue": null,
-              "processStatus": null,
+              "processStatus": "NEUTRAL",
               "successFactors": "",
               "causes": [],
               "improvements": [],
@@ -50581,9 +50614,15 @@
                 ]
               },
               "inputDefinitions": [],
-              "disruptions": [],
-              "workExp": null,
-              "workExpNote": "",
+              "disruptions": [
+                {
+                  "scenario": "geen pklanningsformulier of onvolledig",
+                  "frequency": "Soms",
+                  "workaround": "contact opnemen met arts"
+                }
+              ],
+              "workExp": "OBSTACLE",
+              "workExpNote": "Kost energie als de arts het niet volledig heeft ingevuld of is vergeten in te vullen. (nu moeten ze zelf het planningsformulier aanmaken als ze dat willen gebruiken).",
               "outputUid": "out_6f36a7b7-3933-4121-ac46-994562d90310",
               "linkedSourceUids": [],
               "linkedBundleIds": [],
@@ -50598,7 +50637,7 @@
             {
               "id": "043db6db-3e0e-4857-bd33-64185598faa6",
               "created": 1770189571695,
-              "text": "Gematchte beelden",
+              "text": "Ingevulde planningsformulier",
               "linkedSourceId": null,
               "type": null,
               "processValue": null,
@@ -50748,6 +50787,1082 @@
           },
           "isConditional": true,
           "isQuestion": false,
+          "isGroup": false
+        },
+        {
+          "id": "bffaa458-c882-4c4c-89fe-e5af9b0972bd",
+          "order": 1,
+          "isVisible": true,
+          "isParallel": true,
+          "isVariant": false,
+          "hasTransition": false,
+          "transitionNext": "",
+          "outputId": null,
+          "slots": [
+            {
+              "id": "e9eee010-2482-4772-9779-ddd1c307d4f2",
+              "created": 1770214280696,
+              "text": "MBB'er (Planning)",
+              "linkedSourceId": null,
+              "type": null,
+              "processValue": null,
+              "processStatus": null,
+              "successFactors": "",
+              "causes": [],
+              "improvements": [],
+              "qa": {
+                "compleet": {
+                  "result": "",
+                  "note": ""
+                },
+                "kwaliteit": {
+                  "result": "",
+                  "note": ""
+                },
+                "duidelijkheid": {
+                  "result": "",
+                  "note": ""
+                },
+                "tijdigheid": {
+                  "result": "",
+                  "note": ""
+                },
+                "standaard": {
+                  "result": "",
+                  "note": ""
+                },
+                "overdracht": {
+                  "result": "",
+                  "note": ""
+                }
+              },
+              "systemData": {
+                "isMulti": false,
+                "systemName": "",
+                "calculatedScore": null,
+                "systems": [
+                  {
+                    "id": "56af54cb-343e-4157-8e82-afc126f2a2b1",
+                    "name": "",
+                    "isLegacy": false,
+                    "futureSystem": "",
+                    "qa": {
+                      "workarounds": null,
+                      "performance": null,
+                      "double": null,
+                      "error": null,
+                      "depend": null
+                    },
+                    "calculatedScore": null
+                  }
+                ]
+              },
+              "inputDefinitions": [],
+              "disruptions": [],
+              "workExp": null,
+              "workExpNote": "",
+              "linkedSourceUids": [],
+              "linkedBundleIds": [],
+              "gate": {
+                "checkProcessIds": [],
+                "onFailTargetProcessId": null,
+                "onPassTargetProcessId": null,
+                "rule": "ALL_OK",
+                "note": ""
+              }
+            },
+            {
+              "id": "3129e916-5317-4ba6-bf01-2a1bf332b529",
+              "created": 1770214280696,
+              "text": "Radiotherapie Web",
+              "linkedSourceId": null,
+              "type": null,
+              "processValue": null,
+              "processStatus": null,
+              "successFactors": "",
+              "causes": [],
+              "improvements": [],
+              "qa": {
+                "compleet": {
+                  "result": "",
+                  "note": ""
+                },
+                "kwaliteit": {
+                  "result": "",
+                  "note": ""
+                },
+                "duidelijkheid": {
+                  "result": "",
+                  "note": ""
+                },
+                "tijdigheid": {
+                  "result": "",
+                  "note": ""
+                },
+                "standaard": {
+                  "result": "",
+                  "note": ""
+                },
+                "overdracht": {
+                  "result": "",
+                  "note": ""
+                }
+              },
+              "systemData": {
+                "isMulti": false,
+                "systemName": "",
+                "calculatedScore": null,
+                "systems": [
+                  {
+                    "id": "11b9834c-d642-4ac7-85bf-1970b835118a",
+                    "name": "",
+                    "isLegacy": false,
+                    "futureSystem": "",
+                    "qa": {
+                      "workarounds": null,
+                      "performance": null,
+                      "double": null,
+                      "error": null,
+                      "depend": null
+                    },
+                    "calculatedScore": null
+                  }
+                ],
+                "systemsMeta": {
+                  "multi": false,
+                  "systems": [
+                    {
+                      "id": "d579e42e-fb95-4231-88d7-4f4a3d8b9e1d",
+                      "name": "",
+                      "legacy": false,
+                      "future": "",
+                      "qa": {},
+                      "score": null
+                    }
+                  ],
+                  "activeSystemIdx": 0
+                }
+              },
+              "inputDefinitions": [],
+              "disruptions": [],
+              "workExp": null,
+              "workExpNote": "",
+              "linkedSourceUids": [],
+              "linkedBundleIds": [],
+              "gate": {
+                "checkProcessIds": [],
+                "onFailTargetProcessId": null,
+                "onPassTargetProcessId": null,
+                "rule": "ALL_OK",
+                "note": ""
+              }
+            },
+            {
+              "id": "a45afd56-93e9-425d-8632-6cca27b73359",
+              "created": 1770214280696,
+              "text": "Taak maken planning",
+              "linkedSourceId": null,
+              "type": null,
+              "processValue": null,
+              "processStatus": null,
+              "successFactors": "",
+              "causes": [],
+              "improvements": [],
+              "qa": {
+                "compleet": {
+                  "result": "",
+                  "note": ""
+                },
+                "kwaliteit": {
+                  "result": "",
+                  "note": ""
+                },
+                "duidelijkheid": {
+                  "result": "",
+                  "note": ""
+                },
+                "tijdigheid": {
+                  "result": "",
+                  "note": ""
+                },
+                "standaard": {
+                  "result": "",
+                  "note": ""
+                },
+                "overdracht": {
+                  "result": "",
+                  "note": ""
+                }
+              },
+              "systemData": {
+                "isMulti": false,
+                "systemName": "",
+                "calculatedScore": null,
+                "systems": [
+                  {
+                    "id": "2b666ce3-f555-42da-a20e-b851b5c21411",
+                    "name": "",
+                    "isLegacy": false,
+                    "futureSystem": "",
+                    "qa": {
+                      "workarounds": null,
+                      "performance": null,
+                      "double": null,
+                      "error": null,
+                      "depend": null
+                    },
+                    "calculatedScore": null
+                  }
+                ]
+              },
+              "inputDefinitions": [],
+              "disruptions": [],
+              "workExp": null,
+              "workExpNote": "",
+              "linkedSourceUids": [],
+              "linkedBundleIds": [],
+              "linkedBundleId": null,
+              "linkedSourceUid": null,
+              "gate": {
+                "checkProcessIds": [],
+                "onFailTargetProcessId": null,
+                "onPassTargetProcessId": null,
+                "rule": "ALL_OK",
+                "note": ""
+              }
+            },
+            {
+              "id": "be093b9b-3ea0-4f49-bfc2-024ade621e6a",
+              "created": 1770214280696,
+              "text": "MBB'er (Planning)",
+              "linkedSourceId": null,
+              "type": null,
+              "processValue": null,
+              "processStatus": null,
+              "successFactors": "",
+              "causes": [],
+              "improvements": [],
+              "qa": {
+                "compleet": {
+                  "result": "",
+                  "note": ""
+                },
+                "kwaliteit": {
+                  "result": "",
+                  "note": ""
+                },
+                "duidelijkheid": {
+                  "result": "",
+                  "note": ""
+                },
+                "tijdigheid": {
+                  "result": "",
+                  "note": ""
+                },
+                "standaard": {
+                  "result": "",
+                  "note": ""
+                },
+                "overdracht": {
+                  "result": "",
+                  "note": ""
+                }
+              },
+              "systemData": {
+                "isMulti": false,
+                "systemName": "",
+                "calculatedScore": null,
+                "systems": [
+                  {
+                    "id": "262c9890-6254-4813-b8c8-1e023dcad2ce",
+                    "name": "",
+                    "isLegacy": false,
+                    "futureSystem": "",
+                    "qa": {
+                      "workarounds": null,
+                      "performance": null,
+                      "double": null,
+                      "error": null,
+                      "depend": null
+                    },
+                    "calculatedScore": null
+                  }
+                ]
+              },
+              "inputDefinitions": [],
+              "disruptions": [],
+              "workExp": null,
+              "workExpNote": "",
+              "linkedSourceUids": [],
+              "linkedBundleIds": [],
+              "gate": {
+                "checkProcessIds": [],
+                "onFailTargetProcessId": null,
+                "onPassTargetProcessId": null,
+                "rule": "ALL_OK",
+                "note": ""
+              }
+            },
+            {
+              "id": "57ceb7f9-2578-4b02-9b4d-0999fee6d375",
+              "created": 1770214280696,
+              "text": "Taak maken planning afronden",
+              "linkedSourceId": null,
+              "type": null,
+              "processValue": null,
+              "processStatus": null,
+              "successFactors": "",
+              "causes": [],
+              "improvements": [],
+              "qa": {
+                "compleet": {
+                  "result": "",
+                  "note": ""
+                },
+                "kwaliteit": {
+                  "result": "",
+                  "note": ""
+                },
+                "duidelijkheid": {
+                  "result": "",
+                  "note": ""
+                },
+                "tijdigheid": {
+                  "result": "",
+                  "note": ""
+                },
+                "standaard": {
+                  "result": "",
+                  "note": ""
+                },
+                "overdracht": {
+                  "result": "",
+                  "note": ""
+                }
+              },
+              "systemData": {
+                "isMulti": false,
+                "systemName": "",
+                "calculatedScore": null,
+                "systems": [
+                  {
+                    "id": "f0e06589-5ce8-4432-aae5-2ff9468cbd5c",
+                    "name": "",
+                    "isLegacy": false,
+                    "futureSystem": "",
+                    "qa": {
+                      "workarounds": null,
+                      "performance": null,
+                      "double": null,
+                      "error": null,
+                      "depend": null
+                    },
+                    "calculatedScore": null
+                  }
+                ]
+              },
+              "inputDefinitions": [],
+              "disruptions": [],
+              "workExp": null,
+              "workExpNote": "",
+              "outputUid": "out_e40051ed-6d23-412e-a05a-9895995d9b88",
+              "linkedSourceUids": [],
+              "linkedBundleIds": [],
+              "gate": {
+                "checkProcessIds": [],
+                "onFailTargetProcessId": null,
+                "onPassTargetProcessId": null,
+                "rule": "ALL_OK",
+                "note": ""
+              }
+            },
+            {
+              "id": "0c1d06ec-c1ef-4901-b0cc-a59c68a03903",
+              "created": 1770214280696,
+              "text": "Taak wordt gepland",
+              "linkedSourceId": null,
+              "type": null,
+              "processValue": null,
+              "processStatus": null,
+              "successFactors": "",
+              "causes": [],
+              "improvements": [],
+              "qa": {
+                "compleet": {
+                  "result": "",
+                  "note": ""
+                },
+                "kwaliteit": {
+                  "result": "",
+                  "note": ""
+                },
+                "duidelijkheid": {
+                  "result": "",
+                  "note": ""
+                },
+                "tijdigheid": {
+                  "result": "",
+                  "note": ""
+                },
+                "standaard": {
+                  "result": "",
+                  "note": ""
+                },
+                "overdracht": {
+                  "result": "",
+                  "note": ""
+                }
+              },
+              "systemData": {
+                "isMulti": false,
+                "systemName": "",
+                "calculatedScore": null,
+                "systems": [
+                  {
+                    "id": "16c8169c-3c2a-41b3-b718-48a29d3e2212",
+                    "name": "",
+                    "isLegacy": false,
+                    "futureSystem": "",
+                    "qa": {
+                      "workarounds": null,
+                      "performance": null,
+                      "double": null,
+                      "error": null,
+                      "depend": null
+                    },
+                    "calculatedScore": null
+                  }
+                ]
+              },
+              "inputDefinitions": [],
+              "disruptions": [],
+              "workExp": null,
+              "workExpNote": "",
+              "outputUid": "out_14e87b24-308d-4726-8958-402334a1402a",
+              "linkedSourceUids": [],
+              "linkedBundleIds": [],
+              "gate": {
+                "checkProcessIds": [],
+                "onFailTargetProcessId": null,
+                "onPassTargetProcessId": null,
+                "rule": "ALL_OK",
+                "note": ""
+              }
+            },
+            {
+              "id": "49d8125a-0f81-40ff-8110-39323ce5e9d3",
+              "created": 1770214280696,
+              "text": "MBB'er (Planning)",
+              "linkedSourceId": null,
+              "type": null,
+              "processValue": null,
+              "processStatus": null,
+              "successFactors": "",
+              "causes": [],
+              "improvements": [],
+              "qa": {
+                "compleet": {
+                  "result": "",
+                  "note": ""
+                },
+                "kwaliteit": {
+                  "result": "",
+                  "note": ""
+                },
+                "duidelijkheid": {
+                  "result": "",
+                  "note": ""
+                },
+                "tijdigheid": {
+                  "result": "",
+                  "note": ""
+                },
+                "standaard": {
+                  "result": "",
+                  "note": ""
+                },
+                "overdracht": {
+                  "result": "",
+                  "note": ""
+                }
+              },
+              "systemData": {
+                "isMulti": false,
+                "systemName": "",
+                "calculatedScore": null,
+                "systems": [
+                  {
+                    "id": "61b8f527-3cbe-4e24-bd29-2f5bd8a8d155",
+                    "name": "",
+                    "isLegacy": false,
+                    "futureSystem": "",
+                    "qa": {
+                      "workarounds": null,
+                      "performance": null,
+                      "double": null,
+                      "error": null,
+                      "depend": null
+                    },
+                    "calculatedScore": null
+                  }
+                ]
+              },
+              "inputDefinitions": [],
+              "disruptions": [],
+              "workExp": null,
+              "workExpNote": "",
+              "linkedSourceUids": [],
+              "linkedBundleIds": [],
+              "gate": {
+                "checkProcessIds": [],
+                "onFailTargetProcessId": null,
+                "onPassTargetProcessId": null,
+                "rule": "ALL_OK",
+                "note": ""
+              }
+            }
+          ],
+          "isQuestion": false,
+          "isConditional": false,
+          "logic": null,
+          "isGroup": false
+        },
+        {
+          "id": "7d9302e8-5b99-4ece-a89a-990d8a82b749",
+          "order": 1,
+          "isVisible": true,
+          "isParallel": false,
+          "isVariant": false,
+          "hasTransition": false,
+          "transitionNext": "",
+          "outputId": null,
+          "slots": [
+            {
+              "id": "84ebc61c-dd9b-4312-b8f3-e1a45b7488de",
+              "created": 1770214337920,
+              "text": "MBB'er (Planning)",
+              "linkedSourceId": null,
+              "type": null,
+              "processValue": null,
+              "processStatus": null,
+              "successFactors": "",
+              "causes": [],
+              "improvements": [],
+              "qa": {
+                "compleet": {
+                  "result": "",
+                  "note": ""
+                },
+                "kwaliteit": {
+                  "result": "",
+                  "note": ""
+                },
+                "duidelijkheid": {
+                  "result": "",
+                  "note": ""
+                },
+                "tijdigheid": {
+                  "result": "",
+                  "note": ""
+                },
+                "standaard": {
+                  "result": "",
+                  "note": ""
+                },
+                "overdracht": {
+                  "result": "",
+                  "note": ""
+                }
+              },
+              "systemData": {
+                "isMulti": false,
+                "systemName": "",
+                "calculatedScore": null,
+                "systems": [
+                  {
+                    "id": "5ad5fff1-3f7f-42fc-8228-15b7958c1e51",
+                    "name": "",
+                    "isLegacy": false,
+                    "futureSystem": "",
+                    "qa": {
+                      "workarounds": null,
+                      "performance": null,
+                      "double": null,
+                      "error": null,
+                      "depend": null
+                    },
+                    "calculatedScore": null
+                  }
+                ]
+              },
+              "inputDefinitions": [],
+              "disruptions": [],
+              "workExp": null,
+              "workExpNote": "",
+              "linkedSourceUids": [],
+              "linkedBundleIds": [],
+              "gate": {
+                "checkProcessIds": [],
+                "onFailTargetProcessId": null,
+                "onPassTargetProcessId": null,
+                "rule": "ALL_OK",
+                "note": ""
+              }
+            },
+            {
+              "id": "47fecd3e-cfb2-40e2-8631-7e5962ee223f",
+              "created": 1770214337920,
+              "text": "Radiotherapie Web / Pinnacle",
+              "linkedSourceId": null,
+              "type": null,
+              "processValue": null,
+              "processStatus": null,
+              "successFactors": "",
+              "causes": [],
+              "improvements": [],
+              "qa": {
+                "compleet": {
+                  "result": "",
+                  "note": ""
+                },
+                "kwaliteit": {
+                  "result": "",
+                  "note": ""
+                },
+                "duidelijkheid": {
+                  "result": "",
+                  "note": ""
+                },
+                "tijdigheid": {
+                  "result": "",
+                  "note": ""
+                },
+                "standaard": {
+                  "result": "",
+                  "note": ""
+                },
+                "overdracht": {
+                  "result": "",
+                  "note": ""
+                }
+              },
+              "systemData": {
+                "isMulti": false,
+                "systemName": "",
+                "calculatedScore": null,
+                "systems": [
+                  {
+                    "id": "2cb9b999-1feb-4cd2-b218-dac3df513c78",
+                    "name": "",
+                    "isLegacy": false,
+                    "futureSystem": "",
+                    "qa": {
+                      "workarounds": null,
+                      "performance": null,
+                      "double": null,
+                      "error": null,
+                      "depend": null
+                    },
+                    "calculatedScore": null
+                  }
+                ],
+                "systemsMeta": {
+                  "multi": false,
+                  "systems": [
+                    {
+                      "id": "6b8227e1-ce65-4b85-8ea3-026abb23efa0",
+                      "name": "",
+                      "legacy": false,
+                      "future": "",
+                      "qa": {},
+                      "score": null
+                    }
+                  ],
+                  "activeSystemIdx": 0
+                }
+              },
+              "inputDefinitions": [],
+              "disruptions": [],
+              "workExp": null,
+              "workExpNote": "",
+              "linkedSourceUids": [],
+              "linkedBundleIds": [],
+              "gate": {
+                "checkProcessIds": [],
+                "onFailTargetProcessId": null,
+                "onPassTargetProcessId": null,
+                "rule": "ALL_OK",
+                "note": ""
+              }
+            },
+            {
+              "id": "db65fcbc-89b9-418c-b0c8-5df48b85b9d1",
+              "created": 1770214337920,
+              "text": "Taken wordt gepland",
+              "linkedSourceId": null,
+              "type": null,
+              "processValue": null,
+              "processStatus": null,
+              "successFactors": "",
+              "causes": [],
+              "improvements": [],
+              "qa": {
+                "compleet": {
+                  "result": "",
+                  "note": ""
+                },
+                "kwaliteit": {
+                  "result": "",
+                  "note": ""
+                },
+                "duidelijkheid": {
+                  "result": "",
+                  "note": ""
+                },
+                "tijdigheid": {
+                  "result": "",
+                  "note": ""
+                },
+                "standaard": {
+                  "result": "",
+                  "note": ""
+                },
+                "overdracht": {
+                  "result": "",
+                  "note": ""
+                }
+              },
+              "systemData": {
+                "isMulti": false,
+                "systemName": "",
+                "calculatedScore": null,
+                "systems": [
+                  {
+                    "id": "c42fae37-915a-4b8b-b6de-3dd97a79e8d8",
+                    "name": "",
+                    "isLegacy": false,
+                    "futureSystem": "",
+                    "qa": {
+                      "workarounds": null,
+                      "performance": null,
+                      "double": null,
+                      "error": null,
+                      "depend": null
+                    },
+                    "calculatedScore": null
+                  }
+                ]
+              },
+              "inputDefinitions": [],
+              "disruptions": [],
+              "workExp": null,
+              "workExpNote": "",
+              "linkedSourceUids": [],
+              "linkedBundleIds": [],
+              "linkedBundleId": null,
+              "linkedSourceUid": null,
+              "gate": {
+                "checkProcessIds": [],
+                "onFailTargetProcessId": null,
+                "onPassTargetProcessId": null,
+                "rule": "ALL_OK",
+                "note": ""
+              }
+            },
+            {
+              "id": "1f27bfb5-866e-4fbc-92b7-d5b922f377fa",
+              "created": 1770214337920,
+              "text": "MBB'er (Planning)",
+              "linkedSourceId": null,
+              "type": null,
+              "processValue": null,
+              "processStatus": null,
+              "successFactors": "",
+              "causes": [],
+              "improvements": [],
+              "qa": {
+                "compleet": {
+                  "result": "",
+                  "note": ""
+                },
+                "kwaliteit": {
+                  "result": "",
+                  "note": ""
+                },
+                "duidelijkheid": {
+                  "result": "",
+                  "note": ""
+                },
+                "tijdigheid": {
+                  "result": "",
+                  "note": ""
+                },
+                "standaard": {
+                  "result": "",
+                  "note": ""
+                },
+                "overdracht": {
+                  "result": "",
+                  "note": ""
+                }
+              },
+              "systemData": {
+                "isMulti": false,
+                "systemName": "",
+                "calculatedScore": null,
+                "systems": [
+                  {
+                    "id": "7b6682d9-1bec-460c-ba10-1766b8981c95",
+                    "name": "",
+                    "isLegacy": false,
+                    "futureSystem": "",
+                    "qa": {
+                      "workarounds": null,
+                      "performance": null,
+                      "double": null,
+                      "error": null,
+                      "depend": null
+                    },
+                    "calculatedScore": null
+                  }
+                ]
+              },
+              "inputDefinitions": [],
+              "disruptions": [],
+              "workExp": null,
+              "workExpNote": "",
+              "linkedSourceUids": [],
+              "linkedBundleIds": [],
+              "gate": {
+                "checkProcessIds": [],
+                "onFailTargetProcessId": null,
+                "onPassTargetProcessId": null,
+                "rule": "ALL_OK",
+                "note": ""
+              }
+            },
+            {
+              "id": "40744436-3f51-4a4a-aac7-f870322cb45c",
+              "created": 1770214337920,
+              "text": "Maken bestralingsplan",
+              "linkedSourceId": null,
+              "type": null,
+              "processValue": null,
+              "processStatus": null,
+              "successFactors": "",
+              "causes": [],
+              "improvements": [],
+              "qa": {
+                "compleet": {
+                  "result": "",
+                  "note": ""
+                },
+                "kwaliteit": {
+                  "result": "",
+                  "note": ""
+                },
+                "duidelijkheid": {
+                  "result": "",
+                  "note": ""
+                },
+                "tijdigheid": {
+                  "result": "",
+                  "note": ""
+                },
+                "standaard": {
+                  "result": "",
+                  "note": ""
+                },
+                "overdracht": {
+                  "result": "",
+                  "note": ""
+                }
+              },
+              "systemData": {
+                "isMulti": false,
+                "systemName": "",
+                "calculatedScore": null,
+                "systems": [
+                  {
+                    "id": "86cb2ad1-ca17-4a27-9517-a57983be72ee",
+                    "name": "",
+                    "isLegacy": false,
+                    "futureSystem": "",
+                    "qa": {
+                      "workarounds": null,
+                      "performance": null,
+                      "double": null,
+                      "error": null,
+                      "depend": null
+                    },
+                    "calculatedScore": null
+                  }
+                ]
+              },
+              "inputDefinitions": [],
+              "disruptions": [],
+              "workExp": null,
+              "workExpNote": "",
+              "outputUid": "out_ce62fbe3-7ca2-4b53-8f60-c13fb4ef29dd",
+              "linkedSourceUids": [],
+              "linkedBundleIds": [],
+              "gate": {
+                "checkProcessIds": [],
+                "onFailTargetProcessId": null,
+                "onPassTargetProcessId": null,
+                "rule": "ALL_OK",
+                "note": ""
+              }
+            },
+            {
+              "id": "e1be5d04-beb1-4d8e-83d1-41d9f602dadf",
+              "created": 1770214337920,
+              "text": "Concept bestralingsplan",
+              "linkedSourceId": null,
+              "type": null,
+              "processValue": null,
+              "processStatus": null,
+              "successFactors": "",
+              "causes": [],
+              "improvements": [],
+              "qa": {
+                "compleet": {
+                  "result": "",
+                  "note": ""
+                },
+                "kwaliteit": {
+                  "result": "",
+                  "note": ""
+                },
+                "duidelijkheid": {
+                  "result": "",
+                  "note": ""
+                },
+                "tijdigheid": {
+                  "result": "",
+                  "note": ""
+                },
+                "standaard": {
+                  "result": "",
+                  "note": ""
+                },
+                "overdracht": {
+                  "result": "",
+                  "note": ""
+                }
+              },
+              "systemData": {
+                "isMulti": false,
+                "systemName": "",
+                "calculatedScore": null,
+                "systems": [
+                  {
+                    "id": "cbc965f0-a4c8-4b96-9327-1276bf29236e",
+                    "name": "",
+                    "isLegacy": false,
+                    "futureSystem": "",
+                    "qa": {
+                      "workarounds": null,
+                      "performance": null,
+                      "double": null,
+                      "error": null,
+                      "depend": null
+                    },
+                    "calculatedScore": null
+                  }
+                ]
+              },
+              "inputDefinitions": [],
+              "disruptions": [],
+              "workExp": null,
+              "workExpNote": "",
+              "outputUid": "out_4f9c91ac-ddb3-4817-8ee3-50e01b0eaa06",
+              "linkedSourceUids": [],
+              "linkedBundleIds": [],
+              "gate": {
+                "checkProcessIds": [],
+                "onFailTargetProcessId": null,
+                "onPassTargetProcessId": null,
+                "rule": "ALL_OK",
+                "note": ""
+              }
+            },
+            {
+              "id": "673249f2-6db1-4e1a-955f-b203511c2142",
+              "created": 1770214337920,
+              "text": "Behandelend arts",
+              "linkedSourceId": null,
+              "type": null,
+              "processValue": null,
+              "processStatus": null,
+              "successFactors": "",
+              "causes": [],
+              "improvements": [],
+              "qa": {
+                "compleet": {
+                  "result": "",
+                  "note": ""
+                },
+                "kwaliteit": {
+                  "result": "",
+                  "note": ""
+                },
+                "duidelijkheid": {
+                  "result": "",
+                  "note": ""
+                },
+                "tijdigheid": {
+                  "result": "",
+                  "note": ""
+                },
+                "standaard": {
+                  "result": "",
+                  "note": ""
+                },
+                "overdracht": {
+                  "result": "",
+                  "note": ""
+                }
+              },
+              "systemData": {
+                "isMulti": false,
+                "systemName": "",
+                "calculatedScore": null,
+                "systems": [
+                  {
+                    "id": "e887733f-a3d8-4b0c-a373-59fe9825d57f",
+                    "name": "",
+                    "isLegacy": false,
+                    "futureSystem": "",
+                    "qa": {
+                      "workarounds": null,
+                      "performance": null,
+                      "double": null,
+                      "error": null,
+                      "depend": null
+                    },
+                    "calculatedScore": null
+                  }
+                ]
+              },
+              "inputDefinitions": [],
+              "disruptions": [],
+              "workExp": null,
+              "workExpNote": "",
+              "linkedSourceUids": [],
+              "linkedBundleIds": [],
+              "gate": {
+                "checkProcessIds": [],
+                "onFailTargetProcessId": null,
+                "onPassTargetProcessId": null,
+                "rule": "ALL_OK",
+                "note": ""
+              }
+            }
+          ],
+          "isQuestion": false,
+          "isConditional": false,
+          "logic": null,
           "isGroup": false
         },
         {
@@ -50921,7 +52036,7 @@
             {
               "id": "9ba19935-8a40-4a4e-ad8a-d885e510459c",
               "created": 1770189712573,
-              "text": "",
+              "text": "Beoordelen plan + SMS taak",
               "linkedSourceId": null,
               "type": null,
               "processValue": null,
@@ -50988,10 +52103,8 @@
               "workExpNote": "",
               "linkedBundleId": null,
               "linkedBundleIds": [],
-              "linkedSourceUids": [
-                "out_b69afb76-aa4a-40a1-80e8-9c6224100b11"
-              ],
-              "linkedSourceUid": "out_b69afb76-aa4a-40a1-80e8-9c6224100b11",
+              "linkedSourceUids": [],
+              "linkedSourceUid": null,
               "linkedSourceIds": [],
               "gate": {
                 "checkProcessIds": [],
@@ -51076,7 +52189,7 @@
             {
               "id": "0720560c-3a2b-4ae3-83e2-9eaac69abe88",
               "created": 1770189712573,
-              "text": "Maken behandelplan",
+              "text": "Versturen SMS",
               "linkedSourceId": null,
               "type": null,
               "processValue": null,
@@ -51149,7 +52262,7 @@
             {
               "id": "9dc18649-2600-433d-9b40-055c2f500977",
               "created": 1770189712573,
-              "text": "Concept RTplan",
+              "text": "SMS-bericht",
               "linkedSourceId": null,
               "type": null,
               "processValue": null,
@@ -51298,18 +52411,18 @@
           "isGroup": false
         },
         {
-          "id": "4718dc1e-6de9-417b-8a1a-46881d670d35",
+          "id": "5060ba34-72c9-4c69-b850-8c75d4598349",
           "order": 1,
           "isVisible": true,
-          "isParallel": false,
+          "isParallel": true,
           "isVariant": false,
           "hasTransition": false,
           "transitionNext": "",
           "outputId": null,
           "slots": [
             {
-              "id": "04a0db2f-6c1a-4785-9a69-076510a4ee80",
-              "created": 1770189863122,
+              "id": "459853dd-7523-4f20-99ab-60bd574a1e0c",
+              "created": 1770214460554,
               "text": "MBB'er (Planning)",
               "linkedSourceId": null,
               "type": null,
@@ -51350,7 +52463,7 @@
                 "calculatedScore": null,
                 "systems": [
                   {
-                    "id": "d9882ca7-bf2b-4bb2-bc37-1311d56cd5c8",
+                    "id": "aecc0f25-47d5-413b-b014-acd6cc5fb3a5",
                     "name": "",
                     "isLegacy": false,
                     "futureSystem": "",
@@ -51380,9 +52493,9 @@
               }
             },
             {
-              "id": "5df23d11-668e-4e03-a41c-ecc67e7b92e0",
-              "created": 1770189863123,
-              "text": "Pinnacle",
+              "id": "255d039a-1337-45bf-8c84-c07cf1b38680",
+              "created": 1770214460554,
+              "text": "Radiotherapie Web",
               "linkedSourceId": null,
               "type": null,
               "processValue": null,
@@ -51422,7 +52535,7 @@
                 "calculatedScore": null,
                 "systems": [
                   {
-                    "id": "dc490a1f-123d-469c-bb95-9f8f99e56911",
+                    "id": "94ae9e92-860d-4a8b-9b8c-b1036b3517d1",
                     "name": "",
                     "isLegacy": false,
                     "futureSystem": "",
@@ -51440,7 +52553,7 @@
                   "multi": false,
                   "systems": [
                     {
-                      "id": "8592711a-84db-43a4-a234-12b60e075b21",
+                      "id": "6634f156-8e23-4aa6-b032-83991f2a3f7c",
                       "name": "",
                       "legacy": false,
                       "future": "",
@@ -51466,9 +52579,9 @@
               }
             },
             {
-              "id": "1c09c936-b159-4d6a-a54a-784f886a54de",
-              "created": 1770189863123,
-              "text": "",
+              "id": "03f4c1b2-fc6b-4479-a679-277d1640bc8a",
+              "created": 1770214460554,
+              "text": "Optimalisatieformulier",
               "linkedSourceId": null,
               "type": null,
               "processValue": null,
@@ -51478,33 +52591,27 @@
               "improvements": [],
               "qa": {
                 "compleet": {
-                  "result": null,
-                  "impact": null,
+                  "result": "",
                   "note": ""
                 },
                 "kwaliteit": {
-                  "result": null,
-                  "impact": null,
+                  "result": "",
                   "note": ""
                 },
                 "duidelijkheid": {
-                  "result": null,
-                  "impact": null,
+                  "result": "",
                   "note": ""
                 },
                 "tijdigheid": {
-                  "result": null,
-                  "impact": null,
+                  "result": "",
                   "note": ""
                 },
                 "standaard": {
-                  "result": null,
-                  "impact": null,
+                  "result": "",
                   "note": ""
                 },
                 "overdracht": {
-                  "result": null,
-                  "impact": null,
+                  "result": "",
                   "note": ""
                 }
               },
@@ -51514,7 +52621,7 @@
                 "calculatedScore": null,
                 "systems": [
                   {
-                    "id": "42dbf9be-fc62-4331-872f-c06cab424693",
+                    "id": "f5097b4f-a556-40c8-a217-489f4caf71d9",
                     "name": "",
                     "isLegacy": false,
                     "futureSystem": "",
@@ -51533,13 +52640,10 @@
               "disruptions": [],
               "workExp": null,
               "workExpNote": "",
-              "linkedBundleId": null,
+              "linkedSourceUids": [],
               "linkedBundleIds": [],
-              "linkedSourceUids": [
-                "out_8bb16e6b-621c-43dd-a18d-3a6fa7cfba05"
-              ],
-              "linkedSourceUid": "out_8bb16e6b-621c-43dd-a18d-3a6fa7cfba05",
-              "linkedSourceIds": [],
+              "linkedBundleId": null,
+              "linkedSourceUid": null,
               "gate": {
                 "checkProcessIds": [],
                 "onFailTargetProcessId": null,
@@ -51549,8 +52653,8 @@
               }
             },
             {
-              "id": "eb3fb05d-226a-4a5f-a9ba-376f00f4c975",
-              "created": 1770189863123,
+              "id": "f762b5da-4049-4d41-8524-41363040dc88",
+              "created": 1770214460554,
               "text": "MBB'er (Planning)",
               "linkedSourceId": null,
               "type": null,
@@ -51591,7 +52695,7 @@
                 "calculatedScore": null,
                 "systems": [
                   {
-                    "id": "47727b3f-4ff3-4e9f-b530-9ae676621820",
+                    "id": "ba956768-ba8d-4eec-b8c6-4c320dc2f96e",
                     "name": "",
                     "isLegacy": false,
                     "futureSystem": "",
@@ -51621,9 +52725,9 @@
               }
             },
             {
-              "id": "3e52eda8-9bc1-43bc-bd2a-ebf703b0cb3a",
-              "created": 1770189863123,
-              "text": "Versturen SMS",
+              "id": "68e36dd8-f638-4e6a-84f6-20f2459a875c",
+              "created": 1770214460554,
+              "text": "Invullen optimalisatieformulier",
               "linkedSourceId": null,
               "type": null,
               "processValue": null,
@@ -51663,7 +52767,7 @@
                 "calculatedScore": null,
                 "systems": [
                   {
-                    "id": "abb09e86-5908-4505-bd48-a223098b7e5c",
+                    "id": "22c0dee2-20d4-4f8e-b878-9cf711fc629f",
                     "name": "",
                     "isLegacy": false,
                     "futureSystem": "",
@@ -51682,7 +52786,7 @@
               "disruptions": [],
               "workExp": null,
               "workExpNote": "",
-              "outputUid": "out_2897c812-718c-4bc2-84de-c99b0ef811bf",
+              "outputUid": "out_4c30f0a5-06bf-4783-b489-ab07bd98ab45",
               "linkedSourceUids": [],
               "linkedBundleIds": [],
               "gate": {
@@ -51694,9 +52798,9 @@
               }
             },
             {
-              "id": "673ad48d-d63e-4c32-b82b-98fcfb2428e3",
-              "created": 1770189863123,
-              "text": "SMS-bericht",
+              "id": "07412fa1-eda2-4e52-87d0-8e8062c04852",
+              "created": 1770214460554,
+              "text": "Ingevulde optimalisatieformulier",
               "linkedSourceId": null,
               "type": null,
               "processValue": null,
@@ -51736,7 +52840,7 @@
                 "calculatedScore": null,
                 "systems": [
                   {
-                    "id": "9c8c8b19-f60b-48b4-83f9-1d2556e10ed6",
+                    "id": "82dafc43-f58c-4322-84a6-ddc477766b21",
                     "name": "",
                     "isLegacy": false,
                     "futureSystem": "",
@@ -51755,7 +52859,7 @@
               "disruptions": [],
               "workExp": null,
               "workExpNote": "",
-              "outputUid": "out_16a084b4-2f2c-470f-8a7e-92f5ac662cc5",
+              "outputUid": "out_44f014c2-439a-40bf-b3b0-f58c412c4c64",
               "linkedSourceUids": [],
               "linkedBundleIds": [],
               "gate": {
@@ -51767,9 +52871,9 @@
               }
             },
             {
-              "id": "c86e6313-d30a-4215-9804-12fe687b1596",
-              "created": 1770189863123,
-              "text": "Behandelend arts",
+              "id": "41192bb5-eb6c-45cb-bff1-529cfaf864c0",
+              "created": 1770214460554,
+              "text": "MBB'er (Planning)",
               "linkedSourceId": null,
               "type": null,
               "processValue": null,
@@ -51809,7 +52913,7 @@
                 "calculatedScore": null,
                 "systems": [
                   {
-                    "id": "0495b093-932d-477f-9cf4-de849f1d9910",
+                    "id": "c817eff1-6d2a-4d33-b44e-fef296901d82",
                     "name": "",
                     "isLegacy": false,
                     "futureSystem": "",
@@ -51929,7 +53033,7 @@
             {
               "id": "7b4e44b5-ca23-46ed-b0e4-08a1c58b558a",
               "created": 1770189980613,
-              "text": "MessageBird",
+              "text": "Message Bird",
               "linkedSourceId": null,
               "type": null,
               "processValue": null,
@@ -52015,7 +53119,7 @@
             {
               "id": "07cfd4e2-6ffc-4a95-b3ac-fa7a7d08e916",
               "created": 1770189980613,
-              "text": "",
+              "text": "SMS-bericht",
               "linkedSourceId": null,
               "type": null,
               "processValue": null,
@@ -52082,10 +53186,8 @@
               "workExpNote": "",
               "linkedBundleId": null,
               "linkedBundleIds": [],
-              "linkedSourceUids": [
-                "out_16a084b4-2f2c-470f-8a7e-92f5ac662cc5"
-              ],
-              "linkedSourceUid": "out_16a084b4-2f2c-470f-8a7e-92f5ac662cc5",
+              "linkedSourceUids": [],
+              "linkedSourceUid": null,
               "linkedSourceIds": [],
               "gate": {
                 "checkProcessIds": [],
@@ -52403,7 +53505,7 @@
           "id": "30f09c15-e5c0-4528-ad36-3fb7a7569ecf",
           "order": 1,
           "isVisible": true,
-          "isParallel": false,
+          "isParallel": true,
           "isVariant": false,
           "hasTransition": false,
           "transitionNext": "",
@@ -52484,7 +53586,7 @@
             {
               "id": "bb466cec-96d0-4861-95d2-a9851c38be73",
               "created": 1770190124624,
-              "text": "Radiotherapie Web",
+              "text": "Radiotherapie Web / Pinnacle",
               "linkedSourceId": null,
               "type": null,
               "processValue": null,
@@ -52570,7 +53672,7 @@
             {
               "id": "7f678092-0f0a-4f43-b00a-960af6e936ed",
               "created": 1770190124624,
-              "text": "Planningstaak",
+              "text": "Beoordelen plan taak",
               "linkedSourceId": null,
               "type": null,
               "processValue": null,
@@ -52716,7 +53818,7 @@
             {
               "id": "9a9cdcc2-1ec7-46ee-b46f-383d54d03cb1",
               "created": 1770190124624,
-              "text": "Afronden taak beoordelen plan",
+              "text": "Afronden taak beoordelen plan + invullen taak plan + tekenen plan",
               "linkedSourceId": null,
               "type": null,
               "processValue": null,
@@ -52789,7 +53891,7 @@
             {
               "id": "ff25e01a-1e22-48d5-841c-f34f3ca7bd98",
               "created": 1770190124624,
-              "text": "Afgeronde taak beoordelen plan",
+              "text": "Afgeronde taak beoordelen plan + het krijgen van taak plan beoordeeld",
               "linkedSourceId": null,
               "type": null,
               "processValue": null,
@@ -52938,6 +54040,544 @@
           "isGroup": false
         },
         {
+          "id": "003ad619-8186-4ac6-b32d-9d3eee18ffec",
+          "order": 1,
+          "isVisible": true,
+          "isParallel": false,
+          "isVariant": false,
+          "hasTransition": false,
+          "transitionNext": "",
+          "outputId": null,
+          "slots": [
+            {
+              "id": "b2a5f4e9-a9e9-44d0-b749-4637456f1dc0",
+              "created": 1770212244372,
+              "text": "MBB'er (Planning)",
+              "linkedSourceId": null,
+              "type": null,
+              "processValue": null,
+              "processStatus": null,
+              "successFactors": "",
+              "causes": [],
+              "improvements": [],
+              "qa": {
+                "compleet": {
+                  "result": "",
+                  "note": ""
+                },
+                "kwaliteit": {
+                  "result": "",
+                  "note": ""
+                },
+                "duidelijkheid": {
+                  "result": "",
+                  "note": ""
+                },
+                "tijdigheid": {
+                  "result": "",
+                  "note": ""
+                },
+                "standaard": {
+                  "result": "",
+                  "note": ""
+                },
+                "overdracht": {
+                  "result": "",
+                  "note": ""
+                }
+              },
+              "systemData": {
+                "isMulti": false,
+                "systemName": "",
+                "calculatedScore": null,
+                "systems": [
+                  {
+                    "id": "fdb25666-1c30-47b5-b386-04472dfa22c3",
+                    "name": "",
+                    "isLegacy": false,
+                    "futureSystem": "",
+                    "qa": {
+                      "workarounds": null,
+                      "performance": null,
+                      "double": null,
+                      "error": null,
+                      "depend": null
+                    },
+                    "calculatedScore": null
+                  }
+                ]
+              },
+              "inputDefinitions": [],
+              "disruptions": [],
+              "workExp": null,
+              "workExpNote": "",
+              "linkedSourceUids": [],
+              "linkedBundleIds": [],
+              "gate": {
+                "checkProcessIds": [],
+                "onFailTargetProcessId": null,
+                "onPassTargetProcessId": null,
+                "rule": "ALL_OK",
+                "note": ""
+              }
+            },
+            {
+              "id": "346b3b66-472c-47c0-9e99-efe947656d26",
+              "created": 1770212244372,
+              "text": "Radiotherapie Web",
+              "linkedSourceId": null,
+              "type": null,
+              "processValue": null,
+              "processStatus": null,
+              "successFactors": "",
+              "causes": [],
+              "improvements": [],
+              "qa": {
+                "compleet": {
+                  "result": "",
+                  "note": ""
+                },
+                "kwaliteit": {
+                  "result": "",
+                  "note": ""
+                },
+                "duidelijkheid": {
+                  "result": "",
+                  "note": ""
+                },
+                "tijdigheid": {
+                  "result": "",
+                  "note": ""
+                },
+                "standaard": {
+                  "result": "",
+                  "note": ""
+                },
+                "overdracht": {
+                  "result": "",
+                  "note": ""
+                }
+              },
+              "systemData": {
+                "isMulti": false,
+                "systemName": "",
+                "calculatedScore": null,
+                "systems": [
+                  {
+                    "id": "73d088a2-089f-47b5-96f2-d1b9469b10b5",
+                    "name": "",
+                    "isLegacy": false,
+                    "futureSystem": "",
+                    "qa": {
+                      "workarounds": null,
+                      "performance": null,
+                      "double": null,
+                      "error": null,
+                      "depend": null
+                    },
+                    "calculatedScore": null
+                  }
+                ],
+                "systemsMeta": {
+                  "multi": false,
+                  "systems": [
+                    {
+                      "id": "c9af5163-c217-447f-a45d-7c7568096950",
+                      "name": "",
+                      "legacy": false,
+                      "future": "",
+                      "qa": {},
+                      "score": null
+                    }
+                  ],
+                  "activeSystemIdx": 0
+                }
+              },
+              "inputDefinitions": [],
+              "disruptions": [],
+              "workExp": null,
+              "workExpNote": "",
+              "linkedSourceUids": [],
+              "linkedBundleIds": [],
+              "gate": {
+                "checkProcessIds": [],
+                "onFailTargetProcessId": null,
+                "onPassTargetProcessId": null,
+                "rule": "ALL_OK",
+                "note": ""
+              }
+            },
+            {
+              "id": "75ecc622-0f12-4854-b08d-676c740d8df7",
+              "created": 1770212244372,
+              "text": "Taak plan beoordeeld",
+              "linkedSourceId": null,
+              "type": null,
+              "processValue": null,
+              "processStatus": null,
+              "successFactors": "",
+              "causes": [],
+              "improvements": [],
+              "qa": {
+                "compleet": {
+                  "result": "",
+                  "note": ""
+                },
+                "kwaliteit": {
+                  "result": "",
+                  "note": ""
+                },
+                "duidelijkheid": {
+                  "result": "",
+                  "note": ""
+                },
+                "tijdigheid": {
+                  "result": "",
+                  "note": ""
+                },
+                "standaard": {
+                  "result": "",
+                  "note": ""
+                },
+                "overdracht": {
+                  "result": "",
+                  "note": ""
+                }
+              },
+              "systemData": {
+                "isMulti": false,
+                "systemName": "",
+                "calculatedScore": null,
+                "systems": [
+                  {
+                    "id": "cc2b0d9a-af53-48d4-90de-3854cd3c5a2f",
+                    "name": "",
+                    "isLegacy": false,
+                    "futureSystem": "",
+                    "qa": {
+                      "workarounds": null,
+                      "performance": null,
+                      "double": null,
+                      "error": null,
+                      "depend": null
+                    },
+                    "calculatedScore": null
+                  }
+                ]
+              },
+              "inputDefinitions": [],
+              "disruptions": [],
+              "workExp": null,
+              "workExpNote": "",
+              "linkedSourceUids": [],
+              "linkedBundleIds": [],
+              "linkedBundleId": null,
+              "linkedSourceUid": null,
+              "gate": {
+                "checkProcessIds": [],
+                "onFailTargetProcessId": null,
+                "onPassTargetProcessId": null,
+                "rule": "ALL_OK",
+                "note": ""
+              }
+            },
+            {
+              "id": "445d4434-bb16-4ed0-adbb-17e9deb9d75c",
+              "created": 1770212244372,
+              "text": "MBB'er (Planning)",
+              "linkedSourceId": null,
+              "type": null,
+              "processValue": null,
+              "processStatus": null,
+              "successFactors": "",
+              "causes": [],
+              "improvements": [],
+              "qa": {
+                "compleet": {
+                  "result": "",
+                  "note": ""
+                },
+                "kwaliteit": {
+                  "result": "",
+                  "note": ""
+                },
+                "duidelijkheid": {
+                  "result": "",
+                  "note": ""
+                },
+                "tijdigheid": {
+                  "result": "",
+                  "note": ""
+                },
+                "standaard": {
+                  "result": "",
+                  "note": ""
+                },
+                "overdracht": {
+                  "result": "",
+                  "note": ""
+                }
+              },
+              "systemData": {
+                "isMulti": false,
+                "systemName": "",
+                "calculatedScore": null,
+                "systems": [
+                  {
+                    "id": "50ab5bf4-a013-43d2-8f0a-1d33a58950ad",
+                    "name": "",
+                    "isLegacy": false,
+                    "futureSystem": "",
+                    "qa": {
+                      "workarounds": null,
+                      "performance": null,
+                      "double": null,
+                      "error": null,
+                      "depend": null
+                    },
+                    "calculatedScore": null
+                  }
+                ]
+              },
+              "inputDefinitions": [],
+              "disruptions": [],
+              "workExp": null,
+              "workExpNote": "",
+              "linkedSourceUids": [],
+              "linkedBundleIds": [],
+              "gate": {
+                "checkProcessIds": [],
+                "onFailTargetProcessId": null,
+                "onPassTargetProcessId": null,
+                "rule": "ALL_OK",
+                "note": ""
+              }
+            },
+            {
+              "id": "9a45c217-e793-4fac-8e9d-1ee971b7b039",
+              "created": 1770212244372,
+              "text": "Afronden taak wordt gepland",
+              "linkedSourceId": null,
+              "type": null,
+              "processValue": null,
+              "processStatus": null,
+              "successFactors": "",
+              "causes": [],
+              "improvements": [],
+              "qa": {
+                "compleet": {
+                  "result": "",
+                  "note": ""
+                },
+                "kwaliteit": {
+                  "result": "",
+                  "note": ""
+                },
+                "duidelijkheid": {
+                  "result": "",
+                  "note": ""
+                },
+                "tijdigheid": {
+                  "result": "",
+                  "note": ""
+                },
+                "standaard": {
+                  "result": "",
+                  "note": ""
+                },
+                "overdracht": {
+                  "result": "",
+                  "note": ""
+                }
+              },
+              "systemData": {
+                "isMulti": false,
+                "systemName": "",
+                "calculatedScore": null,
+                "systems": [
+                  {
+                    "id": "a12bfb5c-26dd-4ccb-a2b7-2db54934b8e4",
+                    "name": "",
+                    "isLegacy": false,
+                    "futureSystem": "",
+                    "qa": {
+                      "workarounds": null,
+                      "performance": null,
+                      "double": null,
+                      "error": null,
+                      "depend": null
+                    },
+                    "calculatedScore": null
+                  }
+                ]
+              },
+              "inputDefinitions": [],
+              "disruptions": [],
+              "workExp": null,
+              "workExpNote": "",
+              "outputUid": "out_12a06df4-5d26-4563-91bd-dca54efa963e",
+              "linkedSourceUids": [],
+              "linkedBundleIds": [],
+              "gate": {
+                "checkProcessIds": [],
+                "onFailTargetProcessId": null,
+                "onPassTargetProcessId": null,
+                "rule": "ALL_OK",
+                "note": ""
+              }
+            },
+            {
+              "id": "08b64835-e02b-4ddd-9d51-9ee4b0577efd",
+              "created": 1770212244372,
+              "text": "Het krijgen van taak afwerken",
+              "linkedSourceId": null,
+              "type": null,
+              "processValue": null,
+              "processStatus": null,
+              "successFactors": "",
+              "causes": [],
+              "improvements": [],
+              "qa": {
+                "compleet": {
+                  "result": "",
+                  "note": ""
+                },
+                "kwaliteit": {
+                  "result": "",
+                  "note": ""
+                },
+                "duidelijkheid": {
+                  "result": "",
+                  "note": ""
+                },
+                "tijdigheid": {
+                  "result": "",
+                  "note": ""
+                },
+                "standaard": {
+                  "result": "",
+                  "note": ""
+                },
+                "overdracht": {
+                  "result": "",
+                  "note": ""
+                }
+              },
+              "systemData": {
+                "isMulti": false,
+                "systemName": "",
+                "calculatedScore": null,
+                "systems": [
+                  {
+                    "id": "17f59ee2-63f4-475b-8db2-b351d70aa5a8",
+                    "name": "",
+                    "isLegacy": false,
+                    "futureSystem": "",
+                    "qa": {
+                      "workarounds": null,
+                      "performance": null,
+                      "double": null,
+                      "error": null,
+                      "depend": null
+                    },
+                    "calculatedScore": null
+                  }
+                ]
+              },
+              "inputDefinitions": [],
+              "disruptions": [],
+              "workExp": null,
+              "workExpNote": "",
+              "outputUid": "out_571ec621-b8ad-423d-b0fd-f01fb9bb1451",
+              "linkedSourceUids": [],
+              "linkedBundleIds": [],
+              "gate": {
+                "checkProcessIds": [],
+                "onFailTargetProcessId": null,
+                "onPassTargetProcessId": null,
+                "rule": "ALL_OK",
+                "note": ""
+              }
+            },
+            {
+              "id": "e139c46c-a62b-45e4-98dc-746430f9b42e",
+              "created": 1770212244372,
+              "text": "MBB'er (Planning)",
+              "linkedSourceId": null,
+              "type": null,
+              "processValue": null,
+              "processStatus": null,
+              "successFactors": "",
+              "causes": [],
+              "improvements": [],
+              "qa": {
+                "compleet": {
+                  "result": "",
+                  "note": ""
+                },
+                "kwaliteit": {
+                  "result": "",
+                  "note": ""
+                },
+                "duidelijkheid": {
+                  "result": "",
+                  "note": ""
+                },
+                "tijdigheid": {
+                  "result": "",
+                  "note": ""
+                },
+                "standaard": {
+                  "result": "",
+                  "note": ""
+                },
+                "overdracht": {
+                  "result": "",
+                  "note": ""
+                }
+              },
+              "systemData": {
+                "isMulti": false,
+                "systemName": "",
+                "calculatedScore": null,
+                "systems": [
+                  {
+                    "id": "25c8c81d-404e-49c0-8daf-ac283beb2784",
+                    "name": "",
+                    "isLegacy": false,
+                    "futureSystem": "",
+                    "qa": {
+                      "workarounds": null,
+                      "performance": null,
+                      "double": null,
+                      "error": null,
+                      "depend": null
+                    },
+                    "calculatedScore": null
+                  }
+                ]
+              },
+              "inputDefinitions": [],
+              "disruptions": [],
+              "workExp": null,
+              "workExpNote": "",
+              "linkedSourceUids": [],
+              "linkedBundleIds": [],
+              "gate": {
+                "checkProcessIds": [],
+                "onFailTargetProcessId": null,
+                "onPassTargetProcessId": null,
+                "rule": "ALL_OK",
+                "note": ""
+              }
+            }
+          ],
+          "isQuestion": false,
+          "isConditional": false,
+          "logic": null,
+          "isGroup": false
+        },
+        {
           "id": "8e943bdb-90ef-4c5c-aea5-e494e65fb6fb",
           "order": 1,
           "isVisible": true,
@@ -52950,7 +54590,7 @@
             {
               "id": "ff7fb787-d390-4154-bf77-2fe2fcdef50b",
               "created": 1770190092676,
-              "text": "Behandelend arts",
+              "text": "MBB'er (Planning)",
               "linkedSourceId": null,
               "type": null,
               "processValue": null,
@@ -53116,7 +54756,7 @@
             {
               "id": "3302053d-58e0-4ac2-9c90-f08f1e1d0b9d",
               "created": 1770190092676,
-              "text": "Taak afwerken plan",
+              "text": "Goedgekeurde plan",
               "linkedSourceId": null,
               "type": null,
               "processValue": null,
@@ -53183,11 +54823,8 @@
               "workExpNote": "",
               "linkedBundleId": null,
               "linkedBundleIds": [],
-              "linkedSourceUids": [
-                "out_a8285c8f-64b4-4d08-a704-4130faf145c3",
-                "out_e8e17085-410e-4a5c-aa23-0a85c7b22740"
-              ],
-              "linkedSourceUid": "out_a8285c8f-64b4-4d08-a704-4130faf145c3",
+              "linkedSourceUids": [],
+              "linkedSourceUid": null,
               "linkedSourceIds": [],
               "gate": {
                 "checkProcessIds": [],
@@ -53272,7 +54909,7 @@
             {
               "id": "f5335f01-95c2-4a5b-83dc-ce5d1422aa20",
               "created": 1770190092676,
-              "text": "Afwerken plan",
+              "text": "Afwerken plan + tekenen plan",
               "linkedSourceId": null,
               "type": null,
               "processValue": null,
@@ -53418,7 +55055,7 @@
             {
               "id": "910bbb91-70d7-4191-ae70-859fdc7313c9",
               "created": 1770190092676,
-              "text": "Behandelend arts / Klinisch fysicus / MBB'er (Omloop)",
+              "text": "Klinisch fysicus / MBB'er (Planning)",
               "linkedSourceId": null,
               "type": null,
               "processValue": null,
@@ -53494,6 +55131,1620 @@
           "isGroup": false
         },
         {
+          "id": "ffb47821-3439-4f03-ab46-cf71aa62e5d6",
+          "order": 1,
+          "isVisible": true,
+          "isParallel": true,
+          "isVariant": false,
+          "hasTransition": false,
+          "transitionNext": "",
+          "outputId": null,
+          "slots": [
+            {
+              "id": "10f00333-7110-49b0-b89e-840c72edd54c",
+              "created": 1770214816177,
+              "text": "MBB'er (Planning)",
+              "linkedSourceId": null,
+              "type": null,
+              "processValue": null,
+              "processStatus": null,
+              "successFactors": "",
+              "causes": [],
+              "improvements": [],
+              "qa": {
+                "compleet": {
+                  "result": "",
+                  "note": ""
+                },
+                "kwaliteit": {
+                  "result": "",
+                  "note": ""
+                },
+                "duidelijkheid": {
+                  "result": "",
+                  "note": ""
+                },
+                "tijdigheid": {
+                  "result": "",
+                  "note": ""
+                },
+                "standaard": {
+                  "result": "",
+                  "note": ""
+                },
+                "overdracht": {
+                  "result": "",
+                  "note": ""
+                }
+              },
+              "systemData": {
+                "isMulti": false,
+                "systemName": "",
+                "calculatedScore": null,
+                "systems": [
+                  {
+                    "id": "94b81858-e229-4546-b219-fb6744b7c16d",
+                    "name": "",
+                    "isLegacy": false,
+                    "futureSystem": "",
+                    "qa": {
+                      "workarounds": null,
+                      "performance": null,
+                      "double": null,
+                      "error": null,
+                      "depend": null
+                    },
+                    "calculatedScore": null
+                  }
+                ]
+              },
+              "inputDefinitions": [],
+              "disruptions": [],
+              "workExp": null,
+              "workExpNote": "",
+              "linkedSourceUids": [],
+              "linkedBundleIds": [],
+              "gate": {
+                "checkProcessIds": [],
+                "onFailTargetProcessId": null,
+                "onPassTargetProcessId": null,
+                "rule": "ALL_OK",
+                "note": ""
+              }
+            },
+            {
+              "id": "bebe0df3-4207-4c51-b288-334da8a9d893",
+              "created": 1770214816177,
+              "text": "Radiotherapie Web",
+              "linkedSourceId": null,
+              "type": null,
+              "processValue": null,
+              "processStatus": null,
+              "successFactors": "",
+              "causes": [],
+              "improvements": [],
+              "qa": {
+                "compleet": {
+                  "result": "",
+                  "note": ""
+                },
+                "kwaliteit": {
+                  "result": "",
+                  "note": ""
+                },
+                "duidelijkheid": {
+                  "result": "",
+                  "note": ""
+                },
+                "tijdigheid": {
+                  "result": "",
+                  "note": ""
+                },
+                "standaard": {
+                  "result": "",
+                  "note": ""
+                },
+                "overdracht": {
+                  "result": "",
+                  "note": ""
+                }
+              },
+              "systemData": {
+                "isMulti": false,
+                "systemName": "",
+                "calculatedScore": null,
+                "systems": [
+                  {
+                    "id": "f8500c1d-4560-48c1-8cd0-8668e69ed41b",
+                    "name": "",
+                    "isLegacy": false,
+                    "futureSystem": "",
+                    "qa": {
+                      "workarounds": null,
+                      "performance": null,
+                      "double": null,
+                      "error": null,
+                      "depend": null
+                    },
+                    "calculatedScore": null
+                  }
+                ],
+                "systemsMeta": {
+                  "multi": false,
+                  "systems": [
+                    {
+                      "id": "66ec8c2b-fc15-453a-9338-c4d39adf1d21",
+                      "name": "",
+                      "legacy": false,
+                      "future": "",
+                      "qa": {},
+                      "score": null
+                    }
+                  ],
+                  "activeSystemIdx": 0
+                }
+              },
+              "inputDefinitions": [],
+              "disruptions": [],
+              "workExp": null,
+              "workExpNote": "",
+              "linkedSourceUids": [],
+              "linkedBundleIds": [],
+              "gate": {
+                "checkProcessIds": [],
+                "onFailTargetProcessId": null,
+                "onPassTargetProcessId": null,
+                "rule": "ALL_OK",
+                "note": ""
+              }
+            },
+            {
+              "id": "c6e95eab-457f-4a35-a329-4b9fccb8cbef",
+              "created": 1770214816177,
+              "text": "V, U en B formulier",
+              "linkedSourceId": null,
+              "type": null,
+              "processValue": null,
+              "processStatus": null,
+              "successFactors": "",
+              "causes": [],
+              "improvements": [],
+              "qa": {
+                "compleet": {
+                  "result": "",
+                  "note": ""
+                },
+                "kwaliteit": {
+                  "result": "",
+                  "note": ""
+                },
+                "duidelijkheid": {
+                  "result": "",
+                  "note": ""
+                },
+                "tijdigheid": {
+                  "result": "",
+                  "note": ""
+                },
+                "standaard": {
+                  "result": "",
+                  "note": ""
+                },
+                "overdracht": {
+                  "result": "",
+                  "note": ""
+                }
+              },
+              "systemData": {
+                "isMulti": false,
+                "systemName": "",
+                "calculatedScore": null,
+                "systems": [
+                  {
+                    "id": "354e0727-0117-4987-bfd5-d2eb75c4239b",
+                    "name": "",
+                    "isLegacy": false,
+                    "futureSystem": "",
+                    "qa": {
+                      "workarounds": null,
+                      "performance": null,
+                      "double": null,
+                      "error": null,
+                      "depend": null
+                    },
+                    "calculatedScore": null
+                  }
+                ]
+              },
+              "inputDefinitions": [],
+              "disruptions": [],
+              "workExp": null,
+              "workExpNote": "",
+              "linkedSourceUids": [],
+              "linkedBundleIds": [],
+              "linkedBundleId": null,
+              "linkedSourceUid": null,
+              "gate": {
+                "checkProcessIds": [],
+                "onFailTargetProcessId": null,
+                "onPassTargetProcessId": null,
+                "rule": "ALL_OK",
+                "note": ""
+              }
+            },
+            {
+              "id": "765434c5-4cf7-4038-a11b-765f472e020b",
+              "created": 1770214816177,
+              "text": "MBB'er (Planning)",
+              "linkedSourceId": null,
+              "type": null,
+              "processValue": null,
+              "processStatus": null,
+              "successFactors": "",
+              "causes": [],
+              "improvements": [],
+              "qa": {
+                "compleet": {
+                  "result": "",
+                  "note": ""
+                },
+                "kwaliteit": {
+                  "result": "",
+                  "note": ""
+                },
+                "duidelijkheid": {
+                  "result": "",
+                  "note": ""
+                },
+                "tijdigheid": {
+                  "result": "",
+                  "note": ""
+                },
+                "standaard": {
+                  "result": "",
+                  "note": ""
+                },
+                "overdracht": {
+                  "result": "",
+                  "note": ""
+                }
+              },
+              "systemData": {
+                "isMulti": false,
+                "systemName": "",
+                "calculatedScore": null,
+                "systems": [
+                  {
+                    "id": "5c47d3cd-d357-454d-bcf0-8c5b26095b13",
+                    "name": "",
+                    "isLegacy": false,
+                    "futureSystem": "",
+                    "qa": {
+                      "workarounds": null,
+                      "performance": null,
+                      "double": null,
+                      "error": null,
+                      "depend": null
+                    },
+                    "calculatedScore": null
+                  }
+                ]
+              },
+              "inputDefinitions": [],
+              "disruptions": [],
+              "workExp": null,
+              "workExpNote": "",
+              "linkedSourceUids": [],
+              "linkedBundleIds": [],
+              "gate": {
+                "checkProcessIds": [],
+                "onFailTargetProcessId": null,
+                "onPassTargetProcessId": null,
+                "rule": "ALL_OK",
+                "note": ""
+              }
+            },
+            {
+              "id": "2df5a4e9-fd46-479a-ae16-80e7d75ec4af",
+              "created": 1770214816177,
+              "text": "Invullen V, U en B formulier",
+              "linkedSourceId": null,
+              "type": null,
+              "processValue": null,
+              "processStatus": null,
+              "successFactors": "",
+              "causes": [],
+              "improvements": [],
+              "qa": {
+                "compleet": {
+                  "result": "",
+                  "note": ""
+                },
+                "kwaliteit": {
+                  "result": "",
+                  "note": ""
+                },
+                "duidelijkheid": {
+                  "result": "",
+                  "note": ""
+                },
+                "tijdigheid": {
+                  "result": "",
+                  "note": ""
+                },
+                "standaard": {
+                  "result": "",
+                  "note": ""
+                },
+                "overdracht": {
+                  "result": "",
+                  "note": ""
+                }
+              },
+              "systemData": {
+                "isMulti": false,
+                "systemName": "",
+                "calculatedScore": null,
+                "systems": [
+                  {
+                    "id": "68028563-8f58-4900-916f-c0ba32238615",
+                    "name": "",
+                    "isLegacy": false,
+                    "futureSystem": "",
+                    "qa": {
+                      "workarounds": null,
+                      "performance": null,
+                      "double": null,
+                      "error": null,
+                      "depend": null
+                    },
+                    "calculatedScore": null
+                  }
+                ]
+              },
+              "inputDefinitions": [],
+              "disruptions": [],
+              "workExp": null,
+              "workExpNote": "",
+              "outputUid": "out_41d6f933-9330-435d-9668-f914d21e22a9",
+              "linkedSourceUids": [],
+              "linkedBundleIds": [],
+              "gate": {
+                "checkProcessIds": [],
+                "onFailTargetProcessId": null,
+                "onPassTargetProcessId": null,
+                "rule": "ALL_OK",
+                "note": ""
+              }
+            },
+            {
+              "id": "e8ebce1c-60a4-4fe6-8770-c12e94905997",
+              "created": 1770214816177,
+              "text": "Ingevulde V, U en B formulier",
+              "linkedSourceId": null,
+              "type": null,
+              "processValue": null,
+              "processStatus": null,
+              "successFactors": "",
+              "causes": [],
+              "improvements": [],
+              "qa": {
+                "compleet": {
+                  "result": "",
+                  "note": ""
+                },
+                "kwaliteit": {
+                  "result": "",
+                  "note": ""
+                },
+                "duidelijkheid": {
+                  "result": "",
+                  "note": ""
+                },
+                "tijdigheid": {
+                  "result": "",
+                  "note": ""
+                },
+                "standaard": {
+                  "result": "",
+                  "note": ""
+                },
+                "overdracht": {
+                  "result": "",
+                  "note": ""
+                }
+              },
+              "systemData": {
+                "isMulti": false,
+                "systemName": "",
+                "calculatedScore": null,
+                "systems": [
+                  {
+                    "id": "5f472a3c-1b6f-4769-af49-ab622b21c4c7",
+                    "name": "",
+                    "isLegacy": false,
+                    "futureSystem": "",
+                    "qa": {
+                      "workarounds": null,
+                      "performance": null,
+                      "double": null,
+                      "error": null,
+                      "depend": null
+                    },
+                    "calculatedScore": null
+                  }
+                ]
+              },
+              "inputDefinitions": [],
+              "disruptions": [],
+              "workExp": null,
+              "workExpNote": "",
+              "outputUid": "out_542ffed7-9647-483c-83c8-9169e8d7ea59",
+              "linkedSourceUids": [],
+              "linkedBundleIds": [],
+              "gate": {
+                "checkProcessIds": [],
+                "onFailTargetProcessId": null,
+                "onPassTargetProcessId": null,
+                "rule": "ALL_OK",
+                "note": ""
+              }
+            },
+            {
+              "id": "d52a7565-0fef-45c7-9bcf-b411a00e72a9",
+              "created": 1770214816177,
+              "text": "MBB'er (Omloop) / Poli",
+              "linkedSourceId": null,
+              "type": null,
+              "processValue": null,
+              "processStatus": null,
+              "successFactors": "",
+              "causes": [],
+              "improvements": [],
+              "qa": {
+                "compleet": {
+                  "result": "",
+                  "note": ""
+                },
+                "kwaliteit": {
+                  "result": "",
+                  "note": ""
+                },
+                "duidelijkheid": {
+                  "result": "",
+                  "note": ""
+                },
+                "tijdigheid": {
+                  "result": "",
+                  "note": ""
+                },
+                "standaard": {
+                  "result": "",
+                  "note": ""
+                },
+                "overdracht": {
+                  "result": "",
+                  "note": ""
+                }
+              },
+              "systemData": {
+                "isMulti": false,
+                "systemName": "",
+                "calculatedScore": null,
+                "systems": [
+                  {
+                    "id": "af923c06-bdca-4fd4-8f18-b29b9cbf7190",
+                    "name": "",
+                    "isLegacy": false,
+                    "futureSystem": "",
+                    "qa": {
+                      "workarounds": null,
+                      "performance": null,
+                      "double": null,
+                      "error": null,
+                      "depend": null
+                    },
+                    "calculatedScore": null
+                  }
+                ]
+              },
+              "inputDefinitions": [],
+              "disruptions": [],
+              "workExp": null,
+              "workExpNote": "",
+              "linkedSourceUids": [],
+              "linkedBundleIds": [],
+              "gate": {
+                "checkProcessIds": [],
+                "onFailTargetProcessId": null,
+                "onPassTargetProcessId": null,
+                "rule": "ALL_OK",
+                "note": ""
+              }
+            }
+          ],
+          "isQuestion": false,
+          "isConditional": false,
+          "logic": null,
+          "isGroup": false
+        },
+        {
+          "id": "13bdcac3-3f04-4bff-ba0a-c5c596b1b345",
+          "order": 1,
+          "isVisible": true,
+          "isParallel": false,
+          "isVariant": false,
+          "hasTransition": false,
+          "transitionNext": "",
+          "outputId": null,
+          "slots": [
+            {
+              "id": "4a3f201d-68df-47bb-9dbf-8c48eb3c187a",
+              "created": 1770212551525,
+              "text": "MBB'er (Planning)",
+              "linkedSourceId": null,
+              "type": null,
+              "processValue": null,
+              "processStatus": null,
+              "successFactors": "",
+              "causes": [],
+              "improvements": [],
+              "qa": {
+                "compleet": {
+                  "result": "",
+                  "note": ""
+                },
+                "kwaliteit": {
+                  "result": "",
+                  "note": ""
+                },
+                "duidelijkheid": {
+                  "result": "",
+                  "note": ""
+                },
+                "tijdigheid": {
+                  "result": "",
+                  "note": ""
+                },
+                "standaard": {
+                  "result": "",
+                  "note": ""
+                },
+                "overdracht": {
+                  "result": "",
+                  "note": ""
+                }
+              },
+              "systemData": {
+                "isMulti": false,
+                "systemName": "",
+                "calculatedScore": null,
+                "systems": [
+                  {
+                    "id": "8a9f8419-809d-43f5-bbf1-739307450030",
+                    "name": "",
+                    "isLegacy": false,
+                    "futureSystem": "",
+                    "qa": {
+                      "workarounds": null,
+                      "performance": null,
+                      "double": null,
+                      "error": null,
+                      "depend": null
+                    },
+                    "calculatedScore": null
+                  }
+                ]
+              },
+              "inputDefinitions": [],
+              "disruptions": [],
+              "workExp": null,
+              "workExpNote": "",
+              "linkedSourceUids": [],
+              "linkedBundleIds": [],
+              "gate": {
+                "checkProcessIds": [],
+                "onFailTargetProcessId": null,
+                "onPassTargetProcessId": null,
+                "rule": "ALL_OK",
+                "note": ""
+              }
+            },
+            {
+              "id": "74b32682-fa43-449c-a531-5868d9c87047",
+              "created": 1770212551525,
+              "text": "Radiotherapie Web",
+              "linkedSourceId": null,
+              "type": null,
+              "processValue": null,
+              "processStatus": null,
+              "successFactors": "",
+              "causes": [],
+              "improvements": [],
+              "qa": {
+                "compleet": {
+                  "result": "",
+                  "note": ""
+                },
+                "kwaliteit": {
+                  "result": "",
+                  "note": ""
+                },
+                "duidelijkheid": {
+                  "result": "",
+                  "note": ""
+                },
+                "tijdigheid": {
+                  "result": "",
+                  "note": ""
+                },
+                "standaard": {
+                  "result": "",
+                  "note": ""
+                },
+                "overdracht": {
+                  "result": "",
+                  "note": ""
+                }
+              },
+              "systemData": {
+                "isMulti": false,
+                "systemName": "",
+                "calculatedScore": null,
+                "systems": [
+                  {
+                    "id": "f7fc2125-8507-443c-a8e7-6df888bfb04a",
+                    "name": "",
+                    "isLegacy": false,
+                    "futureSystem": "",
+                    "qa": {
+                      "workarounds": null,
+                      "performance": null,
+                      "double": null,
+                      "error": null,
+                      "depend": null
+                    },
+                    "calculatedScore": null
+                  }
+                ],
+                "systemsMeta": {
+                  "multi": false,
+                  "systems": [
+                    {
+                      "id": "e1cdb370-b1e8-4b93-8e09-71c7815a8408",
+                      "name": "",
+                      "legacy": false,
+                      "future": "",
+                      "qa": {},
+                      "score": null
+                    }
+                  ],
+                  "activeSystemIdx": 0
+                }
+              },
+              "inputDefinitions": [],
+              "disruptions": [],
+              "workExp": null,
+              "workExpNote": "",
+              "linkedSourceUids": [],
+              "linkedBundleIds": [],
+              "gate": {
+                "checkProcessIds": [],
+                "onFailTargetProcessId": null,
+                "onPassTargetProcessId": null,
+                "rule": "ALL_OK",
+                "note": ""
+              }
+            },
+            {
+              "id": "57ab79ef-90db-41fe-bb48-328e8c4127d1",
+              "created": 1770212551525,
+              "text": "Taak afwerken",
+              "linkedSourceId": null,
+              "type": null,
+              "processValue": null,
+              "processStatus": null,
+              "successFactors": "",
+              "causes": [],
+              "improvements": [],
+              "qa": {
+                "compleet": {
+                  "result": "",
+                  "note": ""
+                },
+                "kwaliteit": {
+                  "result": "",
+                  "note": ""
+                },
+                "duidelijkheid": {
+                  "result": "",
+                  "note": ""
+                },
+                "tijdigheid": {
+                  "result": "",
+                  "note": ""
+                },
+                "standaard": {
+                  "result": "",
+                  "note": ""
+                },
+                "overdracht": {
+                  "result": "",
+                  "note": ""
+                }
+              },
+              "systemData": {
+                "isMulti": false,
+                "systemName": "",
+                "calculatedScore": null,
+                "systems": [
+                  {
+                    "id": "8b584f5e-b257-4e71-a02d-b5d08ce59fb7",
+                    "name": "",
+                    "isLegacy": false,
+                    "futureSystem": "",
+                    "qa": {
+                      "workarounds": null,
+                      "performance": null,
+                      "double": null,
+                      "error": null,
+                      "depend": null
+                    },
+                    "calculatedScore": null
+                  }
+                ]
+              },
+              "inputDefinitions": [],
+              "disruptions": [],
+              "workExp": null,
+              "workExpNote": "",
+              "linkedSourceUids": [],
+              "linkedBundleIds": [],
+              "linkedBundleId": null,
+              "linkedSourceUid": null,
+              "gate": {
+                "checkProcessIds": [],
+                "onFailTargetProcessId": null,
+                "onPassTargetProcessId": null,
+                "rule": "ALL_OK",
+                "note": ""
+              }
+            },
+            {
+              "id": "b590d3fb-7eec-4b5a-b51e-6c3767fda52f",
+              "created": 1770212551525,
+              "text": "MBB'er (Planning)",
+              "linkedSourceId": null,
+              "type": null,
+              "processValue": null,
+              "processStatus": null,
+              "successFactors": "",
+              "causes": [],
+              "improvements": [],
+              "qa": {
+                "compleet": {
+                  "result": "",
+                  "note": ""
+                },
+                "kwaliteit": {
+                  "result": "",
+                  "note": ""
+                },
+                "duidelijkheid": {
+                  "result": "",
+                  "note": ""
+                },
+                "tijdigheid": {
+                  "result": "",
+                  "note": ""
+                },
+                "standaard": {
+                  "result": "",
+                  "note": ""
+                },
+                "overdracht": {
+                  "result": "",
+                  "note": ""
+                }
+              },
+              "systemData": {
+                "isMulti": false,
+                "systemName": "",
+                "calculatedScore": null,
+                "systems": [
+                  {
+                    "id": "48040295-bc63-455c-b20c-5bb235eca26c",
+                    "name": "",
+                    "isLegacy": false,
+                    "futureSystem": "",
+                    "qa": {
+                      "workarounds": null,
+                      "performance": null,
+                      "double": null,
+                      "error": null,
+                      "depend": null
+                    },
+                    "calculatedScore": null
+                  }
+                ]
+              },
+              "inputDefinitions": [],
+              "disruptions": [],
+              "workExp": null,
+              "workExpNote": "",
+              "linkedSourceUids": [],
+              "linkedBundleIds": [],
+              "gate": {
+                "checkProcessIds": [],
+                "onFailTargetProcessId": null,
+                "onPassTargetProcessId": null,
+                "rule": "ALL_OK",
+                "note": ""
+              }
+            },
+            {
+              "id": "a09f2fdd-86f3-423d-98d4-ed1ee57c27ec",
+              "created": 1770212551525,
+              "text": "Afronden taak afwerken",
+              "linkedSourceId": null,
+              "type": null,
+              "processValue": null,
+              "processStatus": null,
+              "successFactors": "",
+              "causes": [],
+              "improvements": [],
+              "qa": {
+                "compleet": {
+                  "result": "",
+                  "note": ""
+                },
+                "kwaliteit": {
+                  "result": "",
+                  "note": ""
+                },
+                "duidelijkheid": {
+                  "result": "",
+                  "note": ""
+                },
+                "tijdigheid": {
+                  "result": "",
+                  "note": ""
+                },
+                "standaard": {
+                  "result": "",
+                  "note": ""
+                },
+                "overdracht": {
+                  "result": "",
+                  "note": ""
+                }
+              },
+              "systemData": {
+                "isMulti": false,
+                "systemName": "",
+                "calculatedScore": null,
+                "systems": [
+                  {
+                    "id": "0c5d3497-22ea-44f9-88ca-0eb0b7607198",
+                    "name": "",
+                    "isLegacy": false,
+                    "futureSystem": "",
+                    "qa": {
+                      "workarounds": null,
+                      "performance": null,
+                      "double": null,
+                      "error": null,
+                      "depend": null
+                    },
+                    "calculatedScore": null
+                  }
+                ]
+              },
+              "inputDefinitions": [],
+              "disruptions": [],
+              "workExp": null,
+              "workExpNote": "",
+              "outputUid": "out_34122851-76f5-4169-92e8-718ad1422ce5",
+              "linkedSourceUids": [],
+              "linkedBundleIds": [],
+              "gate": {
+                "checkProcessIds": [],
+                "onFailTargetProcessId": null,
+                "onPassTargetProcessId": null,
+                "rule": "ALL_OK",
+                "note": ""
+              }
+            },
+            {
+              "id": "112cc4ce-5a42-4ca3-9af1-8974128f8298",
+              "created": 1770212551525,
+              "text": "Taak teken bestralingsplan",
+              "linkedSourceId": null,
+              "type": null,
+              "processValue": null,
+              "processStatus": null,
+              "successFactors": "",
+              "causes": [],
+              "improvements": [],
+              "qa": {
+                "compleet": {
+                  "result": "",
+                  "note": ""
+                },
+                "kwaliteit": {
+                  "result": "",
+                  "note": ""
+                },
+                "duidelijkheid": {
+                  "result": "",
+                  "note": ""
+                },
+                "tijdigheid": {
+                  "result": "",
+                  "note": ""
+                },
+                "standaard": {
+                  "result": "",
+                  "note": ""
+                },
+                "overdracht": {
+                  "result": "",
+                  "note": ""
+                }
+              },
+              "systemData": {
+                "isMulti": false,
+                "systemName": "",
+                "calculatedScore": null,
+                "systems": [
+                  {
+                    "id": "151ac6c9-ffbd-40ea-95b6-28beadd9d85e",
+                    "name": "",
+                    "isLegacy": false,
+                    "futureSystem": "",
+                    "qa": {
+                      "workarounds": null,
+                      "performance": null,
+                      "double": null,
+                      "error": null,
+                      "depend": null
+                    },
+                    "calculatedScore": null
+                  }
+                ]
+              },
+              "inputDefinitions": [],
+              "disruptions": [],
+              "workExp": null,
+              "workExpNote": "",
+              "outputUid": "out_f7f0e968-8d2e-416e-869f-a133a99c210a",
+              "linkedSourceUids": [],
+              "linkedBundleIds": [],
+              "gate": {
+                "checkProcessIds": [],
+                "onFailTargetProcessId": null,
+                "onPassTargetProcessId": null,
+                "rule": "ALL_OK",
+                "note": ""
+              }
+            },
+            {
+              "id": "d6f369b4-d8d8-446d-a7c4-84801fc3c1e3",
+              "created": 1770212551525,
+              "text": "Klinisch Fysicus",
+              "linkedSourceId": null,
+              "type": null,
+              "processValue": null,
+              "processStatus": null,
+              "successFactors": "",
+              "causes": [],
+              "improvements": [],
+              "qa": {
+                "compleet": {
+                  "result": "",
+                  "note": ""
+                },
+                "kwaliteit": {
+                  "result": "",
+                  "note": ""
+                },
+                "duidelijkheid": {
+                  "result": "",
+                  "note": ""
+                },
+                "tijdigheid": {
+                  "result": "",
+                  "note": ""
+                },
+                "standaard": {
+                  "result": "",
+                  "note": ""
+                },
+                "overdracht": {
+                  "result": "",
+                  "note": ""
+                }
+              },
+              "systemData": {
+                "isMulti": false,
+                "systemName": "",
+                "calculatedScore": null,
+                "systems": [
+                  {
+                    "id": "fb2740d1-8883-49ff-b8d2-8bb75c16211f",
+                    "name": "",
+                    "isLegacy": false,
+                    "futureSystem": "",
+                    "qa": {
+                      "workarounds": null,
+                      "performance": null,
+                      "double": null,
+                      "error": null,
+                      "depend": null
+                    },
+                    "calculatedScore": null
+                  }
+                ]
+              },
+              "inputDefinitions": [],
+              "disruptions": [],
+              "workExp": null,
+              "workExpNote": "",
+              "linkedSourceUids": [],
+              "linkedBundleIds": [],
+              "gate": {
+                "checkProcessIds": [],
+                "onFailTargetProcessId": null,
+                "onPassTargetProcessId": null,
+                "rule": "ALL_OK",
+                "note": ""
+              }
+            }
+          ],
+          "isQuestion": false,
+          "isConditional": false,
+          "logic": null,
+          "isGroup": false
+        },
+        {
+          "id": "9a986c23-2917-4cc1-9049-7097a51e11ba",
+          "order": 1,
+          "isVisible": true,
+          "isParallel": true,
+          "isVariant": false,
+          "hasTransition": false,
+          "transitionNext": "",
+          "outputId": null,
+          "slots": [
+            {
+              "id": "6fb1f8c7-b00b-4b39-a4a2-5814e52a97df",
+              "created": 1770213071280,
+              "text": "MBB'er (Planning)",
+              "linkedSourceId": null,
+              "type": null,
+              "processValue": null,
+              "processStatus": null,
+              "successFactors": "",
+              "causes": [],
+              "improvements": [],
+              "qa": {
+                "compleet": {
+                  "result": "",
+                  "note": ""
+                },
+                "kwaliteit": {
+                  "result": "",
+                  "note": ""
+                },
+                "duidelijkheid": {
+                  "result": "",
+                  "note": ""
+                },
+                "tijdigheid": {
+                  "result": "",
+                  "note": ""
+                },
+                "standaard": {
+                  "result": "",
+                  "note": ""
+                },
+                "overdracht": {
+                  "result": "",
+                  "note": ""
+                }
+              },
+              "systemData": {
+                "isMulti": false,
+                "systemName": "",
+                "calculatedScore": null,
+                "systems": [
+                  {
+                    "id": "7066d042-59ac-445f-a39f-be9a32ee86f6",
+                    "name": "",
+                    "isLegacy": false,
+                    "futureSystem": "",
+                    "qa": {
+                      "workarounds": null,
+                      "performance": null,
+                      "double": null,
+                      "error": null,
+                      "depend": null
+                    },
+                    "calculatedScore": null
+                  }
+                ]
+              },
+              "inputDefinitions": [],
+              "disruptions": [],
+              "workExp": null,
+              "workExpNote": "",
+              "linkedSourceUids": [],
+              "linkedBundleIds": [],
+              "gate": {
+                "checkProcessIds": [],
+                "onFailTargetProcessId": null,
+                "onPassTargetProcessId": null,
+                "rule": "ALL_OK",
+                "note": ""
+              }
+            },
+            {
+              "id": "7a97dc40-69f5-49f4-9cb5-4232aae397a2",
+              "created": 1770213071280,
+              "text": "Radiotherapie Web",
+              "linkedSourceId": null,
+              "type": null,
+              "processValue": null,
+              "processStatus": null,
+              "successFactors": "",
+              "causes": [],
+              "improvements": [],
+              "qa": {
+                "compleet": {
+                  "result": "",
+                  "note": ""
+                },
+                "kwaliteit": {
+                  "result": "",
+                  "note": ""
+                },
+                "duidelijkheid": {
+                  "result": "",
+                  "note": ""
+                },
+                "tijdigheid": {
+                  "result": "",
+                  "note": ""
+                },
+                "standaard": {
+                  "result": "",
+                  "note": ""
+                },
+                "overdracht": {
+                  "result": "",
+                  "note": ""
+                }
+              },
+              "systemData": {
+                "isMulti": false,
+                "systemName": "",
+                "calculatedScore": null,
+                "systems": [
+                  {
+                    "id": "06357100-e54e-4b3e-be0a-222dd0ee078c",
+                    "name": "",
+                    "isLegacy": false,
+                    "futureSystem": "",
+                    "qa": {
+                      "workarounds": null,
+                      "performance": null,
+                      "double": null,
+                      "error": null,
+                      "depend": null
+                    },
+                    "calculatedScore": null
+                  }
+                ],
+                "systemsMeta": {
+                  "multi": false,
+                  "systems": [
+                    {
+                      "id": "b113b0af-08af-4944-bc1e-2f1fe5318771",
+                      "name": "",
+                      "legacy": false,
+                      "future": "",
+                      "qa": {},
+                      "score": null
+                    }
+                  ],
+                  "activeSystemIdx": 0
+                }
+              },
+              "inputDefinitions": [],
+              "disruptions": [],
+              "workExp": null,
+              "workExpNote": "",
+              "linkedSourceUids": [],
+              "linkedBundleIds": [],
+              "gate": {
+                "checkProcessIds": [],
+                "onFailTargetProcessId": null,
+                "onPassTargetProcessId": null,
+                "rule": "ALL_OK",
+                "note": ""
+              }
+            },
+            {
+              "id": "1fbe9827-382d-4554-beaf-305fa59c5666",
+              "created": 1770213071280,
+              "text": "Taak afwerken",
+              "linkedSourceId": null,
+              "type": null,
+              "processValue": null,
+              "processStatus": null,
+              "successFactors": "",
+              "causes": [],
+              "improvements": [],
+              "qa": {
+                "compleet": {
+                  "result": "",
+                  "note": ""
+                },
+                "kwaliteit": {
+                  "result": "",
+                  "note": ""
+                },
+                "duidelijkheid": {
+                  "result": "",
+                  "note": ""
+                },
+                "tijdigheid": {
+                  "result": "",
+                  "note": ""
+                },
+                "standaard": {
+                  "result": "",
+                  "note": ""
+                },
+                "overdracht": {
+                  "result": "",
+                  "note": ""
+                }
+              },
+              "systemData": {
+                "isMulti": false,
+                "systemName": "",
+                "calculatedScore": null,
+                "systems": [
+                  {
+                    "id": "2785c6fd-6410-4f78-955f-4b873b46d076",
+                    "name": "",
+                    "isLegacy": false,
+                    "futureSystem": "",
+                    "qa": {
+                      "workarounds": null,
+                      "performance": null,
+                      "double": null,
+                      "error": null,
+                      "depend": null
+                    },
+                    "calculatedScore": null
+                  }
+                ]
+              },
+              "inputDefinitions": [],
+              "disruptions": [],
+              "workExp": null,
+              "workExpNote": "",
+              "linkedSourceUids": [],
+              "linkedBundleIds": [],
+              "linkedBundleId": null,
+              "linkedSourceUid": null,
+              "gate": {
+                "checkProcessIds": [],
+                "onFailTargetProcessId": null,
+                "onPassTargetProcessId": null,
+                "rule": "ALL_OK",
+                "note": ""
+              }
+            },
+            {
+              "id": "cf1a4d87-38dc-4f45-a133-bc33ca9658c5",
+              "created": 1770213071280,
+              "text": "MBB'er (Planning)",
+              "linkedSourceId": null,
+              "type": null,
+              "processValue": null,
+              "processStatus": null,
+              "successFactors": "",
+              "causes": [],
+              "improvements": [],
+              "qa": {
+                "compleet": {
+                  "result": "",
+                  "note": ""
+                },
+                "kwaliteit": {
+                  "result": "",
+                  "note": ""
+                },
+                "duidelijkheid": {
+                  "result": "",
+                  "note": ""
+                },
+                "tijdigheid": {
+                  "result": "",
+                  "note": ""
+                },
+                "standaard": {
+                  "result": "",
+                  "note": ""
+                },
+                "overdracht": {
+                  "result": "",
+                  "note": ""
+                }
+              },
+              "systemData": {
+                "isMulti": false,
+                "systemName": "",
+                "calculatedScore": null,
+                "systems": [
+                  {
+                    "id": "cdd6db10-4e3a-4dd4-a39e-2cebe6111907",
+                    "name": "",
+                    "isLegacy": false,
+                    "futureSystem": "",
+                    "qa": {
+                      "workarounds": null,
+                      "performance": null,
+                      "double": null,
+                      "error": null,
+                      "depend": null
+                    },
+                    "calculatedScore": null
+                  }
+                ]
+              },
+              "inputDefinitions": [],
+              "disruptions": [],
+              "workExp": null,
+              "workExpNote": "",
+              "linkedSourceUids": [],
+              "linkedBundleIds": [],
+              "gate": {
+                "checkProcessIds": [],
+                "onFailTargetProcessId": null,
+                "onPassTargetProcessId": null,
+                "rule": "ALL_OK",
+                "note": ""
+              }
+            },
+            {
+              "id": "7e23aaee-b616-4508-aa38-fa5b3acac82f",
+              "created": 1770213071280,
+              "text": "Afronden taak afwerken",
+              "linkedSourceId": null,
+              "type": null,
+              "processValue": null,
+              "processStatus": null,
+              "successFactors": "",
+              "causes": [],
+              "improvements": [],
+              "qa": {
+                "compleet": {
+                  "result": "",
+                  "note": ""
+                },
+                "kwaliteit": {
+                  "result": "",
+                  "note": ""
+                },
+                "duidelijkheid": {
+                  "result": "",
+                  "note": ""
+                },
+                "tijdigheid": {
+                  "result": "",
+                  "note": ""
+                },
+                "standaard": {
+                  "result": "",
+                  "note": ""
+                },
+                "overdracht": {
+                  "result": "",
+                  "note": ""
+                }
+              },
+              "systemData": {
+                "isMulti": false,
+                "systemName": "",
+                "calculatedScore": null,
+                "systems": [
+                  {
+                    "id": "3a2f16e1-dac2-4a02-9699-08a73ad53945",
+                    "name": "",
+                    "isLegacy": false,
+                    "futureSystem": "",
+                    "qa": {
+                      "workarounds": null,
+                      "performance": null,
+                      "double": null,
+                      "error": null,
+                      "depend": null
+                    },
+                    "calculatedScore": null
+                  }
+                ]
+              },
+              "inputDefinitions": [],
+              "disruptions": [],
+              "workExp": null,
+              "workExpNote": "",
+              "outputUid": "out_e4923cb9-c4af-4bb4-ac11-ae510e4eb5a1",
+              "linkedSourceUids": [],
+              "linkedBundleIds": [],
+              "gate": {
+                "checkProcessIds": [],
+                "onFailTargetProcessId": null,
+                "onPassTargetProcessId": null,
+                "rule": "ALL_OK",
+                "note": ""
+              }
+            },
+            {
+              "id": "441750e8-00c1-4af6-b129-a66c3813a5b6",
+              "created": 1770213071280,
+              "text": "Taak nakijken",
+              "linkedSourceId": null,
+              "type": null,
+              "processValue": null,
+              "processStatus": null,
+              "successFactors": "",
+              "causes": [],
+              "improvements": [],
+              "qa": {
+                "compleet": {
+                  "result": "",
+                  "note": ""
+                },
+                "kwaliteit": {
+                  "result": "",
+                  "note": ""
+                },
+                "duidelijkheid": {
+                  "result": "",
+                  "note": ""
+                },
+                "tijdigheid": {
+                  "result": "",
+                  "note": ""
+                },
+                "standaard": {
+                  "result": "",
+                  "note": ""
+                },
+                "overdracht": {
+                  "result": "",
+                  "note": ""
+                }
+              },
+              "systemData": {
+                "isMulti": false,
+                "systemName": "",
+                "calculatedScore": null,
+                "systems": [
+                  {
+                    "id": "b96a8acc-865c-44da-b887-412c383a1199",
+                    "name": "",
+                    "isLegacy": false,
+                    "futureSystem": "",
+                    "qa": {
+                      "workarounds": null,
+                      "performance": null,
+                      "double": null,
+                      "error": null,
+                      "depend": null
+                    },
+                    "calculatedScore": null
+                  }
+                ]
+              },
+              "inputDefinitions": [],
+              "disruptions": [],
+              "workExp": null,
+              "workExpNote": "",
+              "outputUid": "out_77a3ad33-7e5c-492f-a2a3-bc464554760a",
+              "linkedSourceUids": [],
+              "linkedBundleIds": [],
+              "gate": {
+                "checkProcessIds": [],
+                "onFailTargetProcessId": null,
+                "onPassTargetProcessId": null,
+                "rule": "ALL_OK",
+                "note": ""
+              }
+            },
+            {
+              "id": "e58b55a3-29bf-4dfc-a2bb-a199bb9e00a6",
+              "created": 1770213071280,
+              "text": "MBB'er (Planning)",
+              "linkedSourceId": null,
+              "type": null,
+              "processValue": null,
+              "processStatus": null,
+              "successFactors": "",
+              "causes": [],
+              "improvements": [],
+              "qa": {
+                "compleet": {
+                  "result": "",
+                  "note": ""
+                },
+                "kwaliteit": {
+                  "result": "",
+                  "note": ""
+                },
+                "duidelijkheid": {
+                  "result": "",
+                  "note": ""
+                },
+                "tijdigheid": {
+                  "result": "",
+                  "note": ""
+                },
+                "standaard": {
+                  "result": "",
+                  "note": ""
+                },
+                "overdracht": {
+                  "result": "",
+                  "note": ""
+                }
+              },
+              "systemData": {
+                "isMulti": false,
+                "systemName": "",
+                "calculatedScore": null,
+                "systems": [
+                  {
+                    "id": "70b45e7a-15ed-4250-802c-aeff328f0d6c",
+                    "name": "",
+                    "isLegacy": false,
+                    "futureSystem": "",
+                    "qa": {
+                      "workarounds": null,
+                      "performance": null,
+                      "double": null,
+                      "error": null,
+                      "depend": null
+                    },
+                    "calculatedScore": null
+                  }
+                ]
+              },
+              "inputDefinitions": [],
+              "disruptions": [],
+              "workExp": null,
+              "workExpNote": "",
+              "linkedSourceUids": [],
+              "linkedBundleIds": [],
+              "gate": {
+                "checkProcessIds": [],
+                "onFailTargetProcessId": null,
+                "onPassTargetProcessId": null,
+                "rule": "ALL_OK",
+                "note": ""
+              }
+            }
+          ],
+          "isQuestion": false,
+          "isConditional": false,
+          "logic": null,
+          "isGroup": false
+        },
+        {
           "id": "6eb8ddf0-99d5-48df-ad08-4d19bd22f12f",
           "order": 1,
           "isVisible": true,
@@ -53506,7 +56757,7 @@
             {
               "id": "046e45bd-a4e8-44c5-84a8-c84a94ff64c7",
               "created": 1770190369752,
-              "text": "MBB'er (Planning)",
+              "text": "Klinisch Fysicus",
               "linkedSourceId": null,
               "type": null,
               "processValue": null,
@@ -53578,7 +56829,7 @@
             {
               "id": "acd0267f-ea17-4ddc-9d07-3c028a450d58",
               "created": 1770190369752,
-              "text": "Pinnacle",
+              "text": "Radiotherapie Web / Pinnacle",
               "linkedSourceId": null,
               "type": null,
               "processValue": null,
@@ -53664,7 +56915,7 @@
             {
               "id": "32a8bdab-4c1e-4cd9-917b-68c8eeea8d75",
               "created": 1770190369752,
-              "text": "",
+              "text": "Taak teken bestralingsplan",
               "linkedSourceId": null,
               "type": null,
               "processValue": null,
@@ -53731,10 +56982,8 @@
               "workExpNote": "",
               "linkedBundleId": null,
               "linkedBundleIds": [],
-              "linkedSourceUids": [
-                "out_3ffd643e-7d0d-479d-b9d1-1642f09a5451"
-              ],
-              "linkedSourceUid": "out_3ffd643e-7d0d-479d-b9d1-1642f09a5451",
+              "linkedSourceUids": [],
+              "linkedSourceUid": null,
               "linkedSourceIds": [],
               "gate": {
                 "checkProcessIds": [],
@@ -53819,7 +57068,7 @@
             {
               "id": "eebcc34e-316c-4610-b961-efeae163b43e",
               "created": 1770190369752,
-              "text": "Beoordelen plan",
+              "text": "controleren en tekenen plan",
               "linkedSourceId": null,
               "type": null,
               "processValue": null,
@@ -53892,7 +57141,7 @@
             {
               "id": "53b9aec6-11af-4399-b23c-1ea71455e571",
               "created": 1770190369752,
-              "text": "Plan met handtekening behandelend arts / klinisch fysicus / MBB'er (omloop)",
+              "text": "Plan met handtekening klinisch fysicus",
               "linkedSourceId": null,
               "type": null,
               "processValue": null,
@@ -53955,11 +57204,19 @@
               "linkedSourceUids": [],
               "linkedBundleIds": [],
               "gate": {
+                "enabled": true,
+                "failTargetColIdx": 6,
                 "checkProcessIds": [],
                 "onFailTargetProcessId": null,
                 "onPassTargetProcessId": null,
                 "rule": "ALL_OK",
                 "note": ""
+              },
+              "outputData": {
+                "gate": {
+                  "enabled": true,
+                  "failTargetColIdx": 6
+                }
               }
             },
             {
@@ -54125,7 +57382,7 @@
             {
               "id": "a8f2c2b4-2e9c-4467-b996-d321c0700a6b",
               "created": 1770190707652,
-              "text": "Pinnacle",
+              "text": "Radiotherapie Web / Pinnacle",
               "linkedSourceId": null,
               "type": null,
               "processValue": null,
@@ -54211,7 +57468,7 @@
             {
               "id": "a22ea362-de57-4b24-9ab7-e3f0b2870d43",
               "created": 1770190707652,
-              "text": "",
+              "text": "Taak nakijken plan",
               "linkedSourceId": null,
               "type": null,
               "processValue": null,
@@ -54276,10 +57533,8 @@
               "disruptions": [],
               "workExp": null,
               "workExpNote": "",
-              "linkedSourceUids": [
-                "out_3ffd643e-7d0d-479d-b9d1-1642f09a5451"
-              ],
-              "linkedSourceUid": "out_3ffd643e-7d0d-479d-b9d1-1642f09a5451",
+              "linkedSourceUids": [],
+              "linkedSourceUid": null,
               "linkedSourceIds": [],
               "linkedBundleId": null,
               "linkedBundleIds": [],
@@ -54294,7 +57549,7 @@
             {
               "id": "6aaec996-76ff-4d6c-8917-33feded00a3b",
               "created": 1770190707653,
-              "text": "Behandelend arts",
+              "text": "MBB'er (Planning)",
               "linkedSourceId": null,
               "type": null,
               "processValue": null,
@@ -54366,7 +57621,7 @@
             {
               "id": "f6ee2ef9-7b1a-4409-826a-bff5ec10af7f",
               "created": 1770190707653,
-              "text": "beoordelen plan",
+              "text": "Nakijken + tekenen plan ",
               "linkedSourceId": null,
               "type": null,
               "processValue": null,
@@ -54439,7 +57694,7 @@
             {
               "id": "fe24b007-4645-462f-b0e8-218f33680925",
               "created": 1770190707653,
-              "text": "Plan met handtekening behandelend arts / klinisch fysicus / MBB'er (omloop)",
+              "text": "Plan met handtekening MBB'er (Planning)",
               "linkedSourceId": null,
               "type": null,
               "processValue": null,
@@ -54512,7 +57767,7 @@
             {
               "id": "8973135c-7374-4b31-9766-a7039ab4a60e",
               "created": 1770190707653,
-              "text": "MBB'er (Planning)",
+              "text": "MBB'er (Omloop)",
               "linkedSourceId": null,
               "type": null,
               "processValue": null,
@@ -54588,7 +57843,7 @@
           "isGroup": false
         },
         {
-          "id": "76ec8bec-6d72-4709-b3e0-f1a95daee34c",
+          "id": "1f0488b2-b244-4f8d-b12f-cb50b8eaaade",
           "order": 1,
           "isVisible": true,
           "isParallel": false,
@@ -54598,8 +57853,8 @@
           "outputId": null,
           "slots": [
             {
-              "id": "9a56125d-c4fa-40e4-8b72-48adab98bc76",
-              "created": 1770190712106,
+              "id": "5dac8056-854e-4457-af50-2270387a8fbd",
+              "created": 1770213398486,
               "text": "MBB'er (Planning)",
               "linkedSourceId": null,
               "type": null,
@@ -54640,7 +57895,7 @@
                 "calculatedScore": null,
                 "systems": [
                   {
-                    "id": "ea3d255f-a02d-4dee-aa3c-e1c4427d0503",
+                    "id": "68ba3532-d9cd-473c-bc03-7eb48efd0a9e",
                     "name": "",
                     "isLegacy": false,
                     "futureSystem": "",
@@ -54670,546 +57925,8 @@
               }
             },
             {
-              "id": "9e20c731-a163-4433-bcce-85089fd39dd8",
-              "created": 1770190712106,
-              "text": "Pinnacle",
-              "linkedSourceId": null,
-              "type": null,
-              "processValue": null,
-              "processStatus": null,
-              "successFactors": "",
-              "causes": [],
-              "improvements": [],
-              "qa": {
-                "compleet": {
-                  "result": "",
-                  "note": ""
-                },
-                "kwaliteit": {
-                  "result": "",
-                  "note": ""
-                },
-                "duidelijkheid": {
-                  "result": "",
-                  "note": ""
-                },
-                "tijdigheid": {
-                  "result": "",
-                  "note": ""
-                },
-                "standaard": {
-                  "result": "",
-                  "note": ""
-                },
-                "overdracht": {
-                  "result": "",
-                  "note": ""
-                }
-              },
-              "systemData": {
-                "isMulti": false,
-                "systemName": "",
-                "calculatedScore": null,
-                "systems": [
-                  {
-                    "id": "5816f651-50c6-46c9-a473-afabda7dbcd4",
-                    "name": "",
-                    "isLegacy": false,
-                    "futureSystem": "",
-                    "qa": {
-                      "workarounds": null,
-                      "performance": null,
-                      "double": null,
-                      "error": null,
-                      "depend": null
-                    },
-                    "calculatedScore": null
-                  }
-                ],
-                "systemsMeta": {
-                  "multi": false,
-                  "systems": [
-                    {
-                      "id": "8120e271-2213-4f67-abf9-a772c1c0dee6",
-                      "name": "",
-                      "legacy": false,
-                      "future": "",
-                      "qa": {},
-                      "score": null
-                    }
-                  ],
-                  "activeSystemIdx": 0
-                }
-              },
-              "inputDefinitions": [],
-              "disruptions": [],
-              "workExp": null,
-              "workExpNote": "",
-              "linkedSourceUids": [],
-              "linkedBundleIds": [],
-              "gate": {
-                "checkProcessIds": [],
-                "onFailTargetProcessId": null,
-                "onPassTargetProcessId": null,
-                "rule": "ALL_OK",
-                "note": ""
-              }
-            },
-            {
-              "id": "e82fa070-6444-4b22-adfa-ba0e11cdbeae",
-              "created": 1770190712106,
-              "text": "",
-              "linkedSourceId": null,
-              "type": null,
-              "processValue": null,
-              "processStatus": null,
-              "successFactors": "",
-              "causes": [],
-              "improvements": [],
-              "qa": {
-                "compleet": {
-                  "result": "",
-                  "note": ""
-                },
-                "kwaliteit": {
-                  "result": "",
-                  "note": ""
-                },
-                "duidelijkheid": {
-                  "result": "",
-                  "note": ""
-                },
-                "tijdigheid": {
-                  "result": "",
-                  "note": ""
-                },
-                "standaard": {
-                  "result": "",
-                  "note": ""
-                },
-                "overdracht": {
-                  "result": "",
-                  "note": ""
-                }
-              },
-              "systemData": {
-                "isMulti": false,
-                "systemName": "",
-                "calculatedScore": null,
-                "systems": [
-                  {
-                    "id": "55008af0-27a8-47eb-82d2-20e1835aed29",
-                    "name": "",
-                    "isLegacy": false,
-                    "futureSystem": "",
-                    "qa": {
-                      "workarounds": null,
-                      "performance": null,
-                      "double": null,
-                      "error": null,
-                      "depend": null
-                    },
-                    "calculatedScore": null
-                  }
-                ]
-              },
-              "inputDefinitions": [],
-              "disruptions": [],
-              "workExp": null,
-              "workExpNote": "",
-              "linkedSourceUids": [],
-              "linkedBundleIds": [],
-              "linkedBundleId": null,
-              "linkedSourceUid": null,
-              "gate": {
-                "checkProcessIds": [],
-                "onFailTargetProcessId": null,
-                "onPassTargetProcessId": null,
-                "rule": "ALL_OK",
-                "note": ""
-              }
-            },
-            {
-              "id": "d8ed25d0-d2fc-4dbb-b6b3-aa23a272e9f5",
-              "created": 1770190712106,
-              "text": "MBB'er (Omloop)",
-              "linkedSourceId": null,
-              "type": null,
-              "processValue": null,
-              "processStatus": null,
-              "successFactors": "",
-              "causes": [],
-              "improvements": [],
-              "qa": {
-                "compleet": {
-                  "result": "",
-                  "note": ""
-                },
-                "kwaliteit": {
-                  "result": "",
-                  "note": ""
-                },
-                "duidelijkheid": {
-                  "result": "",
-                  "note": ""
-                },
-                "tijdigheid": {
-                  "result": "",
-                  "note": ""
-                },
-                "standaard": {
-                  "result": "",
-                  "note": ""
-                },
-                "overdracht": {
-                  "result": "",
-                  "note": ""
-                }
-              },
-              "systemData": {
-                "isMulti": false,
-                "systemName": "",
-                "calculatedScore": null,
-                "systems": [
-                  {
-                    "id": "9036b169-5322-44f3-9a9b-f27bf4c225bd",
-                    "name": "",
-                    "isLegacy": false,
-                    "futureSystem": "",
-                    "qa": {
-                      "workarounds": null,
-                      "performance": null,
-                      "double": null,
-                      "error": null,
-                      "depend": null
-                    },
-                    "calculatedScore": null
-                  }
-                ]
-              },
-              "inputDefinitions": [],
-              "disruptions": [],
-              "workExp": null,
-              "workExpNote": "",
-              "linkedSourceUids": [],
-              "linkedBundleIds": [],
-              "gate": {
-                "checkProcessIds": [],
-                "onFailTargetProcessId": null,
-                "onPassTargetProcessId": null,
-                "rule": "ALL_OK",
-                "note": ""
-              }
-            },
-            {
-              "id": "432b53ca-6139-47d7-8f1a-21df4d117c0b",
-              "created": 1770190712106,
-              "text": "Beoordelen plan",
-              "linkedSourceId": null,
-              "type": null,
-              "processValue": null,
-              "processStatus": null,
-              "successFactors": "",
-              "causes": [],
-              "improvements": [],
-              "qa": {
-                "compleet": {
-                  "result": "",
-                  "note": ""
-                },
-                "kwaliteit": {
-                  "result": "",
-                  "note": ""
-                },
-                "duidelijkheid": {
-                  "result": "",
-                  "note": ""
-                },
-                "tijdigheid": {
-                  "result": "",
-                  "note": ""
-                },
-                "standaard": {
-                  "result": "",
-                  "note": ""
-                },
-                "overdracht": {
-                  "result": "",
-                  "note": ""
-                }
-              },
-              "systemData": {
-                "isMulti": false,
-                "systemName": "",
-                "calculatedScore": null,
-                "systems": [
-                  {
-                    "id": "13a85270-8e8f-48c4-8fa2-b46304b601e9",
-                    "name": "",
-                    "isLegacy": false,
-                    "futureSystem": "",
-                    "qa": {
-                      "workarounds": null,
-                      "performance": null,
-                      "double": null,
-                      "error": null,
-                      "depend": null
-                    },
-                    "calculatedScore": null
-                  }
-                ]
-              },
-              "inputDefinitions": [],
-              "disruptions": [],
-              "workExp": null,
-              "workExpNote": "",
-              "outputUid": "out_d3067281-2ff8-45b5-bcec-ac5267a31c36",
-              "linkedSourceUids": [],
-              "linkedBundleIds": [],
-              "gate": {
-                "checkProcessIds": [],
-                "onFailTargetProcessId": null,
-                "onPassTargetProcessId": null,
-                "rule": "ALL_OK",
-                "note": ""
-              }
-            },
-            {
-              "id": "0fc79210-26d3-4594-a34a-ff866471c48e",
-              "created": 1770190712106,
-              "text": "Plan met handtekening behandelend arts / klinisch fysicus / MBB'er (omloop)",
-              "linkedSourceId": null,
-              "type": null,
-              "processValue": null,
-              "processStatus": null,
-              "successFactors": "",
-              "causes": [],
-              "improvements": [],
-              "qa": {
-                "compleet": {
-                  "result": "",
-                  "note": ""
-                },
-                "kwaliteit": {
-                  "result": "",
-                  "note": ""
-                },
-                "duidelijkheid": {
-                  "result": "",
-                  "note": ""
-                },
-                "tijdigheid": {
-                  "result": "",
-                  "note": ""
-                },
-                "standaard": {
-                  "result": "",
-                  "note": ""
-                },
-                "overdracht": {
-                  "result": "",
-                  "note": ""
-                }
-              },
-              "systemData": {
-                "isMulti": false,
-                "systemName": "",
-                "calculatedScore": null,
-                "systems": [
-                  {
-                    "id": "a4b12505-bf8b-430d-8493-8d555bec1d5b",
-                    "name": "",
-                    "isLegacy": false,
-                    "futureSystem": "",
-                    "qa": {
-                      "workarounds": null,
-                      "performance": null,
-                      "double": null,
-                      "error": null,
-                      "depend": null
-                    },
-                    "calculatedScore": null
-                  }
-                ]
-              },
-              "inputDefinitions": [],
-              "disruptions": [],
-              "workExp": null,
-              "workExpNote": "",
-              "outputUid": "out_45b08606-7dbd-468a-bf4e-9d195221737b",
-              "linkedSourceUids": [],
-              "linkedBundleIds": [],
-              "gate": {
-                "checkProcessIds": [],
-                "onFailTargetProcessId": null,
-                "onPassTargetProcessId": null,
-                "rule": "ALL_OK",
-                "note": ""
-              }
-            },
-            {
-              "id": "e00eee35-dce7-4cb3-b7c3-a421e6f6432b",
-              "created": 1770190712106,
-              "text": "MBB'er (Planning)",
-              "linkedSourceId": null,
-              "type": null,
-              "processValue": null,
-              "processStatus": null,
-              "successFactors": "",
-              "causes": [],
-              "improvements": [],
-              "qa": {
-                "compleet": {
-                  "result": "",
-                  "note": ""
-                },
-                "kwaliteit": {
-                  "result": "",
-                  "note": ""
-                },
-                "duidelijkheid": {
-                  "result": "",
-                  "note": ""
-                },
-                "tijdigheid": {
-                  "result": "",
-                  "note": ""
-                },
-                "standaard": {
-                  "result": "",
-                  "note": ""
-                },
-                "overdracht": {
-                  "result": "",
-                  "note": ""
-                }
-              },
-              "systemData": {
-                "isMulti": false,
-                "systemName": "",
-                "calculatedScore": null,
-                "systems": [
-                  {
-                    "id": "7b0a97b0-6d6a-46bc-bb3f-4949dd383d19",
-                    "name": "",
-                    "isLegacy": false,
-                    "futureSystem": "",
-                    "qa": {
-                      "workarounds": null,
-                      "performance": null,
-                      "double": null,
-                      "error": null,
-                      "depend": null
-                    },
-                    "calculatedScore": null
-                  }
-                ]
-              },
-              "inputDefinitions": [],
-              "disruptions": [],
-              "workExp": null,
-              "workExpNote": "",
-              "linkedSourceUids": [],
-              "linkedBundleIds": [],
-              "gate": {
-                "checkProcessIds": [],
-                "onFailTargetProcessId": null,
-                "onPassTargetProcessId": null,
-                "rule": "ALL_OK",
-                "note": ""
-              }
-            }
-          ],
-          "isQuestion": false,
-          "isConditional": false,
-          "logic": null,
-          "isGroup": false
-        },
-        {
-          "id": "653a271c-1d66-437e-99f2-60b33065a494",
-          "order": 1,
-          "isVisible": true,
-          "isParallel": false,
-          "isVariant": false,
-          "hasTransition": false,
-          "transitionNext": "",
-          "outputId": null,
-          "slots": [
-            {
-              "id": "d8162ed9-cd40-45d8-91af-ffaccef601d9",
-              "created": 1770190900673,
-              "text": "Behandelend arts / Klinisch fysicus / MBB'er (Omloop)",
-              "linkedSourceId": null,
-              "type": null,
-              "processValue": null,
-              "processStatus": null,
-              "successFactors": "",
-              "causes": [],
-              "improvements": [],
-              "qa": {
-                "compleet": {
-                  "result": "",
-                  "note": ""
-                },
-                "kwaliteit": {
-                  "result": "",
-                  "note": ""
-                },
-                "duidelijkheid": {
-                  "result": "",
-                  "note": ""
-                },
-                "tijdigheid": {
-                  "result": "",
-                  "note": ""
-                },
-                "standaard": {
-                  "result": "",
-                  "note": ""
-                },
-                "overdracht": {
-                  "result": "",
-                  "note": ""
-                }
-              },
-              "systemData": {
-                "isMulti": false,
-                "systemName": "",
-                "calculatedScore": null,
-                "systems": [
-                  {
-                    "id": "28bfa2a9-363a-4c22-bfa9-b014ad8203d3",
-                    "name": "",
-                    "isLegacy": false,
-                    "futureSystem": "",
-                    "qa": {
-                      "workarounds": null,
-                      "performance": null,
-                      "double": null,
-                      "error": null,
-                      "depend": null
-                    },
-                    "calculatedScore": null
-                  }
-                ]
-              },
-              "inputDefinitions": [],
-              "disruptions": [],
-              "workExp": null,
-              "workExpNote": "",
-              "linkedSourceUids": [],
-              "linkedBundleIds": [],
-              "gate": {
-                "checkProcessIds": [],
-                "onFailTargetProcessId": null,
-                "onPassTargetProcessId": null,
-                "rule": "ALL_OK",
-                "note": ""
-              }
-            },
-            {
-              "id": "8e8856f0-9768-4779-9fe5-2702ee0f2766",
-              "created": 1770190900673,
+              "id": "aa7c454b-cc40-4c19-95ad-752d8f1e9c1c",
+              "created": 1770213398486,
               "text": "Radiotherapie Web",
               "linkedSourceId": null,
               "type": null,
@@ -55250,7 +57967,7 @@
                 "calculatedScore": null,
                 "systems": [
                   {
-                    "id": "f76229c4-8186-4b8a-adf9-11fda90be938",
+                    "id": "2e4d8718-8ae1-467c-8034-438adefe053a",
                     "name": "",
                     "isLegacy": false,
                     "futureSystem": "",
@@ -55268,7 +57985,7 @@
                   "multi": false,
                   "systems": [
                     {
-                      "id": "14059cae-da7a-4a19-bdb9-4d8f4b538134",
+                      "id": "2b0e7aa9-4c47-4ffe-8fb8-c40f0d8ac155",
                       "name": "",
                       "legacy": false,
                       "future": "",
@@ -55294,9 +58011,9 @@
               }
             },
             {
-              "id": "c59c3c2e-ee6d-4a18-85bd-01ab905d5aa7",
-              "created": 1770190900673,
-              "text": "",
+              "id": "047d54a6-d072-416b-bfde-a065ddd65938",
+              "created": 1770213398486,
+              "text": "Taak nakijken plan",
               "linkedSourceId": null,
               "type": null,
               "processValue": null,
@@ -55306,33 +58023,27 @@
               "improvements": [],
               "qa": {
                 "compleet": {
-                  "result": null,
-                  "impact": null,
+                  "result": "",
                   "note": ""
                 },
                 "kwaliteit": {
-                  "result": null,
-                  "impact": null,
+                  "result": "",
                   "note": ""
                 },
                 "duidelijkheid": {
-                  "result": null,
-                  "impact": null,
+                  "result": "",
                   "note": ""
                 },
                 "tijdigheid": {
-                  "result": null,
-                  "impact": null,
+                  "result": "",
                   "note": ""
                 },
                 "standaard": {
-                  "result": null,
-                  "impact": null,
+                  "result": "",
                   "note": ""
                 },
                 "overdracht": {
-                  "result": null,
-                  "impact": null,
+                  "result": "",
                   "note": ""
                 }
               },
@@ -55342,7 +58053,7 @@
                 "calculatedScore": null,
                 "systems": [
                   {
-                    "id": "3494d3bc-a642-4258-ab2e-72d4d60dc838",
+                    "id": "c49edac1-9125-400d-a297-812292824edd",
                     "name": "",
                     "isLegacy": false,
                     "futureSystem": "",
@@ -55361,13 +58072,10 @@
               "disruptions": [],
               "workExp": null,
               "workExpNote": "",
+              "linkedSourceUids": [],
+              "linkedBundleIds": [],
               "linkedBundleId": null,
-              "linkedBundleIds": [],
-              "linkedSourceUids": [
-                "out_61741ead-b5e9-487f-a5e2-5cf5730cfccb"
-              ],
-              "linkedSourceUid": "out_61741ead-b5e9-487f-a5e2-5cf5730cfccb",
-              "linkedSourceIds": [],
+              "linkedSourceUid": null,
               "gate": {
                 "checkProcessIds": [],
                 "onFailTargetProcessId": null,
@@ -55377,9 +58085,9 @@
               }
             },
             {
-              "id": "06f9b361-fa19-4dbe-9fe2-88cf649ea98e",
-              "created": 1770190900673,
-              "text": "MBB'er (Planning)",
+              "id": "1ffc5c12-94eb-4163-a333-9d0348f7179c",
+              "created": 1770213398486,
+              "text": "MBB'er (Planning",
               "linkedSourceId": null,
               "type": null,
               "processValue": null,
@@ -55419,7 +58127,7 @@
                 "calculatedScore": null,
                 "systems": [
                   {
-                    "id": "7e988eae-f780-4919-89af-255c3e0287a1",
+                    "id": "e14f99f5-da54-425a-b6f9-3e70221d724f",
                     "name": "",
                     "isLegacy": false,
                     "futureSystem": "",
@@ -55449,9 +58157,9 @@
               }
             },
             {
-              "id": "a70fa9d4-6e50-4d37-afe1-f9f3983e2863",
-              "created": 1770190900673,
-              "text": "Nacontroleren plan",
+              "id": "7b9eb4be-f704-4abe-8d80-aaefea721b28",
+              "created": 1770213398486,
+              "text": "Taak nakijken plan afronden",
               "linkedSourceId": null,
               "type": null,
               "processValue": null,
@@ -55491,7 +58199,7 @@
                 "calculatedScore": null,
                 "systems": [
                   {
-                    "id": "ccf48c9a-4ce3-45f6-b803-00531783d937",
+                    "id": "4a7ddc65-e2f0-464a-b5be-7209669e1ebf",
                     "name": "",
                     "isLegacy": false,
                     "futureSystem": "",
@@ -55510,7 +58218,7 @@
               "disruptions": [],
               "workExp": null,
               "workExpNote": "",
-              "outputUid": "out_7c20675e-1b46-4dde-a38a-9fb0462ecb2f",
+              "outputUid": "out_1a6d34fb-e470-4c93-86ba-5fe657f873a0",
               "linkedSourceUids": [],
               "linkedBundleIds": [],
               "gate": {
@@ -55522,9 +58230,9 @@
               }
             },
             {
-              "id": "10ee0194-33c2-40ac-91e8-1f77457deada",
-              "created": 1770190900673,
-              "text": "RTplan ",
+              "id": "6591f36e-f86e-4c7a-bf56-0d167ce91532",
+              "created": 1770213398486,
+              "text": "Taak Nakijken omloop",
               "linkedSourceId": null,
               "type": null,
               "processValue": null,
@@ -55564,7 +58272,7 @@
                 "calculatedScore": null,
                 "systems": [
                   {
-                    "id": "ca088663-dbfc-4556-a009-adbd5fefa5c6",
+                    "id": "d7bac2b6-00bd-424c-b586-d9f65bb4fb69",
                     "name": "",
                     "isLegacy": false,
                     "futureSystem": "",
@@ -55583,7 +58291,7 @@
               "disruptions": [],
               "workExp": null,
               "workExpNote": "",
-              "outputUid": "out_691addda-565c-4e32-b577-212f630713b1",
+              "outputUid": "out_d6fa96f7-a09d-4951-b778-659e12534398",
               "linkedSourceUids": [],
               "linkedBundleIds": [],
               "gate": {
@@ -55595,555 +58303,8 @@
               }
             },
             {
-              "id": "bc47670d-8aa5-4ad1-85d4-86471249f825",
-              "created": 1770190900673,
-              "text": "MBB'er (Planning)",
-              "linkedSourceId": null,
-              "type": null,
-              "processValue": null,
-              "processStatus": null,
-              "successFactors": "",
-              "causes": [],
-              "improvements": [],
-              "qa": {
-                "compleet": {
-                  "result": "",
-                  "note": ""
-                },
-                "kwaliteit": {
-                  "result": "",
-                  "note": ""
-                },
-                "duidelijkheid": {
-                  "result": "",
-                  "note": ""
-                },
-                "tijdigheid": {
-                  "result": "",
-                  "note": ""
-                },
-                "standaard": {
-                  "result": "",
-                  "note": ""
-                },
-                "overdracht": {
-                  "result": "",
-                  "note": ""
-                }
-              },
-              "systemData": {
-                "isMulti": false,
-                "systemName": "",
-                "calculatedScore": null,
-                "systems": [
-                  {
-                    "id": "686b0961-d3bf-42e9-bf97-fc20ef13de32",
-                    "name": "",
-                    "isLegacy": false,
-                    "futureSystem": "",
-                    "qa": {
-                      "workarounds": null,
-                      "performance": null,
-                      "double": null,
-                      "error": null,
-                      "depend": null
-                    },
-                    "calculatedScore": null
-                  }
-                ]
-              },
-              "inputDefinitions": [],
-              "disruptions": [],
-              "workExp": null,
-              "workExpNote": "",
-              "linkedSourceUids": [],
-              "linkedBundleIds": [],
-              "gate": {
-                "checkProcessIds": [],
-                "onFailTargetProcessId": null,
-                "onPassTargetProcessId": null,
-                "rule": "ALL_OK",
-                "note": ""
-              }
-            }
-          ],
-          "isQuestion": false,
-          "isConditional": false,
-          "logic": null,
-          "isGroup": false
-        },
-        {
-          "id": "a4d15cda-0fa3-4baf-b5d5-ca08ac611e2f",
-          "order": 1,
-          "isVisible": true,
-          "isParallel": false,
-          "isVariant": false,
-          "hasTransition": false,
-          "transitionNext": "",
-          "outputId": null,
-          "slots": [
-            {
-              "id": "60c42c47-0e17-4964-9268-0a287a9b40c8",
-              "created": 1770191081078,
-              "text": "MBB'er (Planning)",
-              "linkedSourceId": null,
-              "type": null,
-              "processValue": null,
-              "processStatus": null,
-              "successFactors": "",
-              "causes": [],
-              "improvements": [],
-              "qa": {
-                "compleet": {
-                  "result": "",
-                  "note": ""
-                },
-                "kwaliteit": {
-                  "result": "",
-                  "note": ""
-                },
-                "duidelijkheid": {
-                  "result": "",
-                  "note": ""
-                },
-                "tijdigheid": {
-                  "result": "",
-                  "note": ""
-                },
-                "standaard": {
-                  "result": "",
-                  "note": ""
-                },
-                "overdracht": {
-                  "result": "",
-                  "note": ""
-                }
-              },
-              "systemData": {
-                "isMulti": false,
-                "systemName": "",
-                "calculatedScore": null,
-                "systems": [
-                  {
-                    "id": "9a46fba3-ec36-4adc-a405-eef6142ac361",
-                    "name": "",
-                    "isLegacy": false,
-                    "futureSystem": "",
-                    "qa": {
-                      "workarounds": null,
-                      "performance": null,
-                      "double": null,
-                      "error": null,
-                      "depend": null
-                    },
-                    "calculatedScore": null
-                  }
-                ]
-              },
-              "inputDefinitions": [],
-              "disruptions": [],
-              "workExp": null,
-              "workExpNote": "",
-              "linkedSourceUids": [],
-              "linkedBundleIds": [],
-              "gate": {
-                "checkProcessIds": [],
-                "onFailTargetProcessId": null,
-                "onPassTargetProcessId": null,
-                "rule": "ALL_OK",
-                "note": ""
-              }
-            },
-            {
-              "id": "12e3ef54-812c-427c-a230-6ad68dfd984c",
-              "created": 1770191081079,
-              "text": "Pinnacle",
-              "linkedSourceId": null,
-              "type": null,
-              "processValue": null,
-              "processStatus": null,
-              "successFactors": "",
-              "causes": [],
-              "improvements": [],
-              "qa": {
-                "compleet": {
-                  "result": "",
-                  "note": ""
-                },
-                "kwaliteit": {
-                  "result": "",
-                  "note": ""
-                },
-                "duidelijkheid": {
-                  "result": "",
-                  "note": ""
-                },
-                "tijdigheid": {
-                  "result": "",
-                  "note": ""
-                },
-                "standaard": {
-                  "result": "",
-                  "note": ""
-                },
-                "overdracht": {
-                  "result": "",
-                  "note": ""
-                }
-              },
-              "systemData": {
-                "isMulti": false,
-                "systemName": "",
-                "calculatedScore": null,
-                "systems": [
-                  {
-                    "id": "22d9a38b-1403-4a47-931d-2c3a33b7d6a2",
-                    "name": "",
-                    "isLegacy": false,
-                    "futureSystem": "",
-                    "qa": {
-                      "workarounds": null,
-                      "performance": null,
-                      "double": null,
-                      "error": null,
-                      "depend": null
-                    },
-                    "calculatedScore": null
-                  }
-                ],
-                "systemsMeta": {
-                  "multi": false,
-                  "systems": [
-                    {
-                      "id": "8b4cfe11-1320-43d6-af37-8b5c868bc4c1",
-                      "name": "",
-                      "legacy": false,
-                      "future": "",
-                      "qa": {},
-                      "score": null
-                    }
-                  ],
-                  "activeSystemIdx": 0
-                }
-              },
-              "inputDefinitions": [],
-              "disruptions": [],
-              "workExp": null,
-              "workExpNote": "",
-              "linkedSourceUids": [],
-              "linkedBundleIds": [],
-              "gate": {
-                "checkProcessIds": [],
-                "onFailTargetProcessId": null,
-                "onPassTargetProcessId": null,
-                "rule": "ALL_OK",
-                "note": ""
-              }
-            },
-            {
-              "id": "007b5843-53ce-46da-bb53-39db1a3d0b9d",
-              "created": 1770191081079,
-              "text": "",
-              "linkedSourceId": null,
-              "type": null,
-              "processValue": null,
-              "processStatus": null,
-              "successFactors": "",
-              "causes": [],
-              "improvements": [],
-              "qa": {
-                "compleet": {
-                  "result": null,
-                  "impact": null,
-                  "note": ""
-                },
-                "kwaliteit": {
-                  "result": null,
-                  "impact": null,
-                  "note": ""
-                },
-                "duidelijkheid": {
-                  "result": null,
-                  "impact": null,
-                  "note": ""
-                },
-                "tijdigheid": {
-                  "result": null,
-                  "impact": null,
-                  "note": ""
-                },
-                "standaard": {
-                  "result": null,
-                  "impact": null,
-                  "note": ""
-                },
-                "overdracht": {
-                  "result": null,
-                  "impact": null,
-                  "note": ""
-                }
-              },
-              "systemData": {
-                "isMulti": false,
-                "systemName": "",
-                "calculatedScore": null,
-                "systems": [
-                  {
-                    "id": "45ecbb20-7b8c-4679-afc6-6f59779ef3b9",
-                    "name": "",
-                    "isLegacy": false,
-                    "futureSystem": "",
-                    "qa": {
-                      "workarounds": null,
-                      "performance": null,
-                      "double": null,
-                      "error": null,
-                      "depend": null
-                    },
-                    "calculatedScore": null
-                  }
-                ]
-              },
-              "inputDefinitions": [],
-              "disruptions": [],
-              "workExp": null,
-              "workExpNote": "",
-              "linkedBundleId": null,
-              "linkedBundleIds": [],
-              "linkedSourceUids": [
-                "out_691addda-565c-4e32-b577-212f630713b1"
-              ],
-              "linkedSourceUid": "out_691addda-565c-4e32-b577-212f630713b1",
-              "linkedSourceIds": [],
-              "gate": {
-                "checkProcessIds": [],
-                "onFailTargetProcessId": null,
-                "onPassTargetProcessId": null,
-                "rule": "ALL_OK",
-                "note": ""
-              }
-            },
-            {
-              "id": "1b455f38-9881-480b-8711-cec9bc357c6d",
-              "created": 1770191081079,
-              "text": "MBB'er (Planning)",
-              "linkedSourceId": null,
-              "type": null,
-              "processValue": null,
-              "processStatus": null,
-              "successFactors": "",
-              "causes": [],
-              "improvements": [],
-              "qa": {
-                "compleet": {
-                  "result": "",
-                  "note": ""
-                },
-                "kwaliteit": {
-                  "result": "",
-                  "note": ""
-                },
-                "duidelijkheid": {
-                  "result": "",
-                  "note": ""
-                },
-                "tijdigheid": {
-                  "result": "",
-                  "note": ""
-                },
-                "standaard": {
-                  "result": "",
-                  "note": ""
-                },
-                "overdracht": {
-                  "result": "",
-                  "note": ""
-                }
-              },
-              "systemData": {
-                "isMulti": false,
-                "systemName": "",
-                "calculatedScore": null,
-                "systems": [
-                  {
-                    "id": "01948f71-1de7-4cdf-ba53-69fec5e94943",
-                    "name": "",
-                    "isLegacy": false,
-                    "futureSystem": "",
-                    "qa": {
-                      "workarounds": null,
-                      "performance": null,
-                      "double": null,
-                      "error": null,
-                      "depend": null
-                    },
-                    "calculatedScore": null
-                  }
-                ]
-              },
-              "inputDefinitions": [],
-              "disruptions": [],
-              "workExp": null,
-              "workExpNote": "",
-              "linkedSourceUids": [],
-              "linkedBundleIds": [],
-              "gate": {
-                "checkProcessIds": [],
-                "onFailTargetProcessId": null,
-                "onPassTargetProcessId": null,
-                "rule": "ALL_OK",
-                "note": ""
-              }
-            },
-            {
-              "id": "0e708772-60a8-42fe-b5fc-3a15b42913aa",
-              "created": 1770191081079,
-              "text": "Exporteren plan naar PACs/XVI/Mosaiq",
-              "linkedSourceId": null,
-              "type": null,
-              "processValue": null,
-              "processStatus": null,
-              "successFactors": "",
-              "causes": [],
-              "improvements": [],
-              "qa": {
-                "compleet": {
-                  "result": "",
-                  "note": ""
-                },
-                "kwaliteit": {
-                  "result": "",
-                  "note": ""
-                },
-                "duidelijkheid": {
-                  "result": "",
-                  "note": ""
-                },
-                "tijdigheid": {
-                  "result": "",
-                  "note": ""
-                },
-                "standaard": {
-                  "result": "",
-                  "note": ""
-                },
-                "overdracht": {
-                  "result": "",
-                  "note": ""
-                }
-              },
-              "systemData": {
-                "isMulti": false,
-                "systemName": "",
-                "calculatedScore": null,
-                "systems": [
-                  {
-                    "id": "bb1bc743-4e3f-4123-94df-031900f8d31e",
-                    "name": "",
-                    "isLegacy": false,
-                    "futureSystem": "",
-                    "qa": {
-                      "workarounds": null,
-                      "performance": null,
-                      "double": null,
-                      "error": null,
-                      "depend": null
-                    },
-                    "calculatedScore": null
-                  }
-                ]
-              },
-              "inputDefinitions": [],
-              "disruptions": [],
-              "workExp": null,
-              "workExpNote": "",
-              "outputUid": "out_abd703e1-9819-4d68-9fa7-2393f4afb23c",
-              "linkedSourceUids": [],
-              "linkedBundleIds": [],
-              "gate": {
-                "checkProcessIds": [],
-                "onFailTargetProcessId": null,
-                "onPassTargetProcessId": null,
-                "rule": "ALL_OK",
-                "note": ""
-              }
-            },
-            {
-              "id": "f1d7cccc-7289-4380-94ae-5483e231b530",
-              "created": 1770191081079,
-              "text": "Geëxporteerd plan",
-              "linkedSourceId": null,
-              "type": null,
-              "processValue": null,
-              "processStatus": null,
-              "successFactors": "",
-              "causes": [],
-              "improvements": [],
-              "qa": {
-                "compleet": {
-                  "result": "",
-                  "note": ""
-                },
-                "kwaliteit": {
-                  "result": "",
-                  "note": ""
-                },
-                "duidelijkheid": {
-                  "result": "",
-                  "note": ""
-                },
-                "tijdigheid": {
-                  "result": "",
-                  "note": ""
-                },
-                "standaard": {
-                  "result": "",
-                  "note": ""
-                },
-                "overdracht": {
-                  "result": "",
-                  "note": ""
-                }
-              },
-              "systemData": {
-                "isMulti": false,
-                "systemName": "",
-                "calculatedScore": null,
-                "systems": [
-                  {
-                    "id": "151c0b90-d15a-4c29-8df3-83412b0ec79a",
-                    "name": "",
-                    "isLegacy": false,
-                    "futureSystem": "",
-                    "qa": {
-                      "workarounds": null,
-                      "performance": null,
-                      "double": null,
-                      "error": null,
-                      "depend": null
-                    },
-                    "calculatedScore": null
-                  }
-                ]
-              },
-              "inputDefinitions": [],
-              "disruptions": [],
-              "workExp": null,
-              "workExpNote": "",
-              "outputUid": "out_d5b6e9de-3434-460e-a3be-781fb8626c23",
-              "linkedSourceUids": [],
-              "linkedBundleIds": [],
-              "gate": {
-                "checkProcessIds": [],
-                "onFailTargetProcessId": null,
-                "onPassTargetProcessId": null,
-                "rule": "ALL_OK",
-                "note": ""
-              }
-            },
-            {
-              "id": "329ac926-34fa-4fa5-be06-abe9ee02beab",
-              "created": 1770191081079,
+              "id": "6e2e12eb-1513-4335-9075-b74a27dbbf89",
+              "created": 1770213398486,
               "text": "MBB'er (Omloop)",
               "linkedSourceId": null,
               "type": null,
@@ -56184,7 +58345,7 @@
                 "calculatedScore": null,
                 "systems": [
                   {
-                    "id": "ba1864c8-a706-4acf-9d4f-5a713cb28435",
+                    "id": "13c8bb44-c53a-43d4-a121-e1812c539d34",
                     "name": "",
                     "isLegacy": false,
                     "futureSystem": "",
@@ -56222,6 +58383,8 @@
       ],
       "outputMerges": [],
       "systemMerges": [],
+      "groups": [],
+      "variantGroups": [],
       "mergeGroupsV2": [
         {
           "slotIdx": 2,
@@ -56247,9 +58410,7 @@
             "failTargetColIdx": 6
           }
         }
-      ],
-      "groups": [],
-      "variantGroups": []
+      ]
     },
     {
       "id": "081ecac9-697c-4f99-b07a-1e33e8c20e98",
