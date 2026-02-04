@@ -4,7 +4,7 @@
   "author": "Anoniem",
   "created": "2026-01-16T08:48:17.021Z",
   "version": "2.7",
-  "activeSheetId": "081ecac9-697c-4f99-b07a-1e33e8c20e98",
+  "activeSheetId": "708221c4-508e-4384-a1c9-0cc33372fdf6",
   "sheets": [
     {
       "id": "819bb6d9-21cc-49cf-8c40-4b6d7df6b2e1",
@@ -34504,7 +34504,7 @@
               "systemData": {
                 "isMulti": false,
                 "systemName": "",
-                "calculatedScore": 0,
+                "calculatedScore": 66,
                 "systems": [
                   {
                     "id": "96c16b51-0e21-4f20-a159-d20accf38e19",
@@ -34525,12 +34525,22 @@
                   "multi": false,
                   "systems": [
                     {
-                      "id": "11e8a0c5-0c0d-43a9-af51-dcc69ab0b5fa",
+                      "id": "26588cc8-a9b6-4cc5-8c75-b9d94f5ec531",
                       "name": "Radiotherapie Web",
                       "legacy": false,
                       "future": "",
-                      "qa": {},
-                      "score": null
+                      "qa": {
+                        "q1": "NEVER",
+                        "q2": "SOMETIMES",
+                        "q2_note": "Als je geen namen invult aan het eind van het CT formulier, dan kan je het niet opslaan en wordt je verplicht je naam in te vullen voordat je het kan opslaan",
+                        "q3": "SOMETIMES",
+                        "q3_note": "Doelgebied uit prescriptie wordt niet overgenomen op CT formulier, moeten we handmatig 'overschrijven'. Bij Mamma BreathHold schrijven we dit en bij het doelgebied en bij de ligging. ",
+                        "q4": "SOMETIMES",
+                        "q4_note": "Soms zijn artsen verplicht iets te moeten invullen/aanklikken voordat ze het aanvraagformulier kunnen opslaan. Ze zijn dan genoodzaakt 'iets' aan te geven, terwijl het niet hoeft. Soms schrijft een arts dan nog bij de opmerkingen dat dit niet hoeft. ",
+                        "q5": "RISK",
+                        "q5_note": "Theoretisch kan je alles op papier zetten. Maar zonder aanvraagformulier weten we niet precies wat de arts wil, buiten het standaard proces om. Zonder T formulier weten de collega's tijdens de bestralingen niet hoe wij de patiënt hebben gepositioneerd. "
+                      },
+                      "score": 66
                     }
                   ],
                   "activeSystemIdx": 0
@@ -34563,27 +34573,33 @@
               "improvements": [],
               "qa": {
                 "compleet": {
-                  "result": null,
-                  "note": ""
+                  "result": "MINOR",
+                  "impact": "B",
+                  "note": "Arts vult niet altijd alles volledig in. Indien medicatie ingenomen moet worden voorafgaand de CT, moeten we dat opzoeken in EPIC, want het mag niet genoteerd worden in RTH web. "
                 },
                 "kwaliteit": {
-                  "result": null,
-                  "note": ""
+                  "result": "MINOR",
+                  "impact": "B",
+                  "note": "Arts vult niet altijd alles volledig in."
                 },
                 "duidelijkheid": {
-                  "result": null,
-                  "note": ""
+                  "result": "MODERATE",
+                  "impact": "B",
+                  "note": "idemdito bovenstaande"
                 },
                 "tijdigheid": {
-                  "result": null,
-                  "note": ""
+                  "result": "MINOR",
+                  "impact": "B",
+                  "note": "Het gaat iets beter tegenwoordig, aanvragen of orders zijn niet altijd op tijd. "
                 },
                 "standaard": {
-                  "result": null,
-                  "note": ""
+                  "result": "MINOR",
+                  "impact": "C",
+                  "note": "In principe hebben we voor de meeste doelgebieden standaard formulieren, maar elk patiënt en behandeling kan zijn eigen specifieke aanvragen hebben, die niet zijn opgenomen in de standaard formulieren. "
                 },
                 "overdracht": {
-                  "result": null,
+                  "result": "GOOD",
+                  "impact": null,
                   "note": ""
                 }
               },
@@ -34608,7 +34624,18 @@
                   }
                 ]
               },
-              "inputDefinitions": [],
+              "inputDefinitions": [
+                {
+                  "item": "Aanvraagformulier ",
+                  "specifications": "Hierin kijken we of er bijzonderheden zijn en wat de arts nodig heeft voor een juiste behandelingspositie. ",
+                  "type": "HARD"
+                },
+                {
+                  "item": "CT formulier",
+                  "specifications": "Is nodig om de uitgevoerde handelingen te checken (time out) en is nodig voor het bestralingstoestel ",
+                  "type": "HARD"
+                }
+              ],
               "disruptions": [],
               "workExp": null,
               "workExpNote": "",
@@ -34706,7 +34733,7 @@
               "linkedSourceId": null,
               "type": "Taak",
               "processValue": null,
-              "processStatus": null,
+              "processStatus": "NEUTRAL",
               "successFactors": "",
               "causes": [],
               "improvements": [],
@@ -34758,8 +34785,19 @@
                 ]
               },
               "inputDefinitions": [],
-              "disruptions": [],
-              "workExp": null,
+              "disruptions": [
+                {
+                  "scenario": "onzorgvuldig ingevuld ",
+                  "frequency": "Soms",
+                  "workaround": "Time out beter uitvoeren"
+                },
+                {
+                  "scenario": "Niet goed opgeslagen/vooruitgewerkt en vóórdat patiënt op tafel ligt al een CT formulier aangewerkt",
+                  "frequency": "Soms",
+                  "workaround": ""
+                }
+              ],
+              "workExp": "ROUTINE",
               "workExpNote": "",
               "linkedSourceUids": [],
               "linkedBundleIds": [],
@@ -35045,7 +35083,7 @@
               "systemData": {
                 "isMulti": false,
                 "systemName": "",
-                "calculatedScore": 0,
+                "calculatedScore": 66,
                 "systems": [
                   {
                     "id": "a5949d61-1b76-4fb5-8fe3-4e57c41ea602",
@@ -35066,12 +35104,22 @@
                   "multi": false,
                   "systems": [
                     {
-                      "id": "1e80dee4-741e-414e-b07a-51f987d5f6a8",
+                      "id": "4d09befb-eb7c-4c65-8216-c85fbc009726",
                       "name": "Radiotherapie Web",
                       "legacy": false,
                       "future": "",
-                      "qa": {},
-                      "score": null
+                      "qa": {
+                        "q1": "NEVER",
+                        "q2": "SOMETIMES",
+                        "q2_note": "Als je geen namen invult aan het eind van het CT formulier, dan kan je het niet opslaan en wordt je verplicht je naam in te vullen voordat je het kan opslaan",
+                        "q3": "SOMETIMES",
+                        "q3_note": "Doelgebied uit prescriptie wordt niet overgenomen op CT formulier, moeten we handmatig 'overschrijven'. Bij Mamma BreathHold schrijven we dit en bij het doelgebied en bij de ligging. ",
+                        "q4": "SOMETIMES",
+                        "q4_note": "Soms zijn artsen verplicht iets te moeten invullen/aanklikken voordat ze het aanvraagformulier kunnen opslaan. Ze zijn dan genoodzaakt 'iets' aan te geven, terwijl het niet hoeft. Soms schrijft een arts dan nog bij de opmerkingen dat dit niet hoeft. ",
+                        "q5": "RISK",
+                        "q5_note": "Theoretisch kan je alles op papier zetten. Maar zonder aanvraagformulier weten we niet precies wat de arts wil, buiten het standaard proces om. Zonder T formulier weten de collega's tijdens de bestralingen niet hoe wij de patiënt hebben gepositioneerd. "
+                      },
+                      "score": 66
                     }
                   ],
                   "activeSystemIdx": 0
@@ -35105,26 +35153,32 @@
               "qa": {
                 "compleet": {
                   "result": null,
+                  "impact": null,
                   "note": ""
                 },
                 "kwaliteit": {
                   "result": null,
+                  "impact": null,
                   "note": ""
                 },
                 "duidelijkheid": {
                   "result": null,
+                  "impact": null,
                   "note": ""
                 },
                 "tijdigheid": {
                   "result": null,
+                  "impact": null,
                   "note": ""
                 },
                 "standaard": {
                   "result": null,
+                  "impact": null,
                   "note": ""
                 },
                 "overdracht": {
                   "result": null,
+                  "impact": null,
                   "note": ""
                 }
               },
@@ -35247,8 +35301,8 @@
               "linkedSourceId": null,
               "type": "Taak",
               "processValue": null,
-              "processStatus": null,
-              "successFactors": "",
+              "processStatus": "HAPPY",
+              "successFactors": "hoeven alleen maar in te vullen of we een CT of PET-CT hebben gemaakt ",
               "causes": [],
               "improvements": [],
               "qa": {
@@ -35299,8 +35353,19 @@
                 ]
               },
               "inputDefinitions": [],
-              "disruptions": [],
-              "workExp": null,
+              "disruptions": [
+                {
+                  "scenario": "vergeten formulier aan te maken ",
+                  "frequency": "Zelden",
+                  "workaround": "komt in een volgende stap iemand achter "
+                },
+                {
+                  "scenario": "bij meerdere doelgebieden moeten meerder formulieren, maar als 1 CT is gemaakt hoeft dat maar in 1 formulier. Soms wordt het dan 2 keer of niet ingevuld ",
+                  "frequency": "Zelden",
+                  "workaround": "in een latere stap komt iemand erachter dat het niet goed ingeveld is "
+                }
+              ],
+              "workExp": "ROUTINE",
               "workExpNote": "",
               "linkedSourceUids": [],
               "linkedBundleIds": [],
@@ -35586,7 +35651,7 @@
               "systemData": {
                 "isMulti": false,
                 "systemName": "",
-                "calculatedScore": 0,
+                "calculatedScore": 66,
                 "systems": [
                   {
                     "id": "f7004021-32f2-4077-8069-c9dd58520623",
@@ -35607,12 +35672,21 @@
                   "multi": false,
                   "systems": [
                     {
-                      "id": "632d44a6-f04a-4745-89ec-e5d12f593d57",
-                      "name": "CT-computer",
+                      "id": "23e4981e-3429-4e73-8139-59c8c8814633",
+                      "name": "Radiotherapieweb",
                       "legacy": false,
                       "future": "",
-                      "qa": {},
-                      "score": null
+                      "qa": {
+                        "q1": "NEVER",
+                        "q2": "SOMETIMES",
+                        "q2_note": "als patient niet in EPIC is aangemeld komt patiënt niet in de lijst te staan ",
+                        "q3": "NEVER",
+                        "q4": "SOMETIMES",
+                        "q4_note": "protocol verdwijnt zomaar ",
+                        "q5": "STOP",
+                        "q5_note": "geen scan kunnen maken "
+                      },
+                      "score": 66
                     }
                   ],
                   "activeSystemIdx": 0
@@ -35645,27 +35719,33 @@
               "improvements": [],
               "qa": {
                 "compleet": {
-                  "result": "",
-                  "note": ""
+                  "result": "MINOR",
+                  "impact": "B",
+                  "note": "als pat niet is aangemeld of CT order niet gekoppeld komt deze niet in de lijst te staan. "
                 },
                 "kwaliteit": {
-                  "result": "",
+                  "result": "GOOD",
+                  "impact": null,
                   "note": ""
                 },
                 "duidelijkheid": {
-                  "result": "",
+                  "result": "GOOD",
+                  "impact": null,
                   "note": ""
                 },
                 "tijdigheid": {
-                  "result": "",
-                  "note": ""
+                  "result": "MINOR",
+                  "impact": "B",
+                  "note": "zie vraag 1 "
                 },
                 "standaard": {
-                  "result": "",
+                  "result": "GOOD",
+                  "impact": null,
                   "note": ""
                 },
                 "overdracht": {
-                  "result": "",
+                  "result": "GOOD",
+                  "impact": null,
                   "note": ""
                 }
               },
@@ -35690,7 +35770,18 @@
                   }
                 ]
               },
-              "inputDefinitions": [],
+              "inputDefinitions": [
+                {
+                  "item": "aangemelde pat ",
+                  "specifications": "",
+                  "type": "HARD"
+                },
+                {
+                  "item": "order ",
+                  "specifications": "",
+                  "type": "HARD"
+                }
+              ],
               "disruptions": [],
               "workExp": null,
               "workExpNote": "",
@@ -35704,7 +35795,8 @@
                 "onPassTargetProcessId": null,
                 "rule": "ALL_OK",
                 "note": ""
-              }
+              },
+              "linkedSourceIds": []
             },
             {
               "id": "act_dafd95fb-f92a-473a-be37-7d3ee1ad4c79",
@@ -35785,7 +35877,7 @@
               "linkedSourceId": null,
               "type": "Taak",
               "processValue": null,
-              "processStatus": null,
+              "processStatus": "HAPPY",
               "successFactors": "",
               "causes": [],
               "improvements": [],
@@ -35838,7 +35930,7 @@
               },
               "inputDefinitions": [],
               "disruptions": [],
-              "workExp": null,
+              "workExp": "ROUTINE",
               "workExpNote": "",
               "linkedSourceUids": [],
               "linkedBundleIds": [],
@@ -36124,7 +36216,7 @@
               "systemData": {
                 "isMulti": false,
                 "systemName": "",
-                "calculatedScore": 0,
+                "calculatedScore": 66,
                 "systems": [
                   {
                     "id": "0b744637-4db2-4295-84d4-d38e51d65741",
@@ -36145,12 +36237,21 @@
                   "multi": false,
                   "systems": [
                     {
-                      "id": "53ef91db-4c10-4339-9ef0-29a5331d573c",
-                      "name": "CT-computer",
+                      "id": "7d629543-ddd6-400e-ac95-9ebe77049b60",
+                      "name": "Radiotherapieweb",
                       "legacy": false,
                       "future": "",
-                      "qa": {},
-                      "score": null
+                      "qa": {
+                        "q1": "NEVER",
+                        "q2": "SOMETIMES",
+                        "q2_note": "als patient niet in EPIC is aangemeld komt patiënt niet in de lijst te staan ",
+                        "q3": "NEVER",
+                        "q4": "SOMETIMES",
+                        "q4_note": "protocol verdwijnt zomaar ",
+                        "q5": "STOP",
+                        "q5_note": "geen scan kunnen maken "
+                      },
+                      "score": 66
                     }
                   ],
                   "activeSystemIdx": 0
@@ -36183,27 +36284,33 @@
               "improvements": [],
               "qa": {
                 "compleet": {
-                  "result": null,
+                  "result": "GOOD",
+                  "impact": null,
                   "note": ""
                 },
                 "kwaliteit": {
-                  "result": null,
+                  "result": "GOOD",
+                  "impact": null,
                   "note": ""
                 },
                 "duidelijkheid": {
-                  "result": null,
+                  "result": "GOOD",
+                  "impact": null,
                   "note": ""
                 },
                 "tijdigheid": {
-                  "result": null,
+                  "result": "GOOD",
+                  "impact": null,
                   "note": ""
                 },
                 "standaard": {
-                  "result": null,
+                  "result": "GOOD",
+                  "impact": null,
                   "note": ""
                 },
                 "overdracht": {
-                  "result": null,
+                  "result": "GOOD",
+                  "impact": null,
                   "note": ""
                 }
               },
@@ -36326,7 +36433,7 @@
               "linkedSourceId": null,
               "type": "Taak",
               "processValue": null,
-              "processStatus": null,
+              "processStatus": "HAPPY",
               "successFactors": "",
               "causes": [],
               "improvements": [],
@@ -36379,8 +36486,8 @@
               },
               "inputDefinitions": [],
               "disruptions": [],
-              "workExp": null,
-              "workExpNote": "",
+              "workExp": "ROUTINE",
+              "workExpNote": "bij meerder scans is het soms lastig om de juiste protocollen aan elkaar te zetten ",
               "linkedSourceUids": [],
               "linkedBundleIds": [],
               "gate": {
@@ -36871,7 +36978,7 @@
               "linkedSourceId": null,
               "type": "Taak",
               "processValue": null,
-              "processStatus": null,
+              "processStatus": "HAPPY",
               "successFactors": "",
               "causes": [],
               "improvements": [],
@@ -36923,9 +37030,15 @@
                 ]
               },
               "inputDefinitions": [],
-              "disruptions": [],
-              "workExp": null,
-              "workExpNote": "",
+              "disruptions": [
+                {
+                  "scenario": "inmobiele pat wat niet is aangegeven door de arts ",
+                  "frequency": "Soms",
+                  "workaround": "we ondervinden dit zelf waardoor we soms hulpmiddelen te kort komen "
+                }
+              ],
+              "workExp": "OBSTACLE",
+              "workExpNote": "soms lastig hoe we een patiënt moeten positioneren",
               "linkedSourceUids": [],
               "linkedBundleIds": [],
               "gate": {
@@ -37422,10 +37535,14 @@
               "linkedSourceId": null,
               "type": null,
               "processValue": null,
-              "processStatus": null,
+              "processStatus": "NEUTRAL",
               "successFactors": "",
-              "causes": [],
-              "improvements": [],
+              "causes": [
+                "vergeten aan te vragen "
+              ],
+              "improvements": [
+                "arts laten weten dat het niet goed is aangevraagd en zelf actie ondernemen "
+              ],
               "qa": {
                 "compleet": {
                   "result": "",
@@ -37474,9 +37591,15 @@
                 ]
               },
               "inputDefinitions": [],
-              "disruptions": [],
-              "workExp": null,
-              "workExpNote": "",
+              "disruptions": [
+                {
+                  "scenario": "patient heeft hulpmiddel nodig die niet is aangevraagd",
+                  "frequency": "Soms",
+                  "workaround": "pat uitstellen of mouldroom erbij halen "
+                }
+              ],
+              "workExp": "ROUTINE",
+              "workExpNote": "bij deze positionering hoort een mouldroomafsrpaak ",
               "linkedSourceUids": [],
               "linkedBundleIds": [],
               "gate": {
@@ -37820,34 +37943,34 @@
               "improvements": [],
               "qa": {
                 "compleet": {
-                  "result": null,
+                  "result": "GOOD",
                   "impact": null,
                   "note": ""
                 },
                 "kwaliteit": {
-                  "result": null,
+                  "result": "GOOD",
                   "impact": null,
                   "note": ""
                 },
                 "duidelijkheid": {
-                  "result": null,
+                  "result": "GOOD",
                   "impact": null,
                   "note": ""
                 },
                 "tijdigheid": {
-                  "result": null,
+                  "result": "GOOD",
                   "impact": null,
                   "note": ""
                 },
                 "standaard": {
-                  "result": null,
-                  "impact": null,
-                  "note": ""
+                  "result": "MINOR",
+                  "impact": "B",
+                  "note": "afwijkende ligging van standaard protocol "
                 },
                 "overdracht": {
-                  "result": null,
-                  "impact": null,
-                  "note": ""
+                  "result": "MINOR",
+                  "impact": "B",
+                  "note": "soms is het geen duidelijke beschrijving "
                 }
               },
               "systemData": {
@@ -37871,7 +37994,13 @@
                   }
                 ]
               },
-              "inputDefinitions": [],
+              "inputDefinitions": [
+                {
+                  "item": "niet te positioneren pat ",
+                  "specifications": "conditie te slecht ",
+                  "type": "HARD"
+                }
+              ],
               "disruptions": [],
               "workExp": null,
               "workExpNote": "",
@@ -37969,7 +38098,7 @@
               "linkedSourceId": null,
               "type": "Taak",
               "processValue": null,
-              "processStatus": null,
+              "processStatus": "HAPPY",
               "successFactors": "",
               "causes": [],
               "improvements": [],
@@ -38021,8 +38150,14 @@
                 ]
               },
               "inputDefinitions": [],
-              "disruptions": [],
-              "workExp": null,
+              "disruptions": [
+                {
+                  "scenario": "camera kapot of leeg ",
+                  "frequency": "Zelden",
+                  "workaround": "andere pakken "
+                }
+              ],
+              "workExp": "ROUTINE",
               "workExpNote": "",
               "linkedSourceUids": [],
               "linkedBundleIds": [],
@@ -38524,7 +38659,7 @@
               "linkedSourceId": null,
               "type": "Taak",
               "processValue": null,
-              "processStatus": null,
+              "processStatus": "HAPPY",
               "successFactors": "",
               "causes": [],
               "improvements": [],
@@ -38576,9 +38711,25 @@
                 ]
               },
               "inputDefinitions": [],
-              "disruptions": [],
-              "workExp": null,
-              "workExpNote": "",
+              "disruptions": [
+                {
+                  "scenario": "vergeten map aan te maken ",
+                  "frequency": "Zelden",
+                  "workaround": "alsnog map aanmaken "
+                },
+                {
+                  "scenario": "verkeerde MRN ",
+                  "frequency": "Zelden",
+                  "workaround": "opletten "
+                },
+                {
+                  "scenario": "vergeten foto toe te voegen ",
+                  "frequency": "Zelden",
+                  "workaround": "alsnog foto toevoegen  ( TIME OUT )"
+                }
+              ],
+              "workExp": "OBSTACLE",
+              "workExpNote": "is omslachtig om te doen en foutgevoelig\n\nmap aanmaken --> foto erin --> map verslepen naar andere map --> juiste map openen ",
               "linkedSourceUids": [],
               "linkedBundleIds": [],
               "gate": {
@@ -38863,7 +39014,7 @@
               "systemData": {
                 "isMulti": false,
                 "systemName": "",
-                "calculatedScore": null,
+                "calculatedScore": 73,
                 "systems": [
                   {
                     "id": "a57e68d4-e458-4259-a814-ef9a803c6fd1",
@@ -38884,12 +39035,21 @@
                   "multi": false,
                   "systems": [
                     {
-                      "id": "b042d98e-d576-4a0f-8482-23ddddc71e66",
-                      "name": "",
+                      "id": "442e3bc2-f413-4a5e-9c44-51244cbc4959",
+                      "name": "CT-computer",
                       "legacy": false,
                       "future": "",
-                      "qa": {},
-                      "score": null
+                      "qa": {
+                        "q1": "SOMETIMES",
+                        "q1_note": "als accu leeg is of camera kapot ",
+                        "q2": "SOMETIMES",
+                        "q2_note": "accu leeg ",
+                        "q3": "NEVER",
+                        "q4": "NEVER",
+                        "q5": "RISK",
+                        "q5_note": "geen liggingsfoto, maar kunnen wel verder met de behandeling "
+                      },
+                      "score": 73
                     }
                   ],
                   "activeSystemIdx": 0
@@ -38922,32 +39082,32 @@
               "improvements": [],
               "qa": {
                 "compleet": {
-                  "result": null,
+                  "result": "GOOD",
                   "impact": null,
                   "note": ""
                 },
                 "kwaliteit": {
-                  "result": null,
+                  "result": "GOOD",
                   "impact": null,
                   "note": ""
                 },
                 "duidelijkheid": {
-                  "result": null,
+                  "result": "GOOD",
                   "impact": null,
                   "note": ""
                 },
                 "tijdigheid": {
-                  "result": null,
+                  "result": "GOOD",
                   "impact": null,
                   "note": ""
                 },
                 "standaard": {
-                  "result": null,
+                  "result": "GOOD",
                   "impact": null,
                   "note": ""
                 },
                 "overdracht": {
-                  "result": null,
+                  "result": "GOOD",
                   "impact": null,
                   "note": ""
                 }
@@ -38973,7 +39133,13 @@
                   }
                 ]
               },
-              "inputDefinitions": [],
+              "inputDefinitions": [
+                {
+                  "item": "als we voorgaande stap niet goed hebben gedaan ",
+                  "specifications": "",
+                  "type": "SOFT"
+                }
+              ],
               "disruptions": [],
               "workExp": null,
               "workExpNote": "",
@@ -39071,10 +39237,14 @@
               "linkedSourceId": null,
               "type": "TimeOut",
               "processValue": null,
-              "processStatus": null,
+              "processStatus": "NEUTRAL",
               "successFactors": "",
-              "causes": [],
-              "improvements": [],
+              "causes": [
+                "te snel willen werken "
+              ],
+              "improvements": [
+                "toch time out uitvoeren "
+              ],
               "qa": {
                 "compleet": {
                   "result": "",
@@ -39123,9 +39293,15 @@
                 ]
               },
               "inputDefinitions": [],
-              "disruptions": [],
-              "workExp": null,
-              "workExpNote": "",
+              "disruptions": [
+                {
+                  "scenario": "geen complete ct ",
+                  "frequency": "Zelden",
+                  "workaround": "overnieuw maken "
+                }
+              ],
+              "workExp": "OBSTACLE",
+              "workExpNote": "wordt vaak vergeten ",
               "linkedSourceUids": [],
               "linkedBundleIds": [],
               "gate": {
@@ -39381,7 +39557,7 @@
             {
               "id": "49c2a40e-c53d-4661-a682-0caaddf18003",
               "created": 1769416559545,
-              "text": "Radiotherapie Web",
+              "text": "Radiotherapie Web / CT-computer / Fotocamera / Mosaiq / ARIA",
               "linkedSourceId": null,
               "type": null,
               "processValue": null,
@@ -39418,7 +39594,7 @@
               "systemData": {
                 "isMulti": false,
                 "systemName": "",
-                "calculatedScore": 0,
+                "calculatedScore": 73,
                 "systems": [
                   {
                     "id": "0ee6aa14-1e84-46ba-8fe7-d8a130130569",
@@ -39439,12 +39615,21 @@
                   "multi": false,
                   "systems": [
                     {
-                      "id": "9045e1c6-cc6c-4b1e-a3bf-0b5883781514",
+                      "id": "c6d66c62-077b-4758-9343-db825c5b2256",
                       "name": "CT-computer",
                       "legacy": false,
                       "future": "",
-                      "qa": {},
-                      "score": null
+                      "qa": {
+                        "q1": "SOMETIMES",
+                        "q1_note": "als accu leeg is of camera kapot ",
+                        "q2": "SOMETIMES",
+                        "q2_note": "accu leeg ",
+                        "q3": "NEVER",
+                        "q4": "NEVER",
+                        "q5": "RISK",
+                        "q5_note": "geen liggingsfoto, maar kunnen wel verder met de behandeling "
+                      },
+                      "score": 73
                     }
                   ],
                   "activeSystemIdx": 0
@@ -39477,32 +39662,32 @@
               "improvements": [],
               "qa": {
                 "compleet": {
-                  "result": null,
+                  "result": "GOOD",
                   "impact": null,
                   "note": ""
                 },
                 "kwaliteit": {
-                  "result": null,
+                  "result": "GOOD",
                   "impact": null,
                   "note": ""
                 },
                 "duidelijkheid": {
-                  "result": null,
+                  "result": "GOOD",
                   "impact": null,
                   "note": ""
                 },
                 "tijdigheid": {
-                  "result": null,
+                  "result": "GOOD",
                   "impact": null,
                   "note": ""
                 },
                 "standaard": {
-                  "result": null,
+                  "result": "GOOD",
                   "impact": null,
                   "note": ""
                 },
                 "overdracht": {
-                  "result": null,
+                  "result": "GOOD",
                   "impact": null,
                   "note": ""
                 }
@@ -39626,7 +39811,7 @@
               "linkedSourceId": null,
               "type": "Afspraak",
               "processValue": null,
-              "processStatus": null,
+              "processStatus": "HAPPY",
               "successFactors": "",
               "causes": [],
               "improvements": [],
@@ -39678,8 +39863,19 @@
                 ]
               },
               "inputDefinitions": [],
-              "disruptions": [],
-              "workExp": null,
+              "disruptions": [
+                {
+                  "scenario": "4D werkt niet ",
+                  "frequency": "Soms",
+                  "workaround": "laten maken / zorgen voor beter signaal "
+                },
+                {
+                  "scenario": "contrastpomp werkt niet ",
+                  "frequency": "Zelden",
+                  "workaround": "laten maken "
+                }
+              ],
+              "workExp": "FLOW",
               "workExpNote": "",
               "linkedSourceUids": [],
               "linkedBundleIds": [],
@@ -39932,7 +40128,7 @@
             {
               "id": "00c79eb2-425a-4b6b-8674-a1d361c82cb0",
               "created": 1769604426030,
-              "text": "Radiotherapie Web",
+              "text": "Radiotherapie Web / CT-computer / Fotocamera / Mosaiq / ARIA",
               "linkedSourceId": null,
               "type": null,
               "processValue": null,
@@ -39969,7 +40165,7 @@
               "systemData": {
                 "isMulti": false,
                 "systemName": "",
-                "calculatedScore": 0,
+                "calculatedScore": 73,
                 "systems": [
                   {
                     "id": "48410dd8-6a4f-4f55-8416-85e7b95442ab",
@@ -39990,12 +40186,21 @@
                   "multi": false,
                   "systems": [
                     {
-                      "id": "9f4d3947-75ac-42b2-861a-dd41b3c6d556",
+                      "id": "9dce7ac1-cdea-43ec-82a7-7ba4f494aa84",
                       "name": "CT-computer",
                       "legacy": false,
                       "future": "",
-                      "qa": {},
-                      "score": null
+                      "qa": {
+                        "q1": "SOMETIMES",
+                        "q1_note": "als accu leeg is of camera kapot ",
+                        "q2": "SOMETIMES",
+                        "q2_note": "accu leeg ",
+                        "q3": "NEVER",
+                        "q4": "NEVER",
+                        "q5": "RISK",
+                        "q5_note": "geen liggingsfoto, maar kunnen wel verder met de behandeling "
+                      },
+                      "score": 73
                     }
                   ],
                   "activeSystemIdx": 0
@@ -40028,32 +40233,32 @@
               "improvements": [],
               "qa": {
                 "compleet": {
-                  "result": null,
+                  "result": "GOOD",
                   "impact": null,
                   "note": ""
                 },
                 "kwaliteit": {
-                  "result": null,
+                  "result": "GOOD",
                   "impact": null,
                   "note": ""
                 },
                 "duidelijkheid": {
-                  "result": null,
+                  "result": "GOOD",
                   "impact": null,
                   "note": ""
                 },
                 "tijdigheid": {
-                  "result": null,
+                  "result": "GOOD",
                   "impact": null,
                   "note": ""
                 },
                 "standaard": {
-                  "result": null,
+                  "result": "GOOD",
                   "impact": null,
                   "note": ""
                 },
                 "overdracht": {
-                  "result": null,
+                  "result": "GOOD",
                   "impact": null,
                   "note": ""
                 }
@@ -40079,7 +40284,18 @@
                   }
                 ]
               },
-              "inputDefinitions": [],
+              "inputDefinitions": [
+                {
+                  "item": "infuus ",
+                  "specifications": "zonder infuus geen contrast ",
+                  "type": "HARD"
+                },
+                {
+                  "item": "contrastspullen",
+                  "specifications": "",
+                  "type": "HARD"
+                }
+              ],
               "disruptions": [],
               "workExp": null,
               "workExpNote": "",
@@ -40177,7 +40393,7 @@
               "linkedSourceId": null,
               "type": null,
               "processValue": null,
-              "processStatus": null,
+              "processStatus": "HAPPY",
               "successFactors": "",
               "causes": [],
               "improvements": [],
@@ -40230,7 +40446,7 @@
               },
               "inputDefinitions": [],
               "disruptions": [],
-              "workExp": null,
+              "workExp": "FLOW",
               "workExpNote": "",
               "linkedSourceUids": [],
               "linkedBundleIds": [],
@@ -40479,7 +40695,7 @@
             {
               "id": "ec4767a3-c144-4e5f-9fe3-0573592c8e3f",
               "created": 1769510542503,
-              "text": "Radiotherapie Web",
+              "text": "Radiotherapie Web / CT-computer / Fotocamera / Mosaiq / ARIA",
               "linkedSourceId": null,
               "type": null,
               "processValue": null,
@@ -40516,7 +40732,7 @@
               "systemData": {
                 "isMulti": false,
                 "systemName": "",
-                "calculatedScore": 0,
+                "calculatedScore": 73,
                 "systems": [
                   {
                     "id": "49b1f1ce-91c7-4c97-a707-091e8cd9bf94",
@@ -40537,12 +40753,21 @@
                   "multi": false,
                   "systems": [
                     {
-                      "id": "7b21afb4-92ac-428b-bf1e-124212b2126e",
+                      "id": "cbb181d6-8e97-4221-b289-3d660f310d97",
                       "name": "CT-computer",
                       "legacy": false,
                       "future": "",
-                      "qa": {},
-                      "score": null
+                      "qa": {
+                        "q1": "SOMETIMES",
+                        "q1_note": "als accu leeg is of camera kapot ",
+                        "q2": "SOMETIMES",
+                        "q2_note": "accu leeg ",
+                        "q3": "NEVER",
+                        "q4": "NEVER",
+                        "q5": "RISK",
+                        "q5_note": "geen liggingsfoto, maar kunnen wel verder met de behandeling "
+                      },
+                      "score": 73
                     }
                   ],
                   "activeSystemIdx": 0
@@ -40575,32 +40800,32 @@
               "improvements": [],
               "qa": {
                 "compleet": {
-                  "result": null,
-                  "impact": null,
-                  "note": ""
+                  "result": "MINOR",
+                  "impact": "B",
+                  "note": "soms staat er toch niet alles op.\nartefacten waardoor de beelden niet bruikbaar zijn \nmarkering vergeten \nte veel lucht in darmen \nte weinig blaasvulling \nflab niet goed "
                 },
                 "kwaliteit": {
-                  "result": null,
-                  "impact": null,
-                  "note": ""
+                  "result": "MINOR",
+                  "impact": "B",
+                  "note": "zie vraag 1 "
                 },
                 "duidelijkheid": {
-                  "result": null,
+                  "result": "GOOD",
                   "impact": null,
                   "note": ""
                 },
                 "tijdigheid": {
-                  "result": null,
+                  "result": "GOOD",
                   "impact": null,
                   "note": ""
                 },
                 "standaard": {
-                  "result": null,
+                  "result": "GOOD",
                   "impact": null,
                   "note": ""
                 },
                 "overdracht": {
-                  "result": null,
+                  "result": "GOOD",
                   "impact": null,
                   "note": ""
                 }
@@ -40626,7 +40851,13 @@
                   }
                 ]
               },
-              "inputDefinitions": [],
+              "inputDefinitions": [
+                {
+                  "item": "zie vraag 1",
+                  "specifications": "",
+                  "type": "SOFT"
+                }
+              ],
               "disruptions": [],
               "workExp": null,
               "workExpNote": "",
@@ -40724,8 +40955,8 @@
               "linkedSourceId": null,
               "type": "Beoordeling",
               "processValue": null,
-              "processStatus": null,
-              "successFactors": "",
+              "processStatus": "HAPPY",
+              "successFactors": "wel altijd overleggen met je collega of je het eens bent met de beelden / soms Fysicus mee laten kijken voor correctheid ",
               "causes": [],
               "improvements": [],
               "qa": {
@@ -40776,8 +41007,14 @@
                 ]
               },
               "inputDefinitions": [],
-              "disruptions": [],
-              "workExp": null,
+              "disruptions": [
+                {
+                  "scenario": "geen compleet beeld ",
+                  "frequency": "Zelden",
+                  "workaround": "bij twijfel overleg met andere discipline / ct overmaken "
+                }
+              ],
+              "workExp": "FLOW",
               "workExpNote": "",
               "linkedSourceUids": [],
               "linkedBundleIds": [],
@@ -41071,7 +41308,7 @@
               "systemData": {
                 "isMulti": false,
                 "systemName": "",
-                "calculatedScore": 0,
+                "calculatedScore": 66,
                 "systems": [
                   {
                     "id": "7c98217a-13c4-4084-83cf-58f72f0b3909",
@@ -41092,12 +41329,21 @@
                   "multi": false,
                   "systems": [
                     {
-                      "id": "b6524076-fd49-4f21-b7d7-0f5b7fef9d6f",
+                      "id": "e0c603c5-04bb-4777-ac05-52780564fe40",
                       "name": "CT-computer",
                       "legacy": false,
                       "future": "",
-                      "qa": {},
-                      "score": null
+                      "qa": {
+                        "q2": "SOMETIMES",
+                        "q2_note": "als de patient niet is aangemeld in EPIC komt deze ook niet in de CT computer te staan ",
+                        "q1": "NEVER",
+                        "q3": "NEVER",
+                        "q4": "SOMETIMES",
+                        "q4_note": "je kunt het verkeerde scanprotocol kiezen of verkeerde patiënt selecteren ",
+                        "q5": "STOP",
+                        "q5_note": "zonder CT computer kunnen we niet scannen "
+                      },
+                      "score": 66
                     }
                   ],
                   "activeSystemIdx": 0
@@ -41130,32 +41376,32 @@
               "improvements": [],
               "qa": {
                 "compleet": {
-                  "result": null,
+                  "result": "GOOD",
                   "impact": null,
                   "note": ""
                 },
                 "kwaliteit": {
-                  "result": null,
+                  "result": "GOOD",
                   "impact": null,
                   "note": ""
                 },
                 "duidelijkheid": {
-                  "result": null,
+                  "result": "GOOD",
                   "impact": null,
                   "note": ""
                 },
                 "tijdigheid": {
-                  "result": null,
+                  "result": "GOOD",
                   "impact": null,
                   "note": ""
                 },
                 "standaard": {
-                  "result": null,
+                  "result": "GOOD",
                   "impact": null,
                   "note": ""
                 },
                 "overdracht": {
-                  "result": null,
+                  "result": "GOOD",
                   "impact": null,
                   "note": ""
                 }
@@ -41279,10 +41525,14 @@
               "linkedSourceId": null,
               "type": "Taak",
               "processValue": null,
-              "processStatus": null,
+              "processStatus": "NEUTRAL",
               "successFactors": "",
-              "causes": [],
-              "improvements": [],
+              "causes": [
+                "Soms komen de beelden/limbus niet goed aan"
+              ],
+              "improvements": [
+                "fysicus bellen "
+              ],
               "qa": {
                 "compleet": {
                   "result": "",
@@ -41331,9 +41581,20 @@
                 ]
               },
               "inputDefinitions": [],
-              "disruptions": [],
-              "workExp": null,
-              "workExpNote": "",
+              "disruptions": [
+                {
+                  "scenario": "Limbus komt niet goed binnen",
+                  "frequency": "Soms",
+                  "workaround": "fysicus bellen"
+                },
+                {
+                  "scenario": "beelden komen helemaal niet binnen",
+                  "frequency": "Zelden",
+                  "workaround": "ict bellen"
+                }
+              ],
+              "workExp": "ROUTINE",
+              "workExpNote": "Wordt automatisch verstuurd naar EPIC/Limbus/Pinnacle/Aria",
               "linkedSourceUids": [],
               "linkedBundleIds": [],
               "gate": {
@@ -41618,7 +41879,7 @@
               "systemData": {
                 "isMulti": false,
                 "systemName": "",
-                "calculatedScore": 0,
+                "calculatedScore": 66,
                 "systems": [
                   {
                     "id": "d5c18b0e-2d29-4f84-864a-f974a9f7a306",
@@ -41639,12 +41900,21 @@
                   "multi": false,
                   "systems": [
                     {
-                      "id": "a521b735-f7f7-42e6-bf29-eaff7d44272c",
-                      "name": "Radiotherapie Web",
+                      "id": "7201cf4d-181f-4224-a095-b47991b0bab3",
+                      "name": "CT-computer",
                       "legacy": false,
                       "future": "",
-                      "qa": {},
-                      "score": null
+                      "qa": {
+                        "q2": "SOMETIMES",
+                        "q2_note": "als de patient niet is aangemeld in EPIC komt deze ook niet in de CT computer te staan ",
+                        "q1": "NEVER",
+                        "q3": "NEVER",
+                        "q4": "SOMETIMES",
+                        "q4_note": "je kunt het verkeerde scanprotocol kiezen of verkeerde patiënt selecteren ",
+                        "q5": "STOP",
+                        "q5_note": "zonder CT computer kunnen we niet scannen "
+                      },
+                      "score": 66
                     }
                   ],
                   "activeSystemIdx": 0
@@ -41677,32 +41947,32 @@
               "improvements": [],
               "qa": {
                 "compleet": {
-                  "result": null,
+                  "result": "GOOD",
                   "impact": null,
                   "note": ""
                 },
                 "kwaliteit": {
-                  "result": null,
+                  "result": "GOOD",
                   "impact": null,
                   "note": ""
                 },
                 "duidelijkheid": {
-                  "result": null,
+                  "result": "GOOD",
                   "impact": null,
                   "note": ""
                 },
                 "tijdigheid": {
-                  "result": null,
+                  "result": "GOOD",
                   "impact": null,
                   "note": ""
                 },
                 "standaard": {
-                  "result": null,
+                  "result": "GOOD",
                   "impact": null,
                   "note": ""
                 },
                 "overdracht": {
-                  "result": null,
+                  "result": "GOOD",
                   "impact": null,
                   "note": ""
                 }
@@ -41728,7 +41998,13 @@
                   }
                 ]
               },
-              "inputDefinitions": [],
+              "inputDefinitions": [
+                {
+                  "item": "indien CT fomurlier niet goed is gecontroleerd",
+                  "specifications": "gaat vaak om kleine details die niet goed zijn genoteerd",
+                  "type": "SOFT"
+                }
+              ],
               "disruptions": [],
               "workExp": null,
               "workExpNote": "",
@@ -41826,10 +42102,14 @@
               "linkedSourceId": null,
               "type": "Taak",
               "processValue": null,
-              "processStatus": null,
+              "processStatus": "NEUTRAL",
               "successFactors": "",
-              "causes": [],
-              "improvements": [],
+              "causes": [
+                "soms toch niet volledig ingevuld"
+              ],
+              "improvements": [
+                "time out"
+              ],
               "qa": {
                 "compleet": {
                   "result": "",
@@ -41878,9 +42158,15 @@
                 ]
               },
               "inputDefinitions": [],
-              "disruptions": [],
-              "workExp": null,
-              "workExpNote": "",
+              "disruptions": [
+                {
+                  "scenario": "niet volledig ingevulde Ct formulier",
+                  "frequency": "Soms",
+                  "workaround": "time out"
+                }
+              ],
+              "workExp": "ROUTINE",
+              "workExpNote": "Goed noteren wat je hebt gedaan, TIME out",
               "linkedSourceUids": [],
               "linkedBundleIds": [],
               "gate": {
@@ -42128,7 +42414,7 @@
             {
               "id": "c5185212-1f03-4e69-80bb-c341425413da",
               "created": 1769510774346,
-              "text": "Radiotherapie Web",
+              "text": "Radiotherapie Web / CT-computer / Fotocamera / Mosaiq / ARIA",
               "linkedSourceId": null,
               "type": null,
               "processValue": null,
@@ -42165,7 +42451,7 @@
               "systemData": {
                 "isMulti": false,
                 "systemName": "",
-                "calculatedScore": 0,
+                "calculatedScore": 73,
                 "systems": [
                   {
                     "id": "8af7e193-b41f-44b7-927c-95314a268e56",
@@ -42186,12 +42472,21 @@
                   "multi": false,
                   "systems": [
                     {
-                      "id": "8c5316e7-8168-4597-9f51-960cf0142911",
+                      "id": "62b061f2-1358-44fc-aa71-d0850f959f97",
                       "name": "Radiotherapie Web",
                       "legacy": false,
                       "future": "",
-                      "qa": {},
-                      "score": null
+                      "qa": {
+                        "q1": "SOMETIMES",
+                        "q1_note": "als accu leeg is of camera kapot ",
+                        "q2": "SOMETIMES",
+                        "q2_note": "accu leeg ",
+                        "q3": "NEVER",
+                        "q4": "NEVER",
+                        "q5": "RISK",
+                        "q5_note": "geen liggingsfoto, maar kunnen wel verder met de behandeling "
+                      },
+                      "score": 73
                     }
                   ],
                   "activeSystemIdx": 0
@@ -42224,32 +42519,32 @@
               "improvements": [],
               "qa": {
                 "compleet": {
-                  "result": null,
+                  "result": "GOOD",
                   "impact": null,
                   "note": ""
                 },
                 "kwaliteit": {
-                  "result": null,
+                  "result": "GOOD",
                   "impact": null,
                   "note": ""
                 },
                 "duidelijkheid": {
-                  "result": null,
+                  "result": "GOOD",
                   "impact": null,
                   "note": ""
                 },
                 "tijdigheid": {
-                  "result": null,
+                  "result": "GOOD",
                   "impact": null,
                   "note": ""
                 },
                 "standaard": {
-                  "result": null,
+                  "result": "GOOD",
                   "impact": null,
                   "note": ""
                 },
                 "overdracht": {
-                  "result": null,
+                  "result": "GOOD",
                   "impact": null,
                   "note": ""
                 }
@@ -42373,10 +42668,14 @@
               "linkedSourceId": null,
               "type": "Taak",
               "processValue": null,
-              "processStatus": null,
+              "processStatus": "NEUTRAL",
               "successFactors": "",
-              "causes": [],
-              "improvements": [],
+              "causes": [
+                "soms vergeet je de match taak of de MRI "
+              ],
+              "improvements": [
+                "time out"
+              ],
               "qa": {
                 "compleet": {
                   "result": "",
@@ -42425,8 +42724,14 @@
                 ]
               },
               "inputDefinitions": [],
-              "disruptions": [],
-              "workExp": null,
+              "disruptions": [
+                {
+                  "scenario": "onvolledig ingevulde VU&B formulier",
+                  "frequency": "Soms",
+                  "workaround": "Poli/omloop komt erachter"
+                }
+              ],
+              "workExp": "ROUTINE",
               "workExpNote": "",
               "linkedSourceUids": [],
               "linkedBundleIds": [],
@@ -42771,27 +43076,33 @@
               "improvements": [],
               "qa": {
                 "compleet": {
-                  "result": "",
+                  "result": "GOOD",
+                  "impact": null,
                   "note": ""
                 },
                 "kwaliteit": {
-                  "result": "",
-                  "note": ""
+                  "result": "MINOR",
+                  "impact": "B",
+                  "note": "Wij beoordelen de scan, maar de arts kan soms toch niet tevreden zijn "
                 },
                 "duidelijkheid": {
-                  "result": "",
+                  "result": "GOOD",
+                  "impact": null,
                   "note": ""
                 },
                 "tijdigheid": {
-                  "result": "",
+                  "result": "GOOD",
+                  "impact": null,
                   "note": ""
                 },
                 "standaard": {
-                  "result": "",
+                  "result": "GOOD",
+                  "impact": null,
                   "note": ""
                 },
                 "overdracht": {
-                  "result": "",
+                  "result": "GOOD",
+                  "impact": null,
                   "note": ""
                 }
               },
@@ -42830,7 +43141,8 @@
                 "onPassTargetProcessId": null,
                 "rule": "ALL_OK",
                 "note": ""
-              }
+              },
+              "linkedSourceIds": []
             },
             {
               "id": "act_1069f866-750d-4dec-aef3-41bcf6b46a77",
@@ -42911,10 +43223,14 @@
               "linkedSourceId": null,
               "type": "Taak",
               "processValue": null,
-              "processStatus": null,
+              "processStatus": "NEUTRAL",
               "successFactors": "",
-              "causes": [],
-              "improvements": [],
+              "causes": [
+                "veel veranderingen"
+              ],
+              "improvements": [
+                "veranderingen bijhouden "
+              ],
               "qa": {
                 "compleet": {
                   "result": "",
@@ -42963,9 +43279,15 @@
                 ]
               },
               "inputDefinitions": [],
-              "disruptions": [],
-              "workExp": null,
-              "workExpNote": "",
+              "disruptions": [
+                {
+                  "scenario": "verkeerde takenserie",
+                  "frequency": "Soms",
+                  "workaround": "planning komt erachter"
+                }
+              ],
+              "workExp": "ROUTINE",
+              "workExpNote": "nu met verschillende planningssystemen goed nadenken welken takenserie je aanmaakt",
               "linkedSourceUids": [],
               "linkedBundleIds": [],
               "gate": {
@@ -43309,32 +43631,32 @@
               "improvements": [],
               "qa": {
                 "compleet": {
-                  "result": null,
+                  "result": "GOOD",
                   "impact": null,
                   "note": ""
                 },
                 "kwaliteit": {
-                  "result": null,
-                  "impact": null,
-                  "note": ""
+                  "result": "MINOR",
+                  "impact": "B",
+                  "note": "Limbus gaat nog niet altijd goed"
                 },
                 "duidelijkheid": {
-                  "result": null,
+                  "result": "GOOD",
                   "impact": null,
                   "note": ""
                 },
                 "tijdigheid": {
-                  "result": null,
+                  "result": "GOOD",
                   "impact": null,
                   "note": ""
                 },
                 "standaard": {
-                  "result": null,
+                  "result": "GOOD",
                   "impact": null,
                   "note": ""
                 },
                 "overdracht": {
-                  "result": null,
+                  "result": "GOOD",
                   "impact": null,
                   "note": ""
                 }
@@ -43458,10 +43780,14 @@
               "linkedSourceId": null,
               "type": "Taak",
               "processValue": null,
-              "processStatus": null,
+              "processStatus": "NEUTRAL",
               "successFactors": "",
-              "causes": [],
-              "improvements": [],
+              "causes": [
+                "alle veranderingen "
+              ],
+              "improvements": [
+                "veranderingen bijhouden/overleggen "
+              ],
               "qa": {
                 "compleet": {
                   "result": "",
@@ -43510,9 +43836,15 @@
                 ]
               },
               "inputDefinitions": [],
-              "disruptions": [],
-              "workExp": null,
-              "workExpNote": "",
+              "disruptions": [
+                {
+                  "scenario": "verkeerde scan geïmporteerd ",
+                  "frequency": "Soms",
+                  "workaround": "arts/planning komt hier achter/ nieuwe scan inlezen"
+                }
+              ],
+              "workExp": "OBSTACLE",
+              "workExpNote": "Limbus niet goed aangekomen\nBeelden op verschillende manieren binnenhalen (Pinnacle/Aria)\nBeeldvorming van andere afdelingen binnenhalen\n\nEr zijn veel stappen en soms ook onduidelijk ",
               "linkedSourceUids": [],
               "linkedBundleIds": [],
               "gate": {
@@ -43856,32 +44188,32 @@
               "improvements": [],
               "qa": {
                 "compleet": {
-                  "result": null,
-                  "impact": null,
-                  "note": ""
+                  "result": "MINOR",
+                  "impact": "B",
+                  "note": "controleren of alles ook echt binnen is gekomen, soms niet alle plaatjes binnen "
                 },
                 "kwaliteit": {
-                  "result": null,
+                  "result": "GOOD",
                   "impact": null,
                   "note": ""
                 },
                 "duidelijkheid": {
-                  "result": null,
+                  "result": "GOOD",
                   "impact": null,
                   "note": ""
                 },
                 "tijdigheid": {
-                  "result": null,
+                  "result": "GOOD",
                   "impact": null,
                   "note": ""
                 },
                 "standaard": {
-                  "result": null,
+                  "result": "GOOD",
                   "impact": null,
                   "note": ""
                 },
                 "overdracht": {
-                  "result": null,
+                  "result": "GOOD",
                   "impact": null,
                   "note": ""
                 }
@@ -44005,7 +44337,7 @@
               "linkedSourceId": null,
               "type": null,
               "processValue": null,
-              "processStatus": null,
+              "processStatus": "HAPPY",
               "successFactors": "",
               "causes": [],
               "improvements": [],
@@ -44058,7 +44390,7 @@
               },
               "inputDefinitions": [],
               "disruptions": [],
-              "workExp": null,
+              "workExp": "FLOW",
               "workExpNote": "",
               "linkedSourceUids": [],
               "linkedBundleIds": [],
@@ -44403,32 +44735,32 @@
               "improvements": [],
               "qa": {
                 "compleet": {
-                  "result": null,
+                  "result": "MINOR",
                   "impact": null,
-                  "note": ""
+                  "note": "zelfde punten als Aria"
                 },
                 "kwaliteit": {
-                  "result": null,
+                  "result": "GOOD",
                   "impact": null,
                   "note": ""
                 },
                 "duidelijkheid": {
-                  "result": null,
+                  "result": "GOOD",
                   "impact": null,
                   "note": ""
                 },
                 "tijdigheid": {
-                  "result": null,
+                  "result": "GOOD",
                   "impact": null,
                   "note": ""
                 },
                 "standaard": {
-                  "result": null,
+                  "result": "GOOD",
                   "impact": null,
                   "note": ""
                 },
                 "overdracht": {
-                  "result": null,
+                  "result": "GOOD",
                   "impact": null,
                   "note": ""
                 }
@@ -44552,7 +44884,7 @@
               "linkedSourceId": null,
               "type": null,
               "processValue": null,
-              "processStatus": null,
+              "processStatus": "HAPPY",
               "successFactors": "",
               "causes": [],
               "improvements": [],
@@ -44604,8 +44936,14 @@
                 ]
               },
               "inputDefinitions": [],
-              "disruptions": [],
-              "workExp": null,
+              "disruptions": [
+                {
+                  "scenario": "beelden importeren in juiste instituut",
+                  "frequency": "Soms",
+                  "workaround": "planning is de paitënt kwijt en belt naar CT"
+                }
+              ],
+              "workExp": "ROUTINE",
               "workExpNote": "",
               "linkedSourceUids": [],
               "linkedBundleIds": [],
@@ -44950,32 +45288,32 @@
               "improvements": [],
               "qa": {
                 "compleet": {
-                  "result": null,
+                  "result": "GOOD",
                   "impact": null,
                   "note": ""
                 },
                 "kwaliteit": {
-                  "result": null,
+                  "result": "GOOD",
                   "impact": null,
                   "note": ""
                 },
                 "duidelijkheid": {
-                  "result": null,
+                  "result": "GOOD",
                   "impact": null,
                   "note": ""
                 },
                 "tijdigheid": {
-                  "result": null,
+                  "result": "GOOD",
                   "impact": null,
                   "note": ""
                 },
                 "standaard": {
-                  "result": null,
+                  "result": "GOOD",
                   "impact": null,
                   "note": ""
                 },
                 "overdracht": {
-                  "result": null,
+                  "result": "GOOD",
                   "impact": null,
                   "note": ""
                 }
@@ -45099,8 +45437,8 @@
               "linkedSourceId": null,
               "type": null,
               "processValue": null,
-              "processStatus": null,
-              "successFactors": "",
+              "processStatus": "HAPPY",
+              "successFactors": "standaard protocol",
               "causes": [],
               "improvements": [],
               "qa": {
@@ -45151,9 +45489,15 @@
                 ]
               },
               "inputDefinitions": [],
-              "disruptions": [],
-              "workExp": null,
-              "workExpNote": "",
+              "disruptions": [
+                {
+                  "scenario": "Juiste tafelblad inlezen/juiste script draaien",
+                  "frequency": "Soms",
+                  "workaround": "terugkoppeling vanuit planning"
+                }
+              ],
+              "workExp": "ROUTINE",
+              "workExpNote": "Juiste tafelblad inlezen/juiste script draaien",
               "linkedSourceUids": [],
               "linkedBundleIds": [],
               "gate": {
@@ -45497,32 +45841,32 @@
               "improvements": [],
               "qa": {
                 "compleet": {
-                  "result": null,
+                  "result": "GOOD",
                   "impact": null,
                   "note": ""
                 },
                 "kwaliteit": {
-                  "result": null,
+                  "result": "GOOD",
                   "impact": null,
                   "note": ""
                 },
                 "duidelijkheid": {
-                  "result": null,
-                  "impact": null,
-                  "note": ""
+                  "result": "MINOR",
+                  "impact": "B",
+                  "note": "verschillende tafelbaden/scripts aanwezig. dus goed doorlopen welke je moet hebben "
                 },
                 "tijdigheid": {
-                  "result": null,
+                  "result": "GOOD",
                   "impact": null,
                   "note": ""
                 },
                 "standaard": {
-                  "result": null,
-                  "impact": null,
+                  "result": "MINOR",
+                  "impact": "C",
                   "note": ""
                 },
                 "overdracht": {
-                  "result": null,
+                  "result": "GOOD",
                   "impact": null,
                   "note": ""
                 }
@@ -45646,10 +45990,14 @@
               "linkedSourceId": null,
               "type": null,
               "processValue": null,
-              "processStatus": null,
+              "processStatus": "NEUTRAL",
               "successFactors": "",
-              "causes": [],
-              "improvements": [],
+              "causes": [
+                "toch niet altijd alles optijd binnen"
+              ],
+              "improvements": [
+                "ict bellen"
+              ],
               "qa": {
                 "compleet": {
                   "result": "",
@@ -45698,9 +46046,15 @@
                 ]
               },
               "inputDefinitions": [],
-              "disruptions": [],
-              "workExp": null,
-              "workExpNote": "",
+              "disruptions": [
+                {
+                  "scenario": "limbus niet aanwezig ",
+                  "frequency": "Soms",
+                  "workaround": "fysicus bellen "
+                }
+              ],
+              "workExp": "OBSTACLE",
+              "workExpNote": "prescriptie niet altijd bekend\nlimbus niet goed aangekomen\ndus veel achteraan moeten bellen",
               "linkedSourceUids": [],
               "linkedBundleIds": [],
               "gate": {
@@ -45870,6 +46224,39 @@
         {
           "slotIdx": 1,
           "cols": [
+            8,
+            9,
+            10,
+            11
+          ],
+          "master": 8,
+          "label": "Merged System",
+          "systemsMeta": {
+            "multi": false,
+            "systems": [
+              {
+                "name": "CT-computer",
+                "legacy": false,
+                "future": "",
+                "qa": {
+                  "q1": "SOMETIMES",
+                  "q1_note": "als accu leeg is of camera kapot ",
+                  "q2": "SOMETIMES",
+                  "q2_note": "accu leeg ",
+                  "q3": "NEVER",
+                  "q4": "NEVER",
+                  "q5": "RISK",
+                  "q5_note": "geen liggingsfoto, maar kunnen wel verder met de behandeling "
+                },
+                "score": 73
+              }
+            ],
+            "activeSystemIdx": 0
+          }
+        },
+        {
+          "slotIdx": 1,
+          "cols": [
             0,
             1
           ],
@@ -45882,8 +46269,18 @@
                 "name": "Radiotherapie Web",
                 "legacy": false,
                 "future": "",
-                "qa": {},
-                "score": null
+                "qa": {
+                  "q1": "NEVER",
+                  "q2": "SOMETIMES",
+                  "q2_note": "Als je geen namen invult aan het eind van het CT formulier, dan kan je het niet opslaan en wordt je verplicht je naam in te vullen voordat je het kan opslaan",
+                  "q3": "SOMETIMES",
+                  "q3_note": "Doelgebied uit prescriptie wordt niet overgenomen op CT formulier, moeten we handmatig 'overschrijven'. Bij Mamma BreathHold schrijven we dit en bij het doelgebied en bij de ligging. ",
+                  "q4": "SOMETIMES",
+                  "q4_note": "Soms zijn artsen verplicht iets te moeten invullen/aanklikken voordat ze het aanvraagformulier kunnen opslaan. Ze zijn dan genoodzaakt 'iets' aan te geven, terwijl het niet hoeft. Soms schrijft een arts dan nog bij de opmerkingen dat dit niet hoeft. ",
+                  "q5": "RISK",
+                  "q5_note": "Theoretisch kan je alles op papier zetten. Maar zonder aanvraagformulier weten we niet precies wat de arts wil, buiten het standaard proces om. Zonder T formulier weten de collega's tijdens de bestralingen niet hoe wij de patiënt hebben gepositioneerd. "
+                },
+                "score": 66
               }
             ],
             "activeSystemIdx": 0
@@ -45901,11 +46298,20 @@
             "multi": false,
             "systems": [
               {
-                "name": "CT-computer",
+                "name": "Radiotherapieweb",
                 "legacy": false,
                 "future": "",
-                "qa": {},
-                "score": null
+                "qa": {
+                  "q1": "NEVER",
+                  "q2": "SOMETIMES",
+                  "q2_note": "als patient niet in EPIC is aangemeld komt patiënt niet in de lijst te staan ",
+                  "q3": "NEVER",
+                  "q4": "SOMETIMES",
+                  "q4_note": "protocol verdwijnt zomaar ",
+                  "q5": "STOP",
+                  "q5_note": "geen scan kunnen maken "
+                },
+                "score": 66
               }
             ],
             "activeSystemIdx": 0
@@ -45923,35 +46329,20 @@
             "multi": false,
             "systems": [
               {
-                "name": "Radiotherapie Web",
-                "legacy": false,
-                "future": "",
-                "qa": {},
-                "score": null
-              }
-            ],
-            "activeSystemIdx": 0
-          }
-        },
-        {
-          "slotIdx": 1,
-          "cols": [
-            8,
-            9,
-            10,
-            11
-          ],
-          "master": 8,
-          "label": "Merged System",
-          "systemsMeta": {
-            "multi": false,
-            "systems": [
-              {
                 "name": "CT-computer",
                 "legacy": false,
                 "future": "",
-                "qa": {},
-                "score": null
+                "qa": {
+                  "q2": "SOMETIMES",
+                  "q2_note": "als de patient niet is aangemeld in EPIC komt deze ook niet in de CT computer te staan ",
+                  "q1": "NEVER",
+                  "q3": "NEVER",
+                  "q4": "SOMETIMES",
+                  "q4_note": "je kunt het verkeerde scanprotocol kiezen of verkeerde patiënt selecteren ",
+                  "q5": "STOP",
+                  "q5_note": "zonder CT computer kunnen we niet scannen "
+                },
+                "score": 66
               }
             ],
             "activeSystemIdx": 0
@@ -46037,7 +46428,16 @@
               "inputDefinitions": [],
               "disruptions": [],
               "workExp": null,
-              "workExpNote": ""
+              "workExpNote": "",
+              "linkedSourceUids": [],
+              "linkedBundleIds": [],
+              "gate": {
+                "checkProcessIds": [],
+                "onFailTargetProcessId": null,
+                "onPassTargetProcessId": null,
+                "rule": "ALL_OK",
+                "note": ""
+              }
             },
             {
               "id": "83dfb7c3-1a18-40f6-a65e-73cfc8b873c0",
@@ -46095,12 +46495,35 @@
                     },
                     "calculatedScore": null
                   }
-                ]
+                ],
+                "systemsMeta": {
+                  "multi": false,
+                  "systems": [
+                    {
+                      "id": "d3f99f76-6812-41ba-838a-68d1339ab1a7",
+                      "name": "",
+                      "legacy": false,
+                      "future": "",
+                      "qa": {},
+                      "score": null
+                    }
+                  ],
+                  "activeSystemIdx": 0
+                }
               },
               "inputDefinitions": [],
               "disruptions": [],
               "workExp": null,
-              "workExpNote": ""
+              "workExpNote": "",
+              "linkedSourceUids": [],
+              "linkedBundleIds": [],
+              "gate": {
+                "checkProcessIds": [],
+                "onFailTargetProcessId": null,
+                "onPassTargetProcessId": null,
+                "rule": "ALL_OK",
+                "note": ""
+              }
             },
             {
               "id": "76fd116e-fc7e-4237-bfa2-06a53f58ffd0",
@@ -46171,12 +46594,19 @@
               "workExp": null,
               "workExpNote": "",
               "linkedBundleId": null,
-              "linkedBundleIds": null,
+              "linkedBundleIds": [],
               "linkedSourceUids": [
                 "out_1f672ccc-9bdd-4272-89d0-ce358cae931f"
               ],
               "linkedSourceUid": "out_1f672ccc-9bdd-4272-89d0-ce358cae931f",
-              "linkedSourceIds": []
+              "linkedSourceIds": [],
+              "gate": {
+                "checkProcessIds": [],
+                "onFailTargetProcessId": null,
+                "onPassTargetProcessId": null,
+                "rule": "ALL_OK",
+                "note": ""
+              }
             },
             {
               "id": "3516c012-a657-41e8-936a-22b0e5841a68",
@@ -46239,7 +46669,16 @@
               "inputDefinitions": [],
               "disruptions": [],
               "workExp": null,
-              "workExpNote": ""
+              "workExpNote": "",
+              "linkedSourceUids": [],
+              "linkedBundleIds": [],
+              "gate": {
+                "checkProcessIds": [],
+                "onFailTargetProcessId": null,
+                "onPassTargetProcessId": null,
+                "rule": "ALL_OK",
+                "note": ""
+              }
             },
             {
               "id": "90fa54cf-a9c0-49d8-bcc4-ea64b8c8ff3a",
@@ -46303,7 +46742,16 @@
               "disruptions": [],
               "workExp": null,
               "workExpNote": "",
-              "outputUid": "out_1776db48-f1fc-4caa-b3e9-84610cc815aa"
+              "outputUid": "out_1776db48-f1fc-4caa-b3e9-84610cc815aa",
+              "linkedSourceUids": [],
+              "linkedBundleIds": [],
+              "gate": {
+                "checkProcessIds": [],
+                "onFailTargetProcessId": null,
+                "onPassTargetProcessId": null,
+                "rule": "ALL_OK",
+                "note": ""
+              }
             },
             {
               "id": "50564b08-74d6-4592-acce-e2961b70602f",
@@ -46367,7 +46815,16 @@
               "disruptions": [],
               "workExp": null,
               "workExpNote": "",
-              "outputUid": "out_9c8ede4c-81b8-47fc-97b6-ae8dd47c4d13"
+              "outputUid": "out_9c8ede4c-81b8-47fc-97b6-ae8dd47c4d13",
+              "linkedSourceUids": [],
+              "linkedBundleIds": [],
+              "gate": {
+                "checkProcessIds": [],
+                "onFailTargetProcessId": null,
+                "onPassTargetProcessId": null,
+                "rule": "ALL_OK",
+                "note": ""
+              }
             },
             {
               "id": "bdb09b94-75a0-4682-bec2-d4910541f3dc",
@@ -46430,9 +46887,22 @@
               "inputDefinitions": [],
               "disruptions": [],
               "workExp": null,
-              "workExpNote": ""
+              "workExpNote": "",
+              "linkedSourceUids": [],
+              "linkedBundleIds": [],
+              "gate": {
+                "checkProcessIds": [],
+                "onFailTargetProcessId": null,
+                "onPassTargetProcessId": null,
+                "rule": "ALL_OK",
+                "note": ""
+              }
             }
-          ]
+          ],
+          "isQuestion": false,
+          "isConditional": false,
+          "logic": null,
+          "isGroup": false
         },
         {
           "id": "a1276ee1-3167-4cda-8c70-80c42d4d0e2f",
@@ -46505,7 +46975,16 @@
               "inputDefinitions": [],
               "disruptions": [],
               "workExp": null,
-              "workExpNote": ""
+              "workExpNote": "",
+              "linkedSourceUids": [],
+              "linkedBundleIds": [],
+              "gate": {
+                "checkProcessIds": [],
+                "onFailTargetProcessId": null,
+                "onPassTargetProcessId": null,
+                "rule": "ALL_OK",
+                "note": ""
+              }
             },
             {
               "id": "26a10869-5404-45cb-856e-527e6b3c5d8c",
@@ -46563,12 +47042,35 @@
                     },
                     "calculatedScore": null
                   }
-                ]
+                ],
+                "systemsMeta": {
+                  "multi": false,
+                  "systems": [
+                    {
+                      "id": "355879d9-2b3c-494e-8a34-696c42a88d48",
+                      "name": "",
+                      "legacy": false,
+                      "future": "",
+                      "qa": {},
+                      "score": null
+                    }
+                  ],
+                  "activeSystemIdx": 0
+                }
               },
               "inputDefinitions": [],
               "disruptions": [],
               "workExp": null,
-              "workExpNote": ""
+              "workExpNote": "",
+              "linkedSourceUids": [],
+              "linkedBundleIds": [],
+              "gate": {
+                "checkProcessIds": [],
+                "onFailTargetProcessId": null,
+                "onPassTargetProcessId": null,
+                "rule": "ALL_OK",
+                "note": ""
+              }
             },
             {
               "id": "a344e700-01b6-474d-b798-ffc3b4e928e8",
@@ -46639,12 +47141,19 @@
               "workExp": null,
               "workExpNote": "",
               "linkedBundleId": null,
-              "linkedBundleIds": null,
+              "linkedBundleIds": [],
               "linkedSourceUids": [
                 "out_9c8ede4c-81b8-47fc-97b6-ae8dd47c4d13"
               ],
               "linkedSourceUid": "out_9c8ede4c-81b8-47fc-97b6-ae8dd47c4d13",
-              "linkedSourceIds": []
+              "linkedSourceIds": [],
+              "gate": {
+                "checkProcessIds": [],
+                "onFailTargetProcessId": null,
+                "onPassTargetProcessId": null,
+                "rule": "ALL_OK",
+                "note": ""
+              }
             },
             {
               "id": "95e96dc9-b74a-4b75-81fa-ebe51c075ff6",
@@ -46707,7 +47216,16 @@
               "inputDefinitions": [],
               "disruptions": [],
               "workExp": null,
-              "workExpNote": ""
+              "workExpNote": "",
+              "linkedSourceUids": [],
+              "linkedBundleIds": [],
+              "gate": {
+                "checkProcessIds": [],
+                "onFailTargetProcessId": null,
+                "onPassTargetProcessId": null,
+                "rule": "ALL_OK",
+                "note": ""
+              }
             },
             {
               "id": "93b3cb7f-7a6f-45cd-9b29-3c3e1e4f964d",
@@ -46771,7 +47289,16 @@
               "disruptions": [],
               "workExp": null,
               "workExpNote": "",
-              "outputUid": "out_d5f8f6eb-8565-4d80-9fdb-5f46f1a68b96"
+              "outputUid": "out_d5f8f6eb-8565-4d80-9fdb-5f46f1a68b96",
+              "linkedSourceUids": [],
+              "linkedBundleIds": [],
+              "gate": {
+                "checkProcessIds": [],
+                "onFailTargetProcessId": null,
+                "onPassTargetProcessId": null,
+                "rule": "ALL_OK",
+                "note": ""
+              }
             },
             {
               "id": "0dc8d027-c4bc-4cd3-b91e-5f116ee4f0ce",
@@ -46835,7 +47362,16 @@
               "disruptions": [],
               "workExp": null,
               "workExpNote": "",
-              "outputUid": "out_b9d31a65-869b-438a-b04b-ebc88d23eaef"
+              "outputUid": "out_b9d31a65-869b-438a-b04b-ebc88d23eaef",
+              "linkedSourceUids": [],
+              "linkedBundleIds": [],
+              "gate": {
+                "checkProcessIds": [],
+                "onFailTargetProcessId": null,
+                "onPassTargetProcessId": null,
+                "rule": "ALL_OK",
+                "note": ""
+              }
             },
             {
               "id": "dbe27ea0-2ec5-4ae0-9c2b-31c8146b74c2",
@@ -46898,9 +47434,22 @@
               "inputDefinitions": [],
               "disruptions": [],
               "workExp": null,
-              "workExpNote": ""
+              "workExpNote": "",
+              "linkedSourceUids": [],
+              "linkedBundleIds": [],
+              "gate": {
+                "checkProcessIds": [],
+                "onFailTargetProcessId": null,
+                "onPassTargetProcessId": null,
+                "rule": "ALL_OK",
+                "note": ""
+              }
             }
-          ]
+          ],
+          "isQuestion": false,
+          "isConditional": false,
+          "logic": null,
+          "isGroup": false
         },
         {
           "id": "c5cd54ce-b35a-4332-9337-731ddf466177",
@@ -46973,7 +47522,16 @@
               "inputDefinitions": [],
               "disruptions": [],
               "workExp": null,
-              "workExpNote": ""
+              "workExpNote": "",
+              "linkedSourceUids": [],
+              "linkedBundleIds": [],
+              "gate": {
+                "checkProcessIds": [],
+                "onFailTargetProcessId": null,
+                "onPassTargetProcessId": null,
+                "rule": "ALL_OK",
+                "note": ""
+              }
             },
             {
               "id": "9a864533-f862-414b-af6b-3192a74bbfef",
@@ -47031,12 +47589,35 @@
                     },
                     "calculatedScore": null
                   }
-                ]
+                ],
+                "systemsMeta": {
+                  "multi": false,
+                  "systems": [
+                    {
+                      "id": "dccbd68e-7772-40ae-8ae4-8f11b3fc64fc",
+                      "name": "",
+                      "legacy": false,
+                      "future": "",
+                      "qa": {},
+                      "score": null
+                    }
+                  ],
+                  "activeSystemIdx": 0
+                }
               },
               "inputDefinitions": [],
               "disruptions": [],
               "workExp": null,
-              "workExpNote": ""
+              "workExpNote": "",
+              "linkedSourceUids": [],
+              "linkedBundleIds": [],
+              "gate": {
+                "checkProcessIds": [],
+                "onFailTargetProcessId": null,
+                "onPassTargetProcessId": null,
+                "rule": "ALL_OK",
+                "note": ""
+              }
             },
             {
               "id": "6ea77ac1-7dd0-43ee-8a5b-be520fef8e86",
@@ -47107,12 +47688,19 @@
               "workExp": null,
               "workExpNote": "",
               "linkedBundleId": null,
-              "linkedBundleIds": null,
+              "linkedBundleIds": [],
               "linkedSourceUids": [
                 "out_b9d31a65-869b-438a-b04b-ebc88d23eaef"
               ],
               "linkedSourceUid": "out_b9d31a65-869b-438a-b04b-ebc88d23eaef",
-              "linkedSourceIds": []
+              "linkedSourceIds": [],
+              "gate": {
+                "checkProcessIds": [],
+                "onFailTargetProcessId": null,
+                "onPassTargetProcessId": null,
+                "rule": "ALL_OK",
+                "note": ""
+              }
             },
             {
               "id": "d41f150c-8cde-4ddd-9a05-15dfbec1c0c4",
@@ -47175,7 +47763,16 @@
               "inputDefinitions": [],
               "disruptions": [],
               "workExp": null,
-              "workExpNote": ""
+              "workExpNote": "",
+              "linkedSourceUids": [],
+              "linkedBundleIds": [],
+              "gate": {
+                "checkProcessIds": [],
+                "onFailTargetProcessId": null,
+                "onPassTargetProcessId": null,
+                "rule": "ALL_OK",
+                "note": ""
+              }
             },
             {
               "id": "72a9c916-2c94-45e3-87a9-4e28a7fa2e41",
@@ -47239,7 +47836,16 @@
               "disruptions": [],
               "workExp": null,
               "workExpNote": "",
-              "outputUid": "out_7235f300-0718-40e6-8c9f-869bad0c4b8f"
+              "outputUid": "out_7235f300-0718-40e6-8c9f-869bad0c4b8f",
+              "linkedSourceUids": [],
+              "linkedBundleIds": [],
+              "gate": {
+                "checkProcessIds": [],
+                "onFailTargetProcessId": null,
+                "onPassTargetProcessId": null,
+                "rule": "ALL_OK",
+                "note": ""
+              }
             },
             {
               "id": "aa073f82-e006-469b-9350-b488e8367f78",
@@ -47303,7 +47909,16 @@
               "disruptions": [],
               "workExp": null,
               "workExpNote": "",
-              "outputUid": "out_d7674d5f-aa5c-4c12-9692-05fa217f47b3"
+              "outputUid": "out_d7674d5f-aa5c-4c12-9692-05fa217f47b3",
+              "linkedSourceUids": [],
+              "linkedBundleIds": [],
+              "gate": {
+                "checkProcessIds": [],
+                "onFailTargetProcessId": null,
+                "onPassTargetProcessId": null,
+                "rule": "ALL_OK",
+                "note": ""
+              }
             },
             {
               "id": "49f6f7c6-9e2c-4102-885d-eb02ce33bc45",
@@ -47366,9 +47981,22 @@
               "inputDefinitions": [],
               "disruptions": [],
               "workExp": null,
-              "workExpNote": ""
+              "workExpNote": "",
+              "linkedSourceUids": [],
+              "linkedBundleIds": [],
+              "gate": {
+                "checkProcessIds": [],
+                "onFailTargetProcessId": null,
+                "onPassTargetProcessId": null,
+                "rule": "ALL_OK",
+                "note": ""
+              }
             }
-          ]
+          ],
+          "isQuestion": false,
+          "isConditional": false,
+          "logic": null,
+          "isGroup": false
         },
         {
           "id": "c861a728-a2f1-45ff-b308-b7edd29ee138",
@@ -47441,7 +48069,16 @@
               "inputDefinitions": [],
               "disruptions": [],
               "workExp": null,
-              "workExpNote": ""
+              "workExpNote": "",
+              "linkedSourceUids": [],
+              "linkedBundleIds": [],
+              "gate": {
+                "checkProcessIds": [],
+                "onFailTargetProcessId": null,
+                "onPassTargetProcessId": null,
+                "rule": "ALL_OK",
+                "note": ""
+              }
             },
             {
               "id": "2e1722d6-8e68-4a80-a579-02423416a0fd",
@@ -47499,12 +48136,35 @@
                     },
                     "calculatedScore": null
                   }
-                ]
+                ],
+                "systemsMeta": {
+                  "multi": false,
+                  "systems": [
+                    {
+                      "id": "57137f0a-eb5c-47c4-9397-3b54c7dabced",
+                      "name": "",
+                      "legacy": false,
+                      "future": "",
+                      "qa": {},
+                      "score": null
+                    }
+                  ],
+                  "activeSystemIdx": 0
+                }
               },
               "inputDefinitions": [],
               "disruptions": [],
               "workExp": null,
-              "workExpNote": ""
+              "workExpNote": "",
+              "linkedSourceUids": [],
+              "linkedBundleIds": [],
+              "gate": {
+                "checkProcessIds": [],
+                "onFailTargetProcessId": null,
+                "onPassTargetProcessId": null,
+                "rule": "ALL_OK",
+                "note": ""
+              }
             },
             {
               "id": "de7bd48b-58cc-4a57-8525-704d397ada5c",
@@ -47567,7 +48227,18 @@
               "inputDefinitions": [],
               "disruptions": [],
               "workExp": null,
-              "workExpNote": ""
+              "workExpNote": "",
+              "linkedSourceUids": [],
+              "linkedBundleIds": [],
+              "linkedBundleId": null,
+              "linkedSourceUid": null,
+              "gate": {
+                "checkProcessIds": [],
+                "onFailTargetProcessId": null,
+                "onPassTargetProcessId": null,
+                "rule": "ALL_OK",
+                "note": ""
+              }
             },
             {
               "id": "7a1b4a10-f967-417f-a8fd-a4113e8bdf2f",
@@ -47630,7 +48301,16 @@
               "inputDefinitions": [],
               "disruptions": [],
               "workExp": null,
-              "workExpNote": ""
+              "workExpNote": "",
+              "linkedSourceUids": [],
+              "linkedBundleIds": [],
+              "gate": {
+                "checkProcessIds": [],
+                "onFailTargetProcessId": null,
+                "onPassTargetProcessId": null,
+                "rule": "ALL_OK",
+                "note": ""
+              }
             },
             {
               "id": "53e1a4f1-6803-44ce-ad82-58f532d8e4fa",
@@ -47694,7 +48374,16 @@
               "disruptions": [],
               "workExp": null,
               "workExpNote": "",
-              "outputUid": "out_6c4d9d66-3122-4bb3-89d3-8e2d52771c67"
+              "outputUid": "out_6c4d9d66-3122-4bb3-89d3-8e2d52771c67",
+              "linkedSourceUids": [],
+              "linkedBundleIds": [],
+              "gate": {
+                "checkProcessIds": [],
+                "onFailTargetProcessId": null,
+                "onPassTargetProcessId": null,
+                "rule": "ALL_OK",
+                "note": ""
+              }
             },
             {
               "id": "466e601b-132e-49a0-b95c-511dfbd198da",
@@ -47758,7 +48447,16 @@
               "disruptions": [],
               "workExp": null,
               "workExpNote": "",
-              "outputUid": "out_4ceb657a-11d3-4ad5-bf7b-4580e8610993"
+              "outputUid": "out_4ceb657a-11d3-4ad5-bf7b-4580e8610993",
+              "linkedSourceUids": [],
+              "linkedBundleIds": [],
+              "gate": {
+                "checkProcessIds": [],
+                "onFailTargetProcessId": null,
+                "onPassTargetProcessId": null,
+                "rule": "ALL_OK",
+                "note": ""
+              }
             },
             {
               "id": "6982adde-8feb-47f2-aa7f-cc439459df81",
@@ -47821,13 +48519,28 @@
               "inputDefinitions": [],
               "disruptions": [],
               "workExp": null,
-              "workExpNote": ""
+              "workExpNote": "",
+              "linkedSourceUids": [],
+              "linkedBundleIds": [],
+              "gate": {
+                "checkProcessIds": [],
+                "onFailTargetProcessId": null,
+                "onPassTargetProcessId": null,
+                "rule": "ALL_OK",
+                "note": ""
+              }
             }
-          ]
+          ],
+          "isQuestion": false,
+          "isConditional": false,
+          "logic": null,
+          "isGroup": false
         }
       ],
       "outputMerges": [],
-      "systemMerges": []
+      "systemMerges": [],
+      "groups": [],
+      "variantGroups": []
     },
     {
       "id": "5ed4ea36-2f52-4698-96bf-4cd2cdfe1ade",
@@ -47905,7 +48618,16 @@
               "inputDefinitions": [],
               "disruptions": [],
               "workExp": null,
-              "workExpNote": ""
+              "workExpNote": "",
+              "linkedSourceUids": [],
+              "linkedBundleIds": [],
+              "gate": {
+                "checkProcessIds": [],
+                "onFailTargetProcessId": null,
+                "onPassTargetProcessId": null,
+                "rule": "ALL_OK",
+                "note": ""
+              }
             },
             {
               "id": "86324c1a-e911-4044-ac50-33110aab7928",
@@ -47963,12 +48685,35 @@
                     },
                     "calculatedScore": null
                   }
-                ]
+                ],
+                "systemsMeta": {
+                  "multi": false,
+                  "systems": [
+                    {
+                      "id": "024a5b97-d6e5-4f0e-95cc-eea7ccb8d1c2",
+                      "name": "",
+                      "legacy": false,
+                      "future": "",
+                      "qa": {},
+                      "score": null
+                    }
+                  ],
+                  "activeSystemIdx": 0
+                }
               },
               "inputDefinitions": [],
               "disruptions": [],
               "workExp": null,
-              "workExpNote": ""
+              "workExpNote": "",
+              "linkedSourceUids": [],
+              "linkedBundleIds": [],
+              "gate": {
+                "checkProcessIds": [],
+                "onFailTargetProcessId": null,
+                "onPassTargetProcessId": null,
+                "rule": "ALL_OK",
+                "note": ""
+              }
             },
             {
               "id": "ff6080e5-f84b-4579-875a-22ddebf960e9",
@@ -48039,12 +48784,19 @@
               "workExp": null,
               "workExpNote": "",
               "linkedBundleId": null,
-              "linkedBundleIds": null,
+              "linkedBundleIds": [],
               "linkedSourceUids": [
                 "out_d7674d5f-aa5c-4c12-9692-05fa217f47b3"
               ],
               "linkedSourceUid": "out_d7674d5f-aa5c-4c12-9692-05fa217f47b3",
-              "linkedSourceIds": []
+              "linkedSourceIds": [],
+              "gate": {
+                "checkProcessIds": [],
+                "onFailTargetProcessId": null,
+                "onPassTargetProcessId": null,
+                "rule": "ALL_OK",
+                "note": ""
+              }
             },
             {
               "id": "67343351-5a22-429d-8bce-0c1449a76168",
@@ -48107,7 +48859,16 @@
               "inputDefinitions": [],
               "disruptions": [],
               "workExp": null,
-              "workExpNote": ""
+              "workExpNote": "",
+              "linkedSourceUids": [],
+              "linkedBundleIds": [],
+              "gate": {
+                "checkProcessIds": [],
+                "onFailTargetProcessId": null,
+                "onPassTargetProcessId": null,
+                "rule": "ALL_OK",
+                "note": ""
+              }
             },
             {
               "id": "156e9798-9efc-4998-bdb6-aad7af17ed83",
@@ -48171,7 +48932,16 @@
               "disruptions": [],
               "workExp": null,
               "workExpNote": "",
-              "outputUid": "out_06428e85-5227-463f-b3da-0ead22688da9"
+              "outputUid": "out_06428e85-5227-463f-b3da-0ead22688da9",
+              "linkedSourceUids": [],
+              "linkedBundleIds": [],
+              "gate": {
+                "checkProcessIds": [],
+                "onFailTargetProcessId": null,
+                "onPassTargetProcessId": null,
+                "rule": "ALL_OK",
+                "note": ""
+              }
             },
             {
               "id": "1dd9bf71-45e2-4207-a1ad-ce282148404a",
@@ -48235,7 +49005,16 @@
               "disruptions": [],
               "workExp": null,
               "workExpNote": "",
-              "outputUid": "out_6df09bd5-812f-436f-a46b-277aa8f76f81"
+              "outputUid": "out_6df09bd5-812f-436f-a46b-277aa8f76f81",
+              "linkedSourceUids": [],
+              "linkedBundleIds": [],
+              "gate": {
+                "checkProcessIds": [],
+                "onFailTargetProcessId": null,
+                "onPassTargetProcessId": null,
+                "rule": "ALL_OK",
+                "note": ""
+              }
             },
             {
               "id": "353a4e05-0edc-4171-ad1c-4328129790e5",
@@ -48298,9 +49077,22 @@
               "inputDefinitions": [],
               "disruptions": [],
               "workExp": null,
-              "workExpNote": ""
+              "workExpNote": "",
+              "linkedSourceUids": [],
+              "linkedBundleIds": [],
+              "gate": {
+                "checkProcessIds": [],
+                "onFailTargetProcessId": null,
+                "onPassTargetProcessId": null,
+                "rule": "ALL_OK",
+                "note": ""
+              }
             }
-          ]
+          ],
+          "isQuestion": false,
+          "isConditional": false,
+          "logic": null,
+          "isGroup": false
         },
         {
           "id": "f7701349-0a77-4f1b-aceb-a998e617066c",
@@ -48373,7 +49165,16 @@
               "inputDefinitions": [],
               "disruptions": [],
               "workExp": null,
-              "workExpNote": ""
+              "workExpNote": "",
+              "linkedSourceUids": [],
+              "linkedBundleIds": [],
+              "gate": {
+                "checkProcessIds": [],
+                "onFailTargetProcessId": null,
+                "onPassTargetProcessId": null,
+                "rule": "ALL_OK",
+                "note": ""
+              }
             },
             {
               "id": "d245fd69-4f15-44bb-8267-bc29ce0bbdd1",
@@ -48431,12 +49232,35 @@
                     },
                     "calculatedScore": null
                   }
-                ]
+                ],
+                "systemsMeta": {
+                  "multi": false,
+                  "systems": [
+                    {
+                      "id": "b55f3e95-a600-4659-8efb-c5b3714eeb3f",
+                      "name": "",
+                      "legacy": false,
+                      "future": "",
+                      "qa": {},
+                      "score": null
+                    }
+                  ],
+                  "activeSystemIdx": 0
+                }
               },
               "inputDefinitions": [],
               "disruptions": [],
               "workExp": null,
-              "workExpNote": ""
+              "workExpNote": "",
+              "linkedSourceUids": [],
+              "linkedBundleIds": [],
+              "gate": {
+                "checkProcessIds": [],
+                "onFailTargetProcessId": null,
+                "onPassTargetProcessId": null,
+                "rule": "ALL_OK",
+                "note": ""
+              }
             },
             {
               "id": "17e60791-99c5-442c-87ad-de036e472b53",
@@ -48507,12 +49331,19 @@
               "workExp": null,
               "workExpNote": "",
               "linkedBundleId": null,
-              "linkedBundleIds": null,
+              "linkedBundleIds": [],
               "linkedSourceUids": [
                 "out_4ceb657a-11d3-4ad5-bf7b-4580e8610993"
               ],
               "linkedSourceUid": "out_4ceb657a-11d3-4ad5-bf7b-4580e8610993",
-              "linkedSourceIds": []
+              "linkedSourceIds": [],
+              "gate": {
+                "checkProcessIds": [],
+                "onFailTargetProcessId": null,
+                "onPassTargetProcessId": null,
+                "rule": "ALL_OK",
+                "note": ""
+              }
             },
             {
               "id": "e737f150-8fb2-4e6e-9e47-8bfe67eb1625",
@@ -48575,7 +49406,16 @@
               "inputDefinitions": [],
               "disruptions": [],
               "workExp": null,
-              "workExpNote": ""
+              "workExpNote": "",
+              "linkedSourceUids": [],
+              "linkedBundleIds": [],
+              "gate": {
+                "checkProcessIds": [],
+                "onFailTargetProcessId": null,
+                "onPassTargetProcessId": null,
+                "rule": "ALL_OK",
+                "note": ""
+              }
             },
             {
               "id": "f9b446d4-8b4e-49a4-9b6c-a6889b94d523",
@@ -48639,7 +49479,16 @@
               "disruptions": [],
               "workExp": null,
               "workExpNote": "",
-              "outputUid": "out_387e9bfc-5def-452a-84ec-b79b956c878e"
+              "outputUid": "out_387e9bfc-5def-452a-84ec-b79b956c878e",
+              "linkedSourceUids": [],
+              "linkedBundleIds": [],
+              "gate": {
+                "checkProcessIds": [],
+                "onFailTargetProcessId": null,
+                "onPassTargetProcessId": null,
+                "rule": "ALL_OK",
+                "note": ""
+              }
             },
             {
               "id": "dcf6f916-09f1-4f6c-bb37-113eb30a37bd",
@@ -48703,7 +49552,16 @@
               "disruptions": [],
               "workExp": null,
               "workExpNote": "",
-              "outputUid": "out_cc8adc73-f64c-4fc3-81c0-68febc7a1824"
+              "outputUid": "out_cc8adc73-f64c-4fc3-81c0-68febc7a1824",
+              "linkedSourceUids": [],
+              "linkedBundleIds": [],
+              "gate": {
+                "checkProcessIds": [],
+                "onFailTargetProcessId": null,
+                "onPassTargetProcessId": null,
+                "rule": "ALL_OK",
+                "note": ""
+              }
             },
             {
               "id": "c9f85e20-ed1f-47c4-a19f-565c4c8492be",
@@ -48766,13 +49624,28 @@
               "inputDefinitions": [],
               "disruptions": [],
               "workExp": null,
-              "workExpNote": ""
+              "workExpNote": "",
+              "linkedSourceUids": [],
+              "linkedBundleIds": [],
+              "gate": {
+                "checkProcessIds": [],
+                "onFailTargetProcessId": null,
+                "onPassTargetProcessId": null,
+                "rule": "ALL_OK",
+                "note": ""
+              }
             }
-          ]
+          ],
+          "isQuestion": false,
+          "isConditional": false,
+          "logic": null,
+          "isGroup": false
         }
       ],
       "outputMerges": [],
-      "systemMerges": []
+      "systemMerges": [],
+      "groups": [],
+      "variantGroups": []
     },
     {
       "id": "3a6a5e6a-f875-43f8-bf84-0d926377627a",
@@ -48850,7 +49723,16 @@
               "inputDefinitions": [],
               "disruptions": [],
               "workExp": null,
-              "workExpNote": ""
+              "workExpNote": "",
+              "linkedSourceUids": [],
+              "linkedBundleIds": [],
+              "gate": {
+                "checkProcessIds": [],
+                "onFailTargetProcessId": null,
+                "onPassTargetProcessId": null,
+                "rule": "ALL_OK",
+                "note": ""
+              }
             },
             {
               "id": "9f51ce86-5be6-4eb6-9d05-c62711614ef0",
@@ -48908,12 +49790,35 @@
                     },
                     "calculatedScore": null
                   }
-                ]
+                ],
+                "systemsMeta": {
+                  "multi": false,
+                  "systems": [
+                    {
+                      "id": "182e9f06-7ba4-42bf-9afb-ce5413919036",
+                      "name": "",
+                      "legacy": false,
+                      "future": "",
+                      "qa": {},
+                      "score": null
+                    }
+                  ],
+                  "activeSystemIdx": 0
+                }
               },
               "inputDefinitions": [],
               "disruptions": [],
               "workExp": null,
-              "workExpNote": ""
+              "workExpNote": "",
+              "linkedSourceUids": [],
+              "linkedBundleIds": [],
+              "gate": {
+                "checkProcessIds": [],
+                "onFailTargetProcessId": null,
+                "onPassTargetProcessId": null,
+                "rule": "ALL_OK",
+                "note": ""
+              }
             },
             {
               "id": "b3988bd6-08a1-4981-82a4-73c2bbead355",
@@ -48984,12 +49889,19 @@
               "workExp": null,
               "workExpNote": "",
               "linkedBundleId": null,
-              "linkedBundleIds": null,
+              "linkedBundleIds": [],
               "linkedSourceUids": [
                 "out_6df09bd5-812f-436f-a46b-277aa8f76f81"
               ],
               "linkedSourceUid": "out_6df09bd5-812f-436f-a46b-277aa8f76f81",
-              "linkedSourceIds": []
+              "linkedSourceIds": [],
+              "gate": {
+                "checkProcessIds": [],
+                "onFailTargetProcessId": null,
+                "onPassTargetProcessId": null,
+                "rule": "ALL_OK",
+                "note": ""
+              }
             },
             {
               "id": "24448aac-e875-4ba2-b8c0-29a7e8510c59",
@@ -49052,7 +49964,16 @@
               "inputDefinitions": [],
               "disruptions": [],
               "workExp": null,
-              "workExpNote": ""
+              "workExpNote": "",
+              "linkedSourceUids": [],
+              "linkedBundleIds": [],
+              "gate": {
+                "checkProcessIds": [],
+                "onFailTargetProcessId": null,
+                "onPassTargetProcessId": null,
+                "rule": "ALL_OK",
+                "note": ""
+              }
             },
             {
               "id": "41e8fde6-ecdf-4084-a690-92dee618911b",
@@ -49116,7 +50037,16 @@
               "disruptions": [],
               "workExp": null,
               "workExpNote": "",
-              "outputUid": "out_745ea0ec-6a96-4753-9720-34ab6e535412"
+              "outputUid": "out_745ea0ec-6a96-4753-9720-34ab6e535412",
+              "linkedSourceUids": [],
+              "linkedBundleIds": [],
+              "gate": {
+                "checkProcessIds": [],
+                "onFailTargetProcessId": null,
+                "onPassTargetProcessId": null,
+                "rule": "ALL_OK",
+                "note": ""
+              }
             },
             {
               "id": "feca6c1e-03b4-4e41-ac03-eb673e7b984e",
@@ -49180,7 +50110,16 @@
               "disruptions": [],
               "workExp": null,
               "workExpNote": "",
-              "outputUid": "out_b69afb76-aa4a-40a1-80e8-9c6224100b11"
+              "outputUid": "out_b69afb76-aa4a-40a1-80e8-9c6224100b11",
+              "linkedSourceUids": [],
+              "linkedBundleIds": [],
+              "gate": {
+                "checkProcessIds": [],
+                "onFailTargetProcessId": null,
+                "onPassTargetProcessId": null,
+                "rule": "ALL_OK",
+                "note": ""
+              }
             },
             {
               "id": "ac81a9b2-da5c-49af-921f-1ed2615490e5",
@@ -49243,9 +50182,22 @@
               "inputDefinitions": [],
               "disruptions": [],
               "workExp": null,
-              "workExpNote": ""
+              "workExpNote": "",
+              "linkedSourceUids": [],
+              "linkedBundleIds": [],
+              "gate": {
+                "checkProcessIds": [],
+                "onFailTargetProcessId": null,
+                "onPassTargetProcessId": null,
+                "rule": "ALL_OK",
+                "note": ""
+              }
             }
-          ]
+          ],
+          "isQuestion": false,
+          "isConditional": false,
+          "logic": null,
+          "isGroup": false
         },
         {
           "id": "8086eb61-4247-49df-86be-5808eee69387",
@@ -49318,7 +50270,16 @@
               "inputDefinitions": [],
               "disruptions": [],
               "workExp": null,
-              "workExpNote": ""
+              "workExpNote": "",
+              "linkedSourceUids": [],
+              "linkedBundleIds": [],
+              "gate": {
+                "checkProcessIds": [],
+                "onFailTargetProcessId": null,
+                "onPassTargetProcessId": null,
+                "rule": "ALL_OK",
+                "note": ""
+              }
             },
             {
               "id": "d32491e5-35d2-4a58-99da-7952338307eb",
@@ -49376,12 +50337,35 @@
                     },
                     "calculatedScore": null
                   }
-                ]
+                ],
+                "systemsMeta": {
+                  "multi": false,
+                  "systems": [
+                    {
+                      "id": "e2bc8a56-6328-4409-9ae3-48bf87ba25f4",
+                      "name": "",
+                      "legacy": false,
+                      "future": "",
+                      "qa": {},
+                      "score": null
+                    }
+                  ],
+                  "activeSystemIdx": 0
+                }
               },
               "inputDefinitions": [],
               "disruptions": [],
               "workExp": null,
-              "workExpNote": ""
+              "workExpNote": "",
+              "linkedSourceUids": [],
+              "linkedBundleIds": [],
+              "gate": {
+                "checkProcessIds": [],
+                "onFailTargetProcessId": null,
+                "onPassTargetProcessId": null,
+                "rule": "ALL_OK",
+                "note": ""
+              }
             },
             {
               "id": "9f1cf5f4-e57a-494e-8c70-9c4171e24879",
@@ -49452,12 +50436,19 @@
               "workExp": null,
               "workExpNote": "",
               "linkedBundleId": null,
-              "linkedBundleIds": null,
+              "linkedBundleIds": [],
               "linkedSourceUids": [
                 "out_b69afb76-aa4a-40a1-80e8-9c6224100b11"
               ],
               "linkedSourceUid": "out_b69afb76-aa4a-40a1-80e8-9c6224100b11",
-              "linkedSourceIds": []
+              "linkedSourceIds": [],
+              "gate": {
+                "checkProcessIds": [],
+                "onFailTargetProcessId": null,
+                "onPassTargetProcessId": null,
+                "rule": "ALL_OK",
+                "note": ""
+              }
             },
             {
               "id": "91228928-5f0a-4221-b5d1-d3187fc928fe",
@@ -49520,7 +50511,16 @@
               "inputDefinitions": [],
               "disruptions": [],
               "workExp": null,
-              "workExpNote": ""
+              "workExpNote": "",
+              "linkedSourceUids": [],
+              "linkedBundleIds": [],
+              "gate": {
+                "checkProcessIds": [],
+                "onFailTargetProcessId": null,
+                "onPassTargetProcessId": null,
+                "rule": "ALL_OK",
+                "note": ""
+              }
             },
             {
               "id": "ad475eda-b225-482d-90d9-26e110a6dfea",
@@ -49584,7 +50584,16 @@
               "disruptions": [],
               "workExp": null,
               "workExpNote": "",
-              "outputUid": "out_6f36a7b7-3933-4121-ac46-994562d90310"
+              "outputUid": "out_6f36a7b7-3933-4121-ac46-994562d90310",
+              "linkedSourceUids": [],
+              "linkedBundleIds": [],
+              "gate": {
+                "checkProcessIds": [],
+                "onFailTargetProcessId": null,
+                "onPassTargetProcessId": null,
+                "rule": "ALL_OK",
+                "note": ""
+              }
             },
             {
               "id": "043db6db-3e0e-4857-bd33-64185598faa6",
@@ -49648,7 +50657,16 @@
               "disruptions": [],
               "workExp": null,
               "workExpNote": "",
-              "outputUid": "out_14903b98-6a92-4e0d-8e61-432b0f18ac4d"
+              "outputUid": "out_14903b98-6a92-4e0d-8e61-432b0f18ac4d",
+              "linkedSourceUids": [],
+              "linkedBundleIds": [],
+              "gate": {
+                "checkProcessIds": [],
+                "onFailTargetProcessId": null,
+                "onPassTargetProcessId": null,
+                "rule": "ALL_OK",
+                "note": ""
+              }
             },
             {
               "id": "87a8187c-bfa8-434b-b01c-14acf76b8402",
@@ -49711,7 +50729,16 @@
               "inputDefinitions": [],
               "disruptions": [],
               "workExp": null,
-              "workExpNote": ""
+              "workExpNote": "",
+              "linkedSourceUids": [],
+              "linkedBundleIds": [],
+              "gate": {
+                "checkProcessIds": [],
+                "onFailTargetProcessId": null,
+                "onPassTargetProcessId": null,
+                "rule": "ALL_OK",
+                "note": ""
+              }
             }
           ],
           "logic": {
@@ -49719,7 +50746,9 @@
             "ifTrue": 2,
             "ifFalse": null
           },
-          "isConditional": true
+          "isConditional": true,
+          "isQuestion": false,
+          "isGroup": false
         },
         {
           "id": "252f0827-0cb1-4779-ac86-d3845b52b4bf",
@@ -49792,7 +50821,16 @@
               "inputDefinitions": [],
               "disruptions": [],
               "workExp": null,
-              "workExpNote": ""
+              "workExpNote": "",
+              "linkedSourceUids": [],
+              "linkedBundleIds": [],
+              "gate": {
+                "checkProcessIds": [],
+                "onFailTargetProcessId": null,
+                "onPassTargetProcessId": null,
+                "rule": "ALL_OK",
+                "note": ""
+              }
             },
             {
               "id": "02e6943d-d93c-46e2-85e3-d5cdad8a8701",
@@ -49850,12 +50888,35 @@
                     },
                     "calculatedScore": null
                   }
-                ]
+                ],
+                "systemsMeta": {
+                  "multi": false,
+                  "systems": [
+                    {
+                      "id": "e478fb3d-03a8-47e3-b6f7-cd5b98f2564f",
+                      "name": "",
+                      "legacy": false,
+                      "future": "",
+                      "qa": {},
+                      "score": null
+                    }
+                  ],
+                  "activeSystemIdx": 0
+                }
               },
               "inputDefinitions": [],
               "disruptions": [],
               "workExp": null,
-              "workExpNote": ""
+              "workExpNote": "",
+              "linkedSourceUids": [],
+              "linkedBundleIds": [],
+              "gate": {
+                "checkProcessIds": [],
+                "onFailTargetProcessId": null,
+                "onPassTargetProcessId": null,
+                "rule": "ALL_OK",
+                "note": ""
+              }
             },
             {
               "id": "9ba19935-8a40-4a4e-ad8a-d885e510459c",
@@ -49926,12 +50987,19 @@
               "workExp": null,
               "workExpNote": "",
               "linkedBundleId": null,
-              "linkedBundleIds": null,
+              "linkedBundleIds": [],
               "linkedSourceUids": [
                 "out_b69afb76-aa4a-40a1-80e8-9c6224100b11"
               ],
               "linkedSourceUid": "out_b69afb76-aa4a-40a1-80e8-9c6224100b11",
-              "linkedSourceIds": []
+              "linkedSourceIds": [],
+              "gate": {
+                "checkProcessIds": [],
+                "onFailTargetProcessId": null,
+                "onPassTargetProcessId": null,
+                "rule": "ALL_OK",
+                "note": ""
+              }
             },
             {
               "id": "c8870cd4-3d96-4b57-8940-d28b1ea1603e",
@@ -49994,7 +51062,16 @@
               "inputDefinitions": [],
               "disruptions": [],
               "workExp": null,
-              "workExpNote": ""
+              "workExpNote": "",
+              "linkedSourceUids": [],
+              "linkedBundleIds": [],
+              "gate": {
+                "checkProcessIds": [],
+                "onFailTargetProcessId": null,
+                "onPassTargetProcessId": null,
+                "rule": "ALL_OK",
+                "note": ""
+              }
             },
             {
               "id": "0720560c-3a2b-4ae3-83e2-9eaac69abe88",
@@ -50058,7 +51135,16 @@
               "disruptions": [],
               "workExp": null,
               "workExpNote": "",
-              "outputUid": "out_06eea7bf-c61d-4fbe-848d-09769e68257f"
+              "outputUid": "out_06eea7bf-c61d-4fbe-848d-09769e68257f",
+              "linkedSourceUids": [],
+              "linkedBundleIds": [],
+              "gate": {
+                "checkProcessIds": [],
+                "onFailTargetProcessId": null,
+                "onPassTargetProcessId": null,
+                "rule": "ALL_OK",
+                "note": ""
+              }
             },
             {
               "id": "9dc18649-2600-433d-9b40-055c2f500977",
@@ -50122,7 +51208,16 @@
               "disruptions": [],
               "workExp": null,
               "workExpNote": "",
-              "outputUid": "out_8bb16e6b-621c-43dd-a18d-3a6fa7cfba05"
+              "outputUid": "out_8bb16e6b-621c-43dd-a18d-3a6fa7cfba05",
+              "linkedSourceUids": [],
+              "linkedBundleIds": [],
+              "gate": {
+                "checkProcessIds": [],
+                "onFailTargetProcessId": null,
+                "onPassTargetProcessId": null,
+                "rule": "ALL_OK",
+                "note": ""
+              }
             },
             {
               "id": "2f2d20b0-83ad-40a9-9813-0bcced584238",
@@ -50185,9 +51280,22 @@
               "inputDefinitions": [],
               "disruptions": [],
               "workExp": null,
-              "workExpNote": ""
+              "workExpNote": "",
+              "linkedSourceUids": [],
+              "linkedBundleIds": [],
+              "gate": {
+                "checkProcessIds": [],
+                "onFailTargetProcessId": null,
+                "onPassTargetProcessId": null,
+                "rule": "ALL_OK",
+                "note": ""
+              }
             }
-          ]
+          ],
+          "isQuestion": false,
+          "isConditional": false,
+          "logic": null,
+          "isGroup": false
         },
         {
           "id": "4718dc1e-6de9-417b-8a1a-46881d670d35",
@@ -50260,7 +51368,16 @@
               "inputDefinitions": [],
               "disruptions": [],
               "workExp": null,
-              "workExpNote": ""
+              "workExpNote": "",
+              "linkedSourceUids": [],
+              "linkedBundleIds": [],
+              "gate": {
+                "checkProcessIds": [],
+                "onFailTargetProcessId": null,
+                "onPassTargetProcessId": null,
+                "rule": "ALL_OK",
+                "note": ""
+              }
             },
             {
               "id": "5df23d11-668e-4e03-a41c-ecc67e7b92e0",
@@ -50318,12 +51435,35 @@
                     },
                     "calculatedScore": null
                   }
-                ]
+                ],
+                "systemsMeta": {
+                  "multi": false,
+                  "systems": [
+                    {
+                      "id": "8592711a-84db-43a4-a234-12b60e075b21",
+                      "name": "",
+                      "legacy": false,
+                      "future": "",
+                      "qa": {},
+                      "score": null
+                    }
+                  ],
+                  "activeSystemIdx": 0
+                }
               },
               "inputDefinitions": [],
               "disruptions": [],
               "workExp": null,
-              "workExpNote": ""
+              "workExpNote": "",
+              "linkedSourceUids": [],
+              "linkedBundleIds": [],
+              "gate": {
+                "checkProcessIds": [],
+                "onFailTargetProcessId": null,
+                "onPassTargetProcessId": null,
+                "rule": "ALL_OK",
+                "note": ""
+              }
             },
             {
               "id": "1c09c936-b159-4d6a-a54a-784f886a54de",
@@ -50394,12 +51534,19 @@
               "workExp": null,
               "workExpNote": "",
               "linkedBundleId": null,
-              "linkedBundleIds": null,
+              "linkedBundleIds": [],
               "linkedSourceUids": [
                 "out_8bb16e6b-621c-43dd-a18d-3a6fa7cfba05"
               ],
               "linkedSourceUid": "out_8bb16e6b-621c-43dd-a18d-3a6fa7cfba05",
-              "linkedSourceIds": []
+              "linkedSourceIds": [],
+              "gate": {
+                "checkProcessIds": [],
+                "onFailTargetProcessId": null,
+                "onPassTargetProcessId": null,
+                "rule": "ALL_OK",
+                "note": ""
+              }
             },
             {
               "id": "eb3fb05d-226a-4a5f-a9ba-376f00f4c975",
@@ -50462,7 +51609,16 @@
               "inputDefinitions": [],
               "disruptions": [],
               "workExp": null,
-              "workExpNote": ""
+              "workExpNote": "",
+              "linkedSourceUids": [],
+              "linkedBundleIds": [],
+              "gate": {
+                "checkProcessIds": [],
+                "onFailTargetProcessId": null,
+                "onPassTargetProcessId": null,
+                "rule": "ALL_OK",
+                "note": ""
+              }
             },
             {
               "id": "3e52eda8-9bc1-43bc-bd2a-ebf703b0cb3a",
@@ -50526,7 +51682,16 @@
               "disruptions": [],
               "workExp": null,
               "workExpNote": "",
-              "outputUid": "out_2897c812-718c-4bc2-84de-c99b0ef811bf"
+              "outputUid": "out_2897c812-718c-4bc2-84de-c99b0ef811bf",
+              "linkedSourceUids": [],
+              "linkedBundleIds": [],
+              "gate": {
+                "checkProcessIds": [],
+                "onFailTargetProcessId": null,
+                "onPassTargetProcessId": null,
+                "rule": "ALL_OK",
+                "note": ""
+              }
             },
             {
               "id": "673ad48d-d63e-4c32-b82b-98fcfb2428e3",
@@ -50590,7 +51755,16 @@
               "disruptions": [],
               "workExp": null,
               "workExpNote": "",
-              "outputUid": "out_16a084b4-2f2c-470f-8a7e-92f5ac662cc5"
+              "outputUid": "out_16a084b4-2f2c-470f-8a7e-92f5ac662cc5",
+              "linkedSourceUids": [],
+              "linkedBundleIds": [],
+              "gate": {
+                "checkProcessIds": [],
+                "onFailTargetProcessId": null,
+                "onPassTargetProcessId": null,
+                "rule": "ALL_OK",
+                "note": ""
+              }
             },
             {
               "id": "c86e6313-d30a-4215-9804-12fe687b1596",
@@ -50653,9 +51827,22 @@
               "inputDefinitions": [],
               "disruptions": [],
               "workExp": null,
-              "workExpNote": ""
+              "workExpNote": "",
+              "linkedSourceUids": [],
+              "linkedBundleIds": [],
+              "gate": {
+                "checkProcessIds": [],
+                "onFailTargetProcessId": null,
+                "onPassTargetProcessId": null,
+                "rule": "ALL_OK",
+                "note": ""
+              }
             }
-          ]
+          ],
+          "isQuestion": false,
+          "isConditional": false,
+          "logic": null,
+          "isGroup": false
         },
         {
           "id": "fd336340-384e-41e3-914a-24d61848306b",
@@ -50728,7 +51915,16 @@
               "inputDefinitions": [],
               "disruptions": [],
               "workExp": null,
-              "workExpNote": ""
+              "workExpNote": "",
+              "linkedSourceUids": [],
+              "linkedBundleIds": [],
+              "gate": {
+                "checkProcessIds": [],
+                "onFailTargetProcessId": null,
+                "onPassTargetProcessId": null,
+                "rule": "ALL_OK",
+                "note": ""
+              }
             },
             {
               "id": "7b4e44b5-ca23-46ed-b0e4-08a1c58b558a",
@@ -50786,12 +51982,35 @@
                     },
                     "calculatedScore": null
                   }
-                ]
+                ],
+                "systemsMeta": {
+                  "multi": false,
+                  "systems": [
+                    {
+                      "id": "b9b5ef5b-1d92-4c00-a518-759e826316ad",
+                      "name": "",
+                      "legacy": false,
+                      "future": "",
+                      "qa": {},
+                      "score": null
+                    }
+                  ],
+                  "activeSystemIdx": 0
+                }
               },
               "inputDefinitions": [],
               "disruptions": [],
               "workExp": null,
-              "workExpNote": ""
+              "workExpNote": "",
+              "linkedSourceUids": [],
+              "linkedBundleIds": [],
+              "gate": {
+                "checkProcessIds": [],
+                "onFailTargetProcessId": null,
+                "onPassTargetProcessId": null,
+                "rule": "ALL_OK",
+                "note": ""
+              }
             },
             {
               "id": "07cfd4e2-6ffc-4a95-b3ac-fa7a7d08e916",
@@ -50862,12 +52081,19 @@
               "workExp": null,
               "workExpNote": "",
               "linkedBundleId": null,
-              "linkedBundleIds": null,
+              "linkedBundleIds": [],
               "linkedSourceUids": [
                 "out_16a084b4-2f2c-470f-8a7e-92f5ac662cc5"
               ],
               "linkedSourceUid": "out_16a084b4-2f2c-470f-8a7e-92f5ac662cc5",
-              "linkedSourceIds": []
+              "linkedSourceIds": [],
+              "gate": {
+                "checkProcessIds": [],
+                "onFailTargetProcessId": null,
+                "onPassTargetProcessId": null,
+                "rule": "ALL_OK",
+                "note": ""
+              }
             },
             {
               "id": "29c5eda6-8f0b-491b-b1e9-1ba122edf9f5",
@@ -50930,7 +52156,16 @@
               "inputDefinitions": [],
               "disruptions": [],
               "workExp": null,
-              "workExpNote": ""
+              "workExpNote": "",
+              "linkedSourceUids": [],
+              "linkedBundleIds": [],
+              "gate": {
+                "checkProcessIds": [],
+                "onFailTargetProcessId": null,
+                "onPassTargetProcessId": null,
+                "rule": "ALL_OK",
+                "note": ""
+              }
             },
             {
               "id": "ca7cb2a2-e877-4634-885e-95cf821da2a9",
@@ -50994,7 +52229,16 @@
               "disruptions": [],
               "workExp": null,
               "workExpNote": "",
-              "outputUid": "out_4c2a1d4d-d476-4d78-89e8-033ee5862bee"
+              "outputUid": "out_4c2a1d4d-d476-4d78-89e8-033ee5862bee",
+              "linkedSourceUids": [],
+              "linkedBundleIds": [],
+              "gate": {
+                "checkProcessIds": [],
+                "onFailTargetProcessId": null,
+                "onPassTargetProcessId": null,
+                "rule": "ALL_OK",
+                "note": ""
+              }
             },
             {
               "id": "a2221388-87f3-4920-b911-b7fc74f0573a",
@@ -51067,8 +52311,15 @@
               },
               "gate": {
                 "enabled": true,
-                "failTargetColIdx": 2
-              }
+                "failTargetColIdx": 2,
+                "checkProcessIds": [],
+                "onFailTargetProcessId": null,
+                "onPassTargetProcessId": null,
+                "rule": "ALL_OK",
+                "note": ""
+              },
+              "linkedSourceUids": [],
+              "linkedBundleIds": []
             },
             {
               "id": "87354d05-c986-4422-a144-ec154927701b",
@@ -51131,9 +52382,22 @@
               "inputDefinitions": [],
               "disruptions": [],
               "workExp": null,
-              "workExpNote": ""
+              "workExpNote": "",
+              "linkedSourceUids": [],
+              "linkedBundleIds": [],
+              "gate": {
+                "checkProcessIds": [],
+                "onFailTargetProcessId": null,
+                "onPassTargetProcessId": null,
+                "rule": "ALL_OK",
+                "note": ""
+              }
             }
-          ]
+          ],
+          "isQuestion": false,
+          "isConditional": false,
+          "logic": null,
+          "isGroup": false
         },
         {
           "id": "30f09c15-e5c0-4528-ad36-3fb7a7569ecf",
@@ -51206,7 +52470,16 @@
               "inputDefinitions": [],
               "disruptions": [],
               "workExp": null,
-              "workExpNote": ""
+              "workExpNote": "",
+              "linkedSourceUids": [],
+              "linkedBundleIds": [],
+              "gate": {
+                "checkProcessIds": [],
+                "onFailTargetProcessId": null,
+                "onPassTargetProcessId": null,
+                "rule": "ALL_OK",
+                "note": ""
+              }
             },
             {
               "id": "bb466cec-96d0-4861-95d2-a9851c38be73",
@@ -51264,12 +52537,35 @@
                     },
                     "calculatedScore": null
                   }
-                ]
+                ],
+                "systemsMeta": {
+                  "multi": false,
+                  "systems": [
+                    {
+                      "id": "3b09f2af-b7a1-4626-82a7-4a00f14d75c8",
+                      "name": "",
+                      "legacy": false,
+                      "future": "",
+                      "qa": {},
+                      "score": null
+                    }
+                  ],
+                  "activeSystemIdx": 0
+                }
               },
               "inputDefinitions": [],
               "disruptions": [],
               "workExp": null,
-              "workExpNote": ""
+              "workExpNote": "",
+              "linkedSourceUids": [],
+              "linkedBundleIds": [],
+              "gate": {
+                "checkProcessIds": [],
+                "onFailTargetProcessId": null,
+                "onPassTargetProcessId": null,
+                "rule": "ALL_OK",
+                "note": ""
+              }
             },
             {
               "id": "7f678092-0f0a-4f43-b00a-960af6e936ed",
@@ -51332,7 +52628,18 @@
               "inputDefinitions": [],
               "disruptions": [],
               "workExp": null,
-              "workExpNote": ""
+              "workExpNote": "",
+              "linkedSourceUids": [],
+              "linkedBundleIds": [],
+              "linkedBundleId": null,
+              "linkedSourceUid": null,
+              "gate": {
+                "checkProcessIds": [],
+                "onFailTargetProcessId": null,
+                "onPassTargetProcessId": null,
+                "rule": "ALL_OK",
+                "note": ""
+              }
             },
             {
               "id": "411446e3-7870-4490-846d-5d0a0e5bb0bc",
@@ -51395,7 +52702,16 @@
               "inputDefinitions": [],
               "disruptions": [],
               "workExp": null,
-              "workExpNote": ""
+              "workExpNote": "",
+              "linkedSourceUids": [],
+              "linkedBundleIds": [],
+              "gate": {
+                "checkProcessIds": [],
+                "onFailTargetProcessId": null,
+                "onPassTargetProcessId": null,
+                "rule": "ALL_OK",
+                "note": ""
+              }
             },
             {
               "id": "9a9cdcc2-1ec7-46ee-b46f-383d54d03cb1",
@@ -51459,7 +52775,16 @@
               "disruptions": [],
               "workExp": null,
               "workExpNote": "",
-              "outputUid": "out_78087cd4-b76d-441f-a2aa-9093852896af"
+              "outputUid": "out_78087cd4-b76d-441f-a2aa-9093852896af",
+              "linkedSourceUids": [],
+              "linkedBundleIds": [],
+              "gate": {
+                "checkProcessIds": [],
+                "onFailTargetProcessId": null,
+                "onPassTargetProcessId": null,
+                "rule": "ALL_OK",
+                "note": ""
+              }
             },
             {
               "id": "ff25e01a-1e22-48d5-841c-f34f3ca7bd98",
@@ -51523,7 +52848,16 @@
               "disruptions": [],
               "workExp": null,
               "workExpNote": "",
-              "outputUid": "out_e8e17085-410e-4a5c-aa23-0a85c7b22740"
+              "outputUid": "out_e8e17085-410e-4a5c-aa23-0a85c7b22740",
+              "linkedSourceUids": [],
+              "linkedBundleIds": [],
+              "gate": {
+                "checkProcessIds": [],
+                "onFailTargetProcessId": null,
+                "onPassTargetProcessId": null,
+                "rule": "ALL_OK",
+                "note": ""
+              }
             },
             {
               "id": "0a68473d-cdb2-45d2-881c-f31ddb5d63e3",
@@ -51586,9 +52920,22 @@
               "inputDefinitions": [],
               "disruptions": [],
               "workExp": null,
-              "workExpNote": ""
+              "workExpNote": "",
+              "linkedSourceUids": [],
+              "linkedBundleIds": [],
+              "gate": {
+                "checkProcessIds": [],
+                "onFailTargetProcessId": null,
+                "onPassTargetProcessId": null,
+                "rule": "ALL_OK",
+                "note": ""
+              }
             }
-          ]
+          ],
+          "isQuestion": false,
+          "isConditional": false,
+          "logic": null,
+          "isGroup": false
         },
         {
           "id": "8e943bdb-90ef-4c5c-aea5-e494e65fb6fb",
@@ -51661,7 +53008,16 @@
               "inputDefinitions": [],
               "disruptions": [],
               "workExp": null,
-              "workExpNote": ""
+              "workExpNote": "",
+              "linkedSourceUids": [],
+              "linkedBundleIds": [],
+              "gate": {
+                "checkProcessIds": [],
+                "onFailTargetProcessId": null,
+                "onPassTargetProcessId": null,
+                "rule": "ALL_OK",
+                "note": ""
+              }
             },
             {
               "id": "d0799bae-e224-43bd-ab83-194890e333e0",
@@ -51724,6 +53080,7 @@
                   "multi": true,
                   "systems": [
                     {
+                      "id": "8133ba9f-df57-488d-93ef-5c10596ab4a4",
                       "name": "Radiotherapie Web",
                       "legacy": false,
                       "future": "",
@@ -51731,6 +53088,7 @@
                       "score": null
                     },
                     {
+                      "id": "0696df71-0136-4888-8d5e-df39c3298ae0",
                       "name": "Pinnacle",
                       "legacy": false,
                       "future": "",
@@ -51744,7 +53102,16 @@
               "inputDefinitions": [],
               "disruptions": [],
               "workExp": null,
-              "workExpNote": ""
+              "workExpNote": "",
+              "linkedSourceUids": [],
+              "linkedBundleIds": [],
+              "gate": {
+                "checkProcessIds": [],
+                "onFailTargetProcessId": null,
+                "onPassTargetProcessId": null,
+                "rule": "ALL_OK",
+                "note": ""
+              }
             },
             {
               "id": "3302053d-58e0-4ac2-9c90-f08f1e1d0b9d",
@@ -51815,13 +53182,20 @@
               "workExp": null,
               "workExpNote": "",
               "linkedBundleId": null,
-              "linkedBundleIds": null,
+              "linkedBundleIds": [],
               "linkedSourceUids": [
                 "out_a8285c8f-64b4-4d08-a704-4130faf145c3",
                 "out_e8e17085-410e-4a5c-aa23-0a85c7b22740"
               ],
               "linkedSourceUid": "out_a8285c8f-64b4-4d08-a704-4130faf145c3",
-              "linkedSourceIds": []
+              "linkedSourceIds": [],
+              "gate": {
+                "checkProcessIds": [],
+                "onFailTargetProcessId": null,
+                "onPassTargetProcessId": null,
+                "rule": "ALL_OK",
+                "note": ""
+              }
             },
             {
               "id": "9941b4ed-b395-45a6-9e63-a6e1be4d73e8",
@@ -51884,7 +53258,16 @@
               "inputDefinitions": [],
               "disruptions": [],
               "workExp": null,
-              "workExpNote": ""
+              "workExpNote": "",
+              "linkedSourceUids": [],
+              "linkedBundleIds": [],
+              "gate": {
+                "checkProcessIds": [],
+                "onFailTargetProcessId": null,
+                "onPassTargetProcessId": null,
+                "rule": "ALL_OK",
+                "note": ""
+              }
             },
             {
               "id": "f5335f01-95c2-4a5b-83dc-ce5d1422aa20",
@@ -51948,7 +53331,16 @@
               "disruptions": [],
               "workExp": null,
               "workExpNote": "",
-              "outputUid": "out_4fe70c11-5b54-4abf-851e-680c2f75c3a2"
+              "outputUid": "out_4fe70c11-5b54-4abf-851e-680c2f75c3a2",
+              "linkedSourceUids": [],
+              "linkedBundleIds": [],
+              "gate": {
+                "checkProcessIds": [],
+                "onFailTargetProcessId": null,
+                "onPassTargetProcessId": null,
+                "rule": "ALL_OK",
+                "note": ""
+              }
             },
             {
               "id": "8a256dbd-b021-4c79-8d41-cecbc3642ede",
@@ -52012,7 +53404,16 @@
               "disruptions": [],
               "workExp": null,
               "workExpNote": "",
-              "outputUid": "out_3ffd643e-7d0d-479d-b9d1-1642f09a5451"
+              "outputUid": "out_3ffd643e-7d0d-479d-b9d1-1642f09a5451",
+              "linkedSourceUids": [],
+              "linkedBundleIds": [],
+              "gate": {
+                "checkProcessIds": [],
+                "onFailTargetProcessId": null,
+                "onPassTargetProcessId": null,
+                "rule": "ALL_OK",
+                "note": ""
+              }
             },
             {
               "id": "910bbb91-70d7-4191-ae70-859fdc7313c9",
@@ -52075,9 +53476,22 @@
               "inputDefinitions": [],
               "disruptions": [],
               "workExp": null,
-              "workExpNote": ""
+              "workExpNote": "",
+              "linkedSourceUids": [],
+              "linkedBundleIds": [],
+              "gate": {
+                "checkProcessIds": [],
+                "onFailTargetProcessId": null,
+                "onPassTargetProcessId": null,
+                "rule": "ALL_OK",
+                "note": ""
+              }
             }
-          ]
+          ],
+          "isQuestion": false,
+          "isConditional": false,
+          "logic": null,
+          "isGroup": false
         },
         {
           "id": "6eb8ddf0-99d5-48df-ad08-4d19bd22f12f",
@@ -52150,7 +53564,16 @@
               "inputDefinitions": [],
               "disruptions": [],
               "workExp": null,
-              "workExpNote": ""
+              "workExpNote": "",
+              "linkedSourceUids": [],
+              "linkedBundleIds": [],
+              "gate": {
+                "checkProcessIds": [],
+                "onFailTargetProcessId": null,
+                "onPassTargetProcessId": null,
+                "rule": "ALL_OK",
+                "note": ""
+              }
             },
             {
               "id": "acd0267f-ea17-4ddc-9d07-3c028a450d58",
@@ -52208,12 +53631,35 @@
                     },
                     "calculatedScore": null
                   }
-                ]
+                ],
+                "systemsMeta": {
+                  "multi": false,
+                  "systems": [
+                    {
+                      "id": "ddd06d5d-4934-4b1e-8269-f4aa147ddd1f",
+                      "name": "",
+                      "legacy": false,
+                      "future": "",
+                      "qa": {},
+                      "score": null
+                    }
+                  ],
+                  "activeSystemIdx": 0
+                }
               },
               "inputDefinitions": [],
               "disruptions": [],
               "workExp": null,
-              "workExpNote": ""
+              "workExpNote": "",
+              "linkedSourceUids": [],
+              "linkedBundleIds": [],
+              "gate": {
+                "checkProcessIds": [],
+                "onFailTargetProcessId": null,
+                "onPassTargetProcessId": null,
+                "rule": "ALL_OK",
+                "note": ""
+              }
             },
             {
               "id": "32a8bdab-4c1e-4cd9-917b-68c8eeea8d75",
@@ -52284,12 +53730,19 @@
               "workExp": null,
               "workExpNote": "",
               "linkedBundleId": null,
-              "linkedBundleIds": null,
+              "linkedBundleIds": [],
               "linkedSourceUids": [
                 "out_3ffd643e-7d0d-479d-b9d1-1642f09a5451"
               ],
               "linkedSourceUid": "out_3ffd643e-7d0d-479d-b9d1-1642f09a5451",
-              "linkedSourceIds": []
+              "linkedSourceIds": [],
+              "gate": {
+                "checkProcessIds": [],
+                "onFailTargetProcessId": null,
+                "onPassTargetProcessId": null,
+                "rule": "ALL_OK",
+                "note": ""
+              }
             },
             {
               "id": "2204d32d-aa61-4e8a-a67d-bb173f0b0fb4",
@@ -52352,7 +53805,16 @@
               "inputDefinitions": [],
               "disruptions": [],
               "workExp": null,
-              "workExpNote": ""
+              "workExpNote": "",
+              "linkedSourceUids": [],
+              "linkedBundleIds": [],
+              "gate": {
+                "checkProcessIds": [],
+                "onFailTargetProcessId": null,
+                "onPassTargetProcessId": null,
+                "rule": "ALL_OK",
+                "note": ""
+              }
             },
             {
               "id": "eebcc34e-316c-4610-b961-efeae163b43e",
@@ -52416,7 +53878,16 @@
               "disruptions": [],
               "workExp": null,
               "workExpNote": "",
-              "outputUid": "out_75110aab-2de5-4b88-b842-523a42cc0858"
+              "outputUid": "out_75110aab-2de5-4b88-b842-523a42cc0858",
+              "linkedSourceUids": [],
+              "linkedBundleIds": [],
+              "gate": {
+                "checkProcessIds": [],
+                "onFailTargetProcessId": null,
+                "onPassTargetProcessId": null,
+                "rule": "ALL_OK",
+                "note": ""
+              }
             },
             {
               "id": "53b9aec6-11af-4399-b23c-1ea71455e571",
@@ -52480,7 +53951,16 @@
               "disruptions": [],
               "workExp": null,
               "workExpNote": "",
-              "outputUid": "out_caf28e71-98c0-4757-9d5f-dd0ab37b4f12"
+              "outputUid": "out_caf28e71-98c0-4757-9d5f-dd0ab37b4f12",
+              "linkedSourceUids": [],
+              "linkedBundleIds": [],
+              "gate": {
+                "checkProcessIds": [],
+                "onFailTargetProcessId": null,
+                "onPassTargetProcessId": null,
+                "rule": "ALL_OK",
+                "note": ""
+              }
             },
             {
               "id": "18ee26af-0966-456f-9080-17138f1bdadb",
@@ -52543,9 +54023,22 @@
               "inputDefinitions": [],
               "disruptions": [],
               "workExp": null,
-              "workExpNote": ""
+              "workExpNote": "",
+              "linkedSourceUids": [],
+              "linkedBundleIds": [],
+              "gate": {
+                "checkProcessIds": [],
+                "onFailTargetProcessId": null,
+                "onPassTargetProcessId": null,
+                "rule": "ALL_OK",
+                "note": ""
+              }
             }
-          ]
+          ],
+          "isQuestion": false,
+          "isConditional": false,
+          "logic": null,
+          "isGroup": false
         },
         {
           "id": "0380d4a4-90a4-408a-8248-8aca45071c12",
@@ -52618,7 +54111,16 @@
               "inputDefinitions": [],
               "disruptions": [],
               "workExp": null,
-              "workExpNote": ""
+              "workExpNote": "",
+              "linkedSourceUids": [],
+              "linkedBundleIds": [],
+              "gate": {
+                "checkProcessIds": [],
+                "onFailTargetProcessId": null,
+                "onPassTargetProcessId": null,
+                "rule": "ALL_OK",
+                "note": ""
+              }
             },
             {
               "id": "a8f2c2b4-2e9c-4467-b996-d321c0700a6b",
@@ -52676,12 +54178,35 @@
                     },
                     "calculatedScore": null
                   }
-                ]
+                ],
+                "systemsMeta": {
+                  "multi": false,
+                  "systems": [
+                    {
+                      "id": "2a572fb3-f65a-441b-8e38-15b63249173c",
+                      "name": "",
+                      "legacy": false,
+                      "future": "",
+                      "qa": {},
+                      "score": null
+                    }
+                  ],
+                  "activeSystemIdx": 0
+                }
               },
               "inputDefinitions": [],
               "disruptions": [],
               "workExp": null,
-              "workExpNote": ""
+              "workExpNote": "",
+              "linkedSourceUids": [],
+              "linkedBundleIds": [],
+              "gate": {
+                "checkProcessIds": [],
+                "onFailTargetProcessId": null,
+                "onPassTargetProcessId": null,
+                "rule": "ALL_OK",
+                "note": ""
+              }
             },
             {
               "id": "a22ea362-de57-4b24-9ab7-e3f0b2870d43",
@@ -52757,7 +54282,14 @@
               "linkedSourceUid": "out_3ffd643e-7d0d-479d-b9d1-1642f09a5451",
               "linkedSourceIds": [],
               "linkedBundleId": null,
-              "linkedBundleIds": null
+              "linkedBundleIds": [],
+              "gate": {
+                "checkProcessIds": [],
+                "onFailTargetProcessId": null,
+                "onPassTargetProcessId": null,
+                "rule": "ALL_OK",
+                "note": ""
+              }
             },
             {
               "id": "6aaec996-76ff-4d6c-8917-33feded00a3b",
@@ -52820,7 +54352,16 @@
               "inputDefinitions": [],
               "disruptions": [],
               "workExp": null,
-              "workExpNote": ""
+              "workExpNote": "",
+              "linkedSourceUids": [],
+              "linkedBundleIds": [],
+              "gate": {
+                "checkProcessIds": [],
+                "onFailTargetProcessId": null,
+                "onPassTargetProcessId": null,
+                "rule": "ALL_OK",
+                "note": ""
+              }
             },
             {
               "id": "f6ee2ef9-7b1a-4409-826a-bff5ec10af7f",
@@ -52884,7 +54425,16 @@
               "disruptions": [],
               "workExp": null,
               "workExpNote": "",
-              "outputUid": "out_eb361df1-26af-4a5f-8070-25c1bc2618d3"
+              "outputUid": "out_eb361df1-26af-4a5f-8070-25c1bc2618d3",
+              "linkedSourceUids": [],
+              "linkedBundleIds": [],
+              "gate": {
+                "checkProcessIds": [],
+                "onFailTargetProcessId": null,
+                "onPassTargetProcessId": null,
+                "rule": "ALL_OK",
+                "note": ""
+              }
             },
             {
               "id": "fe24b007-4645-462f-b0e8-218f33680925",
@@ -52948,7 +54498,16 @@
               "disruptions": [],
               "workExp": null,
               "workExpNote": "",
-              "outputUid": "out_61741ead-b5e9-487f-a5e2-5cf5730cfccb"
+              "outputUid": "out_61741ead-b5e9-487f-a5e2-5cf5730cfccb",
+              "linkedSourceUids": [],
+              "linkedBundleIds": [],
+              "gate": {
+                "checkProcessIds": [],
+                "onFailTargetProcessId": null,
+                "onPassTargetProcessId": null,
+                "rule": "ALL_OK",
+                "note": ""
+              }
             },
             {
               "id": "8973135c-7374-4b31-9766-a7039ab4a60e",
@@ -53011,9 +54570,22 @@
               "inputDefinitions": [],
               "disruptions": [],
               "workExp": null,
-              "workExpNote": ""
+              "workExpNote": "",
+              "linkedSourceUids": [],
+              "linkedBundleIds": [],
+              "gate": {
+                "checkProcessIds": [],
+                "onFailTargetProcessId": null,
+                "onPassTargetProcessId": null,
+                "rule": "ALL_OK",
+                "note": ""
+              }
             }
-          ]
+          ],
+          "isQuestion": false,
+          "isConditional": false,
+          "logic": null,
+          "isGroup": false
         },
         {
           "id": "76ec8bec-6d72-4709-b3e0-f1a95daee34c",
@@ -53086,7 +54658,16 @@
               "inputDefinitions": [],
               "disruptions": [],
               "workExp": null,
-              "workExpNote": ""
+              "workExpNote": "",
+              "linkedSourceUids": [],
+              "linkedBundleIds": [],
+              "gate": {
+                "checkProcessIds": [],
+                "onFailTargetProcessId": null,
+                "onPassTargetProcessId": null,
+                "rule": "ALL_OK",
+                "note": ""
+              }
             },
             {
               "id": "9e20c731-a163-4433-bcce-85089fd39dd8",
@@ -53144,12 +54725,35 @@
                     },
                     "calculatedScore": null
                   }
-                ]
+                ],
+                "systemsMeta": {
+                  "multi": false,
+                  "systems": [
+                    {
+                      "id": "8120e271-2213-4f67-abf9-a772c1c0dee6",
+                      "name": "",
+                      "legacy": false,
+                      "future": "",
+                      "qa": {},
+                      "score": null
+                    }
+                  ],
+                  "activeSystemIdx": 0
+                }
               },
               "inputDefinitions": [],
               "disruptions": [],
               "workExp": null,
-              "workExpNote": ""
+              "workExpNote": "",
+              "linkedSourceUids": [],
+              "linkedBundleIds": [],
+              "gate": {
+                "checkProcessIds": [],
+                "onFailTargetProcessId": null,
+                "onPassTargetProcessId": null,
+                "rule": "ALL_OK",
+                "note": ""
+              }
             },
             {
               "id": "e82fa070-6444-4b22-adfa-ba0e11cdbeae",
@@ -53212,7 +54816,18 @@
               "inputDefinitions": [],
               "disruptions": [],
               "workExp": null,
-              "workExpNote": ""
+              "workExpNote": "",
+              "linkedSourceUids": [],
+              "linkedBundleIds": [],
+              "linkedBundleId": null,
+              "linkedSourceUid": null,
+              "gate": {
+                "checkProcessIds": [],
+                "onFailTargetProcessId": null,
+                "onPassTargetProcessId": null,
+                "rule": "ALL_OK",
+                "note": ""
+              }
             },
             {
               "id": "d8ed25d0-d2fc-4dbb-b6b3-aa23a272e9f5",
@@ -53275,7 +54890,16 @@
               "inputDefinitions": [],
               "disruptions": [],
               "workExp": null,
-              "workExpNote": ""
+              "workExpNote": "",
+              "linkedSourceUids": [],
+              "linkedBundleIds": [],
+              "gate": {
+                "checkProcessIds": [],
+                "onFailTargetProcessId": null,
+                "onPassTargetProcessId": null,
+                "rule": "ALL_OK",
+                "note": ""
+              }
             },
             {
               "id": "432b53ca-6139-47d7-8f1a-21df4d117c0b",
@@ -53339,7 +54963,16 @@
               "disruptions": [],
               "workExp": null,
               "workExpNote": "",
-              "outputUid": "out_d3067281-2ff8-45b5-bcec-ac5267a31c36"
+              "outputUid": "out_d3067281-2ff8-45b5-bcec-ac5267a31c36",
+              "linkedSourceUids": [],
+              "linkedBundleIds": [],
+              "gate": {
+                "checkProcessIds": [],
+                "onFailTargetProcessId": null,
+                "onPassTargetProcessId": null,
+                "rule": "ALL_OK",
+                "note": ""
+              }
             },
             {
               "id": "0fc79210-26d3-4594-a34a-ff866471c48e",
@@ -53403,7 +55036,16 @@
               "disruptions": [],
               "workExp": null,
               "workExpNote": "",
-              "outputUid": "out_45b08606-7dbd-468a-bf4e-9d195221737b"
+              "outputUid": "out_45b08606-7dbd-468a-bf4e-9d195221737b",
+              "linkedSourceUids": [],
+              "linkedBundleIds": [],
+              "gate": {
+                "checkProcessIds": [],
+                "onFailTargetProcessId": null,
+                "onPassTargetProcessId": null,
+                "rule": "ALL_OK",
+                "note": ""
+              }
             },
             {
               "id": "e00eee35-dce7-4cb3-b7c3-a421e6f6432b",
@@ -53466,9 +55108,22 @@
               "inputDefinitions": [],
               "disruptions": [],
               "workExp": null,
-              "workExpNote": ""
+              "workExpNote": "",
+              "linkedSourceUids": [],
+              "linkedBundleIds": [],
+              "gate": {
+                "checkProcessIds": [],
+                "onFailTargetProcessId": null,
+                "onPassTargetProcessId": null,
+                "rule": "ALL_OK",
+                "note": ""
+              }
             }
-          ]
+          ],
+          "isQuestion": false,
+          "isConditional": false,
+          "logic": null,
+          "isGroup": false
         },
         {
           "id": "653a271c-1d66-437e-99f2-60b33065a494",
@@ -53541,7 +55196,16 @@
               "inputDefinitions": [],
               "disruptions": [],
               "workExp": null,
-              "workExpNote": ""
+              "workExpNote": "",
+              "linkedSourceUids": [],
+              "linkedBundleIds": [],
+              "gate": {
+                "checkProcessIds": [],
+                "onFailTargetProcessId": null,
+                "onPassTargetProcessId": null,
+                "rule": "ALL_OK",
+                "note": ""
+              }
             },
             {
               "id": "8e8856f0-9768-4779-9fe5-2702ee0f2766",
@@ -53599,12 +55263,35 @@
                     },
                     "calculatedScore": null
                   }
-                ]
+                ],
+                "systemsMeta": {
+                  "multi": false,
+                  "systems": [
+                    {
+                      "id": "14059cae-da7a-4a19-bdb9-4d8f4b538134",
+                      "name": "",
+                      "legacy": false,
+                      "future": "",
+                      "qa": {},
+                      "score": null
+                    }
+                  ],
+                  "activeSystemIdx": 0
+                }
               },
               "inputDefinitions": [],
               "disruptions": [],
               "workExp": null,
-              "workExpNote": ""
+              "workExpNote": "",
+              "linkedSourceUids": [],
+              "linkedBundleIds": [],
+              "gate": {
+                "checkProcessIds": [],
+                "onFailTargetProcessId": null,
+                "onPassTargetProcessId": null,
+                "rule": "ALL_OK",
+                "note": ""
+              }
             },
             {
               "id": "c59c3c2e-ee6d-4a18-85bd-01ab905d5aa7",
@@ -53675,12 +55362,19 @@
               "workExp": null,
               "workExpNote": "",
               "linkedBundleId": null,
-              "linkedBundleIds": null,
+              "linkedBundleIds": [],
               "linkedSourceUids": [
                 "out_61741ead-b5e9-487f-a5e2-5cf5730cfccb"
               ],
               "linkedSourceUid": "out_61741ead-b5e9-487f-a5e2-5cf5730cfccb",
-              "linkedSourceIds": []
+              "linkedSourceIds": [],
+              "gate": {
+                "checkProcessIds": [],
+                "onFailTargetProcessId": null,
+                "onPassTargetProcessId": null,
+                "rule": "ALL_OK",
+                "note": ""
+              }
             },
             {
               "id": "06f9b361-fa19-4dbe-9fe2-88cf649ea98e",
@@ -53743,7 +55437,16 @@
               "inputDefinitions": [],
               "disruptions": [],
               "workExp": null,
-              "workExpNote": ""
+              "workExpNote": "",
+              "linkedSourceUids": [],
+              "linkedBundleIds": [],
+              "gate": {
+                "checkProcessIds": [],
+                "onFailTargetProcessId": null,
+                "onPassTargetProcessId": null,
+                "rule": "ALL_OK",
+                "note": ""
+              }
             },
             {
               "id": "a70fa9d4-6e50-4d37-afe1-f9f3983e2863",
@@ -53807,7 +55510,16 @@
               "disruptions": [],
               "workExp": null,
               "workExpNote": "",
-              "outputUid": "out_7c20675e-1b46-4dde-a38a-9fb0462ecb2f"
+              "outputUid": "out_7c20675e-1b46-4dde-a38a-9fb0462ecb2f",
+              "linkedSourceUids": [],
+              "linkedBundleIds": [],
+              "gate": {
+                "checkProcessIds": [],
+                "onFailTargetProcessId": null,
+                "onPassTargetProcessId": null,
+                "rule": "ALL_OK",
+                "note": ""
+              }
             },
             {
               "id": "10ee0194-33c2-40ac-91e8-1f77457deada",
@@ -53871,7 +55583,16 @@
               "disruptions": [],
               "workExp": null,
               "workExpNote": "",
-              "outputUid": "out_691addda-565c-4e32-b577-212f630713b1"
+              "outputUid": "out_691addda-565c-4e32-b577-212f630713b1",
+              "linkedSourceUids": [],
+              "linkedBundleIds": [],
+              "gate": {
+                "checkProcessIds": [],
+                "onFailTargetProcessId": null,
+                "onPassTargetProcessId": null,
+                "rule": "ALL_OK",
+                "note": ""
+              }
             },
             {
               "id": "bc47670d-8aa5-4ad1-85d4-86471249f825",
@@ -53934,9 +55655,22 @@
               "inputDefinitions": [],
               "disruptions": [],
               "workExp": null,
-              "workExpNote": ""
+              "workExpNote": "",
+              "linkedSourceUids": [],
+              "linkedBundleIds": [],
+              "gate": {
+                "checkProcessIds": [],
+                "onFailTargetProcessId": null,
+                "onPassTargetProcessId": null,
+                "rule": "ALL_OK",
+                "note": ""
+              }
             }
-          ]
+          ],
+          "isQuestion": false,
+          "isConditional": false,
+          "logic": null,
+          "isGroup": false
         },
         {
           "id": "a4d15cda-0fa3-4baf-b5d5-ca08ac611e2f",
@@ -54009,7 +55743,16 @@
               "inputDefinitions": [],
               "disruptions": [],
               "workExp": null,
-              "workExpNote": ""
+              "workExpNote": "",
+              "linkedSourceUids": [],
+              "linkedBundleIds": [],
+              "gate": {
+                "checkProcessIds": [],
+                "onFailTargetProcessId": null,
+                "onPassTargetProcessId": null,
+                "rule": "ALL_OK",
+                "note": ""
+              }
             },
             {
               "id": "12e3ef54-812c-427c-a230-6ad68dfd984c",
@@ -54067,12 +55810,35 @@
                     },
                     "calculatedScore": null
                   }
-                ]
+                ],
+                "systemsMeta": {
+                  "multi": false,
+                  "systems": [
+                    {
+                      "id": "8b4cfe11-1320-43d6-af37-8b5c868bc4c1",
+                      "name": "",
+                      "legacy": false,
+                      "future": "",
+                      "qa": {},
+                      "score": null
+                    }
+                  ],
+                  "activeSystemIdx": 0
+                }
               },
               "inputDefinitions": [],
               "disruptions": [],
               "workExp": null,
-              "workExpNote": ""
+              "workExpNote": "",
+              "linkedSourceUids": [],
+              "linkedBundleIds": [],
+              "gate": {
+                "checkProcessIds": [],
+                "onFailTargetProcessId": null,
+                "onPassTargetProcessId": null,
+                "rule": "ALL_OK",
+                "note": ""
+              }
             },
             {
               "id": "007b5843-53ce-46da-bb53-39db1a3d0b9d",
@@ -54143,12 +55909,19 @@
               "workExp": null,
               "workExpNote": "",
               "linkedBundleId": null,
-              "linkedBundleIds": null,
+              "linkedBundleIds": [],
               "linkedSourceUids": [
                 "out_691addda-565c-4e32-b577-212f630713b1"
               ],
               "linkedSourceUid": "out_691addda-565c-4e32-b577-212f630713b1",
-              "linkedSourceIds": []
+              "linkedSourceIds": [],
+              "gate": {
+                "checkProcessIds": [],
+                "onFailTargetProcessId": null,
+                "onPassTargetProcessId": null,
+                "rule": "ALL_OK",
+                "note": ""
+              }
             },
             {
               "id": "1b455f38-9881-480b-8711-cec9bc357c6d",
@@ -54211,7 +55984,16 @@
               "inputDefinitions": [],
               "disruptions": [],
               "workExp": null,
-              "workExpNote": ""
+              "workExpNote": "",
+              "linkedSourceUids": [],
+              "linkedBundleIds": [],
+              "gate": {
+                "checkProcessIds": [],
+                "onFailTargetProcessId": null,
+                "onPassTargetProcessId": null,
+                "rule": "ALL_OK",
+                "note": ""
+              }
             },
             {
               "id": "0e708772-60a8-42fe-b5fc-3a15b42913aa",
@@ -54275,7 +56057,16 @@
               "disruptions": [],
               "workExp": null,
               "workExpNote": "",
-              "outputUid": "out_abd703e1-9819-4d68-9fa7-2393f4afb23c"
+              "outputUid": "out_abd703e1-9819-4d68-9fa7-2393f4afb23c",
+              "linkedSourceUids": [],
+              "linkedBundleIds": [],
+              "gate": {
+                "checkProcessIds": [],
+                "onFailTargetProcessId": null,
+                "onPassTargetProcessId": null,
+                "rule": "ALL_OK",
+                "note": ""
+              }
             },
             {
               "id": "f1d7cccc-7289-4380-94ae-5483e231b530",
@@ -54339,7 +56130,16 @@
               "disruptions": [],
               "workExp": null,
               "workExpNote": "",
-              "outputUid": "out_d5b6e9de-3434-460e-a3be-781fb8626c23"
+              "outputUid": "out_d5b6e9de-3434-460e-a3be-781fb8626c23",
+              "linkedSourceUids": [],
+              "linkedBundleIds": [],
+              "gate": {
+                "checkProcessIds": [],
+                "onFailTargetProcessId": null,
+                "onPassTargetProcessId": null,
+                "rule": "ALL_OK",
+                "note": ""
+              }
             },
             {
               "id": "329ac926-34fa-4fa5-be06-abe9ee02beab",
@@ -54402,9 +56202,22 @@
               "inputDefinitions": [],
               "disruptions": [],
               "workExp": null,
-              "workExpNote": ""
+              "workExpNote": "",
+              "linkedSourceUids": [],
+              "linkedBundleIds": [],
+              "gate": {
+                "checkProcessIds": [],
+                "onFailTargetProcessId": null,
+                "onPassTargetProcessId": null,
+                "rule": "ALL_OK",
+                "note": ""
+              }
             }
-          ]
+          ],
+          "isQuestion": false,
+          "isConditional": false,
+          "logic": null,
+          "isGroup": false
         }
       ],
       "outputMerges": [],
@@ -54434,7 +56247,9 @@
             "failTargetColIdx": 6
           }
         }
-      ]
+      ],
+      "groups": [],
+      "variantGroups": []
     },
     {
       "id": "081ecac9-697c-4f99-b07a-1e33e8c20e98",
@@ -54512,7 +56327,16 @@
               "inputDefinitions": [],
               "disruptions": [],
               "workExp": null,
-              "workExpNote": ""
+              "workExpNote": "",
+              "linkedSourceUids": [],
+              "linkedBundleIds": [],
+              "gate": {
+                "checkProcessIds": [],
+                "onFailTargetProcessId": null,
+                "onPassTargetProcessId": null,
+                "rule": "ALL_OK",
+                "note": ""
+              }
             },
             {
               "id": "b52bc1a4-ac77-45aa-aa12-b044eaa5b839",
@@ -54570,12 +56394,35 @@
                     },
                     "calculatedScore": null
                   }
-                ]
+                ],
+                "systemsMeta": {
+                  "multi": false,
+                  "systems": [
+                    {
+                      "id": "9c014c71-6f59-49d7-9e9a-d5ed787f6f7e",
+                      "name": "",
+                      "legacy": false,
+                      "future": "",
+                      "qa": {},
+                      "score": null
+                    }
+                  ],
+                  "activeSystemIdx": 0
+                }
               },
               "inputDefinitions": [],
               "disruptions": [],
               "workExp": null,
-              "workExpNote": ""
+              "workExpNote": "",
+              "linkedSourceUids": [],
+              "linkedBundleIds": [],
+              "gate": {
+                "checkProcessIds": [],
+                "onFailTargetProcessId": null,
+                "onPassTargetProcessId": null,
+                "rule": "ALL_OK",
+                "note": ""
+              }
             },
             {
               "id": "5297612b-6c22-4282-9a8f-ea3bd4d6c362",
@@ -54638,7 +56485,18 @@
               "inputDefinitions": [],
               "disruptions": [],
               "workExp": null,
-              "workExpNote": ""
+              "workExpNote": "",
+              "linkedSourceUids": [],
+              "linkedBundleIds": [],
+              "linkedBundleId": null,
+              "linkedSourceUid": null,
+              "gate": {
+                "checkProcessIds": [],
+                "onFailTargetProcessId": null,
+                "onPassTargetProcessId": null,
+                "rule": "ALL_OK",
+                "note": ""
+              }
             },
             {
               "id": "4d4633fe-e10a-4f4a-a3b6-4da147f6ccf6",
@@ -54701,7 +56559,16 @@
               "inputDefinitions": [],
               "disruptions": [],
               "workExp": null,
-              "workExpNote": ""
+              "workExpNote": "",
+              "linkedSourceUids": [],
+              "linkedBundleIds": [],
+              "gate": {
+                "checkProcessIds": [],
+                "onFailTargetProcessId": null,
+                "onPassTargetProcessId": null,
+                "rule": "ALL_OK",
+                "note": ""
+              }
             },
             {
               "id": "992f858d-8367-4080-92a0-6432f79ab2a9",
@@ -54764,7 +56631,16 @@
               "inputDefinitions": [],
               "disruptions": [],
               "workExp": null,
-              "workExpNote": ""
+              "workExpNote": "",
+              "linkedSourceUids": [],
+              "linkedBundleIds": [],
+              "gate": {
+                "checkProcessIds": [],
+                "onFailTargetProcessId": null,
+                "onPassTargetProcessId": null,
+                "rule": "ALL_OK",
+                "note": ""
+              }
             },
             {
               "id": "59d6d02c-fbaf-4622-9efb-a8258e17e027",
@@ -54828,7 +56704,16 @@
               "disruptions": [],
               "workExp": null,
               "workExpNote": "",
-              "outputUid": "out_81d0c413-8468-4671-beeb-d63a96f1902a"
+              "outputUid": "out_81d0c413-8468-4671-beeb-d63a96f1902a",
+              "linkedSourceUids": [],
+              "linkedBundleIds": [],
+              "gate": {
+                "checkProcessIds": [],
+                "onFailTargetProcessId": null,
+                "onPassTargetProcessId": null,
+                "rule": "ALL_OK",
+                "note": ""
+              }
             },
             {
               "id": "6f7cb549-5cac-47a5-98f0-6e4e747d6060",
@@ -54891,13 +56776,28 @@
               "inputDefinitions": [],
               "disruptions": [],
               "workExp": null,
-              "workExpNote": ""
+              "workExpNote": "",
+              "linkedSourceUids": [],
+              "linkedBundleIds": [],
+              "gate": {
+                "checkProcessIds": [],
+                "onFailTargetProcessId": null,
+                "onPassTargetProcessId": null,
+                "rule": "ALL_OK",
+                "note": ""
+              }
             }
-          ]
+          ],
+          "isQuestion": false,
+          "isConditional": false,
+          "logic": null,
+          "isGroup": false
         }
       ],
       "outputMerges": [],
-      "systemMerges": []
+      "systemMerges": [],
+      "groups": [],
+      "variantGroups": []
     },
     {
       "id": "46861a1b-aeb5-4480-83a8-860bae246f52",
@@ -81028,7 +82928,16 @@
               "inputDefinitions": [],
               "disruptions": [],
               "workExp": null,
-              "workExpNote": ""
+              "workExpNote": "",
+              "linkedSourceUids": [],
+              "linkedBundleIds": [],
+              "gate": {
+                "checkProcessIds": [],
+                "onFailTargetProcessId": null,
+                "onPassTargetProcessId": null,
+                "rule": "ALL_OK",
+                "note": ""
+              }
             },
             {
               "id": "18548d95-3b84-4c0e-8a7d-1b9bed6ec935",
@@ -81086,12 +82995,35 @@
                     },
                     "calculatedScore": null
                   }
-                ]
+                ],
+                "systemsMeta": {
+                  "multi": false,
+                  "systems": [
+                    {
+                      "id": "dd9c3186-f005-4cd2-8bf0-520e3a74ee34",
+                      "name": "",
+                      "legacy": false,
+                      "future": "",
+                      "qa": {},
+                      "score": null
+                    }
+                  ],
+                  "activeSystemIdx": 0
+                }
               },
               "inputDefinitions": [],
               "disruptions": [],
               "workExp": null,
-              "workExpNote": ""
+              "workExpNote": "",
+              "linkedSourceUids": [],
+              "linkedBundleIds": [],
+              "gate": {
+                "checkProcessIds": [],
+                "onFailTargetProcessId": null,
+                "onPassTargetProcessId": null,
+                "rule": "ALL_OK",
+                "note": ""
+              }
             },
             {
               "id": "279ed091-2c86-47a8-bc22-dbf2eaeb4a96",
@@ -81154,7 +83086,18 @@
               "inputDefinitions": [],
               "disruptions": [],
               "workExp": null,
-              "workExpNote": ""
+              "workExpNote": "",
+              "linkedSourceUids": [],
+              "linkedBundleIds": [],
+              "linkedBundleId": null,
+              "linkedSourceUid": null,
+              "gate": {
+                "checkProcessIds": [],
+                "onFailTargetProcessId": null,
+                "onPassTargetProcessId": null,
+                "rule": "ALL_OK",
+                "note": ""
+              }
             },
             {
               "id": "cef66786-ed38-404a-9cb0-374d122d801c",
@@ -81217,7 +83160,16 @@
               "inputDefinitions": [],
               "disruptions": [],
               "workExp": null,
-              "workExpNote": ""
+              "workExpNote": "",
+              "linkedSourceUids": [],
+              "linkedBundleIds": [],
+              "gate": {
+                "checkProcessIds": [],
+                "onFailTargetProcessId": null,
+                "onPassTargetProcessId": null,
+                "rule": "ALL_OK",
+                "note": ""
+              }
             },
             {
               "id": "f8613ca5-f53d-4c34-a942-1104ec9b2d1e",
@@ -81280,7 +83232,16 @@
               "inputDefinitions": [],
               "disruptions": [],
               "workExp": null,
-              "workExpNote": ""
+              "workExpNote": "",
+              "linkedSourceUids": [],
+              "linkedBundleIds": [],
+              "gate": {
+                "checkProcessIds": [],
+                "onFailTargetProcessId": null,
+                "onPassTargetProcessId": null,
+                "rule": "ALL_OK",
+                "note": ""
+              }
             },
             {
               "id": "2ace1c86-d032-4771-9002-ae8bab0326bd",
@@ -81344,7 +83305,16 @@
               "disruptions": [],
               "workExp": null,
               "workExpNote": "",
-              "outputUid": "out_a2245062-5e34-4532-b6a6-17cd8530e65e"
+              "outputUid": "out_a2245062-5e34-4532-b6a6-17cd8530e65e",
+              "linkedSourceUids": [],
+              "linkedBundleIds": [],
+              "gate": {
+                "checkProcessIds": [],
+                "onFailTargetProcessId": null,
+                "onPassTargetProcessId": null,
+                "rule": "ALL_OK",
+                "note": ""
+              }
             },
             {
               "id": "b330bc09-3478-4303-ba8b-697e98bf2885",
@@ -81407,13 +83377,28 @@
               "inputDefinitions": [],
               "disruptions": [],
               "workExp": null,
-              "workExpNote": ""
+              "workExpNote": "",
+              "linkedSourceUids": [],
+              "linkedBundleIds": [],
+              "gate": {
+                "checkProcessIds": [],
+                "onFailTargetProcessId": null,
+                "onPassTargetProcessId": null,
+                "rule": "ALL_OK",
+                "note": ""
+              }
             }
-          ]
+          ],
+          "isQuestion": false,
+          "isConditional": false,
+          "logic": null,
+          "isGroup": false
         }
       ],
       "outputMerges": [],
-      "systemMerges": []
+      "systemMerges": [],
+      "groups": [],
+      "variantGroups": []
     }
   ],
   "outputBundles": [
