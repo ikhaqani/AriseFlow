@@ -23673,26 +23673,32 @@
               "qa": {
                 "compleet": {
                   "result": null,
+                  "impact": null,
                   "note": ""
                 },
                 "kwaliteit": {
                   "result": null,
+                  "impact": null,
                   "note": ""
                 },
                 "duidelijkheid": {
                   "result": null,
+                  "impact": null,
                   "note": ""
                 },
                 "tijdigheid": {
                   "result": null,
+                  "impact": null,
                   "note": ""
                 },
                 "standaard": {
                   "result": null,
+                  "impact": null,
                   "note": ""
                 },
                 "overdracht": {
                   "result": null,
+                  "impact": null,
                   "note": ""
                 }
               },
@@ -23722,11 +23728,11 @@
               "workExp": null,
               "workExpNote": "",
               "linkedBundleId": null,
-              "linkedBundleIds": [],
+              "linkedBundleIds": null,
               "linkedSourceUids": [
-                "out_8b01a620-6d1e-4d89-a743-1c75049f36cb"
+                "out_6a01aaa0-55af-4ed3-8489-acac0533c486"
               ],
-              "linkedSourceUid": "out_8b01a620-6d1e-4d89-a743-1c75049f36cb",
+              "linkedSourceUid": "out_6a01aaa0-55af-4ed3-8489-acac0533c486",
               "linkedSourceIds": [],
               "gate": {
                 "checkProcessIds": [],
@@ -23739,7 +23745,7 @@
             {
               "id": "act_216e4c94-4fcb-44aa-8bfd-d459b18c7b5d",
               "created": 1769679069538,
-              "text": "",
+              "text": "Behandelend arts",
               "linkedSourceId": null,
               "type": "text",
               "processValue": null,
@@ -23811,7 +23817,7 @@
             {
               "id": "cf86d99a-2bcc-471f-9ecc-c85df2f7742e",
               "created": 1769004945083,
-              "text": "Mould-aanvraag",
+              "text": "Vastleggen mouldinstructie",
               "linkedSourceId": null,
               "type": null,
               "processValue": null,
@@ -24218,26 +24224,32 @@
               "qa": {
                 "compleet": {
                   "result": null,
+                  "impact": null,
                   "note": ""
                 },
                 "kwaliteit": {
                   "result": null,
+                  "impact": null,
                   "note": ""
                 },
                 "duidelijkheid": {
                   "result": null,
+                  "impact": null,
                   "note": ""
                 },
                 "tijdigheid": {
                   "result": null,
+                  "impact": null,
                   "note": ""
                 },
                 "standaard": {
                   "result": null,
+                  "impact": null,
                   "note": ""
                 },
                 "overdracht": {
                   "result": null,
+                  "impact": null,
                   "note": ""
                 }
               },
@@ -24267,11 +24279,11 @@
               "workExp": null,
               "workExpNote": "",
               "linkedBundleId": null,
-              "linkedBundleIds": [],
+              "linkedBundleIds": null,
               "linkedSourceUids": [
-                "out_8b01a620-6d1e-4d89-a743-1c75049f36cb"
+                "out_6a01aaa0-55af-4ed3-8489-acac0533c486"
               ],
-              "linkedSourceUid": "out_8b01a620-6d1e-4d89-a743-1c75049f36cb",
+              "linkedSourceUid": "out_6a01aaa0-55af-4ed3-8489-acac0533c486",
               "linkedSourceIds": [],
               "gate": {
                 "checkProcessIds": [],
@@ -24284,7 +24296,7 @@
             {
               "id": "act_7713ae39-fc61-46c3-b68f-6332209eb326",
               "created": 1769679069538,
-              "text": "",
+              "text": "Behandelend arts",
               "linkedSourceId": null,
               "type": "text",
               "processValue": null,
@@ -24356,7 +24368,7 @@
             {
               "id": "f14b9cd6-d4d9-4564-9e96-9967f98cf6cf",
               "created": 1769010331895,
-              "text": "CT-aanvraag",
+              "text": "Vastleggen CT-instructie",
               "linkedSourceId": null,
               "type": null,
               "processValue": null,
@@ -24576,6 +24588,460 @@
           "isConditional": false,
           "logic": null,
           "isGroup": false
+        },
+        {
+          "id": "12139615-d384-4483-87c1-ae07df2b3685",
+          "order": 1,
+          "isVisible": true,
+          "isParallel": false,
+          "isVariant": false,
+          "hasTransition": false,
+          "transitionNext": "",
+          "outputId": null,
+          "slots": [
+            {
+              "id": "c4065395-bf0e-4eae-be94-3a19d4984ea4",
+              "created": 1770312612103,
+              "text": "Behandelend arts",
+              "linkedSourceId": null,
+              "type": null,
+              "processValue": null,
+              "processStatus": null,
+              "successFactors": "",
+              "causes": [],
+              "improvements": [],
+              "qa": {
+                "compleet": {
+                  "result": "",
+                  "note": ""
+                },
+                "kwaliteit": {
+                  "result": "",
+                  "note": ""
+                },
+                "duidelijkheid": {
+                  "result": "",
+                  "note": ""
+                },
+                "tijdigheid": {
+                  "result": "",
+                  "note": ""
+                },
+                "standaard": {
+                  "result": "",
+                  "note": ""
+                },
+                "overdracht": {
+                  "result": "",
+                  "note": ""
+                }
+              },
+              "systemData": {
+                "isMulti": false,
+                "systemName": "",
+                "calculatedScore": null,
+                "systems": [
+                  {
+                    "id": "33ef765c-6976-473e-a1c1-37033c5d6068",
+                    "name": "",
+                    "isLegacy": false,
+                    "futureSystem": "",
+                    "qa": {
+                      "workarounds": null,
+                      "performance": null,
+                      "double": null,
+                      "error": null,
+                      "depend": null
+                    },
+                    "calculatedScore": null
+                  }
+                ]
+              },
+              "inputDefinitions": [],
+              "disruptions": [],
+              "workExp": null,
+              "workExpNote": ""
+            },
+            {
+              "id": "a905b559-cfd2-4b05-a889-06af7ed66250",
+              "created": 1770312612103,
+              "text": "Epic",
+              "linkedSourceId": null,
+              "type": null,
+              "processValue": null,
+              "processStatus": null,
+              "successFactors": "",
+              "causes": [],
+              "improvements": [],
+              "qa": {
+                "compleet": {
+                  "result": "",
+                  "note": ""
+                },
+                "kwaliteit": {
+                  "result": "",
+                  "note": ""
+                },
+                "duidelijkheid": {
+                  "result": "",
+                  "note": ""
+                },
+                "tijdigheid": {
+                  "result": "",
+                  "note": ""
+                },
+                "standaard": {
+                  "result": "",
+                  "note": ""
+                },
+                "overdracht": {
+                  "result": "",
+                  "note": ""
+                }
+              },
+              "systemData": {
+                "isMulti": false,
+                "systemName": "",
+                "calculatedScore": null,
+                "systems": [
+                  {
+                    "id": "abc69df6-5922-42da-85c5-4c214dca71d1",
+                    "name": "",
+                    "isLegacy": false,
+                    "futureSystem": "",
+                    "qa": {
+                      "workarounds": null,
+                      "performance": null,
+                      "double": null,
+                      "error": null,
+                      "depend": null
+                    },
+                    "calculatedScore": null
+                  }
+                ]
+              },
+              "inputDefinitions": [],
+              "disruptions": [],
+              "workExp": null,
+              "workExpNote": ""
+            },
+            {
+              "id": "47f2c3e6-ce94-4205-8824-ea485a00ed25",
+              "created": 1770312612103,
+              "text": "",
+              "linkedSourceId": null,
+              "type": null,
+              "processValue": null,
+              "processStatus": null,
+              "successFactors": "",
+              "causes": [],
+              "improvements": [],
+              "qa": {
+                "compleet": {
+                  "result": "",
+                  "note": ""
+                },
+                "kwaliteit": {
+                  "result": "",
+                  "note": ""
+                },
+                "duidelijkheid": {
+                  "result": "",
+                  "note": ""
+                },
+                "tijdigheid": {
+                  "result": "",
+                  "note": ""
+                },
+                "standaard": {
+                  "result": "",
+                  "note": ""
+                },
+                "overdracht": {
+                  "result": "",
+                  "note": ""
+                }
+              },
+              "systemData": {
+                "isMulti": false,
+                "systemName": "",
+                "calculatedScore": null,
+                "systems": [
+                  {
+                    "id": "bb0c588a-b887-40e2-af3e-99005b77aaeb",
+                    "name": "",
+                    "isLegacy": false,
+                    "futureSystem": "",
+                    "qa": {
+                      "workarounds": null,
+                      "performance": null,
+                      "double": null,
+                      "error": null,
+                      "depend": null
+                    },
+                    "calculatedScore": null
+                  }
+                ]
+              },
+              "inputDefinitions": [],
+              "disruptions": [],
+              "workExp": null,
+              "workExpNote": ""
+            },
+            {
+              "id": "af4e97c0-8c26-4b73-ad46-88e6036515ca",
+              "created": 1770312612103,
+              "text": "",
+              "linkedSourceId": null,
+              "type": null,
+              "processValue": null,
+              "processStatus": null,
+              "successFactors": "",
+              "causes": [],
+              "improvements": [],
+              "qa": {
+                "compleet": {
+                  "result": "",
+                  "note": ""
+                },
+                "kwaliteit": {
+                  "result": "",
+                  "note": ""
+                },
+                "duidelijkheid": {
+                  "result": "",
+                  "note": ""
+                },
+                "tijdigheid": {
+                  "result": "",
+                  "note": ""
+                },
+                "standaard": {
+                  "result": "",
+                  "note": ""
+                },
+                "overdracht": {
+                  "result": "",
+                  "note": ""
+                }
+              },
+              "systemData": {
+                "isMulti": false,
+                "systemName": "",
+                "calculatedScore": null,
+                "systems": [
+                  {
+                    "id": "12e57e4b-2c7d-4544-bf65-75eab4d87dcd",
+                    "name": "",
+                    "isLegacy": false,
+                    "futureSystem": "",
+                    "qa": {
+                      "workarounds": null,
+                      "performance": null,
+                      "double": null,
+                      "error": null,
+                      "depend": null
+                    },
+                    "calculatedScore": null
+                  }
+                ]
+              },
+              "inputDefinitions": [],
+              "disruptions": [],
+              "workExp": null,
+              "workExpNote": ""
+            },
+            {
+              "id": "1535786d-ef82-4333-975d-059a2d478aa2",
+              "created": 1770312612103,
+              "text": "",
+              "linkedSourceId": null,
+              "type": null,
+              "processValue": null,
+              "processStatus": null,
+              "successFactors": "",
+              "causes": [],
+              "improvements": [],
+              "qa": {
+                "compleet": {
+                  "result": "",
+                  "note": ""
+                },
+                "kwaliteit": {
+                  "result": "",
+                  "note": ""
+                },
+                "duidelijkheid": {
+                  "result": "",
+                  "note": ""
+                },
+                "tijdigheid": {
+                  "result": "",
+                  "note": ""
+                },
+                "standaard": {
+                  "result": "",
+                  "note": ""
+                },
+                "overdracht": {
+                  "result": "",
+                  "note": ""
+                }
+              },
+              "systemData": {
+                "isMulti": false,
+                "systemName": "",
+                "calculatedScore": null,
+                "systems": [
+                  {
+                    "id": "c74b94a1-5a6c-45fd-8b4c-1c984b6cff62",
+                    "name": "",
+                    "isLegacy": false,
+                    "futureSystem": "",
+                    "qa": {
+                      "workarounds": null,
+                      "performance": null,
+                      "double": null,
+                      "error": null,
+                      "depend": null
+                    },
+                    "calculatedScore": null
+                  }
+                ]
+              },
+              "inputDefinitions": [],
+              "disruptions": [],
+              "workExp": null,
+              "workExpNote": ""
+            },
+            {
+              "id": "204b708f-e3e8-4957-847e-c4bdabd717d3",
+              "created": 1770312612103,
+              "text": "",
+              "linkedSourceId": null,
+              "type": null,
+              "processValue": null,
+              "processStatus": null,
+              "successFactors": "",
+              "causes": [],
+              "improvements": [],
+              "qa": {
+                "compleet": {
+                  "result": "",
+                  "note": ""
+                },
+                "kwaliteit": {
+                  "result": "",
+                  "note": ""
+                },
+                "duidelijkheid": {
+                  "result": "",
+                  "note": ""
+                },
+                "tijdigheid": {
+                  "result": "",
+                  "note": ""
+                },
+                "standaard": {
+                  "result": "",
+                  "note": ""
+                },
+                "overdracht": {
+                  "result": "",
+                  "note": ""
+                }
+              },
+              "systemData": {
+                "isMulti": false,
+                "systemName": "",
+                "calculatedScore": null,
+                "systems": [
+                  {
+                    "id": "abfa2b36-4c6a-4ea0-9f7f-a02255a9bd9f",
+                    "name": "",
+                    "isLegacy": false,
+                    "futureSystem": "",
+                    "qa": {
+                      "workarounds": null,
+                      "performance": null,
+                      "double": null,
+                      "error": null,
+                      "depend": null
+                    },
+                    "calculatedScore": null
+                  }
+                ]
+              },
+              "inputDefinitions": [],
+              "disruptions": [],
+              "workExp": null,
+              "workExpNote": "",
+              "outputUid": "out_e612b9fd-e732-425c-bbe4-2efa7dd6d407"
+            },
+            {
+              "id": "cbc0ffcc-5e93-4407-9c7b-c7f19dc1166b",
+              "created": 1770312612103,
+              "text": "",
+              "linkedSourceId": null,
+              "type": null,
+              "processValue": null,
+              "processStatus": null,
+              "successFactors": "",
+              "causes": [],
+              "improvements": [],
+              "qa": {
+                "compleet": {
+                  "result": "",
+                  "note": ""
+                },
+                "kwaliteit": {
+                  "result": "",
+                  "note": ""
+                },
+                "duidelijkheid": {
+                  "result": "",
+                  "note": ""
+                },
+                "tijdigheid": {
+                  "result": "",
+                  "note": ""
+                },
+                "standaard": {
+                  "result": "",
+                  "note": ""
+                },
+                "overdracht": {
+                  "result": "",
+                  "note": ""
+                }
+              },
+              "systemData": {
+                "isMulti": false,
+                "systemName": "",
+                "calculatedScore": null,
+                "systems": [
+                  {
+                    "id": "4ea21e27-ca93-43e2-942b-b3b70baea350",
+                    "name": "",
+                    "isLegacy": false,
+                    "futureSystem": "",
+                    "qa": {
+                      "workarounds": null,
+                      "performance": null,
+                      "double": null,
+                      "error": null,
+                      "depend": null
+                    },
+                    "calculatedScore": null
+                  }
+                ]
+              },
+              "inputDefinitions": [],
+              "disruptions": [],
+              "workExp": null,
+              "workExpNote": ""
+            }
+          ]
         },
         {
           "id": "95eab31e-b46b-4f11-a9fc-48f8cd04e3b0",
