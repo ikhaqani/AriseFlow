@@ -4,7 +4,7 @@
   "author": "Anoniem",
   "created": "2026-01-16T08:48:17.021Z",
   "version": "2.7",
-  "activeSheetId": "858c26e5-f7ec-4311-b503-641f99e65c84",
+  "activeSheetId": "dc945f9e-80a8-454c-b355-ca66f4d539e8",
   "sheets": [
     {
       "id": "819bb6d9-21cc-49cf-8c40-4b6d7df6b2e1",
@@ -10074,7 +10074,7 @@
             {
               "id": "fefb86e7-5e35-4c33-9c2b-429d03c4f830",
               "created": 1768847484163,
-              "text": "Triage arts",
+              "text": "Verwijzer / Polikliniek",
               "linkedSourceId": null,
               "type": null,
               "processValue": null,
@@ -10309,7 +10309,7 @@
             {
               "id": "act_2efd5672-17e7-4210-8095-8f327d70d374",
               "created": 1769679069538,
-              "text": "",
+              "text": "Triage arts",
               "linkedSourceId": null,
               "type": "text",
               "processValue": null,
@@ -10856,7 +10856,7 @@
             {
               "id": "act_726f554f-afac-4ee2-b04f-dcc2e905f81c",
               "created": 1769679069538,
-              "text": "",
+              "text": "Triage arts",
               "linkedSourceId": null,
               "type": "text",
               "processValue": null,
@@ -11407,7 +11407,7 @@
             {
               "id": "act_808073f1-737b-472e-b422-3cd635db5854",
               "created": 1769679069538,
-              "text": "",
+              "text": "Triage arts",
               "linkedSourceId": null,
               "type": "text",
               "processValue": null,
@@ -11717,7 +11717,7 @@
             {
               "id": "af53543b-d52a-42a3-9608-ba12ba992d7b",
               "created": 1768841827033,
-              "text": "Triage arts",
+              "text": "Verwijzer / Polikliniek",
               "linkedSourceId": null,
               "type": null,
               "processValue": null,
@@ -11961,7 +11961,7 @@
             {
               "id": "act_6221f9cf-5cf7-476a-9999-8d2af71cbed9",
               "created": 1769679069538,
-              "text": "",
+              "text": "Triage arts",
               "linkedSourceId": null,
               "type": "text",
               "processValue": null,
@@ -12508,7 +12508,7 @@
             {
               "id": "act_21bdfe98-cf11-44a0-80cf-ed3c83125dcc",
               "created": 1769679069538,
-              "text": "",
+              "text": "Triage arts",
               "linkedSourceId": null,
               "type": "text",
               "processValue": null,
@@ -13081,7 +13081,7 @@
             {
               "id": "act_de19850e-102c-4b53-abe1-c41d269a7062",
               "created": 1769679069538,
-              "text": "",
+              "text": "Triage arts",
               "linkedSourceId": null,
               "type": "text",
               "processValue": null,
@@ -13629,7 +13629,7 @@
             {
               "id": "act_d102f35c-350d-4153-83a6-c782750addf2",
               "created": 1769679069538,
-              "text": "",
+              "text": "Triage arts",
               "linkedSourceId": null,
               "type": "text",
               "processValue": null,
@@ -14167,7 +14167,7 @@
             {
               "id": "act_8dfe0064-fda4-49fc-a8a2-b394f7427f71",
               "created": 1769679069538,
-              "text": "",
+              "text": "Triage arts",
               "linkedSourceId": null,
               "type": "text",
               "processValue": null,
@@ -14716,7 +14716,7 @@
             {
               "id": "act_15630986-2efc-45ca-b403-67508f8b41c8",
               "created": 1769679069538,
-              "text": "",
+              "text": "Triage arts",
               "linkedSourceId": null,
               "type": "text",
               "processValue": null,
@@ -18426,7 +18426,7 @@
     },
     {
       "id": "395f99f0-c1fa-48f8-a8db-52d87c074495",
-      "name": "03 - Bepalen benodigde voorbereiding",
+      "name": "03 - Voorbereiden consult",
       "order": 1,
       "columns": [
         {
