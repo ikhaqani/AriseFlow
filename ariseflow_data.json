@@ -4,7 +4,7 @@
   "author": "Anoniem",
   "created": "2026-01-16T08:48:17.021Z",
   "version": "2.7",
-  "activeSheetId": "3a6a5e6a-f875-43f8-bf84-0d926377627a",
+  "activeSheetId": "4bd936d5-83b6-4a50-ae05-14b934af9e70",
   "sheets": [
     {
       "id": "819bb6d9-21cc-49cf-8c40-4b6d7df6b2e1",
@@ -27413,27 +27413,33 @@
               "improvements": [],
               "qa": {
                 "compleet": {
-                  "result": "",
-                  "note": ""
+                  "result": "MINOR",
+                  "impact": "B",
+                  "note": "Bij onvolledig ingevuld aanvraagformulier of een aanvraagformulier dat na consult niet direct wordt doorgezet, levert dit vertraging/onduidelijkheden op."
                 },
                 "kwaliteit": {
-                  "result": "",
-                  "note": ""
+                  "result": "MINOR",
+                  "impact": "B",
+                  "note": "Bij niet volledige of onduidelijk ingevulde aanvraagformulieren, levert het extra navraag op."
                 },
                 "duidelijkheid": {
-                  "result": "",
-                  "note": ""
+                  "result": "MINOR",
+                  "impact": "B",
+                  "note": "Veel is eenduidige. Sommige afspraken/protocollen worden niet volledig nageleefd in de aanvraag."
                 },
                 "tijdigheid": {
-                  "result": "",
-                  "note": ""
+                  "result": "MINOR",
+                  "impact": "B",
+                  "note": "Na consult soms niet tijdig het aanvraagformulier doorgezet."
                 },
                 "standaard": {
-                  "result": "",
-                  "note": ""
+                  "result": "MINOR",
+                  "impact": null,
+                  "note": "Dit zou verbeterd kunnen worden door meer te sturen in het aanvraagformulier (bijv dropdownmenu)."
                 },
                 "overdracht": {
-                  "result": "",
+                  "result": "GOOD",
+                  "impact": null,
                   "note": ""
                 }
               },
@@ -27458,7 +27464,13 @@
                   }
                 ]
               },
-              "inputDefinitions": [],
+              "inputDefinitions": [
+                {
+                  "item": "Radiotherapieweb",
+                  "specifications": "Aanvraagformulier mouldroom",
+                  "type": "HARD"
+                }
+              ],
               "disruptions": [],
               "workExp": null,
               "workExpNote": "",
@@ -27472,7 +27484,8 @@
                 "onPassTargetProcessId": null,
                 "rule": "ALL_OK",
                 "note": ""
-              }
+              },
+              "linkedSourceIds": []
             },
             {
               "id": "b6dd7b64-fbef-4597-89a9-26a7d9ab2061",
@@ -27551,12 +27564,18 @@
               "created": 1769681578307,
               "text": "Aanvraagformulier controleren",
               "linkedSourceId": null,
-              "type": null,
-              "processValue": null,
-              "processStatus": null,
+              "type": "Taak",
+              "processValue": "VA",
+              "processStatus": "NEUTRAL",
               "successFactors": "",
-              "causes": [],
-              "improvements": [],
+              "causes": [
+                "Niet volledig of foutief invullen van aanvraagformulier",
+                "Niet op tijd beschikbaar van aanvraagformulier"
+              ],
+              "improvements": [
+                "Contact opnemen met betreffende arts",
+                "Contact opnemen met betreffende arts"
+              ],
               "qa": {
                 "compleet": {
                   "result": "",
@@ -27605,8 +27624,14 @@
                 ]
               },
               "inputDefinitions": [],
-              "disruptions": [],
-              "workExp": null,
+              "disruptions": [
+                {
+                  "scenario": "Niet volledig of foutief invullen van aanvraagformulier",
+                  "frequency": "Soms",
+                  "workaround": "Contact opnemen met betreffende arts of andere arts"
+                }
+              ],
+              "workExp": "ROUTINE",
               "workExpNote": "",
               "outputUid": "out_81f1798a-e5ed-4281-8174-d5494e303939",
               "linkedSourceUids": [],
@@ -29598,27 +29623,33 @@
               "improvements": [],
               "qa": {
                 "compleet": {
-                  "result": "",
+                  "result": "GOOD",
+                  "impact": null,
                   "note": ""
                 },
                 "kwaliteit": {
-                  "result": "",
+                  "result": "GOOD",
+                  "impact": null,
                   "note": ""
                 },
                 "duidelijkheid": {
-                  "result": "",
+                  "result": "GOOD",
+                  "impact": null,
                   "note": ""
                 },
                 "tijdigheid": {
-                  "result": "",
+                  "result": "GOOD",
+                  "impact": null,
                   "note": ""
                 },
                 "standaard": {
-                  "result": "",
-                  "note": ""
+                  "result": "MINOR",
+                  "impact": "C",
+                  "note": "Voornamelijk bij elektronen, mondmoulds of mouldroom met arts kan aanvraag nog wel eens afwijken t.o.v. mouldroom keuzes die gemaakt worden. "
                 },
                 "overdracht": {
-                  "result": "",
+                  "result": "GOOD",
+                  "impact": null,
                   "note": ""
                 }
               },
@@ -29643,7 +29674,13 @@
                   }
                 ]
               },
-              "inputDefinitions": [],
+              "inputDefinitions": [
+                {
+                  "item": "Radiotherapieweb",
+                  "specifications": "Mouldroomaanvraagformulier",
+                  "type": "HARD"
+                }
+              ],
               "disruptions": [],
               "workExp": null,
               "workExpNote": "",
@@ -29657,7 +29694,8 @@
                 "onPassTargetProcessId": null,
                 "rule": "ALL_OK",
                 "note": ""
-              }
+              },
+              "linkedSourceIds": []
             },
             {
               "id": "19831c86-e2bc-403a-afd7-475de3c2ef0f",
@@ -29736,10 +29774,10 @@
               "created": 1769701160556,
               "text": "Materialen en achtergrond patiënt voorbereiden ",
               "linkedSourceId": null,
-              "type": null,
-              "processValue": null,
-              "processStatus": null,
-              "successFactors": "",
+              "type": "Taak",
+              "processValue": "BNVA",
+              "processStatus": "HAPPY",
+              "successFactors": "Korte lijn. Alleen mouldroomlaborant voert de voorbereiding uit. Er zit geen ruis in communicatie.",
               "causes": [],
               "improvements": [],
               "qa": {
@@ -29790,8 +29828,14 @@
                 ]
               },
               "inputDefinitions": [],
-              "disruptions": [],
-              "workExp": null,
+              "disruptions": [
+                {
+                  "scenario": "Niet beschikbaar materiaal",
+                  "frequency": "Zelden",
+                  "workaround": "Ander materiaal gebruiken"
+                }
+              ],
+              "workExp": "ROUTINE",
               "workExpNote": "",
               "outputUid": "out_9d7cd98a-b4d4-4f1f-ae5b-ae3af22f27e5",
               "linkedSourceUids": [],
@@ -30145,27 +30189,33 @@
               "improvements": [],
               "qa": {
                 "compleet": {
-                  "result": "",
+                  "result": "GOOD",
+                  "impact": null,
                   "note": ""
                 },
                 "kwaliteit": {
-                  "result": "",
+                  "result": "GOOD",
+                  "impact": null,
                   "note": ""
                 },
                 "duidelijkheid": {
-                  "result": "",
+                  "result": "GOOD",
+                  "impact": null,
                   "note": ""
                 },
                 "tijdigheid": {
-                  "result": "",
+                  "result": "GOOD",
+                  "impact": null,
                   "note": ""
                 },
                 "standaard": {
-                  "result": "",
+                  "result": "GOOD",
+                  "impact": null,
                   "note": ""
                 },
                 "overdracht": {
-                  "result": "",
+                  "result": "GOOD",
+                  "impact": null,
                   "note": ""
                 }
               },
@@ -30190,7 +30240,13 @@
                   }
                 ]
               },
-              "inputDefinitions": [],
+              "inputDefinitions": [
+                {
+                  "item": "Epic/radioherapieweb",
+                  "specifications": "Afpraak + aangemelde patiënt",
+                  "type": "HARD"
+                }
+              ],
               "disruptions": [],
               "workExp": null,
               "workExpNote": "",
@@ -30204,7 +30260,8 @@
                 "onPassTargetProcessId": null,
                 "rule": "ALL_OK",
                 "note": ""
-              }
+              },
+              "linkedSourceIds": []
             },
             {
               "id": "c451d609-dcb3-4320-adee-83b478fb5729",
@@ -30283,10 +30340,10 @@
               "created": 1769701291057,
               "text": "Patiënt oproepen (EPIC) en uitleg geven",
               "linkedSourceId": null,
-              "type": null,
-              "processValue": null,
-              "processStatus": null,
-              "successFactors": "",
+              "type": "Afspraak",
+              "processValue": "VA",
+              "processStatus": "HAPPY",
+              "successFactors": "Routine",
               "causes": [],
               "improvements": [],
               "qa": {
@@ -30337,9 +30394,15 @@
                 ]
               },
               "inputDefinitions": [],
-              "disruptions": [],
-              "workExp": null,
-              "workExpNote": "",
+              "disruptions": [
+                {
+                  "scenario": "Epic werkt niet",
+                  "frequency": "Zelden",
+                  "workaround": "Zonder aanmelding in Epic"
+                }
+              ],
+              "workExp": "ROUTINE",
+              "workExpNote": "Over het algemeen een standaard uitleg.",
               "outputUid": "out_f4caaf3c-c319-47cc-a755-4f6981fd8b07",
               "linkedSourceUids": [],
               "linkedBundleIds": [],
@@ -30690,32 +30753,32 @@
               "improvements": [],
               "qa": {
                 "compleet": {
-                  "result": null,
+                  "result": "GOOD",
                   "impact": null,
                   "note": ""
                 },
                 "kwaliteit": {
-                  "result": null,
+                  "result": "GOOD",
                   "impact": null,
                   "note": ""
                 },
                 "duidelijkheid": {
-                  "result": null,
+                  "result": "GOOD",
                   "impact": null,
                   "note": ""
                 },
                 "tijdigheid": {
-                  "result": null,
-                  "impact": null,
-                  "note": ""
+                  "result": "MINOR",
+                  "impact": "C",
+                  "note": "Soms komt een patiënt te laat of is niet aangemeld."
                 },
                 "standaard": {
-                  "result": null,
+                  "result": "GOOD",
                   "impact": null,
                   "note": ""
                 },
                 "overdracht": {
-                  "result": null,
+                  "result": "GOOD",
                   "impact": null,
                   "note": ""
                 }
@@ -30741,7 +30804,13 @@
                   }
                 ]
               },
-              "inputDefinitions": [],
+              "inputDefinitions": [
+                {
+                  "item": "Patiënt",
+                  "specifications": "Mouldroom patiënt",
+                  "type": "HARD"
+                }
+              ],
               "disruptions": [],
               "workExp": null,
               "workExpNote": "",
@@ -30835,10 +30904,10 @@
               "created": 1769005404203,
               "text": "Maken hulpmiddelen en evt. instelfoto's",
               "linkedSourceId": null,
-              "type": null,
-              "processValue": null,
-              "processStatus": null,
-              "successFactors": "",
+              "type": "Afspraak",
+              "processValue": "VA",
+              "processStatus": "HAPPY",
+              "successFactors": "De beste oplossing voor de betreffende situatie wordt gezocht. Dit kan soms in overleg met arts of andere mouldroom laborant. ",
               "causes": [],
               "improvements": [],
               "qa": {
@@ -30889,9 +30958,20 @@
                 ]
               },
               "inputDefinitions": [],
-              "disruptions": [],
-              "workExp": null,
-              "workExpNote": "",
+              "disruptions": [
+                {
+                  "scenario": "Voldoet niet aan positioneringswens",
+                  "frequency": "Soms",
+                  "workaround": "Aangepaste oplossing"
+                },
+                {
+                  "scenario": "Camera leeg",
+                  "frequency": "Zelden",
+                  "workaround": "Elders camera zoeken of in overleg met CT."
+                }
+              ],
+              "workExp": "FLOW",
+              "workExpNote": "Dit is voor de mouldroomlaborant het leukste deel. Het maken of nadenken over de mogelijkheden per casus.",
               "linkedSourceUids": [],
               "linkedBundleIds": [],
               "gate": {
@@ -31246,28 +31326,34 @@
               "improvements": [],
               "qa": {
                 "compleet": {
-                  "result": null,
-                  "note": ""
+                  "result": "MINOR",
+                  "impact": "C",
+                  "note": "Soms niet volledig de houding genoteerd op masker."
                 },
                 "kwaliteit": {
-                  "result": null,
+                  "result": "GOOD",
+                  "impact": null,
                   "note": ""
                 },
                 "duidelijkheid": {
-                  "result": null,
-                  "note": ""
+                  "result": "MINOR",
+                  "impact": "B",
+                  "note": "Soms niet eenduidig of haalbaar bij CT wat mouldroom bedacht heeft. Opnieuw in overleg of aanpassen."
                 },
                 "tijdigheid": {
-                  "result": null,
-                  "note": ""
+                  "result": "MINOR",
+                  "impact": "C",
+                  "note": "Kan soms uitlopen door aanpassing of conditie patiënt."
                 },
                 "standaard": {
-                  "result": null,
+                  "result": "GOOD",
+                  "impact": null,
                   "note": ""
                 },
                 "overdracht": {
-                  "result": null,
-                  "note": ""
+                  "result": "MINOR",
+                  "impact": "B",
+                  "note": "Communicatie tussen mouldroom en CT."
                 }
               },
               "systemData": {
@@ -31291,7 +31377,13 @@
                   }
                 ]
               },
-              "inputDefinitions": [],
+              "inputDefinitions": [
+                {
+                  "item": "Labelprinter",
+                  "specifications": "Patiënt en positioneringsinformatie",
+                  "type": "SOFT"
+                }
+              ],
               "disruptions": [],
               "workExp": null,
               "workExpNote": "",
@@ -31387,10 +31479,10 @@
               "created": 1769006963828,
               "text": "Printen instelfoto's",
               "linkedSourceId": null,
-              "type": null,
-              "processValue": null,
-              "processStatus": null,
-              "successFactors": "",
+              "type": "Taak",
+              "processValue": "VA",
+              "processStatus": "HAPPY",
+              "successFactors": "Wordt vaak goed uitgevoerd door mouldroomlaborant bij bijzondere casussen.",
               "causes": [],
               "improvements": [],
               "qa": {
@@ -31441,8 +31533,19 @@
                 ]
               },
               "inputDefinitions": [],
-              "disruptions": [],
-              "workExp": null,
+              "disruptions": [
+                {
+                  "scenario": "Vergeten foto's te maken",
+                  "frequency": "Soms",
+                  "workaround": "Zonder foto's naar CT. Mondelinge uitleg."
+                },
+                {
+                  "scenario": "Printer stuk",
+                  "frequency": "Zelden",
+                  "workaround": "Zonder foto's naar CT. Mondelinge uitleg."
+                }
+              ],
+              "workExp": "ROUTINE",
               "workExpNote": "",
               "linkedSourceUids": [],
               "linkedBundleIds": [],
@@ -31797,32 +31900,32 @@
               "improvements": [],
               "qa": {
                 "compleet": {
-                  "result": null,
-                  "impact": null,
-                  "note": ""
+                  "result": "MINOR",
+                  "impact": "B",
+                  "note": "Soms geen foto's of haalbare positionering op CT"
                 },
                 "kwaliteit": {
-                  "result": null,
+                  "result": "GOOD",
                   "impact": null,
                   "note": ""
                 },
                 "duidelijkheid": {
-                  "result": null,
+                  "result": "GOOD",
                   "impact": null,
                   "note": ""
                 },
                 "tijdigheid": {
-                  "result": null,
+                  "result": "GOOD",
                   "impact": null,
                   "note": ""
                 },
                 "standaard": {
-                  "result": null,
+                  "result": "GOOD",
                   "impact": null,
                   "note": ""
                 },
                 "overdracht": {
-                  "result": null,
+                  "result": "GOOD",
                   "impact": null,
                   "note": ""
                 }
@@ -31848,17 +31951,22 @@
                   }
                 ]
               },
-              "inputDefinitions": [],
+              "inputDefinitions": [
+                {
+                  "item": "Materialen",
+                  "specifications": "Patiëntgebonden hulpmiddelen en instelfoto's.",
+                  "type": "HARD"
+                }
+              ],
               "disruptions": [],
               "workExp": null,
               "workExpNote": "",
               "linkedBundleId": null,
               "linkedBundleIds": [],
               "linkedSourceUids": [
-                "out_a4665b8a-b790-4ef7-96b8-6dafcd405fa8",
-                "out_dac2bcd9-cc07-4e70-af7f-15de59bd8e3e"
+                "out_5b9a6976-c4ff-4ac7-98a0-0ad2124cb94c"
               ],
-              "linkedSourceUid": "out_a4665b8a-b790-4ef7-96b8-6dafcd405fa8",
+              "linkedSourceUid": "out_5b9a6976-c4ff-4ac7-98a0-0ad2124cb94c",
               "linkedSourceIds": [],
               "gate": {
                 "checkProcessIds": [],
@@ -31945,10 +32053,10 @@
               "created": 1769007777072,
               "text": "Labelen en verpakken masker",
               "linkedSourceId": null,
-              "type": null,
-              "processValue": null,
-              "processStatus": null,
-              "successFactors": "",
+              "type": "Taak",
+              "processValue": "BNVA",
+              "processStatus": "HAPPY",
+              "successFactors": "Standaard handeling bij iedere patiënt",
               "causes": [],
               "improvements": [],
               "qa": {
@@ -32000,7 +32108,7 @@
               },
               "inputDefinitions": [],
               "disruptions": [],
-              "workExp": null,
+              "workExp": "ROUTINE",
               "workExpNote": "",
               "linkedSourceUids": [],
               "linkedBundleIds": [],
@@ -32347,32 +32455,32 @@
               "improvements": [],
               "qa": {
                 "compleet": {
-                  "result": null,
-                  "impact": null,
-                  "note": ""
+                  "result": "MINOR",
+                  "impact": "C",
+                  "note": "Wanneer niet uitvoerbaar op CT, aanpassen."
                 },
                 "kwaliteit": {
-                  "result": null,
+                  "result": "GOOD",
                   "impact": null,
                   "note": ""
                 },
                 "duidelijkheid": {
-                  "result": null,
-                  "impact": null,
-                  "note": ""
+                  "result": "MINOR",
+                  "impact": "C",
+                  "note": "Soms extra uitleg of fout in labeling. Verbale uitleg/overleg CT."
                 },
                 "tijdigheid": {
-                  "result": null,
-                  "impact": null,
-                  "note": ""
+                  "result": "MINOR",
+                  "impact": "C",
+                  "note": "Soms loopt afspraak uit en is materiaal later bij CT"
                 },
                 "standaard": {
-                  "result": null,
+                  "result": "GOOD",
                   "impact": null,
                   "note": ""
                 },
                 "overdracht": {
-                  "result": null,
+                  "result": "GOOD",
                   "impact": null,
                   "note": ""
                 }
@@ -32398,7 +32506,13 @@
                   }
                 ]
               },
-              "inputDefinitions": [],
+              "inputDefinitions": [
+                {
+                  "item": "Verbale overdracht naar CT",
+                  "specifications": "",
+                  "type": "SOFT"
+                }
+              ],
               "disruptions": [],
               "workExp": null,
               "workExpNote": "",
