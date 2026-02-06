@@ -7,10 +7,11 @@
 // + FIX: Canonical header cut en Row-header labels exact dezelfde typografie (JetBrains Mono)
 // + NEW FIX: "Actor" veld toegevoegd aan CSV export (vóór Proces kolom)
 // + SECURITY FIX: GitHub SHA check toegevoegd voor veilige updates
+// + FIX (2026-01-29): CSV export helpers voor Lean & Status toegevoegd
 
 import { state } from './state.js';
 import { Toast } from './toast.js';
-import { IO_CRITERIA } from './config.js';
+import { IO_CRITERIA, LEAN_VALUES, PROCESS_STATUSES } from './config.js';
 
 const MERGE_LS_PREFIX = 'ssipoc.mergeGroups.v2';
 let currentLoadedSha = null;
@@ -610,7 +611,24 @@ export function loadFromFile(file, onSuccess) {
   reader.readAsText(file);
 }
 
-// ... [CSV Export blijft hetzelfde] ...
+/* ==========================================================================
+   CSV EXPORT: Helpers & Main Function
+   ========================================================================== */
+
+// Helper: Vertaal Lean-waarde (VA, BNVA, NVA) naar label
+function getLeanValueLabel(val) {
+  if (!val) return '';
+  const item = LEAN_VALUES.find(x => x.value === val);
+  return item ? item.label : val;
+}
+
+// Helper: Vertaal Proces-status (HAPPY, NEUTRAL, SAD) naar label
+function getProcessStatusLabel(val) {
+  if (!val) return '';
+  const item = PROCESS_STATUSES.find(x => x.value === val);
+  return item ? item.label : val;
+}
+
 export function exportToCSV() {
   doFullCSVExport();
 }
