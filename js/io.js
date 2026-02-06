@@ -1,13 +1,9 @@
-// io.js (FINAL VERSION: Precision Headers + Transparent PNG + Dark PDF + Actor CSV + GitHub SHA Fix)
-// + FIX: Header breedte = Exacte afstand van start pagina tot start 1e kolom (dus incl gap)
-// + FIX: Header wordt op ELKE pagina links herhaald voor strakke uitlijning
-// + FIX: PNG screenshot is volledig transparant
-// + FIX: PDF pagina heeft donkere achtergrond (#121619)
-// + FIX: Content-slice wordt op ELKE pagina gerenderd in een vaste (viewport) breedte (strak aligned)
-// + FIX: Canonical header cut en Row-header labels exact dezelfde typografie (JetBrains Mono)
-// + NEW FIX: "Actor" veld toegevoegd aan CSV export (vóór Proces kolom)
-// + SECURITY FIX: GitHub SHA check toegevoegd voor veilige updates
-// + FIX (2026-01-29): CSV export helpers voor Lean & Status toegevoegd
+// io.js (FINAL VERSION: Fix Slot Indices 4->5 for Output & ID Resolution)
+// + FIX: Output data wordt nu correct uit Slot 5 gelezen (was 4)
+// + FIX: Proces data wordt nu correct uit Slot 4 gelezen (was 3)
+// + FIX: Actor data wordt nu correct uit Slot 3 gelezen
+// + FIX: Mapping van Input-links naar Output-tekst werkt weer (geen ruwe ID's meer)
+// + INCLUDES: Eerdere fixes (Headers, PNG, PDF, Github SHA)
 
 import { state } from './state.js';
 import { Toast } from './toast.js';
@@ -23,11 +19,10 @@ const EXPORT_ROW_FONT_FAMILY = '"JetBrains Mono", monospace';
 const EXPORT_ROW_FONT_SIZE_PX = 24;
 const EXPORT_ROW_FONT_WEIGHT = 800;
 const EXPORT_ROW_LETTER_SPACING = '0.08em';
-const EXPORT_ROW_LINE_HEIGHT = 1; // (SVG uses dominant-baseline; keep for parity)
+const EXPORT_ROW_LINE_HEIGHT = 1;
 const EXPORT_ROW_FILL = 'rgba(255,255,255,0.95)';
 const EXPORT_ROW_SHADOW = 'drop-shadow(0px 2px 10px rgba(0,0,0,0.85))';
 const EXPORT_ROW_UPPERCASE = true;
-// dichter bij de kolommen: kleiner = dichter, groter = meer ruimte
 const EXPORT_ROW_RIGHT_PAD_PX = 6;
 
 /* ==========================================================================
@@ -64,7 +59,6 @@ function replaceRowHeadersWithExactSVG(doc, headerWidthPx) {
   svg.style.overflow = 'visible';
   svg.style.display = 'block';
 
-  // Anchor near the RIGHT edge => label sits closer to the post-its/columns
   const anchorX = Math.max(10, headerWidthPx - EXPORT_ROW_RIGHT_PAD_PX);
 
   let y = 0;
@@ -81,15 +75,13 @@ function replaceRowHeadersWithExactSVG(doc, headerWidthPx) {
     t.setAttribute('text-anchor', 'middle');
     t.setAttribute('dominant-baseline', 'middle');
 
-    // exact typography
     t.setAttribute('fill', EXPORT_ROW_FILL);
     t.setAttribute('font-family', EXPORT_ROW_FONT_FAMILY);
     t.setAttribute('font-size', String(EXPORT_ROW_FONT_SIZE_PX));
     t.setAttribute('font-weight', String(EXPORT_ROW_FONT_WEIGHT));
-    // letter-spacing works more reliably via style in many browsers/html2canvas
     t.style.letterSpacing = EXPORT_ROW_LETTER_SPACING;
     t.setAttribute('letter-spacing', EXPORT_ROW_LETTER_SPACING);
-    t.style.filter = EXPORT_ROW_SHADOW; // text-shadow equivalent for SVG
+    t.style.filter = EXPORT_ROW_SHADOW;
     t.style.lineHeight = String(EXPORT_ROW_LINE_HEIGHT);
 
     t.textContent = labels[i];
@@ -216,21 +208,28 @@ function finalizeGate(gate) {
   if (!g?.enabled || g.failTargetColIdx == null || !Number.isFinite(Number(g.failTargetColIdx))) return null;
   return { enabled: true, failTargetColIdx: Number(g.failTargetColIdx) };
 }
+
+// UPDATE: Aangepast naar slot indices [1, 2, 5] en Gate op 5
 function sanitizeMergeGroupForSheet(sheet, g) {
   const n = sheet?.columns?.length ?? 0;
   if (!n) return null;
   const slotIdx = Number(g?.slotIdx);
-  if (![1, 4].includes(slotIdx)) return null;
+  // Allow 1 (Sys), 2 (Input), 5 (Output)
+  if (![1, 2, 5].includes(slotIdx)) return null;
+
   const cols = Array.isArray(g?.cols) ? g.cols.map((x) => Number(x)).filter(Number.isFinite) : [];
   const uniq = [...new Set(cols)].filter((c) => c >= 0 && c < n);
   if (uniq.length < 2) return null;
   if (!isContiguousZeroBased(uniq)) return null;
   let master = Number(g?.master);
   if (!Number.isFinite(master) || !uniq.includes(master)) master = uniq[0];
-  const gate = slotIdx === 4 ? finalizeGate(g?.gate) : null;
+  
+  // Gate zit nu op slot 5
+  const gate = slotIdx === 5 ? finalizeGate(g?.gate) : null;
   const systemsMeta = slotIdx === 1 && g?.systemsMeta && typeof g.systemsMeta === 'object' ? g.systemsMeta : null;
   return { slotIdx, cols: uniq.sort((a, b) => a - b), master, gate, systemsMeta };
 }
+
 function getMergeGroupsSanitized(project, sheet) {
   return loadMergeGroupsRaw(project, sheet)
     .map((g) => sanitizeMergeGroupForSheet(sheet, g))
@@ -248,8 +247,9 @@ function getNextVisibleColIdx(sheet, fromIdx) {
   for (let i = fromIdx + 1; i < n; i++) { if (sheet.columns[i]?.isVisible !== false) return i; }
   return null;
 }
+// Proces label zit op slot 4 (was 3)
 function getProcessLabel(sheet, colIdx) {
-  const t = sheet?.columns?.[colIdx]?.slots?.[3]?.text;
+  const t = sheet?.columns?.[colIdx]?.slots?.[4]?.text;
   return String(t ?? '').trim() || `Kolom ${Number(colIdx) + 1}`;
 }
 function getPassTargetFromGroup(sheet, group) {
@@ -329,6 +329,8 @@ function makeId(prefix = 'id') {
   if (typeof crypto !== 'undefined' && typeof crypto.randomUUID === 'function') return `${prefix}_${crypto.randomUUID()}`;
   return `${prefix}_${Date.now()}_${Math.random().toString(16).slice(2)}`;
 }
+
+// UPDATE: Output zit op slot 5
 function ensureOutputUids(project) {
   const p = project || state.data;
   if (!p?.sheets?.length) return;
@@ -336,12 +338,14 @@ function ensureOutputUids(project) {
     const groups = getMergeGroupsSanitized(p, sheet);
     (sheet?.columns || []).forEach((col, colIdx) => {
       if (col?.isVisible === false) return;
-      const outSlot = col?.slots?.[4];
-      if (!String(outSlot?.text ?? '').trim() || isMergedSlaveInSheet(groups, colIdx, 4)) return;
+      const outSlot = col?.slots?.[5]; // was 4
+      if (!String(outSlot?.text ?? '').trim() || isMergedSlaveInSheet(groups, colIdx, 5)) return; // was 4
       if (!outSlot.outputUid || !String(outSlot.outputUid).trim()) outSlot.outputUid = makeId('out');
     });
   });
 }
+
+// UPDATE: Output zit op slot 5
 function buildGlobalOutputMaps(project) {
   const outIdByUid = {}, outTextByUid = {}, outTextByOutId = {};
   let outCounter = 0;
@@ -349,9 +353,9 @@ function buildGlobalOutputMaps(project) {
     const groups = getMergeGroupsSanitized(project, sheet);
     (sheet?.columns || []).forEach((col, colIdx) => {
       if (col?.isVisible === false) return;
-      const outSlot = col?.slots?.[4];
+      const outSlot = col?.slots?.[5]; // was 4
       const outText = String(outSlot?.text ?? '').trim();
-      if (!outText || isMergedSlaveInSheet(groups, colIdx, 4)) return;
+      if (!outText || isMergedSlaveInSheet(groups, colIdx, 5)) return; // was 4
       if (!outSlot.outputUid) outSlot.outputUid = makeId('out');
       outCounter += 1;
       const outId = `OUT${outCounter}`;
@@ -681,7 +685,13 @@ function doFullCSVExport() {
         if (isC && logic.condition) logExp = `VRAAG: ${logic.condition}; JA: ${logic.ifTrue == 'SKIP' ? 'SKIP' : (logic.ifTrue ? `Ga naar ${getProcessLabel(sheet, logic.ifTrue)}` : 'Doe')}; NEE: ${logic.ifFalse == 'SKIP' ? 'SKIP' : (logic.ifFalse ? `Ga naar ${getProcessLabel(sheet, logic.ifFalse)}` : 'Doe')}`;
 
         const gFor = (sheet.groups || []).find(g => g.cols?.includes(colIdx));
-        const inS = col?.slots?.[2], outS = col?.slots?.[4], procS = col?.slots?.[3] || {};
+        
+        // UPDATE: Nieuwe slot indices
+        // 0=Bron, 1=Sys, 2=In, 3=Actor, 4=Proces, 5=Output, 6=Klant
+        const inS = col?.slots?.[2];
+        const actorS = col?.slots?.[3];
+        const procS = col?.slots?.[4] || {};
+        const outS = col?.slots?.[5];
 
         let inId = '', inTxt = String(inS?.text || '').trim();
         const bRes = resolveBundleIdsToLists(normalizeLinkedBundles(inS), bundleMaps);
@@ -693,14 +703,15 @@ function doFullCSVExport() {
         const c_ = (l) => getIOTripleForLabel(qa, l, sl.systemsCount);
         const def = splitDefs(inS?.inputDefinitions), dis = splitDisruptions(procS?.disruptions);
 
-        const outG = getMergeGroupForCell(mergeGroups, colIdx, 4), validGate = finalizeGate(outG?.gate);
+        // UPDATE: Output merge check op 5
+        const outG = getMergeGroupForCell(mergeGroups, colIdx, 5), validGate = finalizeGate(outG?.gate);
         let outId = '';
-        if (String(outS?.text || '').trim() && !isMergedSlaveInSheet(mergeGroups, colIdx, 4)) {
+        if (String(outS?.text || '').trim() && !isMergedSlaveInSheet(mergeGroups, colIdx, 5)) {
           const u = String(outS?.outputUid || '').trim(); outId = u && outIdByUid[u] ? outIdByUid[u] : '';
         }
 
-        // Nieuw: Actor ophalen
-        const actor = String(procS.actor || '').trim();
+        // Nieuw: Actor ophalen (uit slot 3)
+        const actor = String(actorS?.text || '').trim();
 
         lines.push([
           globalColNr, `Procesflow ${globalColNr}`, isP ? 'Ja' : 'Nee', pWith, isS ? 'Ja' : 'Nee', route, isC ? 'Ja' : 'Nee', logExp,
@@ -722,7 +733,7 @@ function doFullCSVExport() {
           joinSemi(procS.causes || []), joinSemi(procS.improvements || []),
           dis.scenarios, dis.frequencies, dis.workarounds || joinSemi(procS.workarounds || []),
           outId, String(outS?.text || '').trim(), validGate ? 'Ja' : '', validGate ? getFailTargetFromGate(sheet, validGate) : '', validGate && outG ? getPassTargetFromGroup(sheet, outG) : '',
-          String(col?.slots?.[5]?.text || '').trim()
+          String(col?.slots?.[6]?.text || '').trim() // Klant zit op 6
         ].map(toCsvField).join(';'));
       });
     });
