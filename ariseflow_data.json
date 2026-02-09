@@ -4,7 +4,7 @@
   "author": "Anoniem",
   "created": "2026-01-16T08:48:17.021Z",
   "version": "2.7",
-  "activeSheetId": "43623ca4-a4f2-4dbd-a879-1e01f7a5abf7",
+  "activeSheetId": "4bd936d5-83b6-4a50-ae05-14b934af9e70",
   "sheets": [
     {
       "id": "858c26e5-f7ec-4311-b503-641f99e65c84",
@@ -38811,12 +38811,16 @@
               "created": 1769008283070,
               "text": "Overdragen masker CT of opslag",
               "linkedSourceId": null,
-              "type": null,
+              "type": "Taak",
               "processValue": null,
-              "processStatus": null,
+              "processStatus": "HAPPY",
               "successFactors": "",
-              "causes": [],
-              "improvements": [],
+              "causes": [
+                "CT niet beschikbaar"
+              ],
+              "improvements": [
+                "Op papier noteren welke bijzonderheden er zijn"
+              ],
               "qa": {
                 "compleet": {
                   "result": "",
@@ -38865,9 +38869,15 @@
                 ]
               },
               "inputDefinitions": [],
-              "disruptions": [],
-              "workExp": null,
-              "workExpNote": "",
+              "disruptions": [
+                {
+                  "scenario": "CT niet beschikbaar",
+                  "frequency": "Soms",
+                  "workaround": "Op papier noteren welke bijzonderheden er zijn. "
+                }
+              ],
+              "workExp": "ROUTINE",
+              "workExpNote": "Standaard handeling",
               "linkedSourceUids": [],
               "linkedBundleIds": [],
               "gate": {
@@ -39219,28 +39229,34 @@
               "improvements": [],
               "qa": {
                 "compleet": {
-                  "result": "",
-                  "note": ""
+                  "result": "MODERATE",
+                  "impact": "B",
+                  "note": "Soms wordt de voorraad vergeten te noteren. Dan klopt de jaarvoorraad niet meer. Na telling wordt deze weer kloppend gemaakt. "
                 },
                 "kwaliteit": {
-                  "result": "",
+                  "result": "GOOD",
+                  "impact": null,
                   "note": ""
                 },
                 "duidelijkheid": {
-                  "result": "",
+                  "result": "GOOD",
+                  "impact": null,
                   "note": ""
                 },
                 "tijdigheid": {
-                  "result": "",
-                  "note": ""
+                  "result": "MINOR",
+                  "impact": "C",
+                  "note": "Soms wordt de registratie te laat bijgewerkt. "
                 },
                 "standaard": {
-                  "result": "",
+                  "result": "GOOD",
+                  "impact": null,
                   "note": ""
                 },
                 "overdracht": {
-                  "result": "",
-                  "note": ""
+                  "result": "MODERATE",
+                  "impact": "B",
+                  "note": "Soms wordt de voorraad vergeten te noteren. Dan klopt de jaarvoorraad niet meer. Na telling wordt deze weer kloppend gemaakt. "
                 }
               },
               "systemData": {
@@ -39264,7 +39280,13 @@
                   }
                 ]
               },
-              "inputDefinitions": [],
+              "inputDefinitions": [
+                {
+                  "item": "Teams",
+                  "specifications": "In een document op teams worden de verbruikte materialen genoteerd. ",
+                  "type": "HARD"
+                }
+              ],
               "disruptions": [],
               "workExp": null,
               "workExpNote": "",
@@ -39278,7 +39300,8 @@
                 "onPassTargetProcessId": null,
                 "rule": "ALL_OK",
                 "note": ""
-              }
+              },
+              "linkedSourceIds": []
             },
             {
               "id": "act_bb7922a8-9656-4062-acb8-a9b2aaa727a8",
@@ -39358,11 +39381,15 @@
               "text": "Registreren voorraad",
               "linkedSourceId": null,
               "type": null,
-              "processValue": null,
-              "processStatus": null,
+              "processValue": "BNVA",
+              "processStatus": "NEUTRAL",
               "successFactors": "",
-              "causes": [],
-              "improvements": [],
+              "causes": [
+                "Vergeten voorraad te noteren"
+              ],
+              "improvements": [
+                "Later bijwerken of er in een later moment tegen aanlopen dat er geen voorraad is . "
+              ],
               "qa": {
                 "compleet": {
                   "result": "",
@@ -39411,9 +39438,20 @@
                 ]
               },
               "inputDefinitions": [],
-              "disruptions": [],
-              "workExp": null,
-              "workExpNote": "",
+              "disruptions": [
+                {
+                  "scenario": "Vergeten te noteren ",
+                  "frequency": null,
+                  "workaround": "later noteren "
+                },
+                {
+                  "scenario": "Teams niet werkend",
+                  "frequency": "Zelden",
+                  "workaround": "later noteren "
+                }
+              ],
+              "workExp": "ROUTINE",
+              "workExpNote": "Standaard handeling. Wordt soms nog weleens vergeten",
               "linkedSourceUids": [],
               "linkedBundleIds": [],
               "gate": {
@@ -39764,32 +39802,32 @@
               "improvements": [],
               "qa": {
                 "compleet": {
-                  "result": null,
+                  "result": "GOOD",
                   "impact": null,
                   "note": ""
                 },
                 "kwaliteit": {
-                  "result": null,
+                  "result": "GOOD",
                   "impact": null,
                   "note": ""
                 },
                 "duidelijkheid": {
-                  "result": null,
+                  "result": "GOOD",
                   "impact": null,
                   "note": ""
                 },
                 "tijdigheid": {
-                  "result": null,
+                  "result": "GOOD",
                   "impact": null,
                   "note": ""
                 },
                 "standaard": {
-                  "result": null,
+                  "result": "GOOD",
                   "impact": null,
                   "note": ""
                 },
                 "overdracht": {
-                  "result": null,
+                  "result": "GOOD",
                   "impact": null,
                   "note": ""
                 }
@@ -39815,7 +39853,13 @@
                   }
                 ]
               },
-              "inputDefinitions": [],
+              "inputDefinitions": [
+                {
+                  "item": "Radiotherapieweb",
+                  "specifications": "Afronden patiënt, zichtbaar worden voor CT/vpk",
+                  "type": "HARD"
+                }
+              ],
               "disruptions": [],
               "workExp": null,
               "workExpNote": "",
@@ -39910,9 +39954,9 @@
               "text": "Uitchecken patiënt",
               "linkedSourceId": null,
               "type": null,
-              "processValue": null,
-              "processStatus": null,
-              "successFactors": "",
+              "processValue": "BNVA",
+              "processStatus": "HAPPY",
+              "successFactors": "nadat patiënt de ruimte verlaten heeft, kan het 'poppetje' worden afgerond. ",
               "causes": [],
               "improvements": [],
               "qa": {
@@ -39963,9 +40007,15 @@
                 ]
               },
               "inputDefinitions": [],
-              "disruptions": [],
-              "workExp": null,
-              "workExpNote": "",
+              "disruptions": [
+                {
+                  "scenario": "poppetje kan niet worden weggeklikt",
+                  "frequency": "Soms",
+                  "workaround": "Veel proberen/ later moment/ afronden in EPIC"
+                }
+              ],
+              "workExp": "ROUTINE",
+              "workExpNote": "Standaard handeling",
               "outputUid": "out_5fd7d5e2-6715-4d5a-911c-7497aeae674d",
               "linkedSourceUids": [],
               "linkedBundleIds": [],
@@ -40315,27 +40365,33 @@
               "improvements": [],
               "qa": {
                 "compleet": {
-                  "result": "",
+                  "result": "GOOD",
+                  "impact": null,
                   "note": ""
                 },
                 "kwaliteit": {
-                  "result": "",
+                  "result": "GOOD",
+                  "impact": null,
                   "note": ""
                 },
                 "duidelijkheid": {
-                  "result": "",
+                  "result": "GOOD",
+                  "impact": null,
                   "note": ""
                 },
                 "tijdigheid": {
-                  "result": "",
+                  "result": "GOOD",
+                  "impact": null,
                   "note": ""
                 },
                 "standaard": {
-                  "result": "",
+                  "result": "GOOD",
+                  "impact": null,
                   "note": ""
                 },
                 "overdracht": {
-                  "result": "",
+                  "result": "GOOD",
+                  "impact": null,
                   "note": ""
                 }
               },
@@ -40360,7 +40416,13 @@
                   }
                 ]
               },
-              "inputDefinitions": [],
+              "inputDefinitions": [
+                {
+                  "item": "Afronden patiënt",
+                  "specifications": "door koppeling wordt na afronden in RThweb automatisch afgerond in EPIC",
+                  "type": "HARD"
+                }
+              ],
               "disruptions": [],
               "workExp": null,
               "workExpNote": "",
@@ -40374,7 +40436,8 @@
                 "onPassTargetProcessId": null,
                 "rule": "ALL_OK",
                 "note": ""
-              }
+              },
+              "linkedSourceIds": []
             },
             {
               "id": "d140f341-8666-4498-bdcb-f18d8caa74ae",
@@ -40455,8 +40518,8 @@
               "linkedSourceId": null,
               "type": null,
               "processValue": null,
-              "processStatus": null,
-              "successFactors": "",
+              "processStatus": "HAPPY",
+              "successFactors": "Gaat automatisch",
               "causes": [],
               "improvements": [],
               "qa": {
@@ -40507,9 +40570,15 @@
                 ]
               },
               "inputDefinitions": [],
-              "disruptions": [],
-              "workExp": null,
-              "workExpNote": "",
+              "disruptions": [
+                {
+                  "scenario": "Koppeling tussen RTHweb en EPIC werkt niet",
+                  "frequency": "Zelden",
+                  "workaround": "Niet afronden"
+                }
+              ],
+              "workExp": "ROUTINE",
+              "workExpNote": "Standaard handeling, afronden in RTHweb",
               "outputUid": "out_7ed19da0-bb86-4d51-b127-5acd235a1be1",
               "linkedSourceUids": [],
               "linkedBundleIds": [],
