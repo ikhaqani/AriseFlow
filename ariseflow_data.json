@@ -4,7 +4,7 @@
   "author": "Anoniem",
   "created": "2026-01-16T08:48:17.021Z",
   "version": "2.7",
-  "activeSheetId": "31e611b8-a39c-477b-acf4-e7afa0e1d5b7",
+  "activeSheetId": "3a6a5e6a-f875-43f8-bf84-0d926377627a",
   "sheets": [
     {
       "id": "858c26e5-f7ec-4311-b503-641f99e65c84",
@@ -18000,7 +18000,40 @@
       "outputMerges": [],
       "systemMerges": [],
       "groups": [],
-      "variantGroups": []
+      "variantGroups": [],
+      "mergeGroupsV2": [
+        {
+          "slotIdx": 1,
+          "cols": [
+            0,
+            1
+          ],
+          "master": 0,
+          "label": "Merged System",
+          "systemsMeta": {
+            "multi": false,
+            "systems": [
+              {
+                "name": "Epic",
+                "legacy": false,
+                "future": "",
+                "qa": {
+                  "q1": "SOMETIMES",
+                  "q1_note": "Dan kijk ik in het dossier voor extra details",
+                  "q2": "ALWAYS",
+                  "q2_note": "Veel klikken voordat je werklijst kunt openen. ",
+                  "q3": "ALWAYS",
+                  "q3_note": "Triageformulier aanvullen",
+                  "q4": "OFTEN",
+                  "q5": "STOP"
+                },
+                "score": 20
+              }
+            ],
+            "activeSystemIdx": 0
+          }
+        }
+      ]
     },
     {
       "id": "99dcbf7e-71ed-48c1-a451-39b75e1655d1",
@@ -30196,7 +30229,16 @@
               "inputDefinitions": [],
               "disruptions": [],
               "workExp": null,
-              "workExpNote": ""
+              "workExpNote": "",
+              "linkedSourceUids": [],
+              "linkedBundleIds": [],
+              "gate": {
+                "checkProcessIds": [],
+                "onFailTargetProcessId": null,
+                "onPassTargetProcessId": null,
+                "rule": "ALL_OK",
+                "note": ""
+              }
             },
             {
               "id": "2250016f-c4b8-4ee0-8e33-2d488c6d2bb9",
@@ -30254,12 +30296,35 @@
                     },
                     "calculatedScore": null
                   }
-                ]
+                ],
+                "systemsMeta": {
+                  "multi": false,
+                  "systems": [
+                    {
+                      "id": "05bd9993-f46a-4d6f-899c-b5850c2f8864",
+                      "name": "",
+                      "legacy": false,
+                      "future": "",
+                      "qa": {},
+                      "score": null
+                    }
+                  ],
+                  "activeSystemIdx": 0
+                }
               },
               "inputDefinitions": [],
               "disruptions": [],
               "workExp": null,
-              "workExpNote": ""
+              "workExpNote": "",
+              "linkedSourceUids": [],
+              "linkedBundleIds": [],
+              "gate": {
+                "checkProcessIds": [],
+                "onFailTargetProcessId": null,
+                "onPassTargetProcessId": null,
+                "rule": "ALL_OK",
+                "note": ""
+              }
             },
             {
               "id": "b57d51fc-1576-4793-89fa-5b20c514c61d",
@@ -30322,7 +30387,18 @@
               "inputDefinitions": [],
               "disruptions": [],
               "workExp": null,
-              "workExpNote": ""
+              "workExpNote": "",
+              "linkedSourceUids": [],
+              "linkedBundleIds": [],
+              "linkedBundleId": null,
+              "linkedSourceUid": null,
+              "gate": {
+                "checkProcessIds": [],
+                "onFailTargetProcessId": null,
+                "onPassTargetProcessId": null,
+                "rule": "ALL_OK",
+                "note": ""
+              }
             },
             {
               "id": "f05c9ffa-4dca-4a9f-a53c-0aa685705250",
@@ -30385,7 +30461,16 @@
               "inputDefinitions": [],
               "disruptions": [],
               "workExp": null,
-              "workExpNote": ""
+              "workExpNote": "",
+              "linkedSourceUids": [],
+              "linkedBundleIds": [],
+              "gate": {
+                "checkProcessIds": [],
+                "onFailTargetProcessId": null,
+                "onPassTargetProcessId": null,
+                "rule": "ALL_OK",
+                "note": ""
+              }
             },
             {
               "id": "15e457ac-b504-4b9d-81ec-6a5270a20575",
@@ -30448,7 +30533,16 @@
               "inputDefinitions": [],
               "disruptions": [],
               "workExp": null,
-              "workExpNote": ""
+              "workExpNote": "",
+              "linkedSourceUids": [],
+              "linkedBundleIds": [],
+              "gate": {
+                "checkProcessIds": [],
+                "onFailTargetProcessId": null,
+                "onPassTargetProcessId": null,
+                "rule": "ALL_OK",
+                "note": ""
+              }
             },
             {
               "id": "d550191c-6d1d-4403-b282-b8cd6a66a8dc",
@@ -30512,7 +30606,16 @@
               "disruptions": [],
               "workExp": null,
               "workExpNote": "",
-              "outputUid": "out_08cc8bea-1324-4c05-87bd-57ecb5fd8472"
+              "outputUid": "out_08cc8bea-1324-4c05-87bd-57ecb5fd8472",
+              "linkedSourceUids": [],
+              "linkedBundleIds": [],
+              "gate": {
+                "checkProcessIds": [],
+                "onFailTargetProcessId": null,
+                "onPassTargetProcessId": null,
+                "rule": "ALL_OK",
+                "note": ""
+              }
             },
             {
               "id": "3fefba85-1bd6-4952-8242-d3a083d0bd9f",
@@ -30575,9 +30678,22 @@
               "inputDefinitions": [],
               "disruptions": [],
               "workExp": null,
-              "workExpNote": ""
+              "workExpNote": "",
+              "linkedSourceUids": [],
+              "linkedBundleIds": [],
+              "gate": {
+                "checkProcessIds": [],
+                "onFailTargetProcessId": null,
+                "onPassTargetProcessId": null,
+                "rule": "ALL_OK",
+                "note": ""
+              }
             }
-          ]
+          ],
+          "isQuestion": false,
+          "isConditional": false,
+          "logic": null,
+          "isGroup": false
         },
         {
           "id": "9c9658ed-ea64-44c7-b725-3b09267b55ec",
@@ -38012,7 +38128,16 @@
               "inputDefinitions": [],
               "disruptions": [],
               "workExp": null,
-              "workExpNote": ""
+              "workExpNote": "",
+              "linkedSourceUids": [],
+              "linkedBundleIds": [],
+              "gate": {
+                "checkProcessIds": [],
+                "onFailTargetProcessId": null,
+                "onPassTargetProcessId": null,
+                "rule": "ALL_OK",
+                "note": ""
+              }
             },
             {
               "id": "a9cad881-32dd-492f-abb2-2875c21c1b75",
@@ -38070,12 +38195,35 @@
                     },
                     "calculatedScore": null
                   }
-                ]
+                ],
+                "systemsMeta": {
+                  "multi": false,
+                  "systems": [
+                    {
+                      "id": "eb47f4c9-6777-4627-9fbc-067abe97fb3c",
+                      "name": "",
+                      "legacy": false,
+                      "future": "",
+                      "qa": {},
+                      "score": null
+                    }
+                  ],
+                  "activeSystemIdx": 0
+                }
               },
               "inputDefinitions": [],
               "disruptions": [],
               "workExp": null,
-              "workExpNote": ""
+              "workExpNote": "",
+              "linkedSourceUids": [],
+              "linkedBundleIds": [],
+              "gate": {
+                "checkProcessIds": [],
+                "onFailTargetProcessId": null,
+                "onPassTargetProcessId": null,
+                "rule": "ALL_OK",
+                "note": ""
+              }
             },
             {
               "id": "0bfb5bc7-41a3-4ef3-935b-3f429e82401a",
@@ -38146,12 +38294,19 @@
               "workExp": null,
               "workExpNote": "",
               "linkedBundleId": null,
-              "linkedBundleIds": null,
+              "linkedBundleIds": [],
               "linkedSourceUids": [
                 "out_08cc8bea-1324-4c05-87bd-57ecb5fd8472"
               ],
               "linkedSourceUid": "out_08cc8bea-1324-4c05-87bd-57ecb5fd8472",
-              "linkedSourceIds": []
+              "linkedSourceIds": [],
+              "gate": {
+                "checkProcessIds": [],
+                "onFailTargetProcessId": null,
+                "onPassTargetProcessId": null,
+                "rule": "ALL_OK",
+                "note": ""
+              }
             },
             {
               "id": "0372d50b-dee0-461e-8ca5-274e612e099e",
@@ -38214,7 +38369,16 @@
               "inputDefinitions": [],
               "disruptions": [],
               "workExp": null,
-              "workExpNote": ""
+              "workExpNote": "",
+              "linkedSourceUids": [],
+              "linkedBundleIds": [],
+              "gate": {
+                "checkProcessIds": [],
+                "onFailTargetProcessId": null,
+                "onPassTargetProcessId": null,
+                "rule": "ALL_OK",
+                "note": ""
+              }
             },
             {
               "id": "a824eb69-075d-46d4-aa4f-5f5ddbcb25f1",
@@ -38277,7 +38441,16 @@
               "inputDefinitions": [],
               "disruptions": [],
               "workExp": null,
-              "workExpNote": ""
+              "workExpNote": "",
+              "linkedSourceUids": [],
+              "linkedBundleIds": [],
+              "gate": {
+                "checkProcessIds": [],
+                "onFailTargetProcessId": null,
+                "onPassTargetProcessId": null,
+                "rule": "ALL_OK",
+                "note": ""
+              }
             },
             {
               "id": "ee702838-015d-4352-b280-01ccc8a48765",
@@ -38341,7 +38514,16 @@
               "disruptions": [],
               "workExp": null,
               "workExpNote": "",
-              "outputUid": "out_556d982e-4649-46f8-817f-76e17e9bb923"
+              "outputUid": "out_556d982e-4649-46f8-817f-76e17e9bb923",
+              "linkedSourceUids": [],
+              "linkedBundleIds": [],
+              "gate": {
+                "checkProcessIds": [],
+                "onFailTargetProcessId": null,
+                "onPassTargetProcessId": null,
+                "rule": "ALL_OK",
+                "note": ""
+              }
             },
             {
               "id": "e7644dd1-ac79-4d26-be8e-d72e23924dc1",
@@ -38404,9 +38586,22 @@
               "inputDefinitions": [],
               "disruptions": [],
               "workExp": null,
-              "workExpNote": ""
+              "workExpNote": "",
+              "linkedSourceUids": [],
+              "linkedBundleIds": [],
+              "gate": {
+                "checkProcessIds": [],
+                "onFailTargetProcessId": null,
+                "onPassTargetProcessId": null,
+                "rule": "ALL_OK",
+                "note": ""
+              }
             }
-          ]
+          ],
+          "isQuestion": false,
+          "isConditional": false,
+          "logic": null,
+          "isGroup": false
         },
         {
           "id": "1ec0a070-d390-44eb-b53b-313648bdb1a9",
@@ -38479,7 +38674,16 @@
               "inputDefinitions": [],
               "disruptions": [],
               "workExp": null,
-              "workExpNote": ""
+              "workExpNote": "",
+              "linkedSourceUids": [],
+              "linkedBundleIds": [],
+              "gate": {
+                "checkProcessIds": [],
+                "onFailTargetProcessId": null,
+                "onPassTargetProcessId": null,
+                "rule": "ALL_OK",
+                "note": ""
+              }
             },
             {
               "id": "189e64b2-1a5f-42f7-a002-979c1a8df4cd",
@@ -38537,12 +38741,35 @@
                     },
                     "calculatedScore": null
                   }
-                ]
+                ],
+                "systemsMeta": {
+                  "multi": false,
+                  "systems": [
+                    {
+                      "id": "4cccb776-165a-4dc3-80f4-41749eb1168e",
+                      "name": "",
+                      "legacy": false,
+                      "future": "",
+                      "qa": {},
+                      "score": null
+                    }
+                  ],
+                  "activeSystemIdx": 0
+                }
               },
               "inputDefinitions": [],
               "disruptions": [],
               "workExp": null,
-              "workExpNote": ""
+              "workExpNote": "",
+              "linkedSourceUids": [],
+              "linkedBundleIds": [],
+              "gate": {
+                "checkProcessIds": [],
+                "onFailTargetProcessId": null,
+                "onPassTargetProcessId": null,
+                "rule": "ALL_OK",
+                "note": ""
+              }
             },
             {
               "id": "e7aa0224-d3f4-4dc7-bfe9-f742f7a2d127",
@@ -38613,12 +38840,19 @@
               "workExp": null,
               "workExpNote": "",
               "linkedBundleId": null,
-              "linkedBundleIds": null,
+              "linkedBundleIds": [],
               "linkedSourceUids": [
                 "out_08cc8bea-1324-4c05-87bd-57ecb5fd8472"
               ],
               "linkedSourceUid": "out_08cc8bea-1324-4c05-87bd-57ecb5fd8472",
-              "linkedSourceIds": []
+              "linkedSourceIds": [],
+              "gate": {
+                "checkProcessIds": [],
+                "onFailTargetProcessId": null,
+                "onPassTargetProcessId": null,
+                "rule": "ALL_OK",
+                "note": ""
+              }
             },
             {
               "id": "b94af0c6-a506-4b3a-94be-40be4aa5387b",
@@ -38681,7 +38915,16 @@
               "inputDefinitions": [],
               "disruptions": [],
               "workExp": null,
-              "workExpNote": ""
+              "workExpNote": "",
+              "linkedSourceUids": [],
+              "linkedBundleIds": [],
+              "gate": {
+                "checkProcessIds": [],
+                "onFailTargetProcessId": null,
+                "onPassTargetProcessId": null,
+                "rule": "ALL_OK",
+                "note": ""
+              }
             },
             {
               "id": "f71bc64d-de33-4392-8b20-5b15f5c7bf77",
@@ -38744,7 +38987,16 @@
               "inputDefinitions": [],
               "disruptions": [],
               "workExp": null,
-              "workExpNote": ""
+              "workExpNote": "",
+              "linkedSourceUids": [],
+              "linkedBundleIds": [],
+              "gate": {
+                "checkProcessIds": [],
+                "onFailTargetProcessId": null,
+                "onPassTargetProcessId": null,
+                "rule": "ALL_OK",
+                "note": ""
+              }
             },
             {
               "id": "ea1b692d-4e03-4d36-b932-89ccb276a612",
@@ -38808,7 +39060,16 @@
               "disruptions": [],
               "workExp": null,
               "workExpNote": "",
-              "outputUid": "out_b70ad973-8927-4880-a350-917fc167751c"
+              "outputUid": "out_b70ad973-8927-4880-a350-917fc167751c",
+              "linkedSourceUids": [],
+              "linkedBundleIds": [],
+              "gate": {
+                "checkProcessIds": [],
+                "onFailTargetProcessId": null,
+                "onPassTargetProcessId": null,
+                "rule": "ALL_OK",
+                "note": ""
+              }
             },
             {
               "id": "c1a1e6fb-287b-4607-9a04-2b06350c0f83",
@@ -38871,9 +39132,22 @@
               "inputDefinitions": [],
               "disruptions": [],
               "workExp": null,
-              "workExpNote": ""
+              "workExpNote": "",
+              "linkedSourceUids": [],
+              "linkedBundleIds": [],
+              "gate": {
+                "checkProcessIds": [],
+                "onFailTargetProcessId": null,
+                "onPassTargetProcessId": null,
+                "rule": "ALL_OK",
+                "note": ""
+              }
             }
-          ]
+          ],
+          "isQuestion": false,
+          "isConditional": false,
+          "logic": null,
+          "isGroup": false
         },
         {
           "id": "0f2f6d54-db2a-488d-9b8f-3e1cf98d3732",
@@ -40165,6 +40439,7 @@
                   "multi": false,
                   "systems": [
                     {
+                      "id": "91a3b89f-7790-4bdc-b077-09a31ed8d261",
                       "name": "CT-computer",
                       "legacy": false,
                       "future": "",
@@ -40729,6 +41004,7 @@
                   "multi": false,
                   "systems": [
                     {
+                      "id": "9b2c0d86-e118-4ee0-9c17-52359090c962",
                       "name": "CT-computer",
                       "legacy": false,
                       "future": "",
@@ -41933,7 +42209,7 @@
               "workExp": null,
               "workExpNote": "",
               "linkedBundleId": null,
-              "linkedBundleIds": null,
+              "linkedBundleIds": [],
               "linkedSourceUids": [
                 "out_91c30fc6-fb1d-4931-8b47-574de2fec225"
               ],
@@ -42396,6 +42672,7 @@
                   "multi": false,
                   "systems": [
                     {
+                      "id": "1c8ac5af-6d55-4530-aee2-85d7f179038a",
                       "name": "Radiotherapie Web",
                       "legacy": false,
                       "future": "",
@@ -42963,6 +43240,7 @@
                   "multi": false,
                   "systems": [
                     {
+                      "id": "61846bdd-47a9-4838-8bf3-d8734dbdc70d",
                       "name": "Radiotherapie Web",
                       "legacy": false,
                       "future": "",
@@ -43534,6 +43812,7 @@
                   "multi": false,
                   "systems": [
                     {
+                      "id": "12cf0e31-7a2f-4484-95ed-24194980b4b6",
                       "name": "Radiotherapie Web",
                       "legacy": false,
                       "future": "",
@@ -44113,6 +44392,7 @@
                   "multi": false,
                   "systems": [
                     {
+                      "id": "294d29e3-1918-4f75-a552-a8e19e5deac5",
                       "name": "Radiotherapie Web",
                       "legacy": false,
                       "future": "",
@@ -44683,6 +44963,7 @@
                   "multi": false,
                   "systems": [
                     {
+                      "id": "1daf3776-b9fa-4b0b-9cd6-0f8472c0da13",
                       "name": "Radiotherapie Web",
                       "legacy": false,
                       "future": "",
@@ -45249,6 +45530,7 @@
                   "multi": false,
                   "systems": [
                     {
+                      "id": "a87470a7-1a22-4413-992b-7990217b5934",
                       "name": "Radiotherapie Web",
                       "legacy": false,
                       "future": "",
@@ -55343,7 +55625,7 @@
               "systemData": {
                 "isMulti": false,
                 "systemName": "",
-                "calculatedScore": null,
+                "calculatedScore": 80,
                 "systems": [
                   {
                     "id": "11b9834c-d642-4ac7-85bf-1970b835118a",
@@ -55364,12 +55646,18 @@
                   "multi": false,
                   "systems": [
                     {
-                      "id": "d579e42e-fb95-4231-88d7-4f4a3d8b9e1d",
+                      "id": "9c0d3bad-ee28-419a-a3fb-77404a514706",
                       "name": "",
                       "legacy": false,
                       "future": "",
-                      "qa": {},
-                      "score": null
+                      "qa": {
+                        "q1": "NEVER",
+                        "q2": "NEVER",
+                        "q3": "NEVER",
+                        "q4": "NEVER",
+                        "q5": "STOP"
+                      },
+                      "score": 80
                     }
                   ],
                   "activeSystemIdx": 0
@@ -55402,27 +55690,33 @@
               "improvements": [],
               "qa": {
                 "compleet": {
-                  "result": "",
+                  "result": "MINOR",
+                  "impact": "B",
                   "note": ""
                 },
                 "kwaliteit": {
-                  "result": "",
+                  "result": "GOOD",
+                  "impact": null,
                   "note": ""
                 },
                 "duidelijkheid": {
-                  "result": "",
+                  "result": "GOOD",
+                  "impact": null,
                   "note": ""
                 },
                 "tijdigheid": {
-                  "result": "",
-                  "note": ""
+                  "result": "MINOR",
+                  "impact": "A",
+                  "note": "Wanneer de patiënt nog niet op OB is geweest kunnen wij ook niet beginnen met plannen."
                 },
                 "standaard": {
-                  "result": "",
+                  "result": "GOOD",
+                  "impact": null,
                   "note": ""
                 },
                 "overdracht": {
-                  "result": "",
+                  "result": "GOOD",
+                  "impact": null,
                   "note": ""
                 }
               },
@@ -55447,7 +55741,13 @@
                   }
                 ]
               },
-              "inputDefinitions": [],
+              "inputDefinitions": [
+                {
+                  "item": "Radiotherapieweb",
+                  "specifications": "Zonder radiotherapie web weten wij ook niet wat de taken zijn",
+                  "type": "HARD"
+                }
+              ],
               "disruptions": [],
               "workExp": null,
               "workExpNote": "",
@@ -55461,7 +55761,8 @@
                 "onPassTargetProcessId": null,
                 "rule": "ALL_OK",
                 "note": ""
-              }
+              },
+              "linkedSourceIds": []
             },
             {
               "id": "be093b9b-3ea0-4f49-bfc2-024ade621e6a",
@@ -55540,10 +55841,10 @@
               "created": 1770214280696,
               "text": "Taak maken planning afronden",
               "linkedSourceId": null,
-              "type": null,
+              "type": "Taak",
               "processValue": null,
-              "processStatus": null,
-              "successFactors": "",
+              "processStatus": "HAPPY",
+              "successFactors": "Alleen taak afronden",
               "causes": [],
               "improvements": [],
               "qa": {
@@ -55594,8 +55895,14 @@
                 ]
               },
               "inputDefinitions": [],
-              "disruptions": [],
-              "workExp": null,
+              "disruptions": [
+                {
+                  "scenario": "Als radiotherapie web het niet doet",
+                  "frequency": "Zelden",
+                  "workaround": ""
+                }
+              ],
+              "workExp": "ROUTINE",
               "workExpNote": "",
               "outputUid": "out_e40051ed-6d23-412e-a05a-9895995d9b88",
               "linkedSourceUids": [],
@@ -55881,7 +56188,7 @@
               "systemData": {
                 "isMulti": false,
                 "systemName": "",
-                "calculatedScore": null,
+                "calculatedScore": 80,
                 "systems": [
                   {
                     "id": "2cb9b999-1feb-4cd2-b218-dac3df513c78",
@@ -55902,12 +56209,18 @@
                   "multi": false,
                   "systems": [
                     {
-                      "id": "6b8227e1-ce65-4b85-8ea3-026abb23efa0",
+                      "id": "53332b32-99b7-4077-9c0b-3a3f7032bf38",
                       "name": "",
                       "legacy": false,
                       "future": "",
-                      "qa": {},
-                      "score": null
+                      "qa": {
+                        "q1": "NEVER",
+                        "q2": "NEVER",
+                        "q3": "NEVER",
+                        "q4": "NEVER",
+                        "q5": "STOP"
+                      },
+                      "score": 80
                     }
                   ],
                   "activeSystemIdx": 0
@@ -55930,7 +56243,7 @@
             {
               "id": "db65fcbc-89b9-418c-b0c8-5df48b85b9d1",
               "created": 1770214337920,
-              "text": "Taken wordt gepland",
+              "text": "Taak wordt gepland",
               "linkedSourceId": null,
               "type": null,
               "processValue": null,
@@ -55940,27 +56253,33 @@
               "improvements": [],
               "qa": {
                 "compleet": {
-                  "result": "",
-                  "note": ""
+                  "result": "MINOR",
+                  "impact": "B",
+                  "note": "Geen of onvolledig planningsformulier/ fout in prescriptie"
                 },
                 "kwaliteit": {
-                  "result": "",
+                  "result": "MINOR",
+                  "impact": "B",
                   "note": ""
                 },
                 "duidelijkheid": {
-                  "result": "",
+                  "result": "GOOD",
+                  "impact": null,
                   "note": ""
                 },
                 "tijdigheid": {
-                  "result": "",
+                  "result": "GOOD",
+                  "impact": null,
                   "note": ""
                 },
                 "standaard": {
-                  "result": "",
+                  "result": "GOOD",
+                  "impact": null,
                   "note": ""
                 },
                 "overdracht": {
-                  "result": "",
+                  "result": "GOOD",
+                  "impact": null,
                   "note": ""
                 }
               },
@@ -55985,7 +56304,13 @@
                   }
                 ]
               },
-              "inputDefinitions": [],
+              "inputDefinitions": [
+                {
+                  "item": "idem",
+                  "specifications": "",
+                  "type": null
+                }
+              ],
               "disruptions": [],
               "workExp": null,
               "workExpNote": "",
@@ -55999,7 +56324,8 @@
                 "onPassTargetProcessId": null,
                 "rule": "ALL_OK",
                 "note": ""
-              }
+              },
+              "linkedSourceIds": []
             },
             {
               "id": "1f27bfb5-866e-4fbc-92b7-d5b922f377fa",
@@ -56078,9 +56404,9 @@
               "created": 1770214337920,
               "text": "Maken bestralingsplan",
               "linkedSourceId": null,
-              "type": null,
+              "type": "Taak",
               "processValue": null,
-              "processStatus": null,
+              "processStatus": "NEUTRAL",
               "successFactors": "",
               "causes": [],
               "improvements": [],
@@ -56132,9 +56458,15 @@
                 ]
               },
               "inputDefinitions": [],
-              "disruptions": [],
-              "workExp": null,
-              "workExpNote": "",
+              "disruptions": [
+                {
+                  "scenario": "pinnacle die een error geeft",
+                  "frequency": "Soms",
+                  "workaround": "fysicus bellen"
+                }
+              ],
+              "workExp": "FLOW",
+              "workExpNote": "Plan maken is leuk",
               "outputUid": "out_ce62fbe3-7ca2-4b53-8f60-c13fb4ef29dd",
               "linkedSourceUids": [],
               "linkedBundleIds": [],
@@ -56419,7 +56751,7 @@
               "systemData": {
                 "isMulti": false,
                 "systemName": "",
-                "calculatedScore": null,
+                "calculatedScore": 80,
                 "systems": [
                   {
                     "id": "cce990d2-8259-4dfc-8609-5c80da05bc8e",
@@ -56440,12 +56772,18 @@
                   "multi": false,
                   "systems": [
                     {
-                      "id": "e478fb3d-03a8-47e3-b6f7-cd5b98f2564f",
+                      "id": "f2364927-8361-4cce-8cc3-7b40ddd3a3ae",
                       "name": "",
                       "legacy": false,
                       "future": "",
-                      "qa": {},
-                      "score": null
+                      "qa": {
+                        "q1": "NEVER",
+                        "q2": "NEVER",
+                        "q3": "NEVER",
+                        "q4": "NEVER",
+                        "q5": "STOP"
+                      },
+                      "score": 80
                     }
                   ],
                   "activeSystemIdx": 0
@@ -56478,32 +56816,32 @@
               "improvements": [],
               "qa": {
                 "compleet": {
-                  "result": null,
+                  "result": "GOOD",
                   "impact": null,
                   "note": ""
                 },
                 "kwaliteit": {
-                  "result": null,
+                  "result": "GOOD",
                   "impact": null,
                   "note": ""
                 },
                 "duidelijkheid": {
-                  "result": null,
+                  "result": "GOOD",
                   "impact": null,
                   "note": ""
                 },
                 "tijdigheid": {
-                  "result": null,
+                  "result": "GOOD",
                   "impact": null,
                   "note": ""
                 },
                 "standaard": {
-                  "result": null,
+                  "result": "GOOD",
                   "impact": null,
                   "note": ""
                 },
                 "overdracht": {
-                  "result": null,
+                  "result": "GOOD",
                   "impact": null,
                   "note": ""
                 }
@@ -56529,7 +56867,13 @@
                   }
                 ]
               },
-              "inputDefinitions": [],
+              "inputDefinitions": [
+                {
+                  "item": "radiotherapie web",
+                  "specifications": "anders kunnen wij geen sms sturen",
+                  "type": "HARD"
+                }
+              ],
               "disruptions": [],
               "workExp": null,
               "workExpNote": "",
@@ -56623,9 +56967,9 @@
               "created": 1770189712573,
               "text": "Versturen SMS",
               "linkedSourceId": null,
-              "type": null,
+              "type": "Taak",
               "processValue": null,
-              "processStatus": null,
+              "processStatus": "HAPPY",
               "successFactors": "",
               "causes": [],
               "improvements": [],
@@ -56677,8 +57021,14 @@
                 ]
               },
               "inputDefinitions": [],
-              "disruptions": [],
-              "workExp": null,
+              "disruptions": [
+                {
+                  "scenario": "idem",
+                  "frequency": null,
+                  "workaround": ""
+                }
+              ],
+              "workExp": "ROUTINE",
               "workExpNote": "",
               "outputUid": "out_06eea7bf-c61d-4fbe-848d-09769e68257f",
               "linkedSourceUids": [],
@@ -56964,7 +57314,7 @@
               "systemData": {
                 "isMulti": false,
                 "systemName": "",
-                "calculatedScore": null,
+                "calculatedScore": 80,
                 "systems": [
                   {
                     "id": "94ae9e92-860d-4a8b-9b8c-b1036b3517d1",
@@ -56985,12 +57335,18 @@
                   "multi": false,
                   "systems": [
                     {
-                      "id": "6634f156-8e23-4aa6-b032-83991f2a3f7c",
+                      "id": "d1af6a29-954f-4619-9ae8-d14500082cc5",
                       "name": "",
                       "legacy": false,
                       "future": "",
-                      "qa": {},
-                      "score": null
+                      "qa": {
+                        "q1": "NEVER",
+                        "q2": "NEVER",
+                        "q3": "NEVER",
+                        "q4": "NEVER",
+                        "q5": "STOP"
+                      },
+                      "score": 80
                     }
                   ],
                   "activeSystemIdx": 0
@@ -57023,27 +57379,33 @@
               "improvements": [],
               "qa": {
                 "compleet": {
-                  "result": "",
+                  "result": "GOOD",
+                  "impact": null,
                   "note": ""
                 },
                 "kwaliteit": {
-                  "result": "",
+                  "result": "GOOD",
+                  "impact": null,
                   "note": ""
                 },
                 "duidelijkheid": {
-                  "result": "",
+                  "result": "MINOR",
+                  "impact": "C",
                   "note": ""
                 },
                 "tijdigheid": {
-                  "result": "",
+                  "result": "GOOD",
+                  "impact": null,
                   "note": ""
                 },
                 "standaard": {
-                  "result": "",
+                  "result": "GOOD",
+                  "impact": null,
                   "note": ""
                 },
                 "overdracht": {
-                  "result": "",
+                  "result": "GOOD",
+                  "impact": null,
                   "note": ""
                 }
               },
@@ -57068,7 +57430,13 @@
                   }
                 ]
               },
-              "inputDefinitions": [],
+              "inputDefinitions": [
+                {
+                  "item": "radiotherapieweb",
+                  "specifications": "zonder web kan je het niet aanmaken",
+                  "type": "HARD"
+                }
+              ],
               "disruptions": [],
               "workExp": null,
               "workExpNote": "",
@@ -57082,7 +57450,8 @@
                 "onPassTargetProcessId": null,
                 "rule": "ALL_OK",
                 "note": ""
-              }
+              },
+              "linkedSourceIds": []
             },
             {
               "id": "f762b5da-4049-4d41-8524-41363040dc88",
@@ -57161,10 +57530,10 @@
               "created": 1770214460554,
               "text": "Invullen optimalisatieformulier",
               "linkedSourceId": null,
-              "type": null,
+              "type": "Taak",
               "processValue": null,
-              "processStatus": null,
-              "successFactors": "",
+              "processStatus": "HAPPY",
+              "successFactors": "standaard formulier",
               "causes": [],
               "improvements": [],
               "qa": {
@@ -57216,7 +57585,7 @@
               },
               "inputDefinitions": [],
               "disruptions": [],
-              "workExp": null,
+              "workExp": "ROUTINE",
               "workExpNote": "",
               "outputUid": "out_4c30f0a5-06bf-4783-b489-ab07bd98ab45",
               "linkedSourceUids": [],
@@ -57502,7 +57871,7 @@
               "systemData": {
                 "isMulti": false,
                 "systemName": "",
-                "calculatedScore": null,
+                "calculatedScore": 80,
                 "systems": [
                   {
                     "id": "e5cd1c8b-03ea-4d8b-94fb-e25053a051df",
@@ -57523,12 +57892,18 @@
                   "multi": false,
                   "systems": [
                     {
-                      "id": "b9b5ef5b-1d92-4c00-a518-759e826316ad",
+                      "id": "ce7da190-96e9-465a-948b-b506fa0fef91",
                       "name": "",
                       "legacy": false,
                       "future": "",
-                      "qa": {},
-                      "score": null
+                      "qa": {
+                        "q1": "NEVER",
+                        "q2": "NEVER",
+                        "q3": "NEVER",
+                        "q4": "NEVER",
+                        "q5": "STOP"
+                      },
+                      "score": 80
                     }
                   ],
                   "activeSystemIdx": 0
@@ -57561,32 +57936,32 @@
               "improvements": [],
               "qa": {
                 "compleet": {
-                  "result": null,
+                  "result": "GOOD",
                   "impact": null,
                   "note": ""
                 },
                 "kwaliteit": {
-                  "result": null,
+                  "result": "GOOD",
                   "impact": null,
                   "note": ""
                 },
                 "duidelijkheid": {
-                  "result": null,
+                  "result": "GOOD",
                   "impact": null,
                   "note": ""
                 },
                 "tijdigheid": {
-                  "result": null,
+                  "result": "GOOD",
                   "impact": null,
                   "note": ""
                 },
                 "standaard": {
-                  "result": null,
+                  "result": "GOOD",
                   "impact": null,
                   "note": ""
                 },
                 "overdracht": {
-                  "result": null,
+                  "result": "GOOD",
                   "impact": null,
                   "note": ""
                 }
@@ -57612,7 +57987,13 @@
                   }
                 ]
               },
-              "inputDefinitions": [],
+              "inputDefinitions": [
+                {
+                  "item": "idem",
+                  "specifications": "",
+                  "type": null
+                }
+              ],
               "disruptions": [],
               "workExp": null,
               "workExpNote": "",
@@ -57706,9 +58087,9 @@
               "created": 1770189980613,
               "text": "Beoordelen plan",
               "linkedSourceId": null,
-              "type": null,
+              "type": "Beoordeling",
               "processValue": null,
-              "processStatus": null,
+              "processStatus": "HAPPY",
               "successFactors": "",
               "causes": [],
               "improvements": [],
@@ -57760,8 +58141,14 @@
                 ]
               },
               "inputDefinitions": [],
-              "disruptions": [],
-              "workExp": null,
+              "disruptions": [
+                {
+                  "scenario": "te laat beoordelen",
+                  "frequency": "Vaak",
+                  "workaround": "arts bellen/correspondentie sturen"
+                }
+              ],
+              "workExp": "ROUTINE",
               "workExpNote": "",
               "outputUid": "out_4c2a1d4d-d476-4d78-89e8-033ee5862bee",
               "linkedSourceUids": [],
@@ -58055,7 +58442,7 @@
               "systemData": {
                 "isMulti": false,
                 "systemName": "",
-                "calculatedScore": null,
+                "calculatedScore": 80,
                 "systems": [
                   {
                     "id": "72359c8f-8d78-406f-90a8-ec06c61cee09",
@@ -58076,12 +58463,18 @@
                   "multi": false,
                   "systems": [
                     {
-                      "id": "3b09f2af-b7a1-4626-82a7-4a00f14d75c8",
+                      "id": "f58b9c7b-5a42-4ef6-8535-b957a9352c5d",
                       "name": "",
                       "legacy": false,
                       "future": "",
-                      "qa": {},
-                      "score": null
+                      "qa": {
+                        "q1": "NEVER",
+                        "q2": "NEVER",
+                        "q3": "NEVER",
+                        "q4": "NEVER",
+                        "q5": "STOP"
+                      },
+                      "score": 80
                     }
                   ],
                   "activeSystemIdx": 0
@@ -58114,27 +58507,33 @@
               "improvements": [],
               "qa": {
                 "compleet": {
-                  "result": "",
+                  "result": "GOOD",
+                  "impact": null,
                   "note": ""
                 },
                 "kwaliteit": {
-                  "result": "",
+                  "result": "GOOD",
+                  "impact": null,
                   "note": ""
                 },
                 "duidelijkheid": {
-                  "result": "",
+                  "result": "GOOD",
+                  "impact": null,
                   "note": ""
                 },
                 "tijdigheid": {
-                  "result": "",
+                  "result": "GOOD",
+                  "impact": null,
                   "note": ""
                 },
                 "standaard": {
-                  "result": "",
+                  "result": "GOOD",
+                  "impact": null,
                   "note": ""
                 },
                 "overdracht": {
-                  "result": "",
+                  "result": "GOOD",
+                  "impact": null,
                   "note": ""
                 }
               },
@@ -58159,7 +58558,13 @@
                   }
                 ]
               },
-              "inputDefinitions": [],
+              "inputDefinitions": [
+                {
+                  "item": "radiotherapie web en pinnacle",
+                  "specifications": "",
+                  "type": "HARD"
+                }
+              ],
               "disruptions": [],
               "workExp": null,
               "workExpNote": "",
@@ -58173,7 +58578,8 @@
                 "onPassTargetProcessId": null,
                 "rule": "ALL_OK",
                 "note": ""
-              }
+              },
+              "linkedSourceIds": []
             },
             {
               "id": "411446e3-7870-4490-846d-5d0a0e5bb0bc",
@@ -58250,12 +58656,12 @@
             {
               "id": "9a9cdcc2-1ec7-46ee-b46f-383d54d03cb1",
               "created": 1770190124624,
-              "text": "Afronden taak beoordelen plan + invullen taak plan + tekenen plan",
+              "text": "Afronden taak beoordelen plan + invullen taak plan beoordeeld + tekenen plan",
               "linkedSourceId": null,
-              "type": null,
+              "type": "Taak",
               "processValue": null,
-              "processStatus": null,
-              "successFactors": "",
+              "processStatus": "HAPPY",
+              "successFactors": "het is een taak",
               "causes": [],
               "improvements": [],
               "qa": {
@@ -58306,9 +58712,15 @@
                 ]
               },
               "inputDefinitions": [],
-              "disruptions": [],
-              "workExp": null,
-              "workExpNote": "",
+              "disruptions": [
+                {
+                  "scenario": "niet akkoord",
+                  "frequency": "Soms",
+                  "workaround": "plan aanpassen"
+                }
+              ],
+              "workExp": "ROUTINE",
+              "workExpNote": "taak afronden en vervolgens erbij zetten of het akkoord is of niet",
               "outputUid": "out_78087cd4-b76d-441f-a2aa-9093852896af",
               "linkedSourceUids": [],
               "linkedBundleIds": [],
@@ -58593,7 +59005,7 @@
               "systemData": {
                 "isMulti": false,
                 "systemName": "",
-                "calculatedScore": null,
+                "calculatedScore": 80,
                 "systems": [
                   {
                     "id": "73d088a2-089f-47b5-96f2-d1b9469b10b5",
@@ -58614,12 +59026,18 @@
                   "multi": false,
                   "systems": [
                     {
-                      "id": "c9af5163-c217-447f-a45d-7c7568096950",
+                      "id": "aca6b2dd-a2da-4e3e-a846-604a4c191d39",
                       "name": "",
                       "legacy": false,
                       "future": "",
-                      "qa": {},
-                      "score": null
+                      "qa": {
+                        "q1": "NEVER",
+                        "q2": "NEVER",
+                        "q3": "NEVER",
+                        "q4": "NEVER",
+                        "q5": "STOP"
+                      },
+                      "score": 80
                     }
                   ],
                   "activeSystemIdx": 0
@@ -58652,27 +59070,33 @@
               "improvements": [],
               "qa": {
                 "compleet": {
-                  "result": "",
+                  "result": "GOOD",
+                  "impact": null,
                   "note": ""
                 },
                 "kwaliteit": {
-                  "result": "",
+                  "result": "GOOD",
+                  "impact": null,
                   "note": ""
                 },
                 "duidelijkheid": {
-                  "result": "",
+                  "result": "GOOD",
+                  "impact": null,
                   "note": ""
                 },
                 "tijdigheid": {
-                  "result": "",
+                  "result": "MINOR",
+                  "impact": "A",
                   "note": ""
                 },
                 "standaard": {
-                  "result": "",
+                  "result": "GOOD",
+                  "impact": null,
                   "note": ""
                 },
                 "overdracht": {
-                  "result": "",
+                  "result": "GOOD",
+                  "impact": null,
                   "note": ""
                 }
               },
@@ -58697,7 +59121,13 @@
                   }
                 ]
               },
-              "inputDefinitions": [],
+              "inputDefinitions": [
+                {
+                  "item": "radiotherapie web",
+                  "specifications": "",
+                  "type": "HARD"
+                }
+              ],
               "disruptions": [],
               "workExp": null,
               "workExpNote": "",
@@ -58711,7 +59141,8 @@
                 "onPassTargetProcessId": null,
                 "rule": "ALL_OK",
                 "note": ""
-              }
+              },
+              "linkedSourceIds": []
             },
             {
               "id": "445d4434-bb16-4ed0-adbb-17e9deb9d75c",
@@ -58790,9 +59221,9 @@
               "created": 1770212244372,
               "text": "Afronden taak wordt gepland",
               "linkedSourceId": null,
-              "type": null,
+              "type": "Taak",
               "processValue": null,
-              "processStatus": null,
+              "processStatus": "HAPPY",
               "successFactors": "",
               "causes": [],
               "improvements": [],
@@ -58845,7 +59276,7 @@
               },
               "inputDefinitions": [],
               "disruptions": [],
-              "workExp": null,
+              "workExp": "ROUTINE",
               "workExpNote": "",
               "outputUid": "out_12a06df4-5d26-4563-91bd-dca54efa963e",
               "linkedSourceUids": [],
@@ -58924,11 +59355,19 @@
               "linkedSourceUids": [],
               "linkedBundleIds": [],
               "gate": {
+                "enabled": true,
+                "failTargetColIdx": 6,
                 "checkProcessIds": [],
                 "onFailTargetProcessId": null,
                 "onPassTargetProcessId": null,
                 "rule": "ALL_OK",
                 "note": ""
+              },
+              "outputData": {
+                "gate": {
+                  "enabled": true,
+                  "failTargetColIdx": 6
+                }
               }
             },
             {
@@ -59131,7 +59570,7 @@
               "systemData": {
                 "isMulti": false,
                 "systemName": "",
-                "calculatedScore": 0,
+                "calculatedScore": 80,
                 "systems": [
                   {
                     "id": "e0814878-fff6-4c18-8bb8-f3f93e8fd4d9",
@@ -59152,20 +59591,32 @@
                   "multi": true,
                   "systems": [
                     {
-                      "id": "8133ba9f-df57-488d-93ef-5c10596ab4a4",
+                      "id": "79495941-3d52-417d-a322-a556dff3fbfe",
                       "name": "Radiotherapie Web",
                       "legacy": false,
                       "future": "",
-                      "qa": {},
-                      "score": null
+                      "qa": {
+                        "q1": "NEVER",
+                        "q2": "NEVER",
+                        "q3": "NEVER",
+                        "q4": "NEVER",
+                        "q5": "STOP"
+                      },
+                      "score": 80
                     },
                     {
-                      "id": "0696df71-0136-4888-8d5e-df39c3298ae0",
+                      "id": "9100a89f-5db4-42cb-b4d6-7e80473cd7fc",
                       "name": "Pinnacle",
                       "legacy": false,
                       "future": "",
-                      "qa": {},
-                      "score": null
+                      "qa": {
+                        "q1": "NEVER",
+                        "q2": "NEVER",
+                        "q3": "NEVER",
+                        "q4": "NEVER",
+                        "q5": "STOP"
+                      },
+                      "score": 80
                     }
                   ],
                   "activeSystemIdx": 0
@@ -59198,32 +59649,32 @@
               "improvements": [],
               "qa": {
                 "compleet": {
-                  "result": null,
+                  "result": "GOOD",
                   "impact": null,
                   "note": ""
                 },
                 "kwaliteit": {
-                  "result": null,
+                  "result": "GOOD",
                   "impact": null,
                   "note": ""
                 },
                 "duidelijkheid": {
-                  "result": null,
+                  "result": "GOOD",
                   "impact": null,
                   "note": ""
                 },
                 "tijdigheid": {
-                  "result": null,
+                  "result": "GOOD",
                   "impact": null,
                   "note": ""
                 },
                 "standaard": {
-                  "result": null,
+                  "result": "GOOD",
                   "impact": null,
                   "note": ""
                 },
                 "overdracht": {
-                  "result": null,
+                  "result": "GOOD",
                   "impact": null,
                   "note": ""
                 }
@@ -59249,7 +59700,23 @@
                   }
                 ]
               },
-              "inputDefinitions": [],
+              "inputDefinitions": [
+                {
+                  "item": "pinnacle",
+                  "specifications": "afwerken vanuit pinnacle",
+                  "type": "HARD"
+                },
+                {
+                  "item": "radiotherapie web",
+                  "specifications": "opslaan in radiotherapie web",
+                  "type": "HARD"
+                },
+                {
+                  "item": "aria voor vtx",
+                  "specifications": "invoeren in vtx om te kunnen afstralen",
+                  "type": "HARD"
+                }
+              ],
               "disruptions": [],
               "workExp": null,
               "workExpNote": "",
@@ -59343,9 +59810,9 @@
               "created": 1770190092676,
               "text": "Afwerken plan + tekenen plan",
               "linkedSourceId": null,
-              "type": null,
+              "type": "Taak",
               "processValue": null,
-              "processStatus": null,
+              "processStatus": "HAPPY",
               "successFactors": "",
               "causes": [],
               "improvements": [],
@@ -59398,7 +59865,7 @@
               },
               "inputDefinitions": [],
               "disruptions": [],
-              "workExp": null,
+              "workExp": "ROUTINE",
               "workExpNote": "",
               "outputUid": "out_4fe70c11-5b54-4abf-851e-680c2f75c3a2",
               "linkedSourceUids": [],
@@ -59684,7 +60151,7 @@
               "systemData": {
                 "isMulti": false,
                 "systemName": "",
-                "calculatedScore": null,
+                "calculatedScore": 80,
                 "systems": [
                   {
                     "id": "f8500c1d-4560-48c1-8cd0-8668e69ed41b",
@@ -59705,12 +60172,18 @@
                   "multi": false,
                   "systems": [
                     {
-                      "id": "66ec8c2b-fc15-453a-9338-c4d39adf1d21",
+                      "id": "83d04035-b5b4-4436-856b-325ae206f4a3",
                       "name": "",
                       "legacy": false,
                       "future": "",
-                      "qa": {},
-                      "score": null
+                      "qa": {
+                        "q1": "NEVER",
+                        "q2": "NEVER",
+                        "q3": "NEVER",
+                        "q4": "NEVER",
+                        "q5": "STOP"
+                      },
+                      "score": 80
                     }
                   ],
                   "activeSystemIdx": 0
@@ -59743,27 +60216,33 @@
               "improvements": [],
               "qa": {
                 "compleet": {
-                  "result": "",
+                  "result": "GOOD",
+                  "impact": null,
                   "note": ""
                 },
                 "kwaliteit": {
-                  "result": "",
+                  "result": "GOOD",
+                  "impact": null,
                   "note": ""
                 },
                 "duidelijkheid": {
-                  "result": "",
+                  "result": "GOOD",
+                  "impact": null,
                   "note": ""
                 },
                 "tijdigheid": {
-                  "result": "",
+                  "result": "GOOD",
+                  "impact": null,
                   "note": ""
                 },
                 "standaard": {
-                  "result": "",
+                  "result": "GOOD",
+                  "impact": null,
                   "note": ""
                 },
                 "overdracht": {
-                  "result": "",
+                  "result": "GOOD",
+                  "impact": null,
                   "note": ""
                 }
               },
@@ -59788,7 +60267,13 @@
                   }
                 ]
               },
-              "inputDefinitions": [],
+              "inputDefinitions": [
+                {
+                  "item": "radiotherapie web",
+                  "specifications": "zonder het web kunnen wij geen formulier invullen",
+                  "type": "HARD"
+                }
+              ],
               "disruptions": [],
               "workExp": null,
               "workExpNote": "",
@@ -59802,7 +60287,8 @@
                 "onPassTargetProcessId": null,
                 "rule": "ALL_OK",
                 "note": ""
-              }
+              },
+              "linkedSourceIds": []
             },
             {
               "id": "765434c5-4cf7-4038-a11b-765f472e020b",
@@ -59881,9 +60367,9 @@
               "created": 1770214816177,
               "text": "Invullen V, U en B formulier",
               "linkedSourceId": null,
-              "type": null,
+              "type": "Taak",
               "processValue": null,
-              "processStatus": null,
+              "processStatus": "NEUTRAL",
               "successFactors": "",
               "causes": [],
               "improvements": [],
@@ -59935,8 +60421,14 @@
                 ]
               },
               "inputDefinitions": [],
-              "disruptions": [],
-              "workExp": null,
+              "disruptions": [
+                {
+                  "scenario": "niet correct ingevuld",
+                  "frequency": "Vaak",
+                  "workaround": "gebeld/corr van poli"
+                }
+              ],
+              "workExp": "ROUTINE",
               "workExpNote": "",
               "outputUid": "out_41d6f933-9330-435d-9668-f914d21e22a9",
               "linkedSourceUids": [],
@@ -60222,7 +60714,7 @@
               "systemData": {
                 "isMulti": false,
                 "systemName": "",
-                "calculatedScore": null,
+                "calculatedScore": 80,
                 "systems": [
                   {
                     "id": "f7fc2125-8507-443c-a8e7-6df888bfb04a",
@@ -60243,12 +60735,18 @@
                   "multi": false,
                   "systems": [
                     {
-                      "id": "e1cdb370-b1e8-4b93-8e09-71c7815a8408",
+                      "id": "0e55e087-858d-4b12-a017-6d3f6da74018",
                       "name": "",
                       "legacy": false,
                       "future": "",
-                      "qa": {},
-                      "score": null
+                      "qa": {
+                        "q1": "NEVER",
+                        "q2": "NEVER",
+                        "q3": "NEVER",
+                        "q4": "NEVER",
+                        "q5": "STOP"
+                      },
+                      "score": 80
                     }
                   ],
                   "activeSystemIdx": 0
@@ -60281,27 +60779,33 @@
               "improvements": [],
               "qa": {
                 "compleet": {
-                  "result": "",
+                  "result": "GOOD",
+                  "impact": null,
                   "note": ""
                 },
                 "kwaliteit": {
-                  "result": "",
+                  "result": "GOOD",
+                  "impact": null,
                   "note": ""
                 },
                 "duidelijkheid": {
-                  "result": "",
+                  "result": "GOOD",
+                  "impact": null,
                   "note": ""
                 },
                 "tijdigheid": {
-                  "result": "",
+                  "result": "GOOD",
+                  "impact": null,
                   "note": ""
                 },
                 "standaard": {
-                  "result": "",
+                  "result": "GOOD",
+                  "impact": null,
                   "note": ""
                 },
                 "overdracht": {
-                  "result": "",
+                  "result": "GOOD",
+                  "impact": null,
                   "note": ""
                 }
               },
@@ -60326,7 +60830,13 @@
                   }
                 ]
               },
-              "inputDefinitions": [],
+              "inputDefinitions": [
+                {
+                  "item": "radiotherapieweb",
+                  "specifications": "",
+                  "type": "HARD"
+                }
+              ],
               "disruptions": [],
               "workExp": null,
               "workExpNote": "",
@@ -60340,7 +60850,8 @@
                 "onPassTargetProcessId": null,
                 "rule": "ALL_OK",
                 "note": ""
-              }
+              },
+              "linkedSourceIds": []
             },
             {
               "id": "b590d3fb-7eec-4b5a-b51e-6c3767fda52f",
@@ -60419,9 +60930,9 @@
               "created": 1770212551525,
               "text": "Afronden taak afwerken",
               "linkedSourceId": null,
-              "type": null,
+              "type": "Taak",
               "processValue": null,
-              "processStatus": null,
+              "processStatus": "HAPPY",
               "successFactors": "",
               "causes": [],
               "improvements": [],
@@ -60474,7 +60985,7 @@
               },
               "inputDefinitions": [],
               "disruptions": [],
-              "workExp": null,
+              "workExp": "ROUTINE",
               "workExpNote": "",
               "outputUid": "out_34122851-76f5-4169-92e8-718ad1422ce5",
               "linkedSourceUids": [],
@@ -60760,7 +61271,7 @@
               "systemData": {
                 "isMulti": false,
                 "systemName": "",
-                "calculatedScore": null,
+                "calculatedScore": 80,
                 "systems": [
                   {
                     "id": "06357100-e54e-4b3e-be0a-222dd0ee078c",
@@ -60781,12 +61292,18 @@
                   "multi": false,
                   "systems": [
                     {
-                      "id": "b113b0af-08af-4944-bc1e-2f1fe5318771",
+                      "id": "482fa475-ac81-4214-aadd-d2d95e711cd6",
                       "name": "",
                       "legacy": false,
                       "future": "",
-                      "qa": {},
-                      "score": null
+                      "qa": {
+                        "q1": "NEVER",
+                        "q2": "NEVER",
+                        "q3": "NEVER",
+                        "q4": "NEVER",
+                        "q5": "STOP"
+                      },
+                      "score": 80
                     }
                   ],
                   "activeSystemIdx": 0
@@ -60819,27 +61336,33 @@
               "improvements": [],
               "qa": {
                 "compleet": {
-                  "result": "",
+                  "result": "GOOD",
+                  "impact": null,
                   "note": ""
                 },
                 "kwaliteit": {
-                  "result": "",
+                  "result": "GOOD",
+                  "impact": null,
                   "note": ""
                 },
                 "duidelijkheid": {
-                  "result": "",
+                  "result": "GOOD",
+                  "impact": null,
                   "note": ""
                 },
                 "tijdigheid": {
-                  "result": "",
+                  "result": "GOOD",
+                  "impact": null,
                   "note": ""
                 },
                 "standaard": {
-                  "result": "",
+                  "result": "GOOD",
+                  "impact": null,
                   "note": ""
                 },
                 "overdracht": {
-                  "result": "",
+                  "result": "GOOD",
+                  "impact": null,
                   "note": ""
                 }
               },
@@ -60864,7 +61387,13 @@
                   }
                 ]
               },
-              "inputDefinitions": [],
+              "inputDefinitions": [
+                {
+                  "item": "idem",
+                  "specifications": "",
+                  "type": null
+                }
+              ],
               "disruptions": [],
               "workExp": null,
               "workExpNote": "",
@@ -60878,7 +61407,8 @@
                 "onPassTargetProcessId": null,
                 "rule": "ALL_OK",
                 "note": ""
-              }
+              },
+              "linkedSourceIds": []
             },
             {
               "id": "cf1a4d87-38dc-4f45-a133-bc33ca9658c5",
@@ -60957,9 +61487,9 @@
               "created": 1770213071280,
               "text": "Afronden taak afwerken",
               "linkedSourceId": null,
-              "type": null,
+              "type": "Taak",
               "processValue": null,
-              "processStatus": null,
+              "processStatus": "HAPPY",
               "successFactors": "",
               "causes": [],
               "improvements": [],
@@ -61012,7 +61542,7 @@
               },
               "inputDefinitions": [],
               "disruptions": [],
-              "workExp": null,
+              "workExp": "ROUTINE",
               "workExpNote": "",
               "outputUid": "out_e4923cb9-c4af-4bb4-ac11-ae510e4eb5a1",
               "linkedSourceUids": [],
@@ -61298,7 +61828,7 @@
               "systemData": {
                 "isMulti": false,
                 "systemName": "",
-                "calculatedScore": null,
+                "calculatedScore": 80,
                 "systems": [
                   {
                     "id": "de5d6e1e-ec98-4783-a7f6-e1abb6ffa2f9",
@@ -61319,12 +61849,18 @@
                   "multi": false,
                   "systems": [
                     {
-                      "id": "ddd06d5d-4934-4b1e-8269-f4aa147ddd1f",
+                      "id": "060bd52f-a0d8-4977-85ee-9cded9a36533",
                       "name": "",
                       "legacy": false,
                       "future": "",
-                      "qa": {},
-                      "score": null
+                      "qa": {
+                        "q1": "NEVER",
+                        "q2": "NEVER",
+                        "q3": "NEVER",
+                        "q4": "NEVER",
+                        "q5": "STOP"
+                      },
+                      "score": 80
                     }
                   ],
                   "activeSystemIdx": 0
@@ -61357,32 +61893,32 @@
               "improvements": [],
               "qa": {
                 "compleet": {
-                  "result": null,
+                  "result": "GOOD",
                   "impact": null,
                   "note": ""
                 },
                 "kwaliteit": {
-                  "result": null,
+                  "result": "GOOD",
                   "impact": null,
                   "note": ""
                 },
                 "duidelijkheid": {
-                  "result": null,
+                  "result": "GOOD",
                   "impact": null,
                   "note": ""
                 },
                 "tijdigheid": {
-                  "result": null,
+                  "result": "GOOD",
                   "impact": null,
                   "note": ""
                 },
                 "standaard": {
-                  "result": null,
+                  "result": "GOOD",
                   "impact": null,
                   "note": ""
                 },
                 "overdracht": {
-                  "result": null,
+                  "result": "GOOD",
                   "impact": null,
                   "note": ""
                 }
@@ -61502,9 +62038,9 @@
               "created": 1770190369752,
               "text": "controleren en tekenen plan",
               "linkedSourceId": null,
-              "type": null,
+              "type": "Beoordeling",
               "processValue": null,
-              "processStatus": null,
+              "processStatus": "HAPPY",
               "successFactors": "",
               "causes": [],
               "improvements": [],
@@ -61556,9 +62092,15 @@
                 ]
               },
               "inputDefinitions": [],
-              "disruptions": [],
-              "workExp": null,
-              "workExpNote": "",
+              "disruptions": [
+                {
+                  "scenario": "als iemand al in het plan zit",
+                  "frequency": "Soms",
+                  "workaround": "wachten"
+                }
+              ],
+              "workExp": "ROUTINE",
+              "workExpNote": "een taak en beoordeling",
               "outputUid": "out_75110aab-2de5-4b88-b842-523a42cc0858",
               "linkedSourceUids": [],
               "linkedBundleIds": [],
@@ -61851,7 +62393,7 @@
               "systemData": {
                 "isMulti": false,
                 "systemName": "",
-                "calculatedScore": null,
+                "calculatedScore": 80,
                 "systems": [
                   {
                     "id": "9976ee5a-809a-449e-a086-49c1f91d346a",
@@ -61872,12 +62414,18 @@
                   "multi": false,
                   "systems": [
                     {
-                      "id": "2a572fb3-f65a-441b-8e38-15b63249173c",
+                      "id": "fac999fd-a1d5-4ee4-8c7e-70f88441837c",
                       "name": "",
                       "legacy": false,
                       "future": "",
-                      "qa": {},
-                      "score": null
+                      "qa": {
+                        "q1": "NEVER",
+                        "q2": "NEVER",
+                        "q3": "NEVER",
+                        "q4": "NEVER",
+                        "q5": "STOP"
+                      },
+                      "score": 80
                     }
                   ],
                   "activeSystemIdx": 0
@@ -61910,32 +62458,32 @@
               "improvements": [],
               "qa": {
                 "compleet": {
-                  "result": null,
+                  "result": "GOOD",
                   "impact": null,
                   "note": ""
                 },
                 "kwaliteit": {
-                  "result": null,
+                  "result": "GOOD",
                   "impact": null,
                   "note": ""
                 },
                 "duidelijkheid": {
-                  "result": null,
+                  "result": "GOOD",
                   "impact": null,
                   "note": ""
                 },
                 "tijdigheid": {
-                  "result": null,
+                  "result": "GOOD",
                   "impact": null,
                   "note": ""
                 },
                 "standaard": {
-                  "result": null,
+                  "result": "GOOD",
                   "impact": null,
                   "note": ""
                 },
                 "overdracht": {
-                  "result": null,
+                  "result": "GOOD",
                   "impact": null,
                   "note": ""
                 }
@@ -61961,7 +62509,13 @@
                   }
                 ]
               },
-              "inputDefinitions": [],
+              "inputDefinitions": [
+                {
+                  "item": "idem",
+                  "specifications": "",
+                  "type": null
+                }
+              ],
               "disruptions": [],
               "workExp": null,
               "workExpNote": "",
@@ -62055,9 +62609,9 @@
               "created": 1770190707653,
               "text": "Nakijken + tekenen plan ",
               "linkedSourceId": null,
-              "type": null,
+              "type": "Beoordeling",
               "processValue": null,
-              "processStatus": null,
+              "processStatus": "HAPPY",
               "successFactors": "",
               "causes": [],
               "improvements": [],
@@ -62109,9 +62663,15 @@
                 ]
               },
               "inputDefinitions": [],
-              "disruptions": [],
-              "workExp": null,
-              "workExpNote": "",
+              "disruptions": [
+                {
+                  "scenario": "fout gezien in het plan",
+                  "frequency": null,
+                  "workaround": "opnieuw plannen en ter beoordeling zetten"
+                }
+              ],
+              "workExp": "ROUTINE",
+              "workExpNote": "taak+beoordeling",
               "outputUid": "out_eb361df1-26af-4a5f-8070-25c1bc2618d3",
               "linkedSourceUids": [],
               "linkedBundleIds": [],
@@ -62396,7 +62956,7 @@
               "systemData": {
                 "isMulti": false,
                 "systemName": "",
-                "calculatedScore": null,
+                "calculatedScore": 80,
                 "systems": [
                   {
                     "id": "2e4d8718-8ae1-467c-8034-438adefe053a",
@@ -62417,12 +62977,18 @@
                   "multi": false,
                   "systems": [
                     {
-                      "id": "2b0e7aa9-4c47-4ffe-8fb8-c40f0d8ac155",
+                      "id": "6ae952f3-902c-4b44-8df4-f803528e6d03",
                       "name": "",
                       "legacy": false,
                       "future": "",
-                      "qa": {},
-                      "score": null
+                      "qa": {
+                        "q1": "NEVER",
+                        "q2": "NEVER",
+                        "q3": "NEVER",
+                        "q4": "NEVER",
+                        "q5": "STOP"
+                      },
+                      "score": 80
                     }
                   ],
                   "activeSystemIdx": 0
@@ -62455,27 +63021,33 @@
               "improvements": [],
               "qa": {
                 "compleet": {
-                  "result": "",
+                  "result": "GOOD",
+                  "impact": null,
                   "note": ""
                 },
                 "kwaliteit": {
-                  "result": "",
+                  "result": "GOOD",
+                  "impact": null,
                   "note": ""
                 },
                 "duidelijkheid": {
-                  "result": "",
+                  "result": "GOOD",
+                  "impact": null,
                   "note": ""
                 },
                 "tijdigheid": {
-                  "result": "",
+                  "result": "GOOD",
+                  "impact": null,
                   "note": ""
                 },
                 "standaard": {
-                  "result": "",
+                  "result": "GOOD",
+                  "impact": null,
                   "note": ""
                 },
                 "overdracht": {
-                  "result": "",
+                  "result": "GOOD",
+                  "impact": null,
                   "note": ""
                 }
               },
@@ -62500,7 +63072,13 @@
                   }
                 ]
               },
-              "inputDefinitions": [],
+              "inputDefinitions": [
+                {
+                  "item": "idem",
+                  "specifications": "",
+                  "type": null
+                }
+              ],
               "disruptions": [],
               "workExp": null,
               "workExpNote": "",
@@ -62514,7 +63092,8 @@
                 "onPassTargetProcessId": null,
                 "rule": "ALL_OK",
                 "note": ""
-              }
+              },
+              "linkedSourceIds": []
             },
             {
               "id": "1ffc5c12-94eb-4163-a333-9d0348f7179c",
@@ -62593,9 +63172,9 @@
               "created": 1770213398486,
               "text": "Taak nakijken plan afronden",
               "linkedSourceId": null,
-              "type": null,
+              "type": "Taak",
               "processValue": null,
-              "processStatus": null,
+              "processStatus": "HAPPY",
               "successFactors": "",
               "causes": [],
               "improvements": [],
@@ -62648,7 +63227,7 @@
               },
               "inputDefinitions": [],
               "disruptions": [],
-              "workExp": null,
+              "workExp": "ROUTINE",
               "workExpNote": "",
               "outputUid": "out_1a6d34fb-e470-4c93-86ba-5fe657f873a0",
               "linkedSourceUids": [],
@@ -107612,7 +108191,16 @@
               "inputDefinitions": [],
               "disruptions": [],
               "workExp": null,
-              "workExpNote": ""
+              "workExpNote": "",
+              "linkedSourceUids": [],
+              "linkedBundleIds": [],
+              "gate": {
+                "checkProcessIds": [],
+                "onFailTargetProcessId": null,
+                "onPassTargetProcessId": null,
+                "rule": "ALL_OK",
+                "note": ""
+              }
             },
             {
               "id": "e0e59bc0-08fc-458a-846f-41646c09d7f5",
@@ -107670,12 +108258,35 @@
                     },
                     "calculatedScore": null
                   }
-                ]
+                ],
+                "systemsMeta": {
+                  "multi": false,
+                  "systems": [
+                    {
+                      "id": "07c478c8-49fb-4cc0-a9f3-51b3dbe3ee4e",
+                      "name": "",
+                      "legacy": false,
+                      "future": "",
+                      "qa": {},
+                      "score": null
+                    }
+                  ],
+                  "activeSystemIdx": 0
+                }
               },
               "inputDefinitions": [],
               "disruptions": [],
               "workExp": null,
-              "workExpNote": ""
+              "workExpNote": "",
+              "linkedSourceUids": [],
+              "linkedBundleIds": [],
+              "gate": {
+                "checkProcessIds": [],
+                "onFailTargetProcessId": null,
+                "onPassTargetProcessId": null,
+                "rule": "ALL_OK",
+                "note": ""
+              }
             },
             {
               "id": "00cd6a2e-9dba-49e5-b5e1-077cc8e928a2",
@@ -107738,7 +108349,18 @@
               "inputDefinitions": [],
               "disruptions": [],
               "workExp": null,
-              "workExpNote": ""
+              "workExpNote": "",
+              "linkedSourceUids": [],
+              "linkedBundleIds": [],
+              "linkedBundleId": null,
+              "linkedSourceUid": null,
+              "gate": {
+                "checkProcessIds": [],
+                "onFailTargetProcessId": null,
+                "onPassTargetProcessId": null,
+                "rule": "ALL_OK",
+                "note": ""
+              }
             },
             {
               "id": "aa504346-5991-4cd0-8929-216b6dceab11",
@@ -107801,7 +108423,16 @@
               "inputDefinitions": [],
               "disruptions": [],
               "workExp": null,
-              "workExpNote": ""
+              "workExpNote": "",
+              "linkedSourceUids": [],
+              "linkedBundleIds": [],
+              "gate": {
+                "checkProcessIds": [],
+                "onFailTargetProcessId": null,
+                "onPassTargetProcessId": null,
+                "rule": "ALL_OK",
+                "note": ""
+              }
             },
             {
               "id": "ba524e8c-a481-46ee-a254-e574cd92882e",
@@ -107864,7 +108495,16 @@
               "inputDefinitions": [],
               "disruptions": [],
               "workExp": null,
-              "workExpNote": ""
+              "workExpNote": "",
+              "linkedSourceUids": [],
+              "linkedBundleIds": [],
+              "gate": {
+                "checkProcessIds": [],
+                "onFailTargetProcessId": null,
+                "onPassTargetProcessId": null,
+                "rule": "ALL_OK",
+                "note": ""
+              }
             },
             {
               "id": "a4aa6cb2-be95-457a-bc4f-ae8f0b71c28f",
@@ -107928,7 +108568,16 @@
               "disruptions": [],
               "workExp": null,
               "workExpNote": "",
-              "outputUid": "out_fb8ad91c-8c87-46ad-8c7e-4a5e135d3221"
+              "outputUid": "out_fb8ad91c-8c87-46ad-8c7e-4a5e135d3221",
+              "linkedSourceUids": [],
+              "linkedBundleIds": [],
+              "gate": {
+                "checkProcessIds": [],
+                "onFailTargetProcessId": null,
+                "onPassTargetProcessId": null,
+                "rule": "ALL_OK",
+                "note": ""
+              }
             },
             {
               "id": "8a207c81-a3c9-4aba-a7fe-c460444b74ef",
@@ -107991,13 +108640,28 @@
               "inputDefinitions": [],
               "disruptions": [],
               "workExp": null,
-              "workExpNote": ""
+              "workExpNote": "",
+              "linkedSourceUids": [],
+              "linkedBundleIds": [],
+              "gate": {
+                "checkProcessIds": [],
+                "onFailTargetProcessId": null,
+                "onPassTargetProcessId": null,
+                "rule": "ALL_OK",
+                "note": ""
+              }
             }
-          ]
+          ],
+          "isQuestion": false,
+          "isConditional": false,
+          "logic": null,
+          "isGroup": false
         }
       ],
       "outputMerges": [],
-      "systemMerges": []
+      "systemMerges": [],
+      "groups": [],
+      "variantGroups": []
     },
     {
       "id": "4285aa67-b99a-43ad-af59-48d73ba742c3",
@@ -108075,7 +108739,16 @@
               "inputDefinitions": [],
               "disruptions": [],
               "workExp": null,
-              "workExpNote": ""
+              "workExpNote": "",
+              "linkedSourceUids": [],
+              "linkedBundleIds": [],
+              "gate": {
+                "checkProcessIds": [],
+                "onFailTargetProcessId": null,
+                "onPassTargetProcessId": null,
+                "rule": "ALL_OK",
+                "note": ""
+              }
             },
             {
               "id": "ad1b2384-af5e-49d1-96b5-2c4668283502",
@@ -108133,12 +108806,35 @@
                     },
                     "calculatedScore": null
                   }
-                ]
+                ],
+                "systemsMeta": {
+                  "multi": false,
+                  "systems": [
+                    {
+                      "id": "bd567af4-d9ea-4bb3-9031-1924ab84c9d0",
+                      "name": "",
+                      "legacy": false,
+                      "future": "",
+                      "qa": {},
+                      "score": null
+                    }
+                  ],
+                  "activeSystemIdx": 0
+                }
               },
               "inputDefinitions": [],
               "disruptions": [],
               "workExp": null,
-              "workExpNote": ""
+              "workExpNote": "",
+              "linkedSourceUids": [],
+              "linkedBundleIds": [],
+              "gate": {
+                "checkProcessIds": [],
+                "onFailTargetProcessId": null,
+                "onPassTargetProcessId": null,
+                "rule": "ALL_OK",
+                "note": ""
+              }
             },
             {
               "id": "0adee80b-18de-484c-b986-0035c65b4d57",
@@ -108201,7 +108897,18 @@
               "inputDefinitions": [],
               "disruptions": [],
               "workExp": null,
-              "workExpNote": ""
+              "workExpNote": "",
+              "linkedSourceUids": [],
+              "linkedBundleIds": [],
+              "linkedBundleId": null,
+              "linkedSourceUid": null,
+              "gate": {
+                "checkProcessIds": [],
+                "onFailTargetProcessId": null,
+                "onPassTargetProcessId": null,
+                "rule": "ALL_OK",
+                "note": ""
+              }
             },
             {
               "id": "06421d3c-04c0-4198-94ab-49602c0e28f9",
@@ -108264,7 +108971,16 @@
               "inputDefinitions": [],
               "disruptions": [],
               "workExp": null,
-              "workExpNote": ""
+              "workExpNote": "",
+              "linkedSourceUids": [],
+              "linkedBundleIds": [],
+              "gate": {
+                "checkProcessIds": [],
+                "onFailTargetProcessId": null,
+                "onPassTargetProcessId": null,
+                "rule": "ALL_OK",
+                "note": ""
+              }
             },
             {
               "id": "20b1519a-ab9c-4498-a934-7a9d13696d41",
@@ -108327,7 +109043,16 @@
               "inputDefinitions": [],
               "disruptions": [],
               "workExp": null,
-              "workExpNote": ""
+              "workExpNote": "",
+              "linkedSourceUids": [],
+              "linkedBundleIds": [],
+              "gate": {
+                "checkProcessIds": [],
+                "onFailTargetProcessId": null,
+                "onPassTargetProcessId": null,
+                "rule": "ALL_OK",
+                "note": ""
+              }
             },
             {
               "id": "a62ad979-4711-4069-b883-642714b68091",
@@ -108391,7 +109116,16 @@
               "disruptions": [],
               "workExp": null,
               "workExpNote": "",
-              "outputUid": "out_f157413d-261d-40a9-9117-c3725855d755"
+              "outputUid": "out_f157413d-261d-40a9-9117-c3725855d755",
+              "linkedSourceUids": [],
+              "linkedBundleIds": [],
+              "gate": {
+                "checkProcessIds": [],
+                "onFailTargetProcessId": null,
+                "onPassTargetProcessId": null,
+                "rule": "ALL_OK",
+                "note": ""
+              }
             },
             {
               "id": "943763df-f0b5-4fab-b11b-9480e06ca35d",
@@ -108454,13 +109188,28 @@
               "inputDefinitions": [],
               "disruptions": [],
               "workExp": null,
-              "workExpNote": ""
+              "workExpNote": "",
+              "linkedSourceUids": [],
+              "linkedBundleIds": [],
+              "gate": {
+                "checkProcessIds": [],
+                "onFailTargetProcessId": null,
+                "onPassTargetProcessId": null,
+                "rule": "ALL_OK",
+                "note": ""
+              }
             }
-          ]
+          ],
+          "isQuestion": false,
+          "isConditional": false,
+          "logic": null,
+          "isGroup": false
         }
       ],
       "outputMerges": [],
-      "systemMerges": []
+      "systemMerges": [],
+      "groups": [],
+      "variantGroups": []
     },
     {
       "id": "31e611b8-a39c-477b-acf4-e7afa0e1d5b7",
@@ -108538,7 +109287,16 @@
               "inputDefinitions": [],
               "disruptions": [],
               "workExp": null,
-              "workExpNote": ""
+              "workExpNote": "",
+              "linkedSourceUids": [],
+              "linkedBundleIds": [],
+              "gate": {
+                "checkProcessIds": [],
+                "onFailTargetProcessId": null,
+                "onPassTargetProcessId": null,
+                "rule": "ALL_OK",
+                "note": ""
+              }
             },
             {
               "id": "afc757a6-9153-441c-84ee-c25b498f53f1",
@@ -108596,12 +109354,35 @@
                     },
                     "calculatedScore": null
                   }
-                ]
+                ],
+                "systemsMeta": {
+                  "multi": false,
+                  "systems": [
+                    {
+                      "id": "b438db5a-7c03-4733-bb7a-5905d5d9db02",
+                      "name": "",
+                      "legacy": false,
+                      "future": "",
+                      "qa": {},
+                      "score": null
+                    }
+                  ],
+                  "activeSystemIdx": 0
+                }
               },
               "inputDefinitions": [],
               "disruptions": [],
               "workExp": null,
-              "workExpNote": ""
+              "workExpNote": "",
+              "linkedSourceUids": [],
+              "linkedBundleIds": [],
+              "gate": {
+                "checkProcessIds": [],
+                "onFailTargetProcessId": null,
+                "onPassTargetProcessId": null,
+                "rule": "ALL_OK",
+                "note": ""
+              }
             },
             {
               "id": "cd62aed9-4f16-4fb4-91db-825dc66b4e66",
@@ -108664,7 +109445,18 @@
               "inputDefinitions": [],
               "disruptions": [],
               "workExp": null,
-              "workExpNote": ""
+              "workExpNote": "",
+              "linkedSourceUids": [],
+              "linkedBundleIds": [],
+              "linkedBundleId": null,
+              "linkedSourceUid": null,
+              "gate": {
+                "checkProcessIds": [],
+                "onFailTargetProcessId": null,
+                "onPassTargetProcessId": null,
+                "rule": "ALL_OK",
+                "note": ""
+              }
             },
             {
               "id": "ff300e30-9fd2-4902-ad1e-85cb2e0eee46",
@@ -108727,7 +109519,16 @@
               "inputDefinitions": [],
               "disruptions": [],
               "workExp": null,
-              "workExpNote": ""
+              "workExpNote": "",
+              "linkedSourceUids": [],
+              "linkedBundleIds": [],
+              "gate": {
+                "checkProcessIds": [],
+                "onFailTargetProcessId": null,
+                "onPassTargetProcessId": null,
+                "rule": "ALL_OK",
+                "note": ""
+              }
             },
             {
               "id": "18a0760f-3f14-4b48-8c72-8b9b2b3bd989",
@@ -108790,7 +109591,16 @@
               "inputDefinitions": [],
               "disruptions": [],
               "workExp": null,
-              "workExpNote": ""
+              "workExpNote": "",
+              "linkedSourceUids": [],
+              "linkedBundleIds": [],
+              "gate": {
+                "checkProcessIds": [],
+                "onFailTargetProcessId": null,
+                "onPassTargetProcessId": null,
+                "rule": "ALL_OK",
+                "note": ""
+              }
             },
             {
               "id": "525bcfa9-e12e-4204-90a3-d7f8587be372",
@@ -108854,7 +109664,16 @@
               "disruptions": [],
               "workExp": null,
               "workExpNote": "",
-              "outputUid": "out_d88a969d-f67b-4284-b0d6-faabd5920846"
+              "outputUid": "out_d88a969d-f67b-4284-b0d6-faabd5920846",
+              "linkedSourceUids": [],
+              "linkedBundleIds": [],
+              "gate": {
+                "checkProcessIds": [],
+                "onFailTargetProcessId": null,
+                "onPassTargetProcessId": null,
+                "rule": "ALL_OK",
+                "note": ""
+              }
             },
             {
               "id": "81164338-368a-43d1-bec5-2fefce71e56f",
@@ -108917,13 +109736,28 @@
               "inputDefinitions": [],
               "disruptions": [],
               "workExp": null,
-              "workExpNote": ""
+              "workExpNote": "",
+              "linkedSourceUids": [],
+              "linkedBundleIds": [],
+              "gate": {
+                "checkProcessIds": [],
+                "onFailTargetProcessId": null,
+                "onPassTargetProcessId": null,
+                "rule": "ALL_OK",
+                "note": ""
+              }
             }
-          ]
+          ],
+          "isQuestion": false,
+          "isConditional": false,
+          "logic": null,
+          "isGroup": false
         }
       ],
       "outputMerges": [],
-      "systemMerges": []
+      "systemMerges": [],
+      "groups": [],
+      "variantGroups": []
     }
   ],
   "outputBundles": [
