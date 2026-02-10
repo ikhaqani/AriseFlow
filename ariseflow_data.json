@@ -4,7 +4,7 @@
   "author": "Anoniem",
   "created": "2026-01-16T08:48:17.021Z",
   "version": "2.7",
-  "activeSheetId": "46861a1b-aeb5-4480-83a8-860bae246f52",
+  "activeSheetId": "82c5a0d7-dd02-4362-940e-76e2a3f5d814",
   "sheets": [
     {
       "id": "858c26e5-f7ec-4311-b503-641f99e65c84",
@@ -14828,7 +14828,7 @@
               "systemData": {
                 "isMulti": false,
                 "systemName": "",
-                "calculatedScore": null,
+                "calculatedScore": 20,
                 "systems": [
                   {
                     "id": "35185f00-d5ca-4380-af00-4d5c5be880e5",
@@ -14849,12 +14849,23 @@
                   "multi": false,
                   "systems": [
                     {
-                      "id": "ee64a8db-3c4a-4483-a17c-5427133634f6",
-                      "name": "",
+                      "id": "408587a2-7985-485b-b32d-2435f4ca4298",
+                      "name": "Epic",
                       "legacy": false,
                       "future": "",
-                      "qa": {},
-                      "score": null
+                      "qa": {
+                        "q1": "SOMETIMES",
+                        "q1_note": "Als de consultorder onvoldoende informatie bevat, raadpleeg ik het patiëntendossier om aanvullende details te achterhalen.",
+                        "q2": "ALWAYS",
+                        "q2_note": "Door het hoge aantal kliks om de werklijst te openen gaat tijd verloren en wordt de workflow onderbroke",
+                        "q3": "ALWAYS",
+                        "q3_note": "Informatie moet dubbel worden vastgelegd: zowel in Epic als in Radiotherapie Web (triageformulier).",
+                        "q4": "OFTEN",
+                        "q5": "STOP",
+                        "q4_note": "Er vindt geen controle op data plaatst of iets wel of niet aanwezig is. ",
+                        "q5_note": "Ik kan dan niet mijn werkzaamheden uitvoeren. "
+                      },
+                      "score": 20
                     }
                   ],
                   "activeSystemIdx": 0
@@ -14887,32 +14898,32 @@
               "improvements": [],
               "qa": {
                 "compleet": {
-                  "result": null,
-                  "impact": null,
-                  "note": ""
+                  "result": "MINOR",
+                  "impact": "C",
+                  "note": "Als de informatie onvolledig is, neem ik contact op met de triagearts of vraag ik aanvullende informatie op bij de polikliniek of de behandelend arts."
                 },
                 "kwaliteit": {
-                  "result": null,
+                  "result": "GOOD",
                   "impact": null,
                   "note": ""
                 },
                 "duidelijkheid": {
-                  "result": null,
+                  "result": "GOOD",
                   "impact": null,
                   "note": ""
                 },
                 "tijdigheid": {
-                  "result": null,
+                  "result": "GOOD",
                   "impact": null,
                   "note": ""
                 },
                 "standaard": {
-                  "result": null,
+                  "result": "GOOD",
                   "impact": null,
                   "note": ""
                 },
                 "overdracht": {
-                  "result": null,
+                  "result": "GOOD",
                   "impact": null,
                   "note": ""
                 }
@@ -14938,7 +14949,23 @@
                   }
                 ]
               },
-              "inputDefinitions": [],
+              "inputDefinitions": [
+                {
+                  "item": "Doelgebied",
+                  "specifications": "Het doelgebied (tumorgroep/anatomische regio) is eenduidig vastgelegd, zodat routing en planning in de juiste agenda kunnen plaatsvinden",
+                  "type": "HARD"
+                },
+                {
+                  "item": "Naam behandelend arts",
+                  "specifications": "Op basis hiervan wijs ik de afspraak toe aan de juiste behandelend arts.",
+                  "type": "HARD"
+                },
+                {
+                  "item": "Bijzonderheden",
+                  "specifications": "Ik controleer of de patiënt een chemokuur krijgt, geopereerd moet worden of andere bijzonderheden heeft die invloed hebben op het plannen van afspraken.",
+                  "type": "HARD"
+                }
+              ],
               "disruptions": [],
               "workExp": null,
               "workExpNote": "",
@@ -15034,12 +15061,20 @@
               "created": 1770283038455,
               "text": "Controleren consultorder",
               "linkedSourceId": null,
-              "type": null,
-              "processValue": null,
-              "processStatus": null,
+              "type": "Taak",
+              "processValue": "VA",
+              "processStatus": "NEUTRAL",
               "successFactors": "",
-              "causes": [],
-              "improvements": [],
+              "causes": [
+                "Onjuiste triage door triagearts",
+                "Artsafwezigheid",
+                "Incomplete gegevens"
+              ],
+              "improvements": [
+                "Standaardiseer triage op basis van doelgebied zodat wisselende triageartsen minder fouten maken en minder contact nodig is.",
+                "Borg vervanging en stem roosters strak af om herplannen door afwezigheid te voorkomen",
+                "Voer een verplichte volledigheidscheck op de poli uit vóór triage/planning"
+              ],
               "qa": {
                 "compleet": {
                   "result": "",
@@ -15088,8 +15123,14 @@
                 ]
               },
               "inputDefinitions": [],
-              "disruptions": [],
-              "workExp": null,
+              "disruptions": [
+                {
+                  "scenario": "De consultorder komt niet binnen, waardoor de start van triage/planning stilvalt.",
+                  "frequency": "Zelden",
+                  "workaround": "Handmatige signalering door patiënt of arts (oplettendheid) om de ontbrekende consultorder te melden."
+                }
+              ],
+              "workExp": "ROUTINE",
               "workExpNote": "",
               "linkedSourceUids": [],
               "linkedBundleIds": [],
@@ -15375,7 +15416,7 @@
               "systemData": {
                 "isMulti": false,
                 "systemName": "",
-                "calculatedScore": null,
+                "calculatedScore": 20,
                 "systems": [
                   {
                     "id": "f0a27179-b439-422e-9117-754f494f9dfe",
@@ -15396,12 +15437,23 @@
                   "multi": false,
                   "systems": [
                     {
-                      "id": "071911ca-9a9c-4f58-9be6-5ac8c5d8999a",
-                      "name": "",
+                      "id": "d96b18f9-31cc-4abb-a470-ebfe57d32a2a",
+                      "name": "Epic",
                       "legacy": false,
                       "future": "",
-                      "qa": {},
-                      "score": null
+                      "qa": {
+                        "q1": "SOMETIMES",
+                        "q1_note": "Als de consultorder onvoldoende informatie bevat, raadpleeg ik het patiëntendossier om aanvullende details te achterhalen.",
+                        "q2": "ALWAYS",
+                        "q2_note": "Door het hoge aantal kliks om de werklijst te openen gaat tijd verloren en wordt de workflow onderbroke",
+                        "q3": "ALWAYS",
+                        "q3_note": "Informatie moet dubbel worden vastgelegd: zowel in Epic als in Radiotherapie Web (triageformulier).",
+                        "q4": "OFTEN",
+                        "q5": "STOP",
+                        "q4_note": "Er vindt geen controle op data plaatst of iets wel of niet aanwezig is. ",
+                        "q5_note": "Ik kan dan niet mijn werkzaamheden uitvoeren. "
+                      },
+                      "score": 20
                     }
                   ],
                   "activeSystemIdx": 0
@@ -15434,32 +15486,32 @@
               "improvements": [],
               "qa": {
                 "compleet": {
-                  "result": null,
+                  "result": "GOOD",
                   "impact": null,
                   "note": ""
                 },
                 "kwaliteit": {
-                  "result": null,
+                  "result": "GOOD",
                   "impact": null,
                   "note": ""
                 },
                 "duidelijkheid": {
-                  "result": null,
+                  "result": "GOOD",
                   "impact": null,
                   "note": ""
                 },
                 "tijdigheid": {
-                  "result": null,
+                  "result": "GOOD",
                   "impact": null,
                   "note": ""
                 },
                 "standaard": {
-                  "result": null,
+                  "result": "GOOD",
                   "impact": null,
                   "note": ""
                 },
                 "overdracht": {
-                  "result": null,
+                  "result": "GOOD",
                   "impact": null,
                   "note": ""
                 }
@@ -15581,10 +15633,10 @@
               "created": 1770283058479,
               "text": "Route bepalen",
               "linkedSourceId": null,
-              "type": null,
-              "processValue": null,
-              "processStatus": null,
-              "successFactors": "",
+              "type": "Taak",
+              "processValue": "BNVA",
+              "processStatus": "HAPPY",
+              "successFactors": "AB-protocollen zijn goed geprotocolleerd. ",
               "causes": [],
               "improvements": [],
               "qa": {
@@ -15636,7 +15688,7 @@
               },
               "inputDefinitions": [],
               "disruptions": [],
-              "workExp": null,
+              "workExp": "ROUTINE",
               "workExpNote": "",
               "linkedSourceUids": [],
               "linkedBundleIds": [],
@@ -15922,7 +15974,7 @@
               "systemData": {
                 "isMulti": false,
                 "systemName": "",
-                "calculatedScore": null,
+                "calculatedScore": 100,
                 "systems": [
                   {
                     "id": "5156b920-aa99-4150-99e0-1457190ffda5",
@@ -15943,12 +15995,23 @@
                   "multi": false,
                   "systems": [
                     {
-                      "id": "3bd11e31-8a0e-46b3-8683-779d114aee71",
-                      "name": "",
+                      "id": "c904e5cc-fa8e-4884-a45f-7a29682a86ec",
+                      "name": "Zenya",
                       "legacy": false,
                       "future": "",
-                      "qa": {},
-                      "score": null
+                      "qa": {
+                        "q1": "NEVER",
+                        "q1_note": "Als de consultorder onvoldoende informatie bevat, raadpleeg ik het patiëntendossier om aanvullende details te achterhalen.",
+                        "q2": "NEVER",
+                        "q2_note": "Door het hoge aantal kliks om de werklijst te openen gaat tijd verloren en wordt de workflow onderbroke",
+                        "q3": "NEVER",
+                        "q3_note": "Informatie moet dubbel worden vastgelegd: zowel in Epic als in Radiotherapie Web (triageformulier).",
+                        "q4": "NEVER",
+                        "q5": "SAFE",
+                        "q4_note": "Er vindt geen controle op data plaatst of iets wel of niet aanwezig is. ",
+                        "q5_note": "Ik kan dan niet mijn werkzaamheden uitvoeren. "
+                      },
+                      "score": 100
                     }
                   ],
                   "activeSystemIdx": 0
@@ -15981,32 +16044,32 @@
               "improvements": [],
               "qa": {
                 "compleet": {
-                  "result": null,
+                  "result": "GOOD",
                   "impact": null,
                   "note": ""
                 },
                 "kwaliteit": {
-                  "result": null,
+                  "result": "GOOD",
                   "impact": null,
                   "note": ""
                 },
                 "duidelijkheid": {
-                  "result": null,
+                  "result": "GOOD",
                   "impact": null,
                   "note": ""
                 },
                 "tijdigheid": {
-                  "result": null,
+                  "result": "GOOD",
                   "impact": null,
                   "note": ""
                 },
                 "standaard": {
-                  "result": null,
+                  "result": "GOOD",
                   "impact": null,
                   "note": ""
                 },
                 "overdracht": {
-                  "result": null,
+                  "result": "GOOD",
                   "impact": null,
                   "note": ""
                 }
@@ -16128,10 +16191,10 @@
               "created": 1770300404576,
               "text": "Vrij slot zoeken",
               "linkedSourceId": null,
-              "type": null,
-              "processValue": null,
-              "processStatus": null,
-              "successFactors": "",
+              "type": "Taak",
+              "processValue": "BNVA",
+              "processStatus": "HAPPY",
+              "successFactors": "In Epic zie ik in één oogopslag beschikbare consultplekken dankzij de klinische blokken en kleurcodering.",
               "causes": [],
               "improvements": [],
               "qa": {
@@ -16182,8 +16245,14 @@
                 ]
               },
               "inputDefinitions": [],
-              "disruptions": [],
-              "workExp": null,
+              "disruptions": [
+                {
+                  "scenario": "Agenda’s staan niet correct ingericht in Epic.",
+                  "frequency": "Vaak",
+                  "workaround": "Ik koppel dit terug aan de backoffice en ga daarna verder met mijn taak."
+                }
+              ],
+              "workExp": "ROUTINE",
               "workExpNote": "",
               "outputUid": "out_729db466-b21f-44ea-841b-6b982439b8c3",
               "linkedSourceUids": [],
@@ -16528,32 +16597,32 @@
               "improvements": [],
               "qa": {
                 "compleet": {
-                  "result": null,
+                  "result": "GOOD",
                   "impact": null,
                   "note": ""
                 },
                 "kwaliteit": {
-                  "result": null,
+                  "result": "GOOD",
                   "impact": null,
                   "note": ""
                 },
                 "duidelijkheid": {
-                  "result": null,
+                  "result": "GOOD",
                   "impact": null,
                   "note": ""
                 },
                 "tijdigheid": {
-                  "result": null,
+                  "result": "GOOD",
                   "impact": null,
                   "note": ""
                 },
                 "standaard": {
-                  "result": null,
+                  "result": "GOOD",
                   "impact": null,
                   "note": ""
                 },
                 "overdracht": {
-                  "result": null,
+                  "result": "GOOD",
                   "impact": null,
                   "note": ""
                 }
@@ -16676,9 +16745,9 @@
               "text": "Patiënt bellen",
               "linkedSourceId": null,
               "type": null,
-              "processValue": null,
-              "processStatus": null,
-              "successFactors": "",
+              "processValue": "VA",
+              "processStatus": "HAPPY",
+              "successFactors": "Wij houden rekening met de wensen van de patiënt dat geeft soms wel voldoening. ",
               "causes": [],
               "improvements": [],
               "qa": {
@@ -16729,9 +16798,30 @@
                 ]
               },
               "inputDefinitions": [],
-              "disruptions": [],
-              "workExp": null,
-              "workExpNote": "",
+              "disruptions": [
+                {
+                  "scenario": "Patiënt is telefonisch niet bereikbaar",
+                  "frequency": "Soms",
+                  "workaround": "Voicemail inspreken en/of e-mail/brief sturen"
+                },
+                {
+                  "scenario": "Patiënt wilt graag dat wij ook familieleden bellen",
+                  "frequency": "Soms",
+                  "workaround": "Familie/contactpersoon bellen"
+                },
+                {
+                  "scenario": "Patiënt stelt veel (inhoudelijke) vragen tijdens het plannen",
+                  "frequency": "Vaak",
+                  "workaround": "Kort begrenzen en verwijzen naar de arts voor inhoudelijke uitleg"
+                },
+                {
+                  "scenario": "Patiënt weigert CT-afspraak (of wil niet komen), waardoor inplannen niet mogelijk is",
+                  "frequency": "Zelden",
+                  "workaround": "Behandelend arts informeren; arts bespreekt dit met patiënt en stuurt aan op akkoord/komst voor CT."
+                }
+              ],
+              "workExp": "OBSTACLE",
+              "workExpNote": "Bij het plannen moet ik met veel patiëntspecifieke eisen rekening houden, waardoor het inplannen moeizaam en tijdrovend is.",
               "outputUid": "out_29a187e2-2692-4f94-a14e-1659a861f787",
               "linkedSourceUids": [],
               "linkedBundleIds": [],
@@ -17083,32 +17173,32 @@
               "improvements": [],
               "qa": {
                 "compleet": {
-                  "result": null,
+                  "result": "GOOD",
                   "impact": null,
                   "note": ""
                 },
                 "kwaliteit": {
-                  "result": null,
+                  "result": "GOOD",
                   "impact": null,
                   "note": ""
                 },
                 "duidelijkheid": {
-                  "result": null,
+                  "result": "GOOD",
                   "impact": null,
                   "note": ""
                 },
                 "tijdigheid": {
-                  "result": null,
+                  "result": "GOOD",
                   "impact": null,
                   "note": ""
                 },
                 "standaard": {
-                  "result": null,
+                  "result": "GOOD",
                   "impact": null,
                   "note": ""
                 },
                 "overdracht": {
-                  "result": null,
+                  "result": "GOOD",
                   "impact": null,
                   "note": ""
                 }
@@ -17230,9 +17320,9 @@
               "created": 1770303954014,
               "text": "Consultafspraak inplannen",
               "linkedSourceId": null,
-              "type": null,
-              "processValue": null,
-              "processStatus": null,
+              "type": "Taak",
+              "processValue": "VA",
+              "processStatus": "HAPPY",
               "successFactors": "",
               "causes": [],
               "improvements": [],
@@ -17285,8 +17375,8 @@
               },
               "inputDefinitions": [],
               "disruptions": [],
-              "workExp": null,
-              "workExpNote": "",
+              "workExp": "ROUTINE",
+              "workExpNote": "Dit betekent dat alle voorgaande stappen goed zijn gegaan en dus is het inplannen nog maar een druk op de knop",
               "outputUid": "out_b86a4639-de0b-401c-b7ea-74ba08c9fc8b",
               "linkedSourceUids": [],
               "linkedBundleIds": [],
@@ -17630,32 +17720,32 @@
               "improvements": [],
               "qa": {
                 "compleet": {
-                  "result": null,
+                  "result": "GOOD",
                   "impact": null,
                   "note": ""
                 },
                 "kwaliteit": {
-                  "result": null,
+                  "result": "GOOD",
                   "impact": null,
                   "note": ""
                 },
                 "duidelijkheid": {
-                  "result": null,
+                  "result": "GOOD",
                   "impact": null,
                   "note": ""
                 },
                 "tijdigheid": {
-                  "result": null,
+                  "result": "GOOD",
                   "impact": null,
                   "note": ""
                 },
                 "standaard": {
-                  "result": null,
+                  "result": "GOOD",
                   "impact": null,
                   "note": ""
                 },
                 "overdracht": {
-                  "result": null,
+                  "result": "GOOD",
                   "impact": null,
                   "note": ""
                 }
@@ -17779,10 +17869,14 @@
               "linkedSourceId": null,
               "type": null,
               "processValue": null,
-              "processStatus": null,
+              "processStatus": "NEUTRAL",
               "successFactors": "",
-              "causes": [],
-              "improvements": [],
+              "causes": [
+                "Informatie over taalbarrie of bijzonderheden staat niet altijd in het systeem"
+              ],
+              "improvements": [
+                "Deze informatie goed vastleggen in het systeem zodat wij voorbereid zijn"
+              ],
               "qa": {
                 "compleet": {
                   "result": "",
@@ -17831,8 +17925,14 @@
                 ]
               },
               "inputDefinitions": [],
-              "disruptions": [],
-              "workExp": null,
+              "disruptions": [
+                {
+                  "scenario": "Taalbarrière/slechthorendheid/cognitieve problemen staan niet geregistreerd en blijken pas bij telefonisch contact.",
+                  "frequency": "Soms",
+                  "workaround": "Gegevens aanvullen en zo nodig een tolk of alternatief contact (familie/spreekuuruitleg) regelen."
+                }
+              ],
+              "workExp": "ROUTINE",
               "workExpNote": "",
               "outputUid": "out_d33c32f1-4ade-4d2f-8da9-0c9683f6eb71",
               "linkedSourceUids": [],
