@@ -4,7 +4,7 @@
   "author": "Anoniem",
   "created": "2026-01-16T08:48:17.021Z",
   "version": "2.7",
-  "activeSheetId": "82c5a0d7-dd02-4362-940e-76e2a3f5d814",
+  "activeSheetId": "46861a1b-aeb5-4480-83a8-860bae246f52",
   "sheets": [
     {
       "id": "858c26e5-f7ec-4311-b503-641f99e65c84",
@@ -14828,7 +14828,7 @@
               "systemData": {
                 "isMulti": false,
                 "systemName": "",
-                "calculatedScore": 20,
+                "calculatedScore": null,
                 "systems": [
                   {
                     "id": "35185f00-d5ca-4380-af00-4d5c5be880e5",
@@ -14849,23 +14849,12 @@
                   "multi": false,
                   "systems": [
                     {
-                      "id": "408587a2-7985-485b-b32d-2435f4ca4298",
-                      "name": "Epic",
+                      "id": "ee64a8db-3c4a-4483-a17c-5427133634f6",
+                      "name": "",
                       "legacy": false,
                       "future": "",
-                      "qa": {
-                        "q1": "SOMETIMES",
-                        "q1_note": "Als de consultorder onvoldoende informatie bevat, raadpleeg ik het patiëntendossier om aanvullende details te achterhalen.",
-                        "q2": "ALWAYS",
-                        "q2_note": "Door het hoge aantal kliks om de werklijst te openen gaat tijd verloren en wordt de workflow onderbroke",
-                        "q3": "ALWAYS",
-                        "q3_note": "Informatie moet dubbel worden vastgelegd: zowel in Epic als in Radiotherapie Web (triageformulier).",
-                        "q4": "OFTEN",
-                        "q5": "STOP",
-                        "q4_note": "Er vindt geen controle op data plaatst of iets wel of niet aanwezig is. ",
-                        "q5_note": "Ik kan dan niet mijn werkzaamheden uitvoeren. "
-                      },
-                      "score": 20
+                      "qa": {},
+                      "score": null
                     }
                   ],
                   "activeSystemIdx": 0
@@ -14898,32 +14887,32 @@
               "improvements": [],
               "qa": {
                 "compleet": {
-                  "result": "MINOR",
-                  "impact": "C",
-                  "note": "Als de informatie onvolledig is, neem ik contact op met de triagearts of vraag ik aanvullende informatie op bij de polikliniek of de behandelend arts."
+                  "result": null,
+                  "impact": null,
+                  "note": ""
                 },
                 "kwaliteit": {
-                  "result": "GOOD",
+                  "result": null,
                   "impact": null,
                   "note": ""
                 },
                 "duidelijkheid": {
-                  "result": "GOOD",
+                  "result": null,
                   "impact": null,
                   "note": ""
                 },
                 "tijdigheid": {
-                  "result": "GOOD",
+                  "result": null,
                   "impact": null,
                   "note": ""
                 },
                 "standaard": {
-                  "result": "GOOD",
+                  "result": null,
                   "impact": null,
                   "note": ""
                 },
                 "overdracht": {
-                  "result": "GOOD",
+                  "result": null,
                   "impact": null,
                   "note": ""
                 }
@@ -14949,23 +14938,7 @@
                   }
                 ]
               },
-              "inputDefinitions": [
-                {
-                  "item": "Doelgebied",
-                  "specifications": "Het doelgebied (tumorgroep/anatomische regio) is eenduidig vastgelegd, zodat routing en planning in de juiste agenda kunnen plaatsvinden",
-                  "type": "HARD"
-                },
-                {
-                  "item": "Naam behandelend arts",
-                  "specifications": "Op basis hiervan wijs ik de afspraak toe aan de juiste behandelend arts.",
-                  "type": "HARD"
-                },
-                {
-                  "item": "Bijzonderheden",
-                  "specifications": "Ik controleer of de patiënt een chemokuur krijgt, geopereerd moet worden of andere bijzonderheden heeft die invloed hebben op het plannen van afspraken.",
-                  "type": "HARD"
-                }
-              ],
+              "inputDefinitions": [],
               "disruptions": [],
               "workExp": null,
               "workExpNote": "",
@@ -15061,20 +15034,12 @@
               "created": 1770283038455,
               "text": "Controleren consultorder",
               "linkedSourceId": null,
-              "type": "Taak",
-              "processValue": "VA",
-              "processStatus": "NEUTRAL",
+              "type": null,
+              "processValue": null,
+              "processStatus": null,
               "successFactors": "",
-              "causes": [
-                "Onjuiste triage door triagearts",
-                "Artsafwezigheid",
-                "Incomplete gegevens"
-              ],
-              "improvements": [
-                "Standaardiseer triage op basis van doelgebied zodat wisselende triageartsen minder fouten maken en minder contact nodig is.",
-                "Borg vervanging en stem roosters strak af om herplannen door afwezigheid te voorkomen",
-                "Voer een verplichte volledigheidscheck op de poli uit vóór triage/planning"
-              ],
+              "causes": [],
+              "improvements": [],
               "qa": {
                 "compleet": {
                   "result": "",
@@ -15123,14 +15088,8 @@
                 ]
               },
               "inputDefinitions": [],
-              "disruptions": [
-                {
-                  "scenario": "De consultorder komt niet binnen, waardoor de start van triage/planning stilvalt.",
-                  "frequency": "Zelden",
-                  "workaround": "Handmatige signalering door patiënt of arts (oplettendheid) om de ontbrekende consultorder te melden."
-                }
-              ],
-              "workExp": "ROUTINE",
+              "disruptions": [],
+              "workExp": null,
               "workExpNote": "",
               "linkedSourceUids": [],
               "linkedBundleIds": [],
@@ -15416,7 +15375,7 @@
               "systemData": {
                 "isMulti": false,
                 "systemName": "",
-                "calculatedScore": 20,
+                "calculatedScore": null,
                 "systems": [
                   {
                     "id": "f0a27179-b439-422e-9117-754f494f9dfe",
@@ -15437,23 +15396,12 @@
                   "multi": false,
                   "systems": [
                     {
-                      "id": "d96b18f9-31cc-4abb-a470-ebfe57d32a2a",
-                      "name": "Epic",
+                      "id": "071911ca-9a9c-4f58-9be6-5ac8c5d8999a",
+                      "name": "",
                       "legacy": false,
                       "future": "",
-                      "qa": {
-                        "q1": "SOMETIMES",
-                        "q1_note": "Als de consultorder onvoldoende informatie bevat, raadpleeg ik het patiëntendossier om aanvullende details te achterhalen.",
-                        "q2": "ALWAYS",
-                        "q2_note": "Door het hoge aantal kliks om de werklijst te openen gaat tijd verloren en wordt de workflow onderbroke",
-                        "q3": "ALWAYS",
-                        "q3_note": "Informatie moet dubbel worden vastgelegd: zowel in Epic als in Radiotherapie Web (triageformulier).",
-                        "q4": "OFTEN",
-                        "q5": "STOP",
-                        "q4_note": "Er vindt geen controle op data plaatst of iets wel of niet aanwezig is. ",
-                        "q5_note": "Ik kan dan niet mijn werkzaamheden uitvoeren. "
-                      },
-                      "score": 20
+                      "qa": {},
+                      "score": null
                     }
                   ],
                   "activeSystemIdx": 0
@@ -15486,32 +15434,32 @@
               "improvements": [],
               "qa": {
                 "compleet": {
-                  "result": "GOOD",
+                  "result": null,
                   "impact": null,
                   "note": ""
                 },
                 "kwaliteit": {
-                  "result": "GOOD",
+                  "result": null,
                   "impact": null,
                   "note": ""
                 },
                 "duidelijkheid": {
-                  "result": "GOOD",
+                  "result": null,
                   "impact": null,
                   "note": ""
                 },
                 "tijdigheid": {
-                  "result": "GOOD",
+                  "result": null,
                   "impact": null,
                   "note": ""
                 },
                 "standaard": {
-                  "result": "GOOD",
+                  "result": null,
                   "impact": null,
                   "note": ""
                 },
                 "overdracht": {
-                  "result": "GOOD",
+                  "result": null,
                   "impact": null,
                   "note": ""
                 }
@@ -15633,10 +15581,10 @@
               "created": 1770283058479,
               "text": "Route bepalen",
               "linkedSourceId": null,
-              "type": "Taak",
-              "processValue": "BNVA",
-              "processStatus": "HAPPY",
-              "successFactors": "AB-protocollen zijn goed geprotocolleerd. ",
+              "type": null,
+              "processValue": null,
+              "processStatus": null,
+              "successFactors": "",
               "causes": [],
               "improvements": [],
               "qa": {
@@ -15688,7 +15636,7 @@
               },
               "inputDefinitions": [],
               "disruptions": [],
-              "workExp": "ROUTINE",
+              "workExp": null,
               "workExpNote": "",
               "linkedSourceUids": [],
               "linkedBundleIds": [],
@@ -15974,7 +15922,7 @@
               "systemData": {
                 "isMulti": false,
                 "systemName": "",
-                "calculatedScore": 100,
+                "calculatedScore": null,
                 "systems": [
                   {
                     "id": "5156b920-aa99-4150-99e0-1457190ffda5",
@@ -15995,23 +15943,12 @@
                   "multi": false,
                   "systems": [
                     {
-                      "id": "c904e5cc-fa8e-4884-a45f-7a29682a86ec",
-                      "name": "Zenya",
+                      "id": "3bd11e31-8a0e-46b3-8683-779d114aee71",
+                      "name": "",
                       "legacy": false,
                       "future": "",
-                      "qa": {
-                        "q1": "NEVER",
-                        "q1_note": "Als de consultorder onvoldoende informatie bevat, raadpleeg ik het patiëntendossier om aanvullende details te achterhalen.",
-                        "q2": "NEVER",
-                        "q2_note": "Door het hoge aantal kliks om de werklijst te openen gaat tijd verloren en wordt de workflow onderbroke",
-                        "q3": "NEVER",
-                        "q3_note": "Informatie moet dubbel worden vastgelegd: zowel in Epic als in Radiotherapie Web (triageformulier).",
-                        "q4": "NEVER",
-                        "q5": "SAFE",
-                        "q4_note": "Er vindt geen controle op data plaatst of iets wel of niet aanwezig is. ",
-                        "q5_note": "Ik kan dan niet mijn werkzaamheden uitvoeren. "
-                      },
-                      "score": 100
+                      "qa": {},
+                      "score": null
                     }
                   ],
                   "activeSystemIdx": 0
@@ -16044,32 +15981,32 @@
               "improvements": [],
               "qa": {
                 "compleet": {
-                  "result": "GOOD",
+                  "result": null,
                   "impact": null,
                   "note": ""
                 },
                 "kwaliteit": {
-                  "result": "GOOD",
+                  "result": null,
                   "impact": null,
                   "note": ""
                 },
                 "duidelijkheid": {
-                  "result": "GOOD",
+                  "result": null,
                   "impact": null,
                   "note": ""
                 },
                 "tijdigheid": {
-                  "result": "GOOD",
+                  "result": null,
                   "impact": null,
                   "note": ""
                 },
                 "standaard": {
-                  "result": "GOOD",
+                  "result": null,
                   "impact": null,
                   "note": ""
                 },
                 "overdracht": {
-                  "result": "GOOD",
+                  "result": null,
                   "impact": null,
                   "note": ""
                 }
@@ -16191,10 +16128,10 @@
               "created": 1770300404576,
               "text": "Vrij slot zoeken",
               "linkedSourceId": null,
-              "type": "Taak",
-              "processValue": "BNVA",
-              "processStatus": "HAPPY",
-              "successFactors": "In Epic zie ik in één oogopslag beschikbare consultplekken dankzij de klinische blokken en kleurcodering.",
+              "type": null,
+              "processValue": null,
+              "processStatus": null,
+              "successFactors": "",
               "causes": [],
               "improvements": [],
               "qa": {
@@ -16245,14 +16182,8 @@
                 ]
               },
               "inputDefinitions": [],
-              "disruptions": [
-                {
-                  "scenario": "Agenda’s staan niet correct ingericht in Epic.",
-                  "frequency": "Vaak",
-                  "workaround": "Ik koppel dit terug aan de backoffice en ga daarna verder met mijn taak."
-                }
-              ],
-              "workExp": "ROUTINE",
+              "disruptions": [],
+              "workExp": null,
               "workExpNote": "",
               "outputUid": "out_729db466-b21f-44ea-841b-6b982439b8c3",
               "linkedSourceUids": [],
@@ -16597,32 +16528,32 @@
               "improvements": [],
               "qa": {
                 "compleet": {
-                  "result": "GOOD",
+                  "result": null,
                   "impact": null,
                   "note": ""
                 },
                 "kwaliteit": {
-                  "result": "GOOD",
+                  "result": null,
                   "impact": null,
                   "note": ""
                 },
                 "duidelijkheid": {
-                  "result": "GOOD",
+                  "result": null,
                   "impact": null,
                   "note": ""
                 },
                 "tijdigheid": {
-                  "result": "GOOD",
+                  "result": null,
                   "impact": null,
                   "note": ""
                 },
                 "standaard": {
-                  "result": "GOOD",
+                  "result": null,
                   "impact": null,
                   "note": ""
                 },
                 "overdracht": {
-                  "result": "GOOD",
+                  "result": null,
                   "impact": null,
                   "note": ""
                 }
@@ -16745,9 +16676,9 @@
               "text": "Patiënt bellen",
               "linkedSourceId": null,
               "type": null,
-              "processValue": "VA",
-              "processStatus": "HAPPY",
-              "successFactors": "Wij houden rekening met de wensen van de patiënt dat geeft soms wel voldoening. ",
+              "processValue": null,
+              "processStatus": null,
+              "successFactors": "",
               "causes": [],
               "improvements": [],
               "qa": {
@@ -16798,30 +16729,9 @@
                 ]
               },
               "inputDefinitions": [],
-              "disruptions": [
-                {
-                  "scenario": "Patiënt is telefonisch niet bereikbaar",
-                  "frequency": "Soms",
-                  "workaround": "Voicemail inspreken en/of e-mail/brief sturen"
-                },
-                {
-                  "scenario": "Patiënt wilt graag dat wij ook familieleden bellen",
-                  "frequency": "Soms",
-                  "workaround": "Familie/contactpersoon bellen"
-                },
-                {
-                  "scenario": "Patiënt stelt veel (inhoudelijke) vragen tijdens het plannen",
-                  "frequency": "Vaak",
-                  "workaround": "Kort begrenzen en verwijzen naar de arts voor inhoudelijke uitleg"
-                },
-                {
-                  "scenario": "Patiënt weigert CT-afspraak (of wil niet komen), waardoor inplannen niet mogelijk is",
-                  "frequency": "Zelden",
-                  "workaround": "Behandelend arts informeren; arts bespreekt dit met patiënt en stuurt aan op akkoord/komst voor CT."
-                }
-              ],
-              "workExp": "OBSTACLE",
-              "workExpNote": "Bij het plannen moet ik met veel patiëntspecifieke eisen rekening houden, waardoor het inplannen moeizaam en tijdrovend is.",
+              "disruptions": [],
+              "workExp": null,
+              "workExpNote": "",
               "outputUid": "out_29a187e2-2692-4f94-a14e-1659a861f787",
               "linkedSourceUids": [],
               "linkedBundleIds": [],
@@ -17173,32 +17083,32 @@
               "improvements": [],
               "qa": {
                 "compleet": {
-                  "result": "GOOD",
+                  "result": null,
                   "impact": null,
                   "note": ""
                 },
                 "kwaliteit": {
-                  "result": "GOOD",
+                  "result": null,
                   "impact": null,
                   "note": ""
                 },
                 "duidelijkheid": {
-                  "result": "GOOD",
+                  "result": null,
                   "impact": null,
                   "note": ""
                 },
                 "tijdigheid": {
-                  "result": "GOOD",
+                  "result": null,
                   "impact": null,
                   "note": ""
                 },
                 "standaard": {
-                  "result": "GOOD",
+                  "result": null,
                   "impact": null,
                   "note": ""
                 },
                 "overdracht": {
-                  "result": "GOOD",
+                  "result": null,
                   "impact": null,
                   "note": ""
                 }
@@ -17320,9 +17230,9 @@
               "created": 1770303954014,
               "text": "Consultafspraak inplannen",
               "linkedSourceId": null,
-              "type": "Taak",
-              "processValue": "VA",
-              "processStatus": "HAPPY",
+              "type": null,
+              "processValue": null,
+              "processStatus": null,
               "successFactors": "",
               "causes": [],
               "improvements": [],
@@ -17375,8 +17285,8 @@
               },
               "inputDefinitions": [],
               "disruptions": [],
-              "workExp": "ROUTINE",
-              "workExpNote": "Dit betekent dat alle voorgaande stappen goed zijn gegaan en dus is het inplannen nog maar een druk op de knop",
+              "workExp": null,
+              "workExpNote": "",
               "outputUid": "out_b86a4639-de0b-401c-b7ea-74ba08c9fc8b",
               "linkedSourceUids": [],
               "linkedBundleIds": [],
@@ -17720,32 +17630,32 @@
               "improvements": [],
               "qa": {
                 "compleet": {
-                  "result": "GOOD",
+                  "result": null,
                   "impact": null,
                   "note": ""
                 },
                 "kwaliteit": {
-                  "result": "GOOD",
+                  "result": null,
                   "impact": null,
                   "note": ""
                 },
                 "duidelijkheid": {
-                  "result": "GOOD",
+                  "result": null,
                   "impact": null,
                   "note": ""
                 },
                 "tijdigheid": {
-                  "result": "GOOD",
+                  "result": null,
                   "impact": null,
                   "note": ""
                 },
                 "standaard": {
-                  "result": "GOOD",
+                  "result": null,
                   "impact": null,
                   "note": ""
                 },
                 "overdracht": {
-                  "result": "GOOD",
+                  "result": null,
                   "impact": null,
                   "note": ""
                 }
@@ -17869,14 +17779,10 @@
               "linkedSourceId": null,
               "type": null,
               "processValue": null,
-              "processStatus": "NEUTRAL",
+              "processStatus": null,
               "successFactors": "",
-              "causes": [
-                "Informatie over taalbarrie of bijzonderheden staat niet altijd in het systeem"
-              ],
-              "improvements": [
-                "Deze informatie goed vastleggen in het systeem zodat wij voorbereid zijn"
-              ],
+              "causes": [],
+              "improvements": [],
               "qa": {
                 "compleet": {
                   "result": "",
@@ -17925,14 +17831,8 @@
                 ]
               },
               "inputDefinitions": [],
-              "disruptions": [
-                {
-                  "scenario": "Taalbarrière/slechthorendheid/cognitieve problemen staan niet geregistreerd en blijken pas bij telefonisch contact.",
-                  "frequency": "Soms",
-                  "workaround": "Gegevens aanvullen en zo nodig een tolk of alternatief contact (familie/spreekuuruitleg) regelen."
-                }
-              ],
-              "workExp": "ROUTINE",
+              "disruptions": [],
+              "workExp": null,
               "workExpNote": "",
               "outputUid": "out_d33c32f1-4ade-4d2f-8da9-0c9683f6eb71",
               "linkedSourceUids": [],
@@ -64219,7 +64119,7 @@
                   "multi": false,
                   "systems": [
                     {
-                      "id": "56ab0ed9-e1d2-4bdd-8865-287db72f8853",
+                      "id": "23a594ce-c105-43e9-98ac-06336e9a7469",
                       "name": "RTH-web",
                       "legacy": false,
                       "future": "",
@@ -64771,7 +64671,7 @@
                   "multi": false,
                   "systems": [
                     {
-                      "id": "7a7e78c8-38bc-4228-b8b9-b74e3fcd6398",
+                      "id": "8154c07a-06a6-4154-8def-e8fe4756e6c7",
                       "name": "RTH web",
                       "legacy": true,
                       "future": "Aria",
@@ -65880,7 +65780,7 @@
                   "multi": false,
                   "systems": [
                     {
-                      "id": "39a8a8ef-8d92-45ac-be54-c99ceec70526",
+                      "id": "f4a6fde1-5af1-4e95-a1f9-aea6c2793df2",
                       "name": "",
                       "legacy": false,
                       "future": "",
@@ -66434,7 +66334,7 @@
                   "multi": false,
                   "systems": [
                     {
-                      "id": "2770a924-0491-4888-b597-03d9f7914ec4",
+                      "id": "80e1c236-5d19-4dd2-8089-efdf3f58b5c0",
                       "name": "",
                       "legacy": false,
                       "future": "",
@@ -66991,7 +66891,7 @@
                   "multi": false,
                   "systems": [
                     {
-                      "id": "4539ba30-0493-4564-a58c-52aae134328c",
+                      "id": "24c8a336-cb72-4f1c-9efc-0624b4acf412",
                       "name": "RTH web",
                       "legacy": false,
                       "future": "",
@@ -67542,7 +67442,7 @@
                   "multi": false,
                   "systems": [
                     {
-                      "id": "14ecb58d-cfb8-4880-8748-8aae8e1a6d50",
+                      "id": "8cc33586-233e-40e5-8e42-4857015a99a8",
                       "name": "",
                       "legacy": false,
                       "future": "",
@@ -68094,7 +67994,7 @@
                   "multi": false,
                   "systems": [
                     {
-                      "id": "c40d3d3d-b5c4-45e5-8cbf-60327df67f55",
+                      "id": "e3c52a03-2c3f-4e62-b184-86f764fb0bb5",
                       "name": "",
                       "legacy": false,
                       "future": "",
@@ -68646,7 +68546,7 @@
                   "multi": false,
                   "systems": [
                     {
-                      "id": "4a6cd67a-869a-4f16-b7e9-9a6d1865eca4",
+                      "id": "21583bdb-3768-423d-8554-998cdddcbdd1",
                       "name": "",
                       "legacy": false,
                       "future": "",
@@ -69200,7 +69100,7 @@
                   "multi": false,
                   "systems": [
                     {
-                      "id": "321ab6db-9414-4f1d-88bf-5b206d164b92",
+                      "id": "506d612f-7053-4231-b949-d33e6d15de77",
                       "name": "RTH web",
                       "legacy": false,
                       "future": "",
@@ -69752,7 +69652,7 @@
                   "multi": false,
                   "systems": [
                     {
-                      "id": "4db56706-1a2d-498b-860a-87293aba2794",
+                      "id": "83d27dec-72f3-4b02-b8cf-2b9cbad8af36",
                       "name": "Aria",
                       "legacy": false,
                       "future": "",
@@ -70308,7 +70208,7 @@
                   "multi": false,
                   "systems": [
                     {
-                      "id": "0b641034-d521-4e29-a163-ae95e8ded3c7",
+                      "id": "cfaef7ba-dde1-4f8c-a9fa-60b3cbf90b4d",
                       "name": "",
                       "legacy": false,
                       "future": "",
@@ -70859,7 +70759,7 @@
                   "multi": false,
                   "systems": [
                     {
-                      "id": "59223ef3-f93a-423e-8e0d-7ddc9c5ea6ab",
+                      "id": "7807ec69-b5b0-455b-94ab-b48beefa57b4",
                       "name": "",
                       "legacy": false,
                       "future": "",
@@ -71410,7 +71310,7 @@
                   "multi": false,
                   "systems": [
                     {
-                      "id": "8df01034-d6de-4724-93bb-c73e9bb16e79",
+                      "id": "c57be497-61a0-419b-8a88-5045c34bede2",
                       "name": "RTH-web",
                       "legacy": false,
                       "future": "",
@@ -71961,7 +71861,7 @@
                   "multi": false,
                   "systems": [
                     {
-                      "id": "62f09b04-9481-489b-a0b9-94b840046c4c",
+                      "id": "7d251f4f-0c97-4167-8ef6-5c4c02e4255b",
                       "name": "",
                       "legacy": false,
                       "future": "",
@@ -72514,7 +72414,7 @@
                   "multi": false,
                   "systems": [
                     {
-                      "id": "6ce781af-2f8d-4789-b0f1-8df0e9574ea3",
+                      "id": "3db2e513-d27e-475f-902d-4c5956a439bf",
                       "name": "",
                       "legacy": false,
                       "future": "",
@@ -73067,7 +72967,7 @@
                   "multi": false,
                   "systems": [
                     {
-                      "id": "dd02c780-a170-4b69-9a0e-3f922dcb2c54",
+                      "id": "b6bdc736-8438-4212-9cfc-4c68363e3861",
                       "name": "",
                       "legacy": false,
                       "future": "",
@@ -73619,7 +73519,7 @@
                   "multi": false,
                   "systems": [
                     {
-                      "id": "6be17d4c-f408-4ffc-b8ea-d38a8ea9fe18",
+                      "id": "63fa044a-744e-44d3-8c54-b3d2d0a88a62",
                       "name": "RTH web",
                       "legacy": false,
                       "future": "",
@@ -74170,7 +74070,7 @@
                   "multi": false,
                   "systems": [
                     {
-                      "id": "b16813c7-ba0d-49ef-9892-66c5fa128074",
+                      "id": "310a47f9-ff12-4a59-8da9-d09bdb34dfdf",
                       "name": "",
                       "legacy": false,
                       "future": "",
@@ -74722,7 +74622,7 @@
                   "multi": false,
                   "systems": [
                     {
-                      "id": "7ea801ef-d78d-4599-9e7c-be280ed54f27",
+                      "id": "fb01b4d8-c078-4c6e-922f-7ba00c8571b9",
                       "name": "RTH web",
                       "legacy": false,
                       "future": "",
@@ -75273,7 +75173,7 @@
                   "multi": false,
                   "systems": [
                     {
-                      "id": "f9d27def-9352-421a-a8cc-1a15efacd6ea",
+                      "id": "dfce4d17-17aa-4a8b-8edd-2c526d70b73f",
                       "name": "",
                       "legacy": false,
                       "future": "",
@@ -75825,7 +75725,7 @@
                   "multi": false,
                   "systems": [
                     {
-                      "id": "3b081509-20e1-47b2-ba06-28407bfaa57a",
+                      "id": "225dd7b7-fc99-4706-996d-c353dec08850",
                       "name": "",
                       "legacy": false,
                       "future": "",
@@ -76379,7 +76279,7 @@
                   "multi": false,
                   "systems": [
                     {
-                      "id": "e6ef66ca-4140-4805-b8da-f7849a0c1c62",
+                      "id": "2f36be60-e090-4721-bbd4-b83d7df2b142",
                       "name": "RTH web",
                       "legacy": false,
                       "future": "",
@@ -76930,7 +76830,7 @@
                   "multi": false,
                   "systems": [
                     {
-                      "id": "b18ec84d-fa84-4752-a329-ba2949d29dfa",
+                      "id": "3b3bb545-9bc3-45a8-94ca-88f58b8bbdde",
                       "name": "",
                       "legacy": false,
                       "future": "",
@@ -77482,7 +77382,7 @@
                   "multi": false,
                   "systems": [
                     {
-                      "id": "c80af140-ce67-4c7e-b0cb-1f6fe74b9bd5",
+                      "id": "19a2f369-22b6-4566-925b-d10719f9d575",
                       "name": "RTH-web",
                       "legacy": false,
                       "future": "",
@@ -78033,7 +77933,7 @@
                   "multi": false,
                   "systems": [
                     {
-                      "id": "6b5b5805-4d5b-4c47-92b3-3b1bb7f281ae",
+                      "id": "512e5db3-ca37-430b-88a4-b4d857a3a39a",
                       "name": "",
                       "legacy": false,
                       "future": "",
@@ -78590,7 +78490,7 @@
                   "multi": false,
                   "systems": [
                     {
-                      "id": "2dc1d30f-b607-46f0-8f28-9906d1f47944",
+                      "id": "3a41211f-f961-4a34-9503-678fbc28f17e",
                       "name": "RTH-web",
                       "legacy": false,
                       "future": "",
@@ -79146,7 +79046,7 @@
                   "multi": true,
                   "systems": [
                     {
-                      "id": "a67f6b25-6f95-492e-ba51-07e5e94fe82c",
+                      "id": "a479a92f-185d-4c6a-a3d9-de626abf1d0e",
                       "name": "Aria",
                       "legacy": false,
                       "future": "",
@@ -79161,7 +79061,7 @@
                       "score": 93
                     },
                     {
-                      "id": "47a439de-4afd-4bc1-a4cf-bc08386fd587",
+                      "id": "dcc35919-37e4-4d60-898c-2ccda402b955",
                       "name": "RTH-web",
                       "legacy": false,
                       "future": "",
@@ -79713,7 +79613,7 @@
                   "multi": false,
                   "systems": [
                     {
-                      "id": "7fbb0545-0b18-4258-8def-5c86a8dc4082",
+                      "id": "61429dbe-cbac-4fa5-8230-ddc626428847",
                       "name": "",
                       "legacy": false,
                       "future": "",
@@ -80265,7 +80165,7 @@
                   "multi": false,
                   "systems": [
                     {
-                      "id": "cd35d4b9-ff0f-4841-8f30-d33f6af1062c",
+                      "id": "88798001-4eae-4626-bae2-e06e2f2686fe",
                       "name": "",
                       "legacy": false,
                       "future": "",
@@ -80823,7 +80723,7 @@
                   "multi": false,
                   "systems": [
                     {
-                      "id": "00172525-646e-4645-82af-be367694a261",
+                      "id": "3aac51ae-9333-4721-95ae-bad9de81ec9b",
                       "name": "",
                       "legacy": false,
                       "future": "",
@@ -81375,7 +81275,7 @@
                   "multi": false,
                   "systems": [
                     {
-                      "id": "c17e7658-bd3f-4a5d-b6f5-501fa5d310ce",
+                      "id": "4212a911-6c68-4b89-ab2e-e59bcc2d4a32",
                       "name": "RTH-web",
                       "legacy": false,
                       "future": "",
@@ -81926,7 +81826,7 @@
                   "multi": false,
                   "systems": [
                     {
-                      "id": "05220b80-69b8-4696-a187-b17fa30641d2",
+                      "id": "d1a61636-455d-4826-bbf6-b21867487b56",
                       "name": "",
                       "legacy": false,
                       "future": "",
@@ -82478,7 +82378,7 @@
                   "multi": false,
                   "systems": [
                     {
-                      "id": "d1c421b1-085c-4ca0-ad5e-eef055ffeb48",
+                      "id": "72d6ff48-4b11-4dbc-9595-f0e2fe0a555b",
                       "name": "SGRT",
                       "legacy": false,
                       "future": "",
@@ -83031,7 +82931,7 @@
                   "multi": false,
                   "systems": [
                     {
-                      "id": "7103b1fc-1380-4af7-8911-a9166f95a652",
+                      "id": "11f9b967-5aa8-44a3-8bee-92498362477a",
                       "name": "RTH web",
                       "legacy": false,
                       "future": "",
@@ -113738,7 +113638,7 @@
                   "multi": false,
                   "systems": [
                     {
-                      "id": "c05849cb-4ac6-4a8c-ad81-7e01dfff3bc9",
+                      "id": "9e0bce5a-dcd7-4e6d-bcf7-1cf84c613062",
                       "name": "RTH web",
                       "legacy": false,
                       "future": "",
@@ -114289,7 +114189,7 @@
                   "multi": false,
                   "systems": [
                     {
-                      "id": "88afbf2d-2d5f-4b9e-acf3-6b35f872d359",
+                      "id": "9b596255-510e-4cf3-a876-f1c4b6eb365c",
                       "name": "Ethos Threatment Management",
                       "legacy": false,
                       "future": "",
@@ -114842,7 +114742,7 @@
                   "multi": false,
                   "systems": [
                     {
-                      "id": "7ccfad0b-396e-4996-9290-54206cb8c113",
+                      "id": "b958bdc7-d357-4c62-b6ed-df9413b4b3ec",
                       "name": "Ethos Threatment Management",
                       "legacy": false,
                       "future": "",
@@ -115393,7 +115293,7 @@
                   "multi": false,
                   "systems": [
                     {
-                      "id": "d1f4394c-404d-4276-afb4-448e43a4953c",
+                      "id": "125f0e1b-6e1a-4d79-b5be-95d4acc4c1ab",
                       "name": "Ethos Threatment management",
                       "legacy": false,
                       "future": "",
@@ -115944,7 +115844,7 @@
                   "multi": false,
                   "systems": [
                     {
-                      "id": "0640cd2e-b651-4d2c-af41-2a09496c088f",
+                      "id": "7fed28e6-7b89-4e42-91fc-a2470850bf90",
                       "name": "Ethos Threatment Management",
                       "legacy": false,
                       "future": "",
@@ -116496,7 +116396,7 @@
                   "multi": true,
                   "systems": [
                     {
-                      "id": "32f1b131-1629-415c-b788-8398b87a9cd0",
+                      "id": "34e7619a-d28b-4706-9d8a-f32177695193",
                       "name": "Ethos Threatment Management",
                       "legacy": false,
                       "future": "",
@@ -116513,7 +116413,7 @@
                       "score": 66
                     },
                     {
-                      "id": "31b7e161-7285-4295-9d0e-ae92a583df3e",
+                      "id": "9ff12ff1-9ee3-4977-b7eb-e1be3ec290d1",
                       "name": "RTH-web",
                       "legacy": false,
                       "future": "",
@@ -117068,7 +116968,7 @@
                   "multi": true,
                   "systems": [
                     {
-                      "id": "a7e2cd71-7af0-4f2f-804e-8454411e907f",
+                      "id": "8b5619b0-463c-4d76-8223-8dcf145b7a47",
                       "name": "Ethos Treatment Management",
                       "legacy": false,
                       "future": "",
@@ -117083,7 +116983,7 @@
                       "score": 73
                     },
                     {
-                      "id": "c69d1c0c-f6a4-45b8-83a3-87c0a9e782d3",
+                      "id": "e8cc4309-8365-4e75-9722-f9b51e50e9e1",
                       "name": "RTH-web",
                       "legacy": false,
                       "future": "",
@@ -117636,7 +117536,7 @@
                   "multi": false,
                   "systems": [
                     {
-                      "id": "99de88ee-603b-40af-ae4d-8d53eba617d9",
+                      "id": "da8bbe6e-56ac-465f-9126-2963d12bd726",
                       "name": "Ethos Treatment Management",
                       "legacy": false,
                       "future": "",
@@ -118188,7 +118088,7 @@
                   "multi": false,
                   "systems": [
                     {
-                      "id": "0893e78b-fb83-40ef-9db7-e18901354d2b",
+                      "id": "aa2825a6-d858-40a8-8ac4-bfae30371396",
                       "name": "Ethos Treatment Management",
                       "legacy": false,
                       "future": "",
@@ -118743,7 +118643,7 @@
                   "multi": false,
                   "systems": [
                     {
-                      "id": "d1d0fe0a-ad11-4982-88f5-0e866d7a8813",
+                      "id": "9d2cc694-88a8-423f-8c32-e9e374dee153",
                       "name": "Ethos Threatment Management",
                       "legacy": false,
                       "future": "",
@@ -119305,7 +119205,7 @@
                   "multi": false,
                   "systems": [
                     {
-                      "id": "722a4856-667e-49d6-bce6-f04acfd3d5ed",
+                      "id": "7ea99f48-eac2-4fc1-83fc-f19c3735aac9",
                       "name": "RTH-web",
                       "legacy": false,
                       "future": "",
@@ -119856,7 +119756,7 @@
                   "multi": false,
                   "systems": [
                     {
-                      "id": "614c389e-57f0-428e-9978-f5fc09538584",
+                      "id": "3f0b4ec8-0fd7-422d-8165-8b7749af98ff",
                       "name": "RTH-web",
                       "legacy": false,
                       "future": "",
@@ -120412,7 +120312,7 @@
                   "multi": false,
                   "systems": [
                     {
-                      "id": "0b0a710a-9701-4272-8bc5-f6d905344cf7",
+                      "id": "364b39af-eca4-4a2b-aa11-3ed721bcfcfd",
                       "name": "RTH-web",
                       "legacy": false,
                       "future": "",
@@ -120968,7 +120868,7 @@
                   "multi": true,
                   "systems": [
                     {
-                      "id": "9a9a4927-6656-4bf3-ad47-638d82fb8043",
+                      "id": "ffe6c662-c8b6-4070-bf26-fe5496539345",
                       "name": "Aria",
                       "legacy": false,
                       "future": "",
@@ -120982,7 +120882,7 @@
                       "score": 80
                     },
                     {
-                      "id": "66ab294a-aef0-4ab8-bb01-97f5d3cfa1e7",
+                      "id": "344d5cd3-8177-4d1b-8cc6-689b2e36b437",
                       "name": "RTH-web",
                       "legacy": false,
                       "future": "",
@@ -121535,7 +121435,7 @@
                   "multi": false,
                   "systems": [
                     {
-                      "id": "7dd57e5d-79a4-4019-958b-d18e948d3a8f",
+                      "id": "d6a87a67-d381-4876-95eb-5ba1f9709c97",
                       "name": "Aria",
                       "legacy": false,
                       "future": "",
@@ -122090,7 +121990,7 @@
                   "multi": false,
                   "systems": [
                     {
-                      "id": "755e451e-4b75-4fa2-a05c-e8d956ce35c6",
+                      "id": "7f1bbbff-7e95-418d-a17c-176785d912bf",
                       "name": "XVI",
                       "legacy": false,
                       "future": "",
@@ -122643,7 +122543,7 @@
                   "multi": false,
                   "systems": [
                     {
-                      "id": "c26dee0d-bcaf-4368-9650-4779eaf3a24f",
+                      "id": "27511b65-ff4e-4ca8-9a46-bfb2d837d895",
                       "name": "RTH-web",
                       "legacy": false,
                       "future": "",
@@ -123195,7 +123095,7 @@
                   "multi": false,
                   "systems": [
                     {
-                      "id": "d48b996b-0843-450b-afcd-b861555d5fef",
+                      "id": "31c8d5ed-9a38-48cf-9d7d-1eac0ec7c070",
                       "name": "RTH-Web",
                       "legacy": false,
                       "future": "",
