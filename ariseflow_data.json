@@ -4,7 +4,7 @@
   "author": "Anoniem",
   "created": "2026-01-16T08:48:17.021Z",
   "version": "2.7",
-  "activeSheetId": "46861a1b-aeb5-4480-83a8-860bae246f52",
+  "activeSheetId": "b2afde0c-1451-450c-85d7-c0f3b53e8757",
   "sheets": [
     {
       "id": "858c26e5-f7ec-4311-b503-641f99e65c84",
@@ -14828,7 +14828,7 @@
               "systemData": {
                 "isMulti": false,
                 "systemName": "",
-                "calculatedScore": null,
+                "calculatedScore": 20,
                 "systems": [
                   {
                     "id": "35185f00-d5ca-4380-af00-4d5c5be880e5",
@@ -14849,12 +14849,21 @@
                   "multi": false,
                   "systems": [
                     {
-                      "id": "ee64a8db-3c4a-4483-a17c-5427133634f6",
-                      "name": "",
+                      "id": "86450312-4fcc-4304-9248-b71c63d142e5",
+                      "name": "Epic",
                       "legacy": false,
                       "future": "",
-                      "qa": {},
-                      "score": null
+                      "qa": {
+                        "q1": "SOMETIMES",
+                        "q1_note": "Dan kijk ik in het dossier voor extra details",
+                        "q2": "ALWAYS",
+                        "q2_note": "Veel klikken voordat je werklijst kunt openen. ",
+                        "q3": "ALWAYS",
+                        "q3_note": "Triageformulier aanvullen",
+                        "q4": "OFTEN",
+                        "q5": "STOP"
+                      },
+                      "score": 20
                     }
                   ],
                   "activeSystemIdx": 0
@@ -14887,32 +14896,32 @@
               "improvements": [],
               "qa": {
                 "compleet": {
-                  "result": null,
+                  "result": "MINOR",
                   "impact": null,
-                  "note": ""
+                  "note": "Als de informatie onvolledig is, neem ik contact op met de triagearts of vraag ik aanvullende informatie op bij de polikliniek of de behandelend arts."
                 },
                 "kwaliteit": {
-                  "result": null,
+                  "result": "GOOD",
                   "impact": null,
                   "note": ""
                 },
                 "duidelijkheid": {
-                  "result": null,
+                  "result": "GOOD",
                   "impact": null,
                   "note": ""
                 },
                 "tijdigheid": {
-                  "result": null,
+                  "result": "GOOD",
                   "impact": null,
                   "note": ""
                 },
                 "standaard": {
-                  "result": null,
+                  "result": "GOOD",
                   "impact": null,
                   "note": ""
                 },
                 "overdracht": {
-                  "result": null,
+                  "result": "GOOD",
                   "impact": null,
                   "note": ""
                 }
@@ -14938,7 +14947,23 @@
                   }
                 ]
               },
-              "inputDefinitions": [],
+              "inputDefinitions": [
+                {
+                  "item": "Doelgebied",
+                  "specifications": "Het doelgebied (tumorgroep/anatomische regio) is eenduidig vastgelegd, zodat routing en planning in de juiste agenda kunnen plaatsvinden",
+                  "type": "HARD"
+                },
+                {
+                  "item": "Naam behandelend arts",
+                  "specifications": "Op basis hiervan wijs ik de afspraak toe aan de juiste behandelend arts.",
+                  "type": "HARD"
+                },
+                {
+                  "item": "Bijzonderheden",
+                  "specifications": "Ik controleer of de patiënt een chemokuur krijgt, geopereerd moet worden of andere bijzonderheden heeft die invloed hebben op het plannen van afspraken.",
+                  "type": "HARD"
+                }
+              ],
               "disruptions": [],
               "workExp": null,
               "workExpNote": "",
@@ -15034,12 +15059,20 @@
               "created": 1770283038455,
               "text": "Controleren consultorder",
               "linkedSourceId": null,
-              "type": null,
+              "type": "Taak",
               "processValue": null,
-              "processStatus": null,
+              "processStatus": "NEUTRAL",
               "successFactors": "",
-              "causes": [],
-              "improvements": [],
+              "causes": [
+                "Onjuiste triage door triagearts",
+                "Artsafwezigheid",
+                "Incomplete gegevens"
+              ],
+              "improvements": [
+                "Standaardiseer triage op basis van doelgebied zodat wisselende triageartsen minder fouten maken en minder contact nodig is.",
+                "Borg vervanging en stem roosters strak af om herplannen door afwezigheid te voorkomen",
+                "Voer een verplichte volledigheidscheck op de poli uit vóór triage/planning"
+              ],
               "qa": {
                 "compleet": {
                   "result": "",
@@ -15088,8 +15121,14 @@
                 ]
               },
               "inputDefinitions": [],
-              "disruptions": [],
-              "workExp": null,
+              "disruptions": [
+                {
+                  "scenario": "De consultorder komt niet binnen, waardoor de start van triage/planning stilvalt.",
+                  "frequency": "Zelden",
+                  "workaround": "Handmatige signalering door patiënt of arts (oplettendheid) om de ontbrekende consultorder te melden."
+                }
+              ],
+              "workExp": "ROUTINE",
               "workExpNote": "",
               "linkedSourceUids": [],
               "linkedBundleIds": [],
@@ -15375,7 +15414,7 @@
               "systemData": {
                 "isMulti": false,
                 "systemName": "",
-                "calculatedScore": null,
+                "calculatedScore": 20,
                 "systems": [
                   {
                     "id": "f0a27179-b439-422e-9117-754f494f9dfe",
@@ -15396,12 +15435,21 @@
                   "multi": false,
                   "systems": [
                     {
-                      "id": "071911ca-9a9c-4f58-9be6-5ac8c5d8999a",
-                      "name": "",
+                      "id": "1e18524d-2b61-4f35-90df-41478ef7d82c",
+                      "name": "Epic",
                       "legacy": false,
                       "future": "",
-                      "qa": {},
-                      "score": null
+                      "qa": {
+                        "q1": "SOMETIMES",
+                        "q1_note": "Dan kijk ik in het dossier voor extra details",
+                        "q2": "ALWAYS",
+                        "q2_note": "Veel klikken voordat je werklijst kunt openen. ",
+                        "q3": "ALWAYS",
+                        "q3_note": "Triageformulier aanvullen",
+                        "q4": "OFTEN",
+                        "q5": "STOP"
+                      },
+                      "score": 20
                     }
                   ],
                   "activeSystemIdx": 0
@@ -15434,32 +15482,32 @@
               "improvements": [],
               "qa": {
                 "compleet": {
-                  "result": null,
+                  "result": "GOOD",
                   "impact": null,
                   "note": ""
                 },
                 "kwaliteit": {
-                  "result": null,
+                  "result": "GOOD",
                   "impact": null,
                   "note": ""
                 },
                 "duidelijkheid": {
-                  "result": null,
+                  "result": "GOOD",
                   "impact": null,
                   "note": ""
                 },
                 "tijdigheid": {
-                  "result": null,
+                  "result": "GOOD",
                   "impact": null,
                   "note": ""
                 },
                 "standaard": {
-                  "result": null,
+                  "result": "GOOD",
                   "impact": null,
                   "note": ""
                 },
                 "overdracht": {
-                  "result": null,
+                  "result": "GOOD",
                   "impact": null,
                   "note": ""
                 }
@@ -15581,10 +15629,10 @@
               "created": 1770283058479,
               "text": "Route bepalen",
               "linkedSourceId": null,
-              "type": null,
-              "processValue": null,
-              "processStatus": null,
-              "successFactors": "",
+              "type": "Taak",
+              "processValue": "BNVA",
+              "processStatus": "HAPPY",
+              "successFactors": "AB-protocollen zijn goed geprotocolleerd. ",
               "causes": [],
               "improvements": [],
               "qa": {
@@ -15636,7 +15684,7 @@
               },
               "inputDefinitions": [],
               "disruptions": [],
-              "workExp": null,
+              "workExp": "ROUTINE",
               "workExpNote": "",
               "linkedSourceUids": [],
               "linkedBundleIds": [],
@@ -15922,7 +15970,7 @@
               "systemData": {
                 "isMulti": false,
                 "systemName": "",
-                "calculatedScore": null,
+                "calculatedScore": 93,
                 "systems": [
                   {
                     "id": "5156b920-aa99-4150-99e0-1457190ffda5",
@@ -15943,12 +15991,19 @@
                   "multi": false,
                   "systems": [
                     {
-                      "id": "3bd11e31-8a0e-46b3-8683-779d114aee71",
-                      "name": "",
+                      "id": "788e616e-eaa6-4f70-b8cb-fbe2c2790af7",
+                      "name": "Zenya",
                       "legacy": false,
                       "future": "",
-                      "qa": {},
-                      "score": null
+                      "qa": {
+                        "q1": "NEVER",
+                        "q2": "NEVER",
+                        "q3": "NEVER",
+                        "q4": "NEVER",
+                        "q5": "DELAY",
+                        "q5_note": "Soms hebben we protocollen al geprint"
+                      },
+                      "score": 93
                     }
                   ],
                   "activeSystemIdx": 0
@@ -15981,32 +16036,32 @@
               "improvements": [],
               "qa": {
                 "compleet": {
-                  "result": null,
+                  "result": "GOOD",
                   "impact": null,
                   "note": ""
                 },
                 "kwaliteit": {
-                  "result": null,
+                  "result": "GOOD",
                   "impact": null,
                   "note": ""
                 },
                 "duidelijkheid": {
-                  "result": null,
+                  "result": "GOOD",
                   "impact": null,
                   "note": ""
                 },
                 "tijdigheid": {
-                  "result": null,
+                  "result": "GOOD",
                   "impact": null,
                   "note": ""
                 },
                 "standaard": {
-                  "result": null,
+                  "result": "GOOD",
                   "impact": null,
                   "note": ""
                 },
                 "overdracht": {
-                  "result": null,
+                  "result": "GOOD",
                   "impact": null,
                   "note": ""
                 }
@@ -16128,10 +16183,10 @@
               "created": 1770300404576,
               "text": "Vrij slot zoeken",
               "linkedSourceId": null,
-              "type": null,
+              "type": "Taak",
               "processValue": null,
-              "processStatus": null,
-              "successFactors": "",
+              "processStatus": "HAPPY",
+              "successFactors": "In Epic zie ik in één oogopslag beschikbare consultplekken dankzij de klinische blokken en kleurcodering.",
               "causes": [],
               "improvements": [],
               "qa": {
@@ -16182,8 +16237,14 @@
                 ]
               },
               "inputDefinitions": [],
-              "disruptions": [],
-              "workExp": null,
+              "disruptions": [
+                {
+                  "scenario": "Agenda’s staan niet correct ingericht in Epic.",
+                  "frequency": "Vaak",
+                  "workaround": "Ik koppel dit terug aan de backoffice en ga daarna verder met mijn taak."
+                }
+              ],
+              "workExp": "ROUTINE",
               "workExpNote": "",
               "outputUid": "out_729db466-b21f-44ea-841b-6b982439b8c3",
               "linkedSourceUids": [],
@@ -16469,7 +16530,7 @@
               "systemData": {
                 "isMulti": false,
                 "systemName": "",
-                "calculatedScore": null,
+                "calculatedScore": 80,
                 "systems": [
                   {
                     "id": "a660d2e5-f4b5-440b-87cf-db3c21ec3468",
@@ -16490,12 +16551,22 @@
                   "multi": false,
                   "systems": [
                     {
-                      "id": "06198159-4d41-4b4c-9cd1-166404e1bda6",
-                      "name": "",
+                      "id": "f473b1e1-6dbc-4350-8a8f-6636087f26f5",
+                      "name": "Epic",
                       "legacy": false,
                       "future": "",
-                      "qa": {},
-                      "score": null
+                      "qa": {
+                        "q1": "NEVER",
+                        "q1_note": "Ik kan heel duidelijk de vrije consultplekken zien",
+                        "q2": "NEVER",
+                        "q2_note": "",
+                        "q3": "NEVER",
+                        "q3_note": "",
+                        "q4": "NEVER",
+                        "q5": "STOP",
+                        "q4_note": ""
+                      },
+                      "score": 80
                     }
                   ],
                   "activeSystemIdx": 0
@@ -16528,32 +16599,32 @@
               "improvements": [],
               "qa": {
                 "compleet": {
-                  "result": null,
+                  "result": "GOOD",
                   "impact": null,
                   "note": ""
                 },
                 "kwaliteit": {
-                  "result": null,
+                  "result": "GOOD",
                   "impact": null,
                   "note": ""
                 },
                 "duidelijkheid": {
-                  "result": null,
+                  "result": "GOOD",
                   "impact": null,
                   "note": ""
                 },
                 "tijdigheid": {
-                  "result": null,
+                  "result": "GOOD",
                   "impact": null,
                   "note": ""
                 },
                 "standaard": {
-                  "result": null,
+                  "result": "GOOD",
                   "impact": null,
                   "note": ""
                 },
                 "overdracht": {
-                  "result": null,
+                  "result": "GOOD",
                   "impact": null,
                   "note": ""
                 }
@@ -16675,10 +16746,10 @@
               "created": 1770301513212,
               "text": "Patiënt bellen",
               "linkedSourceId": null,
-              "type": null,
-              "processValue": null,
-              "processStatus": null,
-              "successFactors": "",
+              "type": "Taak",
+              "processValue": "VA",
+              "processStatus": "HAPPY",
+              "successFactors": "Wij houden rekening met de wensen van de patiënt dat geeft soms wel voldoening. ",
               "causes": [],
               "improvements": [],
               "qa": {
@@ -16729,9 +16800,30 @@
                 ]
               },
               "inputDefinitions": [],
-              "disruptions": [],
-              "workExp": null,
-              "workExpNote": "",
+              "disruptions": [
+                {
+                  "scenario": "Patiënt is telefonisch niet bereikbaar",
+                  "frequency": "Soms",
+                  "workaround": "Voicemail inspreken en/of e-mail/brief sturen"
+                },
+                {
+                  "scenario": "Patiënt wilt graag dat wij ook familieleden bellen",
+                  "frequency": "Soms",
+                  "workaround": "Familie/contactpersoon bellen"
+                },
+                {
+                  "scenario": "Patiënt stelt veel (inhoudelijke) vragen tijdens het plannen",
+                  "frequency": "Vaak",
+                  "workaround": "Kort begrenzen en verwijzen naar de arts voor inhoudelijke uitleg"
+                },
+                {
+                  "scenario": "Patiënt weigert CT-afspraak (of wil niet komen), waardoor inplannen niet mogelijk is",
+                  "frequency": "Zelden",
+                  "workaround": "Behandelend arts informeren; arts bespreekt dit met patiënt en stuurt aan op akkoord/komst voor CT."
+                }
+              ],
+              "workExp": "OBSTACLE",
+              "workExpNote": "Bij het plannen moet ik met veel patiëntspecifieke eisen rekening houden, waardoor het inplannen moeizaam en tijdrovend is.",
               "outputUid": "out_29a187e2-2692-4f94-a14e-1659a861f787",
               "linkedSourceUids": [],
               "linkedBundleIds": [],
@@ -17024,7 +17116,7 @@
               "systemData": {
                 "isMulti": false,
                 "systemName": "",
-                "calculatedScore": null,
+                "calculatedScore": 60,
                 "systems": [
                   {
                     "id": "a7f4947d-a565-4623-9cda-eb12db04ad3e",
@@ -17045,12 +17137,22 @@
                   "multi": false,
                   "systems": [
                     {
-                      "id": "6beaddaf-f381-435f-96e7-8600b8e0a7b1",
-                      "name": "",
+                      "id": "021d4727-3dfe-4f2d-a6b0-24fed4b0c2fe",
+                      "name": "Epic",
                       "legacy": false,
                       "future": "",
-                      "qa": {},
-                      "score": null
+                      "qa": {
+                        "q1": "NEVER",
+                        "q1_note": "",
+                        "q2": "NEVER",
+                        "q2_note": "",
+                        "q3": "NEVER",
+                        "q3_note": "",
+                        "q4": "ALWAYS",
+                        "q5": "STOP",
+                        "q4_note": "Je kan bij de verkeerde arts/locatie inplannen"
+                      },
+                      "score": 60
                     }
                   ],
                   "activeSystemIdx": 0
@@ -17083,32 +17185,32 @@
               "improvements": [],
               "qa": {
                 "compleet": {
-                  "result": null,
+                  "result": "GOOD",
                   "impact": null,
                   "note": ""
                 },
                 "kwaliteit": {
-                  "result": null,
+                  "result": "GOOD",
                   "impact": null,
                   "note": ""
                 },
                 "duidelijkheid": {
-                  "result": null,
+                  "result": "GOOD",
                   "impact": null,
                   "note": ""
                 },
                 "tijdigheid": {
-                  "result": null,
+                  "result": "GOOD",
                   "impact": null,
                   "note": ""
                 },
                 "standaard": {
-                  "result": null,
+                  "result": "GOOD",
                   "impact": null,
                   "note": ""
                 },
                 "overdracht": {
-                  "result": null,
+                  "result": "GOOD",
                   "impact": null,
                   "note": ""
                 }
@@ -17230,9 +17332,9 @@
               "created": 1770303954014,
               "text": "Consultafspraak inplannen",
               "linkedSourceId": null,
-              "type": null,
-              "processValue": null,
-              "processStatus": null,
+              "type": "Taak",
+              "processValue": "VA",
+              "processStatus": "HAPPY",
               "successFactors": "",
               "causes": [],
               "improvements": [],
@@ -17285,8 +17387,8 @@
               },
               "inputDefinitions": [],
               "disruptions": [],
-              "workExp": null,
-              "workExpNote": "",
+              "workExp": "ROUTINE",
+              "workExpNote": "Dit betekent dat alle voorgaande stappen goed zijn gegaan en dus is het inplannen nog maar een druk op de knop",
               "outputUid": "out_b86a4639-de0b-401c-b7ea-74ba08c9fc8b",
               "linkedSourceUids": [],
               "linkedBundleIds": [],
@@ -17571,7 +17673,7 @@
               "systemData": {
                 "isMulti": false,
                 "systemName": "",
-                "calculatedScore": null,
+                "calculatedScore": 100,
                 "systems": [
                   {
                     "id": "f3c31723-a0cc-4f21-ad04-cf580e336a6d",
@@ -17592,12 +17694,22 @@
                   "multi": false,
                   "systems": [
                     {
-                      "id": "b774052e-7399-4ec8-84b7-6723332ca6ac",
-                      "name": "",
+                      "id": "7ff8fb01-4ba1-4859-8273-d33322eebd1a",
+                      "name": "Epic",
                       "legacy": false,
                       "future": "",
-                      "qa": {},
-                      "score": null
+                      "qa": {
+                        "q1": "NEVER",
+                        "q1_note": "",
+                        "q2": "NEVER",
+                        "q2_note": "",
+                        "q3": "NEVER",
+                        "q3_note": "",
+                        "q4": "NEVER",
+                        "q5": "SAFE",
+                        "q5_note": "Afspraken kun je terugzien in Radiotherapie Web"
+                      },
+                      "score": 100
                     }
                   ],
                   "activeSystemIdx": 0
@@ -17630,32 +17742,32 @@
               "improvements": [],
               "qa": {
                 "compleet": {
-                  "result": null,
+                  "result": "GOOD",
                   "impact": null,
                   "note": ""
                 },
                 "kwaliteit": {
-                  "result": null,
+                  "result": "GOOD",
                   "impact": null,
                   "note": ""
                 },
                 "duidelijkheid": {
-                  "result": null,
+                  "result": "GOOD",
                   "impact": null,
                   "note": ""
                 },
                 "tijdigheid": {
-                  "result": null,
+                  "result": "GOOD",
                   "impact": null,
                   "note": ""
                 },
                 "standaard": {
-                  "result": null,
+                  "result": "GOOD",
                   "impact": null,
                   "note": ""
                 },
                 "overdracht": {
-                  "result": null,
+                  "result": "GOOD",
                   "impact": null,
                   "note": ""
                 }
@@ -17681,7 +17793,28 @@
                   }
                 ]
               },
-              "inputDefinitions": [],
+              "inputDefinitions": [
+                {
+                  "item": "Behandelend arts",
+                  "specifications": "",
+                  "type": "HARD"
+                },
+                {
+                  "item": "Afspraakdatum",
+                  "specifications": "",
+                  "type": "HARD"
+                },
+                {
+                  "item": "Afspraaktijd",
+                  "specifications": "",
+                  "type": "HARD"
+                },
+                {
+                  "item": "Bijzonderheden",
+                  "specifications": "",
+                  "type": "SOFT"
+                }
+              ],
               "disruptions": [],
               "workExp": null,
               "workExpNote": "",
@@ -17777,12 +17910,16 @@
               "created": 1770304052258,
               "text": "Patiënt/familie informeren",
               "linkedSourceId": null,
-              "type": null,
-              "processValue": null,
-              "processStatus": null,
+              "type": "Taak",
+              "processValue": "VA",
+              "processStatus": "NEUTRAL",
               "successFactors": "",
-              "causes": [],
-              "improvements": [],
+              "causes": [
+                "Informatie over taalbarrie of bijzonderheden staat niet altijd in het systeem"
+              ],
+              "improvements": [
+                "Deze informatie goed vastleggen in het systeem zodat wij voorbereid zijn"
+              ],
               "qa": {
                 "compleet": {
                   "result": "",
@@ -17831,8 +17968,24 @@
                 ]
               },
               "inputDefinitions": [],
-              "disruptions": [],
-              "workExp": null,
+              "disruptions": [
+                {
+                  "scenario": "Taalbarriere",
+                  "frequency": "Soms",
+                  "workaround": "Engels praten of een mail sturen. Soms ook een tolk regelen voor het eerste consult"
+                },
+                {
+                  "scenario": "Slechthorend",
+                  "frequency": "Soms",
+                  "workaround": "Een mail sturen"
+                },
+                {
+                  "scenario": "Dementerend",
+                  "frequency": "Soms",
+                  "workaround": "Familieleden contacteren"
+                }
+              ],
+              "workExp": "ROUTINE",
               "workExpNote": "",
               "outputUid": "out_d33c32f1-4ade-4d2f-8da9-0c9683f6eb71",
               "linkedSourceUids": [],
