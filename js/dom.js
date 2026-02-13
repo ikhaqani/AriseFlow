@@ -1,5 +1,5 @@
 // dom.js
-console.info("[AriseFlow dom.js] build=20260129_FLOW_ALL_VIEW_FIXED");
+console.info("[AriseFlow dom.js] build=20260129_FLOW_ALL_VIEW_FIXED_UNMERGE_PATCH");
 import { state } from './state.js';
 import { IO_CRITERIA, PROCESS_STATUSES } from './config.js';
 import { openEditModal, saveModalDetails, openLogicModal, openGroupModal, openVariantModal } from './modals.js';
@@ -1300,12 +1300,54 @@ function openMergeModal(clickedColIdx, slotIdx, openModalFn) {
   function close() { removeMergeModal(); }
   overlay.addEventListener('click', (e) => { if (e.target === overlay) close(); });
   modal.querySelector('#mergeCancelBtn')?.addEventListener('click', close);
+  
+  // === MODIFIED: Opheffen Button met Metadata Reset Fix ===
   modal.querySelector('#mergeOffBtn')?.addEventListener('click', () => {
+    // 1. Remove group
     updateMergeStorage(slotIdx, null, selected);
+
+    // 2. Clean up metadata on the clicked column to prevent "Ghost" complex states
+    // Dit zorgt ervoor dat de modal niet meer in "Multi" modus opent na unmerge
+    if (slotIdx === 1 && systemsMeta) {
+        systemsMeta.multi = false;
+        // Keep only the first system to ensure single-mode validity
+        if (Array.isArray(systemsMeta.systems) && systemsMeta.systems.length > 0) {
+            systemsMeta.systems = [systemsMeta.systems[0]];
+        }
+        const clean = _sanitizeSystemsMeta(systemsMeta);
+        if (clean) {
+            _applySystemMetaToColumns([clickedColIdx], clean);
+            const overall = _computeOverallScore(clean);
+            const slot = state.activeSheet?.columns?.[clickedColIdx]?.slots?.[1];
+            if (slot) {
+                const sd = slot.systemData || {};
+                slot.systemData = { ...sd, systemsMeta: clean, calculatedScore: overall };
+            }
+        }
+    }
+
+    if (slotIdx === 5 && gate) {
+        gate.enabled = false;
+        const clean = _sanitizeGate(gate);
+        const slot = state.activeSheet?.columns?.[clickedColIdx]?.slots?.[5];
+        if (slot) {
+            const od = slot.outputData || {};
+            slot.outputData = { ...od, gate: clean };
+            slot.gate = clean;
+        }
+    }
+
+    // Force state save/notify
+    if (typeof state.notify === 'function') {
+        state.notify({ reason: 'columns' }, { clone: false });
+    }
+
     close();
     renderColumnsOnly(_openModalFn);
     scheduleSyncRowHeights();
   });
+  // ========================================================
+
   modal.querySelector('#mergeSaveBtn')?.addEventListener('click', () => {
     const vEl = modal.querySelector('#mergeText');
     const v = vEl ? String(vEl.value ?? '') : String(curText || '');
