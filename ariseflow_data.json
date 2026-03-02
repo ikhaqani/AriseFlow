@@ -4,7 +4,7 @@
   "author": "Anoniem",
   "created": "2026-01-16T08:48:17.021Z",
   "version": "2.7",
-  "activeSheetId": "dc945f9e-80a8-454c-b355-ca66f4d539e8",
+  "activeSheetId": "b2afde0c-1451-450c-85d7-c0f3b53e8757",
   "sheets": [
     {
       "id": "858c26e5-f7ec-4311-b503-641f99e65c84",
@@ -9865,6 +9865,7 @@
                   "multi": true,
                   "systems": [
                     {
+                      "id": "5607f009-ee1b-4b42-b294-d2bd8895819b",
                       "name": "Radiotherapie Web",
                       "legacy": false,
                       "future": "",
@@ -9879,6 +9880,7 @@
                       "score": 73
                     },
                     {
+                      "id": "e218964a-c7c3-471e-bc7a-4f5a8f0e428e",
                       "name": "Epic",
                       "legacy": false,
                       "future": "",
@@ -10434,6 +10436,7 @@
                   "multi": false,
                   "systems": [
                     {
+                      "id": "552ff4fb-9dd0-400f-a4cc-19f03342b61b",
                       "name": "",
                       "legacy": false,
                       "future": "",
@@ -36061,7 +36064,7 @@
               "systemData": {
                 "isMulti": false,
                 "systemName": "",
-                "calculatedScore": null,
+                "calculatedScore": 86,
                 "systems": [
                   {
                     "id": "5c424785-fb99-4171-a503-90364e390fb4",
@@ -36082,12 +36085,17 @@
                   "multi": false,
                   "systems": [
                     {
-                      "id": "c725571d-5a6a-4917-a2c6-b80feac1a6ad",
                       "name": "",
                       "legacy": false,
                       "future": "",
-                      "qa": {},
-                      "score": null
+                      "qa": {
+                        "q1": "NEVER",
+                        "q2": "NEVER",
+                        "q3": "NEVER",
+                        "q4": "SOMETIMES",
+                        "q5": "DELAY"
+                      },
+                      "score": 86
                     }
                   ],
                   "activeSystemIdx": 0
@@ -36120,32 +36128,32 @@
               "improvements": [],
               "qa": {
                 "compleet": {
-                  "result": null,
+                  "result": "MINOR",
                   "impact": null,
                   "note": ""
                 },
                 "kwaliteit": {
-                  "result": null,
+                  "result": "GOOD",
                   "impact": null,
                   "note": ""
                 },
                 "duidelijkheid": {
-                  "result": null,
+                  "result": "GOOD",
                   "impact": null,
                   "note": ""
                 },
                 "tijdigheid": {
-                  "result": null,
+                  "result": "GOOD",
                   "impact": null,
                   "note": ""
                 },
                 "standaard": {
-                  "result": null,
+                  "result": "GOOD",
                   "impact": null,
                   "note": ""
                 },
                 "overdracht": {
-                  "result": null,
+                  "result": "GOOD",
                   "impact": null,
                   "note": ""
                 }
@@ -36267,11 +36275,13 @@
               "created": 1771495705518,
               "text": "Route Fastmets starten",
               "linkedSourceId": null,
-              "type": null,
-              "processValue": null,
-              "processStatus": null,
+              "type": "Taak",
+              "processValue": "BNVA",
+              "processStatus": "NEUTRAL",
               "successFactors": "",
-              "causes": [],
+              "causes": [
+                "agenda's komen niet overeen"
+              ],
               "improvements": [],
               "qa": {
                 "compleet": {
@@ -36321,9 +36331,25 @@
                 ]
               },
               "inputDefinitions": [],
-              "disruptions": [],
-              "workExp": null,
-              "workExpNote": "",
+              "disruptions": [
+                {
+                  "scenario": "Toch geen fastmets",
+                  "frequency": "Zelden",
+                  "workaround": ""
+                },
+                {
+                  "scenario": "Agenda staat niet goed",
+                  "frequency": "Vaak",
+                  "workaround": ""
+                },
+                {
+                  "scenario": "Fastmest triage ",
+                  "frequency": "Vaak",
+                  "workaround": ""
+                }
+              ],
+              "workExp": "OBSTACLE",
+              "workExpNote": "Het is een nieuwe werkwijze dus iedereen is zoekende",
               "linkedSourceUids": [],
               "linkedBundleIds": [],
               "gate": {
@@ -36656,7 +36682,7 @@
             {
               "id": "cf8b97d8-5bf5-4e5c-ab1c-b8321affd19b",
               "created": 1771495730349,
-              "text": "Protocol NVRO-norm",
+              "text": "Protocol NVRO-norm; Fastmet protocol",
               "linkedSourceId": null,
               "type": null,
               "processValue": null,
@@ -36666,27 +36692,33 @@
               "improvements": [],
               "qa": {
                 "compleet": {
-                  "result": "",
+                  "result": "GOOD",
+                  "impact": null,
                   "note": ""
                 },
                 "kwaliteit": {
-                  "result": "",
+                  "result": "GOOD",
+                  "impact": null,
                   "note": ""
                 },
                 "duidelijkheid": {
-                  "result": "",
+                  "result": "GOOD",
+                  "impact": null,
                   "note": ""
                 },
                 "tijdigheid": {
-                  "result": "",
+                  "result": "GOOD",
+                  "impact": null,
                   "note": ""
                 },
                 "standaard": {
-                  "result": "",
+                  "result": "GOOD",
+                  "impact": null,
                   "note": ""
                 },
                 "overdracht": {
-                  "result": "",
+                  "result": "GOOD",
+                  "impact": null,
                   "note": ""
                 }
               },
@@ -36711,7 +36743,13 @@
                   }
                 ]
               },
-              "inputDefinitions": [],
+              "inputDefinitions": [
+                {
+                  "item": "norm",
+                  "specifications": "workflow wat te doen als/ ",
+                  "type": "HARD"
+                }
+              ],
               "disruptions": [],
               "workExp": null,
               "workExpNote": "",
@@ -36725,7 +36763,8 @@
                 "onPassTargetProcessId": null,
                 "rule": "ALL_OK",
                 "note": ""
-              }
+              },
+              "linkedSourceIds": []
             },
             {
               "id": "ccf19723-1f85-407d-8e13-c4180b40bfef",
@@ -36805,10 +36844,14 @@
               "text": "Zoeken vrije consultplek",
               "linkedSourceId": null,
               "type": null,
-              "processValue": null,
-              "processStatus": null,
+              "processValue": "BNVA",
+              "processStatus": "NEUTRAL",
               "successFactors": "",
-              "causes": [],
+              "causes": [
+                "rigide agenda van artsen",
+                "Te weinig plekken op CT",
+                "Verkeerde triage"
+              ],
               "improvements": [],
               "qa": {
                 "compleet": {
@@ -36858,8 +36901,19 @@
                 ]
               },
               "inputDefinitions": [],
-              "disruptions": [],
-              "workExp": null,
+              "disruptions": [
+                {
+                  "scenario": "veel aanmeldingen ",
+                  "frequency": "Soms",
+                  "workaround": "overleggen met arts"
+                },
+                {
+                  "scenario": "Geen CT",
+                  "frequency": "Soms",
+                  "workaround": "dag erna CT"
+                }
+              ],
+              "workExp": "ROUTINE",
               "workExpNote": "",
               "linkedSourceUids": [],
               "linkedBundleIds": [],
@@ -37144,7 +37198,7 @@
               "systemData": {
                 "isMulti": false,
                 "systemName": "",
-                "calculatedScore": null,
+                "calculatedScore": 60,
                 "systems": [
                   {
                     "id": "ae1175f9-7336-4863-b5c5-5f4a9d677bd9",
@@ -37165,12 +37219,17 @@
                   "multi": false,
                   "systems": [
                     {
-                      "id": "a7bc25fd-f439-4c33-ae78-43de953790ef",
                       "name": "",
                       "legacy": false,
                       "future": "",
-                      "qa": {},
-                      "score": null
+                      "qa": {
+                        "q1": "NEVER",
+                        "q2": "ALWAYS",
+                        "q3": "NEVER",
+                        "q4": "NEVER",
+                        "q5": "STOP"
+                      },
+                      "score": 60
                     }
                   ],
                   "activeSystemIdx": 0
@@ -37203,32 +37262,32 @@
               "improvements": [],
               "qa": {
                 "compleet": {
-                  "result": null,
+                  "result": "GOOD",
                   "impact": null,
                   "note": ""
                 },
                 "kwaliteit": {
-                  "result": null,
+                  "result": "GOOD",
                   "impact": null,
                   "note": ""
                 },
                 "duidelijkheid": {
-                  "result": null,
+                  "result": "GOOD",
                   "impact": null,
                   "note": ""
                 },
                 "tijdigheid": {
-                  "result": null,
+                  "result": "GOOD",
                   "impact": null,
                   "note": ""
                 },
                 "standaard": {
-                  "result": null,
+                  "result": "GOOD",
                   "impact": null,
                   "note": ""
                 },
                 "overdracht": {
-                  "result": null,
+                  "result": "GOOD",
                   "impact": null,
                   "note": ""
                 }
@@ -37352,7 +37411,7 @@
               "linkedSourceId": null,
               "type": null,
               "processValue": null,
-              "processStatus": null,
+              "processStatus": "HAPPY",
               "successFactors": "",
               "causes": [],
               "improvements": [],
@@ -37405,7 +37464,7 @@
               },
               "inputDefinitions": [],
               "disruptions": [],
-              "workExp": null,
+              "workExp": "ROUTINE",
               "workExpNote": "",
               "linkedSourceUids": [],
               "linkedBundleIds": [],
@@ -37905,8 +37964,8 @@
               "text": "Inplannen telefonisch consult",
               "linkedSourceId": null,
               "type": null,
-              "processValue": null,
-              "processStatus": null,
+              "processValue": "BNVA",
+              "processStatus": "NEUTRAL",
               "successFactors": "",
               "causes": [],
               "improvements": [],
@@ -37958,8 +38017,14 @@
                 ]
               },
               "inputDefinitions": [],
-              "disruptions": [],
-              "workExp": null,
+              "disruptions": [
+                {
+                  "scenario": "Agenda niet goed",
+                  "frequency": "Vaak",
+                  "workaround": ""
+                }
+              ],
+              "workExp": "ROUTINE",
               "workExpNote": "",
               "linkedSourceUids": [],
               "linkedBundleIds": [],
@@ -38452,7 +38517,7 @@
               "linkedSourceId": null,
               "type": null,
               "processValue": null,
-              "processStatus": null,
+              "processStatus": "NEUTRAL",
               "successFactors": "",
               "causes": [],
               "improvements": [],
@@ -38505,7 +38570,7 @@
               },
               "inputDefinitions": [],
               "disruptions": [],
-              "workExp": null,
+              "workExp": "ROUTINE",
               "workExpNote": "",
               "linkedSourceUids": [],
               "linkedBundleIds": [],
@@ -38997,10 +39062,12 @@
               "text": "Inplannen RT",
               "linkedSourceId": null,
               "type": null,
-              "processValue": null,
-              "processStatus": null,
+              "processValue": "BNVA",
+              "processStatus": "NEUTRAL",
               "successFactors": "",
-              "causes": [],
+              "causes": [
+                "Veel maatwerk"
+              ],
               "improvements": [],
               "qa": {
                 "compleet": {
@@ -39051,7 +39118,7 @@
               },
               "inputDefinitions": [],
               "disruptions": [],
-              "workExp": null,
+              "workExp": "OBSTACLE",
               "workExpNote": "",
               "linkedSourceUids": [],
               "linkedBundleIds": [],
@@ -52113,32 +52180,32 @@
               "improvements": [],
               "qa": {
                 "compleet": {
-                  "result": null,
-                  "impact": null,
-                  "note": ""
+                  "result": "MINOR",
+                  "impact": "A",
+                  "note": "aanvraagformulier niet ingevuld "
                 },
                 "kwaliteit": {
-                  "result": null,
-                  "impact": null,
+                  "result": "MINOR",
+                  "impact": "A",
                   "note": ""
                 },
                 "duidelijkheid": {
-                  "result": null,
+                  "result": "MINOR",
                   "impact": null,
                   "note": ""
                 },
                 "tijdigheid": {
-                  "result": null,
+                  "result": "GOOD",
                   "impact": null,
                   "note": ""
                 },
                 "standaard": {
-                  "result": null,
+                  "result": "FAIL",
                   "impact": null,
                   "note": ""
                 },
                 "overdracht": {
-                  "result": null,
+                  "result": "FAIL",
                   "impact": null,
                   "note": ""
                 }
@@ -52258,10 +52325,10 @@
               "created": 1768730995010,
               "text": "Overdragen planningsinstructies",
               "linkedSourceId": null,
-              "type": null,
-              "processValue": null,
-              "processStatus": null,
-              "successFactors": "",
+              "type": "Taak",
+              "processValue": "BNVA",
+              "processStatus": "HAPPY",
+              "successFactors": "losse eindjes en puntjes op de i zetten ",
               "causes": [],
               "improvements": [],
               "qa": {
@@ -52313,7 +52380,7 @@
               },
               "inputDefinitions": [],
               "disruptions": [],
-              "workExp": null,
+              "workExp": "ROUTINE",
               "workExpNote": "",
               "linkedSourceUids": [],
               "linkedBundleIds": [],
@@ -52658,8 +52725,8 @@
               "improvements": [],
               "qa": {
                 "compleet": {
-                  "result": null,
-                  "impact": null,
+                  "result": "FAIL",
+                  "impact": "B",
                   "note": ""
                 },
                 "kwaliteit": {
@@ -52805,9 +52872,9 @@
               "created": 1771415462598,
               "text": "Gynaecologie route starten",
               "linkedSourceId": null,
-              "type": null,
-              "processValue": null,
-              "processStatus": null,
+              "type": "Taak",
+              "processValue": "BNVA",
+              "processStatus": "SAD",
               "successFactors": "",
               "causes": [],
               "improvements": [],
@@ -52860,7 +52927,7 @@
               },
               "inputDefinitions": [],
               "disruptions": [],
-              "workExp": null,
+              "workExp": "OBSTACLE",
               "workExpNote": "",
               "linkedSourceUids": [],
               "linkedBundleIds": [],
@@ -53204,27 +53271,33 @@
               "improvements": [],
               "qa": {
                 "compleet": {
-                  "result": "",
+                  "result": "GOOD",
+                  "impact": null,
                   "note": ""
                 },
                 "kwaliteit": {
-                  "result": "",
+                  "result": "GOOD",
+                  "impact": null,
                   "note": ""
                 },
                 "duidelijkheid": {
-                  "result": "",
+                  "result": "GOOD",
+                  "impact": null,
                   "note": ""
                 },
                 "tijdigheid": {
-                  "result": "",
+                  "result": "GOOD",
+                  "impact": null,
                   "note": ""
                 },
                 "standaard": {
-                  "result": "",
+                  "result": "GOOD",
+                  "impact": null,
                   "note": ""
                 },
                 "overdracht": {
-                  "result": "",
+                  "result": "GOOD",
+                  "impact": null,
                   "note": ""
                 }
               },
@@ -53263,7 +53336,8 @@
                 "onPassTargetProcessId": null,
                 "rule": "ALL_OK",
                 "note": ""
-              }
+              },
+              "linkedSourceIds": []
             },
             {
               "id": "79a3ef09-9bda-434e-b332-359617d23581",
@@ -53342,9 +53416,9 @@
               "created": 1771415673174,
               "text": "Lijst met actiepunten opstellen",
               "linkedSourceId": null,
-              "type": null,
+              "type": "Taak",
               "processValue": null,
-              "processStatus": null,
+              "processStatus": "HAPPY",
               "successFactors": "",
               "causes": [],
               "improvements": [],
@@ -53397,7 +53471,7 @@
               },
               "inputDefinitions": [],
               "disruptions": [],
-              "workExp": null,
+              "workExp": "ROUTINE",
               "workExpNote": "",
               "linkedSourceUids": [],
               "linkedBundleIds": [],
@@ -120844,7 +120918,7 @@
               "linkedSourceUids": [
                 "out_5f740708-3d4c-4e5d-89e1-d3333a46193a"
               ],
-              "linkedBundleIds": null,
+              "linkedBundleIds": [],
               "linkedBundleId": null,
               "linkedSourceUid": "out_5f740708-3d4c-4e5d-89e1-d3333a46193a",
               "gate": {
@@ -121390,7 +121464,7 @@
               "linkedSourceUids": [
                 "out_07699a0c-19e2-4d2e-b180-65fe65574faa"
               ],
-              "linkedBundleIds": null,
+              "linkedBundleIds": [],
               "linkedBundleId": null,
               "linkedSourceUid": "out_07699a0c-19e2-4d2e-b180-65fe65574faa",
               "gate": {
@@ -121936,7 +122010,7 @@
               "linkedSourceUids": [
                 "out_dbecf885-0bbd-4483-b2bf-362fc54f577b"
               ],
-              "linkedBundleIds": null,
+              "linkedBundleIds": [],
               "linkedBundleId": null,
               "linkedSourceUid": "out_dbecf885-0bbd-4483-b2bf-362fc54f577b",
               "gate": {
@@ -122482,7 +122556,7 @@
               "linkedSourceUids": [
                 "out_514cad8f-b9cb-4bd7-a8ab-07babff00f6f"
               ],
-              "linkedBundleIds": null,
+              "linkedBundleIds": [],
               "linkedBundleId": null,
               "linkedSourceUid": "out_514cad8f-b9cb-4bd7-a8ab-07babff00f6f",
               "gate": {
@@ -123028,7 +123102,7 @@
               "linkedSourceUids": [
                 "out_b92d4550-2fa3-4fd0-ac2b-4ed354ac55e7"
               ],
-              "linkedBundleIds": null,
+              "linkedBundleIds": [],
               "linkedBundleId": null,
               "linkedSourceUid": "out_b92d4550-2fa3-4fd0-ac2b-4ed354ac55e7",
               "gate": {
@@ -187801,7 +187875,16 @@
               "inputDefinitions": [],
               "disruptions": [],
               "workExp": null,
-              "workExpNote": ""
+              "workExpNote": "",
+              "linkedSourceUids": [],
+              "linkedBundleIds": [],
+              "gate": {
+                "checkProcessIds": [],
+                "onFailTargetProcessId": null,
+                "onPassTargetProcessId": null,
+                "rule": "ALL_OK",
+                "note": ""
+              }
             },
             {
               "id": "6a908834-19d6-4cc9-9a0a-083f4ac7b328",
@@ -187859,12 +187942,35 @@
                     },
                     "calculatedScore": null
                   }
-                ]
+                ],
+                "systemsMeta": {
+                  "multi": false,
+                  "systems": [
+                    {
+                      "id": "d684570f-778e-4c65-8c81-2f0ad528d08a",
+                      "name": "",
+                      "legacy": false,
+                      "future": "",
+                      "qa": {},
+                      "score": null
+                    }
+                  ],
+                  "activeSystemIdx": 0
+                }
               },
               "inputDefinitions": [],
               "disruptions": [],
               "workExp": null,
-              "workExpNote": ""
+              "workExpNote": "",
+              "linkedSourceUids": [],
+              "linkedBundleIds": [],
+              "gate": {
+                "checkProcessIds": [],
+                "onFailTargetProcessId": null,
+                "onPassTargetProcessId": null,
+                "rule": "ALL_OK",
+                "note": ""
+              }
             },
             {
               "id": "519a872e-26ac-4068-998e-eebb154351d4",
@@ -187935,12 +188041,19 @@
               "workExp": null,
               "workExpNote": "",
               "linkedBundleId": null,
-              "linkedBundleIds": null,
+              "linkedBundleIds": [],
               "linkedSourceUids": [
                 "out_79763d7c-8589-4484-bc3f-93531bf3de1c"
               ],
               "linkedSourceUid": "out_79763d7c-8589-4484-bc3f-93531bf3de1c",
-              "linkedSourceIds": []
+              "linkedSourceIds": [],
+              "gate": {
+                "checkProcessIds": [],
+                "onFailTargetProcessId": null,
+                "onPassTargetProcessId": null,
+                "rule": "ALL_OK",
+                "note": ""
+              }
             },
             {
               "id": "96f7fe86-37be-4283-a94f-55809955f5bf",
@@ -188003,7 +188116,16 @@
               "inputDefinitions": [],
               "disruptions": [],
               "workExp": null,
-              "workExpNote": ""
+              "workExpNote": "",
+              "linkedSourceUids": [],
+              "linkedBundleIds": [],
+              "gate": {
+                "checkProcessIds": [],
+                "onFailTargetProcessId": null,
+                "onPassTargetProcessId": null,
+                "rule": "ALL_OK",
+                "note": ""
+              }
             },
             {
               "id": "e4fbcf41-4a47-42ff-ad78-304b01dc3b15",
@@ -188066,7 +188188,16 @@
               "inputDefinitions": [],
               "disruptions": [],
               "workExp": null,
-              "workExpNote": ""
+              "workExpNote": "",
+              "linkedSourceUids": [],
+              "linkedBundleIds": [],
+              "gate": {
+                "checkProcessIds": [],
+                "onFailTargetProcessId": null,
+                "onPassTargetProcessId": null,
+                "rule": "ALL_OK",
+                "note": ""
+              }
             },
             {
               "id": "2ac1e6cd-dbff-46e2-bfe4-37b070fddda3",
@@ -188130,7 +188261,16 @@
               "disruptions": [],
               "workExp": null,
               "workExpNote": "",
-              "outputUid": "out_b8bf8dea-1059-4d07-86ac-634fade8c72d"
+              "outputUid": "out_b8bf8dea-1059-4d07-86ac-634fade8c72d",
+              "linkedSourceUids": [],
+              "linkedBundleIds": [],
+              "gate": {
+                "checkProcessIds": [],
+                "onFailTargetProcessId": null,
+                "onPassTargetProcessId": null,
+                "rule": "ALL_OK",
+                "note": ""
+              }
             },
             {
               "id": "915e2f51-2791-4095-91a5-13564a0f1e83",
@@ -188193,9 +188333,22 @@
               "inputDefinitions": [],
               "disruptions": [],
               "workExp": null,
-              "workExpNote": ""
+              "workExpNote": "",
+              "linkedSourceUids": [],
+              "linkedBundleIds": [],
+              "gate": {
+                "checkProcessIds": [],
+                "onFailTargetProcessId": null,
+                "onPassTargetProcessId": null,
+                "rule": "ALL_OK",
+                "note": ""
+              }
             }
-          ]
+          ],
+          "isQuestion": false,
+          "isConditional": false,
+          "logic": null,
+          "isGroup": false
         }
       ],
       "outputMerges": [],
