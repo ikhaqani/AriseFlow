@@ -36085,6 +36085,7 @@
                   "multi": false,
                   "systems": [
                     {
+                      "id": "18bbe8a1-c6ef-46f8-a6e2-52647ab62004",
                       "name": "",
                       "legacy": false,
                       "future": "",
@@ -37219,6 +37220,7 @@
                   "multi": false,
                   "systems": [
                     {
+                      "id": "b8887a8d-33ea-4df9-8172-e0463be2fb5d",
                       "name": "",
                       "legacy": false,
                       "future": "",
@@ -55940,7 +55942,7 @@
               "systemData": {
                 "isMulti": false,
                 "systemName": "",
-                "calculatedScore": null,
+                "calculatedScore": 86,
                 "systems": [
                   {
                     "id": "f1e39e0e-4d29-46e2-ab1f-e51a3beee866",
@@ -55961,12 +55963,18 @@
                   "multi": false,
                   "systems": [
                     {
-                      "id": "2e0b25f2-1fde-41fa-9393-d395d3bed552",
+                      "id": "877c109c-c112-4de0-887f-07280f685f9e",
                       "name": "",
                       "legacy": false,
                       "future": "",
-                      "qa": {},
-                      "score": null
+                      "qa": {
+                        "q1": "NEVER",
+                        "q2": "NEVER",
+                        "q3": "NEVER",
+                        "q4": "SOMETIMES",
+                        "q5": "DELAY"
+                      },
+                      "score": 86
                     }
                   ],
                   "activeSystemIdx": 0
@@ -55989,7 +55997,7 @@
             {
               "id": "6a05f48b-d879-4466-a6f4-3c0fdffadaf3",
               "created": 1771416864172,
-              "text": "Excl1: Indeling consulten; Excl2: Nieuwe consulten",
+              "text": "Excl1: Indeling consulten; Word: Nieuwe consulten",
               "linkedSourceId": null,
               "type": null,
               "processValue": null,
@@ -55999,27 +56007,33 @@
               "improvements": [],
               "qa": {
                 "compleet": {
-                  "result": "",
+                  "result": "GOOD",
+                  "impact": null,
                   "note": ""
                 },
                 "kwaliteit": {
-                  "result": "",
-                  "note": ""
+                  "result": "MINOR",
+                  "impact": "B",
+                  "note": "Supervisie staat niet goed in het word document. Wij moeten dan kijken of de supervisie controleren overeenkomt met de geplande consulten. Soms wordt er aangegeven dat een arts meer consulten moet zien. Dit geeft gedoe want dan moeten we bellen. We moeten een klinisch blok creeeren in Epic. "
                 },
                 "duidelijkheid": {
-                  "result": "",
+                  "result": "MINOR",
+                  "impact": "B",
                   "note": ""
                 },
                 "tijdigheid": {
-                  "result": "",
+                  "result": "GOOD",
+                  "impact": null,
                   "note": ""
                 },
                 "standaard": {
-                  "result": "",
+                  "result": "GOOD",
+                  "impact": null,
                   "note": ""
                 },
                 "overdracht": {
-                  "result": "",
+                  "result": "GOOD",
+                  "impact": null,
                   "note": ""
                 }
               },
@@ -56044,7 +56058,23 @@
                   }
                 ]
               },
-              "inputDefinitions": [],
+              "inputDefinitions": [
+                {
+                  "item": "Namen van patient en bij wie gepland (dokter)",
+                  "specifications": "word document",
+                  "type": "HARD"
+                },
+                {
+                  "item": "OK/intake datum",
+                  "specifications": "",
+                  "type": "HARD"
+                },
+                {
+                  "item": "Voorbereiding",
+                  "specifications": "",
+                  "type": "HARD"
+                }
+              ],
               "disruptions": [],
               "workExp": null,
               "workExpNote": "",
@@ -56058,7 +56088,8 @@
                 "onPassTargetProcessId": null,
                 "rule": "ALL_OK",
                 "note": ""
-              }
+              },
+              "linkedSourceIds": []
             },
             {
               "id": "511199d4-71e3-4890-9a7d-77558c9042cb",
@@ -56137,10 +56168,10 @@
               "created": 1771416864172,
               "text": "Lijst met actiepunten opstellen",
               "linkedSourceId": null,
-              "type": null,
-              "processValue": null,
-              "processStatus": null,
-              "successFactors": "",
+              "type": "Taak",
+              "processValue": "VA",
+              "processStatus": "HAPPY",
+              "successFactors": "De regels en kaders zijn heel duidelijk. Het heeft wel harde deadlines. Druk op patient is niet fijn als planner",
               "causes": [],
               "improvements": [],
               "qa": {
@@ -56191,9 +56222,20 @@
                 ]
               },
               "inputDefinitions": [],
-              "disruptions": [],
-              "workExp": null,
-              "workExpNote": "",
+              "disruptions": [
+                {
+                  "scenario": "Te weinig consultplekken",
+                  "frequency": "Soms",
+                  "workaround": "MEt arts bellen"
+                },
+                {
+                  "scenario": "Supervisie niet goed ingeregeld ",
+                  "frequency": "Vaak",
+                  "workaround": "Bellen met Ellen. Zo nodig patienten verwisselen "
+                }
+              ],
+              "workExp": "OBSTACLE",
+              "workExpNote": "Heel intensief en tijdsdruk. Voor 11 uur vrijdag PET-CT doorgeven voor afspraak di. Ma consult krijgen en masker.  Tanden eruit ivm afwijking. Afdeling MKA en kno plant dat in",
               "linkedSourceUids": [],
               "linkedBundleIds": [],
               "gate": {
@@ -57237,11 +57279,15 @@
               "created": 1770375496867,
               "text": "Inplannen mouldroom-afspraak",
               "linkedSourceId": null,
-              "type": null,
-              "processValue": null,
-              "processStatus": null,
+              "type": "Taak",
+              "processValue": "BNVA",
+              "processStatus": "SAD",
               "successFactors": "",
-              "causes": [],
+              "causes": [
+                "Te weinig personeel",
+                "Overleggen gepland",
+                "Te weinig capaciteit"
+              ],
               "improvements": [],
               "qa": {
                 "compleet": {
@@ -57291,9 +57337,20 @@
                 ]
               },
               "inputDefinitions": [],
-              "disruptions": [],
-              "workExp": null,
-              "workExpNote": "",
+              "disruptions": [
+                {
+                  "scenario": "mouldroom dicht",
+                  "frequency": "Soms",
+                  "workaround": ""
+                },
+                {
+                  "scenario": "Niet gelijk na consult ",
+                  "frequency": "Altijd",
+                  "workaround": ""
+                }
+              ],
+              "workExp": "OBSTACLE",
+              "workExpNote": "Mouldroom is dicht \nMouldroom is vol ",
               "outputUid": "out_e592839c-d3ff-46f8-9c68-67179b905a26",
               "linkedSourceUids": [],
               "linkedBundleIds": [],
@@ -57578,7 +57635,7 @@
               "systemData": {
                 "isMulti": false,
                 "systemName": "",
-                "calculatedScore": null,
+                "calculatedScore": 93,
                 "systems": [
                   {
                     "id": "c6107bac-f4bb-4aab-ae2e-f756d589c960",
@@ -57599,12 +57656,18 @@
                   "multi": false,
                   "systems": [
                     {
-                      "id": "7316cf1d-7635-4338-b1b5-02666b358c17",
+                      "id": "09937af2-590b-468b-88d7-ecb86a2d9922",
                       "name": "",
                       "legacy": false,
                       "future": "",
-                      "qa": {},
-                      "score": null
+                      "qa": {
+                        "q1": "NEVER",
+                        "q2": "NEVER",
+                        "q3": "SOMETIMES",
+                        "q4": "NEVER",
+                        "q5": "SAFE"
+                      },
+                      "score": 93
                     }
                   ],
                   "activeSystemIdx": 0
@@ -57637,33 +57700,33 @@
               "improvements": [],
               "qa": {
                 "compleet": {
-                  "result": null,
-                  "impact": null,
-                  "note": ""
+                  "result": "MODERATE",
+                  "impact": "A",
+                  "note": "Arts vragen om in te vullen. Niet alles doorgeven\nNiks terugkoppelen"
                 },
                 "kwaliteit": {
-                  "result": null,
-                  "impact": null,
-                  "note": ""
+                  "result": "MODERATE",
+                  "impact": "A",
+                  "note": "Sommige artsen vullen te laat of onvolledig in"
                 },
                 "duidelijkheid": {
-                  "result": null,
-                  "impact": null,
+                  "result": "MODERATE",
+                  "impact": "B",
                   "note": ""
                 },
                 "tijdigheid": {
-                  "result": null,
-                  "impact": null,
+                  "result": "MINOR",
+                  "impact": "B",
                   "note": ""
                 },
                 "standaard": {
-                  "result": null,
-                  "impact": null,
-                  "note": ""
+                  "result": "MINOR",
+                  "impact": "B",
+                  "note": "Aanvraagformulier is gestandaardiseerd/ mondeling niet natuurlijk"
                 },
                 "overdracht": {
-                  "result": null,
-                  "impact": null,
+                  "result": "MINOR",
+                  "impact": "B",
                   "note": ""
                 }
               },
@@ -57785,8 +57848,8 @@
               "text": "Standaard route starten",
               "linkedSourceId": null,
               "type": null,
-              "processValue": null,
-              "processStatus": null,
+              "processValue": "BNVA",
+              "processStatus": "HAPPY",
               "successFactors": "",
               "causes": [],
               "improvements": [],
@@ -57839,7 +57902,7 @@
               },
               "inputDefinitions": [],
               "disruptions": [],
-              "workExp": null,
+              "workExp": "ROUTINE",
               "workExpNote": "",
               "outputUid": "out_d48746d4-15aa-4cdb-9d04-96bbd164a8f7",
               "linkedSourceUids": [],
@@ -58333,8 +58396,8 @@
               "text": "Vertalen instructies naar te plannen voorbereidingsafspraken",
               "linkedSourceId": null,
               "type": null,
-              "processValue": null,
-              "processStatus": null,
+              "processValue": "BNVA",
+              "processStatus": "HAPPY",
               "successFactors": "",
               "causes": [],
               "improvements": [],
@@ -58387,7 +58450,7 @@
               },
               "inputDefinitions": [],
               "disruptions": [],
-              "workExp": null,
+              "workExp": "ROUTINE",
               "workExpNote": "",
               "linkedSourceUids": [],
               "linkedBundleIds": [],
@@ -58882,7 +58945,7 @@
               "linkedSourceId": null,
               "type": null,
               "processValue": null,
-              "processStatus": null,
+              "processStatus": "HAPPY",
               "successFactors": "",
               "causes": [],
               "improvements": [],
@@ -59419,10 +59482,12 @@
               "text": "Aanvragen beeldvorming",
               "linkedSourceId": null,
               "type": null,
-              "processValue": null,
-              "processStatus": null,
+              "processValue": "BNVA",
+              "processStatus": "NEUTRAL",
               "successFactors": "",
-              "causes": [],
+              "causes": [
+                "Artsen zijn niet zorvuldig genoeg"
+              ],
               "improvements": [],
               "qa": {
                 "compleet": {
@@ -59472,8 +59537,24 @@
                 ]
               },
               "inputDefinitions": [],
-              "disruptions": [],
-              "workExp": null,
+              "disruptions": [
+                {
+                  "scenario": "Geen CT-order",
+                  "frequency": "Vaak",
+                  "workaround": "bellen arts"
+                },
+                {
+                  "scenario": "Aanvullende beeldvorming vergeten",
+                  "frequency": "Soms",
+                  "workaround": "Bellen arts"
+                },
+                {
+                  "scenario": "Patient kan niet op aangegeven plek",
+                  "frequency": "Soms",
+                  "workaround": "Alternatieve plek "
+                }
+              ],
+              "workExp": "ROUTINE",
               "workExpNote": "",
               "linkedSourceUids": [],
               "linkedBundleIds": [],
@@ -59758,7 +59839,7 @@
               "systemData": {
                 "isMulti": false,
                 "systemName": "",
-                "calculatedScore": null,
+                "calculatedScore": 60,
                 "systems": [
                   {
                     "id": "b7ecf486-e289-4b90-96ec-9fedbd9ca5bd",
@@ -59779,12 +59860,20 @@
                   "multi": false,
                   "systems": [
                     {
-                      "id": "8c75b163-af4b-4aec-b31d-aa9f332d7eda",
+                      "id": "e1426f33-74c7-4d31-8982-5473f14fdf11",
                       "name": "",
                       "legacy": false,
                       "future": "",
-                      "qa": {},
-                      "score": null
+                      "qa": {
+                        "q1": "NEVER",
+                        "q2": "NEVER",
+                        "q2_note": "Epic heeft CT-order goed ingericht. ",
+                        "q3_note": "Initialen en doelgebied moet erin",
+                        "q3": "ALWAYS",
+                        "q4": "NEVER",
+                        "q5": "STOP"
+                      },
+                      "score": 60
                     }
                   ],
                   "activeSystemIdx": 0
@@ -59817,32 +59906,32 @@
               "improvements": [],
               "qa": {
                 "compleet": {
-                  "result": null,
-                  "impact": null,
-                  "note": ""
+                  "result": "MODERATE",
+                  "impact": "B",
+                  "note": "Bellen naar arts"
                 },
                 "kwaliteit": {
-                  "result": null,
+                  "result": "GOOD",
                   "impact": null,
                   "note": ""
                 },
                 "duidelijkheid": {
-                  "result": null,
+                  "result": "GOOD",
                   "impact": null,
                   "note": ""
                 },
                 "tijdigheid": {
-                  "result": null,
+                  "result": "GOOD",
                   "impact": null,
                   "note": ""
                 },
                 "standaard": {
-                  "result": null,
+                  "result": "GOOD",
                   "impact": null,
                   "note": ""
                 },
                 "overdracht": {
-                  "result": null,
+                  "result": "GOOD",
                   "impact": null,
                   "note": ""
                 }
@@ -59965,9 +60054,9 @@
               "text": "Controleren CT-order",
               "linkedSourceId": null,
               "type": null,
-              "processValue": null,
-              "processStatus": null,
-              "successFactors": "",
+              "processValue": "BNVA",
+              "processStatus": "HAPPY",
+              "successFactors": "Initialen van arts erin zetten en doelgebied. ",
               "causes": [],
               "improvements": [],
               "qa": {
@@ -60018,8 +60107,19 @@
                 ]
               },
               "inputDefinitions": [],
-              "disruptions": [],
-              "workExp": null,
+              "disruptions": [
+                {
+                  "scenario": "Verkeerde order",
+                  "frequency": "Soms",
+                  "workaround": ""
+                },
+                {
+                  "scenario": "Geen order",
+                  "frequency": "Vaak",
+                  "workaround": ""
+                }
+              ],
+              "workExp": "ROUTINE",
               "workExpNote": "",
               "linkedSourceUids": [],
               "linkedBundleIds": [],
@@ -60304,7 +60404,7 @@
               "systemData": {
                 "isMulti": false,
                 "systemName": "",
-                "calculatedScore": null,
+                "calculatedScore": 73,
                 "systems": [
                   {
                     "id": "fa270ca9-45b0-4957-b836-7442b06020d5",
@@ -60325,12 +60425,20 @@
                   "multi": false,
                   "systems": [
                     {
-                      "id": "b4296f21-61c1-4b1d-9059-ee3fab4e4239",
+                      "id": "0138033a-076f-46ef-8680-1c331acf8bfb",
                       "name": "",
                       "legacy": false,
                       "future": "",
-                      "qa": {},
-                      "score": null
+                      "qa": {
+                        "q1": "NEVER",
+                        "q2": "NEVER",
+                        "q3": "NEVER",
+                        "q4": "ALWAYS",
+                        "q4_note": "Formulier onvolledig ingevuld kan alsnog verstuurd worden",
+                        "q5": "DELAY",
+                        "q5_note": "In Epic maar alles moet mondeling bespreken met arts"
+                      },
+                      "score": 73
                     }
                   ],
                   "activeSystemIdx": 0
@@ -60363,32 +60471,32 @@
               "improvements": [],
               "qa": {
                 "compleet": {
-                  "result": null,
-                  "impact": null,
+                  "result": "MINOR",
+                  "impact": "A",
                   "note": ""
                 },
                 "kwaliteit": {
-                  "result": null,
+                  "result": "GOOD",
                   "impact": null,
                   "note": ""
                 },
                 "duidelijkheid": {
-                  "result": null,
-                  "impact": null,
-                  "note": ""
+                  "result": "FAIL",
+                  "impact": "A",
+                  "note": "Artsen gebruiken hun eigen terminologie gebruiken terwijl dat niet afgesproke is. "
                 },
                 "tijdigheid": {
-                  "result": null,
-                  "impact": null,
-                  "note": ""
+                  "result": "MODERATE",
+                  "impact": "A",
+                  "note": "Artsen hebben vaak geen aanvraagformulier ingevuld. "
                 },
                 "standaard": {
-                  "result": null,
+                  "result": "GOOD",
                   "impact": null,
                   "note": ""
                 },
                 "overdracht": {
-                  "result": null,
+                  "result": "GOOD",
                   "impact": null,
                   "note": ""
                 }
@@ -60510,9 +60618,9 @@
               "created": 1770800948482,
               "text": "Controleren aanvraagformulier CT",
               "linkedSourceId": null,
-              "type": null,
-              "processValue": null,
-              "processStatus": null,
+              "type": "Taak",
+              "processValue": "BNVA",
+              "processStatus": "NEUTRAL",
               "successFactors": "",
               "causes": [],
               "improvements": [],
@@ -60565,7 +60673,7 @@
               },
               "inputDefinitions": [],
               "disruptions": [],
-              "workExp": null,
+              "workExp": "ROUTINE",
               "workExpNote": "",
               "linkedSourceUids": [],
               "linkedBundleIds": [],
@@ -61066,9 +61174,9 @@
               "text": "Zoeken CT-slot",
               "linkedSourceId": null,
               "type": null,
-              "processValue": null,
-              "processStatus": null,
-              "successFactors": "",
+              "processValue": "BNVA",
+              "processStatus": "HAPPY",
+              "successFactors": "Tijdsloten zijn eenduidig. Alles is 30min behalve TBI zijligging en vacuummatras van wervelstereo. ",
               "causes": [],
               "improvements": [],
               "qa": {
@@ -61119,8 +61227,19 @@
                 ]
               },
               "inputDefinitions": [],
-              "disruptions": [],
-              "workExp": null,
+              "disruptions": [
+                {
+                  "scenario": "CT-dicht",
+                  "frequency": "Soms",
+                  "workaround": "Alternatieve plek zoeken"
+                },
+                {
+                  "scenario": "CT vol",
+                  "frequency": "Vaak",
+                  "workaround": "Teamleider bellen of die toch erbij mag"
+                }
+              ],
+              "workExp": "ROUTINE",
               "workExpNote": "",
               "linkedSourceUids": [],
               "linkedBundleIds": [],
@@ -61612,8 +61731,8 @@
               "text": "Inplannen CT-afspraak",
               "linkedSourceId": null,
               "type": null,
-              "processValue": null,
-              "processStatus": null,
+              "processValue": "BNVA",
+              "processStatus": "HAPPY",
               "successFactors": "",
               "causes": [],
               "improvements": [],
@@ -61665,8 +61784,14 @@
                 ]
               },
               "inputDefinitions": [],
-              "disruptions": [],
-              "workExp": null,
+              "disruptions": [
+                {
+                  "scenario": "Patient kan niet ",
+                  "frequency": "Vaak",
+                  "workaround": "overleggen met patient"
+                }
+              ],
+              "workExp": "ROUTINE",
               "workExpNote": "",
               "linkedSourceUids": [],
               "linkedBundleIds": [],
@@ -62010,32 +62135,32 @@
               "improvements": [],
               "qa": {
                 "compleet": {
-                  "result": null,
-                  "impact": null,
+                  "result": "MINOR",
+                  "impact": "B",
                   "note": ""
                 },
                 "kwaliteit": {
-                  "result": null,
-                  "impact": null,
-                  "note": ""
+                  "result": "MINOR",
+                  "impact": "B",
+                  "note": "MRI vergeten ze soms"
                 },
                 "duidelijkheid": {
-                  "result": null,
+                  "result": "GOOD",
                   "impact": null,
                   "note": ""
                 },
                 "tijdigheid": {
-                  "result": null,
+                  "result": "GOOD",
                   "impact": null,
                   "note": ""
                 },
                 "standaard": {
-                  "result": null,
+                  "result": "GOOD",
                   "impact": null,
                   "note": ""
                 },
                 "overdracht": {
-                  "result": null,
+                  "result": "GOOD",
                   "impact": null,
                   "note": ""
                 }
@@ -62158,9 +62283,9 @@
               "text": "Controleren MRI-order",
               "linkedSourceId": null,
               "type": null,
-              "processValue": null,
-              "processStatus": null,
-              "successFactors": "",
+              "processValue": "BNVA",
+              "processStatus": "HAPPY",
+              "successFactors": "Eenduidig, de artsen weten wat ze moeten doen. Twee blokken waarin we kunnen plannen (op dinsdachtochtend 09:00 t/m 11:00 en vrijdagochtend 13:15 - 15:15). Vier plekken per dagdeel dus 4x 30min. ",
               "causes": [],
               "improvements": [],
               "qa": {
@@ -62211,8 +62336,24 @@
                 ]
               },
               "inputDefinitions": [],
-              "disruptions": [],
-              "workExp": null,
+              "disruptions": [
+                {
+                  "scenario": "Radiologie zet blok dicht",
+                  "frequency": "Soms",
+                  "workaround": "Radiologie bellen voor extra plekken"
+                },
+                {
+                  "scenario": "MRI order niet oke",
+                  "frequency": "Soms",
+                  "workaround": "Bellen naar arts"
+                },
+                {
+                  "scenario": "Patient heeft pacemaker ",
+                  "frequency": "Zelden",
+                  "workaround": "Via safety team moet het inplannen "
+                }
+              ],
+              "workExp": "ROUTINE",
               "workExpNote": "",
               "linkedSourceUids": [],
               "linkedBundleIds": [],
@@ -62705,7 +62846,7 @@
               "linkedSourceId": null,
               "type": null,
               "processValue": null,
-              "processStatus": null,
+              "processStatus": "HAPPY",
               "successFactors": "",
               "causes": [],
               "improvements": [],
@@ -63260,10 +63401,10 @@
               "created": 1770801482904,
               "text": "Zoeken MRI-slot in agenda Radiologie",
               "linkedSourceId": null,
-              "type": null,
-              "processValue": null,
-              "processStatus": null,
-              "successFactors": "",
+              "type": "Taak",
+              "processValue": "BNVA",
+              "processStatus": "HAPPY",
+              "successFactors": "Gaat goed alleen waar we tegen aan lopen is als het soms dicht is. ",
               "causes": [],
               "improvements": [],
               "qa": {
@@ -63314,8 +63455,14 @@
                 ]
               },
               "inputDefinitions": [],
-              "disruptions": [],
-              "workExp": null,
+              "disruptions": [
+                {
+                  "scenario": "Geen communcatie als een blok dichtgezet wordt",
+                  "frequency": "Altijd",
+                  "workaround": "Zelf erachter komen en bellen. "
+                }
+              ],
+              "workExp": "ROUTINE",
               "workExpNote": "",
               "linkedSourceUids": [],
               "linkedBundleIds": [],
@@ -63807,8 +63954,8 @@
               "text": "Inplannen MRI-afspraak",
               "linkedSourceId": null,
               "type": null,
-              "processValue": null,
-              "processStatus": null,
+              "processValue": "BNVA",
+              "processStatus": "HAPPY",
               "successFactors": "",
               "causes": [],
               "improvements": [],
@@ -63861,7 +64008,7 @@
               },
               "inputDefinitions": [],
               "disruptions": [],
-              "workExp": null,
+              "workExp": "ROUTINE",
               "workExpNote": "",
               "linkedSourceUids": [],
               "linkedBundleIds": [],
@@ -64352,9 +64499,9 @@
               "created": 1770801736136,
               "text": "Controleren PET-order",
               "linkedSourceId": null,
-              "type": null,
+              "type": "Taak",
               "processValue": null,
-              "processStatus": null,
+              "processStatus": "HAPPY",
               "successFactors": "",
               "causes": [],
               "improvements": [],
@@ -64407,7 +64554,7 @@
               },
               "inputDefinitions": [],
               "disruptions": [],
-              "workExp": null,
+              "workExp": "ROUTINE",
               "workExpNote": "",
               "linkedSourceUids": [],
               "linkedBundleIds": [],
@@ -64898,9 +65045,9 @@
               "created": 1770801774868,
               "text": "Controleren aanvraagformulier PET",
               "linkedSourceId": null,
-              "type": null,
+              "type": "Taak",
               "processValue": null,
-              "processStatus": null,
+              "processStatus": "HAPPY",
               "successFactors": "",
               "causes": [],
               "improvements": [],
@@ -64953,7 +65100,7 @@
               },
               "inputDefinitions": [],
               "disruptions": [],
-              "workExp": null,
+              "workExp": "ROUTINE",
               "workExpNote": "",
               "linkedSourceUids": [],
               "linkedBundleIds": [],
@@ -65447,7 +65594,7 @@
               "linkedSourceId": null,
               "type": null,
               "processValue": null,
-              "processStatus": null,
+              "processStatus": "NEUTRAL",
               "successFactors": "",
               "causes": [],
               "improvements": [],
@@ -65992,10 +66139,12 @@
               "text": "Herinnering aanmaken",
               "linkedSourceId": null,
               "type": null,
-              "processValue": null,
+              "processValue": "NVA",
               "processStatus": null,
               "successFactors": "",
-              "causes": [],
+              "causes": [
+                "NC werktniet nauwkeurig "
+              ],
               "improvements": [],
               "qa": {
                 "compleet": {
@@ -66046,7 +66195,7 @@
               },
               "inputDefinitions": [],
               "disruptions": [],
-              "workExp": null,
+              "workExp": "ROUTINE",
               "workExpNote": "",
               "linkedSourceUids": [],
               "linkedBundleIds": [],
@@ -66538,8 +66687,8 @@
               "text": "Planning monitoren",
               "linkedSourceId": null,
               "type": null,
-              "processValue": null,
-              "processStatus": null,
+              "processValue": "NVA",
+              "processStatus": "SAD",
               "successFactors": "",
               "causes": [],
               "improvements": [],
@@ -66592,7 +66741,7 @@
               },
               "inputDefinitions": [],
               "disruptions": [],
-              "workExp": null,
+              "workExp": "OBSTACLE",
               "workExpNote": "",
               "linkedSourceUids": [],
               "linkedBundleIds": [],
@@ -67093,7 +67242,7 @@
               "linkedSourceId": null,
               "type": null,
               "processValue": null,
-              "processStatus": null,
+              "processStatus": "NEUTRAL",
               "successFactors": "",
               "causes": [],
               "improvements": [],
@@ -67146,7 +67295,7 @@
               },
               "inputDefinitions": [],
               "disruptions": [],
-              "workExp": null,
+              "workExp": "OBSTACLE",
               "workExpNote": "",
               "linkedSourceUids": [],
               "linkedBundleIds": [],
@@ -67644,8 +67793,8 @@
               "text": "NUCL bellen",
               "linkedSourceId": null,
               "type": null,
-              "processValue": null,
-              "processStatus": null,
+              "processValue": "NVA",
+              "processStatus": "SAD",
               "successFactors": "",
               "causes": [],
               "improvements": [],
@@ -67698,7 +67847,7 @@
               },
               "inputDefinitions": [],
               "disruptions": [],
-              "workExp": null,
+              "workExp": "OBSTACLE",
               "workExpNote": "",
               "linkedSourceUids": [],
               "linkedBundleIds": [],
