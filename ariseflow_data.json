@@ -64910,9 +64910,11 @@
               "linkedSourceId": null,
               "type": "Taak",
               "processValue": "BNVA",
-              "processStatus": "HAPPY",
-              "successFactors": "De kaders zijn hier helder: de order en het formulier moeten er simpelweg zijn, anders stopt het proces direct.",
-              "causes": [],
+              "processStatus": "NEUTRAL",
+              "successFactors": "",
+              "causes": [
+                "Artsen vergeten regelmatig de daadwerkelijke systeem-order voor de PET-scan aan te maken, ook al hebben ze dit mondeling of in vrije tekst wel besproken."
+              ],
               "improvements": [],
               "qa": {
                 "compleet": {
@@ -64965,12 +64967,12 @@
               "disruptions": [
                 {
                   "scenario": "De arts is vergeten de PET-order of de aanvraag correct in te vullen.",
-                  "frequency": null,
-                  "workaround": ""
+                  "frequency": "Soms",
+                  "workaround": "De planner kan niet door met het inplannen bij Nucleair en moet de behandelend arts nabellen om de order alsnog aan te maken."
                 }
               ],
               "workExp": "ROUTINE",
-              "workExpNote": "De planner geeft aan dat dit proces \"altijd wel goed gaat, als de aanvraag tenminste ingevuld is.\" Vanuit een Lean-perspectief is dit het standaard controleren van input voordat het proces start. Net als bij de CT/MRI is dit een noodzakelijke stap, maar blijft het afhankelijk van de (wisselende) nauwkeurigheid van de arts aan de voorkant.",
+              "workExpNote": "De planner ervaart het controleren van de PET-order als een simpele routinehandeling. Vanuit een kritisch Lean-perspectief is dit echter een controle-stap die puur bestaat om te verifiëren of de arts zijn administratieve werk in Epic wel heeft gedaan. Het is een poortwachtersfunctie.",
               "linkedSourceUids": [],
               "linkedBundleIds": [],
               "gate": {
@@ -65461,10 +65463,13 @@
               "text": "Controleren aanvraagformulier PET",
               "linkedSourceId": null,
               "type": "Taak",
-              "processValue": null,
-              "processStatus": "HAPPY",
+              "processValue": "BNVA",
+              "processStatus": "NEUTRAL",
               "successFactors": "",
-              "causes": [],
+              "causes": [
+                "Artsen vullen het aanvraagformulier onvolledig in of vergeten cruciale details die de afdeling Nucleair nodig heeft voor de PET-scan.",
+                "Er is geen harde systeemcontrole die de arts dwingt alle verplichte velden te vullen voordat het bij de planner belandt."
+              ],
               "improvements": [],
               "qa": {
                 "compleet": {
@@ -65514,9 +65519,15 @@
                 ]
               },
               "inputDefinitions": [],
-              "disruptions": [],
+              "disruptions": [
+                {
+                  "scenario": "Het aanvraagformulier voor de PET is onvolledig, onduidelijk of bevat tegenstrijdige informatie.",
+                  "frequency": "Soms",
+                  "workaround": "De planner moet het werk parkeren en de arts opzoeken of bellen om de benodigde informatie alsnog boven water te krijgen."
+                }
+              ],
               "workExp": "ROUTINE",
-              "workExpNote": "",
+              "workExpNote": "De planner geeft aan dat dit goed gaat, \"als de aanvraag tenminste is ingevuld.\" Vanuit een Lean-perspectief zien we hier de kwetsbaarheid van het proces: het planningswerk is 100% afhankelijk van de inhoudelijke volledigheid van de arts. Het formulier moet in één keer de juiste 'First Time Right' informatie bevatten, anders valt het proces stil.",
               "linkedSourceUids": [],
               "linkedBundleIds": [],
               "gate": {
@@ -66007,11 +66018,14 @@
               "created": 1770801877738,
               "text": "Planningsverzoek sturen",
               "linkedSourceId": null,
-              "type": null,
-              "processValue": null,
+              "type": "Taak",
+              "processValue": "BNVA",
               "processStatus": "NEUTRAL",
               "successFactors": "",
-              "causes": [],
+              "causes": [
+                "Planners werken soms te snel (hoge werkdruk), waardoor niet de juiste plek of tijd wordt doorgegeven.",
+                "Onduidelijke communicatie richting afdeling Nucleaire geneeskunde (\"dan snappen zij het niet\")."
+              ],
               "improvements": [],
               "qa": {
                 "compleet": {
@@ -66061,9 +66075,15 @@
                 ]
               },
               "inputDefinitions": [],
-              "disruptions": [],
-              "workExp": null,
-              "workExpNote": "",
+              "disruptions": [
+                {
+                  "scenario": "et verzoek bevat een fout of is multi-interpretabel voor Nucleair.",
+                  "frequency": "Soms",
+                  "workaround": "r ontstaat een heen-en-weer gemail en gebel tussen de planner en afdeling Nucleair om de aanvraag recht te trekken."
+                }
+              ],
+              "workExp": "ROUTINE",
+              "workExpNote": "De planner geeft aan dat dit proces op zich logisch is, maar dat het met enige regelmaat misgaat door eigen slordigheden of miscommunicatie.",
               "linkedSourceUids": [],
               "linkedBundleIds": [],
               "gate": {
@@ -66553,12 +66573,12 @@
               "created": 1770802590499,
               "text": "Herinnering aanmaken",
               "linkedSourceId": null,
-              "type": null,
+              "type": "Taak",
               "processValue": "NVA",
-              "processStatus": null,
+              "processStatus": "SAD",
               "successFactors": "",
               "causes": [
-                "NC werktniet nauwkeurig "
+                "Nucleaire geneeskunde is onbetrouwbaar in het tijdig of juist oppakken van planningsverzoeken."
               ],
               "improvements": [],
               "qa": {
@@ -66609,9 +66629,15 @@
                 ]
               },
               "inputDefinitions": [],
-              "disruptions": [],
+              "disruptions": [
+                {
+                  "scenario": "Verzoeken richting Nucleair verdwijnen in een 'zwart gat' zonder opvolging.",
+                  "frequency": "Altijd",
+                  "workaround": "De planner creëert een schaduwadministratie door zichzelf in de CC te zetten (Self InBasket reminder) om het verzoek niet kwijt te raken."
+                }
+              ],
               "workExp": "ROUTINE",
-              "workExpNote": "",
+              "workExpNote": "De planner bagatelliseert deze stap door te zeggen \"het gaat vanzelf, ik zet mezelf in de CC\". Maar de échte reden die ze direct daarna noemt is vanuit Lean-perspectief verontrustend: \"We weten dat nucleair gewoon niet nauwkeurig werkt, dus we moeten dit doen.\"",
               "linkedSourceUids": [],
               "linkedBundleIds": [],
               "gate": {
@@ -67105,7 +67131,10 @@
               "processValue": "NVA",
               "processStatus": "SAD",
               "successFactors": "",
-              "causes": [],
+              "causes": [
+                "Personele onderbezetting bij afdeling Nucleaire geneeskunde.",
+                "Afdeling Nucleair werkt onnauwkeurig (\"let niet op\")."
+              ],
               "improvements": [],
               "qa": {
                 "compleet": {
@@ -67155,9 +67184,15 @@
                 ]
               },
               "inputDefinitions": [],
-              "disruptions": [],
+              "disruptions": [
+                {
+                  "scenario": "De PET-afspraak wordt niet (tijdig) ingepland door Nucleair.",
+                  "frequency": "Vaak",
+                  "workaround": "De planner moet continu lijstjes bewaken, herinneringen checken en handmatig in de gaten houden of het werk aan de overkant wel gebeurt."
+                }
+              ],
               "workExp": "OBSTACLE",
-              "workExpNote": "",
+              "workExpNote": "De planner is hier in het interview glashelder over: \"Dit is nou echt verspilling. Het kost energie. Het is absurd dat ik een opdracht geef en in de gaten moet houden of het gedaan wordt.\" Lean-technisch is dit een schoolvoorbeeld van een falend pull-systeem.",
               "linkedSourceUids": [],
               "linkedBundleIds": [],
               "gate": {
@@ -67656,10 +67691,12 @@
               "text": "Deadline toetsen (tijd D-1 10:00)",
               "linkedSourceId": null,
               "type": null,
-              "processValue": null,
+              "processValue": "NVA",
               "processStatus": "NEUTRAL",
               "successFactors": "",
-              "causes": [],
+              "causes": [
+                "Nucleair mist de deadline voor het bestellen van radioactief materiaal, waardoor de scan voor de patiënt in gevaar komt."
+              ],
               "improvements": [],
               "qa": {
                 "compleet": {
@@ -67709,9 +67746,15 @@
                 ]
               },
               "inputDefinitions": [],
-              "disruptions": [],
+              "disruptions": [
+                {
+                  "scenario": "De harde deadline (D-1 10:00) nadert of is verstreken zonder dat het verzoek is afgehandeld door Nucleair.",
+                  "frequency": "Soms",
+                  "workaround": "De planner moet het reguliere werk laten vallen, de telefoon pakken en forceren/escaleren bij Nucleair om de afspraak alsnog door te duwen."
+                }
+              ],
               "workExp": "OBSTACLE",
-              "workExpNote": "",
+              "workExpNote": "Het sturen op een harde deadline (uiterlijk donderdag voor 11:00 voor een scan op vrijdag). Als dit misgaat en de planner moet escaleren, is dit volgens haar \"blokkerend\" en \"kost het heel veel energie omdat zíj het niet goed hebben gedaan\".",
               "linkedSourceUids": [],
               "linkedBundleIds": [],
               "gate": {
@@ -68207,11 +68250,14 @@
               "created": 1770808523416,
               "text": "NUCL bellen",
               "linkedSourceId": null,
-              "type": null,
+              "type": "Taak",
               "processValue": "NVA",
               "processStatus": "SAD",
               "successFactors": "",
-              "causes": [],
+              "causes": [
+                "De afdeling Nucleaire Geneeskunde verwerkt de planningsverzoeken (PET) niet tijdig of foutief, vaak als gevolg van onnauwkeurigheid of eigen capaciteitsproblemen.",
+                "Het systeem aan de voorkant faalt: in plaats van een soepele 'flow' moet de planner handmatig 'pushen' (bellen) om de noodzakelijke actie aan de andere kant af te dwingen."
+              ],
               "improvements": [],
               "qa": {
                 "compleet": {
@@ -68261,9 +68307,15 @@
                 ]
               },
               "inputDefinitions": [],
-              "disruptions": [],
+              "disruptions": [
+                {
+                  "scenario": "e afdeling Nucleair heeft de opdracht niet goed uitgevoerd of de afspraak niet gepland, waardoor het traject van de patiënt stagneert.",
+                  "frequency": "Soms",
+                  "workaround": "De planner moet het eigen werk neerleggen, de telefoon pakken en stevig escaleren bij Nucleair om de fouten te laten herstellen en de afspraak alsnog af te dwingen."
+                }
+              ],
               "workExp": "OBSTACLE",
-              "workExpNote": "",
+              "workExpNote": "Kost veel energie, want zij hebben het niet goed gedaan. Dat blokkeert ons werk. ",
               "linkedSourceUids": [],
               "linkedBundleIds": [],
               "gate": {
@@ -68754,10 +68806,10 @@
               "created": 1771411248493,
               "text": "Inplannen voorbereidingen",
               "linkedSourceId": null,
-              "type": null,
-              "processValue": null,
-              "processStatus": null,
-              "successFactors": "",
+              "type": "Taak",
+              "processValue": "BNVA",
+              "processStatus": "HAPPY",
+              "successFactors": "Het planningswerk is nu puur een administratieve handeling in Epic, wat als systeem goed functioneert.",
               "causes": [],
               "improvements": [],
               "qa": {
@@ -68809,8 +68861,8 @@
               },
               "inputDefinitions": [],
               "disruptions": [],
-              "workExp": null,
-              "workExpNote": "",
+              "workExp": "ROUTINE",
+              "workExpNote": "Na de moeizame weg door Nucleair en alle eerdere obstakels, is dit de daadwerkelijke administratieve afronding van de route. De planner noemt dit \"de afronding, dan heb je alles gedaan.",
               "linkedSourceUids": [],
               "linkedBundleIds": [],
               "gate": {
