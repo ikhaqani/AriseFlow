@@ -4,7 +4,7 @@
   "author": "Anoniem",
   "created": "2026-01-16T08:48:17.021Z",
   "version": "2.7",
-  "activeSheetId": "7b71de70-d49b-43d1-b1e8-1401e5268f84",
+  "activeSheetId": "82c5a0d7-dd02-4362-940e-76e2a3f5d814",
   "sheets": [
     {
       "id": "858c26e5-f7ec-4311-b503-641f99e65c84",
@@ -27796,10 +27796,15 @@
                   "scenario": "De consultorder komt niet binnen, waardoor de start van triage/planning stilvalt.",
                   "frequency": "Zelden",
                   "workaround": "Handmatige signalering door patiënt of arts (oplettendheid) om de ontbrekende consultorder te melden."
+                },
+                {
+                  "scenario": "Onjuiste triage/gegevens kloppen niet",
+                  "frequency": "Soms",
+                  "workaround": "Contact opnemen met de arts"
                 }
               ],
               "workExp": "ROUTINE",
-              "workExpNote": "",
+              "workExpNote": "vaste stap vóór je kunt plannen",
               "linkedSourceUids": [],
               "linkedBundleIds": [],
               "gate": {
@@ -28301,9 +28306,11 @@
               "linkedSourceId": null,
               "type": "Taak",
               "processValue": "BNVA",
-              "processStatus": "HAPPY",
+              "processStatus": "NEUTRAL",
               "successFactors": "AB-protocollen zijn goed geprotocolleerd. ",
-              "causes": [],
+              "causes": [
+                "Triage niet altijd correct"
+              ],
               "improvements": [],
               "qa": {
                 "compleet": {
@@ -28353,9 +28360,15 @@
                 ]
               },
               "inputDefinitions": [],
-              "disruptions": [],
-              "workExp": "ROUTINE",
-              "workExpNote": "",
+              "disruptions": [
+                {
+                  "scenario": "Triage niet correct (arts/doelgebied)",
+                  "frequency": "Soms",
+                  "workaround": "Contact opnemen met de arts"
+                }
+              ],
+              "workExp": "OBSTACLE",
+              "workExpNote": "normaal snel, maar fout input maakt het puzzelen",
               "linkedSourceUids": [],
               "linkedBundleIds": [],
               "gate": {
@@ -31178,10 +31191,12 @@
               "text": "Consultafspraak inplannen",
               "linkedSourceId": null,
               "type": "Taak",
-              "processValue": "VA",
-              "processStatus": "HAPPY",
+              "processValue": "BNVA",
+              "processStatus": "NEUTRAL",
               "successFactors": "",
-              "causes": [],
+              "causes": [
+                "Epic/agenda-inrichting geeft extra werk"
+              ],
               "improvements": [],
               "qa": {
                 "compleet": {
@@ -31231,7 +31246,23 @@
                 ]
               },
               "inputDefinitions": [],
-              "disruptions": [],
+              "disruptions": [
+                {
+                  "scenario": "Veel klikken ",
+                  "frequency": "Altijd",
+                  "workaround": ""
+                },
+                {
+                  "scenario": "Reeks/serie zet tijden fout",
+                  "frequency": "Vaak",
+                  "workaround": ""
+                },
+                {
+                  "scenario": "Te weinig kleur/overzicht",
+                  "frequency": "Altijd",
+                  "workaround": ""
+                }
+              ],
               "workExp": "ROUTINE",
               "workExpNote": "Dit betekent dat alle voorgaande stappen goed zijn gegaan en dus is het inplannen nog maar een druk op de knop",
               "outputUid": "out_b86a4639-de0b-401c-b7ea-74ba08c9fc8b",
@@ -31769,7 +31800,7 @@
               "text": "TBI route starten",
               "linkedSourceId": null,
               "type": "Taak",
-              "processValue": "VA",
+              "processValue": "BNVA",
               "processStatus": "SAD",
               "successFactors": "",
               "causes": [
@@ -31834,7 +31865,7 @@
               "disruptions": [
                 {
                   "scenario": "Er is onzekerheid over hoe de taak uitgevoerd moet worden, doordat de werkwijze niet voldoende duidelijk of geborgd is.",
-                  "frequency": "Vaak",
+                  "frequency": "Altijd",
                   "workaround": "Medewerkers improviseren een eigen werkwijze of laten de taak liggen/stellen deze uit."
                 }
               ],
@@ -32342,7 +32373,7 @@
               "text": "Afspraak inplannen in gele blokken",
               "linkedSourceId": null,
               "type": "Taak",
-              "processValue": "VA",
+              "processValue": "BNVA",
               "processStatus": "HAPPY",
               "successFactors": "Hematologie geeft aan dat het werken met gele blokken goed functioneert voor het inplannen van TBI.",
               "causes": [],
@@ -32408,7 +32439,7 @@
                 }
               ],
               "workExp": "ROUTINE",
-              "workExpNote": "",
+              "workExpNote": "plannen zelf is standaard",
               "linkedSourceUids": [],
               "linkedBundleIds": [],
               "gate": {
@@ -32958,9 +32989,15 @@
                 ]
               },
               "inputDefinitions": [],
-              "disruptions": [],
+              "disruptions": [
+                {
+                  "scenario": "Er is geen reminder functie in Epic",
+                  "frequency": "Altijd",
+                  "workaround": "Je zet jezelf in de CC om voortgang te bewaken"
+                }
+              ],
               "workExp": "ROUTINE",
-              "workExpNote": "",
+              "workExpNote": "Een standaard communicatie-/signaalstap",
               "linkedSourceUids": [],
               "linkedBundleIds": [],
               "gate": {
@@ -33515,17 +33552,17 @@
               "disruptions": [
                 {
                   "scenario": "Mouldroom gesloten",
-                  "frequency": "Zelden",
+                  "frequency": "Soms",
                   "workaround": "De senior wordt gebeld om de mouldroom alsnog te openen, zodat de patiënt door kan."
                 },
                 {
                   "scenario": "CT gesloten",
-                  "frequency": "Zelden",
+                  "frequency": "Soms",
                   "workaround": "De senior wordt gebeld om te beoordelen of CT alsnog geopend kan worden; als dat niet kan, wordt de patiënt verplaatst en opnieuw ingepland op een andere dag."
                 },
                 {
                   "scenario": "Te veel patiënten en onvoldoende vacuümmatras-capaciteit",
-                  "frequency": "Soms",
+                  "frequency": "Vaak",
                   "workaround": "Afstemming met teamleiders en artsen om prioriteiten te bepalen en een oplossing te kiezen (bijv. herplanning, herverdeling van hulpmiddelen of alternatieve positionering)."
                 }
               ],
@@ -34098,7 +34135,7 @@
                 },
                 {
                   "scenario": "Onvoldoende toestelcapaciteit",
-                  "frequency": "Soms",
+                  "frequency": "Vaak",
                   "workaround": "TBI kan alleen op Juno. Een lange TBI bezet het toestel ongeveer drie uur, waardoor er minder capaciteit overblijft voor andere patiënten en de planning snel vastloopt."
                 }
               ],
@@ -34602,7 +34639,7 @@
               "type": "Taak",
               "processValue": "BNVA",
               "processStatus": "HAPPY",
-              "successFactors": "",
+              "successFactors": "Standaard werkt, maar uitzonderingen kunnen je dwingen tot aanpassing.",
               "causes": [],
               "improvements": [],
               "qa": {
@@ -34653,9 +34690,15 @@
                 ]
               },
               "inputDefinitions": [],
-              "disruptions": [],
+              "disruptions": [
+                {
+                  "scenario": "Uitzondering/complexiteit vraagt meer tijd dan standaardduur",
+                  "frequency": "Soms",
+                  "workaround": "Duur handmatig ophogen + herplannen als blok het niet toelaat + terugkoppeling."
+                }
+              ],
               "workExp": "ROUTINE",
-              "workExpNote": "",
+              "workExpNote": "Er is een vaste beslisregel (duur = 30/60 + reservering). Meestal één keuze, weinig variatie: je past de standaard toe",
               "linkedSourceUids": [],
               "linkedBundleIds": [],
               "gate": {
@@ -35155,7 +35198,7 @@
               "type": "Taak",
               "processValue": "BNVA",
               "processStatus": "HAPPY",
-              "successFactors": "",
+              "successFactors": "Stap is simpel, maar kan misgaan door menselijke fout/drukte.",
               "causes": [],
               "improvements": [],
               "qa": {
@@ -35206,9 +35249,15 @@
                 ]
               },
               "inputDefinitions": [],
-              "disruptions": [],
+              "disruptions": [
+                {
+                  "scenario": "Verwerking vergeten/te laat, waardoor vervolg ziet status niet goed",
+                  "frequency": "Soms",
+                  "workaround": "Direct corrigeren in Epic"
+                }
+              ],
               "workExp": "ROUTINE",
-              "workExpNote": "",
+              "workExpNote": "Administratieve verwerking met vaste invoer/uitvoer; weinig keuzes; vooral “registreren”",
               "linkedSourceUids": [],
               "linkedBundleIds": [],
               "gate": {
@@ -35705,7 +35754,7 @@
               "text": "Patiënt bellen",
               "linkedSourceId": null,
               "type": "Taak",
-              "processValue": "BNVA",
+              "processValue": "VA",
               "processStatus": "SAD",
               "successFactors": "",
               "causes": [
@@ -36278,10 +36327,13 @@
               "linkedSourceId": null,
               "type": "Taak",
               "processValue": "BNVA",
-              "processStatus": "NEUTRAL",
+              "processStatus": "SAD",
               "successFactors": "",
               "causes": [
-                "agenda's komen niet overeen"
+                "agenda's komen niet overeen",
+                "De triagearts koppelt Fastmets niet altijd in de gegevens die bij het afsprakenbureau terechtkomen.",
+                "De Fastmets werkwijze is nieuw waardoor stappen, definities en verantwoordelijkheden nog niet overal hetzelfde worden toegepast.",
+                "Terugkoppeling is niet tijdig of niet eenduidig waardoor het afsprakenbureau pas laat ontdekt dat het om Fastmets gaat."
               ],
               "improvements": [],
               "qa": {
@@ -36336,21 +36388,21 @@
                 {
                   "scenario": "Toch geen fastmets",
                   "frequency": "Zelden",
-                  "workaround": ""
+                  "workaround": "Afspraak ombouwen"
                 },
                 {
                   "scenario": "Agenda staat niet goed",
                   "frequency": "Vaak",
-                  "workaround": ""
+                  "workaround": "Agenda weer goed zetten dan inplannen"
                 },
                 {
-                  "scenario": "Fastmest triage ",
+                  "scenario": "triagearts vergeet Fastmets te koppelen / route niet goed geactiveerd",
                   "frequency": "Vaak",
-                  "workaround": ""
+                  "workaround": "Je controleert de triage output extra. Je boekt last minute om naar Fastmets. Je overlegt met de arts of de chef poli als het niet binnen het pad past."
                 }
               ],
               "workExp": "OBSTACLE",
-              "workExpNote": "Het is een nieuwe werkwijze dus iedereen is zoekende",
+              "workExpNote": "Dit is obstakel omdat het een nieuwe werkwijze is en omdat de start afhankelijk is van een juiste koppeling door de triagearts. Als die koppeling ontbreekt moet je later alsnog omboeken en opnieuw plannen.",
               "linkedSourceUids": [],
               "linkedBundleIds": [],
               "gate": {
@@ -36844,14 +36896,16 @@
               "created": 1771495730349,
               "text": "Zoeken vrije consultplek",
               "linkedSourceId": null,
-              "type": null,
+              "type": "Taak",
               "processValue": "BNVA",
-              "processStatus": "NEUTRAL",
+              "processStatus": "SAD",
               "successFactors": "",
               "causes": [
-                "rigide agenda van artsen",
+                "Rigide agenda van artsen",
                 "Te weinig plekken op CT",
-                "Verkeerde triage"
+                "De artsagenda wordt niet consequent en nauwkeurig beheerd waardoor blokken fout staan",
+                "Bij vakantie, onderhoud, supervisie of vergaderingen worden blokken aangepast zonder dat Helios en toestelblokken op dezelfde manier worden aangepast.",
+                "Er is geen vaste controle op dataconsistentie voordat de agenda wordt vrijgegeven voor planning."
               ],
               "improvements": [],
               "qa": {
@@ -36904,18 +36958,23 @@
               "inputDefinitions": [],
               "disruptions": [
                 {
-                  "scenario": "veel aanmeldingen ",
+                  "scenario": "Veel aanmeldingen ",
                   "frequency": "Soms",
                   "workaround": "overleggen met arts"
                 },
                 {
-                  "scenario": "Geen CT",
+                  "scenario": "Geen CT-plek",
                   "frequency": "Soms",
-                  "workaround": "dag erna CT"
+                  "workaround": "CT volgende dag inplannen"
+                },
+                {
+                  "scenario": "Een slot lijkt vrij maar blijkt niet vrij door mismatch of gesloten artsagenda",
+                  "frequency": "Altijd",
+                  "workaround": "e vergelijkt handmatig Helios, toestel en artsagenda. Je creëert indien nodig een plek in Epic. Je zoekt een alternatief met de arts. Je escaleert als het niet oplosbaar is."
                 }
               ],
-              "workExp": "ROUTINE",
-              "workExpNote": "",
+              "workExp": "OBSTACLE",
+              "workExpNote": "Dit is obstakel omdat je afhankelijk bent van meerdere agenda’s die tegelijk moeten kloppen. Als Helios, toestel en artsagenda niet synchroon zijn moet je opnieuw zoeken en vaak ook corrigeren.",
               "linkedSourceUids": [],
               "linkedBundleIds": [],
               "gate": {
