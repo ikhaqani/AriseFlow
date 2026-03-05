@@ -38395,7 +38395,7 @@
             {
               "id": "a6f81af8-a4af-4442-b9fb-78dafa2be9ff",
               "created": 1771512734202,
-              "text": "Telefonisch",
+              "text": "Telefoon",
               "linkedSourceId": null,
               "type": null,
               "processValue": null,
@@ -38432,7 +38432,7 @@
               "systemData": {
                 "isMulti": false,
                 "systemName": "",
-                "calculatedScore": null,
+                "calculatedScore": 73,
                 "systems": [
                   {
                     "id": "a655aac0-479c-435f-89f9-f55e9591a131",
@@ -38453,12 +38453,17 @@
                   "multi": false,
                   "systems": [
                     {
-                      "id": "1cbf5347-08ad-4d30-aa0e-6dc32c533239",
-                      "name": "",
+                      "name": "Telefoon",
                       "legacy": false,
                       "future": "",
-                      "qa": {},
-                      "score": null
+                      "qa": {
+                        "q1": "SOMETIMES",
+                        "q2": "SOMETIMES",
+                        "q3": "NEVER",
+                        "q4": "SOMETIMES",
+                        "q5": "DELAY"
+                      },
+                      "score": 73
                     }
                   ],
                   "activeSystemIdx": 0
@@ -38951,7 +38956,7 @@
             {
               "id": "96756953-e39a-4064-b635-59182503265b",
               "created": 1771512746222,
-              "text": "Telefonisch",
+              "text": "Telefoon",
               "linkedSourceId": null,
               "type": null,
               "processValue": null,
@@ -38988,7 +38993,7 @@
               "systemData": {
                 "isMulti": false,
                 "systemName": "",
-                "calculatedScore": null,
+                "calculatedScore": 73,
                 "systems": [
                   {
                     "id": "80068122-1c1e-4a32-adcb-8368c8e92d55",
@@ -39009,12 +39014,17 @@
                   "multi": false,
                   "systems": [
                     {
-                      "id": "332f2269-88d3-4458-a666-5265cad25428",
                       "name": "",
                       "legacy": false,
                       "future": "",
-                      "qa": {},
-                      "score": null
+                      "qa": {
+                        "q1": "SOMETIMES",
+                        "q2": "SOMETIMES",
+                        "q3": "NEVER",
+                        "q4": "SOMETIMES",
+                        "q5": "DELAY"
+                      },
+                      "score": 73
                     }
                   ],
                   "activeSystemIdx": 0
@@ -39507,7 +39517,7 @@
             {
               "id": "72d04036-e25d-423e-b6a6-bea7a61636f8",
               "created": 1771491026644,
-              "text": "Telefonisch",
+              "text": "Telefoon",
               "linkedSourceId": null,
               "type": null,
               "processValue": null,
@@ -39544,7 +39554,7 @@
               "systemData": {
                 "isMulti": false,
                 "systemName": "",
-                "calculatedScore": null,
+                "calculatedScore": 73,
                 "systems": [
                   {
                     "id": "4c28a915-dee4-4c51-821c-d3d049c61c9d",
@@ -39565,12 +39575,21 @@
                   "multi": false,
                   "systems": [
                     {
-                      "id": "c2f4cefe-4cd5-4f27-ad27-79fa2aeec44e",
                       "name": "",
                       "legacy": false,
                       "future": "",
-                      "qa": {},
-                      "score": null
+                      "qa": {
+                        "q1": "SOMETIMES",
+                        "q2": "SOMETIMES",
+                        "q3": "NEVER",
+                        "q4": "SOMETIMES",
+                        "q5": "DELAY",
+                        "q2_note": "Extra belmomenten kosten tijd.",
+                        "q1_note": "Als bevestiging niet via een standaardkanaal kan moet je telefonisch extra bevestigen.",
+                        "q4_note": "Mondelinge bevestiging kan worden vergeten als je het niet vastlegt.",
+                        "q5_note": "Je kunt dan niet bevestigen en de patiënt blijft onzeker."
+                      },
+                      "score": 73
                     }
                   ],
                   "activeSystemIdx": 0
