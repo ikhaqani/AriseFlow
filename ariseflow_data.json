@@ -27567,19 +27567,19 @@
               "improvements": [],
               "qa": {
                 "compleet": {
-                  "result": "MINOR",
-                  "impact": null,
-                  "note": "Als de informatie onvolledig is, neem ik contact op met de triagearts of vraag ik aanvullende informatie op bij de polikliniek of de behandelend arts."
+                  "result": "MODERATE",
+                  "impact": "A",
+                  "note": "Soms ontbreken essentiële onderdelen in de consultorder waardoor je niet kunt starten of niet kunt afronden."
                 },
                 "kwaliteit": {
-                  "result": "GOOD",
-                  "impact": null,
-                  "note": ""
+                  "result": "MINOR",
+                  "impact": "B",
+                  "note": "De info is meestal bruikbaar maar je moet soms actief verifiëren of aanvullen."
                 },
                 "duidelijkheid": {
-                  "result": "GOOD",
-                  "impact": null,
-                  "note": ""
+                  "result": "MINOR",
+                  "impact": "B",
+                  "note": "Soms moet je interpreteren wat bedoeld wordt voordat je kunt doorgaan."
                 },
                 "tijdigheid": {
                   "result": "GOOD",
@@ -27587,9 +27587,9 @@
                   "note": ""
                 },
                 "standaard": {
-                  "result": "GOOD",
-                  "impact": null,
-                  "note": ""
+                  "result": "MINOR",
+                  "impact": "C",
+                  "note": "Invullen gebeurt meestal volgens vaste opzet maar niet altijd consequent."
                 },
                 "overdracht": {
                   "result": "GOOD",
@@ -28725,7 +28725,7 @@
               "qa": {
                 "compleet": {
                   "result": "MINOR",
-                  "impact": "B",
+                  "impact": "C",
                   "note": "Soms mist er informatie, dan bel ik met de arts"
                 },
                 "kwaliteit": {
@@ -28734,9 +28734,9 @@
                   "note": ""
                 },
                 "duidelijkheid": {
-                  "result": "GOOD",
-                  "impact": null,
-                  "note": ""
+                  "result": "MINOR",
+                  "impact": "C",
+                  "note": "Soms is niet direct duidelijk welke variant van de route bedoeld is en dan check je kort."
                 },
                 "tijdigheid": {
                   "result": "GOOD",
@@ -28775,7 +28775,13 @@
                   }
                 ]
               },
-              "inputDefinitions": [],
+              "inputDefinitions": [
+                {
+                  "item": "AB-protocollen",
+                  "specifications": "",
+                  "type": "HARD"
+                }
+              ],
               "disruptions": [],
               "workExp": null,
               "workExpNote": "",
@@ -29316,9 +29322,9 @@
                   "note": ""
                 },
                 "duidelijkheid": {
-                  "result": "GOOD",
-                  "impact": null,
-                  "note": ""
+                  "result": "MINOR",
+                  "impact": "C",
+                  "note": "Soms moet je nog interpreteren welke type precies bedoeld is"
                 },
                 "tijdigheid": {
                   "result": "GOOD",
@@ -29362,11 +29368,11 @@
               "workExp": null,
               "workExpNote": "",
               "linkedBundleId": null,
-              "linkedBundleIds": [],
+              "linkedBundleIds": null,
               "linkedSourceUids": [
-                "out_c18e39fe-7592-4692-8ae2-7280da605baf"
+                "out_4f10a6b9-5737-4988-b00a-25bdd5007431"
               ],
-              "linkedSourceUid": "out_c18e39fe-7592-4692-8ae2-7280da605baf",
+              "linkedSourceUid": "out_4f10a6b9-5737-4988-b00a-25bdd5007431",
               "linkedSourceIds": [],
               "gate": {
                 "checkProcessIds": [],
@@ -30464,19 +30470,19 @@
               "improvements": [],
               "qa": {
                 "compleet": {
-                  "result": "GOOD",
-                  "impact": null,
-                  "note": ""
+                  "result": "MODERATE",
+                  "impact": "B",
+                  "note": "Een vrij slot mist soms aanvullende context zoals blokkades of samenhang met artsagenda."
                 },
                 "kwaliteit": {
-                  "result": "GOOD",
-                  "impact": null,
-                  "note": ""
+                  "result": "MODERATE",
+                  "impact": "B",
+                  "note": "Een slot lijkt vrij maar blijkt later toch niet passend of beschikbaar."
                 },
                 "duidelijkheid": {
-                  "result": "GOOD",
-                  "impact": null,
-                  "note": ""
+                  "result": "MODERATE",
+                  "impact": "B",
+                  "note": "Het is niet altijd duidelijk of het slot bedoeld is voor dit type consult."
                 },
                 "tijdigheid": {
                   "result": "GOOD",
@@ -30484,14 +30490,14 @@
                   "note": ""
                 },
                 "standaard": {
-                  "result": "GOOD",
-                  "impact": null,
-                  "note": ""
+                  "result": "MINOR",
+                  "impact": "B",
+                  "note": "Bloktypes zijn niet altijd eenduidig herkenbaar waardoor je moet interpreteren."
                 },
                 "overdracht": {
-                  "result": "GOOD",
-                  "impact": null,
-                  "note": ""
+                  "result": "MODERATE",
+                  "impact": "B",
+                  "note": "Beschikbaarheid is niet altijd goed afgestemd met andere agenda’s waardoor je later moet corrigeren."
                 }
               },
               "systemData": {
@@ -31075,9 +31081,9 @@
                   "note": ""
                 },
                 "overdracht": {
-                  "result": "GOOD",
-                  "impact": null,
-                  "note": ""
+                  "result": "MINOR",
+                  "impact": "C",
+                  "note": "Het akkoord moet nog verwerkt worden in systemen en als dat niet direct gebeurt blijft het los bestaan."
                 }
               },
               "systemData": {
@@ -32236,9 +32242,9 @@
                   "note": ""
                 },
                 "kwaliteit": {
-                  "result": "GOOD",
-                  "impact": null,
-                  "note": ""
+                  "result": "MINOR",
+                  "impact": "B",
+                  "note": "De blokken zijn meestal bruikbaar maar soms klopt beschikbaarheid niet volledig door wijzigingen."
                 },
                 "duidelijkheid": {
                   "result": "GOOD",
@@ -36209,7 +36215,7 @@
               "qa": {
                 "compleet": {
                   "result": "MINOR",
-                  "impact": null,
+                  "impact": "C",
                   "note": ""
                 },
                 "kwaliteit": {
@@ -36218,9 +36224,9 @@
                   "note": ""
                 },
                 "duidelijkheid": {
-                  "result": "GOOD",
-                  "impact": null,
-                  "note": ""
+                  "result": "MINOR",
+                  "impact": "C",
+                  "note": "Soms is niet direct zichtbaar welke routevariant bedoeld is waardoor je kort moet checken."
                 },
                 "tijdigheid": {
                   "result": "GOOD",
@@ -36785,9 +36791,9 @@
               "improvements": [],
               "qa": {
                 "compleet": {
-                  "result": "GOOD",
-                  "impact": null,
-                  "note": ""
+                  "result": "MINOR",
+                  "impact": "C",
+                  "note": " Protocollen zijn er, maar niet altijd precies afgestemd op elke uitzonderingssituatie waardoor je soms extra moet zoeken."
                 },
                 "kwaliteit": {
                   "result": "GOOD",
@@ -37365,19 +37371,19 @@
               "improvements": [],
               "qa": {
                 "compleet": {
-                  "result": "GOOD",
-                  "impact": null,
-                  "note": ""
+                  "result": "MODERATE",
+                  "impact": "B",
+                  "note": " Een vrije plek mist soms aanvullende context zoals blokkades of samenhang met artsagenda waardoor je extra moet uitzoeken."
                 },
                 "kwaliteit": {
-                  "result": "GOOD",
-                  "impact": null,
-                  "note": ""
+                  "result": "MODERATE",
+                  "impact": "B",
+                  "note": "Een plek lijkt vrij maar blijkt later toch niet passend door agenda issues."
                 },
                 "duidelijkheid": {
-                  "result": "GOOD",
-                  "impact": null,
-                  "note": ""
+                  "result": "MODERATE",
+                  "impact": "B",
+                  "note": "Het is niet altijd duidelijk of de plek bedoeld is voor regulier of Fastmet zonder extra check."
                 },
                 "tijdigheid": {
                   "result": "GOOD",
@@ -37935,34 +37941,34 @@
               "improvements": [],
               "qa": {
                 "compleet": {
-                  "result": null,
+                  "result": "GOOD",
                   "impact": null,
                   "note": ""
                 },
                 "kwaliteit": {
-                  "result": null,
+                  "result": "GOOD",
                   "impact": null,
                   "note": ""
                 },
                 "duidelijkheid": {
-                  "result": null,
+                  "result": "MINOR",
                   "impact": null,
                   "note": ""
                 },
                 "tijdigheid": {
-                  "result": null,
+                  "result": "GOOD",
                   "impact": null,
                   "note": ""
                 },
                 "standaard": {
-                  "result": null,
+                  "result": "GOOD",
                   "impact": null,
                   "note": ""
                 },
                 "overdracht": {
-                  "result": null,
-                  "impact": null,
-                  "note": ""
+                  "result": "MINOR",
+                  "impact": "B",
+                  "note": "Het akkoord moet nog verwerkt worden in de vervolgstappen en dat vraagt een handeling."
                 }
               },
               "systemData": {
@@ -38496,33 +38502,33 @@
               "improvements": [],
               "qa": {
                 "compleet": {
-                  "result": null,
+                  "result": "GOOD",
                   "impact": null,
                   "note": ""
                 },
                 "kwaliteit": {
-                  "result": null,
+                  "result": "GOOD",
                   "impact": null,
                   "note": ""
                 },
                 "duidelijkheid": {
-                  "result": null,
-                  "impact": null,
+                  "result": "MINOR",
+                  "impact": "C",
                   "note": ""
                 },
                 "tijdigheid": {
-                  "result": null,
+                  "result": "GOOD",
                   "impact": null,
                   "note": ""
                 },
                 "standaard": {
-                  "result": null,
+                  "result": "GOOD",
                   "impact": null,
                   "note": ""
                 },
                 "overdracht": {
-                  "result": null,
-                  "impact": null,
+                  "result": "MINOR",
+                  "impact": "B",
                   "note": ""
                 }
               },
@@ -39057,33 +39063,33 @@
               "improvements": [],
               "qa": {
                 "compleet": {
-                  "result": null,
+                  "result": "GOOD",
                   "impact": null,
                   "note": ""
                 },
                 "kwaliteit": {
-                  "result": null,
+                  "result": "GOOD",
                   "impact": null,
                   "note": ""
                 },
                 "duidelijkheid": {
-                  "result": null,
-                  "impact": null,
+                  "result": "MINOR",
+                  "impact": "C",
                   "note": ""
                 },
                 "tijdigheid": {
-                  "result": null,
+                  "result": "GOOD",
                   "impact": null,
                   "note": ""
                 },
                 "standaard": {
-                  "result": null,
+                  "result": "GOOD",
                   "impact": null,
                   "note": ""
                 },
                 "overdracht": {
-                  "result": null,
-                  "impact": null,
+                  "result": "MINOR",
+                  "impact": "B",
                   "note": ""
                 }
               },
@@ -39622,27 +39628,33 @@
               "improvements": [],
               "qa": {
                 "compleet": {
-                  "result": "",
-                  "note": ""
+                  "result": "MINOR",
+                  "impact": "B",
+                  "note": "De patiënt is geïnformeerd, maar soms mist er nog een schriftelijke bevestiging of kanaalkeuze."
                 },
                 "kwaliteit": {
-                  "result": "",
-                  "note": ""
+                  "result": "MINOR",
+                  "impact": "C",
+                  "note": "Informatie is meestal correct, maar je moet soms controleren of alle details zijn doorgegeven."
                 },
                 "duidelijkheid": {
-                  "result": "",
-                  "note": ""
+                  "result": "MINOR",
+                  "impact": "C",
+                  "note": "Het is meestal duidelijk dat er contact is geweest, maar niet altijd wat exact is afgesproken."
                 },
                 "tijdigheid": {
-                  "result": "",
+                  "result": "GOOD",
+                  "impact": null,
                   "note": ""
                 },
                 "standaard": {
-                  "result": "",
+                  "result": "MINOR",
+                  "impact": null,
                   "note": ""
                 },
                 "overdracht": {
-                  "result": "",
+                  "result": "MINOR",
+                  "impact": null,
                   "note": ""
                 }
               },
@@ -39681,7 +39693,8 @@
                 "onPassTargetProcessId": null,
                 "rule": "ALL_OK",
                 "note": ""
-              }
+              },
+              "linkedSourceIds": []
             },
             {
               "id": "3c7ffa92-2867-458c-99f7-37ae6d5abfee",
