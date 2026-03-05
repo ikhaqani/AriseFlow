@@ -52609,9 +52609,15 @@
               "linkedSourceId": null,
               "type": "Taak",
               "processValue": "BNVA",
-              "processStatus": "HAPPY",
-              "successFactors": "losse eindjes en puntjes op de i zetten ",
-              "causes": [],
+              "processStatus": "SAD",
+              "successFactors": "",
+              "causes": [
+                "Het handmatig repareren van andermans invoerfouten kost onnodig veel tijd en haalt de flow uit de keten.",
+                "Al het herstelwerk en de mondelinge overleggen om gaten te dichten zijn pure NVA (Verspilling).",
+                "Artsen vullen formulieren onvolledig of te laat in en leunen op de \"automatische piloot\", wetende dat de planners de gaten toch wel dichtlopen.",
+                "Gebrek aan harde systeemcontroles (verplichte velden) bij de invoer door artsen in het aanvraagformulier.",
+                "Artsen hanteren eigen, niet-gestandaardiseerde terminologie (bijv. \"dubbel vacuüm\" in plaats van \"vacuümmatras\")."
+              ],
               "improvements": [],
               "qa": {
                 "compleet": {
@@ -52661,9 +52667,20 @@
                 ]
               },
               "inputDefinitions": [],
-              "disruptions": [],
+              "disruptions": [
+                {
+                  "scenario": "Aanvraagformulier onvolledig of CT-order mist (\"Ze vergeten het gewoon\").",
+                  "frequency": "Vaak",
+                  "workaround": "anner moet de arts fysiek opzoeken of bellen om alsnog de juiste data op te halen (brandjes blussen)"
+                },
+                {
+                  "scenario": "Gebruik van afwijkend jargon door artsen.",
+                  "frequency": "Soms",
+                  "workaround": "lanner moet het proces pauzeren en om verduidelijking vragen om foutieve inplanning te voorkomen."
+                }
+              ],
               "workExp": "ROUTINE",
-              "workExpNote": "",
+              "workExpNote": "De planner haalt er echter 'flow' (energie) uit als de arts even mondeling langskomt, omdat dit het werk soepeler maakt en sociaal contact belangrijk is. Maar vanuit een kritisch Lean-perspectief is dit proces aan de voorkant onvoldoende geborgd. Een uitvalratio van ~20% op standaard administratief werk is onacceptabel hoog en duidt op structureel herstelwerk in plaats van een soepel proces.",
               "linkedSourceUids": [],
               "linkedBundleIds": [],
               "gate": {
@@ -53158,7 +53175,11 @@
               "processValue": "BNVA",
               "processStatus": "SAD",
               "successFactors": "",
-              "causes": [],
+              "causes": [
+                "een gestandaardiseerde aanlevering (zoals de Excel-lijsten die Hoofdhals wel heeft)",
+                "Structureel te korte deadlines (morgen al een consult, MRI én PET) zonder dat de randvoorwaardelijke afdelingen daarop zijn afgestemd.",
+                "Artsen sturen patiënten het traject in nog vóór het besluit definitief is of de patiënt volledig is ingelicht door de gynaecoloog."
+              ],
               "improvements": [],
               "qa": {
                 "compleet": {
@@ -53208,9 +53229,20 @@
                 ]
               },
               "inputDefinitions": [],
-              "disruptions": [],
+              "disruptions": [
+                {
+                  "scenario": "Aanvragen komen \"last minute\" binnen voor complexe combinaties (MRI + PET + consult in 1 dag)",
+                  "frequency": "Vaak",
+                  "workaround": "Alles laten vallen, fysiek samen puzzelen en artsen/personeel in het weekend of 's avonds laten overwerken voor de intekening."
+                },
+                {
+                  "scenario": "Behandelplan is nog niet rond of patiënt kan/wil niet op de voorgestelde tijden.",
+                  "frequency": "Soms",
+                  "workaround": "lanners boeken preventief (delen van) afspraken in en moeten die later weer annuleren als het plan wijzigt."
+                }
+              ],
               "workExp": "OBSTACLE",
-              "workExpNote": "",
+              "workExpNote": "Dit proces is ad-hoc en vereist continu uitzonderingsbeheer onder te hoge tijdsdruk.",
               "linkedSourceUids": [],
               "linkedBundleIds": [],
               "gate": {
@@ -53699,10 +53731,14 @@
               "text": "Lijst met actiepunten opstellen",
               "linkedSourceId": null,
               "type": "Taak",
-              "processValue": null,
-              "processStatus": "HAPPY",
+              "processValue": "NVA",
+              "processStatus": "NEUTRAL",
               "successFactors": "",
-              "causes": [],
+              "causes": [
+                "Informatie komt gefragmenteerd binnen (Word voor nieuwe consulten, Excel voor indeling, mondeling, Epic).",
+                "Het systeem faciliteert geen betrouwbaar, integraal actie-overzicht.",
+                "Artsen vullen de supervisie in de bestanden vaak verkeerd in of claimen meer consulten dan ze fysieke plekken hebben."
+              ],
               "improvements": [],
               "qa": {
                 "compleet": {
@@ -53752,9 +53788,15 @@
                 ]
               },
               "inputDefinitions": [],
-              "disruptions": [],
+              "disruptions": [
+                {
+                  "scenario": "Data in de aangeleverde bestanden (Hoofdhals Excel/Word) is intern tegenstrijdig (supervisie klopt niet, of er zijn te weinig consultplekken).",
+                  "frequency": "Vaak",
+                  "workaround": "anner stopt met inplannen, belt de arts op en gaat handmatig de agenda \"passen en meten\" of patiënten verwisselen."
+                }
+              ],
               "workExp": "ROUTINE",
-              "workExpNote": "",
+              "workExpNote": "De planner ervaart dit als een prettige routine (\"ik vind het gewoon prettig om dingen op te schrijven in een boekje\" of aantekeningen te maken). Maar vanuit een proces-oogpunt is dit een 'Red Flag'. Het handmatig consolideren van informatie in een schaduwadministratie wijst op falende systeemondersteuning, double handling en overprocessing.",
               "linkedSourceUids": [],
               "linkedBundleIds": [],
               "gate": {
@@ -54245,10 +54287,13 @@
               "text": "Overzicht maken met in te plannen afspraken",
               "linkedSourceId": null,
               "type": null,
-              "processValue": null,
-              "processStatus": null,
+              "processValue": "NVA",
+              "processStatus": "NEUTRAL",
               "successFactors": "",
-              "causes": [],
+              "causes": [
+                "Het systeem faciliteert blijkbaar geen integraal of overzichtelijk planningsvoorstel, waardoor de planner zelf de afhankelijkheden moet overzien en berekenen.",
+                "Gebrek aan standaardisatie op de afdeling: werkwijzen lopen uiteen (de één doet het volledig uit het hoofd, de ander maakt een handmatig lijstje)."
+              ],
               "improvements": [],
               "qa": {
                 "compleet": {
@@ -54298,9 +54343,15 @@
                 ]
               },
               "inputDefinitions": [],
-              "disruptions": [],
-              "workExp": null,
-              "workExpNote": "",
+              "disruptions": [
+                {
+                  "scenario": "et systeem toont niet in één visueel overzicht alle afhankelijkheden en benodigde stappen voor een patiënt.",
+                  "frequency": "Altijd",
+                  "workaround": "De planner slaat de informatie op in het eigen geheugen en combineert dit razendsnel \"uit het hoofd\", óf (in het geval van collega's) maakt er een handmatig overzicht van."
+                }
+              ],
+              "workExp": "OBSTACLE",
+              "workExpNote": "De geïnterviewde planner ervaart dit als een vlotte handeling, omdat zij dit persoonlijk \"uit haar hoofd\" doet en de informatie direct en snel combineert in de systemen. Maar vanuit een kritisch Lean-perspectief is dit een zeer kwetsbaar proces. Het feit dat collega's hier wél handmatige overzichten voor moeten maken, en deze specifieke planner de complexe puzzel volledig op haar eigen geheugen baseert, toont aan dat het proces niet gestandaardiseerd is en het systeem onvoldoende ondersteunt.",
               "linkedSourceUids": [],
               "linkedBundleIds": [],
               "gate": {
@@ -54791,10 +54842,14 @@
               "text": "Afspraak inplannen tumormasker bij arts",
               "linkedSourceId": null,
               "type": null,
-              "processValue": null,
-              "processStatus": null,
+              "processValue": "BNVA",
+              "processStatus": "SAD",
               "successFactors": "",
-              "causes": [],
+              "causes": [
+                "Strakke chronologische afhankelijkheden (Consult -> Masker -> PET-scan) die plannen op korte termijn (zoals bij Hoofdhals) zeer foutgevoelig maken.",
+                "Agenda's van artsen en randvoorwaardelijke middelen (masker-ruimte) zijn onvoldoende op elkaar afgestemd voor een vlotte 'flow' van de patiënt.",
+                "Afwijkingen of bijzonderheden (bijv. een patiënt moet onverwachts eerst tanden laten trekken bij MKA) verstoren direct de hele planning."
+              ],
               "improvements": [],
               "qa": {
                 "compleet": {
@@ -54844,9 +54899,15 @@
                 ]
               },
               "inputDefinitions": [],
-              "disruptions": [],
-              "workExp": null,
-              "workExpNote": "",
+              "disruptions": [
+                {
+                  "scenario": "r is geen aansluitende ruimte bij de arts voor het tumormasker direct na of in combinatie met het consult, terwijl de deadline voor de PET-scan vaststaat.",
+                  "frequency": "Vaak",
+                  "workaround": "e planner moet handmatig bellen, passen en meten, of de patiënt (zeer patiëntonvriendelijk) op een ander moment laten terugkomen."
+                }
+              ],
+              "workExp": "OBSTACLE",
+              "workExpNote": "De planner doet haar uiterste best om de afspraken zo patiëntvriendelijk mogelijk achter elkaar te plannen (bijv. consult direct gevolgd door het masker). Maar vanuit een kritisch Lean-perspectief is dit een proces met een extreem strakke en kwetsbare afhankelijkheidsketen. Het masker moét afgerond zijn voordat de vervolgstappen (zoals de PET-scan) plaatsvinden, wat zorgt voor ongezonde tijdsdruk en veel herstelwerk als agenda's niet perfect op elkaar aansluiten.",
               "linkedSourceUids": [],
               "linkedBundleIds": [],
               "gate": {
@@ -55336,11 +55397,15 @@
               "created": 1771416538572,
               "text": "Afspraak inplannen tumormasker bij doktersassistent",
               "linkedSourceId": null,
-              "type": null,
-              "processValue": null,
-              "processStatus": null,
+              "type": "Taak",
+              "processValue": "BNVA",
+              "processStatus": "SAD",
               "successFactors": "",
-              "causes": [],
+              "causes": [
+                "Structureel personeelstekort (doktersassistenten/laboranten) op de moldroom.",
+                "Slecht agendabeheer van de afdeling: structurele overleggen worden ingepland tijdens productietijd, waardoor de moldroom dicht is voor patiënten.",
+                "Fysiek te weinig ruimte/capaciteit op de afdeling om de stroom patiënten na hun consult direct op te vangen."
+              ],
               "improvements": [],
               "qa": {
                 "compleet": {
@@ -55390,9 +55455,15 @@
                 ]
               },
               "inputDefinitions": [],
-              "disruptions": [],
-              "workExp": null,
-              "workExpNote": "",
+              "disruptions": [
+                {
+                  "scenario": "De moldroom (doktersassistent) is gesloten of volgeboekt op het moment dat de patiënt het masker nodig heeft (vanwege overleg of onderbezetting).",
+                  "frequency": "Vaak",
+                  "workaround": "De planner moet escaleren (bijv. bellen met teamleiders) om te kijken of de patiënt er \"toch nog bij mag\", of de afspraak moet noodgedwongen naar een andere dag worden verplaatst."
+                }
+              ],
+              "workExp": "OBSTACLE",
+              "workExpNote": "De planner ervaart de inplan-handeling in Epic zelf als prima, maar loopt wekelijks vast op de daadwerkelijke uitvoering door de doktersassistenten op de moldroom. Vanuit een Lean-perspectief is dit een klassiek voorbeeld van een 'bottleneck'. De administratieve voorkant kan de vraag aan, maar de operationele achterkant (de moldroom) heeft onvoldoende capaciteit of een slechte flow.",
               "linkedSourceUids": [],
               "linkedBundleIds": [],
               "gate": {
@@ -55883,10 +55954,14 @@
               "text": "Hoofd-hals route starten",
               "linkedSourceId": null,
               "type": null,
-              "processValue": null,
-              "processStatus": null,
+              "processValue": "BNVA",
+              "processStatus": "NEUTRAL",
               "successFactors": "",
-              "causes": [],
+              "causes": [
+                "Gefragmenteerde aanlevering: artsen leveren informatie aan in twee losse bestanden (Word voor nieuwe consulten, Excel voor de indeling).",
+                "Artsen vullen de supervisie foutief in of claimen meer consultplekken dan ze fysiek tot hun beschikking hebben (gebrek aan KNO-kamers).",
+                "De aanlevering is standaard pas op vrijdagochtend, wat direct resulteert in gehaast plannen (korte doorlooptijd)."
+              ],
               "improvements": [],
               "qa": {
                 "compleet": {
@@ -55936,9 +56011,15 @@
                 ]
               },
               "inputDefinitions": [],
-              "disruptions": [],
-              "workExp": null,
-              "workExpNote": "",
+              "disruptions": [
+                {
+                  "scenario": "Verstoring 1: De opgegeven supervisie in de bestanden klopt niet, of de arts moet meer patiënten zien dan dat er kamers zijn.",
+                  "frequency": "Soms",
+                  "workaround": "e planner moet stoppen met plannen, bellen met de planningscoördinator (Ellen) en de agenda handmatig \"passen en meten\" of patiënten verwisselen."
+                }
+              ],
+              "workExp": "OBSTACLE",
+              "workExpNote": "De planner geeft aan dat de aanlevering via Outlook (met een Excel- én een Word-bestand) op vrijdagochtend over het algemeen wel 'prima' is. Vanuit een kritisch Lean-perspectief is het ontvangen van patiëntdata verspreid over twee verschillende ongestructureerde documenten echter zeer inefficiënt. Het feit dat de 'supervisie' (wie begeleidt wie) structureel niet klopt met de werkelijkheid, toont aan dat het bronproces aan de kant van de artsen rammelt.",
               "linkedSourceUids": [],
               "linkedBundleIds": [],
               "gate": {
@@ -56449,10 +56530,13 @@
               "text": "Lijst met actiepunten opstellen",
               "linkedSourceId": null,
               "type": "Taak",
-              "processValue": "VA",
-              "processStatus": "HAPPY",
-              "successFactors": "De regels en kaders zijn heel duidelijk. Het heeft wel harde deadlines. Druk op patient is niet fijn als planner",
-              "causes": [],
+              "processValue": "BNVA",
+              "processStatus": "NEUTRAL",
+              "successFactors": "",
+              "causes": [
+                "Keiharde, inflexibele deadlines van de afdeling Nucleair (alles voor dinsdag moet uiterlijk vrijdag vóór 11:00 uur gemeld zijn)",
+                "Complexe medische afhankelijkheden, zoals patiënten die met spoed tanden moeten laten trekken (bij MKA) voordat het traject verder mag, die de planning in de war schoppen"
+              ],
               "improvements": [],
               "qa": {
                 "compleet": {
@@ -56506,7 +56590,7 @@
                 {
                   "scenario": "Te weinig consultplekken",
                   "frequency": "Soms",
-                  "workaround": "MEt arts bellen"
+                  "workaround": "Met arts bellen"
                 },
                 {
                   "scenario": "Supervisie niet goed ingeregeld ",
@@ -56515,7 +56599,7 @@
                 }
               ],
               "workExp": "OBSTACLE",
-              "workExpNote": "Heel intensief en tijdsdruk. Voor 11 uur vrijdag PET-CT doorgeven voor afspraak di. Ma consult krijgen en masker.  Tanden eruit ivm afwijking. Afdeling MKA en kno plant dat in",
+              "workExpNote": "De planner geeft aan hier \"geen probleem mee\" te hebben en dit als normaal te beschouwen, ondanks de enorme tijdsdruk. Vanuit een Lean-perspectief zien we hier echter extreme overbelasting (Muri). De planner moet onder hoge druk een complexe puzzel van randvoorwaarden oplossen (zoals afstemmen met afdeling MKA voor het trekken van tanden) met een keiharde externe deadline van nucleair.",
               "linkedSourceUids": [],
               "linkedBundleIds": [],
               "gate": {
@@ -57005,11 +57089,14 @@
               "created": 1771417521417,
               "text": "Overzicht maken met in te plannen afspraken",
               "linkedSourceId": null,
-              "type": null,
-              "processValue": null,
-              "processStatus": null,
+              "type": "Taak",
+              "processValue": "NVA",
+              "processStatus": "NEUTRAL",
               "successFactors": "",
-              "causes": [],
+              "causes": [
+                "Het systeem (Epic) levert geen integraal, visueel overzicht van alle kruisende afhankelijkheden (consult, masker, MRI, PET, extracties).",
+                "Gebrek aan een gestandaardiseerde werkwijze binnen het planningsteam (uit het hoofd vs. opschrijven)."
+              ],
               "improvements": [],
               "qa": {
                 "compleet": {
@@ -57059,9 +57146,15 @@
                 ]
               },
               "inputDefinitions": [],
-              "disruptions": [],
+              "disruptions": [
+                {
+                  "scenario": "et IT-systeem toont niet in één helder overzicht de complete workflow voor een patiënt.",
+                  "frequency": "Altijd",
+                  "workaround": "De planner moet razendsnel tussen schermen schakelen en de complexe afhankelijkheden in het eigen geheugen opslaan en combineren."
+                }
+              ],
               "workExp": null,
-              "workExpNote": "",
+              "workExpNote": "Net als bij de voorgaande routes geeft deze specifieke planner aan: \"Ik doe alles uit mijn hoofd. Ik combineer heel snel alles met systemen.\" Vanuit een kritisch Lean-perspectief is dit een enorm risico. Het volledig leunen op de cognitieve capaciteit en het kortetermijngeheugen van één medewerker voor hoogcomplexe medische planningen (waarbij collega's wel lijstjes maken) is de definitie van een ongestandaardiseerd proces.",
               "linkedSourceUids": [],
               "linkedBundleIds": [],
               "gate": {
@@ -57564,9 +57657,10 @@
               "processStatus": "SAD",
               "successFactors": "",
               "causes": [
-                "Te weinig personeel",
-                "Overleggen gepland",
-                "Te weinig capaciteit"
+                "Structureel personeelstekort op de mouldroom.",
+                "Interne overleggen van de mouldroom worden gepland óver de planningsblokken heen.",
+                "Te weinig ruimtelijke capaciteit om de pieken na de consulten op te vangen.",
+                "Strakke afhankelijkheid: zonder masker géén PET-scan op dinsdag."
               ],
               "improvements": [],
               "qa": {
@@ -57619,18 +57713,13 @@
               "inputDefinitions": [],
               "disruptions": [
                 {
-                  "scenario": "mouldroom dicht",
-                  "frequency": "Soms",
-                  "workaround": ""
-                },
-                {
-                  "scenario": "Niet gelijk na consult ",
-                  "frequency": "Altijd",
-                  "workaround": ""
+                  "scenario": "De mouldroom is dicht of volgeboekt direct na het consult van de kwetsbare patiënt.",
+                  "frequency": "Vaak",
+                  "workaround": "De planner moet escaleren naar teamleiders om extra plekken te eisen, of moet de (vaak erg zieke) patiënt onvriendelijk confronteren met extra ziekenhuisbezoeken op latere momenten."
                 }
               ],
               "workExp": "OBSTACLE",
-              "workExpNote": "Mouldroom is dicht \nMouldroom is vol ",
+              "workExpNote": "Dit is ook bij de Hoofd-hals route een massief knelpunt. De planner geeft letterlijk aan dat dit \"elke week een aandachtspunt\" is. Omdat patiënten de mouldroom (het masker) absoluut gepasseerd moeten zijn vóórdat zij op dinsdag naar de PET-scan mogen, zorgt capaciteitsgebrek hier direct voor een blokkade in de hele behandeling.",
               "outputUid": "out_e592839c-d3ff-46f8-9c68-67179b905a26",
               "linkedSourceUids": [],
               "linkedBundleIds": [],
@@ -58129,9 +58218,13 @@
               "linkedSourceId": null,
               "type": null,
               "processValue": "BNVA",
-              "processStatus": "HAPPY",
+              "processStatus": "NEUTRAL",
               "successFactors": "",
-              "causes": [],
+              "causes": [
+                "Volledige afhankelijkheid van de datakwaliteit van het aanvraagformulier (wat in ~20% van de gevallen onvolledig is).",
+                "Het systeem dwingt aan de poort geen harde compleetheid af, waardoor de planner pas bij de start van de route vastloopt.",
+                "atiënt weigert onverwacht of is verhinderd op de voorgestelde startmomenten."
+              ],
               "improvements": [],
               "qa": {
                 "compleet": {
@@ -58181,9 +58274,15 @@
                 ]
               },
               "inputDefinitions": [],
-              "disruptions": [],
+              "disruptions": [
+                {
+                  "scenario": "De patiënt kan of wil niet starten op het moment dat de route in gang gezet moet worden.",
+                  "frequency": "Soms",
+                  "workaround": "De planner moet het standaardproces onderbreken en handmatig met de patiënt (via de polimedewerker) of arts afstemmen voor een alternatief moment."
+                }
+              ],
               "workExp": "ROUTINE",
-              "workExpNote": "",
+              "workExpNote": "De planner ervaart dit als een soepele routine (\"in control\"), zolang de obstakels aan de voorkant (het ontbreken of foutief invullen van het aanvraagformulier) maar zijn opgelost. Vanuit een kritisch Lean-perspectief is dit procesonderdeel feitelijk een doorgeefluik dat 100% afhankelijk is van de (gebrekkige) kwaliteit van eerdere stappen. Het feit dat de start stagneert zodra de input niet klopt, maakt het een uiterst kwetsbaar startpunt van de keten.",
               "outputUid": "out_d48746d4-15aa-4cdb-9d04-96bbd164a8f7",
               "linkedSourceUids": [],
               "linkedBundleIds": [],
@@ -58675,11 +58774,14 @@
               "created": 1771417916812,
               "text": "Vertalen instructies naar te plannen voorbereidingsafspraken",
               "linkedSourceId": null,
-              "type": null,
+              "type": "Taak",
               "processValue": "BNVA",
-              "processStatus": "HAPPY",
+              "processStatus": "NEUTRAL",
               "successFactors": "",
-              "causes": [],
+              "causes": [
+                "Geen geautomatiseerde koppeling tussen medische aanvraag en logistieke systeembouwstenen.",
+                "Artsen gebruiken regelmatig eigen jargon of vrije tekst (\"dubbel vacuüm\") waardoor de standaard 'vertaling' in het hoofd van de planner vastloopt."
+              ],
               "improvements": [],
               "qa": {
                 "compleet": {
@@ -58729,9 +58831,15 @@
                 ]
               },
               "inputDefinitions": [],
-              "disruptions": [],
+              "disruptions": [
+                {
+                  "scenario": "De instructie bevat niet-standaard terminologie of is multi-interpretabel.",
+                  "frequency": "Soms",
+                  "workaround": "De planner kan niet direct vertalen en moet de taak parkeren om verduidelijking te vragen aan de arts."
+                }
+              ],
               "workExp": "ROUTINE",
-              "workExpNote": "",
+              "workExpNote": "De planner geeft aan dat dit gewoon goed gaat als de aanvraag klopt. Vanuit een Lean-perspectief is \"vertalen\" echter een klassieke vorm van overprocessing en een teken van onvoldoende systeemautomatisering. Het systeem zou op basis van een diagnose/protocol automatisch de benodigde afspraken moeten voorstellen. Nu moet de planner een tekstveld in het hoofd omzetten naar een logistieke actielijst.",
               "linkedSourceUids": [],
               "linkedBundleIds": [],
               "gate": {
@@ -59223,10 +59331,10 @@
               "created": 1770371271880,
               "text": "Controleren  AB-protocollen",
               "linkedSourceId": null,
-              "type": null,
-              "processValue": null,
+              "type": "Taak",
+              "processValue": "BNVA",
               "processStatus": "HAPPY",
-              "successFactors": "",
+              "successFactors": "In control (voor het standaardwerk), maar een Aandachtspunt bij uitzonderingen.",
               "causes": [],
               "improvements": [],
               "qa": {
@@ -59277,9 +59385,15 @@
                 ]
               },
               "inputDefinitions": [],
-              "disruptions": [],
-              "workExp": null,
-              "workExpNote": "",
+              "disruptions": [
+                {
+                  "scenario": "De arts vraagt iets aan dat buiten het standaard protocol valt (bijv. een ongebruikelijk beenmasker)",
+                  "frequency": "Soms",
+                  "workaround": "e planner weet niet hoeveel inplantijd er gereserveerd moet worden in Epic en moet dit handmatig gaan uitzoeken of navragen, wat extra wachttijd in het proces creëert."
+                }
+              ],
+              "workExp": "ROUTINE",
+              "workExpNote": "De planner ervaart dit grotendeels als routine, met af en toe wat uitzoekwerk als het om 'maatwerk' gaat (1 à 2 keer per maand). Vanuit een Lean-perspectief zien we dat het standaardproces hier goed functioneert voor ~95% van de gevallen, maar dat het systeem faalt bij de resterende 5% uitzonderingen. Bij buiten-protocollaire zorg ontbreken direct de logistieke kaders, waardoor het werk stagneert.",
               "outputUid": "out_428cd733-d6aa-405a-9cd0-83b90c4e853c",
               "linkedSourceUids": [],
               "linkedBundleIds": [],
