@@ -52403,7 +52403,7 @@
               "systemData": {
                 "isMulti": false,
                 "systemName": "",
-                "calculatedScore": null,
+                "calculatedScore": 46,
                 "systems": [
                   {
                     "id": "e1617a89-7f57-497f-9a4e-d53fb9ed6c16",
@@ -52424,12 +52424,22 @@
                   "multi": false,
                   "systems": [
                     {
-                      "id": "5fa3b03c-6e12-406e-8d50-b6e62c6f2999",
-                      "name": "",
+                      "name": "Mondeling / Telefoonsysteem",
                       "legacy": false,
                       "future": "",
-                      "qa": {},
-                      "score": null
+                      "qa": {
+                        "q1": "OFTEN",
+                        "q1_note": "Het mondelinge contact ís in feite de workaround wanneer artsen het aanvraagformulier niet volledig hebben ingevuld en de planner het zelf moet gaan achterhalen.",
+                        "q2": "SOMETIMES",
+                        "q2_note": "Nabellen of wachten tot een arts langsloopt stopt het werkproces (\"dan komen ze niet, zit je te wachten\").",
+                        "q3": "OFTEN",
+                        "q3_note": "Alles wat mondeling wordt afgesproken, moet de planner achteraf alsnog handmatig in Epic of Radiotherapie Web typen.",
+                        "q4": "OFTEN",
+                        "q4_note": "Mondelinge overdrachten zijn vluchtig. De planner vergeet in de drukte soms details te vragen (bijv. of fracties tegelijk of achter elkaar moeten).",
+                        "q5_note": "Als de arts niet bereikbaar is of niet langsloopt, stagneert het verzamelen van de juiste gegevens.",
+                        "q5": "DELAY"
+                      },
+                      "score": 46
                     }
                   ],
                   "activeSystemIdx": 0
@@ -52965,7 +52975,7 @@
               "systemData": {
                 "isMulti": false,
                 "systemName": "",
-                "calculatedScore": null,
+                "calculatedScore": 26,
                 "systems": [
                   {
                     "id": "235932fa-6fd7-4eb6-a63a-f9fb1c42420e",
@@ -52986,12 +52996,22 @@
                   "multi": false,
                   "systems": [
                     {
-                      "id": "84567b0e-8f0d-4096-9062-e1b9e4cc23f3",
-                      "name": "",
+                      "name": "Mondeling / Telefoonsysteem",
                       "legacy": false,
                       "future": "",
-                      "qa": {},
-                      "score": null
+                      "qa": {
+                        "q1_note": "Deze route (cervix) kent zulke korte deadlines (alles in 1 uur plannen) dat het systeem niet toereikend is; de arts moet er fysiek bij komen staan om samen \"te puzzelen\" met de agenda's.",
+                        "q1": "ALWAYS",
+                        "q2": "OFTEN",
+                        "q2_note": "Het acute, ad-hoc overleg doorkruist al het andere reguliere planningswerk.",
+                        "q3": "SOMETIMES",
+                        "q3_note": "In het overleg worden zaken afgesproken die daarna nog ingevoerd moeten worden.",
+                        "q4_note": "Omdat besluiten over de patiënt vaak nog niet definitief zijn, worden er fouten gemaakt in aannames en moet er later weer afgemeld worden.",
+                        "q4": "OFTEN",
+                        "q5_note": "Zonder deze acute mondelinge afstemming is de krappe deadline voor gynaecologie-patiënten simpelweg niet haalbaar.",
+                        "q5": "STOP"
+                      },
+                      "score": 26
                     }
                   ],
                   "activeSystemIdx": 0
@@ -53526,7 +53546,7 @@
               "systemData": {
                 "isMulti": false,
                 "systemName": "",
-                "calculatedScore": null,
+                "calculatedScore": 66,
                 "systems": [
                   {
                     "id": "1e890e0d-243f-48f6-9873-be36b6a7fd58",
@@ -53547,12 +53567,22 @@
                   "multi": false,
                   "systems": [
                     {
-                      "id": "e1d010ae-79a0-4134-8e1d-9d1c18c82a0b",
                       "name": "",
                       "legacy": false,
                       "future": "",
-                      "qa": {},
-                      "score": null
+                      "qa": {
+                        "q1": "SOMETIMES",
+                        "q1_note": "Als de arts niet bij het MDO (Multidisciplinair Overleg) was, is de lijst in Teams niet ingevuld en heeft de planner helemaal geen lijst.",
+                        "q2_note": "Als de lijst ontbreekt of onvolledig is, moet de planner zelf informatie bij elkaar zoeken.",
+                        "q2": "SOMETIMES",
+                        "q3": "SOMETIMES",
+                        "q3_note": "Informatie uit de Excel moet visueel verwerkt worden naar het eigen takenlijstje of Epic.",
+                        "q4_note": "Het systeem is afhankelijk van of de gynaecoloog aanwezig was en alles correct heeft genoteerd tijdens het MDO",
+                        "q4": "SOMETIMES",
+                        "q5_note": "Zonder het overzicht moet de planner het uit individuele patiëntdossiers halen, wat veel trager is.",
+                        "q5": "DELAY"
+                      },
+                      "score": 66
                     }
                   ],
                   "activeSystemIdx": 0
@@ -54043,7 +54073,7 @@
             {
               "id": "e1a6a69b-27d4-4b84-895d-71f2356196c8",
               "created": 1771416088393,
-              "text": "Schriftelijk",
+              "text": "Papier",
               "linkedSourceId": null,
               "type": null,
               "processValue": null,
@@ -54080,7 +54110,7 @@
               "systemData": {
                 "isMulti": false,
                 "systemName": "",
-                "calculatedScore": null,
+                "calculatedScore": 40,
                 "systems": [
                   {
                     "id": "c5e319c8-3f7c-4bef-b0ac-0dbe82116a48",
@@ -54101,12 +54131,22 @@
                   "multi": false,
                   "systems": [
                     {
-                      "id": "05c46dfc-390a-45ce-b50c-45135de5aaf6",
-                      "name": "",
+                      "name": "Papier",
                       "legacy": false,
                       "future": "",
-                      "qa": {},
-                      "score": null
+                      "qa": {
+                        "q1": "ALWAYS",
+                        "q1_note": "t papieren boekje ís de workaround. Omdat Epic geen totaaloverzicht toont van alle logistieke acties en afhankelijkheden per patiënt, maakt de werknemer zelf een dashboard op papier.",
+                        "q2_note": "Het overschrijven kost administratieve tijd (al vindt de planner dat zelf \"prettig\").",
+                        "q2": "SOMETIMES",
+                        "q3": "ALWAYS",
+                        "q3_note": "Alle data die de planner opschrijft (diagnose, voorkeursdagen, benodigde scans) staat al digitaal in Epic of de Outlook bestanden. \"Double handling\".",
+                        "q4": "OFTEN",
+                        "q4_note": "Handmatig zaken uit het hoofd doen of opschrijven is zwaar foutgevoelig, zeker bij complexe afhankelijkheden.",
+                        "q5": "SAFE",
+                        "q5_note": "Als het papieren boekje kwijt is, staat de bron-data nog steeds in Epic of Outlook."
+                      },
+                      "score": 40
                     }
                   ],
                   "activeSystemIdx": 0
@@ -54598,7 +54638,7 @@
             {
               "id": "50d96afd-5e9b-4936-ab2d-7bd2ca4df35c",
               "created": 1771416395596,
-              "text": "Schriftelijk",
+              "text": "Papier",
               "linkedSourceId": null,
               "type": null,
               "processValue": null,
@@ -54635,7 +54675,7 @@
               "systemData": {
                 "isMulti": false,
                 "systemName": "",
-                "calculatedScore": null,
+                "calculatedScore": 40,
                 "systems": [
                   {
                     "id": "c4eaf02e-b544-4424-b2b6-8408848aaca4",
@@ -54656,12 +54696,22 @@
                   "multi": false,
                   "systems": [
                     {
-                      "id": "34cae44f-9792-4646-8ac2-89924099ca60",
                       "name": "",
                       "legacy": false,
                       "future": "",
-                      "qa": {},
-                      "score": null
+                      "qa": {
+                        "q1": "ALWAYS",
+                        "q1_note": "et feit dat dit op \"papier\" (in het boekje van de planner) wordt uitgedacht, ís al een workaround. Omdat het IT-systeem (Epic) dit niet als één vloeiende, gecombineerde afspraak (consult + masker) met slimme suggesties aanbiedt, moet de planner de afhankelijkheden en agenda-gaten van de arts handmatig op papier synchroniseren.",
+                        "q2": "OFTEN",
+                        "q2_note": "Het handmatig puzzelen op papier om een gat in de agenda van de arts te vinden dat precies aansluit op de harde deadline van de latere PET-scan, kost veel denkkracht en tijd, wat de flow stagneert.",
+                        "q3": "OFTEN",
+                        "q3_note": "De afspraak die eerst op papier is uitgedacht en kloppend is gemaakt met de rest van het traject, moet de planner daarna alsnog handmatig in het digitale systeem (Epic) overtypen en vastleggen.",
+                        "q4": "OFTEN",
+                        "q4_note": "Een papieren planning is statisch en geeft geen waarschuwingen. Als er onverwachts iets wijzigt in de agenda van de arts in Epic, geeft papier geen automatische melding, wat de kans op planningsconflicten enorm vergroot.",
+                        "q5": "SAFE",
+                        "q5_note": "ls de planner het papieren lijstje/boekje kwijt is (systeemuitval), is dat zwaar frustrerend en vertragend voor het werk, maar de werkelijke brondata en de actuele beschikbaarheid staan nog steeds veilig digitaal in Epic."
+                      },
+                      "score": 40
                     }
                   ],
                   "activeSystemIdx": 0
@@ -55154,7 +55204,7 @@
             {
               "id": "c90f23dc-924f-4120-a37a-a93f33237b0c",
               "created": 1771416538572,
-              "text": "Schriftelijk",
+              "text": "Papier",
               "linkedSourceId": null,
               "type": null,
               "processValue": null,
@@ -55191,7 +55241,7 @@
               "systemData": {
                 "isMulti": false,
                 "systemName": "",
-                "calculatedScore": null,
+                "calculatedScore": 40,
                 "systems": [
                   {
                     "id": "1d81d712-3db6-4c87-9f43-7620dac28ba8",
@@ -55212,12 +55262,22 @@
                   "multi": false,
                   "systems": [
                     {
-                      "id": "f64fa9f2-33fa-4d69-91b2-af9ed3168fa1",
                       "name": "",
                       "legacy": false,
                       "future": "",
-                      "qa": {},
-                      "score": null
+                      "qa": {
+                        "q1": "ALWAYS",
+                        "q1_note": "De bedachte \"papieren\" puzzel loopt hier in de praktijk wekelijks vast omdat de doktersassistent/mouldroom vol is of gesloten is wegens overleg. Dit dwingt de planner tot de harde workaround om te gaan escaleren en bellen met teamleiders om fysiek plekken te forceren voor de patiënt.",
+                        "q2_note": "De afhankelijkheid van de beperkte fysieke capaciteit op de mouldroom remt de planner structureel af. De papieren theorie strookt wekelijks niet met de operationele realiteit, waardoor de inplanning stopt.",
+                        "q2": "OFTEN",
+                        "q3": "OFTEN",
+                        "q3_note": "et hele plan wordt eerst op papier gezet. Pas nadat er met de mouldroom is overlegd, gebeld en geschoven, kan de planner de gemaakte afspraak definitief vastklikken in Epic (double handling).",
+                        "q4": "OFTEN",
+                        "q4_note": "Omdat er structureel gepuzzeld en \"overgeboekt\" moet worden om de patiënt er nog op tijd tussen te proppen bij de assistent, is de kans groot dat de strakke aansluitende afspraken in de keten (zoals de PET-scan de volgende dag) in de verdrukking komen.",
+                        "q5": "SAFE",
+                        "q5_note": "Ook hier geldt: het verlies van de papieren aantekeningen gooit de logica van de planner in de war, maar veroorzaakt geen onherstelbaar dataverlies omdat de echte agenda's en patiëntgegevens in Epic staan."
+                      },
+                      "score": 40
                     }
                   ],
                   "activeSystemIdx": 0
