@@ -59880,7 +59880,8 @@
               "processStatus": "NEUTRAL",
               "successFactors": "",
               "causes": [
-                "Artsen zijn niet zorvuldig genoeg"
+                "Artsen geven in de tekst wel aan dat er beeldvorming (CT/MRI) nodig is, maar vergeten structureel de daadwerkelijke order in Epic aan te maken.",
+                "oms wordt er wel een order aangemaakt, maar de verkeerde (bijv. een standaard CT in plaats van een speciale Argos-order)."
               ],
               "improvements": [],
               "qa": {
@@ -59933,23 +59934,13 @@
               "inputDefinitions": [],
               "disruptions": [
                 {
-                  "scenario": "Geen CT-order",
+                  "scenario": "Er is tekstueel wel beeldvorming aangevraagd, maar de benodigde order in het systeem ontbreekt of is onjuist.",
                   "frequency": "Vaak",
-                  "workaround": "bellen arts"
-                },
-                {
-                  "scenario": "Aanvullende beeldvorming vergeten",
-                  "frequency": "Soms",
-                  "workaround": "Bellen arts"
-                },
-                {
-                  "scenario": "Patient kan niet op aangegeven plek",
-                  "frequency": "Soms",
-                  "workaround": "Alternatieve plek "
+                  "workaround": "De planner kan niet verder en moet de behandelend arts bellen om de orde alsnog juist in het systeem te laten zetten."
                 }
               ],
               "workExp": "ROUTINE",
-              "workExpNote": "",
+              "workExpNote": "De planner ervaart dit in de basis als routine, zolang het aanvraagformulier goed is ingevuld. Vanuit een kritisch Lean-perspectief zien we hier echter direct uitval omdat artsen randvoorwaardelijke stappen overslaan (zoals het vergeten van de systeem-order naast de tekstuele aanvraag).",
               "linkedSourceUids": [],
               "linkedBundleIds": [],
               "gate": {
@@ -60447,11 +60438,14 @@
               "created": 1770800837435,
               "text": "Controleren CT-order",
               "linkedSourceId": null,
-              "type": null,
-              "processValue": "BNVA",
-              "processStatus": "HAPPY",
-              "successFactors": "Initialen van arts erin zetten en doelgebied. ",
-              "causes": [],
+              "type": "Taak",
+              "processValue": "NVA",
+              "processStatus": "NEUTRAL",
+              "successFactors": "",
+              "causes": [
+                "De standaard CT-order in Epic toont op het overzichtsscherm onvoldoende direct inzichtelijke informatie over de eigenaar (arts) en het doelgebied.",
+                "Oude historische werkafspraken (rondom DBC's) zijn in stand gehouden, waardoor planners dit handmatig blijven aanvullen als werk-instructie."
+              ],
               "improvements": [],
               "qa": {
                 "compleet": {
@@ -60503,18 +60497,13 @@
               "inputDefinitions": [],
               "disruptions": [
                 {
-                  "scenario": "Verkeerde order",
-                  "frequency": "Soms",
-                  "workaround": ""
-                },
-                {
-                  "scenario": "Geen order",
-                  "frequency": "Vaak",
-                  "workaround": ""
+                  "scenario": "De CT-order in het systeem mist de gewenste specificaties voor een snel visueel plannings-overzicht.",
+                  "frequency": "Altijd",
+                  "workaround": "De planner opent de order en typt daar handmatig de initialen van de arts en het doelgebied in als notitie."
                 }
               ],
               "workExp": "ROUTINE",
-              "workExpNote": "",
+              "workExpNote": "De planner noemt dit \"routine\" en doet dit gedachteloos, maar geeft zelf aan dat dit voortkomt uit afspraken uit het \"stenentijdperk\". Vanuit een Lean-perspectief is dit een schrijnend voorbeeld van overprocessing. De planner moet handmatig meta-data (initialen) intypen omdat het systeem dit niet in het gewenste snelle overzicht toont, als erfenis van oude financiële DBC-regels.",
               "linkedSourceUids": [],
               "linkedBundleIds": [],
               "gate": {
@@ -61016,7 +61005,10 @@
               "processValue": "BNVA",
               "processStatus": "NEUTRAL",
               "successFactors": "",
-              "causes": [],
+              "causes": [
+                "Artsen werken onnauwkeurig en hanteren eigen, niet-gestandaardiseerde terminologie.",
+                "Het formulier dwingt geen standaard antwoorden af, waardoor vrije tekst voor verwarring zorgt ten opzichte van de protocollen."
+              ],
               "improvements": [],
               "qa": {
                 "compleet": {
@@ -61066,9 +61058,15 @@
                 ]
               },
               "inputDefinitions": [],
-              "disruptions": [],
-              "workExp": "ROUTINE",
-              "workExpNote": "",
+              "disruptions": [
+                {
+                  "scenario": "De arts gebruikt afwijkend jargon (bijv. \"dubbel vacuüm\" in plaats van de protocollaire term \"vacuümmatras\").",
+                  "frequency": "Soms",
+                  "workaround": "De planner herkent de term niet, waardoor het plannen blokkeert. De planner moet extra tijd besteden aan het uitzoeken wat de arts exact bedoelt."
+                }
+              ],
+              "workExp": "OBSTACLE",
+              "workExpNote": "Net als in het begin van het traject, stuit de planner hier op onnauwkeurigheden van de arts. De kwaliteit van het formulier zelf is volgens de planner goed, maar de manier waarop het wordt ingevuld niet.",
               "linkedSourceUids": [],
               "linkedBundleIds": [],
               "gate": {
@@ -61570,7 +61568,7 @@
               "type": null,
               "processValue": "BNVA",
               "processStatus": "HAPPY",
-              "successFactors": "Tijdsloten zijn eenduidig. Alles is 30min behalve TBI zijligging en vacuummatras van wervelstereo. ",
+              "successFactors": "Duidelijke, eenduidige afspraken met afdeling CT: vrijwel alles valt in standaard tijdsloten van 30 minuten (met slechts twee duidelijke uitzonderingen). Echter kan capaciteitsgebrek soms voor vertraging zorgen.",
               "causes": [],
               "improvements": [],
               "qa": {
@@ -61623,18 +61621,13 @@
               "inputDefinitions": [],
               "disruptions": [
                 {
-                  "scenario": "CT-dicht",
-                  "frequency": "Soms",
-                  "workaround": "Alternatieve plek zoeken"
-                },
-                {
-                  "scenario": "CT vol",
+                  "scenario": "e CT agenda zit vol of is dicht op de gewenste dagen.",
                   "frequency": "Vaak",
-                  "workaround": "Teamleider bellen of die toch erbij mag"
+                  "workaround": "De planner moet de teamleider bellen om te overleggen of een patiënt er nog \"bij mag\" (overboeken), of moet met de patiënt een alternatieve plek zoeken."
                 }
               ],
-              "workExp": "ROUTINE",
-              "workExpNote": "",
+              "workExp": "FLOW",
+              "workExpNote": "Dit proces verloopt grotendeels vloeiend en is een mooi voorbeeld van hoe standaardisatie werkt. Doordat vrijwel elke afspraak is afgestemd op strakke blokken van 30 minuten, kan de planner heel makkelijk zoeken.",
               "linkedSourceUids": [],
               "linkedBundleIds": [],
               "gate": {
@@ -62124,10 +62117,10 @@
               "created": 1770801150108,
               "text": "Inplannen CT-afspraak",
               "linkedSourceId": null,
-              "type": null,
+              "type": "Taak",
               "processValue": "BNVA",
               "processStatus": "HAPPY",
-              "successFactors": "",
+              "successFactors": "Epic is voor dit specifieke onderdeel fantastisch ingericht. Er is een visueel overzicht (Snapboard) in combinatie met een lijst met orders. Het proces is gereduceerd tot een simpele 'drag & drop' actie.",
               "causes": [],
               "improvements": [],
               "qa": {
@@ -62182,11 +62175,11 @@
                 {
                   "scenario": "Patient kan niet ",
                   "frequency": "Vaak",
-                  "workaround": "overleggen met patient"
+                  "workaround": "overleggen met patient/arts"
                 }
               ],
-              "workExp": "ROUTINE",
-              "workExpNote": "",
+              "workExp": "FLOW",
+              "workExpNote": "Hier zien we pure proces-flow, zwaar ondersteund door een goed ingericht IT-systeem (Epic). De planner deelt hier expliciet complimenten voor uit.",
               "linkedSourceUids": [],
               "linkedBundleIds": [],
               "gate": {
@@ -62678,9 +62671,13 @@
               "linkedSourceId": null,
               "type": null,
               "processValue": "BNVA",
-              "processStatus": "HAPPY",
-              "successFactors": "Eenduidig, de artsen weten wat ze moeten doen. Twee blokken waarin we kunnen plannen (op dinsdachtochtend 09:00 t/m 11:00 en vrijdagochtend 13:15 - 15:15). Vier plekken per dagdeel dus 4x 30min. ",
-              "causes": [],
+              "processStatus": "NEUTRAL",
+              "successFactors": "",
+              "causes": [
+                "Artsen vergeten soms de MRI-order aan te maken in het systeem.",
+                "Artsen maken de verkeerde MRI-order aan",
+                "Bij patiënten met een pacemaker mag de standaard inplanning niet gebruikt worden en ontbreekt een geautomatiseerde flow."
+              ],
               "improvements": [],
               "qa": {
                 "compleet": {
@@ -62737,18 +62734,18 @@
                   "workaround": "Radiologie bellen voor extra plekken"
                 },
                 {
-                  "scenario": "MRI order niet oke",
+                  "scenario": "Geen order of een verkeerd type MRI-order in het systeem.",
                   "frequency": "Soms",
-                  "workaround": "Bellen naar arts"
+                  "workaround": "De planner kan niet verder en moet de arts bellen om de order te laten corrigeren."
                 },
                 {
-                  "scenario": "Patient heeft pacemaker ",
+                  "scenario": "De patiënt heeft een pacemaker.",
                   "frequency": "Zelden",
-                  "workaround": "Via safety team moet het inplannen "
+                  "workaround": "De planner moet het standaardproces verlaten en handmatig een verzoek sturen naar het interne safety team (Wim van Deursum) om dit veilig te regelen. Frequentie: Zelden."
                 }
               ],
-              "workExp": "ROUTINE",
-              "workExpNote": "",
+              "workExp": "OBSTACLE",
+              "workExpNote": "De planner geeft aan dat dit proces \"allemaal goed gaat, áls de goede order is aangevraagd\". Vanuit een Lean-perspectief betekent die voorwaarde juist dat het proces aan de voorkant kwetsbaar is. De planner moet fungeren als kwaliteitsfilter voor de fouten van de artsen, wat tijd kost en het proces vertraagt.",
               "linkedSourceUids": [],
               "linkedBundleIds": [],
               "gate": {
@@ -63238,11 +63235,14 @@
               "created": 1770801409829,
               "text": "Controleren aanvraagformulier MRI",
               "linkedSourceId": null,
-              "type": null,
-              "processValue": null,
-              "processStatus": "HAPPY",
+              "type": "Taak",
+              "processValue": "BNVA",
+              "processStatus": "NEUTRAL",
               "successFactors": "",
-              "causes": [],
+              "causes": [
+                "Artsen vergeten de MRI specifiek te benoemen in de tekst van het aanvraagformulier.",
+                "Artsen vergeten expliciet te noteren dat er géén MRI nodig is, waardoor de planner twijfelt of het vergeten is of daadwerkelijk niet hoeft."
+              ],
               "improvements": [],
               "qa": {
                 "compleet": {
@@ -63292,9 +63292,15 @@
                 ]
               },
               "inputDefinitions": [],
-              "disruptions": [],
-              "workExp": null,
-              "workExpNote": "",
+              "disruptions": [
+                {
+                  "scenario": "Onduidelijkheid in het formulier over de noodzaak van een MRI (wel/niet nodig is niet eenduidig ingevuld).",
+                  "frequency": "Soms",
+                  "workaround": "De planner moet het planningsproces pauzeren en verduidelijking vragen aan de arts om fouten te voorkomen."
+                }
+              ],
+              "workExp": "ROUTINE",
+              "workExpNote": "Net als bij de order, is ook het aanvraagformulier een bron van onduidelijkheid. De planner geeft aan dat ze \"van slag\" raken als de arts niet duidelijk is. Het systeem dwingt blijkbaar geen eenduidige keuze af.",
               "linkedSourceUids": [],
               "linkedBundleIds": [],
               "gate": {
@@ -63797,9 +63803,12 @@
               "linkedSourceId": null,
               "type": "Taak",
               "processValue": "BNVA",
-              "processStatus": "HAPPY",
-              "successFactors": "Gaat goed alleen waar we tegen aan lopen is als het soms dicht is. ",
-              "causes": [],
+              "processStatus": "NEUTRAL",
+              "successFactors": "",
+              "causes": [
+                "De afdeling Radiologie sluit onaangekondigd de toegewezen vaste planningsblokken in agenda (vanwege scholing of onderhoud).",
+                "Er is geen proactieve communicatie (meer) vanuit de planningsafdeling van Radiologie naar Radiotherapie toe als er wijzigingen zijn."
+              ],
               "improvements": [],
               "qa": {
                 "compleet": {
@@ -63851,13 +63860,13 @@
               "inputDefinitions": [],
               "disruptions": [
                 {
-                  "scenario": "Geen communcatie als een blok dichtgezet wordt",
-                  "frequency": "Altijd",
-                  "workaround": "Zelf erachter komen en bellen. "
+                  "scenario": "e vaste MRI-inplanblokken zijn onverwacht dichtgezet in de agenda door Radiologie.",
+                  "frequency": "Soms",
+                  "workaround": "De planner ontdekt dit per toeval (\"dan kom ik er vanzelf achter\") en moet reactief via e-mail extra plekken gaan claimen/eisen bij de afdeling Radiologie."
                 }
               ],
-              "workExp": "ROUTINE",
-              "workExpNote": "",
+              "workExp": "OBSTACLE",
+              "workExpNote": "Dit zou in theorie een soepele 'flow' moeten zijn, aangezien er vaste blokken zijn afgesproken (dinsdagochtend en vrijdagmiddag). Vanuit een Lean-perspectief is de samenwerking met de afdeling Radiologie echter zwaar verstoord. Het afgesproken capaciteitsaanbod is onbetrouwbaar en de communicatie ontbreekt.",
               "linkedSourceUids": [],
               "linkedBundleIds": [],
               "gate": {
@@ -64347,10 +64356,10 @@
               "created": 1770801668155,
               "text": "Inplannen MRI-afspraak",
               "linkedSourceId": null,
-              "type": null,
+              "type": "Taak",
               "processValue": "BNVA",
               "processStatus": "HAPPY",
-              "successFactors": "",
+              "successFactors": "Het systeem (Epic) is voor de standaard inplanning goed ingericht (aanklikken en slepen). Er is echter een klein IT-gebrek: specifieke typen MRI-orders verschijnen niet op de standaard werklijst.",
               "causes": [],
               "improvements": [],
               "qa": {
@@ -64401,9 +64410,15 @@
                 ]
               },
               "inputDefinitions": [],
-              "disruptions": [],
-              "workExp": "ROUTINE",
-              "workExpNote": "",
+              "disruptions": [
+                {
+                  "scenario": "Bepaalde MRI-orders komen door een systeeminstelling niet automatisch in het planningslijstje (\"snapboard\") van de planner terecht.",
+                  "frequency": "Soms",
+                  "workaround": "De planner weet dit en moet voor deze specifieke patiënten handmatig vanuit het patiëntdossier in Epic gaan inplannen in plaats van via de snelle lijst."
+                }
+              ],
+              "workExp": "FLOW",
+              "workExpNote": "Zodra er een vrij slot is en de orders kloppen, werkt de integratie in Epic hier heel goed, op één technische tekortkoming na.",
               "linkedSourceUids": [],
               "linkedBundleIds": [],
               "gate": {
@@ -64894,9 +64909,9 @@
               "text": "Controleren PET-order",
               "linkedSourceId": null,
               "type": "Taak",
-              "processValue": null,
+              "processValue": "BNVA",
               "processStatus": "HAPPY",
-              "successFactors": "",
+              "successFactors": "De kaders zijn hier helder: de order en het formulier moeten er simpelweg zijn, anders stopt het proces direct.",
               "causes": [],
               "improvements": [],
               "qa": {
@@ -64947,9 +64962,15 @@
                 ]
               },
               "inputDefinitions": [],
-              "disruptions": [],
+              "disruptions": [
+                {
+                  "scenario": "De arts is vergeten de PET-order of de aanvraag correct in te vullen.",
+                  "frequency": null,
+                  "workaround": ""
+                }
+              ],
               "workExp": "ROUTINE",
-              "workExpNote": "",
+              "workExpNote": "De planner geeft aan dat dit proces \"altijd wel goed gaat, als de aanvraag tenminste ingevuld is.\" Vanuit een Lean-perspectief is dit het standaard controleren van input voordat het proces start. Net als bij de CT/MRI is dit een noodzakelijke stap, maar blijft het afhankelijk van de (wisselende) nauwkeurigheid van de arts aan de voorkant.",
               "linkedSourceUids": [],
               "linkedBundleIds": [],
               "gate": {
