@@ -4,7 +4,7 @@
   "author": "Anoniem",
   "created": "2026-01-16T08:48:17.021Z",
   "version": "2.7",
-  "activeSheetId": "dc945f9e-80a8-454c-b355-ca66f4d539e8",
+  "activeSheetId": "b2afde0c-1451-450c-85d7-c0f3b53e8757",
   "sheets": [
     {
       "id": "858c26e5-f7ec-4311-b503-641f99e65c84",
@@ -6186,7 +6186,13 @@
                 ]
               },
               "inputDefinitions": [],
-              "disruptions": [],
+              "disruptions": [
+                {
+                  "scenario": "OK-datum niet vermeld in de brief ",
+                  "frequency": "Vaak",
+                  "workaround": "Operatieverslag opzoeken in Epic en het verslag raadplegen om de OK-datum te achterhalen."
+                }
+              ],
               "workExp": "ROUTINE",
               "workExpNote": "",
               "linkedSourceUids": [],
@@ -6739,7 +6745,13 @@
                 ]
               },
               "inputDefinitions": [],
-              "disruptions": [],
+              "disruptions": [
+                {
+                  "scenario": "OK-datum niet vermeld in de brief ",
+                  "frequency": "Vaak",
+                  "workaround": "Operatieverslag opzoeken in Epic en het verslag raadplegen om de OK-datum te achterhalen."
+                }
+              ],
               "workExp": "ROUTINE",
               "workExpNote": "",
               "linkedSourceUids": [],
@@ -7300,7 +7312,13 @@
                 ]
               },
               "inputDefinitions": [],
-              "disruptions": [],
+              "disruptions": [
+                {
+                  "scenario": "Het systeem ondersteunt geen automatische en eenduidige overdracht naar patiënt of ketenpartner. Daardoor moet ik handmatig een brief opstellen of een in basket bericht sturen om informatie door te geven of status te bevestigen.",
+                  "frequency": "Vaak",
+                  "workaround": "Brief/in-basket bericht sturen"
+                }
+              ],
               "workExp": "OBSTACLE",
               "workExpNote": "Het is meer werk om een patiënt af te wijzen dan een patient te accepteren. ",
               "linkedSourceUids": [],
@@ -9599,7 +9617,13 @@
                 ]
               },
               "inputDefinitions": [],
-              "disruptions": [],
+              "disruptions": [
+                {
+                  "scenario": "Consultorder komt niet aan",
+                  "frequency": "Zelden",
+                  "workaround": "Nog een keer versturen"
+                }
+              ],
               "workExp": "ROUTINE",
               "workExpNote": "",
               "linkedSourceUids": [],
@@ -10166,7 +10190,13 @@
                 ]
               },
               "inputDefinitions": [],
-              "disruptions": [],
+              "disruptions": [
+                {
+                  "scenario": "Specifieke informatie mist wat niet in Radiotherapie Web staat bij checklist",
+                  "frequency": "Soms",
+                  "workaround": "Correspondentie bericht sturen"
+                }
+              ],
               "workExp": "ROUTINE",
               "workExpNote": "",
               "linkedSourceUids": [],
@@ -10721,7 +10751,13 @@
                 ]
               },
               "inputDefinitions": [],
-              "disruptions": [],
+              "disruptions": [
+                {
+                  "scenario": "Knop werkt niet",
+                  "frequency": "Zelden",
+                  "workaround": "ICT bellen"
+                }
+              ],
               "workExp": "ROUTINE",
               "workExpNote": "",
               "linkedSourceUids": [],
@@ -11938,7 +11974,13 @@
                 ]
               },
               "inputDefinitions": [],
-              "disruptions": [],
+              "disruptions": [
+                {
+                  "scenario": "Checklist niet beschikbaar",
+                  "frequency": "Zelden",
+                  "workaround": "ICT-bellen"
+                }
+              ],
               "workExp": "ROUTINE",
               "workExpNote": "Het is een checklist wat je volgt, dus routine werk",
               "linkedSourceUids": [],
@@ -12495,7 +12537,13 @@
                 ]
               },
               "inputDefinitions": [],
-              "disruptions": [],
+              "disruptions": [
+                {
+                  "scenario": "Soms heb je toch niet alle informatie",
+                  "frequency": "Soms",
+                  "workaround": "Arts informeren"
+                }
+              ],
               "workExp": "ROUTINE",
               "workExpNote": "Als je de informatie hebt, dan is het bijwerken van het dossier niet lastig. Je kunt gemakkelijk informatie toevoegen aan het dossier van de patiënt. ",
               "outputUid": "out_855ec2ed-f411-49cb-92ce-29770f6537b3",
@@ -13048,7 +13096,13 @@
                 ]
               },
               "inputDefinitions": [],
-              "disruptions": [],
+              "disruptions": [
+                {
+                  "scenario": "Sommige specifieke gegevens staan niet in de checklist",
+                  "frequency": "Zelden",
+                  "workaround": ""
+                }
+              ],
               "workExp": "ROUTINE",
               "workExpNote": "Je werkt volgens een checklist, dus je gaat alle stappen na",
               "outputUid": "out_a9222082-efdb-42f0-82b6-527cb218ed17",
@@ -13605,7 +13659,13 @@
                 ]
               },
               "inputDefinitions": [],
-              "disruptions": [],
+              "disruptions": [
+                {
+                  "scenario": "Extra handeling om arts te informeren",
+                  "frequency": "Vaak",
+                  "workaround": ""
+                }
+              ],
               "workExp": "ROUTINE",
               "workExpNote": "Wij informeren de arts over de status van het dossier. Dit is voor ons routinewerk. ",
               "outputUid": "out_9755fc4a-4827-48df-9f7c-c5ad5ca99bdb",
@@ -14158,7 +14218,13 @@
                 ]
               },
               "inputDefinitions": [],
-              "disruptions": [],
+              "disruptions": [
+                {
+                  "scenario": "Knop werkt niet",
+                  "frequency": "Zelden",
+                  "workaround": "ICT-bellen"
+                }
+              ],
               "workExp": "ROUTINE",
               "workExpNote": "",
               "outputUid": "out_f154c0a1-efaf-461b-a8d1-86039aaba64e",
@@ -17647,7 +17713,13 @@
                 ]
               },
               "inputDefinitions": [],
-              "disruptions": [],
+              "disruptions": [
+                {
+                  "scenario": "Het voorstel is soms nog steeds niet mogelijk",
+                  "frequency": "Soms",
+                  "workaround": "Op andere manier oplossen"
+                }
+              ],
               "workExp": "ROUTINE",
               "workExpNote": "",
               "linkedSourceUids": [],
