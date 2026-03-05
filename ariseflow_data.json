@@ -27498,7 +27498,7 @@
               "systemData": {
                 "isMulti": false,
                 "systemName": "",
-                "calculatedScore": 20,
+                "calculatedScore": 26,
                 "systems": [
                   {
                     "id": "35185f00-d5ca-4380-af00-4d5c5be880e5",
@@ -27519,21 +27519,22 @@
                   "multi": false,
                   "systems": [
                     {
-                      "id": "4880cd4f-ff57-47e4-935f-560cb752d144",
                       "name": "Epic",
                       "legacy": false,
                       "future": "",
                       "qa": {
                         "q1": "SOMETIMES",
-                        "q1_note": "Dan kijk ik in het dossier voor extra details",
+                        "q1_note": "",
                         "q2": "ALWAYS",
-                        "q2_note": "Veel klikken voordat je werklijst kunt openen. ",
+                        "q2_note": "Je bent tijd kwijt door veel klikken en wisselen tussen schermen om de controle uit te voeren.",
                         "q3": "ALWAYS",
-                        "q3_note": "Triageformulier aanvullen",
-                        "q4": "OFTEN",
-                        "q5": "STOP"
+                        "q3_note": "De informatie in de consultorder gebruik je om het triageformulier aan te vullen",
+                        "q4": "SOMETIMES",
+                        "q5": "STOP",
+                        "q4_note": "Epic voorkomt niet altijd dat je iets overslaat omdat er weinig geforceerde checks zijn in de gebruikersflow",
+                        "q5_note": "Zonder Epic kun je de consultorder niet openen en dus niet valideren."
                       },
-                      "score": 20
+                      "score": 26
                     }
                   ],
                   "activeSystemIdx": 0
@@ -28089,7 +28090,7 @@
               "systemData": {
                 "isMulti": false,
                 "systemName": "",
-                "calculatedScore": 20,
+                "calculatedScore": 60,
                 "systems": [
                   {
                     "id": "f0a27179-b439-422e-9117-754f494f9dfe",
@@ -28110,21 +28111,22 @@
                   "multi": false,
                   "systems": [
                     {
-                      "id": "1e18524d-2b61-4f35-90df-41478ef7d82c",
                       "name": "Epic",
                       "legacy": false,
                       "future": "",
                       "qa": {
                         "q1": "SOMETIMES",
-                        "q1_note": "Dan kijk ik in het dossier voor extra details",
-                        "q2": "ALWAYS",
-                        "q2_note": "Veel klikken voordat je werklijst kunt openen. ",
-                        "q3": "ALWAYS",
-                        "q3_note": "Triageformulier aanvullen",
-                        "q4": "OFTEN",
-                        "q5": "STOP"
+                        "q1_note": "Als triage een verkeerde arts of doelgebied heeft gekozen, dan bel ik de arts op. ",
+                        "q2": "SOMETIMES",
+                        "q2_note": "Je moet extra zoeken en vergelijken omdat de juiste route niet altijd direct duidelijk is in de registratie.",
+                        "q3": "NEVER",
+                        "q3_note": "Route bepalen is vooral beoordelen en niet hetzelfde opnieuw invoeren.",
+                        "q4": "SOMETIMES",
+                        "q5": "STOP",
+                        "q4_note": " Een verkeerde routekeuze kan doorwerken zonder dat het systeem je direct corrigeert.",
+                        "q5_note": "Zonder Epic kun je routekeuzes niet vastleggen en niet door naar planning."
                       },
-                      "score": 20
+                      "score": 60
                     }
                   ],
                   "activeSystemIdx": 0
@@ -28653,7 +28655,7 @@
               "systemData": {
                 "isMulti": false,
                 "systemName": "",
-                "calculatedScore": 87,
+                "calculatedScore": 73,
                 "systems": [
                   {
                     "id": "383f29a5-4a74-467b-8c78-2776a1e587b7",
@@ -28674,19 +28676,22 @@
                   "multi": false,
                   "systems": [
                     {
-                      "id": "db78d671-d0f7-4684-ac77-69d43de40342",
-                      "name": "",
+                      "name": "Zenya",
                       "legacy": false,
                       "future": "",
                       "qa": {
-                        "q1": "NEVER",
-                        "q2": "NEVER",
+                        "q1": "SOMETIMES",
+                        "q2": "SOMETIMES",
                         "q3": "NEVER",
-                        "q4": "NEVER",
-                        "q5": "RISK",
-                        "q5_note": "Informatie dat nodig is voor het plannen is dan niet meer bij de hand"
+                        "q4": "OFTEN",
+                        "q5": "SAFE",
+                        "q5_note": "Je kunt vaak door op routine en later het protocol controleren als Zenya weer beschikbaar is.",
+                        "q1_note": "Als je het juiste protocol niet snel kunt vinden of als het protocol niet direct het antwoord geeft werk je op ervaring of je vraagt een collega.",
+                        "q2_note": "Je moet zoeken en lezen in protocollen en dat kost tijd omdat Zenya geen interactieve beslislogica heeft.",
+                        "q3_note": "In Zenya registreer je niets, je raadpleegt alleen informatie.",
+                        "q4_note": "Protocollen voorkomen niet dat je een stap mist of verkeerd interpreteert omdat er geen ingebouwde controles zijn"
                       },
-                      "score": 87
+                      "score": 73
                     }
                   ],
                   "activeSystemIdx": 0
@@ -29232,7 +29237,7 @@
               "systemData": {
                 "isMulti": false,
                 "systemName": "",
-                "calculatedScore": 93,
+                "calculatedScore": 73,
                 "systems": [
                   {
                     "id": "5156b920-aa99-4150-99e0-1457190ffda5",
@@ -29253,19 +29258,22 @@
                   "multi": false,
                   "systems": [
                     {
-                      "id": "788e616e-eaa6-4f70-b8cb-fbe2c2790af7",
                       "name": "Zenya",
                       "legacy": false,
                       "future": "",
                       "qa": {
-                        "q1": "NEVER",
-                        "q2": "NEVER",
+                        "q1": "SOMETIMES",
+                        "q2": "SOMETIMES",
                         "q3": "NEVER",
-                        "q4": "NEVER",
-                        "q5": "DELAY",
-                        "q5_note": "Soms hebben we protocollen al geprint"
+                        "q4": "OFTEN",
+                        "q5": "SAFE",
+                        "q5_note": "De route kan meestal doorgaan, maar je mist directe naslag en zekerheid.",
+                        "q1_note": "Als het protocol niet snel genoeg te raadplegen is tijdens het uitvoeren ga je verder op geheugen en controleer je later.",
+                        "q2_note": "Het kost extra tijd om de juiste paragrafen te vinden en te vertalen naar acties in Epic.",
+                        "q3_note": "Zenya vraagt geen invoer.",
+                        "q4_note": "Zenya kan niet afdwingen dat je alle stappen uit het protocol daadwerkelijk uitvoert."
                       },
-                      "score": 93
+                      "score": 73
                     }
                   ],
                   "activeSystemIdx": 0
@@ -29799,7 +29807,7 @@
               "systemData": {
                 "isMulti": false,
                 "systemName": "",
-                "calculatedScore": 100,
+                "calculatedScore": 73,
                 "systems": [
                   {
                     "id": "f3c31723-a0cc-4f21-ad04-cf580e336a6d",
@@ -29820,22 +29828,22 @@
                   "multi": false,
                   "systems": [
                     {
-                      "id": "7ff8fb01-4ba1-4859-8273-d33322eebd1a",
                       "name": "Epic",
                       "legacy": false,
                       "future": "",
                       "qa": {
-                        "q1": "NEVER",
+                        "q1": "SOMETIMES",
                         "q1_note": "",
-                        "q2": "NEVER",
-                        "q2_note": "",
+                        "q2": "SOMETIMES",
+                        "q2_note": "Het kost tijd om alle details bij elkaar te zoeken door klikken en wisselen van scherm.",
                         "q3": "NEVER",
                         "q3_note": "",
-                        "q4": "NEVER",
-                        "q5": "SAFE",
-                        "q5_note": "Afspraken kun je terugzien in Radiotherapie Web"
+                        "q4": "SOMETIMES",
+                        "q5": "DELAY",
+                        "q5_note": "Afspraken kun je terugzien in Radiotherapie Web",
+                        "q4_note": "Epic dwingt geen vaste checklist af voor wat je moet controleren voor je informeert."
                       },
-                      "score": 100
+                      "score": 73
                     }
                   ],
                   "activeSystemIdx": 0
@@ -30387,7 +30395,7 @@
               "systemData": {
                 "isMulti": false,
                 "systemName": "",
-                "calculatedScore": 73,
+                "calculatedScore": 53,
                 "systems": [
                   {
                     "id": "a660d2e5-f4b5-440b-87cf-db3c21ec3468",
@@ -30408,22 +30416,22 @@
                   "multi": false,
                   "systems": [
                     {
-                      "id": "514194d4-74c1-4adb-80cc-19a4601bd4a2",
                       "name": "Epic",
                       "legacy": false,
                       "future": "",
                       "qa": {
                         "q1": "NEVER",
                         "q1_note": "Ik kan heel duidelijk de vrije consultplekken zien",
-                        "q2": "SOMETIMES",
-                        "q2_note": "Teveel klikken",
+                        "q2": "OFTEN",
+                        "q2_note": "Veel klikken en beperkt visueel overzicht maken werken tijdens het bellen trager.",
                         "q3": "NEVER",
                         "q3_note": "",
-                        "q4": "NEVER",
+                        "q4": "OFTEN",
                         "q5": "STOP",
-                        "q4_note": ""
+                        "q4_note": "Je kan bij verkeerde locatie een afspraak boeken. Epic heeft daar geen controles voor. ",
+                        "q5_note": "Zonder Epic heb je geen patiëntgegevens en geen agenda om een slot te kunnen vastleggen."
                       },
-                      "score": 73
+                      "score": 53
                     }
                   ],
                   "activeSystemIdx": 0
@@ -30936,7 +30944,7 @@
             {
               "id": "728a81fd-e152-4f0d-8a5b-b06165f9c3e2",
               "created": 1770303954014,
-              "text": "Telefonisch",
+              "text": "Telefoon",
               "linkedSourceId": null,
               "type": null,
               "processValue": null,
@@ -30973,7 +30981,7 @@
               "systemData": {
                 "isMulti": false,
                 "systemName": "",
-                "calculatedScore": 93,
+                "calculatedScore": 73,
                 "systems": [
                   {
                     "id": "a7f4947d-a565-4623-9cda-eb12db04ad3e",
@@ -30994,23 +31002,22 @@
                   "multi": false,
                   "systems": [
                     {
-                      "id": "f900deb4-b52a-4e07-b246-51f53cd65284",
-                      "name": "Epic",
+                      "name": "Telefoon",
                       "legacy": false,
                       "future": "",
                       "qa": {
-                        "q1": "NEVER",
-                        "q1_note": "",
-                        "q2": "NEVER",
-                        "q2_note": "",
+                        "q1": "SOMETIMES",
+                        "q1_note": "Als de patiënt niet opneemt of twijfelt moet je terugbellen of schriftelijk bevestigen.",
+                        "q2": "SOMETIMES",
+                        "q2_note": "Het tempo hangt af van bereikbaarheid en gesprekstijd.",
                         "q3": "NEVER",
-                        "q3_note": "",
-                        "q4": "NEVER",
+                        "q3_note": "Telefonie registreert niets, registratie gebeurt daarna in Epic en eventueel Radiotherapie Web.",
+                        "q4": "SOMETIMES",
                         "q5": "DELAY",
-                        "q4_note": "Je kan bij de verkeerde arts/locatie inplannen",
-                        "q5_note": "Mail of brief versturen"
+                        "q4_note": "Mondelinge afspraken kunnen verkeerd begrepen worden als je niet samenvat en direct noteert.",
+                        "q5_note": "Je kunt niet bevestigen met de patiënt, maar je kunt wel voorbereidend werk doen."
                       },
-                      "score": 93
+                      "score": 73
                     }
                   ],
                   "activeSystemIdx": 0
@@ -31549,7 +31556,7 @@
               "systemData": {
                 "isMulti": false,
                 "systemName": "",
-                "calculatedScore": 87,
+                "calculatedScore": 73,
                 "systems": [
                   {
                     "id": "44a8d9e9-b8e9-4b2c-bbf2-c92328a18971",
@@ -31570,20 +31577,22 @@
                   "multi": false,
                   "systems": [
                     {
-                      "id": "8a5c7660-ff7d-4c98-9462-b07ff2a60607",
-                      "name": "",
+                      "name": "Zenya",
                       "legacy": false,
                       "future": "",
                       "qa": {
-                        "q1": "NEVER",
-                        "q1_note": "",
-                        "q2": "NEVER",
+                        "q1": "SOMETIMES",
+                        "q1_note": "Als het juiste protocol niet snel vindbaar is begin je op routine of je vraagt een collega",
+                        "q2": "SOMETIMES",
                         "q3": "NEVER",
-                        "q4": "NEVER",
-                        "q5": "RISK",
-                        "q5_note": "Dan missen wij informatie over hoe te plannen"
+                        "q4": "OFTEN",
+                        "q5": "SAFE",
+                        "q5_note": "Je kunt vaak door op routine en later het protocol controleren.",
+                        "q2_note": "Je moet zoeken en lezen in protocollen en dat kost tijd omdat Zenya geen stappen begeleidt.",
+                        "q3_note": "Zenya is alleen raadplegen en heeft geen registratie.",
+                        "q4_note": "Een protocol kan je niet tegenhouden als je een stap overslaat omdat er geen ingebouwde controle is."
                       },
-                      "score": 87
+                      "score": 73
                     }
                   ],
                   "activeSystemIdx": 0
@@ -32154,7 +32163,7 @@
               "systemData": {
                 "isMulti": false,
                 "systemName": "",
-                "calculatedScore": 60,
+                "calculatedScore": 53,
                 "systems": [
                   {
                     "id": "64a2e4d5-6e2b-43e0-8dc7-5229d502bfc8",
@@ -32175,20 +32184,21 @@
                   "multi": false,
                   "systems": [
                     {
-                      "id": "99946cf9-4da0-4796-af24-515faf0c93b1",
-                      "name": "",
+                      "name": "Epic",
                       "legacy": false,
                       "future": "",
                       "qa": {
-                        "q1": "NEVER",
+                        "q1": "SOMETIMES",
                         "q2": "SOMETIMES",
-                        "q2_note": "Als de gele blokken er niet zijn",
+                        "q2_note": "Veel klikken en beperkt overzicht maken het plannen in specifieke blokken traag.",
                         "q3": "NEVER",
                         "q4": "OFTEN",
                         "q4_note": "Je kan afspraken over elkaar heen inplannen",
-                        "q5": "STOP"
+                        "q5": "STOP",
+                        "q1_note": "",
+                        "q5_note": "Zonder Epic kun je niet plannen en geen blokken beheren."
                       },
-                      "score": 60
+                      "score": 53
                     }
                   ],
                   "activeSystemIdx": 0
@@ -32723,7 +32733,7 @@
               "systemData": {
                 "isMulti": false,
                 "systemName": "",
-                "calculatedScore": 66,
+                "calculatedScore": 60,
                 "systems": [
                   {
                     "id": "d96ce282-48e6-4dd1-9d00-42226f3efda0",
@@ -32744,18 +32754,19 @@
                   "multi": false,
                   "systems": [
                     {
-                      "id": "4f170827-f1ce-4307-88cf-f5babff0feb8",
-                      "name": "",
+                      "name": "Epic",
                       "legacy": false,
                       "future": "",
                       "qa": {
-                        "q1": "NEVER",
+                        "q1": "SOMETIMES",
                         "q2": "SOMETIMES",
                         "q3": "NEVER",
                         "q4": "SOMETIMES",
-                        "q5": "STOP"
+                        "q5": "STOP",
+                        "q1_note": "Als er geen blokken staan of iets is niet duidelijk moet je navragen. ",
+                        "q2_note": "Het kost tijd door klikken en zoeken naar het juiste bericht en de juiste reserveringsinformatie."
                       },
-                      "score": 66
+                      "score": 60
                     }
                   ],
                   "activeSystemIdx": 0
@@ -33281,7 +33292,7 @@
               "systemData": {
                 "isMulti": false,
                 "systemName": "",
-                "calculatedScore": 80,
+                "calculatedScore": 60,
                 "systems": [
                   {
                     "id": "f7bb7340-6554-4d61-a246-573dfae2325d",
@@ -33302,18 +33313,22 @@
                   "multi": false,
                   "systems": [
                     {
-                      "id": "473da155-ab45-4430-865b-c777b9a92ce0",
-                      "name": "",
+                      "name": "Epic",
                       "legacy": false,
                       "future": "",
                       "qa": {
-                        "q1": "NEVER",
-                        "q2": "NEVER",
+                        "q1": "SOMETIMES",
+                        "q2": "SOMETIMES",
                         "q3": "NEVER",
-                        "q4": "NEVER",
-                        "q5": "STOP"
+                        "q4": "SOMETIMES",
+                        "q5": "STOP",
+                        "q1_note": "Als het terugrekenen niet past binnen beschikbare capaciteit moet je meerdere scenario’s handmatig uitproberen.",
+                        "q2_note": "Epic helpt met agenda informatie maar het ondersteunt niet automatisch het terugrekenen met normregels.",
+                        "q3_note": "Terugrekenen is vooral bepalen en vergelijken en niet dubbel invoeren.",
+                        "q4_note": "Het systeem waarschuwt niet automatisch als je planning niet logisch aansluit op het kader.",
+                        "q5_note": "Zonder Epic heb je geen agenda overzicht en kun je niet terugrekenen of vastleggen."
                       },
-                      "score": 80
+                      "score": 60
                     }
                   ],
                   "activeSystemIdx": 0
@@ -33851,7 +33866,7 @@
               "systemData": {
                 "isMulti": false,
                 "systemName": "",
-                "calculatedScore": 66,
+                "calculatedScore": 40,
                 "systems": [
                   {
                     "id": "18eedfeb-512a-47aa-88f3-7710d5ba4ef2",
@@ -33872,20 +33887,22 @@
                   "multi": false,
                   "systems": [
                     {
-                      "id": "cc8e22dd-c82a-4e82-98bd-675eb0f1d83f",
-                      "name": "",
+                      "name": "Epic",
                       "legacy": false,
                       "future": "",
                       "qa": {
-                        "q1": "NEVER",
-                        "q2": "SOMETIMES",
-                        "q2_note": "Veel klikken",
+                        "q1": "OFTEN",
+                        "q2": "OFTEN",
+                        "q2_note": "Het kost veel tijd door veel klikken en door beperkte visuele signalen zoals kleur en status.",
                         "q3": "NEVER",
-                        "q4": "SOMETIMES",
-                        "q4_note": "",
-                        "q5": "STOP"
+                        "q4": "OFTEN",
+                        "q4_note": "Epic kan toestaan dat agenda en blokken niet logisch aansluiten zonder dat je direct een harde waarschuwing krijgt.",
+                        "q5": "STOP",
+                        "q1_note": "Je moet vaak schakelen tussen schermen en handmatig vergelijken omdat je niet één duidelijk overzicht hebt.",
+                        "q3_note": "Controleren is vooral kijken en niet dezelfde gegevens opnieuw invoeren.",
+                        "q5_note": "Zonder Epic kun je de agenda niet controleren en geen vrij slot vinden."
                       },
-                      "score": 66
+                      "score": 40
                     }
                   ],
                   "activeSystemIdx": 0
@@ -34424,7 +34441,7 @@
               "systemData": {
                 "isMulti": false,
                 "systemName": "",
-                "calculatedScore": 66,
+                "calculatedScore": 60,
                 "systems": [
                   {
                     "id": "d9d14c7f-6550-460b-8369-3d66202c7e1c",
@@ -34445,18 +34462,21 @@
                   "multi": false,
                   "systems": [
                     {
-                      "id": "2aadbd14-31f1-4ed7-84e4-ed3603794959",
-                      "name": "",
+                      "name": "Epic",
                       "legacy": false,
                       "future": "",
                       "qa": {
-                        "q1": "NEVER",
+                        "q1": "SOMETIMES",
                         "q2": "SOMETIMES",
                         "q3": "NEVER",
                         "q4": "SOMETIMES",
-                        "q5": "STOP"
+                        "q5": "STOP",
+                        "q1_note": "Als de standaardduur niet past moet je handmatig corrigeren en herplannen.",
+                        "q3_note": "Je zet de duur in Epic en herhaalt dit meestal niet in een tweede veld in hetzelfde systeem.",
+                        "q4_note": "Epic voorkomt niet altijd dat een duur per ongeluk verkeerd wordt ingevuld zonder extra controle.",
+                        "q5_note": "Zonder Epic kun je geen duur vastleggen en geen planning afronde"
                       },
-                      "score": 66
+                      "score": 60
                     }
                   ],
                   "activeSystemIdx": 0
@@ -34982,7 +35002,7 @@
               "systemData": {
                 "isMulti": false,
                 "systemName": "",
-                "calculatedScore": 66,
+                "calculatedScore": 60,
                 "systems": [
                   {
                     "id": "8b95b4bd-ca2a-4e9f-9122-82cea2591839",
@@ -35003,19 +35023,22 @@
                   "multi": false,
                   "systems": [
                     {
-                      "id": "6ae24be0-735f-4c5e-a770-c001008fc4ac",
-                      "name": "",
+                      "name": "Epic",
                       "legacy": false,
                       "future": "",
                       "qa": {
-                        "q1": "NEVER",
+                        "q1": "SOMETIMES",
                         "q2": "SOMETIMES",
                         "q3": "NEVER",
                         "q4": "SOMETIMES",
-                        "q4_note": "Afspraken die over elkaar heen zijn gepland",
-                        "q5": "STOP"
+                        "q4_note": "Afspraken die over elkaar heen zijn gepland. Epic kan toestaan dat een veld vergeten wordt omdat er geen harde afsluitcontrole is.",
+                        "q5": "STOP",
+                        "q1_note": "Als de juiste plek voor registratie niet direct zichtbaar is moet je zoeken of een collega vragen.",
+                        "q2_note": "Registratie vraagt klikken en navigatie en dat kost tijd.",
+                        "q3_note": "Je verwerkt de zorgpadduur in Epic en doet dit niet structureel nog een keer elders in deze stap.",
+                        "q5_note": "Zonder Epic kun je niet registreren dat het zorgpad verwerkt is."
                       },
-                      "score": 66
+                      "score": 60
                     }
                   ],
                   "activeSystemIdx": 0
@@ -35541,7 +35564,7 @@
               "systemData": {
                 "isMulti": false,
                 "systemName": "",
-                "calculatedScore": 60,
+                "calculatedScore": 53,
                 "systems": [
                   {
                     "id": "4fdfb70b-6879-4c97-8ec2-1f66d3c8db1f",
@@ -35562,18 +35585,21 @@
                   "multi": false,
                   "systems": [
                     {
-                      "id": "d006d5bc-5176-498c-9fea-6734605e055f",
-                      "name": "",
+                      "name": "Epic",
                       "legacy": false,
                       "future": "",
                       "qa": {
-                        "q1": "NEVER",
-                        "q2": "SOMETIMES",
+                        "q1": "SOMETIMES",
+                        "q2": "OFTEN",
                         "q3": "NEVER",
-                        "q4": "OFTEN",
-                        "q5": "STOP"
+                        "q4": "SOMETIMES",
+                        "q5": "STOP",
+                        "q1_note": "Je moet tijdens bellen vaak wisselen tussen patiëntgegevens en agenda informatie omdat het niet in één scherm staat.",
+                        "q2_note": "Veel klikken en beperkt visueel overzicht maken het werken tijdens bellen trager",
+                        "q4_note": "Als je het belresultaat niet direct verwerkt is het mogelijk dat informatie blijft hangen.",
+                        "q5_note": "Zonder Epic heb je geen gegevens en kun je de patiënt niet goed informeren."
                       },
-                      "score": 60
+                      "score": 53
                     }
                   ],
                   "activeSystemIdx": 0
@@ -36113,7 +36139,7 @@
               "systemData": {
                 "isMulti": false,
                 "systemName": "",
-                "calculatedScore": 86,
+                "calculatedScore": 66,
                 "systems": [
                   {
                     "id": "5c424785-fb99-4171-a503-90364e390fb4",
@@ -36134,18 +36160,22 @@
                   "multi": false,
                   "systems": [
                     {
-                      "id": "18bbe8a1-c6ef-46f8-a6e2-52647ab62004",
                       "name": "",
                       "legacy": false,
                       "future": "",
                       "qa": {
-                        "q1": "NEVER",
-                        "q2": "NEVER",
+                        "q1": "SOMETIMES",
+                        "q2": "SOMETIMES",
                         "q3": "NEVER",
-                        "q4": "SOMETIMES",
-                        "q5": "DELAY"
+                        "q4": "OFTEN",
+                        "q5": "DELAY",
+                        "q1_note": "Als je het juiste protocol niet snel vindt start je op routine of je vraagt een collega.",
+                        "q2_note": "Je moet zoeken en lezen in protocollen en dat kost tijd.",
+                        "q4_note": "Zenya kan niet afdwingen dat je elke stap uit het protocol volgt.",
+                        "q3_note": "Zenya is alleen raadplegen en heeft geen registratie.",
+                        "q5_note": "Je kunt vaak door op routine en later het protocol controleren."
                       },
-                      "score": 86
+                      "score": 66
                     }
                   ],
                   "activeSystemIdx": 0
@@ -36686,7 +36716,7 @@
               "systemData": {
                 "isMulti": false,
                 "systemName": "",
-                "calculatedScore": null,
+                "calculatedScore": 73,
                 "systems": [
                   {
                     "id": "2b160dd8-0049-4980-ac28-0a0125bc2de8",
@@ -36707,12 +36737,22 @@
                   "multi": false,
                   "systems": [
                     {
-                      "id": "80b9c633-4508-4e90-93fc-83b0ca86d57e",
                       "name": "",
                       "legacy": false,
                       "future": "",
-                      "qa": {},
-                      "score": null
+                      "qa": {
+                        "q1": "SOMETIMES",
+                        "q1_note": "Als het protocol niet direct duidelijk is werk je op ervaring of je vraagt afstemming.",
+                        "q2": "SOMETIMES",
+                        "q2_note": "Het zoeken naar de juiste passages kost tijd omdat Zenya geen stappen begeleidt.",
+                        "q3": "NEVER",
+                        "q3_note": "Zenya vraagt geen invoer.",
+                        "q4": "OFTEN",
+                        "q4_note": "Zenya geeft geen waarschuwing als je een regel mist.",
+                        "q5": "SAFE",
+                        "q5_note": "De basis kun je vaak uit je hoofd doen en later checken."
+                      },
+                      "score": 73
                     }
                   ],
                   "activeSystemIdx": 0
@@ -36969,7 +37009,7 @@
                 },
                 {
                   "scenario": "Een slot lijkt vrij maar blijkt niet vrij door mismatch of gesloten artsagenda",
-                  "frequency": "Altijd",
+                  "frequency": "Vaak",
                   "workaround": "e vergelijkt handmatig Helios, toestel en artsagenda. Je creëert indien nodig een plek in Epic. Je zoekt een alternatief met de arts. Je escaleert als het niet oplosbaar is."
                 }
               ],
@@ -37279,16 +37319,18 @@
                   "multi": false,
                   "systems": [
                     {
-                      "id": "b8887a8d-33ea-4df9-8172-e0463be2fb5d",
                       "name": "",
                       "legacy": false,
                       "future": "",
                       "qa": {
-                        "q1": "NEVER",
-                        "q2": "ALWAYS",
+                        "q1": "SOMETIMES",
+                        "q2": "OFTEN",
                         "q3": "NEVER",
                         "q4": "NEVER",
-                        "q5": "STOP"
+                        "q5": "STOP",
+                        "q1_note": "Tijdens bellen moet je vaak wisselen van schermen",
+                        "q2_note": "Veel klikken en beperkt visueel overzicht maken het werken tijdens bellen trager.",
+                        "q5_note": ". Zonder Epic heb je geen gegevens en kun je het proces niet afronden."
                       },
                       "score": 60
                     }
@@ -37470,10 +37512,10 @@
               "created": 1771495915670,
               "text": "Patiënt bellen",
               "linkedSourceId": null,
-              "type": null,
-              "processValue": null,
+              "type": "Taak",
+              "processValue": "VA",
               "processStatus": "HAPPY",
-              "successFactors": "",
+              "successFactors": "Dit is in control omdat de verstoringen vooral incidenteel zijn en niet structureel door het systeem worden veroorzaakt.",
               "causes": [],
               "improvements": [],
               "qa": {
@@ -37524,7 +37566,13 @@
                 ]
               },
               "inputDefinitions": [],
-              "disruptions": [],
+              "disruptions": [
+                {
+                  "scenario": "De patiënt neemt niet op. ",
+                  "frequency": "Soms",
+                  "workaround": "Je belt later opnieuw. Je spreekt voicemail in als dat kan. Je stuurt een mail of brief als de termijn kort is."
+                }
+              ],
               "workExp": "ROUTINE",
               "workExpNote": "",
               "linkedSourceUids": [],
@@ -37781,7 +37829,7 @@
             {
               "id": "0194f916-8d21-486e-860e-b339e3ffffdb",
               "created": 1771495936724,
-              "text": "Telefonisch",
+              "text": "Telefoon",
               "linkedSourceId": null,
               "type": null,
               "processValue": null,
@@ -37818,7 +37866,7 @@
               "systemData": {
                 "isMulti": false,
                 "systemName": "",
-                "calculatedScore": null,
+                "calculatedScore": 73,
                 "systems": [
                   {
                     "id": "bfe586cf-e06f-47d3-82af-a28a4f1b338c",
@@ -37839,12 +37887,22 @@
                   "multi": false,
                   "systems": [
                     {
-                      "id": "8847e49a-32eb-4dc6-9c1d-30890b1b3c0b",
-                      "name": "",
+                      "name": "Telefoon",
                       "legacy": false,
                       "future": "",
-                      "qa": {},
-                      "score": null
+                      "qa": {
+                        "q1": "SOMETIMES",
+                        "q1_note": "Als de patiënt niet opneemt moet je terugbellen of een brief sturen.",
+                        "q2_note": "Bereikbaarheid van de patiënt bepaalt het tempo.",
+                        "q2": "SOMETIMES",
+                        "q3_note": "Telefonie registreert niets, registratie gebeurt later in Epic.",
+                        "q3": "NEVER",
+                        "q4_note": "Mondelinge afspraken zijn foutgevoeliger als je niet samenvat en direct noteert.",
+                        "q4": "SOMETIMES",
+                        "q5_note": " Als telefonie uitvalt kun je niet afstemmen met de patiënt maar je kunt wel voorbereiden.",
+                        "q5": "DELAY"
+                      },
+                      "score": 73
                     }
                   ],
                   "activeSystemIdx": 0
@@ -38024,11 +38082,15 @@
               "created": 1771495936724,
               "text": "Inplannen telefonisch consult",
               "linkedSourceId": null,
-              "type": null,
+              "type": "Taak",
               "processValue": "BNVA",
-              "processStatus": "NEUTRAL",
+              "processStatus": "SAD",
               "successFactors": "",
-              "causes": [],
+              "causes": [
+                "TC blokken worden door backoffice aangepast zonder vaste checklist voor Fastmets.",
+                "Bij afwezigheid, onderhoud of verschuivingen wordt het TC blok niet altijd mee verplaatst naar de juiste plek.",
+                "Er is geen automatische controle die signaleert dat TC blokken ontbreken of niet meer aansluiten op toestel en artsplanning."
+              ],
               "improvements": [],
               "qa": {
                 "compleet": {
@@ -38080,13 +38142,13 @@
               "inputDefinitions": [],
               "disruptions": [
                 {
-                  "scenario": "Agenda niet goed",
+                  "scenario": "Het Telefonisch Consult blok ontbreekt of staat op de verkeerde plek.",
                   "frequency": "Vaak",
-                  "workaround": ""
+                  "workaround": "e verzet het blok handmatig. Je plant opnieuw. Je koppelt terug naar backoffice zodat het structureel kan worden aangepast."
                 }
               ],
-              "workExp": "ROUTINE",
-              "workExpNote": "",
+              "workExp": "OBSTACLE",
+              "workExpNote": "Dit is obstakel omdat het alleen soepel gaat als het TC blok correct in de artsagenda staat.",
               "linkedSourceUids": [],
               "linkedBundleIds": [],
               "gate": {
@@ -38576,11 +38638,15 @@
               "created": 1771512734202,
               "text": "Inplannen controle bij arts",
               "linkedSourceId": null,
-              "type": null,
-              "processValue": null,
-              "processStatus": "NEUTRAL",
+              "type": "Taak",
+              "processValue": "BNVA",
+              "processStatus": "SAD",
               "successFactors": "",
-              "causes": [],
+              "causes": [
+                "e artsagenda is soms gesloten terwijl het toestel of Helios nog wel een slot suggereert.",
+                "Blokken worden verschoven zonder dat de samenhang tussen fysieke controle, TC blok en toestel tijd wordt bewaakt.",
+                "Er is onvoldoende standaardisatie in hoe Fastmets controleblokken worden ingericht per arts of per week."
+              ],
               "improvements": [],
               "qa": {
                 "compleet": {
@@ -38630,9 +38696,15 @@
                 ]
               },
               "inputDefinitions": [],
-              "disruptions": [],
-              "workExp": "ROUTINE",
-              "workExpNote": "",
+              "disruptions": [
+                {
+                  "scenario": "De controle past niet omdat de artsagenda gesloten is of verkeerd verschoven is.",
+                  "frequency": "Vaak",
+                  "workaround": "e zoekt een alternatief moment met de arts. Je past de planning handmatig aan. Je escaleert als het pad of de norm in gevaar komt."
+                }
+              ],
+              "workExp": "OBSTACLE",
+              "workExpNote": "Dit is obstakel omdat de controle alleen ingepland kan worden als de artsagenda juist is en omdat de artsagenda vaak dicht staat of niet synchroon is met het toestel.",
               "linkedSourceUids": [],
               "linkedBundleIds": [],
               "gate": {
@@ -39127,7 +39199,9 @@
               "processStatus": "NEUTRAL",
               "successFactors": "",
               "causes": [
-                "Veel maatwerk"
+                "Het Fastmets straatje is ingericht op één fractie waardoor een tweede fractie direct maatwerk wordt.",
+                "Capaciteit in artsagenda en toestelplanning is strak waardoor uitzonderingen lastig in te passen zijn.",
+                "Wijzigingen na het telefonisch consult komen laat waardoor je opnieuw moet zoeken en verzetten."
               ],
               "improvements": [],
               "qa": {
@@ -39178,9 +39252,15 @@
                 ]
               },
               "inputDefinitions": [],
-              "disruptions": [],
+              "disruptions": [
+                {
+                  "scenario": "De arts vraagt twee fracties terwijl het straatje op één fractie is ingericht.",
+                  "frequency": "Soms",
+                  "workaround": "Je zoekt handmatig extra ruimte in toestel en artsagenda. Je plant maatwerk. Je controleert daarna of alle afspraken nog logisch staan."
+                }
+              ],
               "workExp": "OBSTACLE",
-              "workExpNote": "",
+              "workExpNote": "Dit is routine omdat het Fastmets straatje meestal een standaard patroon volgt. Dit wordt obstakel als er maatwerk nodig is zoals twee fracties of afwijkende tijden. Dit is aandachtspunt omdat het meestal lukt maar omdat uitzonderingen extra afstemming en handmatig puzzelen vragen.",
               "linkedSourceUids": [],
               "linkedBundleIds": [],
               "gate": {
@@ -39664,7 +39744,7 @@
               "type": null,
               "processValue": "VA",
               "processStatus": "HAPPY",
-              "successFactors": "",
+              "successFactors": "Dit is in control omdat het proces meestal goed uitvoerbaar is.",
               "causes": [],
               "improvements": [],
               "qa": {
@@ -39717,18 +39797,13 @@
               "inputDefinitions": [],
               "disruptions": [
                 {
-                  "scenario": "Email adres klopt",
-                  "frequency": "Zelden",
-                  "workaround": "brief sturen"
-                },
-                {
-                  "scenario": "adres klopt niet/kans op datalek",
-                  "frequency": "Zelden",
-                  "workaround": "bij de balie kom je erachter"
+                  "scenario": "Bevestiging kan niet via het gewenste kanaal omdat contactgegevens niet kloppen of het kanaal niet beschikbaar is",
+                  "frequency": "Soms",
+                  "workaround": "e controleert contactgegevens in Epic. Je kiest een alternatief kanaal zoals een brief. Je bevestigt telefonisch als dat nodig is."
                 }
               ],
               "workExp": "ROUTINE",
-              "workExpNote": "Sommige vinden verspilling",
+              "workExpNote": "Dit is routine omdat het een vaste afrondstap is met weinig variatie. Sommige vinden het verspilling om nog een extra bevestiging te sturen. ",
               "linkedSourceUids": [],
               "linkedBundleIds": [],
               "gate": {
