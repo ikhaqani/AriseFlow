@@ -4,7 +4,7 @@
   "author": "Anoniem",
   "created": "2026-01-16T08:48:17.021Z",
   "version": "2.7",
-  "activeSheetId": "b2afde0c-1451-450c-85d7-c0f3b53e8757",
+  "activeSheetId": "7b71de70-d49b-43d1-b1e8-1401e5268f84",
   "sheets": [
     {
       "id": "858c26e5-f7ec-4311-b503-641f99e65c84",
@@ -120413,7 +120413,7 @@
               "systemData": {
                 "isMulti": false,
                 "systemName": "",
-                "calculatedScore": null,
+                "calculatedScore": 86,
                 "systems": [
                   {
                     "id": "f5c75139-6d02-4177-b8a5-349a294021e8",
@@ -120434,12 +120434,20 @@
                   "multi": false,
                   "systems": [
                     {
-                      "id": "0d99ca7b-9edd-436e-9e15-49fe0dca582f",
+                      "id": "e0ea171c-43e3-4030-918a-abd1f235fee0",
                       "name": "",
                       "legacy": false,
                       "future": "",
-                      "qa": {},
-                      "score": null
+                      "qa": {
+                        "q1": "SOMETIMES",
+                        "q3": "NEVER",
+                        "q5": "DELAY",
+                        "q5_note": "Het kan zijn dat er vertraging ontstaat doordat er niet op tijd informatie is dat een patiënt een insert moet krijgen",
+                        "q2": "NEVER",
+                        "q4": "NEVER",
+                        "q4_note": "Het kan zijn dat er bij de verkeerde patiënt de verkeerde taak wordt aangemaakt."
+                      },
+                      "score": 86
                     }
                   ],
                   "activeSystemIdx": 0
@@ -120472,27 +120480,33 @@
               "improvements": [],
               "qa": {
                 "compleet": {
-                  "result": "",
+                  "result": "GOOD",
+                  "impact": null,
                   "note": ""
                 },
                 "kwaliteit": {
-                  "result": "",
+                  "result": "GOOD",
+                  "impact": null,
                   "note": ""
                 },
                 "duidelijkheid": {
-                  "result": "",
+                  "result": "GOOD",
+                  "impact": null,
                   "note": ""
                 },
                 "tijdigheid": {
-                  "result": "",
-                  "note": ""
+                  "result": "MODERATE",
+                  "impact": "B",
+                  "note": "Het kan zijn dat de taak insert te laat in het proces bij de mouldroom komt, er moet dan op stel en sprong een insert gemaakt worden. "
                 },
                 "standaard": {
-                  "result": "",
+                  "result": "GOOD",
+                  "impact": null,
                   "note": ""
                 },
                 "overdracht": {
-                  "result": "",
+                  "result": "GOOD",
+                  "impact": null,
                   "note": ""
                 }
               },
@@ -120517,7 +120531,13 @@
                   }
                 ]
               },
-              "inputDefinitions": [],
+              "inputDefinitions": [
+                {
+                  "item": "RTHweb",
+                  "specifications": "Om de taak te ontvangen.",
+                  "type": "HARD"
+                }
+              ],
               "disruptions": [],
               "workExp": null,
               "workExpNote": "",
@@ -120531,7 +120551,8 @@
                 "onPassTargetProcessId": null,
                 "rule": "ALL_OK",
                 "note": ""
-              }
+              },
+              "linkedSourceIds": []
             },
             {
               "id": "9f9cc74a-b8a9-45f4-9e22-82ed30fbb90b",
@@ -120610,10 +120631,10 @@
               "created": 1770986683906,
               "text": "Insert print-out opzoeken",
               "linkedSourceId": null,
-              "type": null,
-              "processValue": null,
-              "processStatus": null,
-              "successFactors": "",
+              "type": "Taak",
+              "processValue": "BNVA",
+              "processStatus": "HAPPY",
+              "successFactors": "Standaard ingesteld. Als mouldroom taak ontvangt is het document met de vorm van de insert beschikbaar. ",
               "causes": [],
               "improvements": [],
               "qa": {
@@ -120664,8 +120685,14 @@
                 ]
               },
               "inputDefinitions": [],
-              "disruptions": [],
-              "workExp": null,
+              "disruptions": [
+                {
+                  "scenario": "Document niet beschikbaar",
+                  "frequency": "Zelden",
+                  "workaround": "Planning vragen opnieuw door te sturen"
+                }
+              ],
+              "workExp": "ROUTINE",
               "workExpNote": "",
               "linkedSourceUids": [],
               "linkedBundleIds": [],
@@ -120950,7 +120977,7 @@
               "systemData": {
                 "isMulti": false,
                 "systemName": "",
-                "calculatedScore": null,
+                "calculatedScore": 73,
                 "systems": [
                   {
                     "id": "35f3a1a5-b7a1-4adc-96d4-07952d158b7d",
@@ -120971,12 +120998,19 @@
                   "multi": false,
                   "systems": [
                     {
-                      "id": "96681a6e-1c8b-4914-9501-581723021758",
+                      "id": "41775da1-4420-41ed-b901-2e7c3c00e0be",
                       "name": "",
                       "legacy": false,
                       "future": "",
-                      "qa": {},
-                      "score": null
+                      "qa": {
+                        "q1": "SOMETIMES",
+                        "q2": "NEVER",
+                        "q3": "NEVER",
+                        "q4": "NEVER",
+                        "q5": "STOP",
+                        "q5_note": "Als Adobe/rthweb niet werkt kunnen we de insert niet uitprinten"
+                      },
+                      "score": 73
                     }
                   ],
                   "activeSystemIdx": 0
@@ -121009,32 +121043,32 @@
               "improvements": [],
               "qa": {
                 "compleet": {
-                  "result": null,
+                  "result": "GOOD",
                   "impact": null,
                   "note": ""
                 },
                 "kwaliteit": {
-                  "result": null,
+                  "result": "GOOD",
                   "impact": null,
                   "note": ""
                 },
                 "duidelijkheid": {
-                  "result": null,
+                  "result": "GOOD",
                   "impact": null,
                   "note": ""
                 },
                 "tijdigheid": {
-                  "result": null,
-                  "impact": null,
-                  "note": ""
+                  "result": "MINOR",
+                  "impact": "A",
+                  "note": "Als de printout van de insert niet beschikbaar is kunnen we de insert niet maken, hierdoor kan patiënt niet/te laat bestraald worden. "
                 },
                 "standaard": {
-                  "result": null,
+                  "result": "GOOD",
                   "impact": null,
                   "note": ""
                 },
                 "overdracht": {
-                  "result": null,
+                  "result": "GOOD",
                   "impact": null,
                   "note": ""
                 }
@@ -121060,7 +121094,18 @@
                   }
                 ]
               },
-              "inputDefinitions": [],
+              "inputDefinitions": [
+                {
+                  "item": "RTHweb",
+                  "specifications": "Opzoeken vorm insert",
+                  "type": "HARD"
+                },
+                {
+                  "item": "adobe ",
+                  "specifications": "Openen van document van de insert om deze te printen",
+                  "type": "HARD"
+                }
+              ],
               "disruptions": [],
               "workExp": null,
               "workExpNote": "",
@@ -121156,10 +121201,10 @@
               "created": 1770986761008,
               "text": "Uitprinten vorm van Insert",
               "linkedSourceId": null,
-              "type": null,
-              "processValue": null,
-              "processStatus": null,
-              "successFactors": "",
+              "type": "Taak",
+              "processValue": "BNVA",
+              "processStatus": "HAPPY",
+              "successFactors": "Document is benodigd.",
               "causes": [],
               "improvements": [],
               "qa": {
@@ -121210,8 +121255,19 @@
                 ]
               },
               "inputDefinitions": [],
-              "disruptions": [],
-              "workExp": null,
+              "disruptions": [
+                {
+                  "scenario": "Niet kunnen openen van document",
+                  "frequency": "Zelden",
+                  "workaround": "Ander programma gebruiken"
+                },
+                {
+                  "scenario": "Niet beschikbaar zijn van devorm van de insert",
+                  "frequency": "Zelden",
+                  "workaround": "Planning vragen door te sturen"
+                }
+              ],
+              "workExp": "ROUTINE",
               "workExpNote": "",
               "linkedSourceUids": [],
               "linkedBundleIds": [],
@@ -121496,7 +121552,7 @@
               "systemData": {
                 "isMulti": false,
                 "systemName": "",
-                "calculatedScore": null,
+                "calculatedScore": 100,
                 "systems": [
                   {
                     "id": "90c13be2-5b44-4654-bd42-5f91e4a607d3",
@@ -121517,12 +121573,18 @@
                   "multi": false,
                   "systems": [
                     {
-                      "id": "2def72a6-e3d1-4787-b11a-9b20de8c2102",
+                      "id": "307f72e5-4d10-40e7-9a05-96d6da86f86b",
                       "name": "",
                       "legacy": false,
                       "future": "",
-                      "qa": {},
-                      "score": null
+                      "qa": {
+                        "q1": "NEVER",
+                        "q2": "NEVER",
+                        "q3": "NEVER",
+                        "q4": "NEVER",
+                        "q5": "SAFE"
+                      },
+                      "score": 100
                     }
                   ],
                   "activeSystemIdx": 0
@@ -121555,32 +121617,32 @@
               "improvements": [],
               "qa": {
                 "compleet": {
-                  "result": null,
+                  "result": "GOOD",
                   "impact": null,
                   "note": ""
                 },
                 "kwaliteit": {
-                  "result": null,
+                  "result": "GOOD",
                   "impact": null,
                   "note": ""
                 },
                 "duidelijkheid": {
-                  "result": null,
+                  "result": "GOOD",
                   "impact": null,
                   "note": ""
                 },
                 "tijdigheid": {
-                  "result": null,
+                  "result": "GOOD",
                   "impact": null,
                   "note": ""
                 },
                 "standaard": {
-                  "result": null,
+                  "result": "GOOD",
                   "impact": null,
                   "note": ""
                 },
                 "overdracht": {
-                  "result": null,
+                  "result": "GOOD",
                   "impact": null,
                   "note": ""
                 }
@@ -121606,7 +121668,13 @@
                   }
                 ]
               },
-              "inputDefinitions": [],
+              "inputDefinitions": [
+                {
+                  "item": "RTHweb",
+                  "specifications": "",
+                  "type": null
+                }
+              ],
               "disruptions": [],
               "workExp": null,
               "workExpNote": "",
@@ -121702,9 +121770,9 @@
               "created": 1770986816905,
               "text": "Uitsnijden van styrofoam",
               "linkedSourceId": null,
-              "type": null,
-              "processValue": null,
-              "processStatus": null,
+              "type": "Taak",
+              "processValue": "VA",
+              "processStatus": "HAPPY",
               "successFactors": "",
               "causes": [],
               "improvements": [],
@@ -121756,8 +121824,14 @@
                 ]
               },
               "inputDefinitions": [],
-              "disruptions": [],
-              "workExp": null,
+              "disruptions": [
+                {
+                  "scenario": "Styrofoam niet beschikbaar",
+                  "frequency": "Zelden",
+                  "workaround": "Ander materiaal zoeken"
+                }
+              ],
+              "workExp": "ROUTINE",
               "workExpNote": "",
               "linkedSourceUids": [],
               "linkedBundleIds": [],
@@ -122101,32 +122175,32 @@
               "improvements": [],
               "qa": {
                 "compleet": {
-                  "result": null,
+                  "result": "GOOD",
                   "impact": null,
                   "note": ""
                 },
                 "kwaliteit": {
-                  "result": null,
+                  "result": "GOOD",
                   "impact": null,
                   "note": ""
                 },
                 "duidelijkheid": {
-                  "result": null,
+                  "result": "GOOD",
                   "impact": null,
                   "note": ""
                 },
                 "tijdigheid": {
-                  "result": null,
-                  "impact": null,
-                  "note": ""
+                  "result": "MINOR",
+                  "impact": "A",
+                  "note": "Als we uitgesneden styrofoam vorm niet hebben kunnen we de insert niet gieten. "
                 },
                 "standaard": {
-                  "result": null,
+                  "result": "GOOD",
                   "impact": null,
                   "note": ""
                 },
                 "overdracht": {
-                  "result": null,
+                  "result": "GOOD",
                   "impact": null,
                   "note": ""
                 }
@@ -122152,7 +122226,13 @@
                   }
                 ]
               },
-              "inputDefinitions": [],
+              "inputDefinitions": [
+                {
+                  "item": "Geen proces voor nodig alleen materiaal",
+                  "specifications": "",
+                  "type": null
+                }
+              ],
               "disruptions": [],
               "workExp": null,
               "workExpNote": "",
@@ -122248,9 +122328,9 @@
               "created": 1770986846643,
               "text": "Gieten van de insert",
               "linkedSourceId": null,
-              "type": null,
-              "processValue": null,
-              "processStatus": null,
+              "type": "Taak",
+              "processValue": "VA",
+              "processStatus": "HAPPY",
               "successFactors": "",
               "causes": [],
               "improvements": [],
@@ -122302,9 +122382,15 @@
                 ]
               },
               "inputDefinitions": [],
-              "disruptions": [],
-              "workExp": null,
-              "workExpNote": "",
+              "disruptions": [
+                {
+                  "scenario": "Verkeerd gegoten insert",
+                  "frequency": "Soms",
+                  "workaround": "Opnieuw maken"
+                }
+              ],
+              "workExp": "FLOW",
+              "workExpNote": "Onderdeel wat het werken op de mouldroom leuk/interessant maakt",
               "linkedSourceUids": [],
               "linkedBundleIds": [],
               "gate": {
@@ -122588,7 +122674,7 @@
               "systemData": {
                 "isMulti": false,
                 "systemName": "",
-                "calculatedScore": null,
+                "calculatedScore": 93,
                 "systems": [
                   {
                     "id": "904c5b27-3f37-4afe-b1fb-92397d776847",
@@ -122609,12 +122695,20 @@
                   "multi": false,
                   "systems": [
                     {
-                      "id": "47b94e93-16b5-4ced-acca-6c4cd8ea457e",
+                      "id": "df214c6f-05d4-4d6b-9fe8-9f19cf1a1568",
                       "name": "",
                       "legacy": false,
                       "future": "",
-                      "qa": {},
-                      "score": null
+                      "qa": {
+                        "q1": "NEVER",
+                        "q2": "NEVER",
+                        "q3": "NEVER",
+                        "q4": "SOMETIMES",
+                        "q4_note": "Bij het personaliseren kunnen de verkeerde gegevens op de insert komen",
+                        "q5": "SAFE",
+                        "q5_note": "Naam + patiëntnummer op een andere paats opzoeken"
+                      },
+                      "score": 93
                     }
                   ],
                   "activeSystemIdx": 0
@@ -122647,32 +122741,32 @@
               "improvements": [],
               "qa": {
                 "compleet": {
-                  "result": null,
+                  "result": "GOOD",
                   "impact": null,
                   "note": ""
                 },
                 "kwaliteit": {
-                  "result": null,
-                  "impact": null,
-                  "note": ""
+                  "result": "MINOR",
+                  "impact": "B",
+                  "note": "Het kan zijn dat de insert niet goed is, dan moet hij worden aangepast/ opnieuw worden gemaakt. "
                 },
                 "duidelijkheid": {
-                  "result": null,
+                  "result": "GOOD",
                   "impact": null,
                   "note": ""
                 },
                 "tijdigheid": {
-                  "result": null,
+                  "result": "GOOD",
                   "impact": null,
                   "note": ""
                 },
                 "standaard": {
-                  "result": null,
+                  "result": "GOOD",
                   "impact": null,
                   "note": ""
                 },
                 "overdracht": {
-                  "result": null,
+                  "result": "GOOD",
                   "impact": null,
                   "note": ""
                 }
@@ -122698,7 +122792,13 @@
                   }
                 ]
               },
-              "inputDefinitions": [],
+              "inputDefinitions": [
+                {
+                  "item": "Insert",
+                  "specifications": "",
+                  "type": "HARD"
+                }
+              ],
               "disruptions": [],
               "workExp": null,
               "workExpNote": "",
@@ -122794,9 +122894,9 @@
               "created": 1770986885539,
               "text": "Personaliseren van insert + controle ",
               "linkedSourceId": null,
-              "type": null,
-              "processValue": null,
-              "processStatus": null,
+              "type": "Taak",
+              "processValue": "VA",
+              "processStatus": "HAPPY",
               "successFactors": "",
               "causes": [],
               "improvements": [],
@@ -122848,8 +122948,14 @@
                 ]
               },
               "inputDefinitions": [],
-              "disruptions": [],
-              "workExp": null,
+              "disruptions": [
+                {
+                  "scenario": "RTHweb niet beschikbaar voor patiëntnummer",
+                  "frequency": "Zelden",
+                  "workaround": "Patiëntnummer opzoeken in Epic"
+                }
+              ],
+              "workExp": "ROUTINE",
               "workExpNote": "",
               "linkedSourceUids": [],
               "linkedBundleIds": [],
@@ -123134,7 +123240,7 @@
               "systemData": {
                 "isMulti": false,
                 "systemName": "",
-                "calculatedScore": null,
+                "calculatedScore": 93,
                 "systems": [
                   {
                     "id": "584b708d-8f35-460d-bc55-68fc766ed18e",
@@ -123155,12 +123261,20 @@
                   "multi": false,
                   "systems": [
                     {
-                      "id": "c87468fb-4130-4645-830a-b7ef8461dc4d",
+                      "id": "d7d362f6-987c-4e19-bf36-6d6aa04e3d8f",
                       "name": "",
                       "legacy": false,
                       "future": "",
-                      "qa": {},
-                      "score": null
+                      "qa": {
+                        "q1": "NEVER",
+                        "q2": "NEVER",
+                        "q3": "NEVER",
+                        "q4": "SOMETIMES",
+                        "q5": "SAFE",
+                        "q5_note": "Het afronden van de taak dat de insert gegoten is, is nergens mee verbonden. ",
+                        "q4_note": "SOms kan het zijn dat we vergeten de taak af te ronden"
+                      },
+                      "score": 93
                     }
                   ],
                   "activeSystemIdx": 0
@@ -123340,12 +123454,16 @@
               "created": 1770986924891,
               "text": "Afronden taak",
               "linkedSourceId": null,
-              "type": null,
-              "processValue": null,
-              "processStatus": null,
+              "type": "Taak",
+              "processValue": "BNVA",
+              "processStatus": "NEUTRAL",
               "successFactors": "",
-              "causes": [],
-              "improvements": [],
+              "causes": [
+                "vergeten af te ronden"
+              ],
+              "improvements": [
+                "Er is niks gekoppeld aan de taak dus geen gevolg"
+              ],
               "qa": {
                 "compleet": {
                   "result": "",
@@ -123394,8 +123512,14 @@
                 ]
               },
               "inputDefinitions": [],
-              "disruptions": [],
-              "workExp": null,
+              "disruptions": [
+                {
+                  "scenario": "Rth web niet werkend",
+                  "frequency": "Zelden",
+                  "workaround": "Later afronden"
+                }
+              ],
+              "workExp": "ROUTINE",
               "workExpNote": "",
               "linkedSourceUids": [],
               "linkedBundleIds": [],
@@ -123680,7 +123804,7 @@
               "systemData": {
                 "isMulti": false,
                 "systemName": "",
-                "calculatedScore": null,
+                "calculatedScore": 100,
                 "systems": [
                   {
                     "id": "8912148f-8f0c-408f-b9c5-f368ae250875",
@@ -123701,12 +123825,18 @@
                   "multi": false,
                   "systems": [
                     {
-                      "id": "67760c8e-365c-4099-b586-8071be267856",
+                      "id": "2da3bed5-dd05-4650-92ae-712317712dda",
                       "name": "",
                       "legacy": false,
                       "future": "",
-                      "qa": {},
-                      "score": null
+                      "qa": {
+                        "q1": "NEVER",
+                        "q2": "NEVER",
+                        "q3": "NEVER",
+                        "q4": "NEVER",
+                        "q5": "SAFE"
+                      },
+                      "score": 100
                     }
                   ],
                   "activeSystemIdx": 0
@@ -123739,27 +123869,33 @@
               "improvements": [],
               "qa": {
                 "compleet": {
-                  "result": "",
+                  "result": "GOOD",
+                  "impact": null,
                   "note": ""
                 },
                 "kwaliteit": {
-                  "result": "",
+                  "result": "GOOD",
+                  "impact": null,
                   "note": ""
                 },
                 "duidelijkheid": {
-                  "result": "",
+                  "result": "GOOD",
+                  "impact": null,
                   "note": ""
                 },
                 "tijdigheid": {
-                  "result": "",
+                  "result": "MINOR",
+                  "impact": "C",
                   "note": ""
                 },
                 "standaard": {
-                  "result": "",
+                  "result": "GOOD",
+                  "impact": null,
                   "note": ""
                 },
                 "overdracht": {
-                  "result": "",
+                  "result": "GOOD",
+                  "impact": null,
                   "note": ""
                 }
               },
@@ -123798,7 +123934,8 @@
                 "onPassTargetProcessId": null,
                 "rule": "ALL_OK",
                 "note": ""
-              }
+              },
+              "linkedSourceIds": []
             },
             {
               "id": "277ab222-ef91-4dc2-8bab-4b1bad65eb1d",
@@ -124228,7 +124365,7 @@
               "systemData": {
                 "isMulti": false,
                 "systemName": "",
-                "calculatedScore": null,
+                "calculatedScore": 80,
                 "systems": [
                   {
                     "id": "1e36fdd2-f1ae-4d2e-b65d-fa804e4ce6f8",
@@ -124249,12 +124386,19 @@
                   "multi": false,
                   "systems": [
                     {
-                      "id": "6e736c82-b619-44e5-b1e6-e3ae1e6e11b0",
+                      "id": "caf83dfc-fe13-4eab-b227-8f2b1e872136",
                       "name": "",
                       "legacy": false,
                       "future": "",
-                      "qa": {},
-                      "score": null
+                      "qa": {
+                        "q5": "RISK",
+                        "q5_note": "Het kan zijn als de taak niet optijd doorkomt dat de 3dprint te laat wordt aangezet en de patiënt niet optijd kan beginnen",
+                        "q4": "NEVER",
+                        "q3": "NEVER",
+                        "q2": "SOMETIMES",
+                        "q1": "NEVER"
+                      },
+                      "score": 80
                     }
                   ],
                   "activeSystemIdx": 0
@@ -124287,27 +124431,33 @@
               "improvements": [],
               "qa": {
                 "compleet": {
-                  "result": "",
+                  "result": "GOOD",
+                  "impact": null,
                   "note": ""
                 },
                 "kwaliteit": {
-                  "result": "",
+                  "result": "GOOD",
+                  "impact": null,
                   "note": ""
                 },
                 "duidelijkheid": {
-                  "result": "",
+                  "result": "GOOD",
+                  "impact": null,
                   "note": ""
                 },
                 "tijdigheid": {
-                  "result": "",
-                  "note": ""
+                  "result": "MINOR",
+                  "impact": "A",
+                  "note": "Soms is de informatie te laat beschikbaar en kan het krap worden om de 3d print te laten starten"
                 },
                 "standaard": {
-                  "result": "",
+                  "result": "GOOD",
+                  "impact": null,
                   "note": ""
                 },
                 "overdracht": {
-                  "result": "",
+                  "result": "GOOD",
+                  "impact": null,
                   "note": ""
                 }
               },
@@ -124332,7 +124482,13 @@
                   }
                 ]
               },
-              "inputDefinitions": [],
+              "inputDefinitions": [
+                {
+                  "item": "RTHweb",
+                  "specifications": "Er moet een taak worden gestuurd zodat mouldroom weet dat er iets geprint moet worden. ",
+                  "type": "HARD"
+                }
+              ],
               "disruptions": [],
               "workExp": null,
               "workExpNote": "",
@@ -124346,7 +124502,8 @@
                 "onPassTargetProcessId": null,
                 "rule": "ALL_OK",
                 "note": ""
-              }
+              },
+              "linkedSourceIds": []
             },
             {
               "id": "3124411c-e622-4b13-834f-ce610f298f61",
@@ -124425,12 +124582,16 @@
               "created": 1770987070759,
               "text": "Opzoeken van 3D print ",
               "linkedSourceId": null,
-              "type": null,
-              "processValue": null,
-              "processStatus": null,
+              "type": "Taak",
+              "processValue": "BNVA",
+              "processStatus": "NEUTRAL",
               "successFactors": "",
-              "causes": [],
-              "improvements": [],
+              "causes": [
+                "Veel muisklikken"
+              ],
+              "improvements": [
+                "Makkelijkere plaats waar 3dprints naar toe worden gestuurd "
+              ],
               "qa": {
                 "compleet": {
                   "result": "",
@@ -124479,8 +124640,14 @@
                 ]
               },
               "inputDefinitions": [],
-              "disruptions": [],
-              "workExp": null,
+              "disruptions": [
+                {
+                  "scenario": "Niiet werken van H-schijf",
+                  "frequency": "Zelden",
+                  "workaround": "planning stl file op een andere manier sturen"
+                }
+              ],
+              "workExp": "ROUTINE",
               "workExpNote": "",
               "linkedSourceUids": [],
               "linkedBundleIds": [],
@@ -124765,7 +124932,7 @@
               "systemData": {
                 "isMulti": false,
                 "systemName": "",
-                "calculatedScore": null,
+                "calculatedScore": 73,
                 "systems": [
                   {
                     "id": "c5e72df1-31d4-466a-8e0a-ef27bf418498",
@@ -124786,12 +124953,20 @@
                   "multi": false,
                   "systems": [
                     {
-                      "id": "8d1a919f-36e2-4c95-91fe-5d40bfcb13b6",
+                      "id": "a137addd-7bc2-4c6a-8286-51acde9ff630",
                       "name": "",
                       "legacy": false,
                       "future": "",
-                      "qa": {},
-                      "score": null
+                      "qa": {
+                        "q1": "NEVER",
+                        "q2": "NEVER",
+                        "q3": "NEVER",
+                        "q4": "SOMETIMES",
+                        "q4_note": "Er is de mogelijkheid dat we de 3d print verkeerd plaatsen bijvoorbeeld in spiegelbeeld zetten. ",
+                        "q5": "STOP",
+                        "q5_note": "Als Cura uitvalt kunnen we de stl file niet slicen en kunnen we niet printen"
+                      },
+                      "score": 73
                     }
                   ],
                   "activeSystemIdx": 0
@@ -124824,27 +124999,33 @@
               "improvements": [],
               "qa": {
                 "compleet": {
-                  "result": "",
+                  "result": "GOOD",
+                  "impact": null,
                   "note": ""
                 },
                 "kwaliteit": {
-                  "result": "",
-                  "note": ""
+                  "result": "MINOR",
+                  "impact": "B",
+                  "note": "Soms wordt het bestand niet goed doorgestuurd. Hierdoor kunnen wij het document niet openen in Cura. "
                 },
                 "duidelijkheid": {
-                  "result": "",
+                  "result": "GOOD",
+                  "impact": null,
                   "note": ""
                 },
                 "tijdigheid": {
-                  "result": "",
-                  "note": ""
+                  "result": "MINOR",
+                  "impact": "B",
+                  "note": "Als de informatie niet beschikbaar is op het moment dat we het nodig hebben kunnen we de printer niet aanzetten. "
                 },
                 "standaard": {
-                  "result": "",
+                  "result": "GOOD",
+                  "impact": null,
                   "note": ""
                 },
                 "overdracht": {
-                  "result": "",
+                  "result": "GOOD",
+                  "impact": null,
                   "note": ""
                 }
               },
@@ -124869,7 +125050,18 @@
                   }
                 ]
               },
-              "inputDefinitions": [],
+              "inputDefinitions": [
+                {
+                  "item": "Cura ",
+                  "specifications": "om stl file te slicen",
+                  "type": "HARD"
+                },
+                {
+                  "item": "H-schijf ",
+                  "specifications": "om stl file te zoeken",
+                  "type": "HARD"
+                }
+              ],
               "disruptions": [],
               "workExp": null,
               "workExpNote": "",
@@ -124883,7 +125075,8 @@
                 "onPassTargetProcessId": null,
                 "rule": "ALL_OK",
                 "note": ""
-              }
+              },
+              "linkedSourceIds": []
             },
             {
               "id": "a5ed8ed0-71cf-4afc-a509-e621b9183b46",
@@ -124962,9 +125155,9 @@
               "created": 1770987181548,
               "text": "3D-printer aanzetten",
               "linkedSourceId": null,
-              "type": null,
-              "processValue": null,
-              "processStatus": null,
+              "type": "Taak",
+              "processValue": "VA",
+              "processStatus": "HAPPY",
               "successFactors": "",
               "causes": [],
               "improvements": [],
@@ -125016,8 +125209,19 @@
                 ]
               },
               "inputDefinitions": [],
-              "disruptions": [],
-              "workExp": null,
+              "disruptions": [
+                {
+                  "scenario": "Niet werkende 3d printer",
+                  "frequency": "Zelden",
+                  "workaround": "Naar 3d lab om hen te hulp te vragen"
+                },
+                {
+                  "scenario": "Te veel prints om te printen",
+                  "frequency": "Zelden",
+                  "workaround": "Naar 3d lab om hun te hulp te vragen"
+                }
+              ],
+              "workExp": "FLOW",
               "workExpNote": "",
               "linkedSourceUids": [],
               "linkedBundleIds": [],
@@ -125302,7 +125506,7 @@
               "systemData": {
                 "isMulti": false,
                 "systemName": "",
-                "calculatedScore": null,
+                "calculatedScore": 86,
                 "systems": [
                   {
                     "id": "c0c07c93-6ed3-442b-a470-043f291d89eb",
@@ -125323,12 +125527,19 @@
                   "multi": false,
                   "systems": [
                     {
-                      "id": "f4f7516d-8883-41e7-b3b4-6d6d78b71ce0",
+                      "id": "4f499e88-385c-43e0-8c18-b606d0e87488",
                       "name": "",
                       "legacy": false,
                       "future": "",
-                      "qa": {},
-                      "score": null
+                      "qa": {
+                        "q1": "SOMETIMES",
+                        "q2": "NEVER",
+                        "q3": "NEVER",
+                        "q4": "NEVER",
+                        "q5": "DELAY",
+                        "q5_note": "Als we deze taak niet af kunnen ronden dan komt de vervolg taak niet vrij"
+                      },
+                      "score": 86
                     }
                   ],
                   "activeSystemIdx": 0
@@ -125361,27 +125572,33 @@
               "improvements": [],
               "qa": {
                 "compleet": {
-                  "result": "",
+                  "result": "GOOD",
+                  "impact": null,
                   "note": ""
                 },
                 "kwaliteit": {
-                  "result": "",
+                  "result": "GOOD",
+                  "impact": null,
                   "note": ""
                 },
                 "duidelijkheid": {
-                  "result": "",
+                  "result": "GOOD",
+                  "impact": null,
                   "note": ""
                 },
                 "tijdigheid": {
-                  "result": "",
+                  "result": "GOOD",
+                  "impact": null,
                   "note": ""
                 },
                 "standaard": {
-                  "result": "",
+                  "result": "GOOD",
+                  "impact": null,
                   "note": ""
                 },
                 "overdracht": {
-                  "result": "",
+                  "result": "GOOD",
+                  "impact": null,
                   "note": ""
                 }
               },
@@ -125406,7 +125623,13 @@
                   }
                 ]
               },
-              "inputDefinitions": [],
+              "inputDefinitions": [
+                {
+                  "item": "Geprinte 3dmould",
+                  "specifications": "",
+                  "type": "HARD"
+                }
+              ],
               "disruptions": [],
               "workExp": null,
               "workExpNote": "",
@@ -125420,7 +125643,8 @@
                 "onPassTargetProcessId": null,
                 "rule": "ALL_OK",
                 "note": ""
-              }
+              },
+              "linkedSourceIds": []
             },
             {
               "id": "dedc0d6b-f954-4dd9-8b71-b6f2fa58283b",
@@ -125499,11 +125723,13 @@
               "created": 1770987229970,
               "text": "AFronden 3D print taak",
               "linkedSourceId": null,
-              "type": null,
-              "processValue": null,
-              "processStatus": null,
+              "type": "Taak",
+              "processValue": "BNVA",
+              "processStatus": "NEUTRAL",
               "successFactors": "",
-              "causes": [],
+              "causes": [
+                "Wordt soms vergeten"
+              ],
               "improvements": [],
               "qa": {
                 "compleet": {
@@ -125553,8 +125779,14 @@
                 ]
               },
               "inputDefinitions": [],
-              "disruptions": [],
-              "workExp": null,
+              "disruptions": [
+                {
+                  "scenario": "Wordt soms vergeten",
+                  "frequency": "Soms",
+                  "workaround": "Later afronden"
+                }
+              ],
+              "workExp": "ROUTINE",
               "workExpNote": "",
               "linkedSourceUids": [],
               "linkedBundleIds": [],
@@ -125839,7 +126071,7 @@
               "systemData": {
                 "isMulti": false,
                 "systemName": "",
-                "calculatedScore": null,
+                "calculatedScore": 100,
                 "systems": [
                   {
                     "id": "93c821e6-a794-4e1e-bdf3-1aef3fbb71c4",
@@ -125860,12 +126092,18 @@
                   "multi": false,
                   "systems": [
                     {
-                      "id": "c03de2b7-e2d2-416d-b573-bdc83c955481",
+                      "id": "620c40c8-cd5a-4fdf-902c-ca0adefc253f",
                       "name": "",
                       "legacy": false,
                       "future": "",
-                      "qa": {},
-                      "score": null
+                      "qa": {
+                        "q1": "NEVER",
+                        "q2": "NEVER",
+                        "q3": "NEVER",
+                        "q4": "NEVER",
+                        "q5": "SAFE"
+                      },
+                      "score": 100
                     }
                   ],
                   "activeSystemIdx": 0
@@ -125898,27 +126136,33 @@
               "improvements": [],
               "qa": {
                 "compleet": {
-                  "result": "",
+                  "result": "GOOD",
+                  "impact": null,
                   "note": ""
                 },
                 "kwaliteit": {
-                  "result": "",
+                  "result": "GOOD",
+                  "impact": null,
                   "note": ""
                 },
                 "duidelijkheid": {
-                  "result": "",
+                  "result": "GOOD",
+                  "impact": null,
                   "note": ""
                 },
                 "tijdigheid": {
-                  "result": "",
+                  "result": "GOOD",
+                  "impact": null,
                   "note": ""
                 },
                 "standaard": {
-                  "result": "",
+                  "result": "GOOD",
+                  "impact": null,
                   "note": ""
                 },
                 "overdracht": {
-                  "result": "",
+                  "result": null,
+                  "impact": null,
                   "note": ""
                 }
               },
@@ -125957,7 +126201,8 @@
                 "onPassTargetProcessId": null,
                 "rule": "ALL_OK",
                 "note": ""
-              }
+              },
+              "linkedSourceIds": []
             },
             {
               "id": "e06e944d-4602-4493-b8c0-9ff3674d0dac",
@@ -126036,10 +126281,10 @@
               "created": 1770987260224,
               "text": "Automatische nieuw aangemaakt taak",
               "linkedSourceId": null,
-              "type": null,
-              "processValue": null,
-              "processStatus": null,
-              "successFactors": "",
+              "type": "Taak",
+              "processValue": "BNVA",
+              "processStatus": "HAPPY",
+              "successFactors": "Standaard taak",
               "causes": [],
               "improvements": [],
               "qa": {
@@ -126090,8 +126335,14 @@
                 ]
               },
               "inputDefinitions": [],
-              "disruptions": [],
-              "workExp": null,
+              "disruptions": [
+                {
+                  "scenario": "taak wordt niet zichbaar",
+                  "frequency": "Zelden",
+                  "workaround": "Zonder taak werken"
+                }
+              ],
+              "workExp": "ROUTINE",
               "workExpNote": "",
               "linkedSourceUids": [],
               "linkedBundleIds": [],
@@ -126435,27 +126686,33 @@
               "improvements": [],
               "qa": {
                 "compleet": {
-                  "result": "",
+                  "result": "GOOD",
+                  "impact": null,
                   "note": ""
                 },
                 "kwaliteit": {
-                  "result": "",
+                  "result": "GOOD",
+                  "impact": null,
                   "note": ""
                 },
                 "duidelijkheid": {
-                  "result": "",
+                  "result": "GOOD",
+                  "impact": null,
                   "note": ""
                 },
                 "tijdigheid": {
-                  "result": "",
+                  "result": "GOOD",
+                  "impact": null,
                   "note": ""
                 },
                 "standaard": {
-                  "result": "",
+                  "result": "GOOD",
+                  "impact": null,
                   "note": ""
                 },
                 "overdracht": {
-                  "result": "",
+                  "result": "GOOD",
+                  "impact": null,
                   "note": ""
                 }
               },
@@ -126494,7 +126751,8 @@
                 "onPassTargetProcessId": null,
                 "rule": "ALL_OK",
                 "note": ""
-              }
+              },
+              "linkedSourceIds": []
             },
             {
               "id": "afce35b1-5f0f-4016-9463-ab98688bc313",
@@ -126573,9 +126831,9 @@
               "created": 1770987294050,
               "text": "Gieten 3D print",
               "linkedSourceId": null,
-              "type": null,
-              "processValue": null,
-              "processStatus": null,
+              "type": "Taak",
+              "processValue": "VA",
+              "processStatus": "HAPPY",
               "successFactors": "",
               "causes": [],
               "improvements": [],
@@ -126628,7 +126886,7 @@
               },
               "inputDefinitions": [],
               "disruptions": [],
-              "workExp": null,
+              "workExp": "FLOW",
               "workExpNote": "",
               "linkedSourceUids": [],
               "linkedBundleIds": [],
@@ -126972,27 +127230,33 @@
               "improvements": [],
               "qa": {
                 "compleet": {
-                  "result": "",
+                  "result": "GOOD",
+                  "impact": null,
                   "note": ""
                 },
                 "kwaliteit": {
-                  "result": "",
+                  "result": "GOOD",
+                  "impact": null,
                   "note": ""
                 },
                 "duidelijkheid": {
-                  "result": "",
+                  "result": "GOOD",
+                  "impact": null,
                   "note": ""
                 },
                 "tijdigheid": {
-                  "result": "",
+                  "result": "GOOD",
+                  "impact": null,
                   "note": ""
                 },
                 "standaard": {
-                  "result": "",
+                  "result": "GOOD",
+                  "impact": null,
                   "note": ""
                 },
                 "overdracht": {
-                  "result": "",
+                  "result": "GOOD",
+                  "impact": null,
                   "note": ""
                 }
               },
@@ -127017,7 +127281,13 @@
                   }
                 ]
               },
-              "inputDefinitions": [],
+              "inputDefinitions": [
+                {
+                  "item": "3d print",
+                  "specifications": "",
+                  "type": "HARD"
+                }
+              ],
               "disruptions": [],
               "workExp": null,
               "workExpNote": "",
@@ -127031,7 +127301,8 @@
                 "onPassTargetProcessId": null,
                 "rule": "ALL_OK",
                 "note": ""
-              }
+              },
+              "linkedSourceIds": []
             },
             {
               "id": "3531b3ec-d6e5-4c77-aa6e-ea8c989b3e2b",
@@ -127110,9 +127381,9 @@
               "created": 1770987324312,
               "text": "Openen van print en visuele controle ",
               "linkedSourceId": null,
-              "type": null,
-              "processValue": null,
-              "processStatus": null,
+              "type": "Taak",
+              "processValue": "VA",
+              "processStatus": "HAPPY",
               "successFactors": "",
               "causes": [],
               "improvements": [],
@@ -127165,7 +127436,7 @@
               },
               "inputDefinitions": [],
               "disruptions": [],
-              "workExp": null,
+              "workExp": "ROUTINE",
               "workExpNote": "",
               "linkedSourceUids": [],
               "linkedBundleIds": [],
@@ -127509,27 +127780,33 @@
               "improvements": [],
               "qa": {
                 "compleet": {
-                  "result": "",
+                  "result": "GOOD",
+                  "impact": null,
                   "note": ""
                 },
                 "kwaliteit": {
-                  "result": "",
+                  "result": "GOOD",
+                  "impact": null,
                   "note": ""
                 },
                 "duidelijkheid": {
-                  "result": "",
+                  "result": "GOOD",
+                  "impact": null,
                   "note": ""
                 },
                 "tijdigheid": {
-                  "result": "",
+                  "result": "GOOD",
+                  "impact": null,
                   "note": ""
                 },
                 "standaard": {
-                  "result": "",
+                  "result": "GOOD",
+                  "impact": null,
                   "note": ""
                 },
                 "overdracht": {
-                  "result": "",
+                  "result": "GOOD",
+                  "impact": null,
                   "note": ""
                 }
               },
@@ -127554,7 +127831,13 @@
                   }
                 ]
               },
-              "inputDefinitions": [],
+              "inputDefinitions": [
+                {
+                  "item": "RTHweb",
+                  "specifications": "Om taak af te ronden",
+                  "type": "HARD"
+                }
+              ],
               "disruptions": [],
               "workExp": null,
               "workExpNote": "",
@@ -127568,7 +127851,8 @@
                 "onPassTargetProcessId": null,
                 "rule": "ALL_OK",
                 "note": ""
-              }
+              },
+              "linkedSourceIds": []
             },
             {
               "id": "74e22349-92c0-4013-9f9a-044a0af26fba",
@@ -127647,9 +127931,9 @@
               "created": 1770987385849,
               "text": "Afronden taak ",
               "linkedSourceId": null,
-              "type": null,
-              "processValue": null,
-              "processStatus": null,
+              "type": "Taak",
+              "processValue": "BNVA",
+              "processStatus": "NEUTRAL",
               "successFactors": "",
               "causes": [],
               "improvements": [],
@@ -127701,8 +127985,14 @@
                 ]
               },
               "inputDefinitions": [],
-              "disruptions": [],
-              "workExp": null,
+              "disruptions": [
+                {
+                  "scenario": "Wordt vergeten",
+                  "frequency": "Zelden",
+                  "workaround": "Later afronden"
+                }
+              ],
+              "workExp": "ROUTINE",
               "workExpNote": "",
               "linkedSourceUids": [],
               "linkedBundleIds": [],
