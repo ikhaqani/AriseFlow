@@ -4,7 +4,7 @@
   "author": "Anoniem",
   "created": "2026-01-16T08:48:17.021Z",
   "version": "2.7",
-  "activeSheetId": "82c5a0d7-dd02-4362-940e-76e2a3f5d814",
+  "activeSheetId": "858c26e5-f7ec-4311-b503-641f99e65c84",
   "sheets": [
     {
       "id": "858c26e5-f7ec-4311-b503-641f99e65c84",
@@ -194,32 +194,32 @@
               "improvements": [],
               "qa": {
                 "compleet": {
-                  "result": null,
-                  "impact": null,
+                  "result": "MODERATE",
+                  "impact": "B",
                   "note": ""
                 },
                 "kwaliteit": {
-                  "result": null,
-                  "impact": null,
+                  "result": "MODERATE",
+                  "impact": "B",
                   "note": ""
                 },
                 "duidelijkheid": {
-                  "result": null,
-                  "impact": null,
+                  "result": "MINOR",
+                  "impact": "B",
                   "note": ""
                 },
                 "tijdigheid": {
-                  "result": null,
+                  "result": "GOOD",
                   "impact": null,
                   "note": ""
                 },
                 "standaard": {
-                  "result": null,
+                  "result": "GOOD",
                   "impact": null,
                   "note": ""
                 },
                 "overdracht": {
-                  "result": null,
+                  "result": "GOOD",
                   "impact": null,
                   "note": ""
                 }
@@ -370,9 +370,9 @@
               "created": 1768829460342,
               "text": "Verwijzen patiënt",
               "linkedSourceId": null,
-              "type": null,
-              "processValue": null,
-              "processStatus": null,
+              "type": "Taak",
+              "processValue": "BNVA",
+              "processStatus": "NEUTRAL",
               "successFactors": "",
               "causes": [],
               "improvements": [],
@@ -424,8 +424,14 @@
                 ]
               },
               "inputDefinitions": [],
-              "disruptions": [],
-              "workExp": null,
+              "disruptions": [
+                {
+                  "scenario": "Informatie niet volledig",
+                  "frequency": "Vaak",
+                  "workaround": ""
+                }
+              ],
+              "workExp": "ROUTINE",
               "workExpNote": "",
               "linkedSourceUids": [],
               "linkedBundleIds": [],
@@ -984,7 +990,13 @@
                 ]
               },
               "inputDefinitions": [],
-              "disruptions": [],
+              "disruptions": [
+                {
+                  "scenario": "Verwijsorder komt niet aan",
+                  "frequency": "Zelden",
+                  "workaround": "Handmatig aanmaken"
+                }
+              ],
               "workExp": "ROUTINE",
               "workExpNote": "",
               "linkedSourceUids": [],
@@ -2169,7 +2181,13 @@
                 ]
               },
               "inputDefinitions": [],
-              "disruptions": [],
+              "disruptions": [
+                {
+                  "scenario": "Niet alle gegevens zijn compleet",
+                  "frequency": "Vaak",
+                  "workaround": ""
+                }
+              ],
               "workExp": "FLOW",
               "workExpNote": "Wij zorgen ervoor dat de arts alle gegevens krijgt. ",
               "linkedSourceUids": [],
@@ -2724,9 +2742,9 @@
               "inputDefinitions": [],
               "disruptions": [
                 {
-                  "scenario": "Aanmaken dossier",
-                  "frequency": "Zelden",
-                  "workaround": "volledig stilstand"
+                  "scenario": "Gegevens niet volledig",
+                  "frequency": "Vaak",
+                  "workaround": "Informatie navragen"
                 }
               ],
               "workExp": "ROUTINE",
@@ -3830,7 +3848,13 @@
                 ]
               },
               "inputDefinitions": [],
-              "disruptions": [],
+              "disruptions": [
+                {
+                  "scenario": "Gegevens niet volledig",
+                  "frequency": "Soms",
+                  "workaround": "Navragen en dan noteren in triageformulier"
+                }
+              ],
               "workExp": "ROUTINE",
               "workExpNote": "",
               "linkedSourceUids": [],
@@ -4374,7 +4398,13 @@
                 ]
               },
               "inputDefinitions": [],
-              "disruptions": [],
+              "disruptions": [
+                {
+                  "scenario": "Patiënt staat dubbel in het systeem",
+                  "frequency": "Zelden",
+                  "workaround": "Doorgeven aan ICT"
+                }
+              ],
               "workExp": "ROUTINE",
               "workExpNote": "",
               "linkedSourceUids": [],
@@ -4974,7 +5004,13 @@
                 ]
               },
               "inputDefinitions": [],
-              "disruptions": [],
+              "disruptions": [
+                {
+                  "scenario": "Takenserie knop werkt niet",
+                  "frequency": "Zelden",
+                  "workaround": "ICT bellen"
+                }
+              ],
               "workExp": "ROUTINE",
               "workExpNote": "",
               "linkedSourceUids": [],
@@ -5528,7 +5564,13 @@
                 ]
               },
               "inputDefinitions": [],
-              "disruptions": [],
+              "disruptions": [
+                {
+                  "scenario": "Afronden knop reageert niet",
+                  "frequency": "Zelden",
+                  "workaround": "ICT bellen"
+                }
+              ],
               "workExp": "ROUTINE",
               "workExpNote": "",
               "linkedSourceUids": [],
@@ -6090,9 +6132,9 @@
               "created": 1768841085648,
               "text": "Triëren patiënt",
               "linkedSourceId": null,
-              "type": null,
-              "processValue": null,
-              "processStatus": null,
+              "type": "Taak",
+              "processValue": "BNVA",
+              "processStatus": "NEUTRAL",
               "successFactors": "",
               "causes": [],
               "improvements": [],
@@ -6145,7 +6187,7 @@
               },
               "inputDefinitions": [],
               "disruptions": [],
-              "workExp": null,
+              "workExp": "ROUTINE",
               "workExpNote": "",
               "linkedSourceUids": [],
               "linkedBundleIds": [],
@@ -27373,7 +27415,7 @@
     },
     {
       "id": "82c5a0d7-dd02-4362-940e-76e2a3f5d814",
-      "name": "08 - Inplannen eerste consult",
+      "name": "08 - Inplannen eerste consult ✓",
       "order": 1,
       "columns": [
         {
