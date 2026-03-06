@@ -58117,7 +58117,7 @@
               "systemData": {
                 "isMulti": false,
                 "systemName": "",
-                "calculatedScore": 93,
+                "calculatedScore": 40,
                 "systems": [
                   {
                     "id": "c6107bac-f4bb-4aab-ae2e-f756d589c960",
@@ -58138,18 +58138,22 @@
                   "multi": false,
                   "systems": [
                     {
-                      "id": "09937af2-590b-468b-88d7-ecb86a2d9922",
-                      "name": "",
+                      "name": "Mondeling",
                       "legacy": false,
                       "future": "",
                       "qa": {
-                        "q1": "NEVER",
-                        "q2": "NEVER",
-                        "q3": "SOMETIMES",
-                        "q4": "NEVER",
-                        "q5": "SAFE"
+                        "q1": "OFTEN",
+                        "q2": "SOMETIMES",
+                        "q3": "ALWAYS",
+                        "q4": "OFTEN",
+                        "q5": "DELAY",
+                        "q1_note": "et proces start idealiter met een complete aanvraag, maar de planner geeft aan: \"Als het niet compleet is, is dat blokkerend. Dus arts vragen om het in te vullen.\" Het mondeling moeten nabellen of aanspreken van de arts is hier de standaard workaround voor gebrekkige data-aanlevering.",
+                        "q2_note": "Zodra de informatie niet direct helder is, stagneert de start van de route totdat er mondeling contact is geweest.",
+                        "q3_note": "De instructies en bijzonderheden die de arts mondeling bij het bureau komt doorgeven, moeten door de planner alsnog handmatig in het systeem worden vastgelegd",
+                        "q4_note": "Mondelinge communicatie is vluchtig. Artsen vergeten regelmatig belangrijke details of bijzonderheden direct door te geven, wat later tot planningsconflicten leidt. ",
+                        "q5_note": "Als de arts fysiek niet langskomt of telefonisch niet bereikbaar is (\"systeemuitval\" van het mondelinge kanaal), kan de onvolledige aanvraag niet worden aangevuld en wacht de patiënt."
                       },
-                      "score": 93
+                      "score": 40
                     }
                   ],
                   "activeSystemIdx": 0
@@ -58680,7 +58684,7 @@
               "systemData": {
                 "isMulti": false,
                 "systemName": "",
-                "calculatedScore": null,
+                "calculatedScore": 59,
                 "systems": [
                   {
                     "id": "a6ed888a-30f4-48f0-8a82-f8ff6579fbe7",
@@ -58701,12 +58705,22 @@
                   "multi": false,
                   "systems": [
                     {
-                      "id": "67c1178d-5885-4160-916e-ca8719f2d6e9",
-                      "name": "",
+                      "name": "Mondeling",
                       "legacy": false,
                       "future": "",
-                      "qa": {},
-                      "score": null
+                      "qa": {
+                        "q1": "SOMETIMES",
+                        "q1_note": "De planner geeft aan dat dit goed gaat \"als de aanvraag goed is\". Maar als artsen afwijkend jargon gebruiken of mondeling onduidelijke instructies geven, moet de planner de taak onderbreken (workaround) om opheldering te vragen.",
+                        "q2": "SOMETIMES",
+                        "q2_note": "Het cognitief moeten \"vertalen\" van een mondelinge instructie naar harde systeem-afspraken kost denkkracht, zeker als de kaders van de arts multi-interpretabel zijn.",
+                        "q3": "OFTEN",
+                        "q3_note": "De mondeling besproken voorbereidingen moeten één voor één door de planner digitaal worden ingeklikt of op het eigen takenlijstje worden geschreven (double handling).",
+                        "q4_note": "Interpretatiefouten liggen op de loer. Als de arts mondeling niet eenduidig is, kan de planner per ongeluk de verkeerde voorbereidingsafspraken inplannen.",
+                        "q4": "SOMETIMES",
+                        "q5": "DELAY",
+                        "q5_note": "Zonder duidelijke mondelinge toelichting bij een complexe/onduidelijke patiënt, kan de planner de instructies niet veilig vertalen naar een planning."
+                      },
+                      "score": 59
                     }
                   ],
                   "activeSystemIdx": 0
@@ -59236,7 +59250,7 @@
               "systemData": {
                 "isMulti": false,
                 "systemName": "",
-                "calculatedScore": null,
+                "calculatedScore": 60,
                 "systems": [
                   {
                     "id": "46f4ace8-1ae7-415b-8e80-41a3461385a2",
@@ -59257,12 +59271,22 @@
                   "multi": false,
                   "systems": [
                     {
-                      "id": "1d52b937-dcc7-496f-97c1-7719d9a4dc56",
-                      "name": "",
+                      "name": "Radiotherapie Web",
                       "legacy": false,
                       "future": "",
-                      "qa": {},
-                      "score": null
+                      "qa": {
+                        "q1_note": "De planner is heel exact: voor 95% gaat dit automatisch en goed in het systeem. Echter, bij de 5% 'maatwerk' (buiten protocol, zoals een ongebruikelijk beenmasker) schiet het systeem tekort. De workaround is dan handmatig uitzoeken of navragen hoeveel inplantijd er gereserveerd moet worden.",
+                        "q1": "SOMETIMES",
+                        "q2": "SOMETIMES",
+                        "q2_note": "Zodra een aanvraag buiten de strakke systeemprotocollen valt (circa 1 à 2 keer per maand), stopt de snelle flow en moet er handmatig gepuzzeld worden.",
+                        "q3": "NEVER",
+                        "q3_note": "Dit is puur een lees/controle-handeling in het systeem om te checken welke protocollen van toepassing zijn.",
+                        "q4": "SOMETIMES",
+                        "q4_note": "Omdat het systeem voor het \"maatwerk\" geen harde kaders of tijden biedt, moet de planner aannames doen of zelf tijden inschatten, wat ruimte laat voor inschattingsfouten.",
+                        "q5": "STOP",
+                        "q5_note": "Zonder toegang tot Radiotherapie Web en de bijbehorende prescripties/protocollen weet de planner simpelweg niet wát er gepland moet worden en kan er niet veilig worden gewerkt."
+                      },
+                      "score": 60
                     }
                   ],
                   "activeSystemIdx": 0
@@ -59791,7 +59815,7 @@
               "systemData": {
                 "isMulti": false,
                 "systemName": "",
-                "calculatedScore": null,
+                "calculatedScore": 47,
                 "systems": [
                   {
                     "id": "c62d419a-74ba-40bb-a7a9-dc7c33aa87e0",
@@ -59809,15 +59833,43 @@
                   }
                 ],
                 "systemsMeta": {
-                  "multi": false,
+                  "multi": true,
                   "systems": [
                     {
-                      "id": "8919aa59-a2fb-4a33-8dfb-84d09ec80290",
-                      "name": "",
+                      "name": "Epic",
                       "legacy": false,
                       "future": "",
-                      "qa": {},
-                      "score": null
+                      "qa": {
+                        "q1_note": "De arts vergeet structureel de daadwerkelijke systeem-order (het 'vinkje' in Epic) aan te maken, hoewel het wel in de tekst is aangevraagd. Dit dwingt de planner tot de harde workaround van escaleren/bellen naar de arts om dit alsnog digitaal in orde te maken.",
+                        "q1": "OFTEN",
+                        "q2_note": "Zodra de order in Epic ontbreekt of de verkeerde is (bijv. standaard CT i.p.v. Argos-CT), valt de fysieke logistiek in Epic direct stil. Er kan niet gepland worden zonder order.",
+                        "q2": "OFTEN",
+                        "q3_note": "De planner wacht hier tot de arts de data goed in het systeem heeft gezet (de dubbele registratie van de initialen gebeurt pas in de volgende stap: 'Controleren CT-order').",
+                        "q3": "NEVER",
+                        "q4": "OFTEN",
+                        "q4_note": "Epic dwingt bij de arts geen harde koppeling af: een arts kan een medisch traject starten zonder dat het systeem hem/haar verplicht tegelijkertijd de noodzakelijke CT- of MRI-orders aan te klikken.",
+                        "q5": "STOP",
+                        "q5_note": "Zonder Epic (of als de order ontbreekt) kan de afspraak systeemtechnisch simpelweg niet op de agenda ('Snapboard') worden geplaatst."
+                      },
+                      "score": 40
+                    },
+                    {
+                      "name": "Radiotherapie Web",
+                      "legacy": false,
+                      "future": "",
+                      "qa": {
+                        "q1": "SOMETIMES",
+                        "q1_note": "Het systeem bevat de medische tekst (het formulier). Als de tekst onduidelijk of onvolledig is, dwingt dit de planner tot de workaround van het parkeren van het werk en het nabellen van de arts voor verduidelijking.",
+                        "q2": "SOMETIMES",
+                        "q2_note": "De afhankelijkheid van vrije, ongestructureerde tekstinvoer remt de snelheid van het plannen af, omdat het interpretatietijd kost.",
+                        "q3": "NEVER",
+                        "q3_note": "In deze specifieke fase is het voor de planner puur het uitlezen/controleren van de tekstuele aanvraag.",
+                        "q4": "OFTEN",
+                        "q4_note": "Het formulier in Radiotherapie Web dwingt onvoldoende af wát er precies ingevuld moet worden, waardoor artsen essentiële informatie voor de beeldvorming vergeten of eigen termen gebruiken.",
+                        "q5_note": "Zonder dit tekstuele aanvraagformulier mist de planner de medische context en voorwaarden om de patiënt überhaupt verantwoord te kunnen inplannen.",
+                        "q5": "STOP"
+                      },
+                      "score": 53
                     }
                   ],
                   "activeSystemIdx": 0
@@ -60337,7 +60389,7 @@
               "systemData": {
                 "isMulti": false,
                 "systemName": "",
-                "calculatedScore": 60,
+                "calculatedScore": 26,
                 "systems": [
                   {
                     "id": "b7ecf486-e289-4b90-96ec-9fedbd9ca5bd",
@@ -60358,20 +60410,21 @@
                   "multi": false,
                   "systems": [
                     {
-                      "id": "e1426f33-74c7-4d31-8982-5473f14fdf11",
                       "name": "",
                       "legacy": false,
                       "future": "",
                       "qa": {
-                        "q1": "NEVER",
-                        "q2": "NEVER",
-                        "q2_note": "Epic heeft CT-order goed ingericht. ",
+                        "q1": "ALWAYS",
+                        "q2": "SOMETIMES",
+                        "q2_note": "Het is per CT-order een extra, overbodige handeling die de flow vertraagt.",
                         "q3_note": "Initialen en doelgebied moet erin",
                         "q3": "ALWAYS",
-                        "q4": "NEVER",
-                        "q5": "STOP"
+                        "q4": "SOMETIMES",
+                        "q5": "STOP",
+                        "q1_note": "Omdat de standaard Epic-weergave niet het snelle overzicht biedt dat de planners wensen (een erfenis van oude DBC-regels), gebruiken ze een structurele workaround: de order openen en handmatig initialen van de arts",
+                        "q4_note": "Het handmatig intypen van initialen en doelgebieden in een notitieveld is gevoelig voor typefouten."
                       },
-                      "score": 60
+                      "score": 26
                     }
                   ],
                   "activeSystemIdx": 0
@@ -60900,7 +60953,7 @@
               "systemData": {
                 "isMulti": false,
                 "systemName": "",
-                "calculatedScore": 73,
+                "calculatedScore": 66,
                 "systems": [
                   {
                     "id": "fa270ca9-45b0-4957-b836-7442b06020d5",
@@ -60921,20 +60974,22 @@
                   "multi": false,
                   "systems": [
                     {
-                      "id": "0138033a-076f-46ef-8680-1c331acf8bfb",
-                      "name": "",
+                      "name": "Radiotherapie Web",
                       "legacy": false,
                       "future": "",
                       "qa": {
-                        "q1": "NEVER",
-                        "q2": "NEVER",
+                        "q1": "SOMETIMES",
+                        "q2": "SOMETIMES",
                         "q3": "NEVER",
-                        "q4": "ALWAYS",
-                        "q4_note": "Formulier onvolledig ingevuld kan alsnog verstuurd worden",
+                        "q4": "OFTEN",
+                        "q4_note": "Het aanvraagformulier in Radiotherapie Web mist harde standaardisatie (dropdowns/verplichte formaten), waardoor artsen vrij in kunnen vullen en daardoor fouten kunnen maken.",
                         "q5": "DELAY",
-                        "q5_note": "In Epic maar alles moet mondeling bespreken met arts"
+                        "q5_note": "Je kan nog wat dingen doen in Epic",
+                        "q1_note": "Het formulier laat toe dat artsen \"eigen woordjes\" (zoals 'dubbel vacuüm') intypen in plaats van vaste systeemtermen. Dit dwingt de planner om de taak te parkeren en navraag te doen bij de arts.",
+                        "q2_note": "Bij onduidelijk jargon of ontbrekende informatie wordt het proces direct geremd.",
+                        "q3_note": "Dit is een lees- en controlehandeling, hier wordt nog niet ingepland."
                       },
-                      "score": 73
+                      "score": 66
                     }
                   ],
                   "activeSystemIdx": 0
