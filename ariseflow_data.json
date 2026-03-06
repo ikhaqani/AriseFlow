@@ -61518,7 +61518,7 @@
               "systemData": {
                 "isMulti": false,
                 "systemName": "",
-                "calculatedScore": 0,
+                "calculatedScore": 73,
                 "systems": [
                   {
                     "id": "0b41f856-0785-4a90-a999-6fe3b0f44b35",
@@ -61539,20 +61539,35 @@
                   "multi": true,
                   "systems": [
                     {
-                      "id": "3078459b-5971-4a30-8b3c-ce5529491988",
                       "name": "Epic",
                       "legacy": false,
                       "future": "",
-                      "qa": {},
-                      "score": null
+                      "qa": {
+                        "q1": "OFTEN",
+                        "q1_note": "Het systeem zelf werkt goed, maar als de agenda in Epic vol zit, moet de planner uit het systeem stappen en de telefoon pakken om de teamleider te bellen om te vragen of een patiënt er nog 'bij mag' (overboeken). Dit is een structurele workaround voor capaciteitsgebrek in de Epic-agenda.",
+                        "q2": "OFTEN",
+                        "q2_note": "Als de capaciteit (CT is vol) in het systeem niet toereikend is, kost het handmatig zoeken naar alternatieven en het overleggen buiten het systeem veel tijd.",
+                        "q3": "NEVER",
+                        "q4": "NEVER",
+                        "q4_note": "Hier presteert het systeem juist ijzersterk: de strakke, eenduidige tijdsloten van 30 minuten (op 2 uitzonderingen na) in de Epic-agenda voorkomen wildgroei en planningsfouten.",
+                        "q5_note": "Als Epic platligt, is er geen enkel inzicht in de actuele beschikbaarheid van de CT-scanners.",
+                        "q5": "STOP"
+                      },
+                      "score": 53
                     },
                     {
-                      "id": "954e48dd-df2e-4037-a9ea-909794d2949a",
                       "name": "Radiotherapie Web",
                       "legacy": false,
                       "future": "",
-                      "qa": {},
-                      "score": null
+                      "qa": {
+                        "q1": "NEVER",
+                        "q1_note": "Voor deze specifieke stap fungeert Radiotherapie Web puur als naslagwerk",
+                        "q2": "NEVER",
+                        "q3": "NEVER",
+                        "q4": "NEVER",
+                        "q5": "DELAY"
+                      },
+                      "score": 93
                     }
                   ],
                   "activeSystemIdx": 0
@@ -62079,7 +62094,7 @@
               "systemData": {
                 "isMulti": false,
                 "systemName": "",
-                "calculatedScore": null,
+                "calculatedScore": 93,
                 "systems": [
                   {
                     "id": "cf85ec9f-3858-412d-8d93-d2ebf7064ce0",
@@ -62100,12 +62115,21 @@
                   "multi": false,
                   "systems": [
                     {
-                      "id": "c94674ad-5cab-4b20-af3d-04e1aeb1a640",
-                      "name": "",
+                      "name": "Epic",
                       "legacy": false,
                       "future": "",
-                      "qa": {},
-                      "score": null
+                      "qa": {
+                        "q1": "NEVER",
+                        "q2": "NEVER",
+                        "q1_note": "Dit procesonderdeel werkt systeemtechnisch feilloos (\"Epic heeft dit echt fantastisch ingericht\").",
+                        "q2_note": "ia het 'Snapboard' in Epic is dit letterlijk een kwestie van de order aanklikken en naar de juiste tijd slepen (drag & drop). Dit kost minimale tijd.",
+                        "q3": "NEVER",
+                        "q4": "NEVER",
+                        "q4_note": "Door de visuele en gestandaardiseerde interface (Snapboard) worden planningsfouten hier nagenoeg geëlimineerd.",
+                        "q5_note": "Zonder Epic kan de afspraak domweg niet worden vastgelegd en gecommuniceerd.",
+                        "q5": "DELAY"
+                      },
+                      "score": 93
                     }
                   ],
                   "activeSystemIdx": 0
@@ -62631,7 +62655,7 @@
               "systemData": {
                 "isMulti": false,
                 "systemName": "",
-                "calculatedScore": null,
+                "calculatedScore": 60,
                 "systems": [
                   {
                     "id": "a8c4e5bb-1d11-49fe-beac-d5ad797328ba",
@@ -62652,12 +62676,22 @@
                   "multi": false,
                   "systems": [
                     {
-                      "id": "66605597-9d4e-44d0-b237-b3ca17570a47",
-                      "name": "",
+                      "name": "Epic",
                       "legacy": false,
                       "future": "",
-                      "qa": {},
-                      "score": null
+                      "qa": {
+                        "q1": "SOMETIMES",
+                        "q1_note": "Het proces verloopt goed áls de order klopt. Maar artsen vergeten de order soms, of maken de verkeerde aan (een order die niet in de MRI  agenda past). Ook bij patiënten met een pacemaker ontbreekt een standaard flow in Epic, waardoor de planner handmatig via een InBasket-bericht of mail het safety-team (Wim van Deursum) moet inschakelen.",
+                        "q2": "SOMETIMES",
+                        "q2_note": "Ontbrekende, foute, of speciale (pacemaker) orders halen de planner uit de automatische inplan-flow.",
+                        "q3": "NEVER",
+                        "q3_note": "Dit is primair een controle-actie in de Epic orderlijst.",
+                        "q4": "SOMETIMES",
+                        "q4_note": "Het systeem staat toe dat artsen het verkeerde type MRI-order aanklikken zonder dat het systeem dit direct valideert aan de hand van de radiotherapie-protocollen.",
+                        "q5": "STOP",
+                        "q5_note": "Zonder Epic kunnen de digitale orders simpelweg niet worden gecontroleerd."
+                      },
+                      "score": 60
                     }
                   ],
                   "activeSystemIdx": 0
@@ -63197,7 +63231,7 @@
               "systemData": {
                 "isMulti": false,
                 "systemName": "",
-                "calculatedScore": null,
+                "calculatedScore": 53,
                 "systems": [
                   {
                     "id": "c1385ef9-1f47-4a94-8fb7-93dc285582f8",
@@ -63218,12 +63252,20 @@
                   "multi": false,
                   "systems": [
                     {
-                      "id": "600beb88-c1ff-49a7-8840-f4f1867afd27",
-                      "name": "",
+                      "name": "Radiotherapie Web",
                       "legacy": false,
                       "future": "",
-                      "qa": {},
-                      "score": null
+                      "qa": {
+                        "q1_note": "De planner geeft aan in het interview: \"De MRI vergeet ze soms. Soms vergeten ze ook te zeggen dat er geen MRI nodig is. Dan zijn we ook van slag.\" Bij onduidelijkheid moet de planner het reguliere werk parkeren en de arts navragen (workaround).",
+                        "q1": "SOMETIMES",
+                        "q2": "SOMETIMES",
+                        "q2_note": "Onduidelijkheid in de tekstuele aanvraag zorgt direct voor stagnatie totdat de arts bereikbaar is.",
+                        "q3": "NEVER",
+                        "q4": "OFTEN",
+                        "q4_note": "Het aanvraagformulier dwingt de arts niet om een harde, binaire keuze (Ja/Nee) te maken voor een MRI. De vrijblijvendheid van de tekstinvoer is de directe root-cause van de fouten.",
+                        "q5": "STOP"
+                      },
+                      "score": 53
                     }
                   ],
                   "activeSystemIdx": 0
@@ -63752,7 +63794,7 @@
               "systemData": {
                 "isMulti": false,
                 "systemName": "",
-                "calculatedScore": 0,
+                "calculatedScore": 60,
                 "systems": [
                   {
                     "id": "c069c579-413c-4bcb-8f86-cd857ac74463",
@@ -63773,20 +63815,35 @@
                   "multi": true,
                   "systems": [
                     {
-                      "id": "1cb5a9a7-ab3b-47c4-999c-78c9ca2328f8",
                       "name": "Epic",
                       "legacy": false,
                       "future": "",
-                      "qa": {},
-                      "score": null
+                      "qa": {
+                        "q1": "OFTEN",
+                        "q1_note": "De planner heeft vaste inplanblokken gekregen op dinsdag en vrijdag. Echter, afdeling Radiologie zet deze blokken in Epic onaangekondigd dicht (wegens onderhoud/scholing). De planner moet dan via mail of telefoon extra plekken terugeisen bij Radiologie (een harde workaround).",
+                        "q2": "OFTEN",
+                        "q2_note": "Het onverwacht missen van deze afgesproken planningscapaciteit (ca. 1 keer per kwartaal) stagneert het inplannen van de patiënt hevig en vereist reactief herstelwerk.",
+                        "q3": "NEVER",
+                        "q4": "OFTEN",
+                        "q4_note": "Epic waarschuwt de planners (Radiotherapie) niet proactief met een notificatie wanneer gedeelde agenda-blokken door een andere afdeling (Radiologie) eenzijdig worden aangepast of verwijderd.",
+                        "q5": "STOP",
+                        "q5_note": "Als de Epic-agenda platligt, is er geen overzicht van capaciteit."
+                      },
+                      "score": 40
                     },
                     {
-                      "id": "e34d8d45-6ba0-4ab3-bd63-64faa381a319",
                       "name": "Radiotherapie Web",
                       "legacy": false,
                       "future": "",
-                      "qa": {},
-                      "score": null
+                      "qa": {
+                        "q1_note": "Voor deze stap dient RT Web enkel als naslagwerk van aanvraagformulier (binnen welke kaders moet deze MRI plaatsvinden?). Hier zijn geen systeem-workarounds nodig.",
+                        "q1": "NEVER",
+                        "q2": "NEVER",
+                        "q3": "NEVER",
+                        "q4": "NEVER",
+                        "q5": "STOP"
+                      },
+                      "score": 80
                     }
                   ],
                   "activeSystemIdx": 0
@@ -64318,7 +64375,7 @@
               "systemData": {
                 "isMulti": false,
                 "systemName": "",
-                "calculatedScore": null,
+                "calculatedScore": 66,
                 "systems": [
                   {
                     "id": "f9f1135c-1faf-4d9a-9fab-9d34831fd927",
@@ -64339,12 +64396,20 @@
                   "multi": false,
                   "systems": [
                     {
-                      "id": "a304fc89-2b63-493d-8f97-eee3d19b4e25",
-                      "name": "",
+                      "name": "Epic",
                       "legacy": false,
                       "future": "",
-                      "qa": {},
-                      "score": null
+                      "qa": {
+                        "q1": "SOMETIMES",
+                        "q2": "SOMETIMES",
+                        "q3": "NEVER",
+                        "q4": "NEVER",
+                        "q5": "STOP",
+                        "q1_note": "Het inplannen zelf is soepel (\"appeltje eitje\"), maar er is een IT-inrichtingsfout: sommige specifieke MRI-orders verschijnen niet automatisch in het planningslijstje ('Snapboard'). De planner moet deze specifieke patiënten via een omweg (vanuit het patiëntendossier in plaats van de werklijst) inplannen.",
+                        "q2_note": "De omweg via het patiëntendossier duurt net iets langer dan de gestroomlijnde drag-and-drop functionaliteit van de overige afspraken.",
+                        "q4_note": "Buiten het ongemak om, legt het systeem de afspraak uiteindelijk betrouwbaar vast."
+                      },
+                      "score": 66
                     }
                   ],
                   "activeSystemIdx": 0
@@ -64870,7 +64935,7 @@
               "systemData": {
                 "isMulti": false,
                 "systemName": "",
-                "calculatedScore": null,
+                "calculatedScore": 60,
                 "systems": [
                   {
                     "id": "e1152924-89bb-43ad-bc59-aa45c96c7329",
@@ -64891,12 +64956,20 @@
                   "multi": false,
                   "systems": [
                     {
-                      "id": "c7376f24-6fb1-463c-bd9f-22edaffe935d",
-                      "name": "",
+                      "name": "Epic",
                       "legacy": false,
                       "future": "",
-                      "qa": {},
-                      "score": null
+                      "qa": {
+                        "q1": "SOMETIMES",
+                        "q1_note": "Als de arts is vergeten de order in het systeem aan te klikken, valt het proces stil. De planner moet de workaround inzetten door de arts te bellen of mailen om dit alsnog te doen.",
+                        "q2": "SOMETIMES",
+                        "q2_note": "Het ontbreken van de order zorgt voor direct oponthoud in de flow.",
+                        "q3": "NEVER",
+                        "q4": "SOMETIMES",
+                        "q4_note": "Epic laat aan de voorkant toe dat een arts een patiënt doorstuurt zonder verplichte PET-order, wat ruimte laat voor slordigheidsfouten.",
+                        "q5": "STOP"
+                      },
+                      "score": 60
                     }
                   ],
                   "activeSystemIdx": 0
@@ -65424,7 +65497,7 @@
               "systemData": {
                 "isMulti": false,
                 "systemName": "",
-                "calculatedScore": null,
+                "calculatedScore": 53,
                 "systems": [
                   {
                     "id": "b9535f82-fca2-4a1d-871d-0f09843ee1f1",
@@ -65445,12 +65518,19 @@
                   "multi": false,
                   "systems": [
                     {
-                      "id": "cf580cc4-bba0-47e8-973d-d0124bc7f938",
-                      "name": "",
+                      "name": "Radiotherapie Web",
                       "legacy": false,
                       "future": "",
-                      "qa": {},
-                      "score": null
+                      "qa": {
+                        "q1": "SOMETIMES",
+                        "q1_note": "Als de tekst in het aanvraagformulier onduidelijk of onvolledig is, moet de planner de taak parkeren en navraag doen bij de arts (workaround).",
+                        "q2": "SOMETIMES",
+                        "q3": "NEVER",
+                        "q4": "OFTEN",
+                        "q4_note": "De vrije tekstinvoer zonder harde validatie zorgt ervoor dat artsen structureel essentiële planningsdetails voor Nucleair vergeten te vermelden.",
+                        "q5": "STOP"
+                      },
+                      "score": 53
                     }
                   ],
                   "activeSystemIdx": 0
@@ -65942,7 +66022,7 @@
             {
               "id": "37dd6e28-0356-41d5-9078-1241ced7447e",
               "created": 1770801877738,
-              "text": "Epic / Radiotherapie Web",
+              "text": "Radiotherapie Web / Epic",
               "linkedSourceId": null,
               "type": null,
               "processValue": null,
@@ -65979,7 +66059,7 @@
               "systemData": {
                 "isMulti": false,
                 "systemName": "",
-                "calculatedScore": null,
+                "calculatedScore": 67,
                 "systems": [
                   {
                     "id": "4424a316-3a52-4905-952e-51deb0f53255",
@@ -65997,15 +66077,37 @@
                   }
                 ],
                 "systemsMeta": {
-                  "multi": false,
+                  "multi": true,
                   "systems": [
                     {
-                      "id": "0061050b-e4af-47fe-ad72-b1d09ca0d467",
-                      "name": "",
+                      "name": "Radiotherapie Web",
                       "legacy": false,
                       "future": "",
-                      "qa": {},
-                      "score": null
+                      "qa": {
+                        "q1": "NEVER",
+                        "q1_note": "In deze specifieke stap dient Radiotherapie Web puur als lees-document (wat moet er precies in het verzoek naar Nucleair komen te staan?).",
+                        "q2": "NEVER",
+                        "q3": "NEVER",
+                        "q4": "NEVER",
+                        "q5": "STOP"
+                      },
+                      "score": 80
+                    },
+                    {
+                      "name": "Epic",
+                      "legacy": false,
+                      "future": "",
+                      "qa": {
+                        "q1": "SOMETIMES",
+                        "q1_note": "De planner geeft aan dat verzoeken soms niet begrepen worden door Nucleair. Het systeem dwingt geen gestandaardiseerd format af, wat leidt tot communicatieruis en de workaround van \"heen en weer bellen en mailen\".",
+                        "q2": "SOMETIMES",
+                        "q3": "SOMETIMES",
+                        "q3_note": "De planner moet medische instructies visueel overnemen uit RT Web en handmatig in de Epic InBasket typen.",
+                        "q4": "SOMETIMES",
+                        "q5": "STOP",
+                        "q4_note": "Door werkdruk (\"mensen doen het te snel\") worden er handmatige fouten gemaakt (verkeerde plek/tijd) die Epic niet afvangt."
+                      },
+                      "score": 53
                     }
                   ],
                   "activeSystemIdx": 0
@@ -66535,7 +66637,7 @@
               "systemData": {
                 "isMulti": false,
                 "systemName": "",
-                "calculatedScore": null,
+                "calculatedScore": 46,
                 "systems": [
                   {
                     "id": "aa751080-604b-4a24-abbf-c80a3207fce3",
@@ -66556,12 +66658,22 @@
                   "multi": false,
                   "systems": [
                     {
-                      "id": "1bd8d176-e7cc-4782-a3b9-f6dab4994964",
-                      "name": "",
+                      "name": "Epic",
                       "legacy": false,
                       "future": "",
-                      "qa": {},
-                      "score": null
+                      "qa": {
+                        "q1": "ALWAYS",
+                        "q1_note": "Dit hele proces is feitelijk één grote, geïnstitutionaliseerde workaround. Omdat afdeling Nucleair onbetrouwbaar is, gebruikt de planner de Epic-functie om zichzelf in de 'CC' te zetten (Self InBasket reminder) en een schaduwadministratie te voeren.",
+                        "q2": "SOMETIMES",
+                        "q2_note": "Het is een extra administratieve 'hack' die bij elk verzoek tijd kost.",
+                        "q3": "OFTEN",
+                        "q3_note": "Naast de daadwerkelijke aanvraag, creëer je in het systeem een tweede 'taak' voor jezelf om de eerste taak te bewaken.",
+                        "q4": "NEVER",
+                        "q4_note": "Het aanmaken van de reminder zélf werkt in Epic prima, het bestrijdt echter de symptomen van een procesfout elders.",
+                        "q5": "RISK",
+                        "q5_note": "Als deze herinneringen falen, verdwijnen PET-aanvragen in een \"zwart gat\" bij Nucleair, zonder dat de planner dit tijdig signaleert."
+                      },
+                      "score": 46
                     }
                   ],
                   "activeSystemIdx": 0
@@ -67089,7 +67201,7 @@
               "systemData": {
                 "isMulti": false,
                 "systemName": "",
-                "calculatedScore": null,
+                "calculatedScore": 40,
                 "systems": [
                   {
                     "id": "d03163ec-4948-4bf3-ab7f-05a807f88236",
@@ -67110,12 +67222,20 @@
                   "multi": false,
                   "systems": [
                     {
-                      "id": "4ebb3475-0fbc-46d0-9d96-2a0348be50e7",
-                      "name": "",
+                      "name": "Epic",
                       "legacy": false,
                       "future": "",
-                      "qa": {},
-                      "score": null
+                      "qa": {
+                        "q1": "ALWAYS",
+                        "q1_note": "Het continu handmatig monitoren van Epic-bakjes is de workaround voor een falend digitaal pull-systeem tussen de afdelingen.",
+                        "q2_note": "De planner is snoeihard: \"Dit is nou echt verspilling. Het kost energie. Het is absurd dat ik een opdracht geef en in de gaten moet houden of het gedaan wordt.\"",
+                        "q2": "OFTEN",
+                        "q3": "NEVER",
+                        "q4": "OFTEN",
+                        "q4_note": "Epic geeft de planningsafdeling (Radiotherapie) onvoldoende geautomatiseerde, harde waarschuwingen (alerts) wanneer de afdeling Nucleair een verzoek gevaarlijk lang laat liggen.",
+                        "q5": "RISK"
+                      },
+                      "score": 40
                     }
                   ],
                   "activeSystemIdx": 0
@@ -67652,7 +67772,7 @@
               "systemData": {
                 "isMulti": false,
                 "systemName": "",
-                "calculatedScore": null,
+                "calculatedScore": 46,
                 "systems": [
                   {
                     "id": "4eb66570-42b4-4689-996e-d284f14cef50",
@@ -67673,12 +67793,20 @@
                   "multi": false,
                   "systems": [
                     {
-                      "id": "c908cbb4-0db8-49d8-9f79-0e1085a1a249",
-                      "name": "",
+                      "name": "Epic",
                       "legacy": false,
                       "future": "",
-                      "qa": {},
-                      "score": null
+                      "qa": {
+                        "q1": "OFTEN",
+                        "q1_note": "Als de harde deadline (het bestellen van radioactief materiaal voor de volgende dag) nadert en er is nog niks gepland, dwingt dit tot het staken van regulier werk om te gaan forceren (workaround).",
+                        "q2": "OFTEN",
+                        "q3": "NEVER",
+                        "q3_note": "",
+                        "q4": "OFTEN",
+                        "q4_note": "Dat Epic toelaat dat cruciale nucleaire afspraken tot het allerlaatste moment ongepland blijven staan zónder escalatie-mechanisme aan de kant van Nucleair, is een ontwerprisico.",
+                        "q5": "RISK"
+                      },
+                      "score": 46
                     }
                   ],
                   "activeSystemIdx": 0
@@ -68214,7 +68342,7 @@
               "systemData": {
                 "isMulti": false,
                 "systemName": "",
-                "calculatedScore": null,
+                "calculatedScore": 87,
                 "systems": [
                   {
                     "id": "30f576dd-dd67-4043-b99b-627bb668c46c",
@@ -68235,12 +68363,19 @@
                   "multi": false,
                   "systems": [
                     {
-                      "id": "8d25795f-53f2-496e-8468-c53ac6bc5230",
-                      "name": "",
+                      "name": "Epic",
                       "legacy": false,
                       "future": "",
-                      "qa": {},
-                      "score": null
+                      "qa": {
+                        "q1": "NEVER",
+                        "q1_note": "In deze stap fungeert Epic als dashboard om te zien dat de status nog 'open' staat. Hier zijn geen systeem-workarounds in Epic zelf nodig.",
+                        "q2": "NEVER",
+                        "q3": "NEVER",
+                        "q4": "NEVER",
+                        "q5": "RISK",
+                        "q5_note": "Zonder Epic zie je niet dát de deadline is overschreden."
+                      },
+                      "score": 87
                     }
                   ],
                   "activeSystemIdx": 0
@@ -68767,7 +68902,7 @@
               "systemData": {
                 "isMulti": false,
                 "systemName": "",
-                "calculatedScore": null,
+                "calculatedScore": 60,
                 "systems": [
                   {
                     "id": "7fb389af-53d1-4355-be52-a29f9947abba",
@@ -68788,12 +68923,18 @@
                   "multi": false,
                   "systems": [
                     {
-                      "id": "a539eb04-e207-4aa4-8bb6-83d1c3314376",
-                      "name": "",
+                      "name": "Radiotherapie Web",
                       "legacy": false,
                       "future": "",
-                      "qa": {},
-                      "score": null
+                      "qa": {
+                        "q1": "SOMETIMES",
+                        "q2": "SOMETIMES",
+                        "q3": "NEVER",
+                        "q4": "SOMETIMES",
+                        "q4_note": "et formulier en de prescriptie dwingen geen 100% foutloze input af (interpretatieruimte).",
+                        "q5": "STOP"
+                      },
+                      "score": 60
                     }
                   ],
                   "activeSystemIdx": 0
