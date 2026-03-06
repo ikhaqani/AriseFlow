@@ -52495,34 +52495,34 @@
               "improvements": [],
               "qa": {
                 "compleet": {
-                  "result": "MINOR",
-                  "impact": "A",
-                  "note": "aanvraagformulier niet ingevuld "
+                  "result": "MODERATE",
+                  "impact": "B",
+                  "note": "Artsen vergeten in de hectiek regelmatig belangrijke details of randvoorwaarden ) direct door te geven (bijv. of bestralingsfracties tegelijk of apart moeten). De planner moet hier later actief achteraan. Ook word het aanvraagformulier niet volledig ingevuld. "
                 },
                 "kwaliteit": {
                   "result": "MINOR",
-                  "impact": "A",
-                  "note": ""
+                  "impact": "C",
+                  "note": "Wat er mondeling gezegd wordt klopt inhoudelijk meestal wel, maar is vluchtig en gevoelig voor ruis/vergeetachtigheid."
                 },
                 "duidelijkheid": {
-                  "result": "MINOR",
-                  "impact": null,
-                  "note": ""
+                  "result": "MODERATE",
+                  "impact": "C",
+                  "note": "rtsen gebruiken vaak eigen jargon in plaats van eenduidige protocoltermen, waardoor de planner interpretatietijd kwijt is of verduidelijking moet vragen."
                 },
                 "tijdigheid": {
-                  "result": "GOOD",
-                  "impact": null,
-                  "note": ""
+                  "result": "MINOR",
+                  "impact": "B",
+                  "note": "De planner is qua timing volledig afhankelijk van wanneer de arts fysiek langsloopt of eindelijk de telefoon opneemt (\"dan zitten we te wachten\")."
                 },
                 "standaard": {
                   "result": "FAIL",
-                  "impact": null,
+                  "impact": "A",
                   "note": ""
                 },
                 "overdracht": {
                   "result": "FAIL",
-                  "impact": null,
-                  "note": ""
+                  "impact": "A",
+                  "note": "Een mondelinge overdracht staat nergens geregistreerd. De planner moet alle uitgesproken instructies direct handmatig in Epic of op een papieren lijstje intypen."
                 }
               },
               "systemData": {
@@ -52546,7 +52546,18 @@
                   }
                 ]
               },
-              "inputDefinitions": [],
+              "inputDefinitions": [
+                {
+                  "item": "Volledig ingevuld aanvraagformulier",
+                  "specifications": "",
+                  "type": "HARD"
+                },
+                {
+                  "item": "Mondelinge planningsinstructie",
+                  "specifications": "Gewenste startdatum, benodigde voorbereidingen (CT/MRI/Mouldroom), en eventuele contra-indicaties (pacemaker, etc.).",
+                  "type": "SOFT"
+                }
+              ],
               "disruptions": [],
               "workExp": null,
               "workExpNote": "",
