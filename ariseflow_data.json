@@ -55835,7 +55835,7 @@
               "systemData": {
                 "isMulti": false,
                 "systemName": "",
-                "calculatedScore": null,
+                "calculatedScore": 59,
                 "systems": [
                   {
                     "id": "57fe80d1-dd06-41e7-8c8b-7423b81d985c",
@@ -55856,12 +55856,22 @@
                   "multi": false,
                   "systems": [
                     {
-                      "id": "7639e94a-c883-4dd6-86f2-fcc42c073184",
-                      "name": "",
+                      "name": "Telefoon / Mondeling",
                       "legacy": false,
                       "future": "",
-                      "qa": {},
-                      "score": null
+                      "qa": {
+                        "q1": "SOMETIMES",
+                        "q1_note": "De planner geeft aan dat het soms misgaat als de arts het bestand niet verstuurd heeft of als de supervisie niet klopt. De workaround is dan om \"even achteraan te bellen\" en het mondeling op te lossen",
+                        "q2": "SOMETIMES",
+                        "q2_note": "Bellen kost tijd, maar de planner geeft aan dat de lijntjes kort zijn (bijvoorbeeld met de planningscoördinator Ellen) waardoor het oponthoud relatief beperkt blijft",
+                        "q3_note": "Als er mondeling \"gepast en gemeten\" wordt (bijv. patiënten verwisselen of een KNO-kamer creëren), moet de planner deze mondelinge afspraken daarna handmatig doorvoeren in de systemen.",
+                        "q4_note": "Het oplossen van capaciteitsproblemen via de telefoon blijft mensenwerk en is daardoor gevoeliger voor fouten dan een geautomatiseerd planningsvoorstel.",
+                        "q3": "OFTEN",
+                        "q4": "SOMETIMES",
+                        "q5_note": "Als de arts of planningscoördinator telefonisch niet direct bereikbaar is, kan de planner niet verder met de start van deze specifieke patiënten en loopt het proces vertraging op.",
+                        "q5": "DELAY"
+                      },
+                      "score": 59
                     }
                   ],
                   "activeSystemIdx": 0
@@ -56391,7 +56401,7 @@
               "systemData": {
                 "isMulti": false,
                 "systemName": "",
-                "calculatedScore": 86,
+                "calculatedScore": 40,
                 "systems": [
                   {
                     "id": "f1e39e0e-4d29-46e2-ab1f-e51a3beee866",
@@ -56412,18 +56422,21 @@
                   "multi": false,
                   "systems": [
                     {
-                      "id": "877c109c-c112-4de0-887f-07280f685f9e",
                       "name": "",
                       "legacy": false,
                       "future": "",
                       "qa": {
-                        "q1": "NEVER",
-                        "q2": "NEVER",
-                        "q3": "NEVER",
-                        "q4": "SOMETIMES",
-                        "q5": "DELAY"
+                        "q1": "OFTEN",
+                        "q2": "OFTEN",
+                        "q3": "OFTEN",
+                        "q4": "OFTEN",
+                        "q5": "DELAY",
+                        "q1_note": "De informatie komt gefragmenteerd via de mail binnen in twéé losse bestanden (een Excel voor de indeling en een Word voor de consulten). Als de data hierin tegenstrijdig is (bijv. meer consulten dan kamers, of foute supervisie), dwingt dit de planner tot de workaround van handmatig 'passen en meten'.",
+                        "q2_note": "Het continu moeten vergelijken van twee losse bestanden in Outlook die pas op vrijdagochtend (kort dag) worden aangeleverd, remt de snelheid van plannen enorm af.",
+                        "q3_note": "Alle relevante planningsinstructies, OK-datums en patiëntnamen uit deze Outlook-bijlagen moeten door de planner visueel worden afgelezen en handmatig in Epic of op een eigen takenlijst worden overgetypt.",
+                        "q4_note": "Een Excel- of Word-bestand via de mail heeft geen validatie met de werkelijkheid. Artsen vullen regelmatig foutieve supervisie in of claimen fysieke ruimtes die er niet zijn. Het document accepteert dit gewoon."
                       },
-                      "score": 86
+                      "score": 40
                     }
                   ],
                   "activeSystemIdx": 0
@@ -56934,7 +56947,7 @@
             {
               "id": "0bb95a90-118d-4088-ac8d-21b65b9c5095",
               "created": 1771417521417,
-              "text": "Schriftelijk",
+              "text": "Papier",
               "linkedSourceId": null,
               "type": null,
               "processValue": null,
@@ -56971,7 +56984,7 @@
               "systemData": {
                 "isMulti": false,
                 "systemName": "",
-                "calculatedScore": null,
+                "calculatedScore": 46,
                 "systems": [
                   {
                     "id": "a37d5dc4-1e7b-45ce-9102-320aba893d44",
@@ -56992,12 +57005,22 @@
                   "multi": false,
                   "systems": [
                     {
-                      "id": "2cb3d330-970e-4de0-bd4d-3dffda1821bc",
-                      "name": "",
+                      "name": "Papier",
                       "legacy": false,
                       "future": "",
-                      "qa": {},
-                      "score": null
+                      "qa": {
+                        "q1": "ALWAYS",
+                        "q1_note": "Planner geeft aan de afhankelijkheden \"uit haar hoofd\" te combineren, terwijl collega's het opschrijven. Beide methoden zijn feitelijk een workaround omdat het IT-systeem (Epic) onvoldoende overzicht biedt om deze complexe planningspuzzel (waarbij ook afstemming met de tandarts/MKA nodig is) in één keer visueel te overzien.",
+                        "q2": "SOMETIMES",
+                        "q2_note": "Het handmatig opschrijven op een lijstje (of in het hoofd vasthouden van alle stappen) kost extra cognitieve en administratieve tijd.",
+                        "q3": "OFTEN",
+                        "q3_note": "De ruwe data staat in Epic en Outlook. Door dit over te schrijven naar een papieren actielijstje (of mentaal lijstje) creëer je een tijdelijke dubbele administratie (\"double handling\").",
+                        "q4": "OFTEN",
+                        "q4_note": "Het volledig leunen op het menselijk brein of een handgeschreven notitie is extreem persoonsafhankelijk en gevoelig voor fouten, zeker gezien de hoge tijdsdruk in de Hoofd-hals route.",
+                        "q5": "SAFE",
+                        "q5_note": "Als het papieren overzicht kwijtraakt (of de planner de draad kwijt is), verlies je de \"puzzel\", maar de brondata van de patiënt staat nog steeds veilig in Epic en Outlook."
+                      },
+                      "score": 46
                     }
                   ],
                   "activeSystemIdx": 0
@@ -57489,7 +57512,7 @@
             {
               "id": "76f0529f-955f-45a3-974e-25984d93777c",
               "created": 1770375496867,
-              "text": "Schriftelijk",
+              "text": "Papier",
               "linkedSourceId": null,
               "type": null,
               "processValue": null,
@@ -57526,7 +57549,7 @@
               "systemData": {
                 "isMulti": false,
                 "systemName": "",
-                "calculatedScore": 0,
+                "calculatedScore": 40,
                 "systems": [
                   {
                     "id": "aa29956f-93f6-4668-98fb-6ccc0c1ee27b",
@@ -57547,20 +57570,22 @@
                   "multi": true,
                   "systems": [
                     {
-                      "id": "70dfa2e8-2054-4c49-bbf9-f16bc025f622",
                       "name": "Zenya",
                       "legacy": false,
                       "future": "",
-                      "qa": {},
-                      "score": null
-                    },
-                    {
-                      "id": "9e813993-bb57-4906-b3c9-f7dd8954a853",
-                      "name": "Epic",
-                      "legacy": false,
-                      "future": "",
-                      "qa": {},
-                      "score": null
+                      "qa": {
+                        "q1_note": "Omdat de mouldroom (tumormasker) structureel vol zit of gesloten is door intern overleg, loopt de bedachte (papieren) planning hier standaard vast. De planner moet vrijwel wekelijks terugvallen op workarounds zoals escaleren bij teamleiders om er nog een patiënt bij te proppen.",
+                        "q1": "ALWAYS",
+                        "q2": "OFTEN",
+                        "q2_note": "De planner noemt dit \"elke week een aandachtspunt\". De strakke afhankelijkheid (het masker moét af zijn voordat de patiënt op dinsdag naar de PET-scan kan) zorgt ervoor dat deze stap het hele planproces vertraagt.",
+                        "q3": "OFTEN",
+                        "q3_note": "Eerst wordt de afspraak conceptueel uitgedacht op papier/in het hoofd, vervolgens volgt vaak afstemming, en pas aan het einde wordt de afspraak daadwerkelijk dubbel/definitief vastgelegd in Epic.",
+                        "q4": "OFTEN",
+                        "q4_note": "Door het structurele gebrek aan capaciteit en de enorme druk om voor vrijdag 11:00 uur klaar te zijn, is het inplannen van deze route zeer kwetsbaar. Een kleine wijziging (bijv. patiënt kan niet) trekt direct de planning in de war.",
+                        "q5_note": "Het kwijtraken van het papieren werkbriefje is heel vervelend en kost herstelwerk, maar leidt niet tot hard dataverlies omdat de echte beschikbaarheid in de IT-systemen staat.",
+                        "q5": "SAFE"
+                      },
+                      "score": 40
                     }
                   ],
                   "activeSystemIdx": 0
