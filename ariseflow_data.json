@@ -53079,33 +53079,33 @@
               "improvements": [],
               "qa": {
                 "compleet": {
-                  "result": "FAIL",
+                  "result": "MINOR",
                   "impact": "B",
-                  "note": ""
+                  "note": "Uiteindelijk wordt de instructie pas compleet doordat de planner zélf de knelpunten oplost."
                 },
                 "kwaliteit": {
-                  "result": null,
-                  "impact": null,
-                  "note": ""
+                  "result": "MODERATE",
+                  "impact": "B",
+                  "note": "De instructie hangt aan elkaar van noodgrepen omdat de kaders niet passen. "
                 },
                 "duidelijkheid": {
-                  "result": null,
-                  "impact": null,
-                  "note": ""
+                  "result": "MODERATE",
+                  "impact": "B",
+                  "note": "Door face-to-face te puzzelen \"komen we er gewoon uit\", maar het is verre van een 'clean' eenduidige input."
                 },
                 "tijdigheid": {
-                  "result": null,
-                  "impact": null,
-                  "note": ""
+                  "result": "MODERATE",
+                  "impact": "B",
+                  "note": "Er blijft \"altijd haast\"."
                 },
                 "standaard": {
-                  "result": null,
-                  "impact": null,
-                  "note": ""
+                  "result": "FAIL",
+                  "impact": "B",
+                  "note": "Het gezamenlijk dichttimmeren van een onmogelijke planningstermijn is een workaround voor een falend standaardproces."
                 },
                 "overdracht": {
-                  "result": null,
-                  "impact": null,
+                  "result": "FAIL",
+                  "impact": "B",
                   "note": ""
                 }
               },
@@ -53651,34 +53651,34 @@
               "improvements": [],
               "qa": {
                 "compleet": {
-                  "result": "GOOD",
-                  "impact": null,
-                  "note": ""
+                  "result": "FAIL",
+                  "impact": "A",
+                  "note": "Dit document is extreem kwetsbaar voor menselijk falen. Transcriptie: \"Ze kunnen niet altijd bij het MDO zijn en daar vullen ze hem in. Dus als ze niet zijn geweest, hebben wij geen lijst.\" Als de arts er niet was, heeft de planner domweg helemaal niets."
                 },
                 "kwaliteit": {
-                  "result": "GOOD",
-                  "impact": null,
-                  "note": ""
+                  "result": "MINOR",
+                  "impact": "C",
+                  "note": "Als de lijst wel bestaat: \"Die is in principe compleet... De informatie is bruikbaar.\""
                 },
                 "duidelijkheid": {
-                  "result": "GOOD",
-                  "impact": null,
+                  "result": "MINOR",
+                  "impact": "B",
                   "note": ""
                 },
                 "tijdigheid": {
-                  "result": "GOOD",
-                  "impact": null,
-                  "note": ""
+                  "result": "MODERATE",
+                  "impact": "B",
+                  "note": "\"Als ze geweest zijn, is die tijdig.\" Zo niet, dan ben je als planner stuurloos en mis je de input."
                 },
                 "standaard": {
-                  "result": "GOOD",
-                  "impact": null,
-                  "note": ""
+                  "result": "MODERATE",
+                  "impact": "B",
+                  "note": "Hoewel het een Excel is, wordt hij alleen ingevuld tijdens een specifiek MDO, wat het storingsgevoelig maakt."
                 },
                 "overdracht": {
-                  "result": "GOOD",
-                  "impact": null,
-                  "note": ""
+                  "result": "FAIL",
+                  "impact": "B",
+                  "note": "De lijst in Teams moet visueel gelezen en handmatig overgetypt worden"
                 }
               },
               "systemData": {
@@ -54216,34 +54216,34 @@
               "improvements": [],
               "qa": {
                 "compleet": {
-                  "result": null,
-                  "impact": null,
-                  "note": ""
+                  "result": "MINOR",
+                  "impact": "C",
+                  "note": "De planner zegt expliciet dat dit kladje onvolledig is: \"Het is heel niet gedetailleerd. Maar zo weet ik al wat ik wil plannen.\""
                 },
                 "kwaliteit": {
-                  "result": null,
-                  "impact": null,
+                  "result": "MINOR",
+                  "impact": "C",
                   "note": ""
                 },
                 "duidelijkheid": {
-                  "result": null,
-                  "impact": null,
+                  "result": "MINOR",
+                  "impact": "C",
                   "note": ""
                 },
                 "tijdigheid": {
-                  "result": null,
+                  "result": "GOOD",
                   "impact": null,
                   "note": ""
                 },
                 "standaard": {
-                  "result": null,
-                  "impact": null,
-                  "note": ""
+                  "result": "FAIL",
+                  "impact": "B",
+                  "note": "Er is 0% afdelingsstandaardisatie. Transcriptie: \"Dat zit in mijn boek... Dat is echt puur voor mezelf.\" Als deze planner ziek is, kan niemand dit boekje interpreteren."
                 },
                 "overdracht": {
-                  "result": null,
-                  "impact": null,
-                  "note": ""
+                  "result": "FAIL",
+                  "impact": "B",
+                  "note": "Een lokaal opschrijfboekje communiceert met geen enkel ziekenhuissysteem."
                 }
               },
               "systemData": {
@@ -54782,33 +54782,33 @@
               "improvements": [],
               "qa": {
                 "compleet": {
-                  "result": null,
-                  "impact": null,
-                  "note": ""
+                  "result": "MODERATE",
+                  "impact": "B",
+                  "note": "et bedachte plan blijkt structureel stuk te lopen op de harde realiteit van de andere afdelingen. Transcriptie: \"Verstoringen dat dingen niet beschikbaar zijn... we hebben geen PET of geen MRI... Of de verpleegkundige kan niet.\" Het plan is dus continu incompleet totdat gaten geforceerd worden."
                 },
                 "kwaliteit": {
-                  "result": null,
-                  "impact": null,
-                  "note": ""
+                  "result": "MODERATE",
+                  "impact": "B",
+                  "note": "Het plan moet steeds worden bijgeschaafd door telefoontjes (\"extra achteraan gaan bellen\")."
                 },
                 "duidelijkheid": {
-                  "result": null,
-                  "impact": null,
+                  "result": "MINOR",
+                  "impact": "C",
                   "note": ""
                 },
                 "tijdigheid": {
-                  "result": null,
-                  "impact": null,
-                  "note": ""
+                  "result": "FAIL",
+                  "impact": "B",
+                  "note": "De druk is enorm in deze fase. Transcriptie: \"Alle cervix zitten we altijd heel erg vast aan het OK programma.\""
                 },
                 "standaard": {
-                  "result": null,
-                  "impact": null,
-                  "note": ""
+                  "result": "FAIL",
+                  "impact": "B",
+                  "note": "Door het continu moeten bellen om toch een MRI, verpleegkundige of PET te forceren, is dit maatwerk en overleven, geen standaard proces."
                 },
                 "overdracht": {
-                  "result": null,
-                  "impact": null,
+                  "result": "FAIL",
+                  "impact": "B",
                   "note": ""
                 }
               },
@@ -55349,34 +55349,34 @@
               "improvements": [],
               "qa": {
                 "compleet": {
-                  "result": null,
-                  "impact": null,
-                  "note": ""
+                  "result": "MINOR",
+                  "impact": "B",
+                  "note": "Na al het bellen en de artsen dwingen in het weekend te werken, is de puzzel gelegd en de input compleet."
                 },
                 "kwaliteit": {
-                  "result": null,
+                  "result": "MINOR",
                   "impact": null,
                   "note": ""
                 },
                 "duidelijkheid": {
-                  "result": null,
+                  "result": "GOOD",
                   "impact": null,
                   "note": ""
                 },
                 "tijdigheid": {
-                  "result": null,
-                  "impact": null,
+                  "result": "MODERATE",
+                  "impact": "B",
                   "note": ""
                 },
                 "standaard": {
-                  "result": null,
-                  "impact": null,
+                  "result": "MINOR",
+                  "impact": "B",
                   "note": ""
                 },
                 "overdracht": {
-                  "result": null,
-                  "impact": null,
-                  "note": ""
+                  "result": "FAIL",
+                  "impact": "B",
+                  "note": "Het bloed, zweet en tranen-plan moet nu alsnog als losse afspraken netjes in de Epic-agenda's worden doorgeklikt."
                 }
               },
               "systemData": {
@@ -55867,6 +55867,7 @@
                   "multi": false,
                   "systems": [
                     {
+                      "id": "dc1e676e-7515-4b95-9c32-245dd828a38c",
                       "name": "Telefoon / Mondeling",
                       "legacy": false,
                       "future": "",
@@ -55915,34 +55916,34 @@
               "improvements": [],
               "qa": {
                 "compleet": {
-                  "result": null,
-                  "impact": null,
-                  "note": ""
+                  "result": "MINOR",
+                  "impact": "A",
+                  "note": "De planningsinstructie is vaak grotendeels bekend, maar niet altijd volledig. In de transcriptie komt terug dat artsen soms het aanvraagformulier nog niet hebben ingevuld, iets vergeten terug te koppelen of aanvullende zaken later pas noemen. Zonder die ontbrekende informatie kan het proces niet goed gestart of afgerond worden."
                 },
                 "kwaliteit": {
-                  "result": null,
-                  "impact": null,
-                  "note": ""
+                  "result": "MINOR",
+                  "impact": "B",
+                  "note": "Als de arts de informatie goed invult, is die bruikbaar. Het probleem is dat dit niet altijd gebeurt. Daardoor moet de medewerker extra controleren, navragen of corrigeren voordat de input veilig gebruikt kan worden."
                 },
                 "duidelijkheid": {
-                  "result": null,
-                  "impact": null,
-                  "note": ""
+                  "result": "MODERATE",
+                  "impact": "A",
+                  "note": "De input is niet altijd eenduidig. Artsen gebruiken soms verschillende termen of geven informatie mondeling door zonder dat die goed en volledig vastligt. Daardoor moet de medewerker interpreteren of verduidelijking vragen, en kan niet verantwoord starten zonder bevestiging."
                 },
                 "tijdigheid": {
-                  "result": null,
-                  "impact": null,
-                  "note": ""
+                  "result": "MINOR",
+                  "impact": "B",
+                  "note": "De instructie komt vaak wel op tijd, maar niet altijd in de juiste vorm. Soms komt de arts al mondeling iets terugkoppelen terwijl de aanvraag nog niet is ingevuld. Dan moet de medewerker wachten, nabellen of later opnieuw controleren."
                 },
                 "standaard": {
-                  "result": null,
-                  "impact": null,
-                  "note": ""
+                  "result": "MODERATE",
+                  "impact": "B",
+                  "note": "Er is wel een afgesproken werkwijze via aanvraagformulier en prescriptie, maar artsen volgen die niet altijd op dezelfde manier. Ze vullen niet alles in of gebruiken afwijkende benamingen. Daardoor ontstaat extra uitzoekwerk."
                 },
                 "overdracht": {
-                  "result": null,
-                  "impact": null,
-                  "note": ""
+                  "result": "MODERATE",
+                  "impact": "A",
+                  "note": "De status of registratie is niet altijd correct bijgewerkt in de bronsystemen op het moment dat dat nodig is. Als de aanvraag nog niet is ingevuld of informatie alleen mondeling is doorgegeven, is de overdracht niet compleet genoeg om verantwoord verder te werken."
                 }
               },
               "systemData": {
@@ -56433,6 +56434,7 @@
                   "multi": false,
                   "systems": [
                     {
+                      "id": "9fe0f15f-1fd0-4cd3-b931-48fcc964a4f0",
                       "name": "",
                       "legacy": false,
                       "future": "",
@@ -56480,19 +56482,19 @@
               "improvements": [],
               "qa": {
                 "compleet": {
-                  "result": "GOOD",
-                  "impact": null,
-                  "note": ""
+                  "result": "MINOR",
+                  "impact": "B",
+                  "note": "De basisinformatie is meestal aanwezig, zoals patiëntnamen, consultindeling en bij welke arts iemand moet komen. Toch ontbreekt of wringt soms belangrijke informatie, vooral rondom supervisie of verdeling van consulten. Daardoor moet de medewerker zelf nog controleren en aanvullen."
                 },
                 "kwaliteit": {
                   "result": "MINOR",
                   "impact": "B",
-                  "note": "Supervisie staat niet goed in het word document. Wij moeten dan kijken of de supervisie controleren overeenkomt met de geplande consulten. Soms wordt er aangegeven dat een arts meer consulten moet zien. Dit geeft gedoe want dan moeten we bellen. We moeten een klinisch blok creeeren in Epic. "
+                  "note": "De bestanden zijn in de kern bruikbaar, maar niet altijd volledig correct in de praktische uitwerking. Met name als supervisie niet goed aansluit op de geplande consulten levert dit extra controle- en herstelwerk op."
                 },
                 "duidelijkheid": {
                   "result": "MINOR",
                   "impact": "B",
-                  "note": ""
+                  "note": "De structuur van Excel en Word is op zich duidelijk, maar de inhoud vraagt soms nog interpretatie. Vooral wanneer supervisie of consultcapaciteit niet logisch overeenkomt, moet de medewerker zelf uitzoeken wat de bedoeling is."
                 },
                 "tijdigheid": {
                   "result": "GOOD",
@@ -56500,14 +56502,14 @@
                   "note": ""
                 },
                 "standaard": {
-                  "result": "GOOD",
-                  "impact": null,
-                  "note": ""
+                  "result": "MINOR",
+                  "impact": "B",
+                  "note": "De aanlevering verloopt volgens een vaste vorm via Excel en Word. Toch is de inhoudelijke invulling niet altijd strak volgens de bedoeling, bijvoorbeeld door onjuiste of niet passende supervisie. Daardoor is de standaard niet volledig betrouwbaar."
                 },
                 "overdracht": {
-                  "result": "GOOD",
-                  "impact": null,
-                  "note": ""
+                  "result": "MINOR",
+                  "impact": "B",
+                  "note": "De overdracht via Outlook en de bestanden werkt meestal, maar niet altijd zó goed dat de medewerker direct zonder controle verder kan. Fouten of onlogische combinaties in de inhoud vragen alsnog afstemming"
                 }
               },
               "systemData": {
@@ -57016,6 +57018,7 @@
                   "multi": false,
                   "systems": [
                     {
+                      "id": "fbd98c0b-f379-4c04-82bc-adad69f26904",
                       "name": "Papier",
                       "legacy": false,
                       "future": "",
@@ -57064,34 +57067,34 @@
               "improvements": [],
               "qa": {
                 "compleet": {
-                  "result": null,
-                  "impact": null,
-                  "note": ""
+                  "result": "MINOR",
+                  "impact": "C",
+                  "note": "De actielijst helpt om overzicht te houden, maar is niet altijd de enige bron die nodig is om te starten. De medewerker kan vaak ook verder op basis van ervaring, andere overzichten en systemen."
                 },
                 "kwaliteit": {
-                  "result": null,
-                  "impact": null,
-                  "note": ""
+                  "result": "MINOR",
+                  "impact": "C",
+                  "note": "De lijst lijkt meestal bruikbaar als werkoverzicht, maar is geen volledig formele of altijd uniforme dataset. Het nut zit vooral in structureren van werk, niet in harde bronregistratie."
                 },
                 "duidelijkheid": {
-                  "result": null,
-                  "impact": null,
-                  "note": ""
+                  "result": "MINOR",
+                  "impact": "C",
+                  "note": "Voor degene die ermee werkt is de lijst meestal duidelijk genoeg. Maar omdat dit ook een persoonlijke of lokaal opgebouwde werkwijze kan zijn, is die niet altijd voor iedereen op exact dezelfde manier leesbaar of overdraagbaa"
                 },
                 "tijdigheid": {
-                  "result": null,
+                  "result": "GOOD",
                   "impact": null,
                   "note": ""
                 },
                 "standaard": {
-                  "result": null,
-                  "impact": null,
-                  "note": ""
+                  "result": "MODERATE",
+                  "impact": "B",
+                  "note": "Niet iedereen werkt op dezelfde manier met zo’n lijst. De één gebruikt notities of een overzicht, de ander doet veel uit het hoofd. Daardoor ontbreekt een vaste uniforme standaard."
                 },
                 "overdracht": {
-                  "result": null,
-                  "impact": null,
-                  "note": ""
+                  "result": "MODERATE",
+                  "impact": "B",
+                  "note": "Omdat de lijst niet altijd formeel en centraal is vastgelegd, is de overdracht naar anderen minder sterk. Andere collega’s kunnen daardoor minder makkelijk direct aansluiten of overnemen."
                 }
               },
               "systemData": {
@@ -57581,6 +57584,7 @@
                   "multi": true,
                   "systems": [
                     {
+                      "id": "7f21848d-eae2-4895-bff7-219a9c296262",
                       "name": "Zenya",
                       "legacy": false,
                       "future": "",
@@ -57629,34 +57633,34 @@
               "improvements": [],
               "qa": {
                 "compleet": {
-                  "result": null,
-                  "impact": null,
-                  "note": ""
+                  "result": "MINOR",
+                  "impact": "B",
+                  "note": "Het overzicht bevat veel van de benodigde voorbereidingsinformatie, maar is vaak nog niet voldoende om zonder verdere acties door te kunnen. De medewerker moet nog rekening houden met PET, MRI, consultvolgorde, MKA, mouldroom en harde deadlines."
                 },
                 "kwaliteit": {
-                  "result": null,
-                  "impact": null,
-                  "note": ""
+                  "result": "MINOR",
+                  "impact": "B",
+                  "note": "De informatie is meestal bruikbaar, maar staat onder druk door korte termijnen, afhankelijkheden en wijzigingen. Daardoor moet de medewerker geregeld controleren of alles echt nog klopt."
                 },
                 "duidelijkheid": {
-                  "result": null,
-                  "impact": null,
-                  "note": ""
+                  "result": "MINOR",
+                  "impact": "B",
+                  "note": "De hoofd-halsroute kent duidelijke kaders, maar de input is niet altijd direct één-op-één uitvoerbaar. De combinatie van meerdere voorbereidende stappen vraagt nog afstemming en interpretatie."
                 },
                 "tijdigheid": {
-                  "result": null,
-                  "impact": null,
-                  "note": ""
+                  "result": "MODERATE",
+                  "impact": "B",
+                  "note": "In de transcriptie komt duidelijk terug dat dit proces onder harde deadlines staat, zoals PET-plekken die voor vrijdag 11:00 moeten worden doorgegeven. Daardoor moet onder tijdsdruk gewerkt en afgestemd worden."
                 },
                 "standaard": {
-                  "result": null,
-                  "impact": null,
-                  "note": ""
+                  "result": "MINOR",
+                  "impact": "C",
+                  "note": "De route is inhoudelijk redelijk strak georganiseerd, met duidelijke stappen en bekende voorbereidingen. De standaard is dus best goed, maar wordt in de praktijk belast door uitzonderingen en afhankelijkheden."
                 },
                 "overdracht": {
-                  "result": null,
-                  "impact": null,
-                  "note": ""
+                  "result": "MINOR",
+                  "impact": "B",
+                  "note": "De overdracht geeft meestal voldoende houvast om te starten, maar is niet altijd volledig stabiel. Daardoor moet de medewerker zelf nog monitoren, controleren en bijsturen."
                 }
               },
               "systemData": {
@@ -58149,6 +58153,7 @@
                   "multi": false,
                   "systems": [
                     {
+                      "id": "04966987-f7cb-4d38-9885-e416d891d206",
                       "name": "Mondeling",
                       "legacy": false,
                       "future": "",
@@ -58199,32 +58204,32 @@
                 "compleet": {
                   "result": "MODERATE",
                   "impact": "A",
-                  "note": "Arts vragen om in te vullen. Niet alles doorgeven\nNiks terugkoppelen"
+                  "note": "De planningsinstructie en start van de standaardroute zijn vaak grotendeels bekend, maar niet altijd volledig. Als informatie ontbreekt of de aanvraag nog niet goed is ingevuld, kan niet verantwoord gestart worden."
                 },
                 "kwaliteit": {
                   "result": "MODERATE",
-                  "impact": "A",
-                  "note": "Sommige artsen vullen te laat of onvolledig in"
+                  "impact": "B",
+                  "note": "De informatie is bruikbaar als de arts alles correct invult. In de praktijk moet echter regelmatig gecontroleerd of aangevuld worden, omdat niet alles volledig of correct is vastgelegd."
                 },
                 "duidelijkheid": {
                   "result": "MODERATE",
-                  "impact": "B",
-                  "note": ""
+                  "impact": "A",
+                  "note": "De standaardroute is niet altijd volledig eenduidig in de input. Artsen geven soms mondeling extra informatie of gebruiken eigen formuleringen, waardoor verduidelijking nodig blijft voordat veilig gestart kan worden."
                 },
                 "tijdigheid": {
                   "result": "MINOR",
                   "impact": "B",
-                  "note": ""
+                  "note": "De input is er meestal wel ongeveer op tijd, maar niet altijd volledig of in de juiste vorm. Dat zorgt ervoor dat de medewerker alsnog moet wachten of navragen."
                 },
                 "standaard": {
                   "result": "MINOR",
                   "impact": "B",
-                  "note": "Aanvraagformulier is gestandaardiseerd/ mondeling niet natuurlijk"
+                  "note": "Er is een vaste route en bekende werkwijze, maar de invoer door artsen volgt die niet altijd volledig volgens afspraak. Daardoor blijft extra controle nodig."
                 },
                 "overdracht": {
-                  "result": "MINOR",
-                  "impact": "B",
-                  "note": ""
+                  "result": "MODERATE",
+                  "impact": "A",
+                  "note": "Als de standaardroute mondeling is afgestemd maar nog niet goed in het systeem of formulier staat, is de overdracht onvoldoende om verantwoord door te werken."
                 }
               },
               "systemData": {
@@ -58716,6 +58721,7 @@
                   "multi": false,
                   "systems": [
                     {
+                      "id": "915ff44c-645e-4ef6-87a9-e67ec0a8d067",
                       "name": "Mondeling",
                       "legacy": false,
                       "future": "",
@@ -58764,34 +58770,34 @@
               "improvements": [],
               "qa": {
                 "compleet": {
-                  "result": null,
-                  "impact": null,
-                  "note": ""
+                  "result": "MINOR",
+                  "impact": "A",
+                  "note": "De planningsinstructie is vaak in grote lijnen bekend, maar niet altijd volledig genoeg om direct alle voorbereidingsafspraken te kunnen vertalen naar concrete planning. In de transcriptie komt terug dat artsen soms nog iets vergeten, dat niet alles in het aanvraagformulier staat, of dat aanvullende informatie pas later mondeling wordt gegeven. Dan ontbreekt essentiële input om correct verder te kunnen."
                 },
                 "kwaliteit": {
-                  "result": null,
-                  "impact": null,
-                  "note": ""
+                  "result": "MINOR",
+                  "impact": "B",
+                  "note": "De ontvangen informatie is meestal bruikbaar als basis, maar niet altijd volledig correct of volledig vastgelegd. Daardoor moet de medewerker extra controleren, vergelijken of navragen voordat de instructie veilig kan worden omgezet naar afspraken."
                 },
                 "duidelijkheid": {
-                  "result": null,
-                  "impact": null,
-                  "note": ""
+                  "result": "MODERATE",
+                  "impact": "A",
+                  "note": "De input is niet altijd eenduidig. Artsen geven soms mondelinge aanvullingen, gebruiken verschillende termen of laten interpretatieruimte over. Juist bij het vertalen van instructies naar concrete voorbereidingsafspraken is dat risicovol, omdat onduidelijkheid direct kan leiden tot verkeerde of onvolledige planning"
                 },
                 "tijdigheid": {
-                  "result": null,
-                  "impact": null,
-                  "note": ""
+                  "result": "MINOR",
+                  "impact": "B",
+                  "note": "De informatie is vaak wel ongeveer op tijd beschikbaar, maar niet altijd volledig op het moment dat de medewerker deze nodig heeft. Daardoor moet soms gewacht, nagebeld of later opnieuw gecontroleerd worden."
                 },
                 "standaard": {
-                  "result": null,
-                  "impact": null,
-                  "note": ""
+                  "result": "MINOR",
+                  "impact": "B",
+                  "note": "Er is wel een standaardroute en een afgesproken werkwijze, maar de input volgt die standaard niet altijd consequent. Als artsen afwijken in formulering of volledigheid, moet de medewerker zelf de vertaalslag corrigeren of aanvull"
                 },
                 "overdracht": {
-                  "result": null,
-                  "impact": null,
-                  "note": ""
+                  "result": "MODERATE",
+                  "impact": "A",
+                  "note": "De overdracht is niet altijd volledig en correct bijgewerkt in de bronsystemen op het moment dat dit nodig is. Als de standaardroute wel mondeling is gestart, maar nog niet goed in formulier of systeem staat, is de registratie onvoldoende betrouwbaar om verantwoord de voorbereidingsafspraken uit te werken."
                 }
               },
               "systemData": {
@@ -59282,6 +59288,7 @@
                   "multi": false,
                   "systems": [
                     {
+                      "id": "a3cea21e-8b1d-4e58-a9c5-20c8737e61a8",
                       "name": "Radiotherapie Web",
                       "legacy": false,
                       "future": "",
@@ -59330,34 +59337,34 @@
               "improvements": [],
               "qa": {
                 "compleet": {
-                  "result": null,
-                  "impact": null,
-                  "note": ""
+                  "result": "MINOR",
+                  "impact": "A",
+                  "note": "Prescriptie en aanvraagformulier zijn essentieel. Als die niet volledig zijn ingevuld, ontbreekt cruciale informatie voor verdere planning en voorbereiding. Dan kan het proces niet goed starten of afronden."
                 },
                 "kwaliteit": {
-                  "result": null,
-                  "impact": null,
-                  "note": ""
+                  "result": "MINOR",
+                  "impact": "B",
+                  "note": "Als de arts het goed invult, is de input goed bruikbaar. In de transcriptie komt echter vaak terug dat formulieren onvolledig, onjuist of niet zorgvuldig genoeg zijn ingevuld. Daardoor is extra controle nodig."
                 },
                 "duidelijkheid": {
-                  "result": null,
-                  "impact": null,
-                  "note": ""
+                  "result": "MODERATE",
+                  "impact": "A",
+                  "note": "Artsen gebruiken soms eigen terminologie of noteren zaken anders dan afgesproken. Daardoor is niet altijd direct duidelijk wat precies bedoeld wordt en moet verduidelijking worden gevraagd."
                 },
                 "tijdigheid": {
-                  "result": null,
-                  "impact": null,
-                  "note": ""
+                  "result": "MODERATE",
+                  "impact": "A",
+                  "note": "De informatie is niet altijd beschikbaar op het moment dat die nodig is. Soms koppelt een arts al mondeling iets terug terwijl de prescriptie of het aanvraagformulier nog niet compleet is ingevuld. Dan kan niet verantwoord verder worden gewerkt"
                 },
                 "standaard": {
-                  "result": null,
-                  "impact": null,
-                  "note": ""
+                  "result": "MODERATE",
+                  "impact": "B",
+                  "note": "Er zijn duidelijke formats en afspraken, maar die worden niet altijd gevolgd. Afwijkende termen, onvolledige invulling en verschillende werkwijzen maken dat de standaardisatie in de praktijk onvoldoende stabiel is."
                 },
                 "overdracht": {
-                  "result": null,
-                  "impact": null,
-                  "note": ""
+                  "result": "MODERATE",
+                  "impact": "A",
+                  "note": "Als prescriptie en aanvraagformulier niet goed of niet volledig in de systemen staan, is de overdracht niet betrouwbaar genoeg. Dat blokkeert de taak, omdat de medewerker niet alleen op mondelinge overdracht kan varen."
                 }
               },
               "systemData": {
@@ -59847,6 +59854,7 @@
                   "multi": true,
                   "systems": [
                     {
+                      "id": "f1bd3dd3-5fb8-4dbd-b451-37fb34e711ee",
                       "name": "Epic",
                       "legacy": false,
                       "future": "",
@@ -59865,6 +59873,7 @@
                       "score": 40
                     },
                     {
+                      "id": "5ba477b1-38c2-4340-b8a4-2fbe14c4ceb8",
                       "name": "Radiotherapie Web",
                       "legacy": false,
                       "future": "",
@@ -59913,28 +59922,34 @@
               "improvements": [],
               "qa": {
                 "compleet": {
-                  "result": "",
-                  "note": ""
+                  "result": "MODERATE",
+                  "impact": "A",
+                  "note": "Er komt duidelijk naar voren dat orders voor CT, MRI of PET regelmatig ontbreken, verkeerd zijn aangemaakt of dat aanvullende beeldvorming niet is mee-ordered. Zonder juiste order kan het afsprakenbureau niet verantwoord verder met plannen."
                 },
                 "kwaliteit": {
-                  "result": "",
-                  "note": ""
+                  "result": "MODERATE",
+                  "impact": "B",
+                  "note": "De order is niet altijd correct. Er worden bijvoorbeeld verkeerde orders gebruikt of een standaard CT-order waar een specifieke order nodig is. Daardoor moet de medewerker controleren, vergelijken en de arts benaderen om het te laten corrigeren."
                 },
                 "duidelijkheid": {
-                  "result": "",
-                  "note": ""
+                  "result": "MINOR",
+                  "impact": "B",
+                  "note": "In principe is duidelijk dat er een order moet zijn, maar de invulling is niet altijd eenduidig genoeg. Bij foutieve of onvolledige orders moet alsnog worden nagevraagd wat precies bedoeld is."
                 },
                 "tijdigheid": {
-                  "result": "",
-                  "note": ""
+                  "result": "MODERATE",
+                  "impact": "A",
+                  "note": "De order is niet altijd beschikbaar op het moment dat die nodig is. In de transcriptie wordt meerdere keren genoemd dat artsen orders vergeten of pas later aanmaken. Dan loopt het proces direct vast."
                 },
                 "standaard": {
-                  "result": "",
-                  "note": ""
+                  "result": "MODERATE",
+                  "impact": "B",
+                  "note": "Er zijn wel vaste soorten orders, maar artsen gebruiken niet altijd de juiste order of volgen de afspraak niet consequent. Daardoor is de input in de praktijk onvoldoende gestandaardiseerd."
                 },
                 "overdracht": {
-                  "result": "",
-                  "note": ""
+                  "result": "MODERATE",
+                  "impact": "A",
+                  "note": "Als de order niet goed of niet volledig in Epic/Radiotherapie Web staat, is de overdracht in de bronsystemen niet op orde. Dan kan het afsprakenbureau niet veilig doorwerken."
                 }
               },
               "systemData": {
@@ -59972,7 +59987,8 @@
                 "onPassTargetProcessId": null,
                 "rule": "ALL_OK",
                 "note": ""
-              }
+              },
+              "linkedSourceIds": []
             },
             {
               "id": "4657904c-bf70-4410-9694-1ce3975e2c4e",
@@ -60421,6 +60437,7 @@
                   "multi": false,
                   "systems": [
                     {
+                      "id": "adda3839-60b2-40da-806b-850fac96c935",
                       "name": "",
                       "legacy": false,
                       "future": "",
@@ -60468,34 +60485,34 @@
               "improvements": [],
               "qa": {
                 "compleet": {
-                  "result": "MODERATE",
-                  "impact": "B",
-                  "note": "Bellen naar arts"
+                  "result": "MINOR",
+                  "impact": "A",
+                  "note": "Als de CT-order er is, kan de medewerker verder. Maar als die ontbreekt, is het direct blokkerend. In de transcriptie wordt genoemd dat dit vaak voorkomt.\n"
                 },
                 "kwaliteit": {
-                  "result": "GOOD",
-                  "impact": null,
-                  "note": ""
+                  "result": "MINOR",
+                  "impact": "B",
+                  "note": "De CT-order is meestal bruikbaar als die eenmaal aanwezig is, maar soms is het de verkeerde order. Dan moet dit hersteld worden via contact met de arts."
                 },
                 "duidelijkheid": {
-                  "result": "GOOD",
-                  "impact": null,
-                  "note": ""
+                  "result": "MINOR",
+                  "impact": "C",
+                  "note": "Meestal is duidelijk welke CT-order bedoeld is. Het probleem zit vooral niet in interpretatie, maar in ontbreken of verkeerd aanmaken."
                 },
                 "tijdigheid": {
-                  "result": "GOOD",
-                  "impact": null,
-                  "note": ""
+                  "result": "MODERATE",
+                  "impact": "A",
+                  "note": "De medewerker kan deze stap pas doen als de order er daadwerkelijk staat. Als de arts deze te laat aanmaakt, ligt de taak stil."
                 },
                 "standaard": {
-                  "result": "GOOD",
-                  "impact": null,
-                  "note": ""
+                  "result": "MINOR",
+                  "impact": "C",
+                  "note": "Er is een standaard manier van werken met CT-orders, maar in de praktijk gaat het fout wanneer de verkeerde order wordt gekozen."
                 },
                 "overdracht": {
-                  "result": "GOOD",
-                  "impact": null,
-                  "note": ""
+                  "result": "MINOR",
+                  "impact": "B",
+                  "note": "De overdracht is meestal voldoende zodra de CT-order aanwezig is, maar als die ontbreekt of fout is, moet de medewerker actief corrigeren of navragen."
                 }
               },
               "systemData": {
@@ -60985,6 +61002,7 @@
                   "multi": false,
                   "systems": [
                     {
+                      "id": "fb0303df-4fb2-41e4-82ac-b3ef77404462",
                       "name": "Radiotherapie Web",
                       "legacy": false,
                       "future": "",
@@ -61035,32 +61053,32 @@
                 "compleet": {
                   "result": "MINOR",
                   "impact": "A",
-                  "note": ""
+                  "note": "Het aanvraagformulier bevat vaak de kerninformatie, maar is niet altijd volledig ingevuld. Als essentiële gegevens ontbreken, kan de medewerker niet verantwoord verder."
                 },
                 "kwaliteit": {
-                  "result": "GOOD",
-                  "impact": null,
-                  "note": ""
+                  "result": "MINOR",
+                  "impact": "B",
+                  "note": "De kwaliteit van het formulier zelf is goed, maar de manier waarop artsen het invullen is wisselend. Daardoor moet informatie gecontroleerd of aangevuld worden.\n"
                 },
                 "duidelijkheid": {
-                  "result": "FAIL",
-                  "impact": "A",
-                  "note": "Artsen gebruiken hun eigen terminologie gebruiken terwijl dat niet afgesproke is. "
-                },
-                "tijdigheid": {
                   "result": "MODERATE",
                   "impact": "A",
-                  "note": "Artsen hebben vaak geen aanvraagformulier ingevuld. "
+                  "note": "Artsen gebruiken soms verschillende termen of noteren zaken anders dan afgesproken. Daardoor is niet altijd duidelijk wat precies bedoeld wordt voor de CT-voorbereiding."
+                },
+                "tijdigheid": {
+                  "result": "MINOR",
+                  "impact": "B",
+                  "note": "Het formulier is vaak wel beschikbaar, maar niet altijd volledig of op tijd ingevuld. Daardoor moet de medewerker wachten of de arts benaderen."
                 },
                 "standaard": {
-                  "result": "GOOD",
-                  "impact": null,
-                  "note": ""
+                  "result": "MODERATE",
+                  "impact": "B",
+                  "note": "Er is een standaard formulier, maar de invulling door artsen is niet altijd conform afspraak. Dat veroorzaakt uitzoekwerk."
                 },
                 "overdracht": {
-                  "result": "GOOD",
-                  "impact": null,
-                  "note": ""
+                  "result": "MODERATE",
+                  "impact": "A",
+                  "note": "Als het formulier niet goed in het systeem staat of niet volledig is ingevuld, is de overdracht onvoldoende om veilig verder te gaan."
                 }
               },
               "systemData": {
@@ -61550,6 +61568,7 @@
                   "multi": true,
                   "systems": [
                     {
+                      "id": "13a45c54-005f-4660-b400-2e271842fc1e",
                       "name": "Epic",
                       "legacy": false,
                       "future": "",
@@ -61567,6 +61586,7 @@
                       "score": 53
                     },
                     {
+                      "id": "2acdfc16-113a-4d21-a448-bbae9d129c46",
                       "name": "Radiotherapie Web",
                       "legacy": false,
                       "future": "",
@@ -62126,6 +62146,7 @@
                   "multi": false,
                   "systems": [
                     {
+                      "id": "e49ff3dd-c0bc-4f21-82be-b17f8f498a0b",
                       "name": "Epic",
                       "legacy": false,
                       "future": "",
@@ -62687,6 +62708,7 @@
                   "multi": false,
                   "systems": [
                     {
+                      "id": "61163729-82b7-4492-8a67-3910c5689dce",
                       "name": "Epic",
                       "legacy": false,
                       "future": "",
@@ -63263,6 +63285,7 @@
                   "multi": false,
                   "systems": [
                     {
+                      "id": "23fa7857-8f7f-40ba-bdbb-57506788d4d0",
                       "name": "Radiotherapie Web",
                       "legacy": false,
                       "future": "",
@@ -63826,6 +63849,7 @@
                   "multi": true,
                   "systems": [
                     {
+                      "id": "10768fbd-3b4b-48f2-bf1d-83db4e8f0fec",
                       "name": "Epic",
                       "legacy": false,
                       "future": "",
@@ -63843,6 +63867,7 @@
                       "score": 40
                     },
                     {
+                      "id": "58aa99d2-7ca1-43f7-aa56-a68f768961ef",
                       "name": "Radiotherapie Web",
                       "legacy": false,
                       "future": "",
@@ -64407,6 +64432,7 @@
                   "multi": false,
                   "systems": [
                     {
+                      "id": "a4cce1d6-cd7e-44fd-bdb4-999d6aae4be0",
                       "name": "Epic",
                       "legacy": false,
                       "future": "",
@@ -64967,6 +64993,7 @@
                   "multi": false,
                   "systems": [
                     {
+                      "id": "1498cbec-9cce-4933-a138-1679c103913c",
                       "name": "Epic",
                       "legacy": false,
                       "future": "",
@@ -65529,6 +65556,7 @@
                   "multi": false,
                   "systems": [
                     {
+                      "id": "0e862cb9-cd0b-4555-bc1f-ea9071e81e7f",
                       "name": "Radiotherapie Web",
                       "legacy": false,
                       "future": "",
@@ -66091,6 +66119,7 @@
                   "multi": true,
                   "systems": [
                     {
+                      "id": "70c5cb65-8a6c-4430-be52-2f95cbe9a6ff",
                       "name": "Radiotherapie Web",
                       "legacy": false,
                       "future": "",
@@ -66105,6 +66134,7 @@
                       "score": 80
                     },
                     {
+                      "id": "6bf74f5f-91ed-4d0b-aed7-755ed7d04712",
                       "name": "Epic",
                       "legacy": false,
                       "future": "",
@@ -66669,6 +66699,7 @@
                   "multi": false,
                   "systems": [
                     {
+                      "id": "68043e35-c492-44dc-9355-931f407b29ae",
                       "name": "Epic",
                       "legacy": false,
                       "future": "",
@@ -67233,6 +67264,7 @@
                   "multi": false,
                   "systems": [
                     {
+                      "id": "f2e35d90-21f3-4d7c-94af-d7a3a74eadb8",
                       "name": "Epic",
                       "legacy": false,
                       "future": "",
@@ -67804,6 +67836,7 @@
                   "multi": false,
                   "systems": [
                     {
+                      "id": "c3ddc99b-21d2-452a-8fae-8ede9dd51980",
                       "name": "Epic",
                       "legacy": false,
                       "future": "",
@@ -68374,6 +68407,7 @@
                   "multi": false,
                   "systems": [
                     {
+                      "id": "38ba1850-6e0c-4be4-991a-c86c199ebab7",
                       "name": "Epic",
                       "legacy": false,
                       "future": "",
@@ -68934,6 +68968,7 @@
                   "multi": false,
                   "systems": [
                     {
+                      "id": "c3bf4a4a-8133-4b05-866c-26acb47e9b4d",
                       "name": "Radiotherapie Web",
                       "legacy": false,
                       "future": "",
