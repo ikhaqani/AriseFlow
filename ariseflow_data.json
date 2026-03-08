@@ -52652,7 +52652,7 @@
               "text": "Overdragen planningsinstructies",
               "linkedSourceId": null,
               "type": "Taak",
-              "processValue": "BNVA",
+              "processValue": "NVA",
               "processStatus": "SAD",
               "successFactors": "",
               "causes": [
@@ -56063,7 +56063,7 @@
               "created": 1771416661313,
               "text": "Hoofd-hals route starten",
               "linkedSourceId": null,
-              "type": null,
+              "type": "Taak",
               "processValue": "BNVA",
               "processStatus": "NEUTRAL",
               "successFactors": "",
@@ -56644,7 +56644,7 @@
               "text": "Lijst met actiepunten opstellen",
               "linkedSourceId": null,
               "type": "Taak",
-              "processValue": "BNVA",
+              "processValue": "NVA",
               "processStatus": "NEUTRAL",
               "successFactors": "",
               "causes": [
@@ -57278,7 +57278,7 @@
                   "workaround": "De planner moet razendsnel tussen schermen schakelen en de complexe afhankelijkheden in het eigen geheugen opslaan en combineren."
                 }
               ],
-              "workExp": null,
+              "workExp": "OBSTACLE",
               "workExpNote": "Net als bij de voorgaande routes geeft deze specifieke planner aan: \"Ik doe alles uit mijn hoofd. Ik combineer heel snel alles met systemen.\" Vanuit een kritisch Lean-perspectief is dit een enorm risico. Het volledig leunen op de cognitieve capaciteit en het kortetermijngeheugen van één medewerker voor hoogcomplexe medische planningen (waarbij collega's wel lijstjes maken) is de definitie van een ongestandaardiseerd proces.",
               "linkedSourceUids": [],
               "linkedBundleIds": [],
@@ -61631,34 +61631,34 @@
               "improvements": [],
               "qa": {
                 "compleet": {
-                  "result": null,
+                  "result": "GOOD",
                   "impact": null,
                   "note": ""
                 },
                 "kwaliteit": {
-                  "result": null,
+                  "result": "GOOD",
                   "impact": null,
                   "note": ""
                 },
                 "duidelijkheid": {
-                  "result": null,
+                  "result": "GOOD",
                   "impact": null,
                   "note": ""
                 },
                 "tijdigheid": {
-                  "result": null,
-                  "impact": null,
-                  "note": ""
+                  "result": "MINOR",
+                  "impact": "B",
+                  "note": "Als de controle op orde is, kan het zoeken van een slot goed starten. Alleen in de praktijk kost vertraging eerder in het proces soms tijd, waardoor dit niet altijd direct op het juiste moment kan beginnen."
                 },
                 "standaard": {
-                  "result": null,
+                  "result": "GOOD",
                   "impact": null,
                   "note": ""
                 },
                 "overdracht": {
-                  "result": null,
-                  "impact": null,
-                  "note": ""
+                  "result": "MINOR",
+                  "impact": "C",
+                  "note": "De gecontroleerde status is meestal voldoende om door te gaan. Kleine frictie ontstaat alleen als iets wel gecontroleerd lijkt, maar later toch niet helemaal klopt."
                 }
               },
               "systemData": {
@@ -62194,32 +62194,32 @@
               "improvements": [],
               "qa": {
                 "compleet": {
-                  "result": null,
+                  "result": "GOOD",
                   "impact": null,
                   "note": ""
                 },
                 "kwaliteit": {
-                  "result": null,
+                  "result": "GOOD",
                   "impact": null,
                   "note": ""
                 },
                 "duidelijkheid": {
-                  "result": null,
+                  "result": "GOOD",
                   "impact": null,
                   "note": ""
                 },
                 "tijdigheid": {
-                  "result": null,
-                  "impact": null,
-                  "note": ""
+                  "result": "MINOR",
+                  "impact": "B",
+                  "note": "De planner laat zien dat CT soms vol zit of dicht is. Als er wel een slot is gevonden, kan ingepland worden, maar het op tijd vinden van zo’n slot lukt niet altijd zonder extra afstemming."
                 },
                 "standaard": {
-                  "result": null,
+                  "result": "GOOD",
                   "impact": null,
                   "note": ""
                 },
                 "overdracht": {
-                  "result": null,
+                  "result": "GOOD",
                   "impact": null,
                   "note": ""
                 }
@@ -62758,33 +62758,33 @@
               "qa": {
                 "compleet": {
                   "result": "MINOR",
-                  "impact": "B",
-                  "note": ""
+                  "impact": "A",
+                  "note": "Als de MRI-order aanwezig is, kan verder gewerkt worden. Maar in de transcriptie wordt genoemd dat MRI-orders soms ontbreken of niet goed zijn aangevraagd. Dan is dit blokkerend."
                 },
                 "kwaliteit": {
                   "result": "MINOR",
                   "impact": "B",
-                  "note": "MRI vergeten ze soms"
+                  "note": "De MRI-order is meestal bruikbaar, maar niet altijd correct. Soms past de order niet op het juiste MRI-blok of is aanvullende actie nodig, bijvoorbeeld bij pacemakers."
                 },
                 "duidelijkheid": {
-                  "result": "GOOD",
-                  "impact": null,
-                  "note": ""
+                  "result": "MINOR",
+                  "impact": "C",
+                  "note": "Meestal is duidelijk dat er een MRI nodig is. De grootste problemen zitten niet in interpretatie, maar in de juistheid en planbaarheid van de order."
                 },
                 "tijdigheid": {
-                  "result": "GOOD",
-                  "impact": null,
-                  "note": ""
+                  "result": "MODERATE",
+                  "impact": "A",
+                  "note": "Als de order ontbreekt of te laat beschikbaar is, kan de medewerker niet doorgaan met deze stap."
                 },
                 "standaard": {
-                  "result": "GOOD",
-                  "impact": null,
-                  "note": ""
+                  "result": "MINOR",
+                  "impact": "C",
+                  "note": "Er is een vaste werkwijze voor MRI-orders, maar die wordt niet altijd volledig correct gevolgd."
                 },
                 "overdracht": {
-                  "result": "GOOD",
-                  "impact": null,
-                  "note": ""
+                  "result": "MINOR",
+                  "impact": "B",
+                  "note": "Zodra de MRI-order niet juist of volledig in het systeem staat, moet de medewerker schakelen met arts of andere partijen om dit recht te zetten."
                 }
               },
               "systemData": {
@@ -63332,34 +63332,34 @@
               "improvements": [],
               "qa": {
                 "compleet": {
-                  "result": null,
-                  "impact": null,
-                  "note": ""
+                  "result": "MINOR",
+                  "impact": "A",
+                  "note": "Het aanvraagformulier moet duidelijk maken dat er een MRI nodig is en waarom. Als dit ontbreekt of niet volledig is, kan de medewerker niet verantwoord doorgaan."
                 },
                 "kwaliteit": {
-                  "result": null,
-                  "impact": null,
-                  "note": ""
+                  "result": "MINOR",
+                  "impact": "B",
+                  "note": "De inhoud is meestal bruikbaar, maar niet altijd volledig of zorgvuldig ingevuld. Daardoor is controle of navraag nodig."
                 },
                 "duidelijkheid": {
-                  "result": null,
-                  "impact": null,
-                  "note": ""
+                  "result": "MINOR",
+                  "impact": "B",
+                  "note": "De planner geeft aan dat het niet altijd meteen helder is of alles wat nodig is ook echt in het formulier staat. Daardoor moet soms geïnterpreteerd of nagevraagd worden.\n"
                 },
                 "tijdigheid": {
-                  "result": null,
-                  "impact": null,
-                  "note": ""
+                  "result": "MINOR",
+                  "impact": "B",
+                  "note": "Het formulier is vaak beschikbaar, maar niet altijd volledig op het moment dat het nodig is. Dat zorgt voor vertraging en navraag."
                 },
                 "standaard": {
-                  "result": null,
-                  "impact": null,
-                  "note": ""
+                  "result": "MODERATE",
+                  "impact": "B",
+                  "note": "Hoewel er een vast formulier is, volgen artsen de standaard niet altijd consequent in hun invulling."
                 },
                 "overdracht": {
-                  "result": null,
-                  "impact": null,
-                  "note": ""
+                  "result": "MODERATE",
+                  "impact": "A",
+                  "note": "Als de benodigde informatie niet goed in het formulier en systeem staat, is de overdracht onvoldoende om veilig verder te gaan."
                 }
               },
               "systemData": {
@@ -63912,34 +63912,34 @@
               "improvements": [],
               "qa": {
                 "compleet": {
-                  "result": null,
+                  "result": "GOOD",
                   "impact": null,
                   "note": ""
                 },
                 "kwaliteit": {
-                  "result": null,
+                  "result": "GOOD",
                   "impact": null,
                   "note": ""
                 },
                 "duidelijkheid": {
-                  "result": null,
+                  "result": "GOOD",
                   "impact": null,
                   "note": ""
                 },
                 "tijdigheid": {
-                  "result": null,
-                  "impact": null,
-                  "note": ""
+                  "result": "MINOR",
+                  "impact": "B",
+                  "note": "De input om een MRI-slot te zoeken is dan in principe op orde. De vertraging zit vooral in de beschikbaarheid van MRI-blokken, die soms ineens dichtgezet worden door Radiologie."
                 },
                 "standaard": {
-                  "result": null,
+                  "result": "GOOD",
                   "impact": null,
                   "note": ""
                 },
                 "overdracht": {
-                  "result": null,
-                  "impact": null,
-                  "note": ""
+                  "result": "MINOR",
+                  "impact": "C",
+                  "note": "De interne overdracht is dan voldoende, maar de afstemming met Radiologie is niet altijd stabiel. Daardoor kan alsnog extra controle nodig zijn."
                 }
               },
               "systemData": {
@@ -64479,32 +64479,32 @@
               "improvements": [],
               "qa": {
                 "compleet": {
-                  "result": null,
+                  "result": "GOOD",
                   "impact": null,
                   "note": ""
                 },
                 "kwaliteit": {
-                  "result": null,
+                  "result": "GOOD",
                   "impact": null,
                   "note": ""
                 },
                 "duidelijkheid": {
-                  "result": null,
+                  "result": "GOOD",
                   "impact": null,
                   "note": ""
                 },
                 "tijdigheid": {
-                  "result": null,
-                  "impact": null,
-                  "note": ""
+                  "result": "MINOR",
+                  "impact": "B",
+                  "note": "Als een vrij MRI-slot is gevonden, kan meestal ingepland worden. In de praktijk kost het vinden van zo’n slot soms extra inspanning doordat blokken verdwijnen of beperkt beschikbaar zijn."
                 },
                 "standaard": {
-                  "result": null,
+                  "result": "GOOD",
                   "impact": null,
                   "note": ""
                 },
                 "overdracht": {
-                  "result": null,
+                  "result": "GOOD",
                   "impact": null,
                   "note": ""
                 }
@@ -65040,34 +65040,34 @@
               "improvements": [],
               "qa": {
                 "compleet": {
-                  "result": null,
-                  "impact": null,
-                  "note": ""
+                  "result": "MINOR",
+                  "impact": "A",
+                  "note": "Als de PET-order aanwezig is, kan het proces door. In de transcriptie komt echter terug dat orders regelmatig ontbreken of niet correct zijn aangevraagd. Zonder PET-order kan deze stap niet verantwoord uitgevoerd worden."
                 },
                 "kwaliteit": {
-                  "result": null,
-                  "impact": null,
-                  "note": ""
+                  "result": "MINOR",
+                  "impact": "B",
+                  "note": "De order is meestal bruikbaar als die correct is aangemaakt, maar soms staat de verkeerde order in Epic of klopt de aanvraag niet. Dan moet de medewerker dit controleren en laten herstellen."
                 },
                 "duidelijkheid": {
-                  "result": null,
-                  "impact": null,
-                  "note": ""
+                  "result": "MINOR",
+                  "impact": "C",
+                  "note": "Meestal is duidelijk dat er een PET nodig is. Het probleem zit minder in interpretatie en meer in het ontbreken of onjuist aanmaken van de order."
                 },
                 "tijdigheid": {
-                  "result": null,
-                  "impact": null,
-                  "note": ""
+                  "result": "MODERATE",
+                  "impact": "A",
+                  "note": "PET-planning kent harde deadlines. Als de PET-order niet op tijd beschikbaar is, kan het planningsverzoek niet tijdig worden uitgezet en loopt het proces vast."
                 },
                 "standaard": {
-                  "result": null,
-                  "impact": null,
-                  "note": ""
+                  "result": "MINOR",
+                  "impact": "C",
+                  "note": "Er is een vaste werkwijze rondom PET-orders, maar die wordt niet altijd consequent gevolgd. Daardoor ontstaat af en toe herstelwerk."
                 },
                 "overdracht": {
-                  "result": null,
-                  "impact": null,
-                  "note": ""
+                  "result": "MINOR",
+                  "impact": "B",
+                  "note": "Zodra de PET-order niet goed in Epic staat, moet de medewerker zelf schakelen om dit recht te zetten. De overdracht is dan niet volledig betrouwbaar."
                 }
               },
               "systemData": {
@@ -65602,34 +65602,34 @@
               "improvements": [],
               "qa": {
                 "compleet": {
-                  "result": null,
-                  "impact": null,
-                  "note": ""
+                  "result": "MINOR",
+                  "impact": "A",
+                  "note": "Het aanvraagformulier moet duidelijk maken dat een PET nodig is en wat de bedoeling is. Als die informatie ontbreekt of onvolledig is, kan niet veilig verder worden gewerkt."
                 },
                 "kwaliteit": {
-                  "result": null,
-                  "impact": null,
-                  "note": ""
+                  "result": "MINOR",
+                  "impact": "B",
+                  "note": "Het formulier is meestal bruikbaar, maar de invulling is niet altijd volledig of zorgvuldig. Daardoor moet informatie gecontroleerd of nagevraagd worden.\n"
                 },
                 "duidelijkheid": {
-                  "result": null,
-                  "impact": null,
-                  "note": ""
+                  "result": "MINOR",
+                  "impact": "B",
+                  "note": "In de transcriptie komt terug dat aanvraaginformatie niet altijd volledig of duidelijk is. Daardoor moet soms geïnterpreteerd worden of contact worden opgenomen met de arts."
                 },
                 "tijdigheid": {
-                  "result": null,
-                  "impact": null,
-                  "note": ""
+                  "result": "MINOR",
+                  "impact": "B",
+                  "note": "Het formulier is vaak wel beschikbaar, maar niet altijd volledig op het moment dat het nodig is. Door de korte PET-deadlines levert dat direct spanning op in het proces"
                 },
                 "standaard": {
-                  "result": null,
-                  "impact": null,
-                  "note": ""
+                  "result": "MODERATE",
+                  "impact": "B",
+                  "note": "Er is een standaardformulier, maar artsen volgen die standaard niet altijd consequent. Dat veroorzaakt controle- en herstelwerk."
                 },
                 "overdracht": {
-                  "result": null,
-                  "impact": null,
-                  "note": ""
+                  "result": "MODERATE",
+                  "impact": "A",
+                  "note": "Als het aanvraagformulier niet goed of niet volledig in het systeem staat, is de overdracht onvoldoende om verantwoord een PET-traject verder op te starten."
                 }
               },
               "systemData": {
@@ -66181,34 +66181,34 @@
               "improvements": [],
               "qa": {
                 "compleet": {
-                  "result": null,
+                  "result": "GOOD",
                   "impact": null,
                   "note": ""
                 },
                 "kwaliteit": {
-                  "result": null,
+                  "result": "GOOD",
                   "impact": null,
                   "note": ""
                 },
                 "duidelijkheid": {
-                  "result": null,
+                  "result": "GOOD",
                   "impact": null,
                   "note": ""
                 },
                 "tijdigheid": {
-                  "result": null,
-                  "impact": null,
-                  "note": ""
+                  "result": "MINOR",
+                  "impact": "B",
+                  "note": "Als order en formulier gecontroleerd zijn, is de input inhoudelijk op orde. De tijdsdruk blijft echter hoog, omdat het planningsverzoek vóór de deadline verstuurd moet worden."
                 },
                 "standaard": {
-                  "result": null,
+                  "result": "GOOD",
                   "impact": null,
                   "note": ""
                 },
                 "overdracht": {
-                  "result": null,
-                  "impact": null,
-                  "note": ""
+                  "result": "MINOR",
+                  "impact": "C",
+                  "note": "De interne overdracht is meestal voldoende om door te gaan. Kleine frictie ontstaat vooral doordat de vervolgpartij, nucleaire, niet altijd even nauwkeurig werkt.\n"
                 }
               },
               "systemData": {
@@ -66748,34 +66748,34 @@
               "improvements": [],
               "qa": {
                 "compleet": {
-                  "result": null,
+                  "result": "GOOD",
                   "impact": null,
                   "note": ""
                 },
                 "kwaliteit": {
-                  "result": null,
+                  "result": "GOOD",
                   "impact": null,
                   "note": ""
                 },
                 "duidelijkheid": {
-                  "result": null,
+                  "result": "GOOD",
                   "impact": null,
                   "note": ""
                 },
                 "tijdigheid": {
-                  "result": null,
+                  "result": "GOOD",
                   "impact": null,
                   "note": ""
                 },
                 "standaard": {
-                  "result": null,
+                  "result": "GOOD",
                   "impact": null,
                   "note": ""
                 },
                 "overdracht": {
-                  "result": null,
-                  "impact": null,
-                  "note": ""
+                  "result": "MINOR",
+                  "impact": "C",
+                  "note": "De status “verzonden/open” is voldoende om een herinnering aan te maken. De frictie zit niet in de input zelf, maar in het feit dat monitoring nodig blijft omdat de opvolging door nucleaire niet altijd betrouwbaar is."
                 }
               },
               "systemData": {
@@ -67311,34 +67311,34 @@
               "improvements": [],
               "qa": {
                 "compleet": {
-                  "result": null,
+                  "result": "GOOD",
                   "impact": null,
                   "note": ""
                 },
                 "kwaliteit": {
-                  "result": null,
+                  "result": "GOOD",
                   "impact": null,
                   "note": ""
                 },
                 "duidelijkheid": {
-                  "result": null,
+                  "result": "GOOD",
                   "impact": null,
                   "note": ""
                 },
                 "tijdigheid": {
-                  "result": null,
+                  "result": "GOOD",
                   "impact": null,
                   "note": ""
                 },
                 "standaard": {
-                  "result": null,
+                  "result": "GOOD",
                   "impact": null,
                   "note": ""
                 },
                 "overdracht": {
-                  "result": null,
-                  "impact": null,
-                  "note": ""
+                  "result": "MINOR",
+                  "impact": "C",
+                  "note": "De reminder is voldoende om monitoring uit te voeren. De noodzaak tot monitoren laat wel zien dat de keten niet volledig stabiel is, maar de input zelf is bruikbaar."
                 }
               },
               "systemData": {
@@ -67883,34 +67883,34 @@
               "improvements": [],
               "qa": {
                 "compleet": {
-                  "result": null,
+                  "result": "GOOD",
                   "impact": null,
                   "note": ""
                 },
                 "kwaliteit": {
-                  "result": null,
-                  "impact": null,
-                  "note": ""
+                  "result": "MINOR",
+                  "impact": "C",
+                  "note": "De status is in principe bruikbaar, maar alleen als die actueel en correct is bijgewerkt. Als nucleaire niet nauwkeurig werkt, moet de medewerker alsnog verifiëren of de status echt klopt."
                 },
                 "duidelijkheid": {
-                  "result": null,
+                  "result": "GOOD",
                   "impact": null,
                   "note": ""
                 },
                 "tijdigheid": {
-                  "result": null,
-                  "impact": null,
-                  "note": ""
+                  "result": "MINOR",
+                  "impact": "B",
+                  "note": "Deze stap draait juist om tijdigheid. Als de status niet op tijd of niet goed bijgewerkt is, moet actief worden nagejaagd om te voorkomen dat de deadline wordt gemist."
                 },
                 "standaard": {
-                  "result": null,
-                  "impact": null,
-                  "note": ""
+                  "result": "MINOR",
+                  "impact": "C",
+                  "note": "De statussen zijn op zich gestandaardiseerd, maar de opvolging ervan in de praktijk is niet altijd strak genoeg."
                 },
                 "overdracht": {
-                  "result": null,
-                  "impact": null,
-                  "note": ""
+                  "result": "MODERATE",
+                  "impact": "B",
+                  "note": "De transcriptie laat zien dat het afsprakenbureau de voortgang actief moet bewaken omdat niet volledig vertrouwd wordt op correcte terugkoppeling door nucleaire. Daardoor is de overdracht niet sterk genoeg om passief op te leunen."
                 }
               },
               "systemData": {
@@ -68453,34 +68453,34 @@
               "improvements": [],
               "qa": {
                 "compleet": {
-                  "result": null,
+                  "result": "GOOD",
                   "impact": null,
                   "note": ""
                 },
                 "kwaliteit": {
-                  "result": null,
+                  "result": "GOOD",
                   "impact": null,
                   "note": ""
                 },
                 "duidelijkheid": {
-                  "result": null,
+                  "result": "GOOD",
                   "impact": null,
                   "note": ""
                 },
                 "tijdigheid": {
-                  "result": null,
+                  "result": "GOOD",
                   "impact": null,
                   "note": ""
                 },
                 "standaard": {
-                  "result": null,
-                  "impact": null,
-                  "note": ""
+                  "result": "MINOR",
+                  "impact": "C",
+                  "note": "Het escalatiebesluit is duidelijk, maar het feit dat bellen nodig is laat zien dat dit onderdeel van de keten niet volledig via een standaard stabiel verloopt."
                 },
                 "overdracht": {
-                  "result": null,
-                  "impact": null,
-                  "note": ""
+                  "result": "MINOR",
+                  "impact": "C",
+                  "note": "Het besluit om te escaleren is voldoende om te bellen, maar volgt juist uit een eerdere tekortschietende overdracht in de keten."
                 }
               },
               "systemData": {
@@ -69013,34 +69013,34 @@
               "improvements": [],
               "qa": {
                 "compleet": {
-                  "result": null,
-                  "impact": null,
-                  "note": ""
+                  "result": "MINOR",
+                  "impact": "A",
+                  "note": "Prescriptie en aanvraagformulier zijn de kerninput voor het inplannen van voorbereidingen. Als deze niet volledig zijn ingevuld, ontbreekt essentiële informatie en kan niet verantwoord worden gepland."
                 },
                 "kwaliteit": {
-                  "result": null,
-                  "impact": null,
-                  "note": ""
+                  "result": "MINOR",
+                  "impact": "B",
+                  "note": "De documenten zijn bruikbaar als ze goed zijn ingevuld, maar in de transcriptie komt terug dat formulieren en orders geregeld onvolledig of onjuist zijn. Daardoor moet gecontroleerd en aangevuld worden."
                 },
                 "duidelijkheid": {
-                  "result": null,
-                  "impact": null,
-                  "note": ""
+                  "result": "MODERATE",
+                  "impact": "A",
+                  "note": "Artsen gebruiken niet altijd dezelfde termen of geven aanvullingen mondeling. Daardoor is niet altijd direct duidelijk wat precies gepland moet worden, en dat maakt doorgaan risicovol."
                 },
                 "tijdigheid": {
-                  "result": null,
-                  "impact": null,
-                  "note": ""
+                  "result": "MODERATE",
+                  "impact": "A",
+                  "note": "De informatie is niet altijd volledig beschikbaar op het moment dat deze nodig is. Zeker bij voorbereidingstrajecten met PET/MRI/CT en deadlines levert dat directe vertraging op."
                 },
                 "standaard": {
-                  "result": null,
-                  "impact": null,
-                  "note": ""
+                  "result": "MODERATE",
+                  "impact": "B",
+                  "note": "Er zijn duidelijke formats, maar die worden niet altijd consequent gevolgd. Daardoor blijft extra interpretatie en herstelwerk no"
                 },
                 "overdracht": {
-                  "result": null,
-                  "impact": null,
-                  "note": ""
+                  "result": "MODERATE",
+                  "impact": "A",
+                  "note": "Als prescriptie en aanvraagformulier niet correct en volledig in de systemen staan, is de overdracht niet betrouwbaar genoeg om veilig voorbereidingen in te plannen."
                 }
               },
               "systemData": {
