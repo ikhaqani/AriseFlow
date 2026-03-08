@@ -78407,7 +78407,7 @@
             {
               "id": "41fadbec-d428-4f3e-ae8a-2d3f4b7ddaa9",
               "created": 1772979612616,
-              "text": "",
+              "text": "Afsprakenbureau",
               "linkedSourceId": null,
               "type": null,
               "processValue": null,
@@ -78470,7 +78470,7 @@
             {
               "id": "126456ff-c6c2-4558-bfae-19e285f9a3d7",
               "created": 1772979612616,
-              "text": "",
+              "text": "Epic",
               "linkedSourceId": null,
               "type": null,
               "processValue": null,
@@ -78543,27 +78543,33 @@
               "improvements": [],
               "qa": {
                 "compleet": {
-                  "result": "",
+                  "result": null,
+                  "impact": null,
                   "note": ""
                 },
                 "kwaliteit": {
-                  "result": "",
+                  "result": null,
+                  "impact": null,
                   "note": ""
                 },
                 "duidelijkheid": {
-                  "result": "",
+                  "result": null,
+                  "impact": null,
                   "note": ""
                 },
                 "tijdigheid": {
-                  "result": "",
+                  "result": null,
+                  "impact": null,
                   "note": ""
                 },
                 "standaard": {
-                  "result": "",
+                  "result": null,
+                  "impact": null,
                   "note": ""
                 },
                 "overdracht": {
-                  "result": "",
+                  "result": null,
+                  "impact": null,
                   "note": ""
                 }
               },
@@ -78591,12 +78597,19 @@
               "inputDefinitions": [],
               "disruptions": [],
               "workExp": null,
-              "workExpNote": ""
+              "workExpNote": "",
+              "linkedBundleId": null,
+              "linkedBundleIds": null,
+              "linkedSourceUids": [
+                "out_9e429601-570a-40e6-8ad1-8472f85040fb"
+              ],
+              "linkedSourceUid": "out_9e429601-570a-40e6-8ad1-8472f85040fb",
+              "linkedSourceIds": []
             },
             {
               "id": "e6779a8f-e437-416e-85f3-55a5c9133317",
               "created": 1772979612616,
-              "text": "",
+              "text": "Afsprakenbureau",
               "linkedSourceId": null,
               "type": null,
               "processValue": null,
@@ -78659,7 +78672,7 @@
             {
               "id": "fcf4892c-d6b0-4923-a1d4-2b2f8ccb47f9",
               "created": 1772979612616,
-              "text": "",
+              "text": "POP-afspraak plannen",
               "linkedSourceId": null,
               "type": null,
               "processValue": null,
@@ -78722,7 +78735,7 @@
             {
               "id": "e56fbbac-f6f0-4e76-894f-b265b94adfab",
               "created": 1772979612616,
-              "text": "",
+              "text": "Geplande POP",
               "linkedSourceId": null,
               "type": null,
               "processValue": null,
@@ -78786,7 +78799,7 @@
             {
               "id": "b51a3a27-dd02-4ca2-aa12-fcdcb02fc403",
               "created": 1772979612616,
-              "text": "",
+              "text": "Patiënt / anesthesie / afsprakenbureau",
               "linkedSourceId": null,
               "type": null,
               "processValue": null,
@@ -78827,6 +78840,3184 @@
                 "systems": [
                   {
                     "id": "42298a18-827c-4d82-9aa1-2c587141e60f",
+                    "name": "",
+                    "isLegacy": false,
+                    "futureSystem": "",
+                    "qa": {
+                      "workarounds": null,
+                      "performance": null,
+                      "double": null,
+                      "error": null,
+                      "depend": null
+                    },
+                    "calculatedScore": null
+                  }
+                ]
+              },
+              "inputDefinitions": [],
+              "disruptions": [],
+              "workExp": null,
+              "workExpNote": ""
+            }
+          ]
+        },
+        {
+          "id": "f8d45afd-e06c-4a13-910c-112dd531a20a",
+          "order": 1,
+          "isVisible": true,
+          "isParallel": false,
+          "isVariant": false,
+          "hasTransition": false,
+          "transitionNext": "",
+          "outputId": null,
+          "slots": [
+            {
+              "id": "dcda60a0-5b50-4a06-b2ef-e836c475abdc",
+              "created": 1772980337531,
+              "text": "Arts / brachyteam",
+              "linkedSourceId": null,
+              "type": null,
+              "processValue": null,
+              "processStatus": null,
+              "successFactors": "",
+              "causes": [],
+              "improvements": [],
+              "qa": {
+                "compleet": {
+                  "result": "",
+                  "note": ""
+                },
+                "kwaliteit": {
+                  "result": "",
+                  "note": ""
+                },
+                "duidelijkheid": {
+                  "result": "",
+                  "note": ""
+                },
+                "tijdigheid": {
+                  "result": "",
+                  "note": ""
+                },
+                "standaard": {
+                  "result": "",
+                  "note": ""
+                },
+                "overdracht": {
+                  "result": "",
+                  "note": ""
+                }
+              },
+              "systemData": {
+                "isMulti": false,
+                "systemName": "",
+                "calculatedScore": null,
+                "systems": [
+                  {
+                    "id": "f0cbf052-6d80-4793-8853-381eb93defcd",
+                    "name": "",
+                    "isLegacy": false,
+                    "futureSystem": "",
+                    "qa": {
+                      "workarounds": null,
+                      "performance": null,
+                      "double": null,
+                      "error": null,
+                      "depend": null
+                    },
+                    "calculatedScore": null
+                  }
+                ]
+              },
+              "inputDefinitions": [],
+              "disruptions": [],
+              "workExp": null,
+              "workExpNote": ""
+            },
+            {
+              "id": "c9fced51-8df4-4818-8a27-f16dc0022cad",
+              "created": 1772980337531,
+              "text": "Epic / Snapboard",
+              "linkedSourceId": null,
+              "type": null,
+              "processValue": null,
+              "processStatus": null,
+              "successFactors": "",
+              "causes": [],
+              "improvements": [],
+              "qa": {
+                "compleet": {
+                  "result": "",
+                  "note": ""
+                },
+                "kwaliteit": {
+                  "result": "",
+                  "note": ""
+                },
+                "duidelijkheid": {
+                  "result": "",
+                  "note": ""
+                },
+                "tijdigheid": {
+                  "result": "",
+                  "note": ""
+                },
+                "standaard": {
+                  "result": "",
+                  "note": ""
+                },
+                "overdracht": {
+                  "result": "",
+                  "note": ""
+                }
+              },
+              "systemData": {
+                "isMulti": false,
+                "systemName": "",
+                "calculatedScore": null,
+                "systems": [
+                  {
+                    "id": "4c52f4b1-0b7f-4a1b-932d-2b937532598b",
+                    "name": "",
+                    "isLegacy": false,
+                    "futureSystem": "",
+                    "qa": {
+                      "workarounds": null,
+                      "performance": null,
+                      "double": null,
+                      "error": null,
+                      "depend": null
+                    },
+                    "calculatedScore": null
+                  }
+                ]
+              },
+              "inputDefinitions": [],
+              "disruptions": [],
+              "workExp": null,
+              "workExpNote": ""
+            },
+            {
+              "id": "a1867c22-91e6-403c-ba2a-eebf49a41800",
+              "created": 1772980337531,
+              "text": "Annuleringsverzoek",
+              "linkedSourceId": null,
+              "type": null,
+              "processValue": null,
+              "processStatus": null,
+              "successFactors": "",
+              "causes": [],
+              "improvements": [],
+              "qa": {
+                "compleet": {
+                  "result": "",
+                  "note": ""
+                },
+                "kwaliteit": {
+                  "result": "",
+                  "note": ""
+                },
+                "duidelijkheid": {
+                  "result": "",
+                  "note": ""
+                },
+                "tijdigheid": {
+                  "result": "",
+                  "note": ""
+                },
+                "standaard": {
+                  "result": "",
+                  "note": ""
+                },
+                "overdracht": {
+                  "result": "",
+                  "note": ""
+                }
+              },
+              "systemData": {
+                "isMulti": false,
+                "systemName": "",
+                "calculatedScore": null,
+                "systems": [
+                  {
+                    "id": "80a7cf3f-20ed-4dd9-9720-3005ef30644b",
+                    "name": "",
+                    "isLegacy": false,
+                    "futureSystem": "",
+                    "qa": {
+                      "workarounds": null,
+                      "performance": null,
+                      "double": null,
+                      "error": null,
+                      "depend": null
+                    },
+                    "calculatedScore": null
+                  }
+                ]
+              },
+              "inputDefinitions": [],
+              "disruptions": [],
+              "workExp": null,
+              "workExpNote": ""
+            },
+            {
+              "id": "9fef692e-c1c4-485a-92e4-d7e9aef218d9",
+              "created": 1772980337531,
+              "text": "Afsprakenbureau",
+              "linkedSourceId": null,
+              "type": null,
+              "processValue": null,
+              "processStatus": null,
+              "successFactors": "",
+              "causes": [],
+              "improvements": [],
+              "qa": {
+                "compleet": {
+                  "result": "",
+                  "note": ""
+                },
+                "kwaliteit": {
+                  "result": "",
+                  "note": ""
+                },
+                "duidelijkheid": {
+                  "result": "",
+                  "note": ""
+                },
+                "tijdigheid": {
+                  "result": "",
+                  "note": ""
+                },
+                "standaard": {
+                  "result": "",
+                  "note": ""
+                },
+                "overdracht": {
+                  "result": "",
+                  "note": ""
+                }
+              },
+              "systemData": {
+                "isMulti": false,
+                "systemName": "",
+                "calculatedScore": null,
+                "systems": [
+                  {
+                    "id": "ba1ba660-7fab-4ced-bcb5-8a870ef82270",
+                    "name": "",
+                    "isLegacy": false,
+                    "futureSystem": "",
+                    "qa": {
+                      "workarounds": null,
+                      "performance": null,
+                      "double": null,
+                      "error": null,
+                      "depend": null
+                    },
+                    "calculatedScore": null
+                  }
+                ]
+              },
+              "inputDefinitions": [],
+              "disruptions": [],
+              "workExp": null,
+              "workExpNote": ""
+            },
+            {
+              "id": "b5d15548-8731-4a6e-bc8b-a6331d2d92b3",
+              "created": 1772980337531,
+              "text": "MITeC-OK annuleren",
+              "linkedSourceId": null,
+              "type": null,
+              "processValue": null,
+              "processStatus": null,
+              "successFactors": "",
+              "causes": [],
+              "improvements": [],
+              "qa": {
+                "compleet": {
+                  "result": "",
+                  "note": ""
+                },
+                "kwaliteit": {
+                  "result": "",
+                  "note": ""
+                },
+                "duidelijkheid": {
+                  "result": "",
+                  "note": ""
+                },
+                "tijdigheid": {
+                  "result": "",
+                  "note": ""
+                },
+                "standaard": {
+                  "result": "",
+                  "note": ""
+                },
+                "overdracht": {
+                  "result": "",
+                  "note": ""
+                }
+              },
+              "systemData": {
+                "isMulti": false,
+                "systemName": "",
+                "calculatedScore": null,
+                "systems": [
+                  {
+                    "id": "d1b450e1-87c6-4693-a8e4-baf56227ad1c",
+                    "name": "",
+                    "isLegacy": false,
+                    "futureSystem": "",
+                    "qa": {
+                      "workarounds": null,
+                      "performance": null,
+                      "double": null,
+                      "error": null,
+                      "depend": null
+                    },
+                    "calculatedScore": null
+                  }
+                ]
+              },
+              "inputDefinitions": [],
+              "disruptions": [],
+              "workExp": null,
+              "workExpNote": ""
+            },
+            {
+              "id": "bbd0a3b1-7cd6-46dc-a710-17e9be362486",
+              "created": 1772980337531,
+              "text": "Geannuleerde OK",
+              "linkedSourceId": null,
+              "type": null,
+              "processValue": null,
+              "processStatus": null,
+              "successFactors": "",
+              "causes": [],
+              "improvements": [],
+              "qa": {
+                "compleet": {
+                  "result": "",
+                  "note": ""
+                },
+                "kwaliteit": {
+                  "result": "",
+                  "note": ""
+                },
+                "duidelijkheid": {
+                  "result": "",
+                  "note": ""
+                },
+                "tijdigheid": {
+                  "result": "",
+                  "note": ""
+                },
+                "standaard": {
+                  "result": "",
+                  "note": ""
+                },
+                "overdracht": {
+                  "result": "",
+                  "note": ""
+                }
+              },
+              "systemData": {
+                "isMulti": false,
+                "systemName": "",
+                "calculatedScore": null,
+                "systems": [
+                  {
+                    "id": "09f661a2-d894-4fd3-8256-ffaa3a80dbd5",
+                    "name": "",
+                    "isLegacy": false,
+                    "futureSystem": "",
+                    "qa": {
+                      "workarounds": null,
+                      "performance": null,
+                      "double": null,
+                      "error": null,
+                      "depend": null
+                    },
+                    "calculatedScore": null
+                  }
+                ]
+              },
+              "inputDefinitions": [],
+              "disruptions": [],
+              "workExp": null,
+              "workExpNote": "",
+              "outputUid": "out_977e818a-e04c-46ed-befa-ef3f34e3afef"
+            },
+            {
+              "id": "97f41107-2c6d-4e3b-a537-98b03d3cf852",
+              "created": 1772980337531,
+              "text": "OK-planning / patiënt / brachyteam / afsprakenbureau",
+              "linkedSourceId": null,
+              "type": null,
+              "processValue": null,
+              "processStatus": null,
+              "successFactors": "",
+              "causes": [],
+              "improvements": [],
+              "qa": {
+                "compleet": {
+                  "result": "",
+                  "note": ""
+                },
+                "kwaliteit": {
+                  "result": "",
+                  "note": ""
+                },
+                "duidelijkheid": {
+                  "result": "",
+                  "note": ""
+                },
+                "tijdigheid": {
+                  "result": "",
+                  "note": ""
+                },
+                "standaard": {
+                  "result": "",
+                  "note": ""
+                },
+                "overdracht": {
+                  "result": "",
+                  "note": ""
+                }
+              },
+              "systemData": {
+                "isMulti": false,
+                "systemName": "",
+                "calculatedScore": null,
+                "systems": [
+                  {
+                    "id": "b11b92de-0075-4094-bc0c-1db99ff7815c",
+                    "name": "",
+                    "isLegacy": false,
+                    "futureSystem": "",
+                    "qa": {
+                      "workarounds": null,
+                      "performance": null,
+                      "double": null,
+                      "error": null,
+                      "depend": null
+                    },
+                    "calculatedScore": null
+                  }
+                ]
+              },
+              "inputDefinitions": [],
+              "disruptions": [],
+              "workExp": null,
+              "workExpNote": ""
+            }
+          ]
+        },
+        {
+          "id": "1465b0cc-0f4e-4ff0-8e8c-2c710dafaec0",
+          "order": 1,
+          "isVisible": true,
+          "isParallel": false,
+          "isVariant": false,
+          "hasTransition": false,
+          "transitionNext": "",
+          "outputId": null,
+          "slots": [
+            {
+              "id": "b6c8d769-e4c0-4613-9ef6-14aae862b41a",
+              "created": 1772980420767,
+              "text": "Afsprakenbureau",
+              "linkedSourceId": null,
+              "type": null,
+              "processValue": null,
+              "processStatus": null,
+              "successFactors": "",
+              "causes": [],
+              "improvements": [],
+              "qa": {
+                "compleet": {
+                  "result": "",
+                  "note": ""
+                },
+                "kwaliteit": {
+                  "result": "",
+                  "note": ""
+                },
+                "duidelijkheid": {
+                  "result": "",
+                  "note": ""
+                },
+                "tijdigheid": {
+                  "result": "",
+                  "note": ""
+                },
+                "standaard": {
+                  "result": "",
+                  "note": ""
+                },
+                "overdracht": {
+                  "result": "",
+                  "note": ""
+                }
+              },
+              "systemData": {
+                "isMulti": false,
+                "systemName": "",
+                "calculatedScore": null,
+                "systems": [
+                  {
+                    "id": "ed5be8a5-e339-42bf-8642-bb940d068629",
+                    "name": "",
+                    "isLegacy": false,
+                    "futureSystem": "",
+                    "qa": {
+                      "workarounds": null,
+                      "performance": null,
+                      "double": null,
+                      "error": null,
+                      "depend": null
+                    },
+                    "calculatedScore": null
+                  }
+                ]
+              },
+              "inputDefinitions": [],
+              "disruptions": [],
+              "workExp": null,
+              "workExpNote": ""
+            },
+            {
+              "id": "c67f4070-8555-43fd-b8bb-8957bd5f510c",
+              "created": 1772980420767,
+              "text": "Outlook",
+              "linkedSourceId": null,
+              "type": null,
+              "processValue": null,
+              "processStatus": null,
+              "successFactors": "",
+              "causes": [],
+              "improvements": [],
+              "qa": {
+                "compleet": {
+                  "result": "",
+                  "note": ""
+                },
+                "kwaliteit": {
+                  "result": "",
+                  "note": ""
+                },
+                "duidelijkheid": {
+                  "result": "",
+                  "note": ""
+                },
+                "tijdigheid": {
+                  "result": "",
+                  "note": ""
+                },
+                "standaard": {
+                  "result": "",
+                  "note": ""
+                },
+                "overdracht": {
+                  "result": "",
+                  "note": ""
+                }
+              },
+              "systemData": {
+                "isMulti": false,
+                "systemName": "",
+                "calculatedScore": null,
+                "systems": [
+                  {
+                    "id": "52de26b8-e801-44e4-9c57-1b4224aa9333",
+                    "name": "",
+                    "isLegacy": false,
+                    "futureSystem": "",
+                    "qa": {
+                      "workarounds": null,
+                      "performance": null,
+                      "double": null,
+                      "error": null,
+                      "depend": null
+                    },
+                    "calculatedScore": null
+                  }
+                ]
+              },
+              "inputDefinitions": [],
+              "disruptions": [],
+              "workExp": null,
+              "workExpNote": ""
+            },
+            {
+              "id": "93017945-6507-4147-b53d-f18661fbcca6",
+              "created": 1772980420767,
+              "text": "Geannuleerde OK",
+              "linkedSourceId": null,
+              "type": null,
+              "processValue": null,
+              "processStatus": null,
+              "successFactors": "",
+              "causes": [],
+              "improvements": [],
+              "qa": {
+                "compleet": {
+                  "result": "",
+                  "note": ""
+                },
+                "kwaliteit": {
+                  "result": "",
+                  "note": ""
+                },
+                "duidelijkheid": {
+                  "result": "",
+                  "note": ""
+                },
+                "tijdigheid": {
+                  "result": "",
+                  "note": ""
+                },
+                "standaard": {
+                  "result": "",
+                  "note": ""
+                },
+                "overdracht": {
+                  "result": "",
+                  "note": ""
+                }
+              },
+              "systemData": {
+                "isMulti": false,
+                "systemName": "",
+                "calculatedScore": null,
+                "systems": [
+                  {
+                    "id": "f1f4a83a-a47e-4b7f-9e8b-a74f3ef225fc",
+                    "name": "",
+                    "isLegacy": false,
+                    "futureSystem": "",
+                    "qa": {
+                      "workarounds": null,
+                      "performance": null,
+                      "double": null,
+                      "error": null,
+                      "depend": null
+                    },
+                    "calculatedScore": null
+                  }
+                ]
+              },
+              "inputDefinitions": [],
+              "disruptions": [],
+              "workExp": null,
+              "workExpNote": ""
+            },
+            {
+              "id": "ca96d38b-cbed-451f-bae3-5a96fb7c612f",
+              "created": 1772980420767,
+              "text": "Afsprakenbureau",
+              "linkedSourceId": null,
+              "type": null,
+              "processValue": null,
+              "processStatus": null,
+              "successFactors": "",
+              "causes": [],
+              "improvements": [],
+              "qa": {
+                "compleet": {
+                  "result": "",
+                  "note": ""
+                },
+                "kwaliteit": {
+                  "result": "",
+                  "note": ""
+                },
+                "duidelijkheid": {
+                  "result": "",
+                  "note": ""
+                },
+                "tijdigheid": {
+                  "result": "",
+                  "note": ""
+                },
+                "standaard": {
+                  "result": "",
+                  "note": ""
+                },
+                "overdracht": {
+                  "result": "",
+                  "note": ""
+                }
+              },
+              "systemData": {
+                "isMulti": false,
+                "systemName": "",
+                "calculatedScore": null,
+                "systems": [
+                  {
+                    "id": "9fe7cec9-ac59-4d17-948f-be988a705203",
+                    "name": "",
+                    "isLegacy": false,
+                    "futureSystem": "",
+                    "qa": {
+                      "workarounds": null,
+                      "performance": null,
+                      "double": null,
+                      "error": null,
+                      "depend": null
+                    },
+                    "calculatedScore": null
+                  }
+                ]
+              },
+              "inputDefinitions": [],
+              "disruptions": [],
+              "workExp": null,
+              "workExpNote": ""
+            },
+            {
+              "id": "901d2829-2b8f-4aff-a4a2-9fb58da68f85",
+              "created": 1772980420767,
+              "text": "MRI annuleren",
+              "linkedSourceId": null,
+              "type": null,
+              "processValue": null,
+              "processStatus": null,
+              "successFactors": "",
+              "causes": [],
+              "improvements": [],
+              "qa": {
+                "compleet": {
+                  "result": "",
+                  "note": ""
+                },
+                "kwaliteit": {
+                  "result": "",
+                  "note": ""
+                },
+                "duidelijkheid": {
+                  "result": "",
+                  "note": ""
+                },
+                "tijdigheid": {
+                  "result": "",
+                  "note": ""
+                },
+                "standaard": {
+                  "result": "",
+                  "note": ""
+                },
+                "overdracht": {
+                  "result": "",
+                  "note": ""
+                }
+              },
+              "systemData": {
+                "isMulti": false,
+                "systemName": "",
+                "calculatedScore": null,
+                "systems": [
+                  {
+                    "id": "63231a6c-7641-4ff4-940c-904f42af01da",
+                    "name": "",
+                    "isLegacy": false,
+                    "futureSystem": "",
+                    "qa": {
+                      "workarounds": null,
+                      "performance": null,
+                      "double": null,
+                      "error": null,
+                      "depend": null
+                    },
+                    "calculatedScore": null
+                  }
+                ]
+              },
+              "inputDefinitions": [],
+              "disruptions": [],
+              "workExp": null,
+              "workExpNote": ""
+            },
+            {
+              "id": "55106385-be82-4557-9a6d-240892ae0aae",
+              "created": 1772980420767,
+              "text": "MRI-annulering",
+              "linkedSourceId": null,
+              "type": null,
+              "processValue": null,
+              "processStatus": null,
+              "successFactors": "",
+              "causes": [],
+              "improvements": [],
+              "qa": {
+                "compleet": {
+                  "result": "",
+                  "note": ""
+                },
+                "kwaliteit": {
+                  "result": "",
+                  "note": ""
+                },
+                "duidelijkheid": {
+                  "result": "",
+                  "note": ""
+                },
+                "tijdigheid": {
+                  "result": "",
+                  "note": ""
+                },
+                "standaard": {
+                  "result": "",
+                  "note": ""
+                },
+                "overdracht": {
+                  "result": "",
+                  "note": ""
+                }
+              },
+              "systemData": {
+                "isMulti": false,
+                "systemName": "",
+                "calculatedScore": null,
+                "systems": [
+                  {
+                    "id": "527be8c6-4bac-432e-8e08-e8e40fcdd459",
+                    "name": "",
+                    "isLegacy": false,
+                    "futureSystem": "",
+                    "qa": {
+                      "workarounds": null,
+                      "performance": null,
+                      "double": null,
+                      "error": null,
+                      "depend": null
+                    },
+                    "calculatedScore": null
+                  }
+                ]
+              },
+              "inputDefinitions": [],
+              "disruptions": [],
+              "workExp": null,
+              "workExpNote": "",
+              "outputUid": "out_6720f952-aee4-4c86-977c-ca40adc9c131"
+            },
+            {
+              "id": "eb8887b0-2610-4dab-803e-f8542a196dc2",
+              "created": 1772980420767,
+              "text": "MRI-planners / patiënt / brachyteam",
+              "linkedSourceId": null,
+              "type": null,
+              "processValue": null,
+              "processStatus": null,
+              "successFactors": "",
+              "causes": [],
+              "improvements": [],
+              "qa": {
+                "compleet": {
+                  "result": "",
+                  "note": ""
+                },
+                "kwaliteit": {
+                  "result": "",
+                  "note": ""
+                },
+                "duidelijkheid": {
+                  "result": "",
+                  "note": ""
+                },
+                "tijdigheid": {
+                  "result": "",
+                  "note": ""
+                },
+                "standaard": {
+                  "result": "",
+                  "note": ""
+                },
+                "overdracht": {
+                  "result": "",
+                  "note": ""
+                }
+              },
+              "systemData": {
+                "isMulti": false,
+                "systemName": "",
+                "calculatedScore": null,
+                "systems": [
+                  {
+                    "id": "3d4da6f7-5eed-4f4f-836e-e26a25e0e9f0",
+                    "name": "",
+                    "isLegacy": false,
+                    "futureSystem": "",
+                    "qa": {
+                      "workarounds": null,
+                      "performance": null,
+                      "double": null,
+                      "error": null,
+                      "depend": null
+                    },
+                    "calculatedScore": null
+                  }
+                ]
+              },
+              "inputDefinitions": [],
+              "disruptions": [],
+              "workExp": null,
+              "workExpNote": ""
+            }
+          ]
+        },
+        {
+          "id": "185dcdec-f7d3-40f7-96b8-0e991f3fcab4",
+          "order": 1,
+          "isVisible": true,
+          "isParallel": false,
+          "isVariant": false,
+          "hasTransition": false,
+          "transitionNext": "",
+          "outputId": null,
+          "slots": [
+            {
+              "id": "8e313375-10ce-487c-858e-8e219940455e",
+              "created": 1772980517912,
+              "text": "Afsprakenbureau",
+              "linkedSourceId": null,
+              "type": null,
+              "processValue": null,
+              "processStatus": null,
+              "successFactors": "",
+              "causes": [],
+              "improvements": [],
+              "qa": {
+                "compleet": {
+                  "result": "",
+                  "note": ""
+                },
+                "kwaliteit": {
+                  "result": "",
+                  "note": ""
+                },
+                "duidelijkheid": {
+                  "result": "",
+                  "note": ""
+                },
+                "tijdigheid": {
+                  "result": "",
+                  "note": ""
+                },
+                "standaard": {
+                  "result": "",
+                  "note": ""
+                },
+                "overdracht": {
+                  "result": "",
+                  "note": ""
+                }
+              },
+              "systemData": {
+                "isMulti": false,
+                "systemName": "",
+                "calculatedScore": null,
+                "systems": [
+                  {
+                    "id": "dc767814-7f26-4d52-b8e0-7eaf8646f349",
+                    "name": "",
+                    "isLegacy": false,
+                    "futureSystem": "",
+                    "qa": {
+                      "workarounds": null,
+                      "performance": null,
+                      "double": null,
+                      "error": null,
+                      "depend": null
+                    },
+                    "calculatedScore": null
+                  }
+                ]
+              },
+              "inputDefinitions": [],
+              "disruptions": [],
+              "workExp": null,
+              "workExpNote": ""
+            },
+            {
+              "id": "2ae6fcf4-dcd5-441b-8f9f-b2fb606cc895",
+              "created": 1772980517912,
+              "text": "E-mail",
+              "linkedSourceId": null,
+              "type": null,
+              "processValue": null,
+              "processStatus": null,
+              "successFactors": "",
+              "causes": [],
+              "improvements": [],
+              "qa": {
+                "compleet": {
+                  "result": "",
+                  "note": ""
+                },
+                "kwaliteit": {
+                  "result": "",
+                  "note": ""
+                },
+                "duidelijkheid": {
+                  "result": "",
+                  "note": ""
+                },
+                "tijdigheid": {
+                  "result": "",
+                  "note": ""
+                },
+                "standaard": {
+                  "result": "",
+                  "note": ""
+                },
+                "overdracht": {
+                  "result": "",
+                  "note": ""
+                }
+              },
+              "systemData": {
+                "isMulti": false,
+                "systemName": "",
+                "calculatedScore": null,
+                "systems": [
+                  {
+                    "id": "243b9428-4dcf-4343-b3e4-1b8093ccb8e0",
+                    "name": "",
+                    "isLegacy": false,
+                    "futureSystem": "",
+                    "qa": {
+                      "workarounds": null,
+                      "performance": null,
+                      "double": null,
+                      "error": null,
+                      "depend": null
+                    },
+                    "calculatedScore": null
+                  }
+                ]
+              },
+              "inputDefinitions": [],
+              "disruptions": [],
+              "workExp": null,
+              "workExpNote": ""
+            },
+            {
+              "id": "9900b044-a4f7-4304-8640-a48d052c242e",
+              "created": 1772980517912,
+              "text": "Geannuleerde OK",
+              "linkedSourceId": null,
+              "type": null,
+              "processValue": null,
+              "processStatus": null,
+              "successFactors": "",
+              "causes": [],
+              "improvements": [],
+              "qa": {
+                "compleet": {
+                  "result": "",
+                  "note": ""
+                },
+                "kwaliteit": {
+                  "result": "",
+                  "note": ""
+                },
+                "duidelijkheid": {
+                  "result": "",
+                  "note": ""
+                },
+                "tijdigheid": {
+                  "result": "",
+                  "note": ""
+                },
+                "standaard": {
+                  "result": "",
+                  "note": ""
+                },
+                "overdracht": {
+                  "result": "",
+                  "note": ""
+                }
+              },
+              "systemData": {
+                "isMulti": false,
+                "systemName": "",
+                "calculatedScore": null,
+                "systems": [
+                  {
+                    "id": "bec4c2ec-98bb-424d-95c2-40480fa9401f",
+                    "name": "",
+                    "isLegacy": false,
+                    "futureSystem": "",
+                    "qa": {
+                      "workarounds": null,
+                      "performance": null,
+                      "double": null,
+                      "error": null,
+                      "depend": null
+                    },
+                    "calculatedScore": null
+                  }
+                ]
+              },
+              "inputDefinitions": [],
+              "disruptions": [],
+              "workExp": null,
+              "workExpNote": ""
+            },
+            {
+              "id": "33c52162-fcb2-4385-85ad-2acaa95d6c73",
+              "created": 1772980517912,
+              "text": "Afsprakenbureau",
+              "linkedSourceId": null,
+              "type": null,
+              "processValue": null,
+              "processStatus": null,
+              "successFactors": "",
+              "causes": [],
+              "improvements": [],
+              "qa": {
+                "compleet": {
+                  "result": "",
+                  "note": ""
+                },
+                "kwaliteit": {
+                  "result": "",
+                  "note": ""
+                },
+                "duidelijkheid": {
+                  "result": "",
+                  "note": ""
+                },
+                "tijdigheid": {
+                  "result": "",
+                  "note": ""
+                },
+                "standaard": {
+                  "result": "",
+                  "note": ""
+                },
+                "overdracht": {
+                  "result": "",
+                  "note": ""
+                }
+              },
+              "systemData": {
+                "isMulti": false,
+                "systemName": "",
+                "calculatedScore": null,
+                "systems": [
+                  {
+                    "id": "23bde73a-8ef3-4cce-bb1f-165c9deeaddc",
+                    "name": "",
+                    "isLegacy": false,
+                    "futureSystem": "",
+                    "qa": {
+                      "workarounds": null,
+                      "performance": null,
+                      "double": null,
+                      "error": null,
+                      "depend": null
+                    },
+                    "calculatedScore": null
+                  }
+                ]
+              },
+              "inputDefinitions": [],
+              "disruptions": [],
+              "workExp": null,
+              "workExpNote": ""
+            },
+            {
+              "id": "0287cd5e-96b3-4832-aa91-a9a30934e9d3",
+              "created": 1772980517912,
+              "text": "Bedplanning annuleren",
+              "linkedSourceId": null,
+              "type": null,
+              "processValue": null,
+              "processStatus": null,
+              "successFactors": "",
+              "causes": [],
+              "improvements": [],
+              "qa": {
+                "compleet": {
+                  "result": "",
+                  "note": ""
+                },
+                "kwaliteit": {
+                  "result": "",
+                  "note": ""
+                },
+                "duidelijkheid": {
+                  "result": "",
+                  "note": ""
+                },
+                "tijdigheid": {
+                  "result": "",
+                  "note": ""
+                },
+                "standaard": {
+                  "result": "",
+                  "note": ""
+                },
+                "overdracht": {
+                  "result": "",
+                  "note": ""
+                }
+              },
+              "systemData": {
+                "isMulti": false,
+                "systemName": "",
+                "calculatedScore": null,
+                "systems": [
+                  {
+                    "id": "4a4cd476-fc16-41fa-b5a1-095c9a37da87",
+                    "name": "",
+                    "isLegacy": false,
+                    "futureSystem": "",
+                    "qa": {
+                      "workarounds": null,
+                      "performance": null,
+                      "double": null,
+                      "error": null,
+                      "depend": null
+                    },
+                    "calculatedScore": null
+                  }
+                ]
+              },
+              "inputDefinitions": [],
+              "disruptions": [],
+              "workExp": null,
+              "workExpNote": ""
+            },
+            {
+              "id": "7cc512f0-2b18-4f3d-8fb4-56463f4d8ab5",
+              "created": 1772980517912,
+              "text": "Bedannulering",
+              "linkedSourceId": null,
+              "type": null,
+              "processValue": null,
+              "processStatus": null,
+              "successFactors": "",
+              "causes": [],
+              "improvements": [],
+              "qa": {
+                "compleet": {
+                  "result": "",
+                  "note": ""
+                },
+                "kwaliteit": {
+                  "result": "",
+                  "note": ""
+                },
+                "duidelijkheid": {
+                  "result": "",
+                  "note": ""
+                },
+                "tijdigheid": {
+                  "result": "",
+                  "note": ""
+                },
+                "standaard": {
+                  "result": "",
+                  "note": ""
+                },
+                "overdracht": {
+                  "result": "",
+                  "note": ""
+                }
+              },
+              "systemData": {
+                "isMulti": false,
+                "systemName": "",
+                "calculatedScore": null,
+                "systems": [
+                  {
+                    "id": "6636f34c-54a6-4d44-962d-c3d5eaff1974",
+                    "name": "",
+                    "isLegacy": false,
+                    "futureSystem": "",
+                    "qa": {
+                      "workarounds": null,
+                      "performance": null,
+                      "double": null,
+                      "error": null,
+                      "depend": null
+                    },
+                    "calculatedScore": null
+                  }
+                ]
+              },
+              "inputDefinitions": [],
+              "disruptions": [],
+              "workExp": null,
+              "workExpNote": "",
+              "outputUid": "out_7b641136-d5f4-44f0-bbe9-e0020e8c9604"
+            },
+            {
+              "id": "a7b2a234-725a-4714-9f96-4042bc2d6bda",
+              "created": 1772980517912,
+              "text": "C5 / patiënt / brachyteam",
+              "linkedSourceId": null,
+              "type": null,
+              "processValue": null,
+              "processStatus": null,
+              "successFactors": "",
+              "causes": [],
+              "improvements": [],
+              "qa": {
+                "compleet": {
+                  "result": "",
+                  "note": ""
+                },
+                "kwaliteit": {
+                  "result": "",
+                  "note": ""
+                },
+                "duidelijkheid": {
+                  "result": "",
+                  "note": ""
+                },
+                "tijdigheid": {
+                  "result": "",
+                  "note": ""
+                },
+                "standaard": {
+                  "result": "",
+                  "note": ""
+                },
+                "overdracht": {
+                  "result": "",
+                  "note": ""
+                }
+              },
+              "systemData": {
+                "isMulti": false,
+                "systemName": "",
+                "calculatedScore": null,
+                "systems": [
+                  {
+                    "id": "16307049-9f43-47ce-8f67-16170fa32393",
+                    "name": "",
+                    "isLegacy": false,
+                    "futureSystem": "",
+                    "qa": {
+                      "workarounds": null,
+                      "performance": null,
+                      "double": null,
+                      "error": null,
+                      "depend": null
+                    },
+                    "calculatedScore": null
+                  }
+                ]
+              },
+              "inputDefinitions": [],
+              "disruptions": [],
+              "workExp": null,
+              "workExpNote": ""
+            }
+          ]
+        },
+        {
+          "id": "a30e1ea1-cb02-46d3-83f1-2c7dfcac17df",
+          "order": 1,
+          "isVisible": true,
+          "isParallel": false,
+          "isVariant": false,
+          "hasTransition": false,
+          "transitionNext": "",
+          "outputId": null,
+          "slots": [
+            {
+              "id": "d845f14a-b74c-428a-bb79-ee59f0037c30",
+              "created": 1772980562916,
+              "text": "Arts / brachyteam",
+              "linkedSourceId": null,
+              "type": null,
+              "processValue": null,
+              "processStatus": null,
+              "successFactors": "",
+              "causes": [],
+              "improvements": [],
+              "qa": {
+                "compleet": {
+                  "result": "",
+                  "note": ""
+                },
+                "kwaliteit": {
+                  "result": "",
+                  "note": ""
+                },
+                "duidelijkheid": {
+                  "result": "",
+                  "note": ""
+                },
+                "tijdigheid": {
+                  "result": "",
+                  "note": ""
+                },
+                "standaard": {
+                  "result": "",
+                  "note": ""
+                },
+                "overdracht": {
+                  "result": "",
+                  "note": ""
+                }
+              },
+              "systemData": {
+                "isMulti": false,
+                "systemName": "",
+                "calculatedScore": null,
+                "systems": [
+                  {
+                    "id": "72bb466b-c98a-48e5-9a55-f8f2368fe396",
+                    "name": "",
+                    "isLegacy": false,
+                    "futureSystem": "",
+                    "qa": {
+                      "workarounds": null,
+                      "performance": null,
+                      "double": null,
+                      "error": null,
+                      "depend": null
+                    },
+                    "calculatedScore": null
+                  }
+                ]
+              },
+              "inputDefinitions": [],
+              "disruptions": [],
+              "workExp": null,
+              "workExpNote": ""
+            },
+            {
+              "id": "c47bc736-4c7e-43b7-8bd5-15207f2d9260",
+              "created": 1772980562916,
+              "text": "Epic",
+              "linkedSourceId": null,
+              "type": null,
+              "processValue": null,
+              "processStatus": null,
+              "successFactors": "",
+              "causes": [],
+              "improvements": [],
+              "qa": {
+                "compleet": {
+                  "result": "",
+                  "note": ""
+                },
+                "kwaliteit": {
+                  "result": "",
+                  "note": ""
+                },
+                "duidelijkheid": {
+                  "result": "",
+                  "note": ""
+                },
+                "tijdigheid": {
+                  "result": "",
+                  "note": ""
+                },
+                "standaard": {
+                  "result": "",
+                  "note": ""
+                },
+                "overdracht": {
+                  "result": "",
+                  "note": ""
+                }
+              },
+              "systemData": {
+                "isMulti": false,
+                "systemName": "",
+                "calculatedScore": null,
+                "systems": [
+                  {
+                    "id": "38b1d664-91db-49fc-94ab-f02939a9f5a2",
+                    "name": "",
+                    "isLegacy": false,
+                    "futureSystem": "",
+                    "qa": {
+                      "workarounds": null,
+                      "performance": null,
+                      "double": null,
+                      "error": null,
+                      "depend": null
+                    },
+                    "calculatedScore": null
+                  }
+                ]
+              },
+              "inputDefinitions": [],
+              "disruptions": [],
+              "workExp": null,
+              "workExpNote": ""
+            },
+            {
+              "id": "cf7649bf-8dd9-4b7e-825f-a025ee79db70",
+              "created": 1772980562916,
+              "text": "Wijziging fracties",
+              "linkedSourceId": null,
+              "type": null,
+              "processValue": null,
+              "processStatus": null,
+              "successFactors": "",
+              "causes": [],
+              "improvements": [],
+              "qa": {
+                "compleet": {
+                  "result": "",
+                  "note": ""
+                },
+                "kwaliteit": {
+                  "result": "",
+                  "note": ""
+                },
+                "duidelijkheid": {
+                  "result": "",
+                  "note": ""
+                },
+                "tijdigheid": {
+                  "result": "",
+                  "note": ""
+                },
+                "standaard": {
+                  "result": "",
+                  "note": ""
+                },
+                "overdracht": {
+                  "result": "",
+                  "note": ""
+                }
+              },
+              "systemData": {
+                "isMulti": false,
+                "systemName": "",
+                "calculatedScore": null,
+                "systems": [
+                  {
+                    "id": "d3069fd6-7e84-4027-8f4a-2b24efe6cf62",
+                    "name": "",
+                    "isLegacy": false,
+                    "futureSystem": "",
+                    "qa": {
+                      "workarounds": null,
+                      "performance": null,
+                      "double": null,
+                      "error": null,
+                      "depend": null
+                    },
+                    "calculatedScore": null
+                  }
+                ]
+              },
+              "inputDefinitions": [],
+              "disruptions": [],
+              "workExp": null,
+              "workExpNote": ""
+            },
+            {
+              "id": "aff8d4bf-2434-4479-945d-40ab690cbbfb",
+              "created": 1772980562916,
+              "text": "Afsprakenbureau",
+              "linkedSourceId": null,
+              "type": null,
+              "processValue": null,
+              "processStatus": null,
+              "successFactors": "",
+              "causes": [],
+              "improvements": [],
+              "qa": {
+                "compleet": {
+                  "result": "",
+                  "note": ""
+                },
+                "kwaliteit": {
+                  "result": "",
+                  "note": ""
+                },
+                "duidelijkheid": {
+                  "result": "",
+                  "note": ""
+                },
+                "tijdigheid": {
+                  "result": "",
+                  "note": ""
+                },
+                "standaard": {
+                  "result": "",
+                  "note": ""
+                },
+                "overdracht": {
+                  "result": "",
+                  "note": ""
+                }
+              },
+              "systemData": {
+                "isMulti": false,
+                "systemName": "",
+                "calculatedScore": null,
+                "systems": [
+                  {
+                    "id": "1068031c-e1f0-4faf-aa57-a14c2dccfd85",
+                    "name": "",
+                    "isLegacy": false,
+                    "futureSystem": "",
+                    "qa": {
+                      "workarounds": null,
+                      "performance": null,
+                      "double": null,
+                      "error": null,
+                      "depend": null
+                    },
+                    "calculatedScore": null
+                  }
+                ]
+              },
+              "inputDefinitions": [],
+              "disruptions": [],
+              "workExp": null,
+              "workExpNote": ""
+            },
+            {
+              "id": "42577cf7-0749-4fe8-afda-a3232a2f6353",
+              "created": 1772980562916,
+              "text": "HDR-planning aanpassen",
+              "linkedSourceId": null,
+              "type": null,
+              "processValue": null,
+              "processStatus": null,
+              "successFactors": "",
+              "causes": [],
+              "improvements": [],
+              "qa": {
+                "compleet": {
+                  "result": "",
+                  "note": ""
+                },
+                "kwaliteit": {
+                  "result": "",
+                  "note": ""
+                },
+                "duidelijkheid": {
+                  "result": "",
+                  "note": ""
+                },
+                "tijdigheid": {
+                  "result": "",
+                  "note": ""
+                },
+                "standaard": {
+                  "result": "",
+                  "note": ""
+                },
+                "overdracht": {
+                  "result": "",
+                  "note": ""
+                }
+              },
+              "systemData": {
+                "isMulti": false,
+                "systemName": "",
+                "calculatedScore": null,
+                "systems": [
+                  {
+                    "id": "c363dd60-7b8b-4bb7-ba3d-b35e6743ef53",
+                    "name": "",
+                    "isLegacy": false,
+                    "futureSystem": "",
+                    "qa": {
+                      "workarounds": null,
+                      "performance": null,
+                      "double": null,
+                      "error": null,
+                      "depend": null
+                    },
+                    "calculatedScore": null
+                  }
+                ]
+              },
+              "inputDefinitions": [],
+              "disruptions": [],
+              "workExp": null,
+              "workExpNote": ""
+            },
+            {
+              "id": "a8bfa484-278f-44a9-b493-084e91d36c49",
+              "created": 1772980562916,
+              "text": "Aangepaste HDR-planning",
+              "linkedSourceId": null,
+              "type": null,
+              "processValue": null,
+              "processStatus": null,
+              "successFactors": "",
+              "causes": [],
+              "improvements": [],
+              "qa": {
+                "compleet": {
+                  "result": "",
+                  "note": ""
+                },
+                "kwaliteit": {
+                  "result": "",
+                  "note": ""
+                },
+                "duidelijkheid": {
+                  "result": "",
+                  "note": ""
+                },
+                "tijdigheid": {
+                  "result": "",
+                  "note": ""
+                },
+                "standaard": {
+                  "result": "",
+                  "note": ""
+                },
+                "overdracht": {
+                  "result": "",
+                  "note": ""
+                }
+              },
+              "systemData": {
+                "isMulti": false,
+                "systemName": "",
+                "calculatedScore": null,
+                "systems": [
+                  {
+                    "id": "e83fb6d7-5ca0-4359-8517-75bfd6796821",
+                    "name": "",
+                    "isLegacy": false,
+                    "futureSystem": "",
+                    "qa": {
+                      "workarounds": null,
+                      "performance": null,
+                      "double": null,
+                      "error": null,
+                      "depend": null
+                    },
+                    "calculatedScore": null
+                  }
+                ]
+              },
+              "inputDefinitions": [],
+              "disruptions": [],
+              "workExp": null,
+              "workExpNote": "",
+              "outputUid": "out_4e7e16f9-eb8f-440b-b51d-390eb36c9fa8"
+            },
+            {
+              "id": "a309f6e5-d301-43ca-a39a-38e0b32713b5",
+              "created": 1772980562916,
+              "text": "Patiënt / arts / brachyteam / afsprakenbureau",
+              "linkedSourceId": null,
+              "type": null,
+              "processValue": null,
+              "processStatus": null,
+              "successFactors": "",
+              "causes": [],
+              "improvements": [],
+              "qa": {
+                "compleet": {
+                  "result": "",
+                  "note": ""
+                },
+                "kwaliteit": {
+                  "result": "",
+                  "note": ""
+                },
+                "duidelijkheid": {
+                  "result": "",
+                  "note": ""
+                },
+                "tijdigheid": {
+                  "result": "",
+                  "note": ""
+                },
+                "standaard": {
+                  "result": "",
+                  "note": ""
+                },
+                "overdracht": {
+                  "result": "",
+                  "note": ""
+                }
+              },
+              "systemData": {
+                "isMulti": false,
+                "systemName": "",
+                "calculatedScore": null,
+                "systems": [
+                  {
+                    "id": "24039587-e229-43e6-98a3-4d0a08d1201d",
+                    "name": "",
+                    "isLegacy": false,
+                    "futureSystem": "",
+                    "qa": {
+                      "workarounds": null,
+                      "performance": null,
+                      "double": null,
+                      "error": null,
+                      "depend": null
+                    },
+                    "calculatedScore": null
+                  }
+                ]
+              },
+              "inputDefinitions": [],
+              "disruptions": [],
+              "workExp": null,
+              "workExpNote": ""
+            }
+          ]
+        },
+        {
+          "id": "994a4048-0ed3-40c4-abd8-cd24efbbd7e1",
+          "order": 1,
+          "isVisible": true,
+          "isParallel": false,
+          "isVariant": false,
+          "hasTransition": false,
+          "transitionNext": "",
+          "outputId": null,
+          "slots": [
+            {
+              "id": "6d622e5f-691e-4357-8869-c19c4949d1fe",
+              "created": 1772980611659,
+              "text": "Afsprakenbureau",
+              "linkedSourceId": null,
+              "type": null,
+              "processValue": null,
+              "processStatus": null,
+              "successFactors": "",
+              "causes": [],
+              "improvements": [],
+              "qa": {
+                "compleet": {
+                  "result": "",
+                  "note": ""
+                },
+                "kwaliteit": {
+                  "result": "",
+                  "note": ""
+                },
+                "duidelijkheid": {
+                  "result": "",
+                  "note": ""
+                },
+                "tijdigheid": {
+                  "result": "",
+                  "note": ""
+                },
+                "standaard": {
+                  "result": "",
+                  "note": ""
+                },
+                "overdracht": {
+                  "result": "",
+                  "note": ""
+                }
+              },
+              "systemData": {
+                "isMulti": false,
+                "systemName": "",
+                "calculatedScore": null,
+                "systems": [
+                  {
+                    "id": "98d758f3-3fd7-4c91-9b56-7db4db02e5f4",
+                    "name": "",
+                    "isLegacy": false,
+                    "futureSystem": "",
+                    "qa": {
+                      "workarounds": null,
+                      "performance": null,
+                      "double": null,
+                      "error": null,
+                      "depend": null
+                    },
+                    "calculatedScore": null
+                  }
+                ]
+              },
+              "inputDefinitions": [],
+              "disruptions": [],
+              "workExp": null,
+              "workExpNote": ""
+            },
+            {
+              "id": "a5b1f76e-7297-4312-abd9-ae1f7e45a640",
+              "created": 1772980611659,
+              "text": "E-mail",
+              "linkedSourceId": null,
+              "type": null,
+              "processValue": null,
+              "processStatus": null,
+              "successFactors": "",
+              "causes": [],
+              "improvements": [],
+              "qa": {
+                "compleet": {
+                  "result": "",
+                  "note": ""
+                },
+                "kwaliteit": {
+                  "result": "",
+                  "note": ""
+                },
+                "duidelijkheid": {
+                  "result": "",
+                  "note": ""
+                },
+                "tijdigheid": {
+                  "result": "",
+                  "note": ""
+                },
+                "standaard": {
+                  "result": "",
+                  "note": ""
+                },
+                "overdracht": {
+                  "result": "",
+                  "note": ""
+                }
+              },
+              "systemData": {
+                "isMulti": false,
+                "systemName": "",
+                "calculatedScore": null,
+                "systems": [
+                  {
+                    "id": "ae92ff06-3fc5-4f8a-a3c8-19809e7080d8",
+                    "name": "",
+                    "isLegacy": false,
+                    "futureSystem": "",
+                    "qa": {
+                      "workarounds": null,
+                      "performance": null,
+                      "double": null,
+                      "error": null,
+                      "depend": null
+                    },
+                    "calculatedScore": null
+                  }
+                ]
+              },
+              "inputDefinitions": [],
+              "disruptions": [],
+              "workExp": null,
+              "workExpNote": ""
+            },
+            {
+              "id": "884e8108-ccb6-4d8f-a59a-ef5ed4135c7e",
+              "created": 1772980611659,
+              "text": "Vrijgevallen OK-tijd",
+              "linkedSourceId": null,
+              "type": null,
+              "processValue": null,
+              "processStatus": null,
+              "successFactors": "",
+              "causes": [],
+              "improvements": [],
+              "qa": {
+                "compleet": {
+                  "result": "",
+                  "note": ""
+                },
+                "kwaliteit": {
+                  "result": "",
+                  "note": ""
+                },
+                "duidelijkheid": {
+                  "result": "",
+                  "note": ""
+                },
+                "tijdigheid": {
+                  "result": "",
+                  "note": ""
+                },
+                "standaard": {
+                  "result": "",
+                  "note": ""
+                },
+                "overdracht": {
+                  "result": "",
+                  "note": ""
+                }
+              },
+              "systemData": {
+                "isMulti": false,
+                "systemName": "",
+                "calculatedScore": null,
+                "systems": [
+                  {
+                    "id": "f40acd74-ef9e-41fc-9ff9-703515b07885",
+                    "name": "",
+                    "isLegacy": false,
+                    "futureSystem": "",
+                    "qa": {
+                      "workarounds": null,
+                      "performance": null,
+                      "double": null,
+                      "error": null,
+                      "depend": null
+                    },
+                    "calculatedScore": null
+                  }
+                ]
+              },
+              "inputDefinitions": [],
+              "disruptions": [],
+              "workExp": null,
+              "workExpNote": ""
+            },
+            {
+              "id": "9af63598-b645-4781-bf59-f57434307889",
+              "created": 1772980611659,
+              "text": "Afsprakenbureau",
+              "linkedSourceId": null,
+              "type": null,
+              "processValue": null,
+              "processStatus": null,
+              "successFactors": "",
+              "causes": [],
+              "improvements": [],
+              "qa": {
+                "compleet": {
+                  "result": "",
+                  "note": ""
+                },
+                "kwaliteit": {
+                  "result": "",
+                  "note": ""
+                },
+                "duidelijkheid": {
+                  "result": "",
+                  "note": ""
+                },
+                "tijdigheid": {
+                  "result": "",
+                  "note": ""
+                },
+                "standaard": {
+                  "result": "",
+                  "note": ""
+                },
+                "overdracht": {
+                  "result": "",
+                  "note": ""
+                }
+              },
+              "systemData": {
+                "isMulti": false,
+                "systemName": "",
+                "calculatedScore": null,
+                "systems": [
+                  {
+                    "id": "16f4e9a6-c77f-4750-9236-7ae551fea470",
+                    "name": "",
+                    "isLegacy": false,
+                    "futureSystem": "",
+                    "qa": {
+                      "workarounds": null,
+                      "performance": null,
+                      "double": null,
+                      "error": null,
+                      "depend": null
+                    },
+                    "calculatedScore": null
+                  }
+                ]
+              },
+              "inputDefinitions": [],
+              "disruptions": [],
+              "workExp": null,
+              "workExpNote": ""
+            },
+            {
+              "id": "fcaad9ad-52d3-4eda-a52c-e71533b0b607",
+              "created": 1772980611659,
+              "text": "OK-tijd teruggeven",
+              "linkedSourceId": null,
+              "type": null,
+              "processValue": null,
+              "processStatus": null,
+              "successFactors": "",
+              "causes": [],
+              "improvements": [],
+              "qa": {
+                "compleet": {
+                  "result": "",
+                  "note": ""
+                },
+                "kwaliteit": {
+                  "result": "",
+                  "note": ""
+                },
+                "duidelijkheid": {
+                  "result": "",
+                  "note": ""
+                },
+                "tijdigheid": {
+                  "result": "",
+                  "note": ""
+                },
+                "standaard": {
+                  "result": "",
+                  "note": ""
+                },
+                "overdracht": {
+                  "result": "",
+                  "note": ""
+                }
+              },
+              "systemData": {
+                "isMulti": false,
+                "systemName": "",
+                "calculatedScore": null,
+                "systems": [
+                  {
+                    "id": "f034110a-4738-4d29-bec1-8944fed2a864",
+                    "name": "",
+                    "isLegacy": false,
+                    "futureSystem": "",
+                    "qa": {
+                      "workarounds": null,
+                      "performance": null,
+                      "double": null,
+                      "error": null,
+                      "depend": null
+                    },
+                    "calculatedScore": null
+                  }
+                ]
+              },
+              "inputDefinitions": [],
+              "disruptions": [],
+              "workExp": null,
+              "workExpNote": ""
+            },
+            {
+              "id": "a3371b3e-6712-4986-9948-1dd6952dc442",
+              "created": 1772980611659,
+              "text": "Teruggegeven OK-tijd",
+              "linkedSourceId": null,
+              "type": null,
+              "processValue": null,
+              "processStatus": null,
+              "successFactors": "",
+              "causes": [],
+              "improvements": [],
+              "qa": {
+                "compleet": {
+                  "result": "",
+                  "note": ""
+                },
+                "kwaliteit": {
+                  "result": "",
+                  "note": ""
+                },
+                "duidelijkheid": {
+                  "result": "",
+                  "note": ""
+                },
+                "tijdigheid": {
+                  "result": "",
+                  "note": ""
+                },
+                "standaard": {
+                  "result": "",
+                  "note": ""
+                },
+                "overdracht": {
+                  "result": "",
+                  "note": ""
+                }
+              },
+              "systemData": {
+                "isMulti": false,
+                "systemName": "",
+                "calculatedScore": null,
+                "systems": [
+                  {
+                    "id": "7cac63fa-fb3b-4526-8ada-fa6f8ecd5b25",
+                    "name": "",
+                    "isLegacy": false,
+                    "futureSystem": "",
+                    "qa": {
+                      "workarounds": null,
+                      "performance": null,
+                      "double": null,
+                      "error": null,
+                      "depend": null
+                    },
+                    "calculatedScore": null
+                  }
+                ]
+              },
+              "inputDefinitions": [],
+              "disruptions": [],
+              "workExp": null,
+              "workExpNote": "",
+              "outputUid": "out_53128e74-c16f-49cf-b7dd-727b8bc3f3f5"
+            },
+            {
+              "id": "fa14b4bf-d9df-43f8-a9b3-5ca7d29fdd0e",
+              "created": 1772980611659,
+              "text": "OK-planning / GYN / anesthesiologie",
+              "linkedSourceId": null,
+              "type": null,
+              "processValue": null,
+              "processStatus": null,
+              "successFactors": "",
+              "causes": [],
+              "improvements": [],
+              "qa": {
+                "compleet": {
+                  "result": "",
+                  "note": ""
+                },
+                "kwaliteit": {
+                  "result": "",
+                  "note": ""
+                },
+                "duidelijkheid": {
+                  "result": "",
+                  "note": ""
+                },
+                "tijdigheid": {
+                  "result": "",
+                  "note": ""
+                },
+                "standaard": {
+                  "result": "",
+                  "note": ""
+                },
+                "overdracht": {
+                  "result": "",
+                  "note": ""
+                }
+              },
+              "systemData": {
+                "isMulti": false,
+                "systemName": "",
+                "calculatedScore": null,
+                "systems": [
+                  {
+                    "id": "306bb7a4-0967-4f28-a2a3-5fd0393260b8",
+                    "name": "",
+                    "isLegacy": false,
+                    "futureSystem": "",
+                    "qa": {
+                      "workarounds": null,
+                      "performance": null,
+                      "double": null,
+                      "error": null,
+                      "depend": null
+                    },
+                    "calculatedScore": null
+                  }
+                ]
+              },
+              "inputDefinitions": [],
+              "disruptions": [],
+              "workExp": null,
+              "workExpNote": ""
+            }
+          ]
+        },
+        {
+          "id": "52151d23-9256-4da9-8d60-568659073358",
+          "order": 1,
+          "isVisible": true,
+          "isParallel": false,
+          "isVariant": false,
+          "hasTransition": false,
+          "transitionNext": "",
+          "outputId": null,
+          "slots": [
+            {
+              "id": "c2661f47-2d53-4abf-9ce4-c1401c38f091",
+              "created": 1772980643877,
+              "text": "Arts",
+              "linkedSourceId": null,
+              "type": null,
+              "processValue": null,
+              "processStatus": null,
+              "successFactors": "",
+              "causes": [],
+              "improvements": [],
+              "qa": {
+                "compleet": {
+                  "result": "",
+                  "note": ""
+                },
+                "kwaliteit": {
+                  "result": "",
+                  "note": ""
+                },
+                "duidelijkheid": {
+                  "result": "",
+                  "note": ""
+                },
+                "tijdigheid": {
+                  "result": "",
+                  "note": ""
+                },
+                "standaard": {
+                  "result": "",
+                  "note": ""
+                },
+                "overdracht": {
+                  "result": "",
+                  "note": ""
+                }
+              },
+              "systemData": {
+                "isMulti": false,
+                "systemName": "",
+                "calculatedScore": null,
+                "systems": [
+                  {
+                    "id": "bd7c8572-b865-4198-9e0e-6f6c4b0a9eee",
+                    "name": "",
+                    "isLegacy": false,
+                    "futureSystem": "",
+                    "qa": {
+                      "workarounds": null,
+                      "performance": null,
+                      "double": null,
+                      "error": null,
+                      "depend": null
+                    },
+                    "calculatedScore": null
+                  }
+                ]
+              },
+              "inputDefinitions": [],
+              "disruptions": [],
+              "workExp": null,
+              "workExpNote": ""
+            },
+            {
+              "id": "4669c255-ecb2-4c1e-95ff-122d4df2c412",
+              "created": 1772980643877,
+              "text": "Epic / Snapboard / e-mail / telefoon",
+              "linkedSourceId": null,
+              "type": null,
+              "processValue": null,
+              "processStatus": null,
+              "successFactors": "",
+              "causes": [],
+              "improvements": [],
+              "qa": {
+                "compleet": {
+                  "result": "",
+                  "note": ""
+                },
+                "kwaliteit": {
+                  "result": "",
+                  "note": ""
+                },
+                "duidelijkheid": {
+                  "result": "",
+                  "note": ""
+                },
+                "tijdigheid": {
+                  "result": "",
+                  "note": ""
+                },
+                "standaard": {
+                  "result": "",
+                  "note": ""
+                },
+                "overdracht": {
+                  "result": "",
+                  "note": ""
+                }
+              },
+              "systemData": {
+                "isMulti": false,
+                "systemName": "",
+                "calculatedScore": null,
+                "systems": [
+                  {
+                    "id": "276c4888-fda5-432d-93e6-e4a8faef3845",
+                    "name": "",
+                    "isLegacy": false,
+                    "futureSystem": "",
+                    "qa": {
+                      "workarounds": null,
+                      "performance": null,
+                      "double": null,
+                      "error": null,
+                      "depend": null
+                    },
+                    "calculatedScore": null
+                  }
+                ]
+              },
+              "inputDefinitions": [],
+              "disruptions": [],
+              "workExp": null,
+              "workExpNote": ""
+            },
+            {
+              "id": "6fdddc7b-81aa-4542-b72d-d012731bf1c6",
+              "created": 1772980643877,
+              "text": "Wijzigingsverzoek",
+              "linkedSourceId": null,
+              "type": null,
+              "processValue": null,
+              "processStatus": null,
+              "successFactors": "",
+              "causes": [],
+              "improvements": [],
+              "qa": {
+                "compleet": {
+                  "result": "",
+                  "note": ""
+                },
+                "kwaliteit": {
+                  "result": "",
+                  "note": ""
+                },
+                "duidelijkheid": {
+                  "result": "",
+                  "note": ""
+                },
+                "tijdigheid": {
+                  "result": "",
+                  "note": ""
+                },
+                "standaard": {
+                  "result": "",
+                  "note": ""
+                },
+                "overdracht": {
+                  "result": "",
+                  "note": ""
+                }
+              },
+              "systemData": {
+                "isMulti": false,
+                "systemName": "",
+                "calculatedScore": null,
+                "systems": [
+                  {
+                    "id": "24edeaf2-c685-4ccb-86c1-fedc84494798",
+                    "name": "",
+                    "isLegacy": false,
+                    "futureSystem": "",
+                    "qa": {
+                      "workarounds": null,
+                      "performance": null,
+                      "double": null,
+                      "error": null,
+                      "depend": null
+                    },
+                    "calculatedScore": null
+                  }
+                ]
+              },
+              "inputDefinitions": [],
+              "disruptions": [],
+              "workExp": null,
+              "workExpNote": ""
+            },
+            {
+              "id": "cba42ef2-b3f6-4aec-bb91-1c2797d25cec",
+              "created": 1772980643877,
+              "text": "Afsprakenbureau",
+              "linkedSourceId": null,
+              "type": null,
+              "processValue": null,
+              "processStatus": null,
+              "successFactors": "",
+              "causes": [],
+              "improvements": [],
+              "qa": {
+                "compleet": {
+                  "result": "",
+                  "note": ""
+                },
+                "kwaliteit": {
+                  "result": "",
+                  "note": ""
+                },
+                "duidelijkheid": {
+                  "result": "",
+                  "note": ""
+                },
+                "tijdigheid": {
+                  "result": "",
+                  "note": ""
+                },
+                "standaard": {
+                  "result": "",
+                  "note": ""
+                },
+                "overdracht": {
+                  "result": "",
+                  "note": ""
+                }
+              },
+              "systemData": {
+                "isMulti": false,
+                "systemName": "",
+                "calculatedScore": null,
+                "systems": [
+                  {
+                    "id": "e147ebe3-7e8c-4d02-9bef-5ecf28e20af5",
+                    "name": "",
+                    "isLegacy": false,
+                    "futureSystem": "",
+                    "qa": {
+                      "workarounds": null,
+                      "performance": null,
+                      "double": null,
+                      "error": null,
+                      "depend": null
+                    },
+                    "calculatedScore": null
+                  }
+                ]
+              },
+              "inputDefinitions": [],
+              "disruptions": [],
+              "workExp": null,
+              "workExpNote": ""
+            },
+            {
+              "id": "a32f2fcf-31c5-4bb0-bb0c-9e411f79c41a",
+              "created": 1772980643877,
+              "text": "MITeC-volgorde wijzigen",
+              "linkedSourceId": null,
+              "type": null,
+              "processValue": null,
+              "processStatus": null,
+              "successFactors": "",
+              "causes": [],
+              "improvements": [],
+              "qa": {
+                "compleet": {
+                  "result": "",
+                  "note": ""
+                },
+                "kwaliteit": {
+                  "result": "",
+                  "note": ""
+                },
+                "duidelijkheid": {
+                  "result": "",
+                  "note": ""
+                },
+                "tijdigheid": {
+                  "result": "",
+                  "note": ""
+                },
+                "standaard": {
+                  "result": "",
+                  "note": ""
+                },
+                "overdracht": {
+                  "result": "",
+                  "note": ""
+                }
+              },
+              "systemData": {
+                "isMulti": false,
+                "systemName": "",
+                "calculatedScore": null,
+                "systems": [
+                  {
+                    "id": "6683226c-0790-424c-b68d-073cad4081ac",
+                    "name": "",
+                    "isLegacy": false,
+                    "futureSystem": "",
+                    "qa": {
+                      "workarounds": null,
+                      "performance": null,
+                      "double": null,
+                      "error": null,
+                      "depend": null
+                    },
+                    "calculatedScore": null
+                  }
+                ]
+              },
+              "inputDefinitions": [],
+              "disruptions": [],
+              "workExp": null,
+              "workExpNote": ""
+            },
+            {
+              "id": "94b18c52-1bfb-4481-b517-897537074268",
+              "created": 1772980643877,
+              "text": "Aangepaste MITeC-planning",
+              "linkedSourceId": null,
+              "type": null,
+              "processValue": null,
+              "processStatus": null,
+              "successFactors": "",
+              "causes": [],
+              "improvements": [],
+              "qa": {
+                "compleet": {
+                  "result": "",
+                  "note": ""
+                },
+                "kwaliteit": {
+                  "result": "",
+                  "note": ""
+                },
+                "duidelijkheid": {
+                  "result": "",
+                  "note": ""
+                },
+                "tijdigheid": {
+                  "result": "",
+                  "note": ""
+                },
+                "standaard": {
+                  "result": "",
+                  "note": ""
+                },
+                "overdracht": {
+                  "result": "",
+                  "note": ""
+                }
+              },
+              "systemData": {
+                "isMulti": false,
+                "systemName": "",
+                "calculatedScore": null,
+                "systems": [
+                  {
+                    "id": "2d933345-c494-4b22-9a84-d95208e20e3f",
+                    "name": "",
+                    "isLegacy": false,
+                    "futureSystem": "",
+                    "qa": {
+                      "workarounds": null,
+                      "performance": null,
+                      "double": null,
+                      "error": null,
+                      "depend": null
+                    },
+                    "calculatedScore": null
+                  }
+                ]
+              },
+              "inputDefinitions": [],
+              "disruptions": [],
+              "workExp": null,
+              "workExpNote": "",
+              "outputUid": "out_7d8d25fb-0535-46ac-96fb-dde7392f5d0e"
+            },
+            {
+              "id": "5a26e0ae-93e7-469b-850b-9250c6f39cf3",
+              "created": 1772980643877,
+              "text": "Patiënt / MRI / C5 / arts / brachyteam / afsprakenbureau",
+              "linkedSourceId": null,
+              "type": null,
+              "processValue": null,
+              "processStatus": null,
+              "successFactors": "",
+              "causes": [],
+              "improvements": [],
+              "qa": {
+                "compleet": {
+                  "result": "",
+                  "note": ""
+                },
+                "kwaliteit": {
+                  "result": "",
+                  "note": ""
+                },
+                "duidelijkheid": {
+                  "result": "",
+                  "note": ""
+                },
+                "tijdigheid": {
+                  "result": "",
+                  "note": ""
+                },
+                "standaard": {
+                  "result": "",
+                  "note": ""
+                },
+                "overdracht": {
+                  "result": "",
+                  "note": ""
+                }
+              },
+              "systemData": {
+                "isMulti": false,
+                "systemName": "",
+                "calculatedScore": null,
+                "systems": [
+                  {
+                    "id": "73c33d33-2cc8-42e2-9b05-e870ddd0b2c5",
+                    "name": "",
+                    "isLegacy": false,
+                    "futureSystem": "",
+                    "qa": {
+                      "workarounds": null,
+                      "performance": null,
+                      "double": null,
+                      "error": null,
+                      "depend": null
+                    },
+                    "calculatedScore": null
+                  }
+                ]
+              },
+              "inputDefinitions": [],
+              "disruptions": [],
+              "workExp": null,
+              "workExpNote": ""
+            }
+          ]
+        },
+        {
+          "id": "ea5cba45-08ae-4b6d-8c60-77877855bf34",
+          "order": 1,
+          "isVisible": true,
+          "isParallel": false,
+          "isVariant": false,
+          "hasTransition": false,
+          "transitionNext": "",
+          "outputId": null,
+          "slots": [
+            {
+              "id": "ce1a393b-61ea-477d-9667-de2180d4a042",
+              "created": 1772980725507,
+              "text": "Arts",
+              "linkedSourceId": null,
+              "type": null,
+              "processValue": null,
+              "processStatus": null,
+              "successFactors": "",
+              "causes": [],
+              "improvements": [],
+              "qa": {
+                "compleet": {
+                  "result": "",
+                  "note": ""
+                },
+                "kwaliteit": {
+                  "result": "",
+                  "note": ""
+                },
+                "duidelijkheid": {
+                  "result": "",
+                  "note": ""
+                },
+                "tijdigheid": {
+                  "result": "",
+                  "note": ""
+                },
+                "standaard": {
+                  "result": "",
+                  "note": ""
+                },
+                "overdracht": {
+                  "result": "",
+                  "note": ""
+                }
+              },
+              "systemData": {
+                "isMulti": false,
+                "systemName": "",
+                "calculatedScore": null,
+                "systems": [
+                  {
+                    "id": "0da95ab3-71ff-4dac-9716-bb8439b1d8f1",
+                    "name": "",
+                    "isLegacy": false,
+                    "futureSystem": "",
+                    "qa": {
+                      "workarounds": null,
+                      "performance": null,
+                      "double": null,
+                      "error": null,
+                      "depend": null
+                    },
+                    "calculatedScore": null
+                  }
+                ]
+              },
+              "inputDefinitions": [],
+              "disruptions": [],
+              "workExp": null,
+              "workExpNote": ""
+            },
+            {
+              "id": "b208751e-718d-4951-a3f4-e49c3f9db21f",
+              "created": 1772980725507,
+              "text": "Epic / telefoon / MRI-planning",
+              "linkedSourceId": null,
+              "type": null,
+              "processValue": null,
+              "processStatus": null,
+              "successFactors": "",
+              "causes": [],
+              "improvements": [],
+              "qa": {
+                "compleet": {
+                  "result": "",
+                  "note": ""
+                },
+                "kwaliteit": {
+                  "result": "",
+                  "note": ""
+                },
+                "duidelijkheid": {
+                  "result": "",
+                  "note": ""
+                },
+                "tijdigheid": {
+                  "result": "",
+                  "note": ""
+                },
+                "standaard": {
+                  "result": "",
+                  "note": ""
+                },
+                "overdracht": {
+                  "result": "",
+                  "note": ""
+                }
+              },
+              "systemData": {
+                "isMulti": false,
+                "systemName": "",
+                "calculatedScore": null,
+                "systems": [
+                  {
+                    "id": "52110cbb-954f-4f09-809e-2173105495ef",
+                    "name": "",
+                    "isLegacy": false,
+                    "futureSystem": "",
+                    "qa": {
+                      "workarounds": null,
+                      "performance": null,
+                      "double": null,
+                      "error": null,
+                      "depend": null
+                    },
+                    "calculatedScore": null
+                  }
+                ]
+              },
+              "inputDefinitions": [],
+              "disruptions": [],
+              "workExp": null,
+              "workExpNote": ""
+            },
+            {
+              "id": "f9d9a0d8-c943-48c7-9020-246e447387a3",
+              "created": 1772980725507,
+              "text": "MRI-aanvraag",
+              "linkedSourceId": null,
+              "type": null,
+              "processValue": null,
+              "processStatus": null,
+              "successFactors": "",
+              "causes": [],
+              "improvements": [],
+              "qa": {
+                "compleet": {
+                  "result": "",
+                  "note": ""
+                },
+                "kwaliteit": {
+                  "result": "",
+                  "note": ""
+                },
+                "duidelijkheid": {
+                  "result": "",
+                  "note": ""
+                },
+                "tijdigheid": {
+                  "result": "",
+                  "note": ""
+                },
+                "standaard": {
+                  "result": "",
+                  "note": ""
+                },
+                "overdracht": {
+                  "result": "",
+                  "note": ""
+                }
+              },
+              "systemData": {
+                "isMulti": false,
+                "systemName": "",
+                "calculatedScore": null,
+                "systems": [
+                  {
+                    "id": "678dc5ff-45f2-4d3e-b23f-bd438caf687f",
+                    "name": "",
+                    "isLegacy": false,
+                    "futureSystem": "",
+                    "qa": {
+                      "workarounds": null,
+                      "performance": null,
+                      "double": null,
+                      "error": null,
+                      "depend": null
+                    },
+                    "calculatedScore": null
+                  }
+                ]
+              },
+              "inputDefinitions": [],
+              "disruptions": [],
+              "workExp": null,
+              "workExpNote": ""
+            },
+            {
+              "id": "bcf234c6-68d8-418c-8e92-c01656539fde",
+              "created": 1772980725507,
+              "text": "Afsprakenbureau",
+              "linkedSourceId": null,
+              "type": null,
+              "processValue": null,
+              "processStatus": null,
+              "successFactors": "",
+              "causes": [],
+              "improvements": [],
+              "qa": {
+                "compleet": {
+                  "result": "",
+                  "note": ""
+                },
+                "kwaliteit": {
+                  "result": "",
+                  "note": ""
+                },
+                "duidelijkheid": {
+                  "result": "",
+                  "note": ""
+                },
+                "tijdigheid": {
+                  "result": "",
+                  "note": ""
+                },
+                "standaard": {
+                  "result": "",
+                  "note": ""
+                },
+                "overdracht": {
+                  "result": "",
+                  "note": ""
+                }
+              },
+              "systemData": {
+                "isMulti": false,
+                "systemName": "",
+                "calculatedScore": null,
+                "systems": [
+                  {
+                    "id": "5439c152-3c42-472e-958f-c7c950596422",
+                    "name": "",
+                    "isLegacy": false,
+                    "futureSystem": "",
+                    "qa": {
+                      "workarounds": null,
+                      "performance": null,
+                      "double": null,
+                      "error": null,
+                      "depend": null
+                    },
+                    "calculatedScore": null
+                  }
+                ]
+              },
+              "inputDefinitions": [],
+              "disruptions": [],
+              "workExp": null,
+              "workExpNote": ""
+            },
+            {
+              "id": "c7599b67-1fa1-4b46-985b-33fa264d3e3d",
+              "created": 1772980725507,
+              "text": "Extra MRI plannen",
+              "linkedSourceId": null,
+              "type": null,
+              "processValue": null,
+              "processStatus": null,
+              "successFactors": "",
+              "causes": [],
+              "improvements": [],
+              "qa": {
+                "compleet": {
+                  "result": "",
+                  "note": ""
+                },
+                "kwaliteit": {
+                  "result": "",
+                  "note": ""
+                },
+                "duidelijkheid": {
+                  "result": "",
+                  "note": ""
+                },
+                "tijdigheid": {
+                  "result": "",
+                  "note": ""
+                },
+                "standaard": {
+                  "result": "",
+                  "note": ""
+                },
+                "overdracht": {
+                  "result": "",
+                  "note": ""
+                }
+              },
+              "systemData": {
+                "isMulti": false,
+                "systemName": "",
+                "calculatedScore": null,
+                "systems": [
+                  {
+                    "id": "5c5a090d-1608-42bf-bbfa-c6e5326a2594",
+                    "name": "",
+                    "isLegacy": false,
+                    "futureSystem": "",
+                    "qa": {
+                      "workarounds": null,
+                      "performance": null,
+                      "double": null,
+                      "error": null,
+                      "depend": null
+                    },
+                    "calculatedScore": null
+                  }
+                ]
+              },
+              "inputDefinitions": [],
+              "disruptions": [],
+              "workExp": null,
+              "workExpNote": ""
+            },
+            {
+              "id": "fcf1eafe-bebd-43b9-8734-5874b2bbd5ca",
+              "created": 1772980725507,
+              "text": "Geplande MRI",
+              "linkedSourceId": null,
+              "type": null,
+              "processValue": null,
+              "processStatus": null,
+              "successFactors": "",
+              "causes": [],
+              "improvements": [],
+              "qa": {
+                "compleet": {
+                  "result": "",
+                  "note": ""
+                },
+                "kwaliteit": {
+                  "result": "",
+                  "note": ""
+                },
+                "duidelijkheid": {
+                  "result": "",
+                  "note": ""
+                },
+                "tijdigheid": {
+                  "result": "",
+                  "note": ""
+                },
+                "standaard": {
+                  "result": "",
+                  "note": ""
+                },
+                "overdracht": {
+                  "result": "",
+                  "note": ""
+                }
+              },
+              "systemData": {
+                "isMulti": false,
+                "systemName": "",
+                "calculatedScore": null,
+                "systems": [
+                  {
+                    "id": "6de73de3-a635-45d9-b5d8-3a81ae6ab76e",
+                    "name": "",
+                    "isLegacy": false,
+                    "futureSystem": "",
+                    "qa": {
+                      "workarounds": null,
+                      "performance": null,
+                      "double": null,
+                      "error": null,
+                      "depend": null
+                    },
+                    "calculatedScore": null
+                  }
+                ]
+              },
+              "inputDefinitions": [],
+              "disruptions": [],
+              "workExp": null,
+              "workExpNote": "",
+              "outputUid": "out_6eb6cb28-2c0a-4e9b-9350-44cfcef92c75"
+            },
+            {
+              "id": "3ee31147-c51a-44b3-b9a6-b11f6780aaf4",
+              "created": 1772980725507,
+              "text": "Patiënt / MRI / brachyteam / arts",
+              "linkedSourceId": null,
+              "type": null,
+              "processValue": null,
+              "processStatus": null,
+              "successFactors": "",
+              "causes": [],
+              "improvements": [],
+              "qa": {
+                "compleet": {
+                  "result": "",
+                  "note": ""
+                },
+                "kwaliteit": {
+                  "result": "",
+                  "note": ""
+                },
+                "duidelijkheid": {
+                  "result": "",
+                  "note": ""
+                },
+                "tijdigheid": {
+                  "result": "",
+                  "note": ""
+                },
+                "standaard": {
+                  "result": "",
+                  "note": ""
+                },
+                "overdracht": {
+                  "result": "",
+                  "note": ""
+                }
+              },
+              "systemData": {
+                "isMulti": false,
+                "systemName": "",
+                "calculatedScore": null,
+                "systems": [
+                  {
+                    "id": "07fd2831-22a2-4945-855a-9f765fd04c49",
                     "name": "",
                     "isLegacy": false,
                     "futureSystem": "",
