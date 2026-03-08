@@ -4,7 +4,7 @@
   "author": "Anoniem",
   "created": "2026-01-16T08:48:17.021Z",
   "version": "2.7",
-  "activeSheetId": "b2afde0c-1451-450c-85d7-c0f3b53e8757",
+  "activeSheetId": "7b71de70-d49b-43d1-b1e8-1401e5268f84",
   "sheets": [
     {
       "id": "858c26e5-f7ec-4311-b503-641f99e65c84",
@@ -52300,7 +52300,7 @@
     },
     {
       "id": "b2afde0c-1451-450c-85d7-c0f3b53e8757",
-      "name": "11 - Inplannen voorbereidingsafspraken",
+      "name": "11 - Inplannen voorbereidingsafspraken ✓",
       "order": 1,
       "columns": [
         {
@@ -84737,7 +84737,13 @@
                 ]
               },
               "inputDefinitions": [],
-              "disruptions": [],
+              "disruptions": [
+                {
+                  "scenario": "Niet genoeg bakken",
+                  "frequency": "Zelden",
+                  "workaround": ""
+                }
+              ],
               "workExp": "ROUTINE",
               "workExpNote": "",
               "linkedSourceUids": [],
@@ -85868,7 +85874,7 @@
               "disruptions": [
                 {
                   "scenario": "Vergeten te noteren ",
-                  "frequency": null,
+                  "frequency": "Vaak",
                   "workaround": "later noteren "
                 },
                 {
@@ -93038,7 +93044,13 @@
                 ]
               },
               "inputDefinitions": [],
-              "disruptions": [],
+              "disruptions": [
+                {
+                  "scenario": "Patient niet aanwezig",
+                  "frequency": "Zelden",
+                  "workaround": ""
+                }
+              ],
               "workExp": "ROUTINE",
               "workExpNote": "",
               "linkedSourceUids": [],
@@ -93609,7 +93621,13 @@
                 ]
               },
               "inputDefinitions": [],
-              "disruptions": [],
+              "disruptions": [
+                {
+                  "scenario": "Het CT-formulier is niet zorgvuldig, niet correct of niet volledig ingevuld/opgeslagen op het moment dat het nodig is.",
+                  "frequency": "Soms",
+                  "workaround": "De medewerker moet het formulier handmatig controleren, ontbrekende of foutieve informatie alsnog aanpassen/aanvullen, en zo nodig navragen of herstellen voordat verder gewerkt kan worden."
+                }
+              ],
               "workExp": "ROUTINE",
               "workExpNote": "",
               "linkedSourceUids": [],
@@ -94164,12 +94182,12 @@
               "disruptions": [
                 {
                   "scenario": "Vergeten het formulier aan te maken.",
-                  "frequency": "Zelden",
+                  "frequency": "Soms",
                   "workaround": "Dit wordt pas in een volgende processtap opgemerkt."
                 },
                 {
                   "scenario": "Bij sommige doelgebieden zijn meerdere formulieren van toepassing, maar als er één CT is gemaakt hoeft dit slechts in één formulier te worden vastgelegd. Soms wordt het daardoor dubbel ingevuld of juist helemaal niet.",
-                  "frequency": "Zelden",
+                  "frequency": "Soms",
                   "workaround": "In een latere processtap wordt pas ontdekt dat het niet correct is ingevuld."
                 }
               ],
@@ -94736,7 +94754,13 @@
                 ]
               },
               "inputDefinitions": [],
-              "disruptions": [],
+              "disruptions": [
+                {
+                  "scenario": "CT-computer loopt vast",
+                  "frequency": "Zelden",
+                  "workaround": "Even wachten"
+                }
+              ],
               "workExp": "ROUTINE",
               "workExpNote": "",
               "linkedSourceUids": [],
@@ -95290,7 +95314,13 @@
                 ]
               },
               "inputDefinitions": [],
-              "disruptions": [],
+              "disruptions": [
+                {
+                  "scenario": "Protocol staat er niet tussen",
+                  "frequency": "Zelden",
+                  "workaround": ""
+                }
+              ],
               "workExp": "ROUTINE",
               "workExpNote": "Bij meerdere scans is het soms lastig om de juiste protocollen correct aan elkaar te koppelen.",
               "linkedSourceUids": [],
@@ -97529,7 +97559,7 @@
                 },
                 {
                   "scenario": "Vergeten foto's toe te voegen",
-                  "frequency": "Zelden",
+                  "frequency": "Soms",
                   "workaround": "Bij Time-out alsnog foto's toevoegen"
                 }
               ],
@@ -98087,7 +98117,7 @@
               "disruptions": [
                 {
                   "scenario": "Geen complete CT",
-                  "frequency": "Zelden",
+                  "frequency": "Soms",
                   "workaround": "CT-scan opnieuw maken"
                 }
               ],
@@ -99197,7 +99227,13 @@
                 ]
               },
               "inputDefinitions": [],
-              "disruptions": [],
+              "disruptions": [
+                {
+                  "scenario": "Patient niet geprikt met contrastmiddel",
+                  "frequency": "Zelden",
+                  "workaround": "Alsnog laten prikken"
+                }
+              ],
               "workExp": "FLOW",
               "workExpNote": "",
               "linkedSourceUids": [],
@@ -99761,7 +99797,7 @@
               "disruptions": [
                 {
                   "scenario": "Geen volledig beeld",
-                  "frequency": "Zelden",
+                  "frequency": "Soms",
                   "workaround": "Bij twijfel stemmen we af met de betrokken discipline en maken we de CT (ter beoordeling) over."
                 }
               ],
@@ -100892,7 +100928,13 @@
                 ]
               },
               "inputDefinitions": [],
-              "disruptions": [],
+              "disruptions": [
+                {
+                  "scenario": "CT-formulier niet volledig ingevuld",
+                  "frequency": "Soms",
+                  "workaround": "Alsnog invullen"
+                }
+              ],
               "workExp": "ROUTINE",
               "workExpNote": "",
               "linkedSourceUids": [],
@@ -103134,7 +103176,13 @@
                 ]
               },
               "inputDefinitions": [],
-              "disruptions": [],
+              "disruptions": [
+                {
+                  "scenario": "Aria start niet op ",
+                  "frequency": "Zelden",
+                  "workaround": "ICT-bellen"
+                }
+              ],
               "workExp": "ROUTINE",
               "workExpNote": "",
               "linkedSourceUids": [],
@@ -103685,7 +103733,7 @@
               "disruptions": [
                 {
                   "scenario": "Planning is de patiënt “kwijt” (niet vindbaar in het systeem)",
-                  "frequency": null,
+                  "frequency": "Soms",
                   "workaround": "Planning belt de CT-afdeling om te achterhalen waar de patiënt/beelden staan en dit te corrigeren."
                 }
               ],
@@ -127707,7 +127755,13 @@
                 ]
               },
               "inputDefinitions": [],
-              "disruptions": [],
+              "disruptions": [
+                {
+                  "scenario": "Niet voldoende materiaal",
+                  "frequency": "Zelden",
+                  "workaround": ""
+                }
+              ],
               "workExp": "FLOW",
               "workExpNote": "",
               "linkedSourceUids": [],
@@ -128257,7 +128311,13 @@
                 ]
               },
               "inputDefinitions": [],
-              "disruptions": [],
+              "disruptions": [
+                {
+                  "scenario": "Print opent niet",
+                  "frequency": "Zelden",
+                  "workaround": ""
+                }
+              ],
               "workExp": "ROUTINE",
               "workExpNote": "",
               "linkedSourceUids": [],
