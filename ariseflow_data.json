@@ -84266,7 +84266,7 @@
               "systemData": {
                 "isMulti": false,
                 "systemName": "",
-                "calculatedScore": null,
+                "calculatedScore": 33,
                 "systems": [
                   {
                     "id": "a8695401-7139-40c5-9a1e-20ae588ffdff",
@@ -84287,12 +84287,16 @@
                   "multi": false,
                   "systems": [
                     {
-                      "id": "13c03ff6-ed28-4eda-831d-66a05f181d7c",
                       "name": "",
                       "legacy": false,
                       "future": "",
-                      "qa": {},
-                      "score": null
+                      "qa": {
+                        "q1": "ALWAYS",
+                        "q1_note": "In de transcriptie wordt letterlijk gezegd dat het aanmaken van de RT-taak eigenlijk al een workaround is. Het is een eigen werkrij die jullie zelf gebruiken om grip te houden omdat de overdracht niet automatisch goed doorloopt.",
+                        "q2": "SOMETIMES",
+                        "q2_note": "Het is een extra stap die je moet doen voordat iemand anders de RT kan boeken. Dat kost tijd, maar het is wel een bekende routine"
+                      },
+                      "score": 33
                     }
                   ],
                   "activeSystemIdx": 0
