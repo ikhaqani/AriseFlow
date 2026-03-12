@@ -84266,7 +84266,7 @@
               "systemData": {
                 "isMulti": false,
                 "systemName": "",
-                "calculatedScore": 33,
+                "calculatedScore": 66,
                 "systems": [
                   {
                     "id": "a8695401-7139-40c5-9a1e-20ae588ffdff",
@@ -84287,16 +84287,23 @@
                   "multi": false,
                   "systems": [
                     {
-                      "name": "",
+                      "id": "b1ad6b71-1fb2-4c8d-9c5d-2d5bc6722ee3",
+                      "name": "Radiotherapie Web",
                       "legacy": false,
                       "future": "",
                       "qa": {
-                        "q1": "ALWAYS",
-                        "q1_note": "In de transcriptie wordt letterlijk gezegd dat het aanmaken van de RT-taak eigenlijk al een workaround is. Het is een eigen werkrij die jullie zelf gebruiken om grip te houden omdat de overdracht niet automatisch goed doorloopt.",
+                        "q1": "SOMETIMES",
+                        "q1_note": "",
                         "q2": "SOMETIMES",
-                        "q2_note": "Het is een extra stap die je moet doen voordat iemand anders de RT kan boeken. Dat kost tijd, maar het is wel een bekende routine"
+                        "q2_note": "",
+                        "q3": "SOMETIMES",
+                        "q3_note": "",
+                        "q4": "SOMETIMES",
+                        "q4_note": "",
+                        "q5": "DELAY",
+                        "q5_note": ""
                       },
-                      "score": 33
+                      "score": 66
                     }
                   ],
                   "activeSystemIdx": 0
@@ -84329,28 +84336,34 @@
               "improvements": [],
               "qa": {
                 "compleet": {
-                  "result": "",
+                  "result": "GOOD",
+                  "impact": null,
                   "note": ""
                 },
                 "kwaliteit": {
-                  "result": "",
+                  "result": "GOOD",
+                  "impact": null,
                   "note": ""
                 },
                 "duidelijkheid": {
-                  "result": "",
+                  "result": "GOOD",
+                  "impact": null,
                   "note": ""
                 },
                 "tijdigheid": {
-                  "result": "",
+                  "result": "GOOD",
+                  "impact": null,
                   "note": ""
                 },
                 "standaard": {
-                  "result": "",
-                  "note": ""
+                  "result": "MINOR",
+                  "impact": "C",
+                  "note": "De takenlijst functioneert als interne werkvoorraad, maar is vooral een pragmatische oplossing en minder een strak gestandaardiseerde processtap."
                 },
                 "overdracht": {
-                  "result": "",
-                  "note": ""
+                  "result": "MINOR",
+                  "impact": "B",
+                  "note": "De taakstructuur is afhankelijk van correcte en tijdige statusupdates. Zodra een stap niet goed is bijgewerkt, moet actief worden gezocht wat nog openstaat."
                 }
               },
               "systemData": {
@@ -84374,7 +84387,28 @@
                   }
                 ]
               },
-              "inputDefinitions": [],
+              "inputDefinitions": [
+                {
+                  "item": "Patiënt of dossieridentificatie",
+                  "specifications": "Specificatie. Het moet direct duidelijk zijn om welke patiënt het gaat.",
+                  "type": "HARD"
+                },
+                {
+                  "item": "Openstaande voorbereiding of openstaand werkitem",
+                  "specifications": "Er moet zichtbaar zijn dat nog een RT-taak nodig is.",
+                  "type": "HARD"
+                },
+                {
+                  "item": "Status van het voorgaande proces",
+                  "specifications": "Het moet zichtbaar zijn dat voorbereiding al is gedaan of dat vervolgactie nodig is.",
+                  "type": "HARD"
+                },
+                {
+                  "item": "Aanvullende context zoals route of bijzonderheid",
+                  "specifications": "Specificatie. Handig om sneller te beoordelen wat voor taak nodig is.",
+                  "type": "SOFT"
+                }
+              ],
               "disruptions": [],
               "workExp": null,
               "workExpNote": "",
@@ -84388,7 +84422,8 @@
                 "onPassTargetProcessId": null,
                 "rule": "ALL_OK",
                 "note": ""
-              }
+              },
+              "linkedSourceIds": []
             },
             {
               "id": "f34e27d6-a356-4417-a0c7-2e86628d1f14",
@@ -84807,7 +84842,7 @@
               "systemData": {
                 "isMulti": false,
                 "systemName": "",
-                "calculatedScore": null,
+                "calculatedScore": 33,
                 "systems": [
                   {
                     "id": "4933b3aa-05c7-4554-bc8a-cbddcfe9a449",
@@ -84828,12 +84863,23 @@
                   "multi": false,
                   "systems": [
                     {
-                      "id": "5a9a470b-55aa-4302-82a9-a2ac8af046c0",
-                      "name": "",
+                      "id": "74eb9e73-618a-45bf-9df9-e583a9207416",
+                      "name": "Radiotherapie Web",
                       "legacy": false,
                       "future": "",
-                      "qa": {},
-                      "score": null
+                      "qa": {
+                        "q1": "ALWAYS",
+                        "q1_note": "De taak wordt aangemaakt om het werk bestuurbaar te houden omdat het proces anders niet vanzelf goed doorloopt.",
+                        "q2_note": "Het aanmaken van een aparte RT-taak is een extra administratieve stap zonder directe patiëntwaarde.",
+                        "q2": "OFTEN",
+                        "q3": "OFTEN",
+                        "q3_note": "Bekende informatie uit voorbereiding of terugkoppeling wordt nogmaals vertaald naar een aparte taakstructuur.",
+                        "q4": "OFTEN",
+                        "q4_note": "De taak kan in de snelheid vergeten worden, waardoor vervolgwerk niet zichtbaar of niet tijdig opgepakt wordt.",
+                        "q5": "DELAY",
+                        "q5_note": "De werkvoorraad en opvolgstructuur vallen weg, waardoor herstel via geheugen, losse notities of mondelinge overdracht nodig wordt."
+                      },
+                      "score": 33
                     }
                   ],
                   "activeSystemIdx": 0
@@ -84866,34 +84912,34 @@
               "improvements": [],
               "qa": {
                 "compleet": {
-                  "result": null,
-                  "impact": null,
-                  "note": ""
+                  "result": "MODERATE",
+                  "impact": "A",
+                  "note": "Een RT-taak alleen is niet altijd genoeg om de voorbereiding inhoudelijk verder te brengen. Zonder prescriptie of definitieve besluitvorming kan niet verantwoord worden doorgewerkt."
                 },
                 "kwaliteit": {
-                  "result": null,
-                  "impact": null,
-                  "note": ""
+                  "result": "MINOR",
+                  "impact": "B",
+                  "note": "De taak zelf is als signaal bruikbaar, maar bevat niet altijd alle inhoudelijke context die nodig is voor de volgende stap."
                 },
                 "duidelijkheid": {
-                  "result": null,
-                  "impact": null,
-                  "note": ""
+                  "result": "MINOR",
+                  "impact": "B",
+                  "note": "De taak maakt duidelijk dat er iets moet gebeuren, maar niet altijd direct wat precies de route of het vervolg is."
                 },
                 "tijdigheid": {
-                  "result": null,
-                  "impact": null,
-                  "note": ""
+                  "result": "MINOR",
+                  "impact": "B",
+                  "note": "De taak is meestal beschikbaar, maar vervolginformatie kan nog ontbreken doordat arts of patiënt nog moet beslissen."
                 },
                 "standaard": {
-                  "result": null,
-                  "impact": null,
-                  "note": ""
+                  "result": "MINOR",
+                  "impact": "C",
+                  "note": "De taakstructuur is werkbaar, maar functioneert deels als eigen beheersmechanisme en niet als volledig gestandaardiseerde ketenoverdracht."
                 },
                 "overdracht": {
-                  "result": null,
-                  "impact": null,
-                  "note": ""
+                  "result": "MODERATE",
+                  "impact": "B",
+                  "note": "De overdracht is kwetsbaar zodra terugkoppeling van arts of vervolgstatus niet vanzelf terugkomt. Daardoor worden extra taakjes of eigen bewaking nodig."
                 }
               },
               "systemData": {
@@ -84917,7 +84963,33 @@
                   }
                 ]
               },
-              "inputDefinitions": [],
+              "inputDefinitions": [
+                {
+                  "item": "RT-taak met duidelijke patiëntkoppeling",
+                  "specifications": "De taak moet verwijzen naar de juiste patiënt en juiste voorbereiding.",
+                  "type": "HARD"
+                },
+                {
+                  "item": "Prescriptie of expliciete status ‘wacht op prescriptie’",
+                  "specifications": "Zonder behandelrichting of duidelijke wachtstatus kan niet verantwoord worden doorgegaan",
+                  "type": "HARD"
+                },
+                {
+                  "item": "Indicatie of route-informatie",
+                  "specifications": "Er moet duidelijk zijn of het standaard, chemo, TBI of een andere route betre",
+                  "type": "HARD"
+                },
+                {
+                  "item": "Terugkoppeling arts of beslisstatus patiënt",
+                  "specifications": "Nodig als nog niet definitief vaststaat wat geboekt moet worden.",
+                  "type": "HARD"
+                },
+                {
+                  "item": "Extra toelichting of bijzonderheden",
+                  "specifications": "Helpt om het vervolg sneller en juister te plannen",
+                  "type": "SOFT"
+                }
+              ],
               "disruptions": [],
               "workExp": null,
               "workExpNote": "",
@@ -85316,7 +85388,7 @@
             {
               "id": "0a619063-0d22-4747-9860-8bb85bf54bde",
               "created": 1771321243729,
-              "text": "Epic / Radiotherapie Web",
+              "text": "Radiotherapie Web",
               "linkedSourceId": null,
               "type": null,
               "processValue": null,
@@ -85353,7 +85425,7 @@
               "systemData": {
                 "isMulti": false,
                 "systemName": "",
-                "calculatedScore": null,
+                "calculatedScore": 40,
                 "systems": [
                   {
                     "id": "eda24e5e-99ef-467d-ae6b-8975cd0a9f19",
@@ -85374,12 +85446,23 @@
                   "multi": false,
                   "systems": [
                     {
-                      "id": "7196d10f-4948-4093-9842-73bddebc2e9b",
-                      "name": "",
+                      "id": "97f292a3-495f-49fe-be72-f7fbaac42880",
+                      "name": "Radiotherapie Web",
                       "legacy": false,
                       "future": "",
-                      "qa": {},
-                      "score": null
+                      "qa": {
+                        "q1": "OFTEN",
+                        "q1_note": "Werk wordt geparkeerd, extra taakjes worden gemaakt en opvolging wordt zelf bewaakt zodra prescriptie of terugkoppeling ontbreekt.",
+                        "q2": "OFTEN",
+                        "q2_note": "De RT-taak geeft richting, maar maakt het proces niet sluitend. Daardoor blijft werk liggen en moet het later opnieuw worden opgepakt.",
+                        "q3": "SOMETIMES",
+                        "q3_note": "Geen klassieke dubbele veldinvoer, maar wel dubbele procesbewaking via taak, geheugen en extra opvolging.",
+                        "q4": "OFTEN",
+                        "q4_note": "Het systeem leunt op actief terugmelden en handmatige opvolging. Daardoor ontstaat afhankelijkheid van discipline en geheugen.",
+                        "q5": "RISK",
+                        "q5_note": "Overzicht op openstaande RT-taken en vervolgacties valt weg, waardoor prioritering en voortgang direct kwetsbaar worden."
+                      },
+                      "score": 40
                     }
                   ],
                   "activeSystemIdx": 0
@@ -85412,32 +85495,32 @@
               "improvements": [],
               "qa": {
                 "compleet": {
-                  "result": null,
+                  "result": "GOOD",
                   "impact": null,
                   "note": ""
                 },
                 "kwaliteit": {
-                  "result": null,
+                  "result": "GOOD",
                   "impact": null,
                   "note": ""
                 },
                 "duidelijkheid": {
-                  "result": null,
+                  "result": "GOOD",
                   "impact": null,
                   "note": ""
                 },
                 "tijdigheid": {
-                  "result": null,
+                  "result": "GOOD",
                   "impact": null,
                   "note": ""
                 },
                 "standaard": {
-                  "result": null,
+                  "result": "GOOD",
                   "impact": null,
                   "note": ""
                 },
                 "overdracht": {
-                  "result": null,
+                  "result": "GOOD",
                   "impact": null,
                   "note": ""
                 }
@@ -85463,7 +85546,33 @@
                   }
                 ]
               },
-              "inputDefinitions": [],
+              "inputDefinitions": [
+                {
+                  "item": "Datum van de ingeplande voorbereiding",
+                  "specifications": "Nodig als startpunt voor de doorlooptijdcontrole.",
+                  "type": "HARD"
+                },
+                {
+                  "item": "Soort voorbereiding",
+                  "specifications": "Het moet duidelijk zijn welke voorbereiding is ingepland.",
+                  "type": "HARD"
+                },
+                {
+                  "item": "Definitieve of voorlopige prescriptiestatus",
+                  "specifications": "Zonder prescriptie kan de doorlooptijd inhoudelijk niet goed beoordeeld worden.",
+                  "type": "HARD"
+                },
+                {
+                  "item": "Route of doelgebied",
+                  "specifications": "Nodig om te weten welk zorgpad of welke norm van toepassing is.",
+                  "type": "HARD"
+                },
+                {
+                  "item": "Opmerking over wachtstatus of onzekerheid",
+                  "specifications": "Handig om te zien of nog niet alles definitief is.",
+                  "type": "SOFT"
+                }
+              ],
               "disruptions": [],
               "workExp": null,
               "workExpNote": "",
@@ -85899,7 +86008,7 @@
               "systemData": {
                 "isMulti": false,
                 "systemName": "",
-                "calculatedScore": null,
+                "calculatedScore": 66,
                 "systems": [
                   {
                     "id": "6dcaf212-7403-42d4-9263-027e1ba58c28",
@@ -85920,12 +86029,23 @@
                   "multi": false,
                   "systems": [
                     {
-                      "id": "addb1a8d-3ec0-4a50-8392-181e79898a42",
-                      "name": "",
+                      "id": "68acaae3-b719-45cb-b9c3-e6ea1aa066f1",
+                      "name": "Zenya",
                       "legacy": false,
                       "future": "",
-                      "qa": {},
-                      "score": null
+                      "qa": {
+                        "q1_note": "Het systeem is een leidraad en geen actieve beslislogica. Daardoor blijft vertaling naar de planningssituatie handwerk.",
+                        "q1": "SOMETIMES",
+                        "q2": "SOMETIMES",
+                        "q2_note": "Het verschil tussen werkdagen en kalenderdagen vraagt extra lezen, interpreteren en controleren.",
+                        "q3": "NEVER",
+                        "q3_note": "Het systeem wordt geraadpleegd en niet gebruikt voor registratie.",
+                        "q4_note": "Een passieve leidraad corrigeert niet actief. Een verkeerde lezing van werkdagen of kalenderdagen heeft direct impact op de startdatum en de keten daarachter.",
+                        "q5": "DELAY",
+                        "q5_note": "Doorwerken op routine blijft mogelijk, maar de kans op interpretatiefouten en normafwijkingen neemt toe.",
+                        "q4": "OFTEN"
+                      },
+                      "score": 66
                     }
                   ],
                   "activeSystemIdx": 0
@@ -85958,34 +86078,34 @@
               "improvements": [],
               "qa": {
                 "compleet": {
-                  "result": null,
+                  "result": "GOOD",
                   "impact": null,
                   "note": ""
                 },
                 "kwaliteit": {
-                  "result": null,
-                  "impact": null,
-                  "note": ""
+                  "result": "MINOR",
+                  "impact": "B",
+                  "note": "De bruikbaarheid hangt af van een juiste interpretatie van werkdagen tegenover kalenderdagen. Daardoor is de uitkomst niet altijd zonder hercontrole te vertrouwen."
                 },
                 "duidelijkheid": {
-                  "result": null,
-                  "impact": null,
-                  "note": ""
+                  "result": "MODERATE",
+                  "impact": "B",
+                  "note": "Als niet expliciet duidelijk is of een norm in werkdagen of kalenderdagen is uitgedrukt, ontstaat interpretatieruimte in de vervolgstap"
                 },
                 "tijdigheid": {
-                  "result": null,
+                  "result": "GOOD",
                   "impact": null,
                   "note": ""
                 },
                 "standaard": {
-                  "result": null,
-                  "impact": null,
-                  "note": ""
+                  "result": "MODERATE",
+                  "impact": "B",
+                  "note": "De normering is niet uniform opgebouwd. De ene route gebruikt werkdagen en de andere kalenderdagen."
                 },
                 "overdracht": {
-                  "result": null,
-                  "impact": null,
-                  "note": ""
+                  "result": "MINOR",
+                  "impact": "C",
+                  "note": "De status ‘gecontroleerd’ is bruikbaar, maar de redeneerlogica achter de controle is niet altijd expliciet zichtbaar in de overdracht."
                 }
               },
               "systemData": {
@@ -86009,7 +86129,33 @@
                   }
                 ]
               },
-              "inputDefinitions": [],
+              "inputDefinitions": [
+                {
+                  "item": "Gecontroleerde doorlooptijd",
+                  "specifications": "Er moet duidelijk zijn binnen welk tijdvenster gestart mag of moet worden.",
+                  "type": "HARD"
+                },
+                {
+                  "item": "Vermelding werkdagen of kalenderdagen",
+                  "specifications": "Zonder dit onderscheid ontstaat direct risico op verkeerd plannen.",
+                  "type": "HARD"
+                },
+                {
+                  "item": "Route of zorgpad",
+                  "specifications": "Nodig om te begrijpen waarom deze doorlooptijd geldt.",
+                  "type": "HARD"
+                },
+                {
+                  "item": "Bandbreedte van de starttermijn",
+                  "specifications": "Bijvoorbeeld start tussen dag 8 en 10.",
+                  "type": "HARD"
+                },
+                {
+                  "item": "Toelichting op afwijking of maatwerk",
+                  "specifications": "Wenselijk bij buitenprotocolsituaties.",
+                  "type": "SOFT"
+                }
+              ],
               "disruptions": [],
               "workExp": null,
               "workExpNote": "",
@@ -86408,7 +86554,7 @@
             {
               "id": "185a2600-40bc-46f7-b047-e452c1ca3075",
               "created": 1771321278218,
-              "text": "Epic / Radiotherapie Web",
+              "text": "Epic",
               "linkedSourceId": null,
               "type": null,
               "processValue": null,
@@ -86445,7 +86591,7 @@
               "systemData": {
                 "isMulti": false,
                 "systemName": "",
-                "calculatedScore": null,
+                "calculatedScore": 40,
                 "systems": [
                   {
                     "id": "110cd053-b72b-4f99-89b3-9bbefd2f6706",
@@ -86466,12 +86612,23 @@
                   "multi": false,
                   "systems": [
                     {
-                      "id": "d1398de2-800b-4985-9d42-79c676a73825",
-                      "name": "",
+                      "id": "7294c2bb-7184-4eda-8114-df0bc6d5f100",
+                      "name": "Epic",
                       "legacy": false,
                       "future": "",
-                      "qa": {},
-                      "score": null
+                      "qa": {
+                        "q1_note": "Blokken en kleurindelingen zijn gebaseerd op gemiddelden. Zodra de echte patiëntenmix afwijkt, wordt geschoven, overruled en handmatig gecorrigeerd.",
+                        "q1": "OFTEN",
+                        "q2_note": "Het overzicht is snel zichtbaar, maar de vertaalslag van gemiddeld rooster naar werkelijke capaciteit kost veel extra afwegingen.",
+                        "q2": "OFTEN",
+                        "q3_note": "De verspilling zit niet in invoer maar in extra kijken, vergelijken en corrigeren.",
+                        "q3": "NEVER",
+                        "q4_note": "Een rooster kan formeel kloppen en operationeel toch niet passen. Daardoor blijft veel afhankelijk van menselijke correctie.",
+                        "q4": "OFTEN",
+                        "q5_note": "Zonder capaciteitsoverzicht kan geen betrouwbare planning of afweging worden gemaakt.",
+                        "q5": "STOP"
+                      },
+                      "score": 40
                     }
                   ],
                   "activeSystemIdx": 0
@@ -86504,34 +86661,34 @@
               "improvements": [],
               "qa": {
                 "compleet": {
-                  "result": null,
-                  "impact": null,
-                  "note": ""
+                  "result": "MINOR",
+                  "impact": "A",
+                  "note": "Het aanvraagformulier is meestal grotendeels bruikbaar, maar zodra essentiële informatie ontbreekt kan niet verantwoord worden doorgegaan."
                 },
                 "kwaliteit": {
-                  "result": null,
-                  "impact": null,
-                  "note": ""
+                  "result": "MINOR",
+                  "impact": "B",
+                  "note": "De inhoud is vaak bruikbaar, maar onvolledigheid, ontbrekende bijzonderheden of verkeerde orders zorgen voor herstelwerk"
                 },
                 "duidelijkheid": {
-                  "result": null,
-                  "impact": null,
-                  "note": ""
+                  "result": "MINOR",
+                  "impact": "A",
+                  "note": "Afwijkende terminologie maakt dat niet altijd direct duidelijk is wat precies bedoeld wordt. Daardoor ontstaat interpretatierisico op een cruciaal punt."
                 },
                 "tijdigheid": {
-                  "result": null,
-                  "impact": null,
-                  "note": ""
+                  "result": "MINOR",
+                  "impact": "A",
+                  "note": "Het formulier is er vaak wel, maar niet altijd volledig of tijdig ingevuld. Daardoor kan de volgende stap stilvallen."
                 },
                 "standaard": {
-                  "result": null,
-                  "impact": null,
-                  "note": ""
+                  "result": "MODERATE",
+                  "impact": "B",
+                  "note": "Er is wel een formulier en een afgesproken structuur, maar afwijkend taalgebruik en vrije interpretatie ondermijnen de standaard."
                 },
                 "overdracht": {
-                  "result": null,
-                  "impact": null,
-                  "note": ""
+                  "result": "MINOR",
+                  "impact": "B",
+                  "note": "De overdracht werkt meestal, maar bij ontbrekende terugkoppeling of onvolledige invulling ontstaat direct zoek- en belwerk."
                 }
               },
               "systemData": {
@@ -86555,7 +86712,43 @@
                   }
                 ]
               },
-              "inputDefinitions": [],
+              "inputDefinitions": [
+                {
+                  "item": "Volledig ingevuld aanvraagformulier",
+                  "specifications": "Alle essentiële behandel- en voorbereidingsgegevens moeten aanwezig zijn.",
+                  "type": "HARD"
+                },
+                {
+                  "item": "Juiste prescriptie",
+                  "specifications": "Zonder juiste prescriptie kan de aanvraag niet verantwoord beoordeeld worden.",
+                  "type": "HARD"
+                },
+                {
+                  "item": "Type voorbereiding of immobilisatie",
+                  "specifications": "Bijvoorbeeld vacuümmatras of andere specifieke voorbereiding.",
+                  "type": "HARD"
+                },
+                {
+                  "item": "Aanvullende beeldvorming en juiste orders",
+                  "specifications": "CT, MRI, PET of proefligging moet eenduidig en correct zijn aangevraagd.",
+                  "type": "HARD"
+                },
+                {
+                  "item": "Indicatie of arts erbij moet zijn",
+                  "specifications": "Nodig voor de vervolgplanning en agenda-afstemming.",
+                  "type": "HARD"
+                },
+                {
+                  "item": "Toestelcapaciteit gecontroleerd",
+                  "specifications": "Handig om de haalbaarheid direct mee te nemen in de beoordeling.",
+                  "type": "SOFT"
+                },
+                {
+                  "item": "Bijzonderheden van patiënt of planning",
+                  "specifications": "Bijvoorbeeld beperkte beschikbaarheid of medisch/planningsmatig maatwerk.",
+                  "type": "SOFT"
+                }
+              ],
               "disruptions": [],
               "workExp": null,
               "workExpNote": "",
@@ -86992,7 +87185,7 @@
               "systemData": {
                 "isMulti": false,
                 "systemName": "",
-                "calculatedScore": null,
+                "calculatedScore": 33,
                 "systems": [
                   {
                     "id": "d4820198-8782-4c88-aa8e-f0e36b5aef97",
@@ -87013,12 +87206,23 @@
                   "multi": false,
                   "systems": [
                     {
-                      "id": "1e2572c8-dd20-428d-aef8-e65d4163dce5",
-                      "name": "",
+                      "id": "ccb7db45-4e85-4ef7-88ed-254860a6b559",
+                      "name": "Radiotherapie Web",
                       "legacy": false,
                       "future": "",
-                      "qa": {},
-                      "score": null
+                      "qa": {
+                        "q1": "ALWAYS",
+                        "q1_note": "Niet alle informatie past goed in het formulier, niet alles wordt volledig ingevuld en eigen terminologie veroorzaakt extra verduidelijking, bellen en herstellen",
+                        "q2": "OFTEN",
+                        "q2_note": "Zodra het formulier niet volledig, niet eenduidig of niet tijdig is, kan niet verantwoord worden doorgewerkt.",
+                        "q3": "SOMETIMES",
+                        "q3_note": "Informatie moet worden aangevuld vanuit andere bronnen of mondelinge toelichting omdat het formulier niet als enige bron voldoende betrouwbaar is.",
+                        "q4": "OFTEN",
+                        "q4_note": "Vrije interpretatie en afwijkende terminologie zorgen ervoor dat standaardisatie onvoldoende wordt afgedwongen en dat misinterpretatie reëel blijft.",
+                        "q5": "RISK",
+                        "q5_note": "Dan verdwijnt de formele basis van de aanvraagcontrole en resteert alleen mondelinge overdracht of losse notities."
+                      },
+                      "score": 33
                     }
                   ],
                   "activeSystemIdx": 0
@@ -87051,34 +87255,34 @@
               "improvements": [],
               "qa": {
                 "compleet": {
-                  "result": null,
-                  "impact": null,
-                  "note": ""
+                  "result": "MINOR",
+                  "impact": "B",
+                  "note": "Een gecontroleerd aanvraagformulier geeft meestal voldoende basis, maar bevat niet altijd alle informatie die nodig is om agenda-afstemming direct af te ronden."
                 },
                 "kwaliteit": {
-                  "result": null,
-                  "impact": null,
-                  "note": ""
+                  "result": "MINOR",
+                  "impact": "B",
+                  "note": "De kwaliteit is beter dan in de vorige stap, maar resterende onduidelijkheden over bijvoorbeeld aanwezigheid van de arts of exacte startwens kunnen nog doorwerken."
                 },
                 "duidelijkheid": {
-                  "result": null,
-                  "impact": null,
-                  "note": ""
+                  "result": "MINOR",
+                  "impact": "B",
+                  "note": "De hoofdinformatie is meestal duidelijk, maar bij uitzonderingen blijft interpretatie of terugvraag soms nodig."
                 },
                 "tijdigheid": {
-                  "result": null,
+                  "result": "GOOD",
                   "impact": null,
                   "note": ""
                 },
                 "standaard": {
-                  "result": null,
-                  "impact": null,
-                  "note": ""
+                  "result": "MINOR",
+                  "impact": "C",
+                  "note": "De input is al opgeschoond, maar niet alle bijzonderheden zijn volledig in een uniforme vorm teruggebracht."
                 },
                 "overdracht": {
-                  "result": null,
-                  "impact": null,
-                  "note": ""
+                  "result": "MINOR",
+                  "impact": "B",
+                  "note": "De overdracht is bruikbaar, maar de agenda-afstemming vraagt nog altijd controle op aanwezigheid, beschikbaarheid en combinaties met andere randvoorwaarden."
                 }
               },
               "systemData": {
@@ -87102,7 +87306,33 @@
                   }
                 ]
               },
-              "inputDefinitions": [],
+              "inputDefinitions": [
+                {
+                  "item": "Gecontroleerd aanvraagformulier",
+                  "specifications": "De aanvraag moet inhoudelijk al gecontroleerd zijn.",
+                  "type": "HARD"
+                },
+                {
+                  "item": "Indicatie of arts fysiek of stand-by nodig is",
+                  "specifications": "Zonder deze informatie kan de artsagenda niet doelgericht worden gecontroleerd.",
+                  "type": "HARD"
+                },
+                {
+                  "item": "Gewenste startdatum of startvenster",
+                  "specifications": "Nodig om te bepalen of de artsagenda past bij de beoogde start.",
+                  "type": "HARD"
+                },
+                {
+                  "item": "Type behandeling of route",
+                  "specifications": "Nodig om te bepalen welke arts, welk moment en welke combinatie passend is.",
+                  "type": "HARD"
+                },
+                {
+                  "item": "Bijzonderheden of afwijkingen",
+                  "specifications": "Wenselijk voor sneller plannen bij uitzonderingssituaties.",
+                  "type": "SOFT"
+                }
+              ],
               "disruptions": [],
               "workExp": null,
               "workExpNote": "",
@@ -87538,7 +87768,7 @@
               "systemData": {
                 "isMulti": false,
                 "systemName": "",
-                "calculatedScore": null,
+                "calculatedScore": 66,
                 "systems": [
                   {
                     "id": "f22862f1-9df9-4e16-9479-eeea4e64f755",
@@ -87559,12 +87789,18 @@
                   "multi": false,
                   "systems": [
                     {
-                      "id": "243501f8-dbdf-4ca4-8b31-a97402702971",
+                      "id": "f6950364-6060-461b-a378-76a243bdcf44",
                       "name": "",
                       "legacy": false,
                       "future": "",
-                      "qa": {},
-                      "score": null
+                      "qa": {
+                        "q1": "SOMETIMES",
+                        "q2": "SOMETIMES",
+                        "q3": "NEVER",
+                        "q4": "OFTEN",
+                        "q5": "DELAY"
+                      },
+                      "score": 66
                     }
                   ],
                   "activeSystemIdx": 0
@@ -87597,27 +87833,33 @@
               "improvements": [],
               "qa": {
                 "compleet": {
-                  "result": "",
+                  "result": "GOOD",
+                  "impact": null,
                   "note": ""
                 },
                 "kwaliteit": {
-                  "result": "",
+                  "result": "GOOD",
+                  "impact": null,
                   "note": ""
                 },
                 "duidelijkheid": {
-                  "result": "",
+                  "result": "GOOD",
+                  "impact": null,
                   "note": ""
                 },
                 "tijdigheid": {
-                  "result": "",
+                  "result": "GOOD",
+                  "impact": null,
                   "note": ""
                 },
                 "standaard": {
-                  "result": "",
+                  "result": "GOOD",
+                  "impact": null,
                   "note": ""
                 },
                 "overdracht": {
-                  "result": "",
+                  "result": "GOOD",
+                  "impact": null,
                   "note": ""
                 }
               },
@@ -87642,7 +87884,23 @@
                   }
                 ]
               },
-              "inputDefinitions": [],
+              "inputDefinitions": [
+                {
+                  "item": "Bevestigde routekeuze standaardroute",
+                  "specifications": "Het moet duidelijk zijn dat geen chemo, TBI of andere uitzonderingsroute van toepassing is",
+                  "type": "HARD"
+                },
+                {
+                  "item": "Patiëntidentificatie",
+                  "specifications": "De route moet gekoppeld zijn aan de juiste patiënt.",
+                  "type": "HARD"
+                },
+                {
+                  "item": "Eventuele bijzonderheden buiten standaardpad",
+                  "specifications": "Handig om afwijkingen vroeg te signaleren.",
+                  "type": "SOFT"
+                }
+              ],
               "disruptions": [],
               "workExp": null,
               "workExpNote": "",
@@ -87656,7 +87914,8 @@
                 "onPassTargetProcessId": null,
                 "rule": "ALL_OK",
                 "note": ""
-              }
+              },
+              "linkedSourceIds": []
             },
             {
               "id": "f8508823-03b7-4a4e-b6cd-e5ed266f5356",
@@ -88075,7 +88334,7 @@
               "systemData": {
                 "isMulti": false,
                 "systemName": "",
-                "calculatedScore": null,
+                "calculatedScore": 60,
                 "systems": [
                   {
                     "id": "f97a3e6a-1d25-44dd-8bee-028e72911102",
@@ -88096,12 +88355,23 @@
                   "multi": false,
                   "systems": [
                     {
-                      "id": "abc977fe-3baf-4aac-8098-04252ef71d80",
+                      "id": "b0ee99f3-9b5e-4129-8f79-c17546686db7",
                       "name": "",
                       "legacy": false,
                       "future": "",
-                      "qa": {},
-                      "score": null
+                      "qa": {
+                        "q1": "OFTEN",
+                        "q1_note": "De periodekeuze wordt in de praktijk geregeld overruled door andere randvoorwaarden zoals capaciteit, specifieke startwensen en medische combinaties.",
+                        "q2": "OFTEN",
+                        "q2_note": "Het systeem voegt een extra stuurlaag toe, maar levert niet vanzelf een uitvoerbare uitkomst op.",
+                        "q3_note": "De verspilling zit hier niet in extra invoer maar in extra afwegingen en correcties.",
+                        "q3": "NEVER",
+                        "q4": "SOMETIMES",
+                        "q4_note": "De weergegeven spreiding geeft geen volledig beeld van alle randvoorwaarden die nodig zijn voor een goede startdatum.",
+                        "q5": "DELAY",
+                        "q5_note": "De periode kan nog steeds gekozen worden, maar zonder dit systeem ontbreekt de extra stuurinformatie."
+                      },
+                      "score": 60
                     }
                   ],
                   "activeSystemIdx": 0
@@ -88134,28 +88404,34 @@
               "improvements": [],
               "qa": {
                 "compleet": {
-                  "result": "",
-                  "note": ""
+                  "result": "MINOR",
+                  "impact": "B",
+                  "note": "De tool geeft spreiding van starters, maar bevat niet alle randvoorwaarden zoals chemo, artsaanwezigheid of specifieke startwensen."
                 },
                 "kwaliteit": {
-                  "result": "",
+                  "result": "GOOD",
+                  "impact": null,
                   "note": ""
                 },
                 "duidelijkheid": {
-                  "result": "",
+                  "result": "GOOD",
+                  "impact": null,
                   "note": ""
                 },
                 "tijdigheid": {
-                  "result": "",
+                  "result": "GOOD",
+                  "impact": null,
                   "note": ""
                 },
                 "standaard": {
-                  "result": "",
+                  "result": "GOOD",
+                  "impact": null,
                   "note": ""
                 },
                 "overdracht": {
-                  "result": "",
-                  "note": ""
+                  "result": "MINOR",
+                  "impact": "C",
+                  "note": "De tool geeft een advieslaag, maar is niet de volledige proceswerkelijkheid. Daardoor is later vaak nog correctie nodig."
                 }
               },
               "systemData": {
@@ -88179,7 +88455,23 @@
                   }
                 ]
               },
-              "inputDefinitions": [],
+              "inputDefinitions": [
+                {
+                  "item": "Overzicht starters per dag",
+                  "specifications": "Het moet zichtbaar zijn op welke dagen veel of weinig starters staan.",
+                  "type": "HARD"
+                },
+                {
+                  "item": "Planningshorizon of relevante periode",
+                  "specifications": "De periode waarvoor gekozen wordt moet zichtbaar zijn.",
+                  "type": "HARD"
+                },
+                {
+                  "item": "Aanvullende randvoorwaarden zoals chemo of artswens",
+                  "specifications": "Nodig om de periodekeuze echt passend te maken.",
+                  "type": "SOFT"
+                }
+              ],
               "disruptions": [],
               "workExp": null,
               "workExpNote": "",
@@ -88193,7 +88485,8 @@
                 "onPassTargetProcessId": null,
                 "rule": "ALL_OK",
                 "note": ""
-              }
+              },
+              "linkedSourceIds": []
             },
             {
               "id": "a984768c-4b2e-405d-bef7-377fd5a2a42a",
@@ -88612,7 +88905,7 @@
               "systemData": {
                 "isMulti": false,
                 "systemName": "",
-                "calculatedScore": null,
+                "calculatedScore": 53,
                 "systems": [
                   {
                     "id": "f789242d-bb6a-445e-a22c-766b9e8144d4",
@@ -88633,12 +88926,23 @@
                   "multi": false,
                   "systems": [
                     {
-                      "id": "1ee86f6a-d468-4f4d-8ff6-b7b29b355ec6",
-                      "name": "",
+                      "id": "6ac21b64-669c-40ec-a0ad-6246e533642c",
+                      "name": "Radiotherapie Web",
                       "legacy": false,
                       "future": "",
-                      "qa": {},
-                      "score": null
+                      "qa": {
+                        "q1": "OFTEN",
+                        "q1_note": "De gekozen periode wordt daarna nog vaak aangepast of overruled, omdat de tool niet alle bepalende variabelen tegelijk ondersteunt.",
+                        "q2": "OFTEN",
+                        "q2_note": "De taak vraagt extra controle zonder dat de uitkomst direct stabiel is voor de echte startdatu",
+                        "q3": "NEVER",
+                        "q3_note": "De extra belasting zit in dubbel kijken en opnieuw afwegen en niet in dubbel vastleggen.",
+                        "q4": "OFTEN",
+                        "q4_note": "De uitkomst kan logisch lijken binnen de tool, maar alsnog niet passen zodra capaciteit, arts of combinatiebehandeling meegewogen worden.",
+                        "q5_note": "Een startdatum kan nog steeds bepaald worden, maar zonder deze tussenstap ontbreekt spreidingsinformatie.",
+                        "q5": "DELAY"
+                      },
+                      "score": 53
                     }
                   ],
                   "activeSystemIdx": 0
@@ -88671,28 +88975,34 @@
               "improvements": [],
               "qa": {
                 "compleet": {
-                  "result": "",
-                  "note": ""
+                  "result": "MODERATE",
+                  "impact": "B",
+                  "note": "Een gekozen periode is nog niet genoeg om een definitieve startdatum te bepalen. Andere randvoorwaarden zoals toestelcapaciteit, artsbeschikbaarheid of combinaties met andere behandelingen blijven nodig."
                 },
                 "kwaliteit": {
-                  "result": "",
+                  "result": "GOOD",
+                  "impact": null,
                   "note": ""
                 },
                 "duidelijkheid": {
-                  "result": "",
+                  "result": "GOOD",
+                  "impact": null,
                   "note": ""
                 },
                 "tijdigheid": {
-                  "result": "",
+                  "result": "GOOD",
+                  "impact": null,
                   "note": ""
                 },
                 "standaard": {
-                  "result": "",
+                  "result": "GOOD",
+                  "impact": null,
                   "note": ""
                 },
                 "overdracht": {
-                  "result": "",
-                  "note": ""
+                  "result": "MINOR",
+                  "impact": "C",
+                  "note": "De overdracht van periode naar concrete startdatum is bruikbaar, maar nog niet voldoende zonder aanvullende controles."
                 }
               },
               "systemData": {
@@ -88716,7 +89026,28 @@
                   }
                 ]
               },
-              "inputDefinitions": [],
+              "inputDefinitions": [
+                {
+                  "item": "Gekozen periode",
+                  "specifications": "Er moet duidelijk zijn in welk tijdvenster de startdatum gezocht wordt.",
+                  "type": "HARD"
+                },
+                {
+                  "item": "Actuele capaciteit binnen die periode",
+                  "specifications": "Zonder capaciteit kan geen echte startdatum gekozen worden.",
+                  "type": "HARD"
+                },
+                {
+                  "item": "Aanwezigheid arts indien relevant",
+                  "specifications": "Nodig bij routes waarbij de arts aan de start gekoppeld moet zijn",
+                  "type": "SOFT"
+                },
+                {
+                  "item": "Specifieke startwensen of combinaties",
+                  "specifications": "Bijvoorbeeld chemo of medische voorkeur voor een bepaalde dag.",
+                  "type": "SOFT"
+                }
+              ],
               "disruptions": [],
               "workExp": null,
               "workExpNote": "",
@@ -88730,7 +89061,8 @@
                 "onPassTargetProcessId": null,
                 "rule": "ALL_OK",
                 "note": ""
-              }
+              },
+              "linkedSourceIds": []
             },
             {
               "id": "db1e35cc-3da2-41d7-af5f-a9e581abb424",
@@ -89149,7 +89481,7 @@
               "systemData": {
                 "isMulti": false,
                 "systemName": "",
-                "calculatedScore": null,
+                "calculatedScore": 66,
                 "systems": [
                   {
                     "id": "7a3e73ff-b6d3-41b8-bb43-5303125dfb47",
@@ -89170,12 +89502,18 @@
                   "multi": false,
                   "systems": [
                     {
-                      "id": "22306369-c5d0-419c-b565-435b8c55ff77",
+                      "id": "5261638b-47b6-457e-b3ad-77d141576a30",
                       "name": "",
                       "legacy": false,
                       "future": "",
-                      "qa": {},
-                      "score": null
+                      "qa": {
+                        "q1": "SOMETIMES",
+                        "q2": "SOMETIMES",
+                        "q3": "NEVER",
+                        "q4": "OFTEN",
+                        "q5": "DELAY"
+                      },
+                      "score": 66
                     }
                   ],
                   "activeSystemIdx": 0
@@ -89208,28 +89546,34 @@
               "improvements": [],
               "qa": {
                 "compleet": {
-                  "result": "",
+                  "result": "GOOD",
+                  "impact": null,
                   "note": ""
                 },
                 "kwaliteit": {
-                  "result": "",
+                  "result": "GOOD",
+                  "impact": null,
                   "note": ""
                 },
                 "duidelijkheid": {
-                  "result": "",
+                  "result": "GOOD",
+                  "impact": null,
                   "note": ""
                 },
                 "tijdigheid": {
-                  "result": "",
+                  "result": "GOOD",
+                  "impact": null,
                   "note": ""
                 },
                 "standaard": {
-                  "result": "",
+                  "result": "GOOD",
+                  "impact": null,
                   "note": ""
                 },
                 "overdracht": {
-                  "result": "",
-                  "note": ""
+                  "result": "MINOR",
+                  "impact": "C",
+                  "note": "De routekeuze is duidelijk, maar de praktische afstemming met de chemoafdeling volgt pas in de volgende stap."
                 }
               },
               "systemData": {
@@ -89253,7 +89597,23 @@
                   }
                 ]
               },
-              "inputDefinitions": [],
+              "inputDefinitions": [
+                {
+                  "item": "Bevestigde chemoroute",
+                  "specifications": "Het moet expliciet duidelijk zijn dat chemo onderdeel is van het traject.",
+                  "type": "HARD"
+                },
+                {
+                  "item": "Patiëntidentificatie",
+                  "specifications": "De route moet aan de juiste patiënt gekoppeld zijn.",
+                  "type": "HARD"
+                },
+                {
+                  "item": "Chemo-indicatie of combinatiebehandeling",
+                  "specifications": "Wenselijk om sneller de juiste afstemming te doen.",
+                  "type": "SOFT"
+                }
+              ],
               "disruptions": [],
               "workExp": null,
               "workExpNote": "",
@@ -89267,7 +89627,8 @@
                 "onPassTargetProcessId": null,
                 "rule": "ALL_OK",
                 "note": ""
-              }
+              },
+              "linkedSourceIds": []
             },
             {
               "id": "45bbf000-e1be-40cc-b2fc-a1cb8a58b226",
@@ -89686,7 +90047,7 @@
               "systemData": {
                 "isMulti": false,
                 "systemName": "",
-                "calculatedScore": null,
+                "calculatedScore": 66,
                 "systems": [
                   {
                     "id": "f23f7559-dcf1-4146-a3dd-66b32bf65b04",
@@ -89707,12 +90068,21 @@
                   "multi": false,
                   "systems": [
                     {
-                      "id": "b87f3f8d-a85f-47d1-bff4-9ecdb29aede9",
-                      "name": "",
+                      "id": "23db8549-8ced-4869-9e5e-d40d2c089c0d",
+                      "name": "Zenya",
                       "legacy": false,
                       "future": "",
-                      "qa": {},
-                      "score": null
+                      "qa": {
+                        "q1": "OFTEN",
+                        "q2": "SOMETIMES",
+                        "q3": "NEVER",
+                        "q3_note": "Het systeem is leidraad en geen registratiesysteem.",
+                        "q4": "SOMETIMES",
+                        "q4_note": "De route op zichzelf borgt niet dat de combinatie met chemo-capaciteit en juiste startdag ook echt klopt.",
+                        "q5": "DELAY",
+                        "q5_note": "De route kan nog mondeling of op routine worden opgepakt, maar de formele leidraad ontbreekt."
+                      },
+                      "score": 66
                     }
                   ],
                   "activeSystemIdx": 0
@@ -89745,28 +90115,34 @@
               "improvements": [],
               "qa": {
                 "compleet": {
-                  "result": "",
-                  "note": ""
+                  "result": "MINOR",
+                  "impact": "B",
+                  "note": "De route maakt duidelijk dat contact met chemo nodig is, maar bevat nog niet automatisch de uiteindelijke afsteminformatie voor een concrete startdatum."
                 },
                 "kwaliteit": {
-                  "result": "",
-                  "note": ""
+                  "result": "MINOR",
+                  "impact": "B",
+                  "note": "De route is bruikbaar, maar niet voldoende om zonder overleg direct te plannen."
                 },
                 "duidelijkheid": {
-                  "result": "",
+                  "result": "GOOD",
+                  "impact": null,
                   "note": ""
                 },
                 "tijdigheid": {
-                  "result": "",
+                  "result": "GOOD",
+                  "impact": null,
                   "note": ""
                 },
                 "standaard": {
-                  "result": "",
+                  "result": "GOOD",
+                  "impact": null,
                   "note": ""
                 },
                 "overdracht": {
-                  "result": "",
-                  "note": ""
+                  "result": "MINOR",
+                  "impact": "B",
+                  "note": "De overdracht naar de chemoplanner is niet volledig systeemgedragen en vraagt expliciet contact en afstemming."
                 }
               },
               "systemData": {
@@ -89790,7 +90166,28 @@
                   }
                 ]
               },
-              "inputDefinitions": [],
+              "inputDefinitions": [
+                {
+                  "item": "Status route chemo gestart",
+                  "specifications": "Het moet duidelijk zijn dat het chemopad actief is.",
+                  "type": "HARD"
+                },
+                {
+                  "item": "Patiëntidentificatie",
+                  "specifications": "Nodig om met de juiste planning af te stemmen.",
+                  "type": "HARD"
+                },
+                {
+                  "item": "Voorkeurs- of gewenste startperiode",
+                  "specifications": "Nodig om een haalbare gezamenlijke startdatum te bepalen.",
+                  "type": "HARD"
+                },
+                {
+                  "item": "Chemo-specifieke randvoorwaarden",
+                  "specifications": "Bijvoorbeeld vaste toedieningsdagen of beschikbaarheid.",
+                  "type": "SOFT"
+                }
+              ],
               "disruptions": [],
               "workExp": null,
               "workExpNote": "",
@@ -89804,7 +90201,8 @@
                 "onPassTargetProcessId": null,
                 "rule": "ALL_OK",
                 "note": ""
-              }
+              },
+              "linkedSourceIds": []
             },
             {
               "id": "448f4fa1-7639-474e-82ca-328e6df82bed",
@@ -90223,7 +90621,7 @@
               "systemData": {
                 "isMulti": false,
                 "systemName": "",
-                "calculatedScore": null,
+                "calculatedScore": 73,
                 "systems": [
                   {
                     "id": "5d2029af-3547-476b-942a-7dedc7382ba3",
@@ -90244,12 +90642,18 @@
                   "multi": false,
                   "systems": [
                     {
-                      "id": "b478cdcc-9f8b-48ed-ab74-97223bd31236",
+                      "id": "e7a7d0f4-fde8-4672-a017-69f7eb66bffa",
                       "name": "",
                       "legacy": false,
                       "future": "",
-                      "qa": {},
-                      "score": null
+                      "qa": {
+                        "q1": "SOMETIMES",
+                        "q2": "SOMETIMES",
+                        "q3": "NEVER",
+                        "q4": "SOMETIMES",
+                        "q5": "DELAY"
+                      },
+                      "score": 73
                     }
                   ],
                   "activeSystemIdx": 0
@@ -90760,7 +91164,7 @@
               "systemData": {
                 "isMulti": false,
                 "systemName": "",
-                "calculatedScore": null,
+                "calculatedScore": 50,
                 "systems": [
                   {
                     "id": "347aa0a9-87e1-4430-9549-e3ad19b40a69",
@@ -90781,12 +91185,22 @@
                   "multi": false,
                   "systems": [
                     {
-                      "id": "eec76e1e-eb8c-4bdd-a4cf-9d86855ee492",
-                      "name": "",
+                      "id": "d7141376-186c-4d17-b970-15823eeb619a",
+                      "name": "Epic",
                       "legacy": false,
                       "future": "",
-                      "qa": {},
-                      "score": null
+                      "qa": {
+                        "q1": "SOMETIMES",
+                        "q1_note": "Een reservering moet worden omgezet naar echte RT en de RT-tijd blijkt niet altijd goed te staan, waardoor correctie nodig is.",
+                        "q2": "SOMETIMES",
+                        "q2_note": "Het omzetten van reservering naar definitieve planning vraagt controle en soms herschikking.",
+                        "q3": "SOMETIMES",
+                        "q3_note": "Een eerdere reservering wordt administratief omgezet naar een echte geplande RT.",
+                        "q4_note": "Een fout in tijdsduur of timing wordt soms pas zichtbaar bij deze omzetting.",
+                        "q5_note": "Zonder Epic kan een reservering niet worden omgezet naar een definitieve geplande RT.",
+                        "q5": "STOP"
+                      },
+                      "score": 50
                     }
                   ],
                   "activeSystemIdx": 0
@@ -91306,7 +91720,7 @@
               "systemData": {
                 "isMulti": false,
                 "systemName": "",
-                "calculatedScore": null,
+                "calculatedScore": 73,
                 "systems": [
                   {
                     "id": "9db009ca-73b3-4224-b827-bfebbf640a96",
@@ -91327,12 +91741,18 @@
                   "multi": false,
                   "systems": [
                     {
-                      "id": "67d388a9-90ec-4245-a32d-6c773c67479d",
+                      "id": "58088ca9-a0ee-4c41-8de0-74713df99e0e",
                       "name": "",
                       "legacy": false,
                       "future": "",
-                      "qa": {},
-                      "score": null
+                      "qa": {
+                        "q1": "SOMETIMES",
+                        "q2": "SOMETIMES",
+                        "q3": "NEVER",
+                        "q4": "SOMETIMES",
+                        "q5": "DELAY"
+                      },
+                      "score": 73
                     }
                   ],
                   "activeSystemIdx": 0
@@ -91843,7 +92263,7 @@
               "systemData": {
                 "isMulti": false,
                 "systemName": "",
-                "calculatedScore": null,
+                "calculatedScore": 73,
                 "systems": [
                   {
                     "id": "03c2accc-805c-4c31-90cb-8ea83bc048d1",
@@ -91864,12 +92284,23 @@
                   "multi": false,
                   "systems": [
                     {
-                      "id": "e8d0b679-78d7-4883-907e-27c3a826d4e6",
+                      "id": "39268c88-a1af-4761-8e60-3e97dd22c73a",
                       "name": "",
                       "legacy": false,
                       "future": "",
-                      "qa": {},
-                      "score": null
+                      "qa": {
+                        "q1": "SOMETIMES",
+                        "q1_note": "De normroute is duidelijk, maar de feitelijke vertaling naar starten binnen zeven dagen hangt af van capaciteit, medische uitzonderingen en patiëntfactoren buiten het systeem.",
+                        "q2": "SOMETIMES",
+                        "q2_note": "Het systeem geeft de norm, maar niet de live uitvoerbaarheid binnen de dagelijkse planning.",
+                        "q3": "NEVER",
+                        "q3_note": "Het systeem wordt geraadpleegd en niet gebruikt voor registratie",
+                        "q4_note": "Een passieve normweergave voorkomt niet dat de norm verkeerd wordt toegepast of te ruim wordt geïnterpreteerd.",
+                        "q5_note": "De norm is vaak bekend, maar de formele leidraad valt weg en dat vergroot interpretatierisico.",
+                        "q5": "DELAY",
+                        "q4": "SOMETIMES"
+                      },
+                      "score": 73
                     }
                   ],
                   "activeSystemIdx": 0
@@ -92380,7 +92811,7 @@
               "systemData": {
                 "isMulti": false,
                 "systemName": "",
-                "calculatedScore": null,
+                "calculatedScore": 40,
                 "systems": [
                   {
                     "id": "e27aefa5-e3e8-4991-8d36-a7365951865e",
@@ -92401,12 +92832,18 @@
                   "multi": false,
                   "systems": [
                     {
-                      "id": "4cb1db6b-4e21-49b7-8d34-f2cacd84a3ad",
+                      "id": "7a691dc2-9466-4460-bb97-f2b217855c29",
                       "name": "",
                       "legacy": false,
                       "future": "",
-                      "qa": {},
-                      "score": null
+                      "qa": {
+                        "q1": "SOMETIMES",
+                        "q2": "ALWAYS",
+                        "q3": "SOMETIMES",
+                        "q4": "OFTEN",
+                        "q5": "RISK"
+                      },
+                      "score": 40
                     }
                   ],
                   "activeSystemIdx": 0
@@ -92926,7 +93363,7 @@
               "systemData": {
                 "isMulti": false,
                 "systemName": "",
-                "calculatedScore": null,
+                "calculatedScore": 73,
                 "systems": [
                   {
                     "id": "996166d1-4bbf-4cd1-9c2d-c88c5968b26d",
@@ -92947,12 +93384,23 @@
                   "multi": false,
                   "systems": [
                     {
-                      "id": "3b294b24-197c-45f4-94d7-b39b87bf8b37",
-                      "name": "",
+                      "id": "a93b3d0d-d79f-47e5-b26f-af8f15ecff65",
+                      "name": "Epic",
                       "legacy": false,
                       "future": "",
-                      "qa": {},
-                      "score": null
+                      "qa": {
+                        "q1_note": "De start kan administratief worden gezet terwijl de echte randvoorwaarden pas in de vervolgstappen worden uitgezocht. Daardoor wordt het proces formeel gestart voordat het inhoudelijk echt rond is.",
+                        "q1": "SOMETIMES",
+                        "q2": "SOMETIMES",
+                        "q2_note": "Het starten zelf is niet zwaar, maar het systeem maakt nog niet duidelijk of de vervolgstappen direct uitvoerbaar zijn.",
+                        "q3": "NEVER",
+                        "q3_note": "In deze stap gaat het vooral om het formeel starten van het RT-inplannen en nog niet om extra vastlegging.",
+                        "q4_note": "Het proces kan gestart worden terwijl de onderliggende voorwaarden nog niet volledig gecontroleerd zijn.",
+                        "q5_note": "De startstap kan dan niet goed administratief worden vastgelegd, maar de inhoudelijke afwegingen liggen nog in de vervolgstappen.",
+                        "q5": "DELAY",
+                        "q4": "SOMETIMES"
+                      },
+                      "score": 73
                     }
                   ],
                   "activeSystemIdx": 0
@@ -93472,7 +93920,7 @@
               "systemData": {
                 "isMulti": false,
                 "systemName": "",
-                "calculatedScore": null,
+                "calculatedScore": 53,
                 "systems": [
                   {
                     "id": "addc9545-d23d-403b-aea9-275a85b12af0",
@@ -93493,12 +93941,23 @@
                   "multi": false,
                   "systems": [
                     {
-                      "id": "5f41a760-dff7-4a70-a775-3c8dec7cae28",
-                      "name": "",
+                      "id": "fd3abaef-c70b-4df3-8482-4d446c1d9ae4",
+                      "name": "Epic",
                       "legacy": false,
                       "future": "",
-                      "qa": {},
-                      "score": null
+                      "qa": {
+                        "q1": "OFTEN",
+                        "q1_note": "Artsagenda, toestelcapaciteit en startdatum moeten tegelijk passend worden gemaakt. Daardoor ontstaat structureel schuiven, afstemmen en overroelen.",
+                        "q2": "OFTEN",
+                        "q2_note": "Het systeem toont de agenda, maar lost het combinatorische probleem niet op. De vertaling naar een uitvoerbare start blijft handwerk.",
+                        "q3_note": "De verspilling zit hier niet in invoer, maar in vergelijken, bellen en aanpassen.",
+                        "q3": "NEVER",
+                        "q4": "SOMETIMES",
+                        "q4_note": "Een arts kan formeel beschikbaar lijken, terwijl de combinatie met toestel, startdag en andere randvoorwaarden in de praktijk toch niet klopt.",
+                        "q5": "RISK",
+                        "q5_note": "Zonder agenda-inzicht kan niet betrouwbaar worden bepaald of artsaanwezigheid haalbaar is binnen de gewenste start."
+                      },
+                      "score": 53
                     }
                   ],
                   "activeSystemIdx": 0
@@ -94016,7 +94475,7 @@
               "systemData": {
                 "isMulti": false,
                 "systemName": "",
-                "calculatedScore": null,
+                "calculatedScore": 50,
                 "systems": [
                   {
                     "id": "05f98455-fc51-4135-b4eb-0e2c7f8061cc",
@@ -94037,12 +94496,22 @@
                   "multi": false,
                   "systems": [
                     {
-                      "id": "146a5bce-cf94-4923-a347-62c6c3c4b526",
+                      "id": "c0875faf-0f0a-42cf-b249-06365fb5ba01",
                       "name": "",
                       "legacy": false,
                       "future": "",
-                      "qa": {},
-                      "score": null
+                      "qa": {
+                        "q1_note": "Blokken en kleuren zijn gebaseerd op gemiddelden. Zodra de werkelijke patiëntenmix afwijkt, moet handmatig worden geschoven, dichtgezet of overruled.",
+                        "q1": "OFTEN",
+                        "q2": "OFTEN",
+                        "q2_note": "Het overzicht is snel zichtbaar, maar de vertaalslag van roosterlogica naar echte capaciteit kost extra denkwerk en correctie.",
+                        "q3_note": "De verspilling zit vooral in dubbel kijken en corrigeren en niet in dubbel invoeren",
+                        "q3": "NEVER",
+                        "q4": "OFTEN",
+                        "q4_note": "Een rooster kan technisch passend lijken terwijl het operationeel niet werkbaar is door afwijkende behandeltijden of blokverdeling.",
+                        "q5_note": "Zonder capaciteitsoverzicht kan geen betrouwbaar vrij toestel worden vastgesteld."
+                      },
+                      "score": 50
                     }
                   ],
                   "activeSystemIdx": 0
@@ -94560,7 +95029,7 @@
               "systemData": {
                 "isMulti": false,
                 "systemName": "",
-                "calculatedScore": null,
+                "calculatedScore": 66,
                 "systems": [
                   {
                     "id": "f52018f4-be92-467f-9fe5-a73a55f1ae32",
@@ -94581,12 +95050,23 @@
                   "multi": false,
                   "systems": [
                     {
-                      "id": "92ff7ec4-7c8b-4a66-abac-f2425f1b4908",
-                      "name": "",
+                      "id": "36ab154a-04c2-42b2-bf5b-9566cf18bc7e",
+                      "name": "Epic",
                       "legacy": false,
                       "future": "",
-                      "qa": {},
-                      "score": null
+                      "qa": {
+                        "q1_note": "De agenda zelf is beschikbaar, maar het systeem ondersteunt niet automatisch de voorkeurslogica om zoveel mogelijk dezelfde één of twee begeleiders aan een reeks te koppelen",
+                        "q1": "SOMETIMES",
+                        "q2": "SOMETIMES",
+                        "q2_note": "Er moet niet alleen een vrij moment worden gevonden, maar ook continuïteit in begeleiding worden bewaakt.",
+                        "q3": "NEVER",
+                        "q3_note": "De belasting zit in afstemmen en combineren en niet in extra vastlegging.",
+                        "q4_note": "Het systeem laat de beschikbaarheid zien, maar niet automatisch welke combinatie het best past bij continuïteit en reekslogica.",
+                        "q4": "SOMETIMES",
+                        "q5_note": "Zonder dit inzicht kan geen betrouwbaar vrij slot voor ondersteuning rond de bestralingsreeks worden bepaald.",
+                        "q5": "RISK"
+                      },
+                      "score": 66
                     }
                   ],
                   "activeSystemIdx": 0
@@ -95106,7 +95586,7 @@
               "systemData": {
                 "isMulti": false,
                 "systemName": "",
-                "calculatedScore": null,
+                "calculatedScore": 53,
                 "systems": [
                   {
                     "id": "feb3d8e2-39a8-4d02-955b-fd12f62b7021",
@@ -95127,12 +95607,18 @@
                   "multi": false,
                   "systems": [
                     {
-                      "id": "d4602716-1589-4d18-8acc-f5da18f0fd4e",
+                      "id": "e295a49f-20d1-4507-9b61-361950338974",
                       "name": "",
                       "legacy": false,
                       "future": "",
-                      "qa": {},
-                      "score": null
+                      "qa": {
+                        "q1": "ALWAYS",
+                        "q2": "SOMETIMES",
+                        "q3": "SOMETIMES",
+                        "q4": "SOMETIMES",
+                        "q5": "DELAY"
+                      },
+                      "score": 53
                     }
                   ],
                   "activeSystemIdx": 0
