@@ -23234,7 +23234,7 @@
               "systemData": {
                 "isMulti": false,
                 "systemName": "",
-                "calculatedScore": null,
+                "calculatedScore": 60,
                 "systems": [
                   {
                     "id": "d55831d4-a268-405d-9501-4f1578a39ffa",
@@ -23250,7 +23250,31 @@
                     },
                     "calculatedScore": null
                   }
-                ]
+                ],
+                "systemsMeta": {
+                  "multi": false,
+                  "systems": [
+                    {
+                      "name": "Epic",
+                      "legacy": false,
+                      "future": "",
+                      "qa": {
+                        "q1": "SOMETIMES",
+                        "q1_note": "Epic toont de agenda, maar geeft niet vanzelf het bestuurlijke of logistieke totaalbeeld. Daardoor moet veel op ervaring en lokale kennis worden gecontroleerd.",
+                        "q2": "SOMETIMES",
+                        "q2_note": "De agenda is zichtbaar, maar uitzonderingen, lokale afspraken en verborgen logica moeten handmatig worden meegewogen.",
+                        "q3_note": " Deze stap is vooral controle. De dubbele administratie ontstaat pas later wanneer tellingen en verdelingen in Excel worden gemaakt.",
+                        "q3": "NEVER",
+                        "q4": "SOMETIMES",
+                        "q4_note": "Een agenda kan formeel goed lijken te staan terwijl de onderliggende afspraken niet volledig of niet actueel zijn. Dat maakt schijnzekerheid mogelijk.",
+                        "q5": "STOP",
+                        "q5_note": "Zonder Epic kan de basisagenda niet betrouwbaar worden gecontroleerd."
+                      },
+                      "score": 60
+                    }
+                  ],
+                  "activeSystemIdx": 0
+                }
               },
               "inputDefinitions": [],
               "disruptions": [],
@@ -23701,7 +23725,7 @@
               "systemData": {
                 "isMulti": false,
                 "systemName": "",
-                "calculatedScore": null,
+                "calculatedScore": 33,
                 "systems": [
                   {
                     "id": "8a3454a8-9928-44d2-b1de-8c09a066c6ad",
@@ -23717,7 +23741,31 @@
                     },
                     "calculatedScore": null
                   }
-                ]
+                ],
+                "systemsMeta": {
+                  "multi": false,
+                  "systems": [
+                    {
+                      "name": "Epic",
+                      "legacy": false,
+                      "future": "",
+                      "qa": {
+                        "q1": "OFTEN",
+                        "q1_note": "De verwerking gebeurt wel in Epic, maar de input komt niet uniform en niet gestandaardiseerd binnen. Daardoor moet voortdurend handmatig worden vertaald en geïnterpreteerd.",
+                        "q2": "OFTEN",
+                        "q2_note": "Veel losse uitzonderingen moeten afzonderlijk worden verwerkt. Dat maakt deze stap zwaar handmatig.",
+                        "q3": "SOMETIMES",
+                        "q3_note": "Informatie wordt buiten Epic ontvangen en daarna in Epic verwerkt. Dat is niet puur dubbel typen binnen één systeem, maar wel een dubbele informatiehandeling.",
+                        "q4": "OFTEN",
+                        "q4_note": "Als vergaderingen, afwezigheden of blokkades te laat of op wisselende manieren binnenkomen, blijft de agenda in Epic snel onvolledig of foutief.",
+                        "q5": "STOP",
+                        "q5_note": "Zonder Epic kunnen blokkades en afwezigheden niet in de agenda worden verwerkt."
+                      },
+                      "score": 33
+                    }
+                  ],
+                  "activeSystemIdx": 0
+                }
               },
               "inputDefinitions": [],
               "disruptions": [],
@@ -24168,7 +24216,7 @@
               "systemData": {
                 "isMulti": false,
                 "systemName": "",
-                "calculatedScore": null,
+                "calculatedScore": 13,
                 "systems": [
                   {
                     "id": "b8b2e30d-df23-47cf-b84b-10d4c9585689",
@@ -24184,7 +24232,31 @@
                     },
                     "calculatedScore": null
                   }
-                ]
+                ],
+                "systemsMeta": {
+                  "multi": false,
+                  "systems": [
+                    {
+                      "name": "Epic",
+                      "legacy": false,
+                      "future": "",
+                      "qa": {
+                        "q1_note": "Epic biedt geen goede samenvatting of bestuurlijk capaciteitsoverzicht. Daarom moet de capaciteit buiten Epic opnieuw worden opgebouwd.",
+                        "q1": "ALWAYS",
+                        "q2": "OFTEN",
+                        "q2_note": "De agenda staat in Epic, maar het systeem ondersteunt het tellen en analyseren van capaciteit onvoldoende.",
+                        "q3": "ALWAYS",
+                        "q3_note": "De consultstructuur wordt eerst in Epic ingericht en daarna opnieuw in Excel geteld en uitgesplitst.",
+                        "q4": "OFTEN",
+                        "q4_note": "Door handmatige tellingen, lokale uitzonderingen en veel bijzondere afspraken is de kans groot dat aantallen of classificaties niet kloppen.",
+                        "q5": "STOP",
+                        "q5_note": "Zonder Epic ontbreekt de bron waaruit de consultcapaciteit moet worden afgeleid"
+                      },
+                      "score": 13
+                    }
+                  ],
+                  "activeSystemIdx": 0
+                }
               },
               "inputDefinitions": [],
               "disruptions": [],
@@ -24644,7 +24716,7 @@
               "systemData": {
                 "isMulti": false,
                 "systemName": "",
-                "calculatedScore": null,
+                "calculatedScore": 40,
                 "systems": [
                   {
                     "id": "ea18ac21-f0d5-4540-ae37-125565b2faa2",
@@ -24665,12 +24737,22 @@
                   "multi": false,
                   "systems": [
                     {
-                      "id": "2cded93e-eec3-4b8d-ab3e-90affb1dc185",
-                      "name": "",
+                      "name": "Epic",
                       "legacy": false,
                       "future": "",
-                      "qa": {},
-                      "score": null
+                      "qa": {
+                        "q1": "OFTEN",
+                        "q1_note": "Excel is hier zelf al een workaround, omdat de verdeling niet goed in Epic kan worden gemaakt.",
+                        "q2": "SOMETIMES",
+                        "q2_note": "Excel maakt het puzzelen mogelijk, maar alle logica moet zelf worden gebouwd en bewaakt.",
+                        "q3": "OFTEN",
+                        "q3_note": "De gegevens bestaan al in Epic en worden opnieuw in Excel gezet om verdelingen en tellingen te kunnen maken.",
+                        "q4": "OFTEN",
+                        "q4_note": "Excel laat toe dat lokaal veel regels, uitzonderingen en tellingen naast elkaar ontstaan zonder harde procesbewaking",
+                        "q5": "RISK",
+                        "q5_note": "Zonder Excel valt het hele tussenstuk weg waarin capaciteit wordt vertaald naar een bestuurbare weekverdeling."
+                      },
+                      "score": 40
                     }
                   ],
                   "activeSystemIdx": 0
@@ -25190,7 +25272,7 @@
               "systemData": {
                 "isMulti": false,
                 "systemName": "",
-                "calculatedScore": null,
+                "calculatedScore": 46,
                 "systems": [
                   {
                     "id": "86c01a0d-6dcd-483e-9463-a41c5f8144cb",
@@ -25211,12 +25293,22 @@
                   "multi": false,
                   "systems": [
                     {
-                      "id": "a823bec4-5e49-4db0-be65-67822c10c1e8",
-                      "name": "",
+                      "name": "Excel",
                       "legacy": false,
                       "future": "",
-                      "qa": {},
-                      "score": null
+                      "qa": {
+                        "q1_note": "Excel is hier zelf al een workaround, omdat de verdeling niet goed in Epic kan worden gemaakt.",
+                        "q1": "OFTEN",
+                        "q2": "SOMETIMES",
+                        "q2_note": "Excel maakt het puzzelen mogelijk, maar alle logica moet zelf worden gebouwd en bewaakt.",
+                        "q3": "OFTEN",
+                        "q3_note": "De gegevens bestaan al in Epic en worden opnieuw in Excel gezet om verdelingen en tellingen te kunnen maken.",
+                        "q4_note": "Excel laat toe dat lokaal veel regels, uitzonderingen en tellingen naast elkaar ontstaan zonder harde procesbewaking.",
+                        "q4": "OFTEN",
+                        "q5": "DELAY",
+                        "q5_note": "Zonder Excel valt het hele tussenstuk weg waarin capaciteit wordt vertaald naar een bestuurbare weekverdeling."
+                      },
+                      "score": 46
                     }
                   ],
                   "activeSystemIdx": 0
@@ -25736,7 +25828,7 @@
               "systemData": {
                 "isMulti": false,
                 "systemName": "",
-                "calculatedScore": null,
+                "calculatedScore": 80,
                 "systems": [
                   {
                     "id": "f5c96a7c-a2f1-496c-9c9e-8f0b46e67741",
@@ -25757,12 +25849,22 @@
                   "multi": false,
                   "systems": [
                     {
-                      "id": "e472af23-8899-41d8-957c-0636f5fd073d",
-                      "name": "",
+                      "name": "Outlook",
                       "legacy": false,
                       "future": "",
-                      "qa": {},
-                      "score": null
+                      "qa": {
+                        "q1_note": "Het versturen en ontvangen van de forecast gaat op zichzelf eenvoudig.",
+                        "q1": "NEVER",
+                        "q2": "SOMETIMES",
+                        "q2_note": "De inhoudelijke beoordeling blijft afhankelijk van beschikbaarheid en interpretatie. Outlook ondersteunt alleen de uitwisseling, niet de besluitlogica.",
+                        "q3": "NEVER",
+                        "q3_note": "Outlook is hier vooral een doorgeefkanaal.",
+                        "q4": "SOMETIMES",
+                        "q4_note": "Feedback kan impliciet, summier of voor meerdere uitleg vatbaar zijn. Outlook structureert de terugkoppeling niet.",
+                        "q5_note": "De afstemming schuift op, maar de forecast zelf gaat niet inhoudelijk verloren.",
+                        "q5": "DELAY"
+                      },
+                      "score": 80
                     }
                   ],
                   "activeSystemIdx": 0
@@ -26282,7 +26384,7 @@
               "systemData": {
                 "isMulti": false,
                 "systemName": "",
-                "calculatedScore": null,
+                "calculatedScore": 73,
                 "systems": [
                   {
                     "id": "941d0925-e656-4b57-bf60-31edc0cd87d3",
@@ -26303,12 +26405,22 @@
                   "multi": false,
                   "systems": [
                     {
-                      "id": "fe83bc1e-1d67-4620-a8aa-ce8db71d78ec",
-                      "name": "",
+                      "name": "Outlook",
                       "legacy": false,
                       "future": "",
-                      "qa": {},
-                      "score": null
+                      "qa": {
+                        "q1": "SOMETIMES",
+                        "q1_note": "Feedback komt via losse mail terug en moet daarna handmatig worden vertaald naar aanpassing. Er is geen gestructureerde terugkoppellus.",
+                        "q2": "SOMETIMES",
+                        "q2_note": "Als feedback onduidelijk of niet volledig is, kost verwerking extra tijd.",
+                        "q3": "NEVER",
+                        "q3_note": "Outlook bewaart de feedback, maar de verwerking gebeurt later in een ander systeem.",
+                        "q4_note": "Interpretatieverschillen in feedback kunnen ertoe leiden dat aanpassingen niet precies worden verwerkt zoals bedoeld.",
+                        "q4": "SOMETIMES",
+                        "q5": "DELAY",
+                        "q5_note": "Terugkoppeling en besluitvorming worden trager, maar de inhoud kan later alsnog verwerkt worden"
+                      },
+                      "score": 73
                     }
                   ],
                   "activeSystemIdx": 0
@@ -26828,7 +26940,7 @@
               "systemData": {
                 "isMulti": false,
                 "systemName": "",
-                "calculatedScore": null,
+                "calculatedScore": 40,
                 "systems": [
                   {
                     "id": "73be774f-36ce-4759-9d40-5572dd7ff6a7",
@@ -26849,12 +26961,22 @@
                   "multi": false,
                   "systems": [
                     {
-                      "id": "50219d20-079e-4ce2-a301-d52fb9fe69a5",
-                      "name": "",
+                      "name": "Excel",
                       "legacy": false,
                       "future": "",
-                      "qa": {},
-                      "score": null
+                      "qa": {
+                        "q1": "OFTEN",
+                        "q1_note": " De definitieve dagindeling wordt in Excel vastgelegd terwijl de uiteindelijke uitvoering in Epic plaatsvindt. Dat betekent weer een vertaalslag.",
+                        "q2": "SOMETIMES",
+                        "q2_note": "Excel helpt om de definitieve indeling overzichtelijk te maken, maar publicatie vraagt daarna nog handmatig overzetten.",
+                        "q3": "OFTEN",
+                        "q3_note": "De definitieve dagindeling bestaat in Excel en moet daarna opnieuw in Epic verwerkt worden.",
+                        "q4": "OFTEN",
+                        "q4_note": " Iedere handmatige vertaalslag van definitieve indeling naar uitvoeringssysteem geeft risico op vergeten of verkeerd overgenomen wijzigingen.",
+                        "q5": "RISK",
+                        "q5_note": " Zonder Excel ontbreekt de definitieve vertaalslag waarop publicatie en uitvoering worden gebaseerd."
+                      },
+                      "score": 40
                     }
                   ],
                   "activeSystemIdx": 0
