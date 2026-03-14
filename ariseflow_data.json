@@ -93544,34 +93544,34 @@
               "improvements": [],
               "qa": {
                 "compleet": {
-                  "result": null,
-                  "impact": null,
-                  "note": ""
+                  "result": "MINOR",
+                  "impact": "B",
+                  "note": "Het is duidelijk dat de RT-planning gestart is, maar dat zegt nog niet automatisch of en wanneer een arts betrokken moet zijn."
                 },
                 "kwaliteit": {
-                  "result": null,
+                  "result": "GOOD",
                   "impact": null,
                   "note": ""
                 },
                 "duidelijkheid": {
-                  "result": null,
+                  "result": "GOOD",
                   "impact": null,
                   "note": ""
                 },
                 "tijdigheid": {
-                  "result": null,
+                  "result": "GOOD",
                   "impact": null,
                   "note": ""
                 },
                 "standaard": {
-                  "result": null,
+                  "result": "GOOD",
                   "impact": null,
                   "note": ""
                 },
                 "overdracht": {
-                  "result": null,
-                  "impact": null,
-                  "note": ""
+                  "result": "MINOR",
+                  "impact": "C",
+                  "note": "De status maakt duidelijk dat het proces gestart is, maar geeft nog niet alle randvoorwaarden voor artscontrole mee."
                 }
               },
               "systemData": {
@@ -93595,7 +93595,28 @@
                   }
                 ]
               },
-              "inputDefinitions": [],
+              "inputDefinitions": [
+                {
+                  "item": "Status RT inplannen gestart",
+                  "specifications": "Het moet zichtbaar zijn dat de planningsfase formeel is gestart.",
+                  "type": "HARD"
+                },
+                {
+                  "item": "Patiëntidentificatie",
+                  "specifications": "Nodig om de juiste agenda te controleren.",
+                  "type": "HARD"
+                },
+                {
+                  "item": "Indicatie of arts erbij moet zijn",
+                  "specifications": "Zonder deze informatie is artsagenda controleren niet doelgericht.",
+                  "type": "HARD"
+                },
+                {
+                  "item": "Beoogde startdatum",
+                  "specifications": "Wenselijk om de agenda direct tegen de juiste dag of periode te leggen.",
+                  "type": "SOFT"
+                }
+              ],
               "disruptions": [],
               "workExp": null,
               "workExpNote": "",
@@ -94101,34 +94122,34 @@
               "improvements": [],
               "qa": {
                 "compleet": {
-                  "result": null,
-                  "impact": null,
-                  "note": ""
+                  "result": "MINOR",
+                  "impact": "B",
+                  "note": "De capaciteit is zichtbaar, maar de blokstructuur en kleurlogica geven niet altijd het volledige beeld van wat operationeel echt past."
                 },
                 "kwaliteit": {
-                  "result": null,
-                  "impact": null,
-                  "note": ""
+                  "result": "MINOR",
+                  "impact": "B",
+                  "note": "Het overzicht is bruikbaar, maar is gebaseerd op gemiddelden. Daardoor kan de weergegeven capaciteit afwijken van wat in de praktijk nodig is."
                 },
                 "duidelijkheid": {
-                  "result": null,
-                  "impact": null,
-                  "note": ""
+                  "result": "MINOR",
+                  "impact": "C",
+                  "note": "Het systeem is voor ervaren gebruikers duidelijk, maar de vertaalslag van blokken naar echte plaatsbaarheid vraagt nog interpretatie."
                 },
                 "tijdigheid": {
-                  "result": null,
+                  "result": "GOOD",
                   "impact": null,
                   "note": ""
                 },
                 "standaard": {
-                  "result": null,
+                  "result": "GOOD",
                   "impact": null,
                   "note": ""
                 },
                 "overdracht": {
-                  "result": null,
-                  "impact": null,
-                  "note": ""
+                  "result": "MINOR",
+                  "impact": "B",
+                  "note": "De formele capaciteit wordt goed getoond, maar de operationele bruikbaarheid moet nog handmatig worden beoordeeld."
                 }
               },
               "systemData": {
@@ -94152,7 +94173,28 @@
                   }
                 ]
               },
-              "inputDefinitions": [],
+              "inputDefinitions": [
+                {
+                  "item": "Actueel toesteloverzicht",
+                  "specifications": "Beschikbare blokken en bezetting moeten zichtbaar zijn.",
+                  "type": "HARD"
+                },
+                {
+                  "item": "Tijdsduur of type bestralingsblok",
+                  "specifications": "Nodig om te bepalen of een patiënt echt past in het blok.",
+                  "type": "HARD"
+                },
+                {
+                  "item": "Patiëntcategorie of behandeltype",
+                  "specifications": "Wenselijk om de bloklogica correct te interpreteren.",
+                  "type": "SOFT"
+                },
+                {
+                  "item": "Startperiode of gewenste startdag",
+                  "specifications": "Wenselijk om doelgericht naar capaciteit te zoeken.",
+                  "type": "SOFT"
+                }
+              ],
               "disruptions": [],
               "workExp": null,
               "workExpNote": "",
@@ -94655,34 +94697,34 @@
               "improvements": [],
               "qa": {
                 "compleet": {
-                  "result": null,
-                  "impact": null,
-                  "note": ""
+                  "result": "MINOR",
+                  "impact": "B",
+                  "note": "De agenda is beschikbaar, maar bevat niet automatisch de voorkeurslogica om dezelfde één of twee begeleiders zoveel mogelijk aan een reeks te koppelen."
                 },
                 "kwaliteit": {
-                  "result": null,
+                  "result": "GOOD",
                   "impact": null,
                   "note": ""
                 },
                 "duidelijkheid": {
-                  "result": null,
+                  "result": "GOOD",
                   "impact": null,
                   "note": ""
                 },
                 "tijdigheid": {
-                  "result": null,
+                  "result": "GOOD",
                   "impact": null,
                   "note": ""
                 },
                 "standaard": {
-                  "result": null,
-                  "impact": null,
-                  "note": ""
+                  "result": "MINOR",
+                  "impact": "C",
+                  "note": "De agenda is gestandaardiseerd, maar de gewenste continuïteit in begeleiding zit niet als harde standaard in de input zelf."
                 },
                 "overdracht": {
-                  "result": null,
-                  "impact": null,
-                  "note": ""
+                  "result": "MINOR",
+                  "impact": "B",
+                  "note": "De beschikbaarheid is wel overgedragen, maar de optimale combinatie met reekslogica moet nog actief worden uitgezocht."
                 }
               },
               "systemData": {
@@ -94706,7 +94748,28 @@
                   }
                 ]
               },
-              "inputDefinitions": [],
+              "inputDefinitions": [
+                {
+                  "item": "Actuele agenda van mondhygiënisten of verpleegkundig",
+                  "specifications": "Beschikbaarheid moet zichtbaar zijn.",
+                  "type": "HARD"
+                },
+                {
+                  "item": "Patiëntidentificatie of reekskoppeling",
+                  "specifications": "Nodig om te bepalen of continuïteit van begeleiding wenselijk of nodig is.",
+                  "type": "HARD"
+                },
+                {
+                  "item": "Beoogde behandelperiode",
+                  "specifications": "Nodig om de juiste dagen te controleren.",
+                  "type": "HARD"
+                },
+                {
+                  "item": "Voorkeur voor vaste begeleider",
+                  "specifications": "Wenselijk om patiëntvriendelijkheid en continuïteit te verbeteren.",
+                  "type": "SOFT"
+                }
+              ],
               "disruptions": [],
               "workExp": null,
               "workExpNote": "",
@@ -95210,34 +95273,34 @@
               "improvements": [],
               "qa": {
                 "compleet": {
-                  "result": null,
-                  "impact": null,
-                  "note": ""
+                  "result": "MINOR",
+                  "impact": "B",
+                  "note": "Een vrij slot is een noodzakelijke basis, maar nog niet genoeg om zonder meer een hele RT-reeks goed te plannen. Reekslogica, eerste en laatste bestraling en blokken moeten nog correct worden gezet.\n"
                 },
                 "kwaliteit": {
-                  "result": null,
-                  "impact": null,
-                  "note": ""
+                  "result": "MINOR",
+                  "impact": "B",
+                  "note": "Het vrije slot is bruikbaar, maar kan bij reeksplanning alsnog tot onjuiste tijden of onlogische plaatsing leiden."
                 },
                 "duidelijkheid": {
-                  "result": null,
+                  "result": "GOOD",
                   "impact": null,
                   "note": ""
                 },
                 "tijdigheid": {
-                  "result": null,
+                  "result": "GOOD",
                   "impact": null,
                   "note": ""
                 },
                 "standaard": {
-                  "result": null,
-                  "impact": null,
-                  "note": ""
+                  "result": "MINOR",
+                  "impact": "C",
+                  "note": "Het slot volgt de blokstructuur, maar die blokstructuur sluit niet altijd goed aan op de werkelijke behandelduur of reeksbehoefte."
                 },
                 "overdracht": {
-                  "result": null,
-                  "impact": null,
-                  "note": ""
+                  "result": "MINOR",
+                  "impact": "B",
+                  "note": "Het vrije slot wordt goed aangeleverd, maar moet nog sterk worden bewerkt om een correcte geplande RT op te leveren."
                 }
               },
               "systemData": {
@@ -95261,7 +95324,28 @@
                   }
                 ]
               },
-              "inputDefinitions": [],
+              "inputDefinitions": [
+                {
+                  "item": "Vrij slot voor bestralingsafspraak",
+                  "specifications": "Er moet concrete ruimte beschikbaar zijn op het toestel.",
+                  "type": "HARD"
+                },
+                {
+                  "item": "Patiëntidentificatie",
+                  "specifications": "Nodig om de RT-reeks aan de juiste patiënt te koppelen.",
+                  "type": "HARD"
+                },
+                {
+                  "item": "Juiste behandeltijd of reeksduur",
+                  "specifications": "Zonder juiste tijdsduur ontstaat direct foutieve planning.",
+                  "type": "HARD"
+                },
+                {
+                  "item": "Aansluitende randvoorwaarden zoals arts of ondersteuning",
+                  "specifications": "Wenselijk om de reeks in één keer goed te kunnen plaatsen.",
+                  "type": "SOFT"
+                }
+              ],
               "disruptions": [],
               "workExp": null,
               "workExpNote": "",
@@ -95762,34 +95846,34 @@
               "improvements": [],
               "qa": {
                 "compleet": {
-                  "result": null,
+                  "result": "GOOD",
                   "impact": null,
                   "note": ""
                 },
                 "kwaliteit": {
-                  "result": null,
+                  "result": "GOOD",
                   "impact": null,
                   "note": ""
                 },
                 "duidelijkheid": {
-                  "result": null,
+                  "result": "GOOD",
                   "impact": null,
                   "note": ""
                 },
                 "tijdigheid": {
-                  "result": null,
+                  "result": "GOOD",
                   "impact": null,
                   "note": ""
                 },
                 "standaard": {
-                  "result": null,
-                  "impact": null,
-                  "note": ""
+                  "result": "MINOR",
+                  "impact": "C",
+                  "note": "De taak is een intern werkmechanisme en geen volledig natuurlijk onderdeel van het primaire proces. Daardoor blijft het deels een extra beheerstap."
                 },
                 "overdracht": {
-                  "result": null,
-                  "impact": null,
-                  "note": ""
+                  "result": "MINOR",
+                  "impact": "B",
+                  "note": "De taak moet nog expliciet handmatig worden afgerond. Als dat niet gebeurt, blijft de werkvoorraad vervuild en is extra opschoning nodig."
                 }
               },
               "systemData": {
@@ -95813,7 +95897,28 @@
                   }
                 ]
               },
-              "inputDefinitions": [],
+              "inputDefinitions": [
+                {
+                  "item": "Openstaande RT-taak",
+                  "specifications": "De taak moet zichtbaar en nog niet afgerond zijn.",
+                  "type": "HARD"
+                },
+                {
+                  "item": "Bevestiging dat RT daadwerkelijk gepland is",
+                  "specifications": "Zonder geplande RT kan de taak niet verantwoord worden gesloten.",
+                  "type": "HARD"
+                },
+                {
+                  "item": "Patiëntidentificatie",
+                  "specifications": "Nodig om de juiste taak af te ronden.",
+                  "type": "HARD"
+                },
+                {
+                  "item": "Eventuele controle op volledigheid van planning",
+                  "specifications": "Wenselijk om te voorkomen dat te vroeg wordt afgerond.",
+                  "type": "SOFT"
+                }
+              ],
               "disruptions": [],
               "workExp": null,
               "workExpNote": "",
