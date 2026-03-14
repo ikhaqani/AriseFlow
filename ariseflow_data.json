@@ -85703,11 +85703,15 @@
               "created": 1771321243729,
               "text": "Doorlooptijden controleren",
               "linkedSourceId": null,
-              "type": null,
-              "processValue": null,
-              "processStatus": null,
+              "type": "Beoordeling",
+              "processValue": "BNVA",
+              "processStatus": "NEUTRAL",
               "successFactors": "",
-              "causes": [],
+              "causes": [
+                "Niet alle doorlooptijden zijn uniform gedefinieerd.",
+                "Buitenprotocolsituaties vragen extra interpretatie",
+                "De stap leunt op goed lezen in plaats van systeemdwang."
+              ],
               "improvements": [],
               "qa": {
                 "compleet": {
@@ -85757,9 +85761,25 @@
                 ]
               },
               "inputDefinitions": [],
-              "disruptions": [],
-              "workExp": null,
-              "workExpNote": "",
+              "disruptions": [
+                {
+                  "scenario": " Onduidelijkheid tussen werkdagen en kalenderdagen.",
+                  "frequency": "Vaak",
+                  "workaround": "Handmatig narekenen en extra controleren."
+                },
+                {
+                  "scenario": "Buitenprotocolprescriptie.",
+                  "frequency": "Soms",
+                  "workaround": "Zelf passend zorgpad en norm opzoeken."
+                },
+                {
+                  "scenario": " Prescriptie nog niet definitief.",
+                  "frequency": "Soms",
+                  "workaround": "Wachten op besluit of tijdelijk niet doorplannen."
+                }
+              ],
+              "workExp": "ROUTINE",
+              "workExpNote": "De stap werkt in standaardgevallen goed.\nWerkdagen en kalenderdagen worden niet overal op dezelfde manier gebruikt.\nBuitenprotocolsituaties vragen extra interpretatie.\nDaardoor blijft de stap foutgevoelig.",
               "linkedSourceUids": [],
               "linkedBundleIds": [],
               "gate": {
@@ -86286,11 +86306,15 @@
               "created": 1771321265432,
               "text": "Toestelcapaciteit controleren",
               "linkedSourceId": null,
-              "type": null,
-              "processValue": null,
-              "processStatus": null,
+              "type": "Beoordeling",
+              "processValue": "BNVA",
+              "processStatus": "NEUTRAL",
               "successFactors": "",
-              "causes": [],
+              "causes": [
+                "Beschikbare capaciteit sluit niet altijd aan op de gewenste starttermijn.",
+                "Onderhoud, feestdagen en volle toestellen verstoren de standaarddoorloop.",
+                "Afwijking wordt handmatig opgelost."
+              ],
               "improvements": [],
               "qa": {
                 "compleet": {
@@ -86340,9 +86364,25 @@
                 ]
               },
               "inputDefinitions": [],
-              "disruptions": [],
-              "workExp": null,
-              "workExpNote": "",
+              "disruptions": [
+                {
+                  "scenario": "Toestel vol.",
+                  "frequency": "Vaak",
+                  "workaround": "Start later zetten of alternatief zoeken."
+                },
+                {
+                  "scenario": "Onderhoud of feestdag.",
+                  "frequency": "Soms",
+                  "workaround": "Doorloop verlengen of arts informeren."
+                },
+                {
+                  "scenario": "Gewenste startdatum past niet binnen capaciteit.",
+                  "frequency": "Vaak",
+                  "workaround": "Binnen de marge schuiven of reden vertraging vastleggen."
+                }
+              ],
+              "workExp": "OBSTACLE",
+              "workExpNote": "Capaciteitsoverzicht is beschikbaar, maar sluit niet altijd aan op de werkelijke situatie.\nVolle toestellen, onderhoud en feestdagen verstoren de gewenste startdatum regelmatig.\nDaardoor ontstaat schuiven, verlengen en registreren van vertraging.",
               "linkedSourceUids": [],
               "linkedBundleIds": [],
               "gate": {
@@ -86880,11 +86920,15 @@
               "created": 1771321278218,
               "text": "Controleren aanvraagformulier",
               "linkedSourceId": null,
-              "type": null,
-              "processValue": null,
-              "processStatus": null,
+              "type": "Beoordeling",
+              "processValue": "BNVA",
+              "processStatus": "SAD",
               "successFactors": "",
-              "causes": [],
+              "causes": [
+                "Aanvraagformulier wordt niet volledig of niet tijdig ingevuld.",
+                "Afwijkende terminologie veroorzaakt interpretatie.",
+                "Orders sluiten niet altijd aan op de aanvraag."
+              ],
               "improvements": [],
               "qa": {
                 "compleet": {
@@ -86934,9 +86978,25 @@
                 ]
               },
               "inputDefinitions": [],
-              "disruptions": [],
-              "workExp": null,
-              "workExpNote": "",
+              "disruptions": [
+                {
+                  "scenario": "Aanvraagformulier onvolledig.",
+                  "frequency": "Vaak",
+                  "workaround": "Arts bellen en formulier laten aanvullen."
+                },
+                {
+                  "scenario": "Verkeerde of ontbrekende order.",
+                  "frequency": "Vaak",
+                  "workaround": "Arts opnieuw benaderen en juiste order laten maken."
+                },
+                {
+                  "scenario": "Afwijkende termen voor voorbereiding of hulpmiddel.",
+                  "frequency": "Soms",
+                  "workaround": "Interpreteren, protocol raadplegen of navragen."
+                }
+              ],
+              "workExp": "OBSTACLE",
+              "workExpNote": "Kritieke informatie ontbreekt regelmatig.\nAfwijkende terminologie zorgt voor interpretatieverschillen.\nBeeldvorming en orderinformatie sluiten niet altijd aan op de aanvraag.\nDaardoor is nabellen, verduidelijken en corrigeren vaak nodig.",
               "linkedSourceUids": [],
               "linkedBundleIds": [],
               "gate": {
@@ -87463,11 +87523,15 @@
               "created": 1771321481540,
               "text": "Controleren agenda van arts",
               "linkedSourceId": null,
-              "type": null,
-              "processValue": null,
-              "processStatus": null,
+              "type": "Beoordeling",
+              "processValue": "BNVA",
+              "processStatus": "SAD",
               "successFactors": "",
-              "causes": [],
+              "causes": [
+                "Agenda’s lopen niet synchroon.",
+                " Blokken worden onzorgvuldig of niet volgens afspraak ingericht.",
+                "Fouten worden lokaal opgelost in plaats van structureel teruggekoppeld."
+              ],
               "improvements": [],
               "qa": {
                 "compleet": {
@@ -87517,9 +87581,30 @@
                 ]
               },
               "inputDefinitions": [],
-              "disruptions": [],
-              "workExp": null,
-              "workExpNote": "",
+              "disruptions": [
+                {
+                  "scenario": " Artsagenda staat dicht of verkeerd.",
+                  "frequency": "Vaak",
+                  "workaround": " Zelf aanpassen, alternatief zoeken of patiënt verzetten."
+                },
+                {
+                  "scenario": "Vergadering of supervisie wordt ingepland zonder consultblok goed mee te verplaatsen.",
+                  "frequency": "Vaak",
+                  "workaround": "Agenda handmatig corrigeren en opnieuw afstemmen."
+                },
+                {
+                  "scenario": "Agenda toestel en arts lopen niet gelijk.",
+                  "frequency": "Vaak",
+                  "workaround": "Zelf vergelijken, ontbrekende koppeling opsporen en opnieuw plannen."
+                },
+                {
+                  "scenario": "TC-blokken of Fastmetblokken staan niet goed.",
+                  "frequency": "Vaak",
+                  "workaround": "Zelf blokkenschema herstellen of collega mailen."
+                }
+              ],
+              "workExp": "OBSTACLE",
+              "workExpNote": "Agenda’s van arts, toestel en andere planningen lopen vaak niet synchroon.\nBlokken staan regelmatig verkeerd of worden niet goed mee verplaatst.\nCorrecties worden handmatig gedaan en leiden tot extra werk en herplanning.\nDaardoor blijft het proces afhankelijk van lokaal oplossen in plaats van stabiele inrichting",
               "linkedSourceUids": [],
               "linkedBundleIds": [],
               "gate": {
