@@ -88696,11 +88696,14 @@
               "created": 1771321699612,
               "text": "Periode kiezen",
               "linkedSourceId": null,
-              "type": null,
-              "processValue": null,
-              "processStatus": null,
+              "type": "Taak",
+              "processValue": "BNVA",
+              "processStatus": "NEUTRAL",
               "successFactors": "",
-              "causes": [],
+              "causes": [
+                "De tool houdt niet alle planningsrandvoorwaarden tegelijk vast.",
+                "Spreiding van starters is een advies en geen harde planlogica."
+              ],
               "improvements": [],
               "qa": {
                 "compleet": {
@@ -88750,9 +88753,20 @@
                 ]
               },
               "inputDefinitions": [],
-              "disruptions": [],
-              "workExp": null,
-              "workExpNote": "",
+              "disruptions": [
+                {
+                  "scenario": "Gekozen periode botst met chemo of artsbeschikbaarheid.",
+                  "frequency": "Vaak",
+                  "workaround": "Periode overruelen en opnieuw kiezen."
+                },
+                {
+                  "scenario": "Tool laat rustige dag zien, maar capaciteit past toch niet.",
+                  "frequency": "Soms",
+                  "workaround": "Handmatig herplannen op basis van echte capaciteit."
+                }
+              ],
+              "workExp": "ROUTINE",
+              "workExpNote": "De spreidingstool geeft bruikbare stuurinformatie.\nDe gekozen periode wordt regelmatig overruled door chemo, artsaanwezigheid, toestelcapaciteit of specifieke startwensen.\nDaardoor is de stap bruikbaar, maar niet doorslaggevend.",
               "linkedSourceUids": [],
               "linkedBundleIds": [],
               "gate": {
@@ -89272,11 +89286,14 @@
               "created": 1771321787401,
               "text": "Kies startdatum met minste starters",
               "linkedSourceId": null,
-              "type": null,
-              "processValue": null,
-              "processStatus": null,
+              "type": "Taak",
+              "processValue": "BNVA",
+              "processStatus": "NEUTRAL",
               "successFactors": "",
-              "causes": [],
+              "causes": [
+                "Minste starters betekent niet automatisch beste uitvoerbare datum.",
+                "De uitkomst wordt vaak overruled."
+              ],
               "improvements": [],
               "qa": {
                 "compleet": {
@@ -89326,9 +89343,20 @@
                 ]
               },
               "inputDefinitions": [],
-              "disruptions": [],
-              "workExp": null,
-              "workExpNote": "",
+              "disruptions": [
+                {
+                  "scenario": "Datum met minste starters kan niet door andere randvoorwaarden.",
+                  "frequency": "Vaak",
+                  "workaround": "Handmatig een andere startdatum kiezen."
+                },
+                {
+                  "scenario": "Tooladvies wijkt af van medisch of logistiek gewenste start.",
+                  "frequency": "Vaak",
+                  "workaround": "Artsagenda of chemodag leidend maken."
+                }
+              ],
+              "workExp": "OBSTACLE",
+              "workExpNote": "Een startdatum met weinig starters is niet automatisch de beste of haalbare startdatum.\nChemo, arts, toestel en protocol kunnen zwaarder wegen.\nDe stap levert daardoor vaak extra afweging op in plaats van directe zekerheid.",
               "linkedSourceUids": [],
               "linkedBundleIds": [],
               "gate": {
@@ -89838,11 +89866,14 @@
               "created": 1771322145510,
               "text": "Route chemo starten",
               "linkedSourceId": null,
-              "type": null,
-              "processValue": null,
-              "processStatus": null,
+              "type": "Taak",
+              "processValue": "BNVA",
+              "processStatus": "NEUTRAL",
               "successFactors": "",
-              "causes": [],
+              "causes": [
+                "Chemocapaciteit ligt buiten de eigen planning.",
+                "Niet altijd is vroeg genoeg zichtbaar dat chemo onderdeel is van het traject."
+              ],
               "improvements": [],
               "qa": {
                 "compleet": {
@@ -89892,9 +89923,20 @@
                 ]
               },
               "inputDefinitions": [],
-              "disruptions": [],
-              "workExp": null,
-              "workExpNote": "",
+              "disruptions": [
+                {
+                  "scenario": "Chemo blijkt niet tijdig of niet goed afgestemd.",
+                  "frequency": "Soms",
+                  "workaround": "Route wel starten maar daarna telefonisch met chemo afstemmen"
+                },
+                {
+                  "scenario": "Arts heeft chemo niet goed aangegeven.",
+                  "frequency": "Soms",
+                  "workaround": "Route corrigeren en afstemming alsnog opstarten."
+                }
+              ],
+              "workExp": "ROUTINE",
+              "workExpNote": "De chemoroute is als route duidelijk.\nDe uitvoerbaarheid hangt direct af van afstemming met een andere afdeling.\nDaardoor is de route zelf helder, maar het vervolg kwetsbaar.",
               "linkedSourceUids": [],
               "linkedBundleIds": [],
               "gate": {
@@ -90412,11 +90454,14 @@
               "created": 1771322198309,
               "text": "Planner chemo bellen",
               "linkedSourceId": null,
-              "type": null,
-              "processValue": null,
-              "processStatus": null,
+              "type": "Taak",
+              "processValue": "NVA",
+              "processStatus": "NEUTRAL",
               "successFactors": "",
-              "causes": [],
+              "causes": [
+                "Chemoplanning en RT-planning zijn niet geïntegreerd.",
+                " Startdatum moet handmatig tussen twee afdelingen worden afgestemd."
+              ],
               "improvements": [],
               "qa": {
                 "compleet": {
@@ -90466,9 +90511,20 @@
                 ]
               },
               "inputDefinitions": [],
-              "disruptions": [],
-              "workExp": null,
-              "workExpNote": "",
+              "disruptions": [
+                {
+                  "scenario": "Geen passende chemoplaats op gewenste startdag.",
+                  "frequency": "Soms",
+                  "workaround": "Telefonisch zoeken tot een gezamenlijke datum gevonden is."
+                },
+                {
+                  "scenario": "Chemo blijkt niet goed aangekondigd.",
+                  "frequency": "Soms",
+                  "workaround": "Nieuwe afstemming starten en planning aanpassen."
+                }
+              ],
+              "workExp": "ROUTINE",
+              "workExpNote": "Telefonisch afstemmen is nodig omdat de systemen de afstemming niet integraal ondersteunen.\nDe stap is werkbaar, maar blijft extra werk buiten de systeemlogica.",
               "linkedSourceUids": [],
               "linkedBundleIds": [],
               "gate": {
@@ -90978,10 +91034,10 @@
               "created": 1771322267935,
               "text": "Route TBI starten",
               "linkedSourceId": null,
-              "type": null,
-              "processValue": null,
-              "processStatus": null,
-              "successFactors": "",
+              "type": "Taak",
+              "processValue": "BNVA",
+              "processStatus": "HAPPY",
+              "successFactors": "De belangrijkste knelpunten zitten niet in het starten van de route, maar in de vervolgplanning en de tijdsdruk.",
               "causes": [],
               "improvements": [],
               "qa": {
@@ -91032,9 +91088,20 @@
                 ]
               },
               "inputDefinitions": [],
-              "disruptions": [],
-              "workExp": null,
-              "workExpNote": "",
+              "disruptions": [
+                {
+                  "scenario": "Route blijkt afwijkend ten opzichte van standaard TBI.",
+                  "frequency": "Soms",
+                  "workaround": "Vervolgplanning handmatig aanpassen."
+                },
+                {
+                  "scenario": "Donor- of timinginformatie verandert.",
+                  "frequency": "Soms",
+                  "workaround": "Route actief houden maar planning herzien."
+                }
+              ],
+              "workExp": "ROUTINE",
+              "workExpNote": "De TBI-route is helder als routekeuze.\nDe belangrijkste knelpunten zitten niet in het starten van de route, maar in de vervolgplanning en de tijdsdruk.",
               "linkedSourceUids": [],
               "linkedBundleIds": [],
               "gate": {
@@ -91555,11 +91622,14 @@
               "created": 1771322481343,
               "text": "Reservering omzetten naar geplande RT",
               "linkedSourceId": null,
-              "type": null,
-              "processValue": null,
-              "processStatus": null,
+              "type": "Taak",
+              "processValue": "BNVA",
+              "processStatus": "NEUTRAL",
               "successFactors": "",
-              "causes": [],
+              "causes": [
+                "Reservering en definitieve RT-tijd sluiten niet altijd goed op elkaar aan",
+                "Fouten worden pas zichtbaar bij omzetting."
+              ],
               "improvements": [],
               "qa": {
                 "compleet": {
@@ -91609,9 +91679,20 @@
                 ]
               },
               "inputDefinitions": [],
-              "disruptions": [],
-              "workExp": null,
-              "workExpNote": "",
+              "disruptions": [
+                {
+                  "scenario": "Reservering heeft onjuiste RT-tijd.",
+                  "frequency": "Soms",
+                  "workaround": "Tijd corrigeren of patiënt opnieuw plaatsen."
+                },
+                {
+                  "scenario": "Reservering staat wel, maar is praktisch niet direct uitvoerbaar.",
+                  "frequency": "Soms",
+                  "workaround": "Handmatig afstemmen en planning bijstellen."
+                }
+              ],
+              "workExp": "OBSTACLE",
+              "workExpNote": "De reservering is een tussenstap en moet nog worden omgezet naar echte RT.\nDe tijd staat niet altijd goed.\nDaardoor is extra controle en soms correctie nodig voordat de planning klopt.",
               "linkedSourceUids": [],
               "linkedBundleIds": [],
               "gate": {
@@ -92121,10 +92202,10 @@
               "created": 1771323073300,
               "text": "Route NVRO-norm starten",
               "linkedSourceId": null,
-              "type": null,
-              "processValue": null,
-              "processStatus": null,
-              "successFactors": "",
+              "type": "Taak",
+              "processValue": "BNVA",
+              "processStatus": "HAPPY",
+              "successFactors": "De start van de normroute vraagt weinig interpretatie.",
               "causes": [],
               "improvements": [],
               "qa": {
@@ -92175,9 +92256,20 @@
                 ]
               },
               "inputDefinitions": [],
-              "disruptions": [],
-              "workExp": null,
-              "workExpNote": "",
+              "disruptions": [
+                {
+                  "scenario": " Route blijkt achteraf toch niet binnen norm uitvoerbaar.",
+                  "frequency": "Soms",
+                  "workaround": "Reden afwijking registreren en vervolgplanning aanpassen."
+                },
+                {
+                  "scenario": "Medische of patiëntfactoren maken normroute later complexer.",
+                  "frequency": "Soms",
+                  "workaround": "Route behouden maar uitvoering herplannen."
+                }
+              ],
+              "workExp": "ROUTINE",
+              "workExpNote": "De normroute is duidelijk.\nDe norm is bekend en goed bruikbaar als startpunt.\nDe spanning ontstaat vooral bij de feitelijke uitvoering binnen de termijn.",
               "linkedSourceUids": [],
               "linkedBundleIds": [],
               "gate": {
@@ -92697,11 +92789,15 @@
               "created": 1771323177483,
               "text": "RT inplannen < 7 dagen na aanmelding",
               "linkedSourceId": null,
-              "type": null,
-              "processValue": null,
-              "processStatus": null,
+              "type": "Taak",
+              "processValue": "BNVA",
+              "processStatus": "NEUTRAL",
               "successFactors": "",
-              "causes": [],
+              "causes": [
+                "Beschikbare capaciteit binnen zeven dagen is niet altijd passend.",
+                "Andere randvoorwaarden kunnen botsen met de normtermijn.",
+                "De norm vraagt actief sturen in plaats van automatisch passend plannen."
+              ],
               "improvements": [],
               "qa": {
                 "compleet": {
@@ -92751,9 +92847,25 @@
                 ]
               },
               "inputDefinitions": [],
-              "disruptions": [],
-              "workExp": null,
-              "workExpNote": "",
+              "disruptions": [
+                {
+                  "scenario": "Geen passende capaciteit binnen zeven dagen.",
+                  "frequency": "Soms",
+                  "workaround": "Binnen marges schuiven of reden vertraging vastleggen."
+                },
+                {
+                  "scenario": "Patiënt of medische situatie wijkt af van standaardplanning.",
+                  "frequency": "Soms",
+                  "workaround": "Planning aanpassen en afwijking onderbouwen."
+                },
+                {
+                  "scenario": "Andere planningsvoorwaarden krijgen voorrang op de normdatum.",
+                  "frequency": "Soms",
+                  "workaround": "Handmatig herprioriteren of escaleren."
+                }
+              ],
+              "workExp": "OBSTACLE",
+              "workExpNote": "De norm is helder, maar het halen ervan vraagt vaak puzzelen.\nCapaciteit, artsaanwezigheid en patiëntfactoren kunnen de uitvoering onder druk zetten.\nDe stap is werkbaar, maar niet vanzelf stabiel.",
               "linkedSourceUids": [],
               "linkedBundleIds": [],
               "gate": {
