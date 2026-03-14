@@ -4,7 +4,7 @@
   "author": "Anoniem",
   "created": "2026-01-16T08:48:17.021Z",
   "version": "2.7",
-  "activeSheetId": "e3f11a72-4c6f-4512-82fe-30cd5a1ee507",
+  "activeSheetId": "412196a4-17f5-4588-9cd1-c6577da0b5c0",
   "sheets": [
     {
       "id": "858c26e5-f7ec-4311-b503-641f99e65c84",
@@ -22963,7 +22963,7 @@
             {
               "id": "536153ab-3f6d-4469-acaf-12a7accda758",
               "created": 1770810993280,
-              "text": "Agenda-overzicht (aantal/overzicht)",
+              "text": "Agenda-overzicht ",
               "linkedSourceId": null,
               "type": null,
               "processValue": null,
@@ -23112,7 +23112,7 @@
           "isGroup": false
         },
         {
-          "id": "f3d8b23f-0710-4d16-a1d9-e38607df36fc",
+          "id": "524345db-b8ee-43f5-b455-216388fcc1ac",
           "order": 1,
           "isVisible": true,
           "isParallel": false,
@@ -23122,8 +23122,8 @@
           "outputId": null,
           "slots": [
             {
-              "id": "160d27be-9e19-4bda-958f-1f39f49ffa04",
-              "created": 1771239417196,
+              "id": "afbeec25-c960-44b4-95aa-70dfd32a7dbd",
+              "created": 1773515386946,
               "text": "Backoffice",
               "linkedSourceId": null,
               "type": null,
@@ -23164,7 +23164,7 @@
                 "calculatedScore": null,
                 "systems": [
                   {
-                    "id": "ac76eadb-2e15-48c4-a642-923c903adbff",
+                    "id": "bfa0acc6-d3c6-4b4f-ae57-5efc708b3206",
                     "name": "",
                     "isLegacy": false,
                     "futureSystem": "",
@@ -23182,21 +23182,12 @@
               "inputDefinitions": [],
               "disruptions": [],
               "workExp": null,
-              "workExpNote": "",
-              "linkedSourceUids": [],
-              "linkedBundleIds": [],
-              "gate": {
-                "checkProcessIds": [],
-                "onFailTargetProcessId": null,
-                "onPassTargetProcessId": null,
-                "rule": "ALL_OK",
-                "note": ""
-              }
+              "workExpNote": ""
             },
             {
-              "id": "75f60fa6-da8b-4295-9fac-9a46bca1ee40",
-              "created": 1771239417196,
-              "text": "Excel",
+              "id": "07659c62-f7ff-471f-8d99-12d3c0b2c3a5",
+              "created": 1773515386946,
+              "text": "Epic",
               "linkedSourceId": null,
               "type": null,
               "processValue": null,
@@ -23236,7 +23227,7 @@
                 "calculatedScore": null,
                 "systems": [
                   {
-                    "id": "7dc78a9e-fce6-49ab-8928-d3bb8586c341",
+                    "id": "d55831d4-a268-405d-9501-4f1578a39ffa",
                     "name": "",
                     "isLegacy": false,
                     "futureSystem": "",
@@ -23249,39 +23240,16 @@
                     },
                     "calculatedScore": null
                   }
-                ],
-                "systemsMeta": {
-                  "multi": false,
-                  "systems": [
-                    {
-                      "id": "22a6262f-4c7f-4c9d-8ad1-5134617da617",
-                      "name": "",
-                      "legacy": false,
-                      "future": "",
-                      "qa": {},
-                      "score": null
-                    }
-                  ],
-                  "activeSystemIdx": 0
-                }
+                ]
               },
               "inputDefinitions": [],
               "disruptions": [],
               "workExp": null,
-              "workExpNote": "",
-              "linkedSourceUids": [],
-              "linkedBundleIds": [],
-              "gate": {
-                "checkProcessIds": [],
-                "onFailTargetProcessId": null,
-                "onPassTargetProcessId": null,
-                "rule": "ALL_OK",
-                "note": ""
-              }
+              "workExpNote": ""
             },
             {
-              "id": "fff465f0-d859-4539-a2bd-c14bc9c14c28",
-              "created": 1771239417196,
+              "id": "cfc1ebe6-3530-4164-8e9c-bc79af662c60",
+              "created": 1773515386946,
               "text": "",
               "linkedSourceId": null,
               "type": null,
@@ -23328,7 +23296,7 @@
                 "calculatedScore": null,
                 "systems": [
                   {
-                    "id": "c15812d1-310a-472f-9d28-55abaaaa2441",
+                    "id": "4156b956-a3f1-4482-869f-fadb1f8c298f",
                     "name": "",
                     "isLegacy": false,
                     "futureSystem": "",
@@ -23348,23 +23316,16 @@
               "workExp": null,
               "workExpNote": "",
               "linkedBundleId": null,
-              "linkedBundleIds": [],
+              "linkedBundleIds": null,
               "linkedSourceUids": [
                 "out_4787f1e6-0826-4389-a4ec-170daabf64f6"
               ],
               "linkedSourceUid": "out_4787f1e6-0826-4389-a4ec-170daabf64f6",
-              "linkedSourceIds": [],
-              "gate": {
-                "checkProcessIds": [],
-                "onFailTargetProcessId": null,
-                "onPassTargetProcessId": null,
-                "rule": "ALL_OK",
-                "note": ""
-              }
+              "linkedSourceIds": []
             },
             {
-              "id": "8b4cbf31-832a-4895-a0e2-839dec59e5e8",
-              "created": 1771239417196,
+              "id": "88e3ae2a-7666-43e5-a7be-624ada652107",
+              "created": 1773515386946,
               "text": "Backoffice",
               "linkedSourceId": null,
               "type": null,
@@ -23405,7 +23366,133 @@
                 "calculatedScore": null,
                 "systems": [
                   {
-                    "id": "6504bd05-d57f-4310-8a4c-fcc42f28019a",
+                    "id": "9c1bbdf8-bde6-4982-9844-a9cb6db41ab2",
+                    "name": "",
+                    "isLegacy": false,
+                    "futureSystem": "",
+                    "qa": {
+                      "workarounds": null,
+                      "performance": null,
+                      "double": null,
+                      "error": null,
+                      "depend": null
+                    },
+                    "calculatedScore": null
+                  }
+                ]
+              },
+              "inputDefinitions": [],
+              "disruptions": [],
+              "workExp": null,
+              "workExpNote": ""
+            },
+            {
+              "id": "514bb308-edd6-4fce-a354-64b64ae5e840",
+              "created": 1773515386946,
+              "text": "Basisagenda controleren",
+              "linkedSourceId": null,
+              "type": null,
+              "processValue": null,
+              "processStatus": null,
+              "successFactors": "",
+              "causes": [],
+              "improvements": [],
+              "qa": {
+                "compleet": {
+                  "result": "",
+                  "note": ""
+                },
+                "kwaliteit": {
+                  "result": "",
+                  "note": ""
+                },
+                "duidelijkheid": {
+                  "result": "",
+                  "note": ""
+                },
+                "tijdigheid": {
+                  "result": "",
+                  "note": ""
+                },
+                "standaard": {
+                  "result": "",
+                  "note": ""
+                },
+                "overdracht": {
+                  "result": "",
+                  "note": ""
+                }
+              },
+              "systemData": {
+                "isMulti": false,
+                "systemName": "",
+                "calculatedScore": null,
+                "systems": [
+                  {
+                    "id": "f7b4437c-6e05-4683-8e4c-2b39e85d48d8",
+                    "name": "",
+                    "isLegacy": false,
+                    "futureSystem": "",
+                    "qa": {
+                      "workarounds": null,
+                      "performance": null,
+                      "double": null,
+                      "error": null,
+                      "depend": null
+                    },
+                    "calculatedScore": null
+                  }
+                ]
+              },
+              "inputDefinitions": [],
+              "disruptions": [],
+              "workExp": null,
+              "workExpNote": ""
+            },
+            {
+              "id": "3ddd42f8-0e85-4f9b-994b-eb98e1dd9820",
+              "created": 1773515386946,
+              "text": "Gecontroleerde basisagenda",
+              "linkedSourceId": null,
+              "type": null,
+              "processValue": null,
+              "processStatus": null,
+              "successFactors": "",
+              "causes": [],
+              "improvements": [],
+              "qa": {
+                "compleet": {
+                  "result": "",
+                  "note": ""
+                },
+                "kwaliteit": {
+                  "result": "",
+                  "note": ""
+                },
+                "duidelijkheid": {
+                  "result": "",
+                  "note": ""
+                },
+                "tijdigheid": {
+                  "result": "",
+                  "note": ""
+                },
+                "standaard": {
+                  "result": "",
+                  "note": ""
+                },
+                "overdracht": {
+                  "result": "",
+                  "note": ""
+                }
+              },
+              "systemData": {
+                "isMulti": false,
+                "systemName": "",
+                "calculatedScore": null,
+                "systems": [
+                  {
+                    "id": "291592d7-675f-40ee-b5a5-c7801d85250c",
                     "name": "",
                     "isLegacy": false,
                     "futureSystem": "",
@@ -23424,19 +23511,818 @@
               "disruptions": [],
               "workExp": null,
               "workExpNote": "",
-              "linkedSourceUids": [],
-              "linkedBundleIds": [],
-              "gate": {
-                "checkProcessIds": [],
-                "onFailTargetProcessId": null,
-                "onPassTargetProcessId": null,
-                "rule": "ALL_OK",
-                "note": ""
-              }
+              "outputUid": "out_438d57b8-ed72-4fc9-9153-83107fe74b7e"
             },
             {
-              "id": "e1506701-41be-45cc-9b67-953a101aba89",
-              "created": 1771239417196,
+              "id": "547decaf-5d8d-4849-9011-35acc08ab528",
+              "created": 1773515386946,
+              "text": "Backoffice",
+              "linkedSourceId": null,
+              "type": null,
+              "processValue": null,
+              "processStatus": null,
+              "successFactors": "",
+              "causes": [],
+              "improvements": [],
+              "qa": {
+                "compleet": {
+                  "result": "",
+                  "note": ""
+                },
+                "kwaliteit": {
+                  "result": "",
+                  "note": ""
+                },
+                "duidelijkheid": {
+                  "result": "",
+                  "note": ""
+                },
+                "tijdigheid": {
+                  "result": "",
+                  "note": ""
+                },
+                "standaard": {
+                  "result": "",
+                  "note": ""
+                },
+                "overdracht": {
+                  "result": "",
+                  "note": ""
+                }
+              },
+              "systemData": {
+                "isMulti": false,
+                "systemName": "",
+                "calculatedScore": null,
+                "systems": [
+                  {
+                    "id": "5fdeb8ff-fee9-4a7a-a4f1-489bd0bec57b",
+                    "name": "",
+                    "isLegacy": false,
+                    "futureSystem": "",
+                    "qa": {
+                      "workarounds": null,
+                      "performance": null,
+                      "double": null,
+                      "error": null,
+                      "depend": null
+                    },
+                    "calculatedScore": null
+                  }
+                ]
+              },
+              "inputDefinitions": [],
+              "disruptions": [],
+              "workExp": null,
+              "workExpNote": ""
+            }
+          ]
+        },
+        {
+          "id": "58f02f04-5891-4c68-bad1-23672fe190c9",
+          "order": 1,
+          "isVisible": true,
+          "isParallel": false,
+          "isVariant": false,
+          "hasTransition": false,
+          "transitionNext": "",
+          "outputId": null,
+          "slots": [
+            {
+              "id": "984e4dfb-fca7-44f8-aee9-7ff38735adb3",
+              "created": 1773516160387,
+              "text": "Secreteriaat / Stafartsen",
+              "linkedSourceId": null,
+              "type": null,
+              "processValue": null,
+              "processStatus": null,
+              "successFactors": "",
+              "causes": [],
+              "improvements": [],
+              "qa": {
+                "compleet": {
+                  "result": "",
+                  "note": ""
+                },
+                "kwaliteit": {
+                  "result": "",
+                  "note": ""
+                },
+                "duidelijkheid": {
+                  "result": "",
+                  "note": ""
+                },
+                "tijdigheid": {
+                  "result": "",
+                  "note": ""
+                },
+                "standaard": {
+                  "result": "",
+                  "note": ""
+                },
+                "overdracht": {
+                  "result": "",
+                  "note": ""
+                }
+              },
+              "systemData": {
+                "isMulti": false,
+                "systemName": "",
+                "calculatedScore": null,
+                "systems": [
+                  {
+                    "id": "d65cae0e-df3b-456a-a579-77437112599c",
+                    "name": "",
+                    "isLegacy": false,
+                    "futureSystem": "",
+                    "qa": {
+                      "workarounds": null,
+                      "performance": null,
+                      "double": null,
+                      "error": null,
+                      "depend": null
+                    },
+                    "calculatedScore": null
+                  }
+                ]
+              },
+              "inputDefinitions": [],
+              "disruptions": [],
+              "workExp": null,
+              "workExpNote": ""
+            },
+            {
+              "id": "d20f0d5a-3fcd-4933-b238-fa150b0c9133",
+              "created": 1773516160387,
+              "text": "Epic",
+              "linkedSourceId": null,
+              "type": null,
+              "processValue": null,
+              "processStatus": null,
+              "successFactors": "",
+              "causes": [],
+              "improvements": [],
+              "qa": {
+                "compleet": {
+                  "result": "",
+                  "note": ""
+                },
+                "kwaliteit": {
+                  "result": "",
+                  "note": ""
+                },
+                "duidelijkheid": {
+                  "result": "",
+                  "note": ""
+                },
+                "tijdigheid": {
+                  "result": "",
+                  "note": ""
+                },
+                "standaard": {
+                  "result": "",
+                  "note": ""
+                },
+                "overdracht": {
+                  "result": "",
+                  "note": ""
+                }
+              },
+              "systemData": {
+                "isMulti": false,
+                "systemName": "",
+                "calculatedScore": null,
+                "systems": [
+                  {
+                    "id": "8a3454a8-9928-44d2-b1de-8c09a066c6ad",
+                    "name": "",
+                    "isLegacy": false,
+                    "futureSystem": "",
+                    "qa": {
+                      "workarounds": null,
+                      "performance": null,
+                      "double": null,
+                      "error": null,
+                      "depend": null
+                    },
+                    "calculatedScore": null
+                  }
+                ]
+              },
+              "inputDefinitions": [],
+              "disruptions": [],
+              "workExp": null,
+              "workExpNote": ""
+            },
+            {
+              "id": "b66460da-b761-49d7-b1ff-c5e56d51a2cf",
+              "created": 1773516160387,
+              "text": "",
+              "linkedSourceId": null,
+              "type": null,
+              "processValue": null,
+              "processStatus": null,
+              "successFactors": "",
+              "causes": [],
+              "improvements": [],
+              "qa": {
+                "compleet": {
+                  "result": null,
+                  "impact": null,
+                  "note": ""
+                },
+                "kwaliteit": {
+                  "result": null,
+                  "impact": null,
+                  "note": ""
+                },
+                "duidelijkheid": {
+                  "result": null,
+                  "impact": null,
+                  "note": ""
+                },
+                "tijdigheid": {
+                  "result": null,
+                  "impact": null,
+                  "note": ""
+                },
+                "standaard": {
+                  "result": null,
+                  "impact": null,
+                  "note": ""
+                },
+                "overdracht": {
+                  "result": null,
+                  "impact": null,
+                  "note": ""
+                }
+              },
+              "systemData": {
+                "isMulti": false,
+                "systemName": "",
+                "calculatedScore": null,
+                "systems": [
+                  {
+                    "id": "35587d86-cc4a-4c78-87d1-059a58346352",
+                    "name": "",
+                    "isLegacy": false,
+                    "futureSystem": "",
+                    "qa": {
+                      "workarounds": null,
+                      "performance": null,
+                      "double": null,
+                      "error": null,
+                      "depend": null
+                    },
+                    "calculatedScore": null
+                  }
+                ]
+              },
+              "inputDefinitions": [],
+              "disruptions": [],
+              "workExp": null,
+              "workExpNote": "",
+              "linkedBundleId": null,
+              "linkedBundleIds": null,
+              "linkedSourceUids": [
+                "out_438d57b8-ed72-4fc9-9153-83107fe74b7e"
+              ],
+              "linkedSourceUid": "out_438d57b8-ed72-4fc9-9153-83107fe74b7e",
+              "linkedSourceIds": []
+            },
+            {
+              "id": "d5e84d25-7cad-4ba4-95da-f336bde93bcc",
+              "created": 1773516160387,
+              "text": "Backoffice",
+              "linkedSourceId": null,
+              "type": null,
+              "processValue": null,
+              "processStatus": null,
+              "successFactors": "",
+              "causes": [],
+              "improvements": [],
+              "qa": {
+                "compleet": {
+                  "result": "",
+                  "note": ""
+                },
+                "kwaliteit": {
+                  "result": "",
+                  "note": ""
+                },
+                "duidelijkheid": {
+                  "result": "",
+                  "note": ""
+                },
+                "tijdigheid": {
+                  "result": "",
+                  "note": ""
+                },
+                "standaard": {
+                  "result": "",
+                  "note": ""
+                },
+                "overdracht": {
+                  "result": "",
+                  "note": ""
+                }
+              },
+              "systemData": {
+                "isMulti": false,
+                "systemName": "",
+                "calculatedScore": null,
+                "systems": [
+                  {
+                    "id": "253e8f07-3f80-4559-9070-1cb842636299",
+                    "name": "",
+                    "isLegacy": false,
+                    "futureSystem": "",
+                    "qa": {
+                      "workarounds": null,
+                      "performance": null,
+                      "double": null,
+                      "error": null,
+                      "depend": null
+                    },
+                    "calculatedScore": null
+                  }
+                ]
+              },
+              "inputDefinitions": [],
+              "disruptions": [],
+              "workExp": null,
+              "workExpNote": ""
+            },
+            {
+              "id": "7efbf66a-5f21-4db1-80ba-c7974cdab8f8",
+              "created": 1773516160387,
+              "text": "Afwezigheden en blokkades verwerken",
+              "linkedSourceId": null,
+              "type": null,
+              "processValue": null,
+              "processStatus": null,
+              "successFactors": "",
+              "causes": [],
+              "improvements": [],
+              "qa": {
+                "compleet": {
+                  "result": "",
+                  "note": ""
+                },
+                "kwaliteit": {
+                  "result": "",
+                  "note": ""
+                },
+                "duidelijkheid": {
+                  "result": "",
+                  "note": ""
+                },
+                "tijdigheid": {
+                  "result": "",
+                  "note": ""
+                },
+                "standaard": {
+                  "result": "",
+                  "note": ""
+                },
+                "overdracht": {
+                  "result": "",
+                  "note": ""
+                }
+              },
+              "systemData": {
+                "isMulti": false,
+                "systemName": "",
+                "calculatedScore": null,
+                "systems": [
+                  {
+                    "id": "57e430f0-8167-4b5b-ba12-f50203e7bef0",
+                    "name": "",
+                    "isLegacy": false,
+                    "futureSystem": "",
+                    "qa": {
+                      "workarounds": null,
+                      "performance": null,
+                      "double": null,
+                      "error": null,
+                      "depend": null
+                    },
+                    "calculatedScore": null
+                  }
+                ]
+              },
+              "inputDefinitions": [],
+              "disruptions": [],
+              "workExp": null,
+              "workExpNote": ""
+            },
+            {
+              "id": "4bb8fa36-0afc-47ca-80dd-6a59e0ce7d4e",
+              "created": 1773516160387,
+              "text": "Bijgewerkte agenda",
+              "linkedSourceId": null,
+              "type": null,
+              "processValue": null,
+              "processStatus": null,
+              "successFactors": "",
+              "causes": [],
+              "improvements": [],
+              "qa": {
+                "compleet": {
+                  "result": "",
+                  "note": ""
+                },
+                "kwaliteit": {
+                  "result": "",
+                  "note": ""
+                },
+                "duidelijkheid": {
+                  "result": "",
+                  "note": ""
+                },
+                "tijdigheid": {
+                  "result": "",
+                  "note": ""
+                },
+                "standaard": {
+                  "result": "",
+                  "note": ""
+                },
+                "overdracht": {
+                  "result": "",
+                  "note": ""
+                }
+              },
+              "systemData": {
+                "isMulti": false,
+                "systemName": "",
+                "calculatedScore": null,
+                "systems": [
+                  {
+                    "id": "5ab0c86f-1b7e-4d0d-a7f8-645af70503e8",
+                    "name": "",
+                    "isLegacy": false,
+                    "futureSystem": "",
+                    "qa": {
+                      "workarounds": null,
+                      "performance": null,
+                      "double": null,
+                      "error": null,
+                      "depend": null
+                    },
+                    "calculatedScore": null
+                  }
+                ]
+              },
+              "inputDefinitions": [],
+              "disruptions": [],
+              "workExp": null,
+              "workExpNote": "",
+              "outputUid": "out_22a6283a-e3d2-4b0b-b8ed-e4ab761bdddd"
+            },
+            {
+              "id": "da73a8a1-cf4d-4fae-901e-ed99cbd81f6f",
+              "created": 1773516160387,
+              "text": "Backoffice",
+              "linkedSourceId": null,
+              "type": null,
+              "processValue": null,
+              "processStatus": null,
+              "successFactors": "",
+              "causes": [],
+              "improvements": [],
+              "qa": {
+                "compleet": {
+                  "result": "",
+                  "note": ""
+                },
+                "kwaliteit": {
+                  "result": "",
+                  "note": ""
+                },
+                "duidelijkheid": {
+                  "result": "",
+                  "note": ""
+                },
+                "tijdigheid": {
+                  "result": "",
+                  "note": ""
+                },
+                "standaard": {
+                  "result": "",
+                  "note": ""
+                },
+                "overdracht": {
+                  "result": "",
+                  "note": ""
+                }
+              },
+              "systemData": {
+                "isMulti": false,
+                "systemName": "",
+                "calculatedScore": null,
+                "systems": [
+                  {
+                    "id": "577a606f-b82b-4c20-88bb-249557e5b5c5",
+                    "name": "",
+                    "isLegacy": false,
+                    "futureSystem": "",
+                    "qa": {
+                      "workarounds": null,
+                      "performance": null,
+                      "double": null,
+                      "error": null,
+                      "depend": null
+                    },
+                    "calculatedScore": null
+                  }
+                ]
+              },
+              "inputDefinitions": [],
+              "disruptions": [],
+              "workExp": null,
+              "workExpNote": ""
+            }
+          ]
+        },
+        {
+          "id": "211e8939-9562-45e6-a91d-2fb6a9221169",
+          "order": 1,
+          "isVisible": true,
+          "isParallel": false,
+          "isVariant": false,
+          "hasTransition": false,
+          "transitionNext": "",
+          "outputId": null,
+          "slots": [
+            {
+              "id": "9dfe48fb-e94f-459d-be2d-223793c2faa1",
+              "created": 1773516441279,
+              "text": "Backoffice ",
+              "linkedSourceId": null,
+              "type": null,
+              "processValue": null,
+              "processStatus": null,
+              "successFactors": "",
+              "causes": [],
+              "improvements": [],
+              "qa": {
+                "compleet": {
+                  "result": "",
+                  "note": ""
+                },
+                "kwaliteit": {
+                  "result": "",
+                  "note": ""
+                },
+                "duidelijkheid": {
+                  "result": "",
+                  "note": ""
+                },
+                "tijdigheid": {
+                  "result": "",
+                  "note": ""
+                },
+                "standaard": {
+                  "result": "",
+                  "note": ""
+                },
+                "overdracht": {
+                  "result": "",
+                  "note": ""
+                }
+              },
+              "systemData": {
+                "isMulti": false,
+                "systemName": "",
+                "calculatedScore": null,
+                "systems": [
+                  {
+                    "id": "7a3bdafd-d583-4800-9008-0f64b75b15e2",
+                    "name": "",
+                    "isLegacy": false,
+                    "futureSystem": "",
+                    "qa": {
+                      "workarounds": null,
+                      "performance": null,
+                      "double": null,
+                      "error": null,
+                      "depend": null
+                    },
+                    "calculatedScore": null
+                  }
+                ]
+              },
+              "inputDefinitions": [],
+              "disruptions": [],
+              "workExp": null,
+              "workExpNote": ""
+            },
+            {
+              "id": "2d078d7b-57bb-47fe-916f-7070e66b6b4f",
+              "created": 1773516441279,
+              "text": "Epic",
+              "linkedSourceId": null,
+              "type": null,
+              "processValue": null,
+              "processStatus": null,
+              "successFactors": "",
+              "causes": [],
+              "improvements": [],
+              "qa": {
+                "compleet": {
+                  "result": "",
+                  "note": ""
+                },
+                "kwaliteit": {
+                  "result": "",
+                  "note": ""
+                },
+                "duidelijkheid": {
+                  "result": "",
+                  "note": ""
+                },
+                "tijdigheid": {
+                  "result": "",
+                  "note": ""
+                },
+                "standaard": {
+                  "result": "",
+                  "note": ""
+                },
+                "overdracht": {
+                  "result": "",
+                  "note": ""
+                }
+              },
+              "systemData": {
+                "isMulti": false,
+                "systemName": "",
+                "calculatedScore": null,
+                "systems": [
+                  {
+                    "id": "b8b2e30d-df23-47cf-b84b-10d4c9585689",
+                    "name": "",
+                    "isLegacy": false,
+                    "futureSystem": "",
+                    "qa": {
+                      "workarounds": null,
+                      "performance": null,
+                      "double": null,
+                      "error": null,
+                      "depend": null
+                    },
+                    "calculatedScore": null
+                  }
+                ]
+              },
+              "inputDefinitions": [],
+              "disruptions": [],
+              "workExp": null,
+              "workExpNote": ""
+            },
+            {
+              "id": "5c9569c7-a531-4ebc-b10a-a9ae89165a5d",
+              "created": 1773516441279,
+              "text": "",
+              "linkedSourceId": null,
+              "type": null,
+              "processValue": null,
+              "processStatus": null,
+              "successFactors": "",
+              "causes": [],
+              "improvements": [],
+              "qa": {
+                "compleet": {
+                  "result": null,
+                  "impact": null,
+                  "note": ""
+                },
+                "kwaliteit": {
+                  "result": null,
+                  "impact": null,
+                  "note": ""
+                },
+                "duidelijkheid": {
+                  "result": null,
+                  "impact": null,
+                  "note": ""
+                },
+                "tijdigheid": {
+                  "result": null,
+                  "impact": null,
+                  "note": ""
+                },
+                "standaard": {
+                  "result": null,
+                  "impact": null,
+                  "note": ""
+                },
+                "overdracht": {
+                  "result": null,
+                  "impact": null,
+                  "note": ""
+                }
+              },
+              "systemData": {
+                "isMulti": false,
+                "systemName": "",
+                "calculatedScore": null,
+                "systems": [
+                  {
+                    "id": "71baca78-2571-4a79-8254-33033e6493d4",
+                    "name": "",
+                    "isLegacy": false,
+                    "futureSystem": "",
+                    "qa": {
+                      "workarounds": null,
+                      "performance": null,
+                      "double": null,
+                      "error": null,
+                      "depend": null
+                    },
+                    "calculatedScore": null
+                  }
+                ]
+              },
+              "inputDefinitions": [],
+              "disruptions": [],
+              "workExp": null,
+              "workExpNote": "",
+              "linkedBundleId": null,
+              "linkedBundleIds": null,
+              "linkedSourceUids": [
+                "out_22a6283a-e3d2-4b0b-b8ed-e4ab761bdddd"
+              ],
+              "linkedSourceUid": "out_22a6283a-e3d2-4b0b-b8ed-e4ab761bdddd",
+              "linkedSourceIds": []
+            },
+            {
+              "id": "51f1eef1-b153-4a5c-aa68-d51c601b80af",
+              "created": 1773516441279,
+              "text": "Backoffice",
+              "linkedSourceId": null,
+              "type": null,
+              "processValue": null,
+              "processStatus": null,
+              "successFactors": "",
+              "causes": [],
+              "improvements": [],
+              "qa": {
+                "compleet": {
+                  "result": "",
+                  "note": ""
+                },
+                "kwaliteit": {
+                  "result": "",
+                  "note": ""
+                },
+                "duidelijkheid": {
+                  "result": "",
+                  "note": ""
+                },
+                "tijdigheid": {
+                  "result": "",
+                  "note": ""
+                },
+                "standaard": {
+                  "result": "",
+                  "note": ""
+                },
+                "overdracht": {
+                  "result": "",
+                  "note": ""
+                }
+              },
+              "systemData": {
+                "isMulti": false,
+                "systemName": "",
+                "calculatedScore": null,
+                "systems": [
+                  {
+                    "id": "cff0c5c4-9c60-4868-868f-0ef406250086",
+                    "name": "",
+                    "isLegacy": false,
+                    "futureSystem": "",
+                    "qa": {
+                      "workarounds": null,
+                      "performance": null,
+                      "double": null,
+                      "error": null,
+                      "depend": null
+                    },
+                    "calculatedScore": null
+                  }
+                ]
+              },
+              "inputDefinitions": [],
+              "disruptions": [],
+              "workExp": null,
+              "workExpNote": ""
+            },
+            {
+              "id": "40c06bcb-0e4e-448b-87f4-dd1d2f5db13c",
+              "created": 1773516441279,
               "text": "Consultcapaciteit tellen",
               "linkedSourceId": null,
               "type": null,
@@ -23477,7 +24363,7 @@
                 "calculatedScore": null,
                 "systems": [
                   {
-                    "id": "740d7c27-dfc1-4970-af94-9f9339b1d065",
+                    "id": "d683c602-1d4a-4cba-ada8-6c6042468115",
                     "name": "",
                     "isLegacy": false,
                     "futureSystem": "",
@@ -23495,20 +24381,11 @@
               "inputDefinitions": [],
               "disruptions": [],
               "workExp": null,
-              "workExpNote": "",
-              "linkedSourceUids": [],
-              "linkedBundleIds": [],
-              "gate": {
-                "checkProcessIds": [],
-                "onFailTargetProcessId": null,
-                "onPassTargetProcessId": null,
-                "rule": "ALL_OK",
-                "note": ""
-              }
+              "workExpNote": ""
             },
             {
-              "id": "296514e8-a229-4c07-9206-3877cd2723fe",
-              "created": 1771239417196,
+              "id": "3e7b590b-262e-4b7c-bbba-2be46aa89c30",
+              "created": 1773516441279,
               "text": "Beschikbare consultcapaciteit",
               "linkedSourceId": null,
               "type": null,
@@ -23549,7 +24426,7 @@
                 "calculatedScore": null,
                 "systems": [
                   {
-                    "id": "51848f75-33b6-44da-9022-8d82794729c6",
+                    "id": "b5fafe44-971a-4e2e-ae5e-fee0a27c07b7",
                     "name": "",
                     "isLegacy": false,
                     "futureSystem": "",
@@ -23568,20 +24445,11 @@
               "disruptions": [],
               "workExp": null,
               "workExpNote": "",
-              "outputUid": "out_f6e52efc-a547-40ec-99e4-9e689bd14903",
-              "linkedSourceUids": [],
-              "linkedBundleIds": [],
-              "gate": {
-                "checkProcessIds": [],
-                "onFailTargetProcessId": null,
-                "onPassTargetProcessId": null,
-                "rule": "ALL_OK",
-                "note": ""
-              }
+              "outputUid": "out_2d70ce93-3121-4dbc-adb9-44679e865704"
             },
             {
-              "id": "d905b647-f592-4839-b4e2-1dd71b1dc8ee",
-              "created": 1771239417196,
+              "id": "020a8124-3c00-4b8e-b181-9d376296be51",
+              "created": 1773516441279,
               "text": "Backoffice",
               "linkedSourceId": null,
               "type": null,
@@ -23622,7 +24490,7 @@
                 "calculatedScore": null,
                 "systems": [
                   {
-                    "id": "30af3377-cb9d-4b3e-a4e3-d3185c0626bc",
+                    "id": "82902927-afb1-4a79-b809-0f35fd5a9834",
                     "name": "",
                     "isLegacy": false,
                     "futureSystem": "",
@@ -23640,22 +24508,9 @@
               "inputDefinitions": [],
               "disruptions": [],
               "workExp": null,
-              "workExpNote": "",
-              "linkedSourceUids": [],
-              "linkedBundleIds": [],
-              "gate": {
-                "checkProcessIds": [],
-                "onFailTargetProcessId": null,
-                "onPassTargetProcessId": null,
-                "rule": "ALL_OK",
-                "note": ""
-              }
+              "workExpNote": ""
             }
-          ],
-          "isQuestion": false,
-          "isConditional": false,
-          "logic": null,
-          "isGroup": false
+          ]
         },
         {
           "id": "df78bb8e-ff16-4ce9-9844-b2b25c41f8ca",
@@ -23742,7 +24597,7 @@
             {
               "id": "1f23f7e7-0064-440b-b2cf-cb18c7d2df92",
               "created": 1771239520416,
-              "text": "Excel",
+              "text": "Epic",
               "linkedSourceId": null,
               "type": null,
               "processValue": null,
@@ -23894,11 +24749,11 @@
               "workExp": null,
               "workExpNote": "",
               "linkedBundleId": null,
-              "linkedBundleIds": [],
+              "linkedBundleIds": null,
               "linkedSourceUids": [
-                "out_f6e52efc-a547-40ec-99e4-9e689bd14903"
+                "out_2d70ce93-3121-4dbc-adb9-44679e865704"
               ],
-              "linkedSourceUid": "out_f6e52efc-a547-40ec-99e4-9e689bd14903",
+              "linkedSourceUid": "out_2d70ce93-3121-4dbc-adb9-44679e865704",
               "linkedSourceIds": [],
               "gate": {
                 "checkProcessIds": [],
@@ -24529,7 +25384,7 @@
             {
               "id": "c4e9900a-4457-4f9e-921c-1710b79eb5ac",
               "created": 1771239614667,
-              "text": "Versturen forecast",
+              "text": "Forecast opstellen",
               "linkedSourceId": null,
               "type": null,
               "processValue": null,
@@ -24601,7 +25456,7 @@
             {
               "id": "089f585d-9fb9-43cd-95c3-d3bf31c0f57a",
               "created": 1771239614667,
-              "text": "Forecast",
+              "text": "Concept forecast",
               "linkedSourceId": null,
               "type": null,
               "processValue": null,
@@ -25075,7 +25930,7 @@
             {
               "id": "7b7b8472-181d-45b6-b255-3fbd3ef03f83",
               "created": 1771239687591,
-              "text": "Controleren forecast",
+              "text": "Forecast controleren",
               "linkedSourceId": null,
               "type": null,
               "processValue": null,
