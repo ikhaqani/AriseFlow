@@ -90686,27 +90686,33 @@
               "improvements": [],
               "qa": {
                 "compleet": {
-                  "result": "",
+                  "result": "GOOD",
+                  "impact": null,
                   "note": ""
                 },
                 "kwaliteit": {
-                  "result": "",
+                  "result": "GOOD",
+                  "impact": null,
                   "note": ""
                 },
                 "duidelijkheid": {
-                  "result": "",
+                  "result": "GOOD",
+                  "impact": null,
                   "note": ""
                 },
                 "tijdigheid": {
-                  "result": "",
+                  "result": "GOOD",
+                  "impact": null,
                   "note": ""
                 },
                 "standaard": {
-                  "result": "",
+                  "result": "GOOD",
+                  "impact": null,
                   "note": ""
                 },
                 "overdracht": {
-                  "result": "",
+                  "result": "GOOD",
+                  "impact": null,
                   "note": ""
                 }
               },
@@ -90731,7 +90737,23 @@
                   }
                 ]
               },
-              "inputDefinitions": [],
+              "inputDefinitions": [
+                {
+                  "item": "Bevestigde TBI-route",
+                  "specifications": "Het moet duidelijk zijn dat TBI van toepassing is.",
+                  "type": "HARD"
+                },
+                {
+                  "item": "Patiëntidentificatie",
+                  "specifications": "De route moet aan de juiste patiënt gekoppeld zijn.",
+                  "type": "HARD"
+                },
+                {
+                  "item": "Aanvullende TBI-specifieke bijzonderheden",
+                  "specifications": "Handig voor verdere detaillering",
+                  "type": "SOFT"
+                }
+              ],
               "disruptions": [],
               "workExp": null,
               "workExpNote": "",
@@ -90745,7 +90767,8 @@
                 "onPassTargetProcessId": null,
                 "rule": "ALL_OK",
                 "note": ""
-              }
+              },
+              "linkedSourceIds": []
             },
             {
               "id": "be7092f5-e89b-439b-ac1e-dac58ec0a322",
@@ -91233,34 +91256,34 @@
               "improvements": [],
               "qa": {
                 "compleet": {
-                  "result": null,
-                  "impact": null,
-                  "note": ""
+                  "result": "MINOR",
+                  "impact": "B",
+                  "note": "De afspraak is gepland, maar de RT-tijd blijkt niet altijd goed te staan. Daardoor is extra controle en soms herplanning nodig."
                 },
                 "kwaliteit": {
-                  "result": null,
-                  "impact": null,
-                  "note": ""
+                  "result": "MINOR",
+                  "impact": "B",
+                  "note": "De afspraak is bruikbaar als basis, maar niet altijd volledig correct voor de definitieve RT-omzetting."
                 },
                 "duidelijkheid": {
-                  "result": null,
-                  "impact": null,
-                  "note": ""
+                  "result": "MINOR",
+                  "impact": "C",
+                  "note": "De reservering is meestal duidelijk, maar de precieze vertaalslag naar definitieve RT is niet altijd één op één juist."
                 },
                 "tijdigheid": {
-                  "result": null,
+                  "result": "GOOD",
                   "impact": null,
                   "note": ""
                 },
                 "standaard": {
-                  "result": null,
-                  "impact": null,
-                  "note": ""
+                  "result": "MINOR",
+                  "impact": "C",
+                  "note": "Er is een afgesproken werkwijze, maar de reservering is niet altijd consequent op de juiste RT-tijd ingeric"
                 },
                 "overdracht": {
-                  "result": null,
-                  "impact": null,
-                  "note": ""
+                  "result": "MINOR",
+                  "impact": "B",
+                  "note": "De overdracht vanuit de gele blokken naar definitieve RT vraagt nog actieve correctie in plaats van een foutloze doorzetting.\n"
                 }
               },
               "systemData": {
@@ -91284,7 +91307,28 @@
                   }
                 ]
               },
-              "inputDefinitions": [],
+              "inputDefinitions": [
+                {
+                  "item": "Geplande afspraak in gele blokken",
+                  "specifications": "Er moet een zichtbare reservering staan.",
+                  "type": "HARD"
+                },
+                {
+                  "item": "Juiste RT-tijd of duur",
+                  "specifications": "Zonder correcte tijd kan geen betrouwbare omzetting naar geplande RT plaatsvinden.",
+                  "type": "HARD"
+                },
+                {
+                  "item": "Patiëntidentificatie",
+                  "specifications": "Nodig om de reservering correct om te zetten.",
+                  "type": "HARD"
+                },
+                {
+                  "item": "TBI-specifieke bijzonderheden",
+                  "specifications": "Handig om de definitieve planning correct af te stemmen.",
+                  "type": "SOFT"
+                }
+              ],
               "disruptions": [],
               "workExp": null,
               "workExpNote": "",
@@ -91785,27 +91829,33 @@
               "improvements": [],
               "qa": {
                 "compleet": {
-                  "result": "",
+                  "result": "GOOD",
+                  "impact": null,
                   "note": ""
                 },
                 "kwaliteit": {
-                  "result": "",
+                  "result": "GOOD",
+                  "impact": null,
                   "note": ""
                 },
                 "duidelijkheid": {
-                  "result": "",
+                  "result": "GOOD",
+                  "impact": null,
                   "note": ""
                 },
                 "tijdigheid": {
-                  "result": "",
+                  "result": "GOOD",
+                  "impact": null,
                   "note": ""
                 },
                 "standaard": {
-                  "result": "",
+                  "result": "GOOD",
+                  "impact": null,
                   "note": ""
                 },
                 "overdracht": {
-                  "result": "",
+                  "result": "GOOD",
+                  "impact": null,
                   "note": ""
                 }
               },
@@ -91830,7 +91880,23 @@
                   }
                 ]
               },
-              "inputDefinitions": [],
+              "inputDefinitions": [
+                {
+                  "item": "Bevestigde NVRO-route",
+                  "specifications": "Het moet duidelijk zijn dat de normroute van toepassing is.",
+                  "type": "HARD"
+                },
+                {
+                  "item": "Patiëntidentificatie",
+                  "specifications": "De route moet aan de juiste patiënt gekoppeld zijn.",
+                  "type": "HARD"
+                },
+                {
+                  "item": "Indicatie dat normtermijn geldt",
+                  "specifications": "Wenselijk voor snelle doorvertaling naar de volgende stap.",
+                  "type": "SOFT"
+                }
+              ],
               "disruptions": [],
               "workExp": null,
               "workExpNote": "",
@@ -91844,7 +91910,8 @@
                 "onPassTargetProcessId": null,
                 "rule": "ALL_OK",
                 "note": ""
-              }
+              },
+              "linkedSourceIds": []
             },
             {
               "id": "5ffbb52f-a0b3-44f4-8990-9501a4d45ffb",
@@ -92333,28 +92400,34 @@
               "improvements": [],
               "qa": {
                 "compleet": {
-                  "result": "",
-                  "note": ""
+                  "result": "MINOR",
+                  "impact": "B",
+                  "note": "De normroute is gestart, maar dat is nog niet genoeg om daadwerkelijk binnen 7 dagen te plannen. Capaciteit, medische uitzonderingen en patiëntfactoren blijven bepalend."
                 },
                 "kwaliteit": {
-                  "result": "",
-                  "note": ""
+                  "result": "MINOR",
+                  "impact": "B",
+                  "note": "De input is bruikbaar als normsignaal, maar nog niet als volledige planningsbasis."
                 },
                 "duidelijkheid": {
-                  "result": "",
+                  "result": "GOOD",
+                  "impact": null,
                   "note": ""
                 },
                 "tijdigheid": {
-                  "result": "",
+                  "result": "GOOD",
+                  "impact": null,
                   "note": ""
                 },
                 "standaard": {
-                  "result": "",
+                  "result": "GOOD",
+                  "impact": null,
                   "note": ""
                 },
                 "overdracht": {
-                  "result": "",
-                  "note": ""
+                  "result": "MINOR",
+                  "impact": "C",
+                  "note": "De route is goed overgedragen, maar de praktische uitvoerbaarheid binnen de norm moet nog actief worden gerealiseerd."
                 }
               },
               "systemData": {
@@ -92378,7 +92451,28 @@
                   }
                 ]
               },
-              "inputDefinitions": [],
+              "inputDefinitions": [
+                {
+                  "item": "Status route NVRO-norm gestart",
+                  "specifications": "Het moet duidelijk zijn dat de norm actief geld",
+                  "type": "HARD"
+                },
+                {
+                  "item": "Aanmeldingsdatum",
+                  "specifications": "Nodig om de 7-dagentermijn te kunnen berekenen.",
+                  "type": "HARD"
+                },
+                {
+                  "item": "Beschikbare capaciteit binnen de normperiode",
+                  "specifications": "Zonder concrete ruimte kan de norm niet vertaald worden naar een echte afspraak.",
+                  "type": "HARD"
+                },
+                {
+                  "item": "Eventuele uitzonderingen zoals patiëntwens of medische afwijking",
+                  "specifications": "Wenselijk om vertraging of reden afwijking direct goed te onderbouwen.",
+                  "type": "SOFT"
+                }
+              ],
               "disruptions": [],
               "workExp": null,
               "workExpNote": "",
@@ -92392,7 +92486,8 @@
                 "onPassTargetProcessId": null,
                 "rule": "ALL_OK",
                 "note": ""
-              }
+              },
+              "linkedSourceIds": []
             },
             {
               "id": "30e0310b-61d8-4df3-9666-2535966907e1",
