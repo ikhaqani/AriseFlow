@@ -92971,34 +92971,34 @@
               "improvements": [],
               "qa": {
                 "compleet": {
-                  "result": null,
-                  "impact": null,
-                  "note": ""
+                  "result": "MINOR",
+                  "impact": "B",
+                  "note": " Een startdatum is een goed vertrekpunt, maar nog niet genoeg om daadwerkelijk te starten met plannen. Agenda van arts, toestelcapaciteit en ondersteuning moeten nog worden meegenomen."
                 },
                 "kwaliteit": {
-                  "result": null,
-                  "impact": null,
-                  "note": ""
+                  "result": "MINOR",
+                  "impact": "B",
+                  "note": "De startdatum is meestal bruikbaar, maar kan later toch niet haalbaar blijken door capaciteit of aanwezigheid van andere disciplines."
                 },
                 "duidelijkheid": {
-                  "result": null,
+                  "result": "GOOD",
                   "impact": null,
                   "note": ""
                 },
                 "tijdigheid": {
-                  "result": null,
+                  "result": "GOOD",
                   "impact": null,
                   "note": ""
                 },
                 "standaard": {
-                  "result": null,
+                  "result": "GOOD",
                   "impact": null,
                   "note": ""
                 },
                 "overdracht": {
-                  "result": null,
-                  "impact": null,
-                  "note": ""
+                  "result": "MINOR",
+                  "impact": "C",
+                  "note": "De startdatum wordt goed overgedragen, maar is nog geen volledige planningsset voor de vervolgstappen."
                 }
               },
               "systemData": {
@@ -93022,7 +93022,23 @@
                   }
                 ]
               },
-              "inputDefinitions": [],
+              "inputDefinitions": [
+                {
+                  "item": "Vastgestelde startdatum",
+                  "specifications": "De beoogde eerste bestralingsdag moet bekend zijn.",
+                  "type": "HARD"
+                },
+                {
+                  "item": "Patiëntidentificatie",
+                  "specifications": "De startdatum moet aan de juiste patiënt gekoppeld zijn.",
+                  "type": "HARD"
+                },
+                {
+                  "item": "Indicatie of arts, mondhygiënist of verpleegkundige nodig is",
+                  "specifications": "Wenselijk om direct de juiste vervolgcontroles te doen.",
+                  "type": "SOFT"
+                }
+              ],
               "disruptions": [],
               "workExp": null,
               "workExpNote": "",
