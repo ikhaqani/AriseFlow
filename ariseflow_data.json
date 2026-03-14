@@ -93377,11 +93377,14 @@
               "created": 1771322809153,
               "text": "Starten met RT inplannen",
               "linkedSourceId": null,
-              "type": null,
-              "processValue": null,
-              "processStatus": null,
+              "type": "Taak",
+              "processValue": "BNVA",
+              "processStatus": "NEUTRAL",
               "successFactors": "",
-              "causes": [],
+              "causes": [
+                "De start van het proces zegt nog niets over beschikbaarheid van arts, toestel of ondersteuning.",
+                "Het proces kan administratief gestart zijn terwijl inhoudelijke afstemming nog ontbreekt."
+              ],
               "improvements": [],
               "qa": {
                 "compleet": {
@@ -93431,9 +93434,20 @@
                 ]
               },
               "inputDefinitions": [],
-              "disruptions": [],
-              "workExp": null,
-              "workExpNote": "",
+              "disruptions": [
+                {
+                  "scenario": "RT-planning is gestart maar randvoorwaarden blijken later niet haalbaar.",
+                  "frequency": "Soms",
+                  "workaround": "Vervolgcontroles uitvoeren en planning alsnog aanpassen"
+                },
+                {
+                  "scenario": "Startstatus staat er al terwijl inhoudelijke keuzes nog niet stabiel zijn.",
+                  "frequency": "Soms",
+                  "workaround": "Handmatig herbeoordelen in de vervolgstappen."
+                }
+              ],
+              "workExp": "ROUTINE",
+              "workExpNote": "De stap zet het planningsproces formeel in gang.\nDe echte uitvoerbaarheid wordt pas in de volgende controles bepaald.\nDaardoor is dit een nuttige startstap, maar nog geen stabiele of complete planningsbeslissing.",
               "linkedSourceUids": [],
               "linkedBundleIds": [],
               "gate": {
@@ -93955,11 +93969,15 @@
               "created": 1771322826958,
               "text": "Controleren agenda van de arts",
               "linkedSourceId": null,
-              "type": null,
-              "processValue": null,
-              "processStatus": null,
+              "type": "Taak",
+              "processValue": "BNVA",
+              "processStatus": "SAD",
               "successFactors": "",
-              "causes": [],
+              "causes": [
+                "Agenda’s lopen niet synchroon.",
+                "Blokken worden onzorgvuldig of niet volgens afspraak ingericht.",
+                "Fouten worden lokaal opgelost in plaats van structureel teruggekoppeld."
+              ],
               "improvements": [],
               "qa": {
                 "compleet": {
@@ -94009,9 +94027,30 @@
                 ]
               },
               "inputDefinitions": [],
-              "disruptions": [],
-              "workExp": null,
-              "workExpNote": "",
+              "disruptions": [
+                {
+                  "scenario": "Artsagenda staat dicht of verkeerd.",
+                  "frequency": "Vaak",
+                  "workaround": "Zelf aanpassen, alternatief zoeken of patiënt verzetten."
+                },
+                {
+                  "scenario": "Vergadering of supervisie wordt ingepland zonder consultblok goed mee te verplaatsen.",
+                  "frequency": "Vaak",
+                  "workaround": "Agenda handmatig corrigeren en opnieuw afstemmen."
+                },
+                {
+                  "scenario": "Agenda toestel en arts lopen niet gelijk.",
+                  "frequency": "Vaak",
+                  "workaround": " Zelf vergelijken, ontbrekende koppeling opsporen en opnieuw plannen."
+                },
+                {
+                  "scenario": "TC-blokken of vastmetblokken staan niet goed.",
+                  "frequency": "Vaak",
+                  "workaround": "Zelf blokkenschema herstellen of collega mailen"
+                }
+              ],
+              "workExp": "OBSTACLE",
+              "workExpNote": "Agenda’s van arts, toestel en andere planningen lopen vaak niet synchroon.\nBlokken staan regelmatig verkeerd of worden niet goed mee verplaatst.\nCorrecties worden handmatig gedaan en leiden tot extra werk en herplanning.\nDaardoor blijft het proces afhankelijk van lokaal oplossen in plaats van stabiele inrichting.",
               "linkedSourceUids": [],
               "linkedBundleIds": [],
               "gate": {
@@ -94531,11 +94570,15 @@
               "created": 1771322883472,
               "text": "Controleren toestelcapaciteit",
               "linkedSourceId": null,
-              "type": null,
-              "processValue": null,
-              "processStatus": null,
+              "type": "Taak",
+              "processValue": "BNVA",
+              "processStatus": "NEUTRAL",
               "successFactors": "",
-              "causes": [],
+              "causes": [
+                "Beschikbare capaciteit sluit niet altijd aan op de gewenste starttermijn.",
+                "Onderhoud, feestdagen en volle toestellen verstoren de standaarddoorloop.",
+                "Afwijking wordt handmatig opgelost."
+              ],
               "improvements": [],
               "qa": {
                 "compleet": {
@@ -94585,9 +94628,25 @@
                 ]
               },
               "inputDefinitions": [],
-              "disruptions": [],
-              "workExp": null,
-              "workExpNote": "",
+              "disruptions": [
+                {
+                  "scenario": "Toestel vol.",
+                  "frequency": "Vaak",
+                  "workaround": "Start later zetten of alternatief zoeken."
+                },
+                {
+                  "scenario": "Onderhoud of feestdag.",
+                  "frequency": "Soms",
+                  "workaround": "Doorloop verlengen of arts informeren."
+                },
+                {
+                  "scenario": "Gewenste startdatum past niet binnen capaciteit.",
+                  "frequency": "Vaak",
+                  "workaround": "Binnen de marge schuiven of reden vertraging vastleggen."
+                }
+              ],
+              "workExp": "OBSTACLE",
+              "workExpNote": "Capaciteitsoverzicht is beschikbaar, maar sluit niet altijd aan op de werkelijke situatie.\nVolle toestellen, onderhoud en feestdagen verstoren de gewenste startdatum regelmatig.\nDaardoor ontstaat schuiven, verlengen en registreren van vertraging.",
               "linkedSourceUids": [],
               "linkedBundleIds": [],
               "gate": {
@@ -95106,11 +95165,15 @@
               "created": 1771322646240,
               "text": "Controleren agenda mondhygiënisten/Verpleegkundige",
               "linkedSourceId": null,
-              "type": null,
-              "processValue": null,
-              "processStatus": null,
+              "type": "Taak",
+              "processValue": "BNVA",
+              "processStatus": "NEUTRAL",
               "successFactors": "",
-              "causes": [],
+              "causes": [
+                "Beschikbaarheid wordt wel getoond, maar continuïteitsvoorkeur niet actief ondersteund.",
+                "Combinatie van toestel, arts en ondersteuning moet handmatig worden afgewogen.",
+                "Vrij slot betekent niet automatisch beste slot voor de hele reeks."
+              ],
               "improvements": [],
               "qa": {
                 "compleet": {
@@ -95160,9 +95223,20 @@
                 ]
               },
               "inputDefinitions": [],
-              "disruptions": [],
-              "workExp": null,
-              "workExpNote": "",
+              "disruptions": [
+                {
+                  "scenario": "Geen passende combinatie van begeleiding en toestel op de gewenste dag.",
+                  "frequency": "Soms",
+                  "workaround": "Andere dag zoeken of met minder ideale continuïteit plannen."
+                },
+                {
+                  "scenario": "Dezelfde begeleider is niet beschikbaar voor de hele reeks.",
+                  "frequency": "Soms",
+                  "workaround": "Combinatie maken van één of twee begeleiders en handmatig afstemmen."
+                }
+              ],
+              "workExp": "ROUTINE",
+              "workExpNote": "Beschikbaarheid is zichtbaar en controleerbaar.\nDe gewenste continuïteit van begeleiding door dezelfde één of twee personen wordt niet automatisch ondersteund.\nDaardoor is extra afstemming nodig om een patiëntvriendelijke en werkbare reeks te maken.",
               "linkedSourceUids": [],
               "linkedBundleIds": [],
               "gate": {
@@ -95684,11 +95758,16 @@
               "created": 1771322692359,
               "text": "Inplannen RT",
               "linkedSourceId": null,
-              "type": null,
-              "processValue": null,
-              "processStatus": null,
+              "type": "Taak",
+              "processValue": "BNVA",
+              "processStatus": "SAD",
               "successFactors": "",
-              "causes": [],
+              "causes": [
+                "De reeks neemt de tijd van de eerste bestraling over voor alle vervolgbestralingen.",
+                "Eerste en laatste bestraling worden niet robuust ondersteund in de planning.",
+                "Blokstructuur en werkelijke behandeltijd sluiten niet altijd goed aan.",
+                "Reeksplanning houdt onvoldoende rekening met bestaande afspraken en ondersteuning."
+              ],
               "improvements": [],
               "qa": {
                 "compleet": {
@@ -95738,9 +95817,30 @@
                 ]
               },
               "inputDefinitions": [],
-              "disruptions": [],
-              "workExp": null,
-              "workExpNote": "",
+              "disruptions": [
+                {
+                  "scenario": "Reeks staat op onlogische of overal gelijke tijden.",
+                  "frequency": "Vaak",
+                  "workaround": "Reeks volledig nalopen en handmatig corrigeren."
+                },
+                {
+                  "scenario": "Eerste of laatste bestraling staat niet goed.",
+                  "frequency": "Vaak",
+                  "workaround": "Handmatig aanpassen en opnieuw controleren."
+                },
+                {
+                  "scenario": "Een dag wordt overgeslagen door capaciteit of bloklogica.",
+                  "frequency": "Soms",
+                  "workaround": "Handmatig zoeken naar alternatief of reeks aanpassen."
+                },
+                {
+                  "scenario": "Patiënt kan niet op voorgestelde dag of tijd.",
+                  "frequency": "Soms",
+                  "workaround": "Nieuwe plek zoeken en reeks opnieuw afstemmen."
+                }
+              ],
+              "workExp": "OBSTACLE",
+              "workExpNote": "De reeks wordt niet logisch en automatisch goed aangemaakt.\nDe eerste en laatste bestraling moeten handmatig worden bewaakt.\nAlle fracties worden op de tijd van de eerste bestraling gezet en moeten daarna worden nagelopen.\nBeschikbare blokken sluiten niet altijd aan op echte behandeltijd.\nDaardoor ontstaat veel handmatig herstelwerk en hoge foutgevoeligheid.",
               "linkedSourceUids": [],
               "linkedBundleIds": [],
               "gate": {
@@ -96257,11 +96357,15 @@
               "created": 1771424384560,
               "text": "Afronden RT-taak",
               "linkedSourceId": null,
-              "type": null,
-              "processValue": null,
-              "processStatus": null,
+              "type": "Taak",
+              "processValue": "BNVA",
+              "processStatus": "NEUTRAL",
               "successFactors": "",
-              "causes": [],
+              "causes": [
+                "Taakafronding is losgekoppeld van het inhoudelijk afronden van de planning.",
+                "De stap kan in de snelheid vergeten worden.",
+                "Werkvoorraad blijft zichtbaar open terwijl het echte werk al gedaan is."
+              ],
               "improvements": [],
               "qa": {
                 "compleet": {
@@ -96311,9 +96415,20 @@
                 ]
               },
               "inputDefinitions": [],
-              "disruptions": [],
-              "workExp": null,
-              "workExpNote": "",
+              "disruptions": [
+                {
+                  "scenario": "RT-taak blijft openstaan terwijl RT al gepland is.",
+                  "frequency": "Soms",
+                  "workaround": "Werkvoorraad later nalopen en taak alsnog handmatig afronden."
+                },
+                {
+                  "scenario": "Onnodig zoekwerk door vervuilde openstaande taken.",
+                  "frequency": "Soms",
+                  "workaround": "Handmatig controleren welke taak echt nog actief is."
+                }
+              ],
+              "workExp": "ROUTINE",
+              "workExpNote": "De taakafronding is nodig om de werkvoorraad schoon te houden.\nHet is een extra administratieve afrondstap na de echte planning.\nAls deze stap vergeten wordt, blijft de werkvoorraad vervuild en ontstaat onnodig uitzoekwerk.",
               "linkedSourceUids": [],
               "linkedBundleIds": [],
               "gate": {
