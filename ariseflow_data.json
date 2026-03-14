@@ -22696,7 +22696,7 @@
               "systemData": {
                 "isMulti": false,
                 "systemName": "",
-                "calculatedScore": null,
+                "calculatedScore": 86,
                 "systems": [
                   {
                     "id": "abaaf77f-162d-40a7-8c66-18958456c588",
@@ -22717,12 +22717,22 @@
                   "multi": false,
                   "systems": [
                     {
-                      "id": "4551b388-5cdc-4ffe-b38a-248535f0f1cd",
                       "name": "",
                       "legacy": false,
                       "future": "",
-                      "qa": {},
-                      "score": null
+                      "qa": {
+                        "q1": "NEVER",
+                        "q1_note": "De bestanden zijn goed vindbaar en liggen op een vaste plek. Het ophalen zelf vraagt geen omweg.",
+                        "q2": "NEVER",
+                        "q2_note": "In deze stap wordt vooral informatie opgehaald. De dubbele verwerking ontstaat pas later in Epic en Excel.",
+                        "q3": "NEVER",
+                        "q3_note": "n deze stap wordt vooral informatie opgehaald. De dubbele verwerking ontstaat pas later in Epic en Excel.",
+                        "q4": "SOMETIMES",
+                        "q4_note": "Het systeem zelf is stabiel, maar het blijft afhankelijk van wat er ooit is aangeleverd en hoe actueel dat nog is. Daardoor kan verouderde of te grove basisinformatie ongemerkt worden overgenomen.",
+                        "q5": "DELAY",
+                        "q5_note": "De basis van het rooster staat ook al in Epic. Daardoor valt het proces niet volledig stil, maar het kost extra tijd om zonder SharePoint de juiste uitgangsinformatie te reconstrueren."
+                      },
+                      "score": 86
                     }
                   ],
                   "activeSystemIdx": 0
