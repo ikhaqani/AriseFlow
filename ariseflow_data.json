@@ -22765,28 +22765,34 @@
               "improvements": [],
               "qa": {
                 "compleet": {
-                  "result": "",
-                  "note": ""
+                  "result": "MINOR",
+                  "impact": "C",
+                  "note": "De basis is aanwezig, maar niet alle actuele uitzonderingen en latere blokkades zitten hierin. Daardoor moet later extra informatie worden opgehaald en verwerkt."
                 },
                 "kwaliteit": {
-                  "result": "",
-                  "note": ""
+                  "result": "MINOR",
+                  "impact": "C",
+                  "note": "De input is bruikbaar als vertrekpunt, maar nog niet volledig representatief voor de actuele werkelijkhei"
                 },
                 "duidelijkheid": {
-                  "result": "",
+                  "result": "GOOD",
+                  "impact": null,
                   "note": ""
                 },
                 "tijdigheid": {
-                  "result": "",
+                  "result": "GOOD",
+                  "impact": null,
                   "note": ""
                 },
                 "standaard": {
-                  "result": "",
+                  "result": "GOOD",
+                  "impact": null,
                   "note": ""
                 },
                 "overdracht": {
-                  "result": "",
-                  "note": ""
+                  "result": "MINOR",
+                  "impact": "C",
+                  "note": "De basisstructuur is bruikbaar, maar niet alles wat later van belang blijkt zit hier al volledig of actueel in."
                 }
               },
               "systemData": {
@@ -22810,7 +22816,28 @@
                   }
                 ]
               },
-              "inputDefinitions": [],
+              "inputDefinitions": [
+                {
+                  "item": "Vast consult- en afsprakenoverzicht per arts",
+                  "specifications": "",
+                  "type": "HARD"
+                },
+                {
+                  "item": "Basisstructuur van klinische blokken",
+                  "specifications": "",
+                  "type": "HARD"
+                },
+                {
+                  "item": "Actuele versie op centrale plek",
+                  "specifications": "",
+                  "type": "HARD"
+                },
+                {
+                  "item": "Eventuele toelichting op afwijkende basisafspraken",
+                  "specifications": "",
+                  "type": "SOFT"
+                }
+              ],
               "disruptions": [],
               "workExp": null,
               "workExpNote": "",
@@ -22824,7 +22851,8 @@
                 "onPassTargetProcessId": null,
                 "rule": "ALL_OK",
                 "note": ""
-              }
+              },
+              "linkedSourceIds": []
             },
             {
               "id": "af253ddc-59d6-47f3-bde5-c7ae2a998a07",
@@ -23294,19 +23322,19 @@
               "improvements": [],
               "qa": {
                 "compleet": {
-                  "result": null,
-                  "impact": null,
-                  "note": ""
+                  "result": "MINOR",
+                  "impact": "B",
+                  "note": "Omdat de actor later nog moet corrigeren op afwezigheden, vergaderingen en andere uitzonderingen."
                 },
                 "kwaliteit": {
-                  "result": null,
-                  "impact": null,
-                  "note": ""
+                  "result": "MINOR",
+                  "impact": "B",
+                  "note": "De basisagenda is bruikbaar, maar kan formeel kloppen terwijl de werkelijke inzetbaarheid later anders blijkt."
                 },
                 "duidelijkheid": {
-                  "result": null,
-                  "impact": null,
-                  "note": ""
+                  "result": "MINOR",
+                  "impact": "B",
+                  "note": "De hoofdstructuur is duidelijk, maar de agenda zegt niet vanzelf alles over de achterliggende afspraken en uitzonderingen."
                 },
                 "tijdigheid": {
                   "result": null,
