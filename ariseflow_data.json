@@ -88114,10 +88114,10 @@
               "created": 1771321990956,
               "text": "Standaard route starten",
               "linkedSourceId": null,
-              "type": null,
-              "processValue": null,
-              "processStatus": null,
-              "successFactors": "",
+              "type": "Beoordeling",
+              "processValue": "BNVA",
+              "processStatus": "HAPPY",
+              "successFactors": "De stap vraagt weinig interpretatie bij standaardgevallen",
               "causes": [],
               "improvements": [],
               "qa": {
@@ -88168,9 +88168,20 @@
                 ]
               },
               "inputDefinitions": [],
-              "disruptions": [],
-              "workExp": null,
-              "workExpNote": "",
+              "disruptions": [
+                {
+                  "scenario": "Route blijkt toch geen standaardroute te zijn.",
+                  "frequency": "Soms",
+                  "workaround": "Route opnieuw bepalen en overschakelen naar chemo, TBI of normroute."
+                },
+                {
+                  "scenario": "Bijzonderheid blijkt later toch relevant.",
+                  "frequency": "Soms",
+                  "workaround": "Route herzien en vervolgplanning aanpassen."
+                }
+              ],
+              "workExp": "ROUTINE",
+              "workExpNote": "De standaardroute is duidelijk.\nDe route is bekend en goed uitvoerbaar.\nAfwijkingen zitten vooral in latere planningsstappen en niet in het starten van de standaardroute zelf.",
               "linkedSourceUids": [],
               "linkedBundleIds": [],
               "gate": {
