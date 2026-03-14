@@ -84502,11 +84502,15 @@
               "created": 1771425698455,
               "text": "Aanmaken RT-taak",
               "linkedSourceId": null,
-              "type": null,
-              "processValue": null,
-              "processStatus": null,
+              "type": "Taak",
+              "processValue": "BNVA",
+              "processStatus": "NEUTRAL",
               "successFactors": "",
-              "causes": [],
+              "causes": [
+                "Het vervolgproces loopt niet vanzelf door vanuit de eerdere stap.",
+                "De RT-taak is een aparte administratieve beheerstap buiten de kern van de zorglogica.",
+                "In de snelheid kan de taak vergeten worden"
+              ],
               "improvements": [],
               "qa": {
                 "compleet": {
@@ -84556,9 +84560,20 @@
                 ]
               },
               "inputDefinitions": [],
-              "disruptions": [],
-              "workExp": null,
-              "workExpNote": "",
+              "disruptions": [
+                {
+                  "scenario": "RT-taak wordt niet aangemaakt.",
+                  "frequency": "Soms",
+                  "workaround": "Werkvoorraad nalopen of op basis van dossier en overdracht alsnog taak aanmaken."
+                },
+                {
+                  "scenario": "Onduidelijk wat nog openstaat.",
+                  "frequency": "Soms",
+                  "workaround": "Dossier, voorbereiding en eerdere terugkoppeling handmatig terugzoeken."
+                }
+              ],
+              "workExp": "ROUTINE",
+              "workExpNote": "Het is een bekende, terugkerende handeling, maar niet intrinsiek waardevol werk. Het wordt vooral gedaan om grip te houden.",
               "linkedSourceUids": [],
               "linkedBundleIds": [],
               "gate": {
@@ -85085,11 +85100,15 @@
               "created": 1771423131932,
               "text": "Voorbereiden inplannen RT",
               "linkedSourceId": null,
-              "type": null,
-              "processValue": null,
-              "processStatus": null,
+              "type": "Taak",
+              "processValue": "BNVA",
+              "processStatus": "SAD",
               "successFactors": "",
-              "causes": [],
+              "causes": [
+                "Aanvraagformulier is niet volledig.",
+                "CT-order ontbreekt.",
+                "Mondelinge overdracht bevat extra of afwijkende informatie."
+              ],
               "improvements": [],
               "qa": {
                 "compleet": {
@@ -85139,9 +85158,25 @@
                 ]
               },
               "inputDefinitions": [],
-              "disruptions": [],
-              "workExp": null,
-              "workExpNote": "",
+              "disruptions": [
+                {
+                  "scenario": "Aanvraagformulier niet ingevuld.",
+                  "frequency": "Vaak",
+                  "workaround": "Arts bellen of mondeling verduidelijken en later corrigeren"
+                },
+                {
+                  "scenario": "CT-order ontbreekt.",
+                  "frequency": "Vaak",
+                  "workaround": "Arts nabellen en order alsnog laten aanmaken."
+                },
+                {
+                  "scenario": "Arts nabellen en order alsnog laten aanmaken.",
+                  "frequency": "Soms",
+                  "workaround": "Nieuwe plek zoeken en voorbereiding opnieuw plannen."
+                }
+              ],
+              "workExp": "OBSTACLE",
+              "workExpNote": "De stap lijkt routine, maar stokt zodra prescriptie, aanvraagformulier of terugkoppeling niet compleet zijn.",
               "linkedSourceUids": [],
               "linkedBundleIds": [],
               "gate": {
