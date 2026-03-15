@@ -45538,11 +45538,14 @@
               "created": 1772203578522,
               "text": "Artsenrooster controleren",
               "linkedSourceId": null,
-              "type": null,
-              "processValue": null,
-              "processStatus": null,
+              "type": "Taak",
+              "processValue": "BNVA",
+              "processStatus": "NEUTRAL",
               "successFactors": "",
-              "causes": [],
+              "causes": [
+                "Het artsenrooster laat formele aanwezigheid zien, maar niet altijd alle praktische beperkingen voor kamergebruik.",
+                "Uitzonderingen op klinische inzet worden niet altijd direct zichtbaar in het rooster."
+              ],
               "improvements": [],
               "qa": {
                 "compleet": {
@@ -45592,9 +45595,20 @@
                 ]
               },
               "inputDefinitions": [],
-              "disruptions": [],
-              "workExp": null,
-              "workExpNote": "",
+              "disruptions": [
+                {
+                  "scenario": "Een arts staat klinisch ingepland maar blijkt praktisch niet inzetbaar zoals gedacht.",
+                  "frequency": "Soms",
+                  "workaround": "Later in het proces de kamerverdeling handmatig aanpassen."
+                },
+                {
+                  "scenario": "Uitzonderingen vallen pas op nadat het rooster al als basis is gebruikt.",
+                  "frequency": "Soms",
+                  "workaround": "Opnieuw controleren en corrigeren in Excel."
+                }
+              ],
+              "workExp": "ROUTINE",
+              "workExpNote": "Deze stap is noodzakelijk om te bepalen welke artsen op welk moment een kamer nodig hebben. De handeling zelf is overzichtelijk, maar de agenda zegt niet altijd genoeg over de praktische inzetbaarheid voor de kamerverdeling. Daardoor lijkt het proces eenvoudig, maar zit er toch interpretatiewerk in.",
               "linkedSourceUids": [],
               "linkedBundleIds": [],
               "gate": {
@@ -46086,11 +46100,15 @@
               "created": 1773567582950,
               "text": "Kamerbehoefte inventariseren",
               "linkedSourceId": null,
-              "type": null,
-              "processValue": null,
-              "processStatus": null,
+              "type": "Taak",
+              "processValue": "BNVA",
+              "processStatus": "NEUTRAL",
               "successFactors": "",
-              "causes": [],
+              "causes": [
+                "Het artsenrooster vertaalt niet automatisch naar concrete kamerbehoefte.",
+                "De inventarisatie gebeurt buiten Epic in Excel.",
+                "De kamerbehoefte hangt af van veel lokale uitzonderingen."
+              ],
               "improvements": [],
               "qa": {
                 "compleet": {
@@ -46140,9 +46158,20 @@
                 ]
               },
               "inputDefinitions": [],
-              "disruptions": [],
-              "workExp": null,
-              "workExpNote": ""
+              "disruptions": [
+                {
+                  "scenario": "Niet direct duidelijk welk type kamer nodig is.",
+                  "frequency": "Vaak",
+                  "workaround": "Op basis van ervaring en lokale kennis handmatig bepalen welke kamer passend is."
+                },
+                {
+                  "scenario": "Kamerbehoefte blijkt later toch anders te liggen dan eerst gedacht.",
+                  "frequency": "Soms",
+                  "workaround": "Overzicht opnieuw aanpassen in Excel."
+                }
+              ],
+              "workExp": "OBSTACLE",
+              "workExpNote": "In deze stap wordt de vertaalslag gemaakt van een artsenrooster naar echte kamervraag. Dat is geen simpele telling, omdat per arts, locatie en doelgebied andere voorwaarden kunnen gelden. De stap werkt, maar is sterk afhankelijk van handmatige interpretatie en lokale kennis."
             },
             {
               "id": "9b6337a9-188a-47d7-a8dc-c59a8f82ae83",
@@ -46603,11 +46632,15 @@
               "created": 1773567851856,
               "text": "Beschikbare kamers en kamerlogica toepassen",
               "linkedSourceId": null,
-              "type": null,
-              "processValue": null,
-              "processStatus": null,
+              "type": "Taak",
+              "processValue": "BNVA",
+              "processStatus": "NEUTRAL",
               "successFactors": "",
-              "causes": [],
+              "causes": [
+                "Kamerlogica zit niet in het systeem maar in de kennis van de planner.",
+                "Niet elke kamer is functioneel gelijkwaardig.",
+                "Excel ondersteunt de verdeling, maar bewaakt de logica niet automatisch."
+              ],
               "improvements": [],
               "qa": {
                 "compleet": {
@@ -46657,9 +46690,20 @@
                 ]
               },
               "inputDefinitions": [],
-              "disruptions": [],
-              "workExp": null,
-              "workExpNote": ""
+              "disruptions": [
+                {
+                  "scenario": "Een arts wordt in een minder logische of minder geschikte kamer geplaatst.",
+                  "frequency": "Soms",
+                  "workaround": "Handmatig herschikken totdat een werkbare indeling ontstaat."
+                },
+                {
+                  "scenario": "De eerste verdeling klopt logisch niet met doelgebied of locatie.",
+                  "frequency": "Vaak",
+                  "workaround": "Opnieuw puzzelen met andere kamers."
+                }
+              ],
+              "workExp": "OBSTACLE",
+              "workExpNote": "Dit is de echte puzzelstap van het proces. Hier moet de behoefte worden gekoppeld aan concrete kamers, terwijl ook doelgebied, locatie, type kamer en praktische logica meewegen. De stap levert waarde op, maar is arbeidsintensief en foutgevoelig."
             },
             {
               "id": "82acf245-2882-468d-bb38-322c4a19be71",
@@ -47114,11 +47158,15 @@
               "created": 1773567994387,
               "text": "Knelpunten in kamerverdeling oplossen",
               "linkedSourceId": null,
-              "type": null,
-              "processValue": null,
-              "processStatus": null,
+              "type": "Taak",
+              "processValue": "NVA",
+              "processStatus": "SAD",
               "successFactors": "",
-              "causes": [],
+              "causes": [
+                "Er is geen automatisch bewaakte balans tussen behoefte en beschikbare kamers.",
+                "Praktische kamerlogica en lokale wensen botsen regelmatig met de eerste indeling.",
+                "Knelpunten worden pas zichtbaar nadat de conceptindeling al gemaakt is."
+              ],
               "improvements": [],
               "qa": {
                 "compleet": {
@@ -47168,9 +47216,20 @@
                 ]
               },
               "inputDefinitions": [],
-              "disruptions": [],
-              "workExp": null,
-              "workExpNote": ""
+              "disruptions": [
+                {
+                  "scenario": "Te veel artsen of te weinig passende kamers in één dagdeel.",
+                  "frequency": "Vaak",
+                  "workaround": "Herschikken, verplaatsen of minder ideale kamers gebruiken."
+                },
+                {
+                  "scenario": "Een logische indeling blijkt toch oneerlijk of onwerkbaar verdeeld.",
+                  "frequency": "Vaak",
+                  "workaround": "Handmatig opnieuw verdelen."
+                }
+              ],
+              "workExp": "OBSTACLE",
+              "workExpNote": "Deze stap bestaat uit het herstellen van problemen die eerder in de keten ontstaan of zichtbaar worden. Het is nodig om tot een werkbare voorlopige indeling te komen, maar lean gezien is dit vooral herwerk. De planner is bezig met oplossen in plaats van een stabiel proces uitvoeren."
             },
             {
               "id": "6d97f9d7-8721-4d4b-9b40-c4eafb763837",
@@ -47631,11 +47690,14 @@
               "created": 1773568032648,
               "text": "Kamerindeling controleren",
               "linkedSourceId": null,
-              "type": null,
-              "processValue": null,
-              "processStatus": null,
+              "type": "Taak",
+              "processValue": "BNVA",
+              "processStatus": "NEUTRAL",
               "successFactors": "",
-              "causes": [],
+              "causes": [
+                "De polikliniek kijkt vanuit praktische logistiek, niet alleen vanuit planningslogica.",
+                "Controle en feedback lopen via losse terugkoppeling."
+              ],
               "improvements": [],
               "qa": {
                 "compleet": {
@@ -47685,9 +47747,20 @@
                 ]
               },
               "inputDefinitions": [],
-              "disruptions": [],
-              "workExp": null,
-              "workExpNote": ""
+              "disruptions": [
+                {
+                  "scenario": "De indeling is formeel goed maar praktisch niet handig voor de polikliniek.",
+                  "frequency": "Soms",
+                  "workaround": "Aanpassen op basis van voorkeuren of looplogica."
+                },
+                {
+                  "scenario": "Terugkoppeling is niet volledig eenduidig.",
+                  "frequency": "Soms",
+                  "workaround": "Extra afstemming of verduidelijking vragen."
+                }
+              ],
+              "workExp": "ROUTINE",
+              "workExpNote": "De controle door de polikliniek is belangrijk omdat daar andere praktische kennis zit over looproutes en werkbaarheid. De stap voegt dus echt waarde toe. Tegelijk is de beoordeling niet volledig gestandaardiseerd, waardoor terugkoppeling deels subjectief of voorkeursgedreven kan zijn."
             },
             {
               "id": "91c2d61c-39ae-40bd-9b18-7226ca6251df",
@@ -48143,10 +48216,10 @@
               "created": 1773568074013,
               "text": "Feedback verwerken",
               "linkedSourceId": null,
-              "type": null,
-              "processValue": null,
-              "processStatus": null,
-              "successFactors": "",
+              "type": "Taak",
+              "processValue": "BNVA",
+              "processStatus": "HAPPY",
+              "successFactors": "Feedback komt meestal op tijd en is meestal verwerkbaar. Niet alle feedback is even gestructureerd.",
               "causes": [],
               "improvements": [],
               "qa": {
@@ -48197,9 +48270,15 @@
                 ]
               },
               "inputDefinitions": [],
-              "disruptions": [],
-              "workExp": null,
-              "workExpNote": ""
+              "disruptions": [
+                {
+                  "scenario": "Feedback is inhoudelijk bruikbaar maar niet helemaal scherp geformuleerd.",
+                  "frequency": "Soms",
+                  "workaround": "Kort interpreteren of verduidelijken en daarna verwerken."
+                }
+              ],
+              "workExp": "ROUTINE",
+              "workExpNote": "Als de feedback eenmaal duidelijk is, is deze stap goed uitvoerbaar. Er moet nog worden aangepast, maar het proces is beheersbaar en overzichtelijk. De grootste knelpunten zitten niet hier, maar in de kwaliteit van de eerdere conceptindeling en de feedbackvorm.\n"
             },
             {
               "id": "d72e4e47-729c-4d1b-9c4d-b9918cf51ec7",
@@ -48660,11 +48739,15 @@
               "created": 1773568115193,
               "text": "Kamer koppelen in Epic",
               "linkedSourceId": null,
-              "type": null,
-              "processValue": null,
-              "processStatus": null,
+              "type": "Taak",
+              "processValue": "BNVA",
+              "processStatus": "NEUTRAL",
               "successFactors": "",
-              "causes": [],
+              "causes": [
+                "De definitieve indeling en het uitvoeringssysteem zitten niet in één systeem.",
+                "Overzetting van Excel naar Epic gebeurt handmatig.",
+                "Laatste verschillen tussen Excel en Epic kunnen onopgemerkt blijven."
+              ],
               "improvements": [],
               "qa": {
                 "compleet": {
@@ -48714,9 +48797,20 @@
                 ]
               },
               "inputDefinitions": [],
-              "disruptions": [],
-              "workExp": null,
-              "workExpNote": ""
+              "disruptions": [
+                {
+                  "scenario": "Definitieve indeling staat goed in Excel maar nog niet juist in Epic.",
+                  "frequency": "Soms",
+                  "workaround": "Handmatig corrigeren in Epic."
+                },
+                {
+                  "scenario": "Een kamer wordt verkeerd gekoppeld of vergeten.",
+                  "frequency": "Soms",
+                  "workaround": "Nacontrole doen en opnieuw koppelen."
+                }
+              ],
+              "workExp": "OBSTACLE",
+              "workExpNote": "Dit is de publicatiestap waarin de definitieve indeling echt zichtbaar wordt voor uitvoering. De stap is noodzakelijk, maar ook kwetsbaar omdat de kamerindeling al in Excel bestaat en daarna nog handmatig naar Epic moet worden overgezet. Daardoor ontstaat extra werk en foutkans aan het eind van de keten."
             },
             {
               "id": "b7d0b4e9-f2a1-4c9d-9064-db38fb011ab7",
