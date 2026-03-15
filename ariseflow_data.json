@@ -132477,10 +132477,10 @@
               "created": 1770186935597,
               "text": "Intekentaak openen",
               "linkedSourceId": null,
-              "type": null,
-              "processValue": null,
-              "processStatus": null,
-              "successFactors": "",
+              "type": "Taak",
+              "processValue": "BNVA",
+              "processStatus": "HAPPY",
+              "successFactors": "Het intekenwerk moet zichtbaar en bestuurbaar worden aangeboden. Zonder taak ontstaat afhankelijkheid van bellen, losse overdracht of geheugen.",
               "causes": [],
               "improvements": [],
               "qa": {
@@ -132531,9 +132531,15 @@
                 ]
               },
               "inputDefinitions": [],
-              "disruptions": [],
-              "workExp": null,
-              "workExpNote": "",
+              "disruptions": [
+                {
+                  "scenario": "De taak is niet zichtbaar of komt niet goed door.",
+                  "frequency": "Zelden",
+                  "workaround": "Mondeling doorgeven of bellen dat een patiënt ingetekend moet worden."
+                }
+              ],
+              "workExp": "ROUTINE",
+              "workExpNote": "Dit is een noodzakelijke startstap om het werk bestuurbaar aan te bieden. De taak fungeert als formele trigger en voorkomt dat intekenen volledig op mondelinge signalering of geheugen draait. Deze stap voegt dus echte procesorde toe en is op zichzelf stabiel.",
               "outputUid": "out_6c4d9d66-3122-4bb3-89d3-8e2d52771c67",
               "linkedSourceUids": [],
               "linkedBundleIds": [],
@@ -133021,11 +133027,15 @@
               "created": 1773570957675,
               "text": "Patiënt opzoeken in plansysteem",
               "linkedSourceId": null,
-              "type": null,
-              "processValue": null,
-              "processStatus": null,
+              "type": "Taak",
+              "processValue": "NVA",
+              "processStatus": "SAD",
               "successFactors": "",
-              "causes": [],
+              "causes": [
+                "Radiotherapie Web en Eclipse/Ethos sluiten niet naadloos op elkaar aan.",
+                "Zoeken op naam in het plansysteem is onbetrouwbaar en inconsistent.",
+                "De arts moet patiëntgegevens handmatig overnemen tussen systemen."
+              ],
               "improvements": [],
               "qa": {
                 "compleet": {
@@ -133075,9 +133085,20 @@
                 ]
               },
               "inputDefinitions": [],
-              "disruptions": [],
-              "workExp": null,
-              "workExpNote": ""
+              "disruptions": [
+                {
+                  "scenario": "De patiënt is op naam lastig of niet betrouwbaar vindbaar.",
+                  "frequency": "Altijd",
+                  "workaround": "Patiëntnummer kopiëren uit Radiotherapie Web en handmatig plakken in Eclipse of Ethos."
+                },
+                {
+                  "scenario": "Verschillende schrijfwijzen van achternamen maken zoeken onbetrouwbaar.",
+                  "frequency": "Vaak",
+                  "workaround": "Niet op naam zoeken maar altijd op nummer."
+                }
+              ],
+              "workExp": "OBSTACLE",
+              "workExpNote": "Deze stap is een duidelijk voorbeeld van verborgen verspilling. De patiënt is al bekend in de taak, maar kan niet zonder extra zoek- en kopieerwerk direct in Eclipse of Ethos worden geopend. Daardoor is een simpele overgang tussen systemen onnodig omslachtig gemaakt"
             },
             {
               "id": "5f068342-b1f9-47dc-b241-7b3675f87a00",
@@ -133538,11 +133559,15 @@
               "created": 1773571046586,
               "text": "OAR en contouren controleren",
               "linkedSourceId": null,
-              "type": null,
-              "processValue": null,
-              "processStatus": null,
+              "type": "Taak",
+              "processValue": "NVA",
+              "processStatus": "SAD",
               "successFactors": "",
-              "causes": [],
+              "causes": [
+                "Automatisch geladen contouren zijn inhoudelijk niet stabiel genoeg.",
+                "Oude scans en eerdere behandeldata blijven zichtbaar en vervuilen het werkbeeld.",
+                "De aangeleverde contourset wordt niet altijd functioneel gevalideerd vóórdat de arts ermee werkt."
+              ],
               "improvements": [],
               "qa": {
                 "compleet": {
@@ -133592,9 +133617,25 @@
                 ]
               },
               "inputDefinitions": [],
-              "disruptions": [],
-              "workExp": null,
-              "workExpNote": ""
+              "disruptions": [
+                {
+                  "scenario": "OAR’s of contouren zijn onjuist ingeladen.",
+                  "frequency": "Vaak",
+                  "workaround": "Contouren verwijderen, leegmaken of opnieuw intekenen."
+                },
+                {
+                  "scenario": "Oude scans en oude behandelreeksen maken het overzicht onduidelijk.",
+                  "frequency": "Vaak",
+                  "workaround": "Handmatig de juiste scan en set zoeken."
+                },
+                {
+                  "scenario": "De match of contourset blijkt inhoudelijk niet bruikbaar.",
+                  "frequency": "Vaak",
+                  "workaround": "De basis handmatig corrigeren vóór het eigenlijke intekenen begint."
+                }
+              ],
+              "workExp": "OBSTACLE",
+              "workExpNote": "Inhoudelijke controle van contouren is medisch noodzakelijk. Het proces daaromheen is echter niet stabiel genoeg, omdat de aangeleverde set te vaak niet direct bruikbaar is. Hierdoor bestaat deze stap voor een belangrijk deel uit herstelwerk, opschonen en opnieuw beginnen in plaats van echt controleren."
             },
             {
               "id": "e639d40d-8ac2-42f1-a975-e85851fc9e15",
@@ -134055,11 +134096,15 @@
               "created": 1773571484715,
               "text": "Doelgebied intekenen",
               "linkedSourceId": null,
-              "type": null,
-              "processValue": null,
-              "processStatus": null,
+              "type": "Taak",
+              "processValue": "VA",
+              "processStatus": "NEUTRAL",
               "successFactors": "",
-              "causes": [],
+              "causes": [
+                "Dit is de kernactiviteit met directe patiëntwaarde: hier wordt de medische intekening echt gemaakt. Inhoudelijk kan dit goed verlopen, maar de stap is sterk afhankelijk van de kwaliteit van alles wat eraan voorafgaat. Daardoor kan een inhoudelijk goede stap toch procesmatig kwetsbaar blijven.",
+                "Het intekenen start vaak pas nadat eerder herstelwerk is gedaan.",
+                "Oude of onjuiste data kunnen de basis van de intekening verstoren."
+              ],
               "improvements": [],
               "qa": {
                 "compleet": {
@@ -134109,9 +134154,20 @@
                 ]
               },
               "inputDefinitions": [],
-              "disruptions": [],
-              "workExp": null,
-              "workExpNote": ""
+              "disruptions": [
+                {
+                  "scenario": "Eerst moet nog worden gecorrigeerd voordat veilig ingetekend kan worden.",
+                  "frequency": "Soms",
+                  "workaround": "Pas starten met intekenen nadat match en contouren handmatig zijn opgeschoond."
+                },
+                {
+                  "scenario": "Bij complexere beeldvorming is meer interpretatie nodig.",
+                  "frequency": "Soms",
+                  "workaround": "Extra controleren, vergelijken en teruggrijpen op ervaring."
+                }
+              ],
+              "workExp": "FLOW",
+              "workExpNote": "Dit is de kernactiviteit met directe patiëntwaarde: hier wordt de medische intekening echt gemaakt. Inhoudelijk kan dit goed verlopen, maar de stap is sterk afhankelijk van de kwaliteit van alles wat eraan voorafgaat. Daardoor kan een inhoudelijk goede stap toch procesmatig kwetsbaar blijven."
             },
             {
               "id": "1ff3df67-e49b-4a28-bcb5-0976f336e89e",
@@ -134567,10 +134623,10 @@
               "created": 1773571540029,
               "text": "Structure set approven",
               "linkedSourceId": null,
-              "type": null,
-              "processValue": null,
-              "processStatus": null,
-              "successFactors": "",
+              "type": "Taak",
+              "processValue": "BNVA",
+              "processStatus": "HAPPY",
+              "successFactors": "De stap is alleen veilig als de voorgaande controle goed is uitgevoerd",
               "causes": [],
               "improvements": [],
               "qa": {
@@ -134621,9 +134677,15 @@
                 ]
               },
               "inputDefinitions": [],
-              "disruptions": [],
-              "workExp": null,
-              "workExpNote": ""
+              "disruptions": [
+                {
+                  "scenario": "De verkeerde structure set wordt goedgekeurd.",
+                  "frequency": "Soms",
+                  "workaround": "Heropenen en corrigeren, of opnieuw de juiste set vaststellen."
+                }
+              ],
+              "workExp": "ROUTINE",
+              "workExpNote": "Dit is een formele vrijgavestap. De handeling zelf is eenvoudig, snel en nodig om duidelijk te markeren welke structure set leidend is. De stap werkt op zichzelf goed; het risico zit niet in de klik, maar in de kwaliteit van wat op dat moment wordt goedgekeurd."
             },
             {
               "id": "7b3b4d92-f0a6-4d51-9d2d-ccb09440cca4",
@@ -135079,11 +135141,15 @@
               "created": 1773571606185,
               "text": "Aanmaken OB-taak",
               "linkedSourceId": null,
-              "type": null,
-              "processValue": null,
-              "processStatus": null,
+              "type": "Taak",
+              "processValue": "NVA",
+              "processStatus": "SAD",
               "successFactors": "",
-              "causes": [],
+              "causes": [
+                "Goedkeuring van de structure set leidt niet automatisch tot zichtbaarheid voor OB.",
+                "Een extra handeling is nodig om de volgende ketenstap te activeren.",
+                "De processtatus is verdeeld over meerdere systemen en meerdere klikken."
+              ],
               "improvements": [],
               "qa": {
                 "compleet": {
@@ -135133,9 +135199,20 @@
                 ]
               },
               "inputDefinitions": [],
-              "disruptions": [],
-              "workExp": null,
-              "workExpNote": ""
+              "disruptions": [
+                {
+                  "scenario": "De casus is inhoudelijk klaar maar niet zichtbaar voor OB.",
+                  "frequency": "Soms",
+                  "workaround": "Handmatig alsnog de OB-handeling aanmaken."
+                },
+                {
+                  "scenario": "De extra stap wordt vergeten.",
+                  "frequency": "Soms",
+                  "workaround": "Later corrigeren nadat zichtbaar wordt dat de casus niet op de OB-lijst staat."
+                }
+              ],
+              "workExp": "OBSTACLE",
+              "workExpNote": "Deze stap is procesmatig nodig, maar inhoudelijk eigenlijk puur overdrachtsadministratie. De casus is al gereed en moet daarna nog apart zichtbaar gemaakt worden voor OB. Dat betekent dat één inhoudelijk afgeronde stap niet automatisch doorloopt naar de volgende, wat een klassiek overdrachtslek is."
             },
             {
               "id": "be2db15c-b2eb-4eef-bc66-d26fc7b0771c",
@@ -135591,11 +135668,15 @@
               "created": 1773571674450,
               "text": "Intekentaak afronden",
               "linkedSourceId": null,
-              "type": null,
-              "processValue": null,
-              "processStatus": null,
+              "type": "Taak",
+              "processValue": "NVA",
+              "processStatus": "NEUTRAL",
               "successFactors": "",
-              "causes": [],
+              "causes": [
+                "Inhoudelijke afronding gebeurt in Eclipse/Ethos, administratieve afronding in Radiotherapie Web.",
+                "De taak blijft open als de laatste administratieve stap vergeten wordt.",
+                "Procesvoltooiing wordt pas zichtbaar na een extra los moment."
+              ],
               "improvements": [],
               "qa": {
                 "compleet": {
@@ -135645,9 +135726,20 @@
                 ]
               },
               "inputDefinitions": [],
-              "disruptions": [],
-              "workExp": null,
-              "workExpNote": ""
+              "disruptions": [
+                {
+                  "scenario": "De intekening is klaar maar de taak is niet afgerond.",
+                  "frequency": "Soms",
+                  "workaround": "Later alsnog administratief afsluiten."
+                },
+                {
+                  "scenario": "Radiotherapie Web en Eclipse/Ethos lopen niet synchroon in status.",
+                  "frequency": "Soms",
+                  "workaround": "Handmatig controleren welk deel van het proces al wel of nog niet gedaan is."
+                }
+              ],
+              "workExp": "ROUTINE",
+              "workExpNote": "Het administratief afronden van de taak is nodig om processtatus en werkvoorraad op orde te houden. Tegelijk is het lean-technisch niet sterk dat inhoudelijke afronding en administratieve afronding in verschillende systemen uit elkaar zijn getrokken. Daardoor blijft deze stap gevoelig voor vergeten of achterlopende status."
             },
             {
               "id": "4da23024-be9a-45aa-8bf6-989e1430e0ed",
