@@ -217446,10 +217446,10 @@
               "created": 1773580701489,
               "text": "Tussentijdse controle uitvoeren",
               "linkedSourceId": null,
-              "type": null,
-              "processValue": null,
-              "processStatus": null,
-              "successFactors": "",
+              "type": "Taak",
+              "processValue": "VA",
+              "processStatus": "HAPPY",
+              "successFactors": "De afspraak wordt vooraf ingepland en komt daardoor geordend beschikbaar.",
               "causes": [],
               "improvements": [],
               "qa": {
@@ -217500,9 +217500,15 @@
                 ]
               },
               "inputDefinitions": [],
-              "disruptions": [],
-              "workExp": null,
-              "workExpNote": ""
+              "disruptions": [
+                {
+                  "scenario": "De patiënt verschijnt niet of het contactmoment loopt anders dan gepland.",
+                  "frequency": "Zelden",
+                  "workaround": "Controle op een ander moment uitvoeren of opnieuw inplannen."
+                }
+              ],
+              "workExp": "FLOW",
+              "workExpNote": "Dit is directe patiëntenzorg. De tussentijdse controle is een logisch en waardevol contactmoment tijdens de behandeling. De afspraak is planbaar en uitvoerbaar en levert direct klinische waarde op."
             },
             {
               "id": "d57015e7-7995-4cba-9002-63665ffb6492",
@@ -217958,9 +217964,9 @@
               "created": 1773581606678,
               "text": "Klachten en bijwerkingen uitvragen",
               "linkedSourceId": null,
-              "type": null,
-              "processValue": null,
-              "processStatus": null,
+              "type": "Taak",
+              "processValue": "VA",
+              "processStatus": "HAPPY",
               "successFactors": "",
               "causes": [],
               "improvements": [],
@@ -218012,9 +218018,15 @@
                 ]
               },
               "inputDefinitions": [],
-              "disruptions": [],
-              "workExp": null,
-              "workExpNote": ""
+              "disruptions": [
+                {
+                  "scenario": "De patiënt kan klachten niet goed verwoorden of het beeld is onvolledig.",
+                  "frequency": "Zelden",
+                  "workaround": "Doorvragen, aanvullende observaties doen of later terugkomen op klachten."
+                }
+              ],
+              "workExp": "FLOW",
+              "workExpNote": "Dit is kernwerk van de arts tijdens de controle. Hier wordt de actuele situatie van de patiënt opgehaald. Het proces is inhoudelijk helder en levert directe input voor klinische beoordeling."
             },
             {
               "id": "8fb0b1c7-d3bb-4857-a41b-49e291fdccd2",
@@ -218465,9 +218477,9 @@
               "created": 1773581081583,
               "text": "Bevindingen beoordelen en zo nodig lichamelijk onderzoek doen",
               "linkedSourceId": null,
-              "type": null,
-              "processValue": null,
-              "processStatus": null,
+              "type": "Taak",
+              "processValue": "VA",
+              "processStatus": "HAPPY",
               "successFactors": "",
               "causes": [],
               "improvements": [],
@@ -218519,9 +218531,15 @@
                 ]
               },
               "inputDefinitions": [],
-              "disruptions": [],
-              "workExp": null,
-              "workExpNote": ""
+              "disruptions": [
+                {
+                  "scenario": "Extra observatie is nodig",
+                  "frequency": "Soms",
+                  "workaround": "Lichamelijk onderzoek uitvoeren of aanvullende registratie"
+                }
+              ],
+              "workExp": "FLOW",
+              "workExpNote": "Dit is een inhoudelijke beoordelingsstap met hoge patiëntwaarde. De arts vertaalt klachten en observaties naar een klinisch oordeel en verricht zo nodig lichamelijk onderzoek. Dit hoort rechtstreeks bij goede zorg."
             },
             {
               "id": "0beae485-3800-421e-b33a-a96dd4a0b270",
@@ -218967,11 +218985,13 @@
               "created": 1773581147241,
               "text": "Bevindingen vastleggen",
               "linkedSourceId": null,
-              "type": null,
-              "processValue": null,
-              "processStatus": null,
+              "type": "Taak",
+              "processValue": "BNVA",
+              "processStatus": "NEUTRAL",
               "successFactors": "",
-              "causes": [],
+              "causes": [
+                "Niet elke consultvorm ondersteunt gelijktijdig spreken, kijken en typen even goed."
+              ],
               "improvements": [],
               "qa": {
                 "compleet": {
@@ -219021,9 +219041,15 @@
                 ]
               },
               "inputDefinitions": [],
-              "disruptions": [],
-              "workExp": null,
-              "workExpNote": ""
+              "disruptions": [
+                {
+                  "scenario": "Tijdens videoconsult lukt gelijktijdig documenteren niet prettig.",
+                  "frequency": "Soms",
+                  "workaround": "Verslaglegging direct na het consult afronden."
+                }
+              ],
+              "workExp": "ROUTINE",
+              "workExpNote": "Vastlegging is noodzakelijk, maar niet de stap waar de patiëntwaarde ontstaat. Het proces werkt, maar verschilt in soepelheid per consultvorm. Vooral bij videoconsulten wordt documenteren omslachtiger en schuift vastlegging makkelijker naar achteren."
             },
             {
               "id": "15553318-919f-47b1-9b4f-13eee13c329b",
@@ -219480,9 +219506,9 @@
               "created": 1773581209686,
               "text": "Afronden tussentijdse controle",
               "linkedSourceId": null,
-              "type": null,
-              "processValue": null,
-              "processStatus": null,
+              "type": "Taak",
+              "processValue": "BNVA",
+              "processStatus": "HAPPY",
               "successFactors": "",
               "causes": [],
               "improvements": [],
@@ -219534,8 +219560,14 @@
                 ]
               },
               "inputDefinitions": [],
-              "disruptions": [],
-              "workExp": null,
+              "disruptions": [
+                {
+                  "scenario": "Epic loopt vast",
+                  "frequency": "Zelden",
+                  "workaround": "Even wachten"
+                }
+              ],
+              "workExp": "ROUTINE",
               "workExpNote": ""
             },
             {
@@ -219995,11 +220027,11 @@
             {
               "id": "60bcd0d9-5e23-499a-8ee1-cf379789c081",
               "created": 1773581358401,
-              "text": "Vervolgbeleid bepalen",
+              "text": "Vervolg bepalen",
               "linkedSourceId": null,
-              "type": null,
-              "processValue": null,
-              "processStatus": null,
+              "type": "Taak",
+              "processValue": "VA",
+              "processStatus": "HAPPY",
               "successFactors": "",
               "causes": [],
               "improvements": [],
@@ -220051,8 +220083,14 @@
                 ]
               },
               "inputDefinitions": [],
-              "disruptions": [],
-              "workExp": null,
+              "disruptions": [
+                {
+                  "scenario": "Het besluit is inhoudelijk genomen maar nog niet concreet genoeg voor uitvoering.",
+                  "frequency": "Soms",
+                  "workaround": "Arts vult details later aan of zoekt tijdens orderaanmaak uit wat precies nodig is."
+                }
+              ],
+              "workExp": "FLOW",
               "workExpNote": ""
             },
             {
@@ -220504,11 +220542,13 @@
               "created": 1773582109876,
               "text": "Aanmaken vervolgorder",
               "linkedSourceId": null,
-              "type": null,
-              "processValue": null,
-              "processStatus": null,
+              "type": "Taak",
+              "processValue": "BNVA",
+              "processStatus": "SAD",
               "successFactors": "",
-              "causes": [],
+              "causes": [
+                "De juiste order is alleen vindbaar als de exacte naam bekend is."
+              ],
               "improvements": [],
               "qa": {
                 "compleet": {
@@ -220558,9 +220598,20 @@
                 ]
               },
               "inputDefinitions": [],
-              "disruptions": [],
-              "workExp": null,
-              "workExpNote": ""
+              "disruptions": [
+                {
+                  "scenario": "De juiste ordernaam is niet direct bekend.",
+                  "frequency": "Vaak",
+                  "workaround": "Zoeken, lijstjes gebruiken of collega vragen."
+                },
+                {
+                  "scenario": "Verkeerde order wordt gekozen of de order wordt vergeten.",
+                  "frequency": "Soms",
+                  "workaround": "Later herstellen na signaal van CT, planning of collega."
+                }
+              ],
+              "workExp": "OBSTACLE",
+              "workExpNote": "Hier zit het grootste procesprobleem. Het inhoudelijke besluit is genomen, maar de vertaling naar een juiste order in Epic is onnodig lastig. Exacte ordernamen moeten bekend zijn, er bestaan meerdere varianten en de arts moet zoeken of terugvallen op geheugen of lijstjes. Lean gezien is dit klassieke verspilling door systeemcomplexiteit."
             },
             {
               "id": "bdfd74d3-8e4c-4f97-af21-b90d841590d2",
