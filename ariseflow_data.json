@@ -4,7 +4,7 @@
   "author": "Anoniem",
   "created": "2026-01-16T08:48:17.021Z",
   "version": "2.7",
-  "activeSheetId": "12c3644a-dd1c-45cd-8019-0e9771617f93",
+  "activeSheetId": "6d6bd74c-ac94-482f-b019-d036880de9d9",
   "sheets": [
     {
       "id": "858c26e5-f7ec-4311-b503-641f99e65c84",
@@ -217229,7 +217229,7 @@
               "systemData": {
                 "isMulti": false,
                 "systemName": "",
-                "calculatedScore": null,
+                "calculatedScore": 80,
                 "systems": [
                   {
                     "id": "9f6c1660-4b4e-4e57-a3db-397995fcbc9c",
@@ -217245,7 +217245,31 @@
                     },
                     "calculatedScore": null
                   }
-                ]
+                ],
+                "systemsMeta": {
+                  "multi": false,
+                  "systems": [
+                    {
+                      "name": "Epic",
+                      "legacy": false,
+                      "future": "",
+                      "qa": {
+                        "q1": "NEVER",
+                        "q2": "NEVER",
+                        "q3": "NEVER",
+                        "q4": "SOMETIMES",
+                        "q5": "RISK",
+                        "q1_note": "De tussentijdse controle wordt gewoon ingepland en komt als afspraak beschikbaar. Daar is geen aparte workaround voor nodig.",
+                        "q2_note": "De arts krijgt een duidelijke geplande controle als startpunt en kan daarop verder werken.",
+                        "q3_note": "De input komt als geplande controle uit Epic en hoeft niet opnieuw opgebouwd te worden.",
+                        "q4_note": "De afspraak staat gepland, maar dat betekent nog niet automatisch dat alle inhoudelijke context of voorbereiding even strak is.",
+                        "q5_note": "Zonder Epic valt de geplande tussentijdse controle als gestructureerd startpunt weg."
+                      },
+                      "score": 80
+                    }
+                  ],
+                  "activeSystemIdx": 0
+                }
               },
               "inputDefinitions": [],
               "disruptions": [],
@@ -217696,7 +217720,7 @@
               "systemData": {
                 "isMulti": false,
                 "systemName": "",
-                "calculatedScore": null,
+                "calculatedScore": 86,
                 "systems": [
                   {
                     "id": "84572a07-803b-4b1d-8891-3d07ad583fed",
@@ -217712,7 +217736,31 @@
                     },
                     "calculatedScore": null
                   }
-                ]
+                ],
+                "systemsMeta": {
+                  "multi": false,
+                  "systems": [
+                    {
+                      "name": "Epic",
+                      "legacy": false,
+                      "future": "",
+                      "qa": {
+                        "q1": "NEVER",
+                        "q2": "NEVER",
+                        "q3": "NEVER",
+                        "q4": "SOMETIMES",
+                        "q5": "DELAY",
+                        "q5_note": "Het gesprek kan inhoudelijk vaak nog wel gevoerd worden, maar verslaglegging en vervolg lopen dan achter.",
+                        "q1_note": "Als de controle gestart is, ondersteunt Epic het consult zonder bijzondere omwegen.",
+                        "q2_note": "Deze input is gewoon bruikbaar om het gesprek met de patiënt te voeren.",
+                        "q3_note": "De arts werkt verder op dezelfde controle in hetzelfde dossier.",
+                        "q4_note": "Epic dwingt niet af dat alles direct volledig tijdens het contact wordt genoteerd."
+                      },
+                      "score": 86
+                    }
+                  ],
+                  "activeSystemIdx": 0
+                }
               },
               "inputDefinitions": [],
               "disruptions": [],
@@ -218163,7 +218211,7 @@
               "systemData": {
                 "isMulti": false,
                 "systemName": "",
-                "calculatedScore": null,
+                "calculatedScore": 66,
                 "systems": [
                   {
                     "id": "88e1fab3-f5b4-40fa-a0e8-3982b38752a0",
@@ -218179,7 +218227,31 @@
                     },
                     "calculatedScore": null
                   }
-                ]
+                ],
+                "systemsMeta": {
+                  "multi": false,
+                  "systems": [
+                    {
+                      "name": "Epic",
+                      "legacy": false,
+                      "future": "",
+                      "qa": {
+                        "q1": "SOMETIMES",
+                        "q1_note": "Vooral bij videoconsulten ontstaat een workaround, omdat tegelijk kijken, praten en typen niet prettig werkt.",
+                        "q2": "SOMETIMES",
+                        "q2_note": "De consultvorm bepaalt mede hoe soepel Epic gebruikt kan worden; video is omslachtiger dan telefoon.",
+                        "q3": "NEVER",
+                        "q3_note": "Er is geen echte dubbele registratie, maar informatie wordt soms wel pas na het consult uitgewerkt.",
+                        "q4": "SOMETIMES",
+                        "q4_note": "Als documentatie pas achteraf gebeurt, kunnen details of nuances makkelijker verloren gaan.",
+                        "q5_note": "Dan ontbreekt directe vastlegging van klachten, bijwerkingen en klinisch beeld.",
+                        "q5": "RISK"
+                      },
+                      "score": 66
+                    }
+                  ],
+                  "activeSystemIdx": 0
+                }
               },
               "inputDefinitions": [],
               "disruptions": [],
@@ -218630,7 +218702,7 @@
               "systemData": {
                 "isMulti": false,
                 "systemName": "",
-                "calculatedScore": null,
+                "calculatedScore": 59,
                 "systems": [
                   {
                     "id": "53154449-795f-453c-bf8a-0330b15a5cd0",
@@ -218646,7 +218718,31 @@
                     },
                     "calculatedScore": null
                   }
-                ]
+                ],
+                "systemsMeta": {
+                  "multi": false,
+                  "systems": [
+                    {
+                      "name": "Epic",
+                      "legacy": false,
+                      "future": "",
+                      "qa": {
+                        "q1": "SOMETIMES",
+                        "q1_note": "Aanvullende observaties zoals foto’s of extra documentatie lopen niet volledig in één vloeiende stap mee.",
+                        "q2": "SOMETIMES",
+                        "q2_note": "Het combineren van beoordeling, notitie en eventuele extra registratie kost extra handelingen.",
+                        "q3": "SOMETIMES",
+                        "q3_note": "Een deel van de informatie wordt naast de gewone notitie ook aanvullend vastgelegd, bijvoorbeeld met beeld.",
+                        "q4": "SOMETIMES",
+                        "q4_note": "Als aanvullende observaties niet goed gekoppeld of volledig vastgelegd zijn, ontstaat een incompleet beeld.",
+                        "q5": "RISK",
+                        "q5_note": "Dan kan de beoordeelde klinische status niet goed worden gedocumenteerd of gedeeld."
+                      },
+                      "score": 59
+                    }
+                  ],
+                  "activeSystemIdx": 0
+                }
               },
               "inputDefinitions": [],
               "disruptions": [],
@@ -219103,7 +219199,7 @@
               "systemData": {
                 "isMulti": false,
                 "systemName": "",
-                "calculatedScore": null,
+                "calculatedScore": 86,
                 "systems": [
                   {
                     "id": "f6413ac4-7007-493e-a260-0a0f5200b485",
@@ -219119,7 +219215,31 @@
                     },
                     "calculatedScore": null
                   }
-                ]
+                ],
+                "systemsMeta": {
+                  "multi": false,
+                  "systems": [
+                    {
+                      "name": "Epic",
+                      "legacy": false,
+                      "future": "",
+                      "qa": {
+                        "q1": "NEVER",
+                        "q1_note": "Als de bevindingen eenmaal vastliggen, is dit een stabiele input voor afronding van de controle.",
+                        "q2": "NEVER",
+                        "q2_note": "Deze vastgelegde status ondersteunt de volgende stap voldoende.",
+                        "q3": "NEVER",
+                        "q3_note": "De informatie ligt al vast en hoeft niet opnieuw opgebouwd te worden.",
+                        "q4": "SOMETIMES",
+                        "q4_note": "De kwaliteit hangt af van hoe volledig en juist de eerdere registratie is gedaan.",
+                        "q5": "DELAY",
+                        "q5_note": "De controle kan inhoudelijk gedaan zijn, maar afronding en overdracht worden dan vertraagd."
+                      },
+                      "score": 86
+                    }
+                  ],
+                  "activeSystemIdx": 0
+                }
               },
               "inputDefinitions": [],
               "disruptions": [],
@@ -219580,7 +219700,7 @@
               "systemData": {
                 "isMulti": false,
                 "systemName": "",
-                "calculatedScore": null,
+                "calculatedScore": 60,
                 "systems": [
                   {
                     "id": "4ed20e3d-b85f-45d1-b629-c678f3b94fbc",
@@ -219596,7 +219716,31 @@
                     },
                     "calculatedScore": null
                   }
-                ]
+                ],
+                "systemsMeta": {
+                  "multi": false,
+                  "systems": [
+                    {
+                      "name": "Epic",
+                      "legacy": false,
+                      "future": "",
+                      "qa": {
+                        "q1": "SOMETIMES",
+                        "q1_note": "De arts moet zelf expliciet de stap zetten van gewone controle naar laatste controle en vervolgbeleid.",
+                        "q2": "SOMETIMES",
+                        "q2_note": "De overgang naar vervolgbeleid is niet volledig systeemgestuurd maar vraagt bewuste handeling van de arts.",
+                        "q3": "NEVER",
+                        "q3_note": "De status zelf wordt niet dubbel ingevoerd, maar moet wel correct en bewust gebruikt worden.",
+                        "q4_note": "Als niet scherp is dat dit de laatste controle is, kan vervolgbeleid te laat, onvolledig of helemaal niet worden ingezet.",
+                        "q4": "OFTEN",
+                        "q5": "RISK",
+                        "q5_note": "Dan ontbreekt de cruciale overgang van tussentijdse controle naar vervolgkeuze."
+                      },
+                      "score": 60
+                    }
+                  ],
+                  "activeSystemIdx": 0
+                }
               },
               "inputDefinitions": [],
               "disruptions": [],
@@ -220047,7 +220191,7 @@
               "systemData": {
                 "isMulti": false,
                 "systemName": "",
-                "calculatedScore": null,
+                "calculatedScore": 40,
                 "systems": [
                   {
                     "id": "0064ea33-d701-44fb-9506-2728c2d878ff",
@@ -220063,7 +220207,31 @@
                     },
                     "calculatedScore": null
                   }
-                ]
+                ],
+                "systemsMeta": {
+                  "multi": false,
+                  "systems": [
+                    {
+                      "name": "Epic",
+                      "legacy": false,
+                      "future": "",
+                      "qa": {
+                        "q1": "OFTEN",
+                        "q1_note": "Voor het aanmaken van een vervolgorder moet exact de juiste ordernaam gevonden worden, waardoor geheugen, lijstjes en zoekwerk nodig zijn.",
+                        "q2": "OFTEN",
+                        "q2_note": "Het vinden van de juiste order kost tijd en haalt de arts uit de flow van het consult of de afronding.",
+                        "q3": "SOMETIMES",
+                        "q3_note": "Het inhoudelijke besluit ligt al vast, maar moet daarna nog technisch vertaald worden naar de juiste order of vervolgstap.",
+                        "q4": "OFTEN",
+                        "q4_note": "Een verkeerde order, vergeten order of uitgestelde order komt hier makkelijker voor door de ingewikkelde orderlogica.",
+                        "q5": "RISK",
+                        "q5_note": "Zonder Epic kan het vervolg niet correct worden vastgelegd of doorgezet naar het afsprakenbureau."
+                      },
+                      "score": 40
+                    }
+                  ],
+                  "activeSystemIdx": 0
+                }
               },
               "inputDefinitions": [],
               "disruptions": [],
