@@ -136206,11 +136206,14 @@
               "created": 1773577535244,
               "text": "OB-lijst voorbereiden",
               "linkedSourceId": null,
-              "type": null,
-              "processValue": null,
-              "processStatus": null,
+              "type": "Taak",
+              "processValue": "BNVA",
+              "processStatus": "NEUTRAL",
               "successFactors": "",
-              "causes": [],
+              "causes": [
+                " Een casus komt alleen goed op de OB-stroom als eerdere handelingen correct zijn uitgevoerd.",
+                " De voorbereiding van de OB-casus is niet volledig gesloten in één systeemstap."
+              ],
               "improvements": [],
               "qa": {
                 "compleet": {
@@ -136260,9 +136263,20 @@
                 ]
               },
               "inputDefinitions": [],
-              "disruptions": [],
-              "workExp": null,
-              "workExpNote": ""
+              "disruptions": [
+                {
+                  "scenario": "Een casus is inhoudelijk klaar maar niet goed zichtbaar voor OB.",
+                  "frequency": "Soms",
+                  "workaround": "Handmatig controleren of de casus op de OB-lijst staat."
+                },
+                {
+                  "scenario": "Een casus staat wel op de lijst maar niet volledig goed voorbereid.",
+                  "frequency": "Soms",
+                  "workaround": "Tijdens of vlak voor OB alsnog de juiste beelden openen."
+                }
+              ],
+              "workExp": "ROUTINE",
+              "workExpNote": "Het klaarzetten van de casus voor OB is een noodzakelijke voorbereidende stap. De stap werkt meestal, maar is nog te afhankelijk van correcte eerdere handelingen in andere systemen. Daardoor lijkt het proces stabieler dan het werkelijk is."
             },
             {
               "id": "d706c27b-9897-4b36-a369-54740aa9b9b6",
@@ -136723,10 +136737,10 @@
               "created": 1773577597796,
               "text": "Bespreekvolgorde bepalen",
               "linkedSourceId": null,
-              "type": null,
-              "processValue": null,
-              "processStatus": null,
-              "successFactors": "",
+              "type": "Taak",
+              "processValue": "BNVA",
+              "processStatus": "HAPPY",
+              "successFactors": "Er is sturing nodig op de volgorde waarin patiënten besproken worden. De volgorde is alleen zinvol als de onderliggende casussen goed voorbereid zijn.",
               "causes": [],
               "improvements": [],
               "qa": {
@@ -136777,9 +136791,15 @@
                 ]
               },
               "inputDefinitions": [],
-              "disruptions": [],
-              "workExp": null,
-              "workExpNote": ""
+              "disruptions": [
+                {
+                  "scenario": "Een patiënt kan wel geselecteerd worden maar is nog niet goed in beeld gezet.",
+                  "frequency": "Soms",
+                  "workaround": "Tijdens de bespreking alsnog zoeken of wisselen van beeldweergave."
+                }
+              ],
+              "workExp": "ROUTINE",
+              "workExpNote": "De voorzitter bepaalt de volgorde van bespreken. Dat is een eenvoudige organisatorische stap en loopt in de praktijk meestal gewoon. De echte kwetsbaarheid zit niet in de volgorde zelf, maar in de kwaliteit van wat daarna getoond wordt."
             },
             {
               "id": "3c2d660d-a554-4ce1-8de9-ba6cd72ed430",
@@ -137235,11 +137255,14 @@
               "created": 1773577673398,
               "text": "Casus presenteren",
               "linkedSourceId": null,
-              "type": null,
-              "processValue": null,
-              "processStatus": null,
+              "type": "Taak",
+              "processValue": "VA",
+              "processStatus": "NEUTRAL",
               "successFactors": "",
-              "causes": [],
+              "causes": [
+                "De presentatie hangt af van de beschikbaarheid van de behandelend arts of iemand die de casus goed kent.",
+                "De presentatiekwaliteit hangt mede af van hoe makkelijk de juiste beelden te tonen zijn."
+              ],
               "improvements": [],
               "qa": {
                 "compleet": {
@@ -137289,9 +137312,20 @@
                 ]
               },
               "inputDefinitions": [],
-              "disruptions": [],
-              "workExp": null,
-              "workExpNote": ""
+              "disruptions": [
+                {
+                  "scenario": " De behandelend arts is er niet en de casus wordt doorgeschoven.",
+                  "frequency": "Soms",
+                  "workaround": "Casus een dag later opnieuw op de OB-lijst zetten."
+                },
+                {
+                  "scenario": "De casus wordt wel gepresenteerd maar met onvolledige context.",
+                  "frequency": "Soms",
+                  "workaround": "Tijdens de bespreking aanvullende uitleg geven of later terugkomen op de casus."
+                }
+              ],
+              "workExp": "FLOW",
+              "workExpNote": "De inhoudelijke presentatie van de casus is een kernstap met directe patiëntwaarde. Hier wordt de medische context gedeeld die nodig is voor een goede beoordeling. Tegelijk is de kwaliteit van deze stap afhankelijk van hoe compleet de arts de casus kan toelichten en hoe goed de beelden op dat moment toegankelijk zijn."
             },
             {
               "id": "d841dc3d-e438-4484-b35d-8d966ea63644",
@@ -137752,11 +137786,15 @@
               "created": 1773577729329,
               "text": "Intekening gezamenlijk beoordelen",
               "linkedSourceId": null,
-              "type": null,
-              "processValue": null,
-              "processStatus": null,
+              "type": "Taak",
+              "processValue": "VA",
+              "processStatus": "NEUTRAL",
               "successFactors": "",
-              "causes": [],
+              "causes": [
+                "Niet iedereen die de beelden bedient kent elke workflow of elk doelgebied even goed.",
+                "Verschillende casustypen vragen verschillende beeldnavigatie en dat maakt de beoordeling technisch kwetsbaar.",
+                "De inhoudelijke kwaliteit van de beoordeling hangt af van wat op dat moment juist in beeld staat."
+              ],
               "improvements": [],
               "qa": {
                 "compleet": {
@@ -137806,9 +137844,20 @@
                 ]
               },
               "inputDefinitions": [],
-              "disruptions": [],
-              "workExp": null,
-              "workExpNote": ""
+              "disruptions": [
+                {
+                  "scenario": "De verkeerde scan, serie of match staat in beeld.",
+                  "frequency": "Soms",
+                  "workaround": "Tijdens OB handmatig scrollen, zoeken of opnieuw openen."
+                },
+                {
+                  "scenario": "De persoon aan de knoppen weet niet precies hoe deze casus technisch het best getoond moet worden.",
+                  "frequency": "Soms",
+                  "workaround": "Andere aanwezigen sturen mondeling bij tijdens het tonen."
+                }
+              ],
+              "workExp": "FLOW",
+              "workExpNote": "Dit is de inhoudelijke kern van OB en levert directe patiëntwaarde op. Hier wordt de intekening getoetst en verbeterd. De zwakte zit in de technische kant eromheen: de beoordeling is afhankelijk van het correct tonen van de juiste match, juiste scan en juiste workflow."
             },
             {
               "id": "f54e9fe3-118a-4d14-8eb8-30c2b059ec4e",
@@ -138264,11 +138313,14 @@
               "created": 1773577783214,
               "text": "Besluit formuleren",
               "linkedSourceId": null,
-              "type": null,
-              "processValue": null,
-              "processStatus": null,
+              "type": "Taak",
+              "processValue": "BNVA",
+              "processStatus": "NEUTRAL",
               "successFactors": "",
-              "causes": [],
+              "causes": [
+                "De beslissing ontstaat mondeling in het overleg en is niet altijd direct strak geformuleerd.",
+                "Inhoudelijke uitkomst en praktische vervolgactie zijn niet altijd exact hetzelfde."
+              ],
               "improvements": [],
               "qa": {
                 "compleet": {
@@ -138318,9 +138370,20 @@
                 ]
               },
               "inputDefinitions": [],
-              "disruptions": [],
-              "workExp": null,
-              "workExpNote": ""
+              "disruptions": [
+                {
+                  "scenario": "Het is inhoudelijk wel duidelijk wat men vindt, maar niet wat er praktisch daarna moet gebeuren.",
+                  "frequency": "Soms",
+                  "workaround": "Mondeling verduidelijken of achteraf navragen."
+                },
+                {
+                  "scenario": "Het besluit blijft te impliciet.",
+                  "frequency": "Soms",
+                  "workaround": "Anderen vatten het besluit nog eens samen."
+                }
+              ],
+              "workExp": "ROUTINE",
+              "workExpNote": "Na de inhoudelijke beoordeling moet een duidelijke uitkomst worden geformuleerd. Dat lijkt eenvoudig, maar de stap is kwetsbaar als het besluit niet scherp genoeg wordt uitgesproken of praktisch niet goed wordt vertaald naar vervolgactie."
             },
             {
               "id": "2b0da069-3ba6-4984-aee5-6ebb43edef18",
@@ -138781,11 +138844,15 @@
               "created": 1773577832870,
               "text": "Casus afronden of doorschuiven op OB-lijst",
               "linkedSourceId": null,
-              "type": null,
-              "processValue": null,
-              "processStatus": null,
+              "type": "Taak",
+              "processValue": "NVA",
+              "processStatus": "SAD",
               "successFactors": "",
-              "causes": [],
+              "causes": [
+                "Inhoudelijke uitkomst en praktische lijststatus zijn niet automatisch gekoppeld.",
+                "Afwezigheid van de behandelend arts kan ertoe leiden dat casussen worden doorgeschoven.",
+                "Doorschuiven gebeurt handmatig en is daardoor foutgevoelig."
+              ],
               "improvements": [],
               "qa": {
                 "compleet": {
@@ -138835,9 +138902,20 @@
                 ]
               },
               "inputDefinitions": [],
-              "disruptions": [],
-              "workExp": null,
-              "workExpNote": ""
+              "disruptions": [
+                {
+                  "scenario": "De behandelend arts is niet aanwezig en de casus schuift door.",
+                  "frequency": "Soms",
+                  "workaround": "Casus handmatig opnieuw op de lijst voor de volgende dag zetten."
+                },
+                {
+                  "scenario": "Het is niet duidelijk of de casus al definitief afgerond is of nog terug moet komen.",
+                  "frequency": "Soms",
+                  "workaround": "Mondeling navragen of later opnieuw controleren."
+                }
+              ],
+              "workExp": "OBSTACLE",
+              "workExpNote": "Hier gaat het vaak mis in overdrachtslogica. Een casus is inhoudelijk besproken, maar moet daarna nog praktisch worden verwerkt als afgerond of doorgeschoven. Dat maakt deze stap gevoelig voor misverstanden, vergeten acties en statusfouten. Lean gezien is dit typisch herstel- en overdrachtswerk."
             },
             {
               "id": "f61f69e9-44ad-450f-9dbc-c3525df8b652",
@@ -139298,11 +139376,15 @@
               "created": 1773577885731,
               "text": "OB-bespreking vastleggen",
               "linkedSourceId": null,
-              "type": null,
-              "processValue": null,
-              "processStatus": null,
+              "type": "Taak",
+              "processValue": "BNVA",
+              "processStatus": "NEUTRAL",
               "successFactors": "",
-              "causes": [],
+              "causes": [
+                "Inhoudelijke bespreking en formele vastlegging vinden niet in één vloeiende systeemstap plaats.",
+                "Het is niet altijd één vaste rol die de registratie doet.",
+                "Mondelinge nuance kan verloren gaan in de administratieve notitie."
+              ],
               "improvements": [],
               "qa": {
                 "compleet": {
@@ -139352,9 +139434,20 @@
                 ]
               },
               "inputDefinitions": [],
-              "disruptions": [],
-              "workExp": null,
-              "workExpNote": ""
+              "disruptions": [
+                {
+                  "scenario": "Bespreking is gedaan maar nog niet in Epic vastgelegd.",
+                  "frequency": "Soms",
+                  "workaround": "Later alsnog registreren."
+                },
+                {
+                  "scenario": "Niet helemaal duidelijk wie de registratie doet.",
+                  "frequency": "Soms",
+                  "workaround": "Ter plekke afstemmen of achteraf navragen."
+                }
+              ],
+              "workExp": "ROUTINE",
+              "workExpNote": "De bespreking formeel vastleggen in Epic is noodzakelijk voor dossierkwaliteit en vervolgproces. Tegelijk is het een aparte administratieve stap buiten de inhoudelijke bespreking zelf. Daardoor blijft het proces kwetsbaar voor vertraging, vergeten registratie of verschil tussen wat besproken is en wat uiteindelijk wordt vastgelegd."
             },
             {
               "id": "931e8ed8-242d-484b-bd68-03f537102836",
