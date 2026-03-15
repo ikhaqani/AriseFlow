@@ -128499,7 +128499,7 @@
               "systemData": {
                 "isMulti": false,
                 "systemName": "",
-                "calculatedScore": null,
+                "calculatedScore": 80,
                 "systems": [
                   {
                     "id": "a8e0454c-f564-4305-afa6-902e2440f607",
@@ -128515,7 +128515,26 @@
                     },
                     "calculatedScore": null
                   }
-                ]
+                ],
+                "systemsMeta": {
+                  "multi": false,
+                  "systems": [
+                    {
+                      "name": "Radiotherapie Web",
+                      "legacy": false,
+                      "future": "",
+                      "qa": {
+                        "q1": "NEVER",
+                        "q2": "NEVER",
+                        "q3": "NEVER",
+                        "q4": "OFTEN",
+                        "q5": "DELAY"
+                      },
+                      "score": 80
+                    }
+                  ],
+                  "activeSystemIdx": 0
+                }
               },
               "inputDefinitions": [],
               "disruptions": [],
@@ -128535,27 +128554,33 @@
               "improvements": [],
               "qa": {
                 "compleet": {
-                  "result": "",
+                  "result": "GOOD",
+                  "impact": null,
                   "note": ""
                 },
                 "kwaliteit": {
-                  "result": "",
+                  "result": "GOOD",
+                  "impact": null,
                   "note": ""
                 },
                 "duidelijkheid": {
-                  "result": "",
+                  "result": "GOOD",
+                  "impact": null,
                   "note": ""
                 },
                 "tijdigheid": {
-                  "result": "",
+                  "result": "GOOD",
+                  "impact": null,
                   "note": ""
                 },
                 "standaard": {
-                  "result": "",
+                  "result": "GOOD",
+                  "impact": null,
                   "note": ""
                 },
                 "overdracht": {
-                  "result": "",
+                  "result": "GOOD",
+                  "impact": null,
                   "note": ""
                 }
               },
@@ -128583,7 +128608,10 @@
               "inputDefinitions": [],
               "disruptions": [],
               "workExp": null,
-              "workExpNote": ""
+              "workExpNote": "",
+              "linkedSourceUids": [],
+              "linkedSourceUid": null,
+              "linkedSourceIds": []
             },
             {
               "id": "64236941-acea-4b12-992b-1696cc6b4236",
@@ -128653,9 +128681,9 @@
               "created": 1773570756857,
               "text": "Aanmaken intekentaak",
               "linkedSourceId": null,
-              "type": null,
-              "processValue": null,
-              "processStatus": null,
+              "type": "Taak",
+              "processValue": "BNVA",
+              "processStatus": "HAPPY",
               "successFactors": "",
               "causes": [],
               "improvements": [],
@@ -128707,8 +128735,14 @@
                 ]
               },
               "inputDefinitions": [],
-              "disruptions": [],
-              "workExp": null,
+              "disruptions": [
+                {
+                  "scenario": "Knop werkt niet",
+                  "frequency": "Zelden",
+                  "workaround": "ICT bellen"
+                }
+              ],
+              "workExp": "ROUTINE",
               "workExpNote": ""
             },
             {
