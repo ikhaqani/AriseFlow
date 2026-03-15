@@ -4,7 +4,7 @@
   "author": "Anoniem",
   "created": "2026-01-16T08:48:17.021Z",
   "version": "2.7",
-  "activeSheetId": "5ed4ea36-2f52-4698-96bf-4cd2cdfe1ade",
+  "activeSheetId": "12c3644a-dd1c-45cd-8019-0e9771617f93",
   "sheets": [
     {
       "id": "858c26e5-f7ec-4311-b503-641f99e65c84",
@@ -135994,7 +135994,7 @@
               "systemData": {
                 "isMulti": false,
                 "systemName": "",
-                "calculatedScore": null,
+                "calculatedScore": 53,
                 "systems": [
                   {
                     "id": "021ce8f4-07cf-42fc-8d08-6ca27e98dfa0",
@@ -136010,7 +136010,31 @@
                     },
                     "calculatedScore": null
                   }
-                ]
+                ],
+                "systemsMeta": {
+                  "multi": false,
+                  "systems": [
+                    {
+                      "name": "Eclipse / Ethos",
+                      "legacy": false,
+                      "future": "",
+                      "qa": {
+                        "q1": "SOMETIMES",
+                        "q1_note": "De casus komt op de OB-stroom, maar dat vereist eerder al een extra handeling in het plansysteem. Daardoor is zichtbaarheid voor OB niet volledig vanzelfsprekend.",
+                        "q2": "SOMETIMES",
+                        "q2_note": "De input is beschikbaar, maar de weg ernaartoe is niet volledig geïntegreerd en hangt af van correcte eerdere stappen.",
+                        "q3": "SOMETIMES",
+                        "q3_note": "De casus is inhoudelijk klaar, maar moet daarnaast nog apart zichtbaar worden gemaakt voor OB.",
+                        "q4": "OFTEN",
+                        "q4_note": "Als de OB-handeling niet goed wordt gezet, is de casus niet zichtbaar voor de ochtendbespreking terwijl de inhoud al wel klaar kan zijn.",
+                        "q5": "RISK",
+                        "q5_note": "Zonder deze systeemstatus is de casus niet goed beschikbaar voor OB en stokt de overdracht."
+                      },
+                      "score": 53
+                    }
+                  ],
+                  "activeSystemIdx": 0
+                }
               },
               "inputDefinitions": [],
               "disruptions": [],
@@ -136461,7 +136485,7 @@
               "systemData": {
                 "isMulti": false,
                 "systemName": "",
-                "calculatedScore": null,
+                "calculatedScore": 66,
                 "systems": [
                   {
                     "id": "21f12b21-c57c-42cb-94a2-85d72b7309ca",
@@ -136477,7 +136501,31 @@
                     },
                     "calculatedScore": null
                   }
-                ]
+                ],
+                "systemsMeta": {
+                  "multi": false,
+                  "systems": [
+                    {
+                      "name": "Eclipse / Ethos",
+                      "legacy": false,
+                      "future": "",
+                      "qa": {
+                        "q1": "SOMETIMES",
+                        "q1_note": "De beelden staan klaar, maar de persoon die de beelden toont moet vaak handmatig navigeren naar de juiste match, scan of weergave.",
+                        "q2": "SOMETIMES",
+                        "q2_note": "De casus is wel beschikbaar, maar niet altijd direct in de juiste view of context voor soepele bespreking.",
+                        "q3": "NEVER",
+                        "q3_note": "Het gaat hier vooral om klaarzetten en tonen, niet om dubbele registratie.",
+                        "q4": "SOMETIMES",
+                        "q4_note": "Niet iedereen kent iedere workflow even goed, waardoor de verkeerde scan of verkeerde weergave getoond kan worden.",
+                        "q5": "RISK",
+                        "q5_note": "Zonder toegang tot het plansysteem kan de casus niet goed voorbereid of getoond worden voor OB."
+                      },
+                      "score": 66
+                    }
+                  ],
+                  "activeSystemIdx": 0
+                }
               },
               "inputDefinitions": [],
               "disruptions": [],
@@ -136928,7 +136976,7 @@
               "systemData": {
                 "isMulti": false,
                 "systemName": "",
-                "calculatedScore": null,
+                "calculatedScore": 73,
                 "systems": [
                   {
                     "id": "34df00a7-1480-494e-b047-11f99cd63c95",
@@ -136944,7 +136992,31 @@
                     },
                     "calculatedScore": null
                   }
-                ]
+                ],
+                "systemsMeta": {
+                  "multi": false,
+                  "systems": [
+                    {
+                      "name": "Eclipse / Ethos",
+                      "legacy": false,
+                      "future": "",
+                      "qa": {
+                        "q1": "NEVER",
+                        "q1_note": "Zodra de casus gekozen is, kan de arts de presentatie normaal starten.",
+                        "q2": "SOMETIMES",
+                        "q2_note": "De inhoudelijke presentatie hangt nog wel af van hoe makkelijk de juiste beelden en informatie op dat moment zichtbaar te maken zijn.",
+                        "q3": "NEVER",
+                        "q3_note": "De casus wordt mondeling toegelicht en niet opnieuw geregistreerd.",
+                        "q4": "SOMETIMES",
+                        "q4_note": "Als de verkeerde scan, verkeerde match of onvolledige context wordt getoond, kan de bespreking op een onjuiste basis starten.",
+                        "q5": "RISK",
+                        "q5_note": "Dan kan de arts de casus niet goed presenteren op basis van de juiste beelden."
+                      },
+                      "score": 73
+                    }
+                  ],
+                  "activeSystemIdx": 0
+                }
               },
               "inputDefinitions": [],
               "disruptions": [],
@@ -137395,7 +137467,7 @@
               "systemData": {
                 "isMulti": false,
                 "systemName": "",
-                "calculatedScore": null,
+                "calculatedScore": 60,
                 "systems": [
                   {
                     "id": "223b44e5-2bd3-4b40-a0f1-5f0811a89e8d",
@@ -137411,7 +137483,31 @@
                     },
                     "calculatedScore": null
                   }
-                ]
+                ],
+                "systemsMeta": {
+                  "multi": false,
+                  "systems": [
+                    {
+                      "name": "Eclipse / Ethos",
+                      "legacy": false,
+                      "future": "",
+                      "qa": {
+                        "q1": "SOMETIMES",
+                        "q1_note": "Tijdens de bespreking moet vaak handmatig worden gescrold, gezocht of gewisseld tussen beelden omdat het systeem niet vanzelf de ideale weergave ondersteunt.",
+                        "q2": "SOMETIMES",
+                        "q2_note": "De beoordeling lukt, maar niet altijd vloeiend doordat degene aan de knoppen moet zoeken naar de juiste beelden of match.",
+                        "q3": "NEVER",
+                        "q3_note": "Het gaat hier om gezamenlijke beoordeling van wat al in beeld staat.",
+                        "q4": "SOMETIMES",
+                        "q4_note": "Als de verkeerde serie of verkeerde match in beeld staat, wordt de beoordeling beïnvloed door een onjuiste visuele basis.",
+                        "q5": "STOP",
+                        "q5_note": "Zonder de beelden en het plansysteem kan de intekening niet gezamenlijk beoordeeld worden."
+                      },
+                      "score": 60
+                    }
+                  ],
+                  "activeSystemIdx": 0
+                }
               },
               "inputDefinitions": [],
               "disruptions": [],
@@ -137862,7 +137958,7 @@
               "systemData": {
                 "isMulti": false,
                 "systemName": "",
-                "calculatedScore": null,
+                "calculatedScore": 80,
                 "systems": [
                   {
                     "id": "a0632601-7d4f-4802-b151-fc619b38de1e",
@@ -137878,7 +137974,31 @@
                     },
                     "calculatedScore": null
                   }
-                ]
+                ],
+                "systemsMeta": {
+                  "multi": false,
+                  "systems": [
+                    {
+                      "name": "Eclipse / Ethos",
+                      "legacy": false,
+                      "future": "",
+                      "qa": {
+                        "q1": "NEVER",
+                        "q1_note": "De inhoudelijke beoordeling is dan al gedaan en de uitkomst is beschikbaar.",
+                        "q2": "NEVER",
+                        "q2_note": "Na beoordeling kan het besluit worden geformuleerd zonder grote systeembelemmering.",
+                        "q3": "NEVER",
+                        "q3_note": "De beoordeling zelf hoeft niet opnieuw in hetzelfde systeem te worden opgebouwd.",
+                        "q4": "SOMETIMES",
+                        "q4_note": "Als tijdens de bespreking iets verkeerd is geïnterpreteerd of niet goed in beeld was, wordt die fout meegenomen in het besluit.",
+                        "q5": "RISK",
+                        "q5_note": "Zonder toegang tot deze beoordeelde intekening is de besluitvorming niet goed onderbouwd."
+                      },
+                      "score": 80
+                    }
+                  ],
+                  "activeSystemIdx": 0
+                }
               },
               "inputDefinitions": [],
               "disruptions": [],
@@ -138329,7 +138449,7 @@
               "systemData": {
                 "isMulti": false,
                 "systemName": "",
-                "calculatedScore": null,
+                "calculatedScore": 53,
                 "systems": [
                   {
                     "id": "7e85b1dd-0b06-4ea2-ad7b-8cbb8eb6253b",
@@ -138345,7 +138465,31 @@
                     },
                     "calculatedScore": null
                   }
-                ]
+                ],
+                "systemsMeta": {
+                  "multi": false,
+                  "systems": [
+                    {
+                      "name": "Eclipse / Ethos",
+                      "legacy": false,
+                      "future": "",
+                      "qa": {
+                        "q1": "SOMETIMES",
+                        "q1_note": "Als een casus niet afgerond kan worden, moet die handmatig worden doorgeschoven naar een volgend OB-moment.",
+                        "q2": "SOMETIMES",
+                        "q2_note": "Het vervolg hangt af van hoe goed de lijst en de status van de casus praktisch worden bijgehouden.",
+                        "q3": "SOMETIMES",
+                        "q3_note": "De inhoudelijke uitkomst is bekend, maar moet daarna nog praktisch worden vertaald naar doorgeschoven of afgerond.",
+                        "q4": "OFTEN",
+                        "q4_note": "Als niet goed wordt bijgehouden dat een casus is doorgeschoven of afgerond, ontstaat snel onduidelijkheid in het vervolgproces.",
+                        "q5": "RISK",
+                        "q5_note": "Dan is de praktische OB-status niet goed bestuurbaar en kunnen casussen tussen wal en schip vallen."
+                      },
+                      "score": 53
+                    }
+                  ],
+                  "activeSystemIdx": 0
+                }
               },
               "inputDefinitions": [],
               "disruptions": [],
@@ -138759,7 +138903,7 @@
             {
               "id": "9fade148-b1f3-41b6-98bd-e960cd8f16ff",
               "created": 1773577885731,
-              "text": "Epic",
+              "text": "Eclipse / Ethos",
               "linkedSourceId": null,
               "type": null,
               "processValue": null,
@@ -138796,7 +138940,7 @@
               "systemData": {
                 "isMulti": false,
                 "systemName": "",
-                "calculatedScore": null,
+                "calculatedScore": 53,
                 "systems": [
                   {
                     "id": "8a6bf399-35f5-4724-a711-bb562b042794",
@@ -138812,7 +138956,31 @@
                     },
                     "calculatedScore": null
                   }
-                ]
+                ],
+                "systemsMeta": {
+                  "multi": false,
+                  "systems": [
+                    {
+                      "name": "Eclipse / Ethos",
+                      "legacy": false,
+                      "future": "",
+                      "qa": {
+                        "q1": "SOMETIMES",
+                        "q1_note": "De OB-status moet daarna nog apart in Epic worden vastgelegd. Daarmee loopt de formele dossiervoering niet automatisch mee met de bespreking zelf.",
+                        "q2": "SOMETIMES",
+                        "q2_note": "De inhoudelijke bespreking is klaar, maar de formele vastlegging vraagt nog een aparte handeling in een ander systeem.",
+                        "q3": "SOMETIMES",
+                        "q3_note": "Wat al besproken en praktisch verwerkt is, moet nog apart in Epic worden vastgelegd.",
+                        "q4": "OFTEN",
+                        "q4_note": "Als de bespreking niet wordt vastgelegd of verkeerd wordt vastgelegd, ontbreekt in het dossier dat de casus besproken is en wat de uitkomst was.",
+                        "q5": "RISK",
+                        "q5_note": "Dan kan de OB-uitkomst niet formeel in het dossier worden gezet en raakt de procesketen administratief incompleet."
+                      },
+                      "score": 53
+                    }
+                  ],
+                  "activeSystemIdx": 0
+                }
               },
               "inputDefinitions": [],
               "disruptions": [],
@@ -217286,6 +217454,469 @@
       "systemMerges": [],
       "groups": [],
       "variantGroups": []
+    },
+    {
+      "id": "12c3644a-dd1c-45cd-8019-0e9771617f93",
+      "name": "33 - Follow up",
+      "order": 1,
+      "columns": [
+        {
+          "id": "e36e205b-251a-46e9-b917-8c8cfdff5227",
+          "order": 1,
+          "isVisible": true,
+          "isParallel": false,
+          "isVariant": false,
+          "hasTransition": false,
+          "transitionNext": "",
+          "outputId": null,
+          "slots": [
+            {
+              "id": "525dd919-26a3-40ec-ac85-2878d0712542",
+              "created": 1773578635649,
+              "text": "",
+              "linkedSourceId": null,
+              "type": null,
+              "processValue": null,
+              "processStatus": null,
+              "successFactors": "",
+              "causes": [],
+              "improvements": [],
+              "qa": {
+                "compleet": {
+                  "result": "",
+                  "note": ""
+                },
+                "kwaliteit": {
+                  "result": "",
+                  "note": ""
+                },
+                "duidelijkheid": {
+                  "result": "",
+                  "note": ""
+                },
+                "tijdigheid": {
+                  "result": "",
+                  "note": ""
+                },
+                "standaard": {
+                  "result": "",
+                  "note": ""
+                },
+                "overdracht": {
+                  "result": "",
+                  "note": ""
+                }
+              },
+              "systemData": {
+                "isMulti": false,
+                "systemName": "",
+                "calculatedScore": null,
+                "systems": [
+                  {
+                    "id": "d38a6ccc-8b10-4693-9fa5-ce259e0121df",
+                    "name": "",
+                    "isLegacy": false,
+                    "futureSystem": "",
+                    "qa": {
+                      "workarounds": null,
+                      "performance": null,
+                      "double": null,
+                      "error": null,
+                      "depend": null
+                    },
+                    "calculatedScore": null
+                  }
+                ]
+              },
+              "inputDefinitions": [],
+              "disruptions": [],
+              "workExp": null,
+              "workExpNote": ""
+            },
+            {
+              "id": "9d4323ff-9016-4ef8-96ab-e694cc0c5b9e",
+              "created": 1773578635649,
+              "text": "",
+              "linkedSourceId": null,
+              "type": null,
+              "processValue": null,
+              "processStatus": null,
+              "successFactors": "",
+              "causes": [],
+              "improvements": [],
+              "qa": {
+                "compleet": {
+                  "result": "",
+                  "note": ""
+                },
+                "kwaliteit": {
+                  "result": "",
+                  "note": ""
+                },
+                "duidelijkheid": {
+                  "result": "",
+                  "note": ""
+                },
+                "tijdigheid": {
+                  "result": "",
+                  "note": ""
+                },
+                "standaard": {
+                  "result": "",
+                  "note": ""
+                },
+                "overdracht": {
+                  "result": "",
+                  "note": ""
+                }
+              },
+              "systemData": {
+                "isMulti": false,
+                "systemName": "",
+                "calculatedScore": null,
+                "systems": [
+                  {
+                    "id": "2bee7a92-c9ea-4203-8e55-70656a9d5c5d",
+                    "name": "",
+                    "isLegacy": false,
+                    "futureSystem": "",
+                    "qa": {
+                      "workarounds": null,
+                      "performance": null,
+                      "double": null,
+                      "error": null,
+                      "depend": null
+                    },
+                    "calculatedScore": null
+                  }
+                ]
+              },
+              "inputDefinitions": [],
+              "disruptions": [],
+              "workExp": null,
+              "workExpNote": ""
+            },
+            {
+              "id": "c3fb6406-fbeb-41d9-9536-d95710db74b7",
+              "created": 1773578635649,
+              "text": "",
+              "linkedSourceId": null,
+              "type": null,
+              "processValue": null,
+              "processStatus": null,
+              "successFactors": "",
+              "causes": [],
+              "improvements": [],
+              "qa": {
+                "compleet": {
+                  "result": "",
+                  "note": ""
+                },
+                "kwaliteit": {
+                  "result": "",
+                  "note": ""
+                },
+                "duidelijkheid": {
+                  "result": "",
+                  "note": ""
+                },
+                "tijdigheid": {
+                  "result": "",
+                  "note": ""
+                },
+                "standaard": {
+                  "result": "",
+                  "note": ""
+                },
+                "overdracht": {
+                  "result": "",
+                  "note": ""
+                }
+              },
+              "systemData": {
+                "isMulti": false,
+                "systemName": "",
+                "calculatedScore": null,
+                "systems": [
+                  {
+                    "id": "659b7420-6b19-478b-be13-e78148fe5d37",
+                    "name": "",
+                    "isLegacy": false,
+                    "futureSystem": "",
+                    "qa": {
+                      "workarounds": null,
+                      "performance": null,
+                      "double": null,
+                      "error": null,
+                      "depend": null
+                    },
+                    "calculatedScore": null
+                  }
+                ]
+              },
+              "inputDefinitions": [],
+              "disruptions": [],
+              "workExp": null,
+              "workExpNote": ""
+            },
+            {
+              "id": "5e7369ae-62ce-4311-9bbb-d2a05ad405b3",
+              "created": 1773578635649,
+              "text": "",
+              "linkedSourceId": null,
+              "type": null,
+              "processValue": null,
+              "processStatus": null,
+              "successFactors": "",
+              "causes": [],
+              "improvements": [],
+              "qa": {
+                "compleet": {
+                  "result": "",
+                  "note": ""
+                },
+                "kwaliteit": {
+                  "result": "",
+                  "note": ""
+                },
+                "duidelijkheid": {
+                  "result": "",
+                  "note": ""
+                },
+                "tijdigheid": {
+                  "result": "",
+                  "note": ""
+                },
+                "standaard": {
+                  "result": "",
+                  "note": ""
+                },
+                "overdracht": {
+                  "result": "",
+                  "note": ""
+                }
+              },
+              "systemData": {
+                "isMulti": false,
+                "systemName": "",
+                "calculatedScore": null,
+                "systems": [
+                  {
+                    "id": "0529b467-8359-4dc5-a85b-9802f2eb0301",
+                    "name": "",
+                    "isLegacy": false,
+                    "futureSystem": "",
+                    "qa": {
+                      "workarounds": null,
+                      "performance": null,
+                      "double": null,
+                      "error": null,
+                      "depend": null
+                    },
+                    "calculatedScore": null
+                  }
+                ]
+              },
+              "inputDefinitions": [],
+              "disruptions": [],
+              "workExp": null,
+              "workExpNote": ""
+            },
+            {
+              "id": "98c0b8e5-44ee-42fe-8ed7-181c9269471b",
+              "created": 1773578635649,
+              "text": "",
+              "linkedSourceId": null,
+              "type": null,
+              "processValue": null,
+              "processStatus": null,
+              "successFactors": "",
+              "causes": [],
+              "improvements": [],
+              "qa": {
+                "compleet": {
+                  "result": "",
+                  "note": ""
+                },
+                "kwaliteit": {
+                  "result": "",
+                  "note": ""
+                },
+                "duidelijkheid": {
+                  "result": "",
+                  "note": ""
+                },
+                "tijdigheid": {
+                  "result": "",
+                  "note": ""
+                },
+                "standaard": {
+                  "result": "",
+                  "note": ""
+                },
+                "overdracht": {
+                  "result": "",
+                  "note": ""
+                }
+              },
+              "systemData": {
+                "isMulti": false,
+                "systemName": "",
+                "calculatedScore": null,
+                "systems": [
+                  {
+                    "id": "612e1803-e197-4198-afa4-419ec0e9b318",
+                    "name": "",
+                    "isLegacy": false,
+                    "futureSystem": "",
+                    "qa": {
+                      "workarounds": null,
+                      "performance": null,
+                      "double": null,
+                      "error": null,
+                      "depend": null
+                    },
+                    "calculatedScore": null
+                  }
+                ]
+              },
+              "inputDefinitions": [],
+              "disruptions": [],
+              "workExp": null,
+              "workExpNote": ""
+            },
+            {
+              "id": "953869a4-cd1a-4f3a-a729-5408e1ddcf2b",
+              "created": 1773578635649,
+              "text": "",
+              "linkedSourceId": null,
+              "type": null,
+              "processValue": null,
+              "processStatus": null,
+              "successFactors": "",
+              "causes": [],
+              "improvements": [],
+              "qa": {
+                "compleet": {
+                  "result": "",
+                  "note": ""
+                },
+                "kwaliteit": {
+                  "result": "",
+                  "note": ""
+                },
+                "duidelijkheid": {
+                  "result": "",
+                  "note": ""
+                },
+                "tijdigheid": {
+                  "result": "",
+                  "note": ""
+                },
+                "standaard": {
+                  "result": "",
+                  "note": ""
+                },
+                "overdracht": {
+                  "result": "",
+                  "note": ""
+                }
+              },
+              "systemData": {
+                "isMulti": false,
+                "systemName": "",
+                "calculatedScore": null,
+                "systems": [
+                  {
+                    "id": "cfbdcfa3-02b7-4bd8-a602-3fe2ca886543",
+                    "name": "",
+                    "isLegacy": false,
+                    "futureSystem": "",
+                    "qa": {
+                      "workarounds": null,
+                      "performance": null,
+                      "double": null,
+                      "error": null,
+                      "depend": null
+                    },
+                    "calculatedScore": null
+                  }
+                ]
+              },
+              "inputDefinitions": [],
+              "disruptions": [],
+              "workExp": null,
+              "workExpNote": "",
+              "outputUid": "out_4f76b974-ab0d-460e-958d-71aaaffc8707"
+            },
+            {
+              "id": "44cde259-421d-440d-a5d9-22deb83de84e",
+              "created": 1773578635649,
+              "text": "",
+              "linkedSourceId": null,
+              "type": null,
+              "processValue": null,
+              "processStatus": null,
+              "successFactors": "",
+              "causes": [],
+              "improvements": [],
+              "qa": {
+                "compleet": {
+                  "result": "",
+                  "note": ""
+                },
+                "kwaliteit": {
+                  "result": "",
+                  "note": ""
+                },
+                "duidelijkheid": {
+                  "result": "",
+                  "note": ""
+                },
+                "tijdigheid": {
+                  "result": "",
+                  "note": ""
+                },
+                "standaard": {
+                  "result": "",
+                  "note": ""
+                },
+                "overdracht": {
+                  "result": "",
+                  "note": ""
+                }
+              },
+              "systemData": {
+                "isMulti": false,
+                "systemName": "",
+                "calculatedScore": null,
+                "systems": [
+                  {
+                    "id": "89b43536-e0dc-4e3c-a89e-a7ec565926eb",
+                    "name": "",
+                    "isLegacy": false,
+                    "futureSystem": "",
+                    "qa": {
+                      "workarounds": null,
+                      "performance": null,
+                      "double": null,
+                      "error": null,
+                      "depend": null
+                    },
+                    "calculatedScore": null
+                  }
+                ]
+              },
+              "inputDefinitions": [],
+              "disruptions": [],
+              "workExp": null,
+              "workExpNote": ""
+            }
+          ]
+        }
+      ],
+      "outputMerges": [],
+      "systemMerges": []
     }
   ],
   "outputBundles": [
