@@ -22931,10 +22931,10 @@
               "created": 1770810993280,
               "text": "Afspraken inventariseren",
               "linkedSourceId": null,
-              "type": null,
-              "processValue": null,
-              "processStatus": null,
-              "successFactors": "",
+              "type": "Taak",
+              "processValue": "BNVA",
+              "processStatus": "HAPPY",
+              "successFactors": "De stap levert vooral een statische basis op en nog geen volledig actueel werkbeeld. De basisinformatie is niet automatisch verrijkt met latere uitzonderingen.",
               "causes": [],
               "improvements": [],
               "qa": {
@@ -22985,9 +22985,15 @@
                 ]
               },
               "inputDefinitions": [],
-              "disruptions": [],
-              "workExp": null,
-              "workExpNote": "",
+              "disruptions": [
+                {
+                  "scenario": "Basisinformatie is wel aanwezig maar nog niet actueel genoeg voor directe planning.",
+                  "frequency": "Soms",
+                  "workaround": "Later in het proces uitzonderingen, afwezigheden en blokkades aanvullend verwerken."
+                }
+              ],
+              "workExp": "ROUTINE",
+              "workExpNote": "Deze stap is een logisch beginpunt. De basisinformatie is goed vindbaar en het ophalen zelf verloopt stabiel. De echte complexiteit zit nog niet in deze stap maar komt pas daarna bij de verwerking en vertaling.\n",
               "linkedSourceUids": [],
               "linkedBundleIds": [],
               "gate": {
@@ -23474,11 +23480,14 @@
               "created": 1773515386946,
               "text": "Basisagenda controleren",
               "linkedSourceId": null,
-              "type": null,
-              "processValue": null,
-              "processStatus": null,
+              "type": "Taak",
+              "processValue": "BNVA",
+              "processStatus": "NEUTRAL",
               "successFactors": "",
-              "causes": [],
+              "causes": [
+                "De agenda in Epic toont de basisstructuur, maar niet automatisch alle relevante achtergrondafspraken.",
+                "De controle steunt deels op persoonlijke kennis en ervaring."
+              ],
               "improvements": [],
               "qa": {
                 "compleet": {
@@ -23528,9 +23537,20 @@
                 ]
               },
               "inputDefinitions": [],
-              "disruptions": [],
-              "workExp": null,
-              "workExpNote": ""
+              "disruptions": [
+                {
+                  "scenario": "Agenda lijkt formeel juist maar bevat nog niet alle relevante context.",
+                  "frequency": "Soms",
+                  "workaround": "Handmatig controleren op bekende uitzonderingen en lokale afspraken."
+                },
+                {
+                  "scenario": "Verborgen afwijkingen vallen pas later op.",
+                  "frequency": "Soms",
+                  "workaround": "In volgende stappen opnieuw corrigeren."
+                }
+              ],
+              "workExp": "ROUTINE",
+              "workExpNote": "De basisagenda controleren is een noodzakelijke stap, maar de agenda vertelt niet vanzelf het hele verhaal. Er moet nog veel meegewogen worden op basis van lokale afspraken, uitzonderingen en ervaring. Daardoor is de stap werkbaar, maar nog niet echt strak beheerst."
             },
             {
               "id": "3ddd42f8-0e85-4f9b-994b-eb98e1dd9820",
@@ -23991,11 +24011,15 @@
               "created": 1773516160387,
               "text": "Afwezigheden en blokkades verwerken",
               "linkedSourceId": null,
-              "type": null,
-              "processValue": null,
-              "processStatus": null,
+              "type": "Taak",
+              "processValue": "BNVA",
+              "processStatus": "SAD",
               "successFactors": "",
-              "causes": [],
+              "causes": [
+                "Afwezigheden, vergaderingen en blokkades worden niet uniform aangeleverd.",
+                "Informatie komt via verschillende routes en op verschillende momenten binnen.",
+                "Klinische tijd wordt nog regelmatig aangetast door overleg en losse verzoeken."
+              ],
               "improvements": [],
               "qa": {
                 "compleet": {
@@ -24045,9 +24069,25 @@
                 ]
               },
               "inputDefinitions": [],
-              "disruptions": [],
-              "workExp": null,
-              "workExpNote": ""
+              "disruptions": [
+                {
+                  "scenario": "Vergaderingen of afwezigheden komen laat binnen.",
+                  "frequency": "Vaak",
+                  "workaround": "Agenda achteraf aanpassen en forecast opnieuw bijstellen."
+                },
+                {
+                  "scenario": "De ene bron levert een jaar vooruit aan en de andere slechts enkele weken vooruit.",
+                  "frequency": "Vaak",
+                  "workaround": "Zelf voortdurend controleren en handmatig samenvoegen."
+                },
+                {
+                  "scenario": "Klinische tijd wordt alsnog ingenomen door overleg.",
+                  "frequency": "Soms",
+                  "workaround": "Herverdelen, dichtzetten of opnieuw onderhandelen over capaciteit."
+                }
+              ],
+              "workExp": "OBSTACLE",
+              "workExpNote": "Deze stap is zwaar afhankelijk van losse, niet-uniforme en wisselend tijdige aanlevering van informatie. Daardoor moet veel handmatig worden uitgezocht, geïnterpreteerd en aangepast. Dit maakt de stap foutgevoelig en arbeidsintensief."
             },
             {
               "id": "4bb8fa36-0afc-47ca-80dd-6a59e0ce7d4e",
@@ -24503,11 +24543,15 @@
               "created": 1773516441279,
               "text": "Consultcapaciteit tellen",
               "linkedSourceId": null,
-              "type": null,
-              "processValue": null,
-              "processStatus": null,
+              "type": "Taak",
+              "processValue": "BNVA",
+              "processStatus": "SAD",
               "successFactors": "",
-              "causes": [],
+              "causes": [
+                "Epic biedt geen goed samenvattend overzicht voor capaciteit per arts, dag en week.",
+                "Tellen gebeurt handmatig naast de agenda.",
+                "De telling moet rekening houden met veel lokale uitzonderingen en afspraken."
+              ],
               "improvements": [],
               "qa": {
                 "compleet": {
@@ -24557,9 +24601,20 @@
                 ]
               },
               "inputDefinitions": [],
-              "disruptions": [],
-              "workExp": null,
-              "workExpNote": ""
+              "disruptions": [
+                {
+                  "scenario": "Consultcapaciteit is niet rechtstreeks afleesbaar uit Epic.",
+                  "frequency": "Vaak",
+                  "workaround": "Alles opnieuw tellen in Excel."
+                },
+                {
+                  "scenario": "Kleine fout in telling of interpretatie werkt door in de forecast.",
+                  "frequency": "Vaak",
+                  "workaround": "Extra controles en eigen overzichten gebruiken."
+                }
+              ],
+              "workExp": "OBSTACLE",
+              "workExpNote": "Het tellen van consultcapaciteit is noodzakelijk, maar het systeem ondersteunt dit onvoldoende. De agenda staat in Epic, terwijl de echte telling en stuurinformatie in een eigen Excel-structuur worden opgebouwd. Hierdoor ontstaat dubbel werk en hoge foutgevoeligheid."
             },
             {
               "id": "3e7b590b-262e-4b7c-bbba-2be46aa89c30",
@@ -25049,11 +25104,15 @@
               "created": 1771239520416,
               "text": "Weekverdeling opstellen",
               "linkedSourceId": null,
-              "type": null,
-              "processValue": null,
-              "processStatus": null,
+              "type": "Taak",
+              "processValue": "BNVA",
+              "processStatus": "NEUTRAL",
               "successFactors": "",
-              "causes": [],
+              "causes": [
+                "Verdelingslogica zit niet in een integraal systeem.",
+                "Er moet handmatig worden gestuurd op dagbelasting en evenwicht.",
+                "Veel lokale afspraken beïnvloeden de verdeling."
+              ],
               "improvements": [],
               "qa": {
                 "compleet": {
@@ -25103,9 +25162,20 @@
                 ]
               },
               "inputDefinitions": [],
-              "disruptions": [],
-              "workExp": null,
-              "workExpNote": "",
+              "disruptions": [
+                {
+                  "scenario": "Een dag raakt te vol en een andere dag te leeg.",
+                  "frequency": "Vaak",
+                  "workaround": "Handmatig schuiven tussen dagen."
+                },
+                {
+                  "scenario": "Verdeling lijkt logisch maar botst later met uitzonderingen.",
+                  "frequency": "Soms",
+                  "workaround": "Opnieuw aanpassen in de forecastfase."
+                }
+              ],
+              "workExp": "ROUTINE",
+              "workExpNote": "De weekverdeling opstellen is inhoudelijk logisch en levert stuurinformatie op, maar is sterk afhankelijk van handmatig puzzelwerk. Het proces werkt, maar rust te veel op eigen logica en een persoonlijk schaduwsysteem in Excel.",
               "linkedSourceUids": [],
               "linkedBundleIds": [],
               "gate": {
@@ -25626,11 +25696,15 @@
               "created": 1771239614667,
               "text": "Forecast opstellen",
               "linkedSourceId": null,
-              "type": null,
-              "processValue": null,
-              "processStatus": null,
+              "type": "Taak",
+              "processValue": "BNVA",
+              "processStatus": "NEUTRAL",
               "successFactors": "",
-              "causes": [],
+              "causes": [
+                "De forecast ontstaat in een schaduwsysteem naast Epic.",
+                "Het proces steunt sterk op persoonlijke kennis en ervaring.",
+                "Er moet regelmatig onderhandeld worden over capaciteit en afwijkingen."
+              ],
               "improvements": [],
               "qa": {
                 "compleet": {
@@ -25680,9 +25754,25 @@
                 ]
               },
               "inputDefinitions": [],
-              "disruptions": [],
-              "workExp": null,
-              "workExpNote": "",
+              "disruptions": [
+                {
+                  "scenario": "Artsen leveren minder klinische ruimte dan afgesproken.",
+                  "frequency": "Vaak",
+                  "workaround": "Onderhandelen, schuiven of accepteren dat de forecast afwijkt."
+                },
+                {
+                  "scenario": "Onderhandelen, schuiven of accepteren dat de forecast afwijkt.",
+                  "frequency": "Vaak",
+                  "workaround": "Forecast wekelijks opnieuw aanpassen."
+                },
+                {
+                  "scenario": "Lokale afspraken of studies maken de forecast complexer.",
+                  "frequency": "Vaak",
+                  "workaround": "Eigen documenten en ervaringskennis gebruiken."
+                }
+              ],
+              "workExp": "OBSTACLE",
+              "workExpNote": "De forecast is inhoudelijk waardevol, maar het opstellen ervan is omslachtig en sterk afhankelijk van eigen kennis, onderhandelen en handmatige afwegingen. Het product is nuttig, maar de manier waarop het tot stand komt is niet lean.\n",
               "linkedSourceUids": [],
               "linkedBundleIds": [],
               "gate": {
@@ -26198,10 +26288,10 @@
               "created": 1771239687591,
               "text": "Forecast controleren",
               "linkedSourceId": null,
-              "type": null,
-              "processValue": null,
-              "processStatus": null,
-              "successFactors": "",
+              "type": "Taak",
+              "processValue": "BNVA",
+              "processStatus": "HAPPY",
+              "successFactors": "De forecast wordt op een logisch moment ter beoordeling aangeboden. De chef de polikliniek geeft doorgaans tijdige terugkoppeling.",
               "causes": [],
               "improvements": [],
               "qa": {
@@ -26252,9 +26342,15 @@
                 ]
               },
               "inputDefinitions": [],
-              "disruptions": [],
-              "workExp": null,
-              "workExpNote": "",
+              "disruptions": [
+                {
+                  "scenario": "Feedback vraagt nog extra toelichting.",
+                  "frequency": "Soms",
+                  "workaround": " Kort toelichten per mail of mondeling."
+                }
+              ],
+              "workExp": "ROUTINE",
+              "workExpNote": "De controle van de forecast verloopt doorgaans soepel. Terugkoppeling komt meestal snel en is meestal bruikbaar. De stap zelf is niet het probleem, hooguit de vertaling van inhoudelijke details.\n",
               "linkedSourceUids": [],
               "linkedBundleIds": [],
               "gate": {
@@ -26770,10 +26866,10 @@
               "created": 1771239750133,
               "text": "Feedback verwerken",
               "linkedSourceId": null,
-              "type": null,
-              "processValue": null,
-              "processStatus": null,
-              "successFactors": "",
+              "type": "Taak",
+              "processValue": "BNVA",
+              "processStatus": "HAPPY",
+              "successFactors": "Feedback is meestal beperkt en gericht. Niet alle feedback is volledig gestandaardiseerd.",
               "causes": [],
               "improvements": [],
               "qa": {
@@ -26824,9 +26920,15 @@
                 ]
               },
               "inputDefinitions": [],
-              "disruptions": [],
-              "workExp": null,
-              "workExpNote": "",
+              "disruptions": [
+                {
+                  "scenario": "Feedback is niet direct volledig duidelijk.",
+                  "frequency": "Soms",
+                  "workaround": "Verduidelijkingsvraag stellen en daarna verwerken."
+                }
+              ],
+              "workExp": "ROUTINE",
+              "workExpNote": "Deze stap is werkbaar en meestal overzichtelijk. De feedback is doorgaans voldoende bruikbaar om de forecast af te ronden. Er is soms interpretatie nodig, maar dat veroorzaakt meestal geen grote verstoring.",
               "linkedSourceUids": [],
               "linkedBundleIds": [],
               "gate": {
@@ -27347,11 +27449,15 @@
               "created": 1771239824408,
               "text": "Rooster publiceren",
               "linkedSourceId": null,
-              "type": null,
-              "processValue": null,
-              "processStatus": null,
+              "type": "Taak",
+              "processValue": "BNVA",
+              "processStatus": "NEUTRAL",
               "successFactors": "",
-              "causes": [],
+              "causes": [
+                "Definitieve dagindeling staat in Excel en niet direct in het uitvoeringssysteem.",
+                "Publicatie is geen éénstapsactie maar een handmatige overzetting.",
+                "Laatste wijzigingen kunnen alsnog doorwerken in de publicatiestap."
+              ],
               "improvements": [],
               "qa": {
                 "compleet": {
@@ -27401,9 +27507,25 @@
                 ]
               },
               "inputDefinitions": [],
-              "disruptions": [],
-              "workExp": null,
-              "workExpNote": "",
+              "disruptions": [
+                {
+                  "scenario": "Definitieve indeling moet handmatig naar Epic worden overgezet",
+                  "frequency": "Vaak",
+                  "workaround": "Handmatig openen, sluiten en aanpassen van blokken."
+                },
+                {
+                  "scenario": "Laatste wijziging komt nog na definitieve indeling.",
+                  "frequency": "Soms",
+                  "workaround": "Opnieuw aanpassen vóór of na publicatie."
+                },
+                {
+                  "scenario": "Verschil tussen Excel en Epic ontstaat door foutieve overname.",
+                  "frequency": "Soms",
+                  "workaround": "Nacontrole uitvoeren en correcties doorvoeren."
+                }
+              ],
+              "workExp": "OBSTACLE",
+              "workExpNote": "De inhoud is aan het einde van het proces al bepaald, maar publicatie vraagt nog een handmatige vertaalslag van Excel naar Epic. Daardoor wordt een afgeronde forecast nog niet direct uitvoerbaar en ontstaat opnieuw risico op fouten en extra werk.",
               "linkedSourceUids": [],
               "linkedBundleIds": [],
               "gate": {
