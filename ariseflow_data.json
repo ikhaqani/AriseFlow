@@ -217289,34 +217289,34 @@
               "improvements": [],
               "qa": {
                 "compleet": {
-                  "result": null,
-                  "impact": null,
-                  "note": ""
+                  "result": "MINOR",
+                  "impact": "C",
+                  "note": "De controle staat gepland, maar de afspraak alleen zegt nog niet alles over de inhoudelijke context of aandachtspunten van die controle."
                 },
                 "kwaliteit": {
-                  "result": null,
+                  "result": "GOOD",
                   "impact": null,
                   "note": ""
                 },
                 "duidelijkheid": {
-                  "result": null,
+                  "result": "GOOD",
                   "impact": null,
                   "note": ""
                 },
                 "tijdigheid": {
-                  "result": null,
+                  "result": "GOOD",
                   "impact": null,
                   "note": ""
                 },
                 "standaard": {
-                  "result": null,
+                  "result": "GOOD",
                   "impact": null,
                   "note": ""
                 },
                 "overdracht": {
-                  "result": null,
-                  "impact": null,
-                  "note": ""
+                  "result": "MINOR",
+                  "impact": "C",
+                  "note": "De afspraak wordt correct overgedragen, maar de medische inhoud of reden van aandacht is niet volledig besloten in alleen de afspraak."
                 }
               },
               "systemData": {
@@ -217340,7 +217340,33 @@
                   }
                 ]
               },
-              "inputDefinitions": [],
+              "inputDefinitions": [
+                {
+                  "item": "Geplande tussentijdse controle",
+                  "specifications": "",
+                  "type": "HARD"
+                },
+                {
+                  "item": "Juiste patiënt ",
+                  "specifications": "",
+                  "type": "HARD"
+                },
+                {
+                  "item": "Juiste behandelend arts",
+                  "specifications": "",
+                  "type": "HARD"
+                },
+                {
+                  "item": "Juiste datum/tijd ",
+                  "specifications": "",
+                  "type": "HARD"
+                },
+                {
+                  "item": "Type consult indien afwijkend ",
+                  "specifications": "",
+                  "type": "SOFT"
+                }
+              ],
               "disruptions": [],
               "workExp": null,
               "workExpNote": "",
@@ -217780,32 +217806,32 @@
               "improvements": [],
               "qa": {
                 "compleet": {
-                  "result": null,
-                  "impact": null,
-                  "note": ""
+                  "result": "MINOR",
+                  "impact": "C",
+                  "note": "Het startmoment is duidelijk, maar voor een goede controle is daarnaast nog dossiercontext en kennis van het behandelverloop nodig."
                 },
                 "kwaliteit": {
-                  "result": null,
+                  "result": "GOOD",
                   "impact": null,
                   "note": ""
                 },
                 "duidelijkheid": {
-                  "result": null,
+                  "result": "GOOD",
                   "impact": null,
                   "note": ""
                 },
                 "tijdigheid": {
-                  "result": null,
+                  "result": "GOOD",
                   "impact": null,
                   "note": ""
                 },
                 "standaard": {
-                  "result": null,
+                  "result": "GOOD",
                   "impact": null,
                   "note": ""
                 },
                 "overdracht": {
-                  "result": null,
+                  "result": "GOOD",
                   "impact": null,
                   "note": ""
                 }
@@ -217831,7 +217857,28 @@
                   }
                 ]
               },
-              "inputDefinitions": [],
+              "inputDefinitions": [
+                {
+                  "item": "Start van het controlemoment",
+                  "specifications": "",
+                  "type": "HARD"
+                },
+                {
+                  "item": "Dossier beschikbaar ",
+                  "specifications": "",
+                  "type": "HARD"
+                },
+                {
+                  "item": "Actuele behandelcontext ",
+                  "specifications": "",
+                  "type": "HARD"
+                },
+                {
+                  "item": "Eventuele eerdere controlebevindingen ",
+                  "specifications": "",
+                  "type": "SOFT"
+                }
+              ],
               "disruptions": [],
               "workExp": null,
               "workExpNote": "",
@@ -218271,34 +218318,34 @@
               "improvements": [],
               "qa": {
                 "compleet": {
-                  "result": null,
-                  "impact": null,
-                  "note": ""
+                  "result": "MINOR",
+                  "impact": "B",
+                  "note": "Het klinisch beeld ontstaat tijdens het gesprek, maar is pas bruikbaar als alle relevante klachten, bijwerkingen en observaties goed zijn uitgevraagd."
                 },
                 "kwaliteit": {
-                  "result": null,
-                  "impact": null,
-                  "note": ""
+                  "result": "MINOR",
+                  "impact": "B",
+                  "note": "De kwaliteit van deze input hangt af van hoe volledig en scherp het gesprek en de observatie zijn verlopen."
                 },
                 "duidelijkheid": {
-                  "result": null,
-                  "impact": null,
-                  "note": ""
+                  "result": "MODERATE",
+                  "impact": "B",
+                  "note": "Klachten en bijwerkingen moeten nog klinisch geïnterpreteerd worden; deze input is dus nog niet vanzelf eenduidig.\n"
                 },
                 "tijdigheid": {
-                  "result": null,
+                  "result": "GOOD",
                   "impact": null,
                   "note": ""
                 },
                 "standaard": {
-                  "result": null,
-                  "impact": null,
-                  "note": ""
+                  "result": "MINOR",
+                  "impact": "C",
+                  "note": "Er is wel een vaste controlepraktijk, maar de inhoud van het klinisch beeld verschilt per patiënt en per consultvorm."
                 },
                 "overdracht": {
-                  "result": null,
-                  "impact": null,
-                  "note": ""
+                  "result": "MINOR",
+                  "impact": "C",
+                  "note": "Het klinisch beeld is beschikbaar, maar nog niet automatisch in een vast beoordelingskader gegoten."
                 }
               },
               "systemData": {
@@ -218322,7 +218369,23 @@
                   }
                 ]
               },
-              "inputDefinitions": [],
+              "inputDefinitions": [
+                {
+                  "item": "Actuele klachten van patiënt",
+                  "specifications": "",
+                  "type": "HARD"
+                },
+                {
+                  "item": "Bijwerkingen tijdens bestraling",
+                  "specifications": "",
+                  "type": "HARD"
+                },
+                {
+                  "item": "Eventuele informatie van verpleegkundige of eerdere controles",
+                  "specifications": "",
+                  "type": "SOFT"
+                }
+              ],
               "disruptions": [],
               "workExp": null,
               "workExpNote": "",
@@ -218762,34 +218825,34 @@
               "improvements": [],
               "qa": {
                 "compleet": {
-                  "result": null,
-                  "impact": null,
-                  "note": ""
+                  "result": "MINOR",
+                  "impact": "C",
+                  "note": " De klinische status is beoordeeld, maar aanvullende observaties zoals foto’s of lichamelijk onderzoek kunnen nog nodig zijn om het beeld volledig te maken."
                 },
                 "kwaliteit": {
-                  "result": null,
-                  "impact": null,
-                  "note": ""
+                  "result": "MINOR",
+                  "impact": "B",
+                  "note": "De klinische status is bruikbaar, maar blijft afhankelijk van hoe goed klachten, onderzoek en observaties samen zijn beoordeeld."
                 },
                 "duidelijkheid": {
-                  "result": null,
-                  "impact": null,
-                  "note": ""
+                  "result": "MINOR",
+                  "impact": "C",
+                  "note": "Het beeld is meestal duidelijk genoeg om verder te gaan, maar niet altijd volledig zonder extra toelichting of documentatie."
                 },
                 "tijdigheid": {
-                  "result": null,
+                  "result": "GOOD",
                   "impact": null,
                   "note": ""
                 },
                 "standaard": {
-                  "result": null,
-                  "impact": null,
-                  "note": ""
+                  "result": "MINOR",
+                  "impact": "C",
+                  "note": "De beoordeling volgt een herkenbare klinische routine, maar is niet volledig uniform omdat situaties per patiënt verschillen"
                 },
                 "overdracht": {
-                  "result": null,
-                  "impact": null,
-                  "note": ""
+                  "result": "MINOR",
+                  "impact": "C",
+                  "note": "De beoordeelde status kan worden overgenomen naar verslaglegging, maar moet nog expliciet goed vastgelegd worden."
                 }
               },
               "systemData": {
@@ -218813,7 +218876,18 @@
                   }
                 ]
               },
-              "inputDefinitions": [],
+              "inputDefinitions": [
+                {
+                  "item": "Beoordeelde klinische status ",
+                  "specifications": "",
+                  "type": "HARD"
+                },
+                {
+                  "item": "Eventuele aanvullende beeldregistratie",
+                  "specifications": "",
+                  "type": "SOFT"
+                }
+              ],
               "disruptions": [],
               "workExp": null,
               "workExpNote": "",
@@ -219259,32 +219333,32 @@
               "improvements": [],
               "qa": {
                 "compleet": {
-                  "result": null,
+                  "result": "GOOD",
                   "impact": null,
                   "note": ""
                 },
                 "kwaliteit": {
-                  "result": null,
-                  "impact": null,
-                  "note": ""
+                  "result": "MINOR",
+                  "impact": "B",
+                  "note": "De bevindingen zijn vastgelegd, maar de kwaliteit hangt af van hoe volledig en zorgvuldig de notitie is gemaakt."
                 },
                 "duidelijkheid": {
-                  "result": null,
-                  "impact": null,
-                  "note": ""
+                  "result": "MINOR",
+                  "impact": "C",
+                  "note": "De notitie is meestal goed bruikbaar, maar kan nog interpretatie vragen als conclusies of vervolg niet scherp genoeg zijn geformuleerd."
                 },
                 "tijdigheid": {
-                  "result": null,
+                  "result": "GOOD",
                   "impact": null,
                   "note": ""
                 },
                 "standaard": {
-                  "result": null,
-                  "impact": null,
-                  "note": ""
+                  "result": "MINOR",
+                  "impact": "C",
+                  "note": "Vastlegging gebeurt in Epic, maar de inhoud en scherpte van formuleren verschillen per arts en consultvorm."
                 },
                 "overdracht": {
-                  "result": null,
+                  "result": "GOOD",
                   "impact": null,
                   "note": ""
                 }
@@ -219310,7 +219384,23 @@
                   }
                 ]
               },
-              "inputDefinitions": [],
+              "inputDefinitions": [
+                {
+                  "item": "Vastgelegde bevindingen ",
+                  "specifications": "",
+                  "type": "HARD"
+                },
+                {
+                  "item": "Duidelijke conclusie van controle",
+                  "specifications": "",
+                  "type": "HARD"
+                },
+                {
+                  "item": "Eventueel ingezette acties",
+                  "specifications": "",
+                  "type": "SOFT"
+                }
+              ],
               "disruptions": [],
               "workExp": null,
               "workExpNote": "",
@@ -219760,32 +219850,32 @@
               "improvements": [],
               "qa": {
                 "compleet": {
-                  "result": null,
+                  "result": "GOOD",
                   "impact": null,
                   "note": ""
                 },
                 "kwaliteit": {
-                  "result": null,
+                  "result": "GOOD",
                   "impact": null,
                   "note": ""
                 },
                 "duidelijkheid": {
-                  "result": null,
+                  "result": "GOOD",
                   "impact": null,
                   "note": ""
                 },
                 "tijdigheid": {
-                  "result": null,
+                  "result": "GOOD",
                   "impact": null,
                   "note": ""
                 },
                 "standaard": {
-                  "result": null,
+                  "result": "GOOD",
                   "impact": null,
                   "note": ""
                 },
                 "overdracht": {
-                  "result": null,
+                  "result": "GOOD",
                   "impact": null,
                   "note": ""
                 }
@@ -219811,7 +219901,23 @@
                   }
                 ]
               },
-              "inputDefinitions": [],
+              "inputDefinitions": [
+                {
+                  "item": "Duidelijke markering dat dit de laatste controle is ",
+                  "specifications": "",
+                  "type": "HARD"
+                },
+                {
+                  "item": "Juiste patiënt ",
+                  "specifications": "",
+                  "type": "HARD"
+                },
+                {
+                  "item": "Volledige controlebevindingen",
+                  "specifications": "",
+                  "type": "HARD"
+                }
+              ],
               "disruptions": [],
               "workExp": null,
               "workExpNote": "",
@@ -220251,32 +220357,32 @@
               "improvements": [],
               "qa": {
                 "compleet": {
-                  "result": null,
+                  "result": "GOOD",
                   "impact": null,
                   "note": ""
                 },
                 "kwaliteit": {
-                  "result": null,
+                  "result": "GOOD",
                   "impact": null,
                   "note": ""
                 },
                 "duidelijkheid": {
-                  "result": null,
-                  "impact": null,
-                  "note": ""
+                  "result": "MODERATE",
+                  "impact": "B",
+                  "note": "Een vervolgorder aanmaken gaat niet zo gemakkelijk. Je moet exact de naam weten van de vervolgorder anders kun je de order niet vinden. "
                 },
                 "tijdigheid": {
-                  "result": null,
+                  "result": "GOOD",
                   "impact": null,
                   "note": ""
                 },
                 "standaard": {
-                  "result": null,
+                  "result": "GOOD",
                   "impact": null,
                   "note": ""
                 },
                 "overdracht": {
-                  "result": null,
+                  "result": "GOOD",
                   "impact": null,
                   "note": ""
                 }
@@ -220302,7 +220408,23 @@
                   }
                 ]
               },
-              "inputDefinitions": [],
+              "inputDefinitions": [
+                {
+                  "item": "Duidelijk besluit dat follow-up nodig is ",
+                  "specifications": "",
+                  "type": "HARD"
+                },
+                {
+                  "item": "Termijn van follow-up ",
+                  "specifications": "",
+                  "type": "HARD"
+                },
+                {
+                  "item": "Type consult: fysiek / telefonisch / video ",
+                  "specifications": "",
+                  "type": "HARD"
+                }
+              ],
               "disruptions": [],
               "workExp": null,
               "workExpNote": "",
