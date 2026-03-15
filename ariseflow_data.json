@@ -27811,7 +27811,7 @@
               "systemData": {
                 "isMulti": false,
                 "systemName": "",
-                "calculatedScore": null,
+                "calculatedScore": 73,
                 "systems": [
                   {
                     "id": "81716ae2-f7a6-450b-aa76-29c9e501f78d",
@@ -27827,7 +27827,31 @@
                     },
                     "calculatedScore": null
                   }
-                ]
+                ],
+                "systemsMeta": {
+                  "multi": false,
+                  "systems": [
+                    {
+                      "name": "Teams / Word",
+                      "legacy": false,
+                      "future": "",
+                      "qa": {
+                        "q1": "SOMETIMES",
+                        "q1_note": "Het document is beschikbaar, maar wijzigingen worden niet altijd actief doorgegeven. Daardoor moet zelf gecontroleerd worden of er iets veranderd is.",
+                        "q2": "SOMETIMES",
+                        "q2_note": "Het ophalen zelf is eenvoudig, maar het systeem ondersteunt niet dat wijzigingen automatisch zichtbaar of gemeld worden.",
+                        "q3": "NEVER",
+                        "q3_note": "In deze stap wordt vooral informatie opgehaald. De dubbele verwerking ontstaat later.",
+                        "q4": "SOMETIMES",
+                        "q4_note": "Als een wijziging niet actief wordt gedeeld, kan met een verouderde versie worden gewerkt zonder dat dit direct zichtbaar is.",
+                        "q5": "DELAY",
+                        "q5_note": "Zonder toegang tot het document moet de inzet van assistenten op een andere manier worden achterhaald, maar het proces valt niet direct volledig stil."
+                      },
+                      "score": 73
+                    }
+                  ],
+                  "activeSystemIdx": 0
+                }
               },
               "inputDefinitions": [],
               "disruptions": [],
@@ -28314,7 +28338,7 @@
               "systemData": {
                 "isMulti": false,
                 "systemName": "",
-                "calculatedScore": null,
+                "calculatedScore": 60,
                 "systems": [
                   {
                     "id": "66c976d9-b231-4916-b954-5f29dad1a534",
@@ -28330,7 +28354,31 @@
                     },
                     "calculatedScore": null
                   }
-                ]
+                ],
+                "systemsMeta": {
+                  "multi": false,
+                  "systems": [
+                    {
+                      "name": "Epic",
+                      "legacy": false,
+                      "future": "",
+                      "qa": {
+                        "q1": "SOMETIMES",
+                        "q1_note": "Epic laat de agenda zien, maar niet automatisch welke klinische tijd praktisch bruikbaar is voor supervisie. Daardoor blijft aanvullende interpretatie nodig.",
+                        "q2": "SOMETIMES",
+                        "q2_note": "Het rooster is zichtbaar, maar uitzonderingen en lokale afspraken moeten zelf worden meegewogen.",
+                        "q3": "NEVER",
+                        "q3_note": "In deze stap wordt vooral gecontroleerd, niet opnieuw vastgelegd.",
+                        "q4": "SOMETIMES",
+                        "q4_note": "Een stafarts kan formeel beschikbaar lijken terwijl het blok in de praktijk niet goed bruikbaar is voor supervisie.",
+                        "q5": "STOP",
+                        "q5_note": "Zonder Epic is de agenda van de stafarts niet betrouwbaar op te halen en kan de rest van het proces niet goed starten."
+                      },
+                      "score": 60
+                    }
+                  ],
+                  "activeSystemIdx": 0
+                }
               },
               "inputDefinitions": [],
               "disruptions": [],
@@ -28821,7 +28869,7 @@
               "systemData": {
                 "isMulti": false,
                 "systemName": "",
-                "calculatedScore": null,
+                "calculatedScore": 46,
                 "systems": [
                   {
                     "id": "1d162160-16de-4129-9711-3668c924b2fa",
@@ -28837,7 +28885,31 @@
                     },
                     "calculatedScore": null
                   }
-                ]
+                ],
+                "systemsMeta": {
+                  "multi": false,
+                  "systems": [
+                    {
+                      "name": "Excel",
+                      "legacy": false,
+                      "future": "",
+                      "qa": {
+                        "q1": "OFTEN",
+                        "q1_note": "Excel is hier zelf al een workaround, omdat assistentenrooster en stafrooster handmatig gecombineerd moeten worden buiten het planningssysteem.",
+                        "q2": "SOMETIMES",
+                        "q2_note": "Excel geeft flexibiliteit, maar alle logica moet zelf worden opgebouwd en bewaakt.",
+                        "q3": "OFTEN",
+                        "q3_note": "De broninformatie staat al in andere systemen of documenten en wordt opnieuw in Excel verwerkt om een werkbaar supervisierooster te maken.",
+                        "q4": "OFTEN",
+                        "q4_note": "Handmatige koppeling van assistent, stage, supervisor en dagen maakt deze stap foutgevoelig.",
+                        "q5": "DELAY",
+                        "q5_note": "Zonder Excel verdwijnt het werkdocument waarmee de basis van het supervisierooster wordt opgebouwd."
+                      },
+                      "score": 46
+                    }
+                  ],
+                  "activeSystemIdx": 0
+                }
               },
               "inputDefinitions": [],
               "disruptions": [],
@@ -29330,7 +29402,7 @@
               "systemData": {
                 "isMulti": false,
                 "systemName": "",
-                "calculatedScore": null,
+                "calculatedScore": 40,
                 "systems": [
                   {
                     "id": "8c53f1ae-7827-4993-8233-427a9d2459b9",
@@ -29346,7 +29418,31 @@
                     },
                     "calculatedScore": null
                   }
-                ]
+                ],
+                "systemsMeta": {
+                  "multi": false,
+                  "systems": [
+                    {
+                      "name": "Excel",
+                      "legacy": false,
+                      "future": "",
+                      "qa": {
+                        "q1": "OFTEN",
+                        "q1_note": "FTE, ouderschapsverlof, vaste vrije dagen en lokale afspraken worden niet systeemgedwongen verwerkt maar handmatig ingepast.",
+                        "q2_note": "Veel individuele uitzonderingen moeten één voor één worden doorvertaald naar een werkbaar rooster.",
+                        "q2": "OFTEN",
+                        "q3": "SOMETIMES",
+                        "q3_note": "De basis staat al in het conceptrooster, maar beperkingen en uitzonderingen moeten daar opnieuw bovenop worden verwerkt.",
+                        "q4": "OFTEN",
+                        "q4_note": "Een kleine fout in FTE, vrije dag of stageverdeling heeft direct effect op de supervisie-inzet en later op de agenda van de stafarts.",
+                        "q5": "RISK",
+                        "q5_note": "Zonder dit Excel-overzicht valt de vertaalslag van standaardrooster naar realistisch rooster grotendeels weg."
+                      },
+                      "score": 40
+                    }
+                  ],
+                  "activeSystemIdx": 0
+                }
               },
               "inputDefinitions": [],
               "disruptions": [],
@@ -29838,7 +29934,7 @@
               "systemData": {
                 "isMulti": false,
                 "systemName": "",
-                "calculatedScore": null,
+                "calculatedScore": 73,
                 "systems": [
                   {
                     "id": "240a968c-6392-4a0f-909a-1b98758bef2d",
@@ -29854,7 +29950,31 @@
                     },
                     "calculatedScore": null
                   }
-                ]
+                ],
+                "systemsMeta": {
+                  "multi": false,
+                  "systems": [
+                    {
+                      "name": "Excel",
+                      "legacy": false,
+                      "future": "",
+                      "qa": {
+                        "q1": "SOMETIMES",
+                        "q1_note": "Excel ondersteunt het conceptrooster, maar afstemming zelf loopt buiten het systeem en vraagt extra rondes van aanpassen en terugleggen.",
+                        "q2": "SOMETIMES",
+                        "q2_note": "De inhoud is zichtbaar, maar besluitvorming en akkoord zijn niet ingebouwd. Daardoor blijft het een handmatig afstemmingsproces.",
+                        "q3": "NEVER",
+                        "q3_note": "De wijzigingen worden meestal in hetzelfde werkdocument verwerkt.",
+                        "q4": "SOMETIMES",
+                        "q4_note": "Als opmerkingen of voorkeuren niet scherp worden vastgelegd, kan het rooster anders worden aangepast dan bedoeld.",
+                        "q5": "DELAY",
+                        "q5_note": "Afstemming wordt dan lastiger, maar de inhoud van het rooster kan in principe later alsnog worden verwerkt."
+                      },
+                      "score": 73
+                    }
+                  ],
+                  "activeSystemIdx": 0
+                }
               },
               "inputDefinitions": [],
               "disruptions": [],
@@ -30341,7 +30461,7 @@
               "systemData": {
                 "isMulti": false,
                 "systemName": "",
-                "calculatedScore": null,
+                "calculatedScore": 60,
                 "systems": [
                   {
                     "id": "ff3b4206-7df1-4a87-9e5b-6a3553d464fb",
@@ -30357,7 +30477,31 @@
                     },
                     "calculatedScore": null
                   }
-                ]
+                ],
+                "systemsMeta": {
+                  "multi": false,
+                  "systems": [
+                    {
+                      "name": "Epic",
+                      "legacy": false,
+                      "future": "",
+                      "qa": {
+                        "q1": "NEVER",
+                        "q1_note": "Als het rooster eenmaal is vastgesteld, kan het redelijk direct in Epic worden gezet.",
+                        "q2": "SOMETIMES",
+                        "q2_note": "Het blijft een handmatige invoerstap, maar de kern van de complexiteit zit niet in Epic zelf.",
+                        "q3": "SOMETIMES",
+                        "q3_note": "Het rooster is al opgebouwd in Excel en moet daarna opnieuw in Epic worden ingevoerd.",
+                        "q4": "SOMETIMES",
+                        "q4_note": "Bij handmatige overzetting kan invoer afwijken van het afgestemde rooster.",
+                        "q5": "STOP",
+                        "q5_note": "Zonder Epic kan de assistentenplanning niet formeel in de agenda worden gezet."
+                      },
+                      "score": 60
+                    }
+                  ],
+                  "activeSystemIdx": 0
+                }
               },
               "inputDefinitions": [],
               "disruptions": [],
@@ -30835,7 +30979,7 @@
               "systemData": {
                 "isMulti": false,
                 "systemName": "",
-                "calculatedScore": null,
+                "calculatedScore": 53,
                 "systems": [
                   {
                     "id": "3c4969d9-da2d-4af0-87ac-d8cdf1b860f3",
@@ -30851,7 +30995,31 @@
                     },
                     "calculatedScore": null
                   }
-                ]
+                ],
+                "systemsMeta": {
+                  "multi": false,
+                  "systems": [
+                    {
+                      "name": "Epic",
+                      "legacy": false,
+                      "future": "",
+                      "qa": {
+                        "q1": "SOMETIMES",
+                        "q1_note": "De supervisierelatie moet apart worden vastgelegd en loopt niet vanzelf mee met de basisplanning.",
+                        "q2": "SOMETIMES",
+                        "q2_note": "Het is een extra administratieve stap bovenop de al ingevoerde planning.",
+                        "q3": "SOMETIMES",
+                        "q3_note": "De inhoudelijke koppeling tussen assistent en supervisor is al bekend, maar moet apart administratief zichtbaar gemaakt worden.",
+                        "q4_note": "Als de supervisor niet of onjuist wordt vastgelegd, klopt de vervolginformatie niet meer.",
+                        "q4": "SOMETIMES",
+                        "q5_note": "Zonder Epic kan de supervisierelatie niet goed in het dossier en de planning worden vastgelegd.",
+                        "q5": "STOP"
+                      },
+                      "score": 53
+                    }
+                  ],
+                  "activeSystemIdx": 0
+                }
               },
               "inputDefinitions": [],
               "disruptions": [],
@@ -31342,7 +31510,7 @@
               "systemData": {
                 "isMulti": false,
                 "systemName": "",
-                "calculatedScore": null,
+                "calculatedScore": 33,
                 "systems": [
                   {
                     "id": "3c402847-d9c0-4876-bebf-9ce6aa10340b",
@@ -31358,7 +31526,31 @@
                     },
                     "calculatedScore": null
                   }
-                ]
+                ],
+                "systemsMeta": {
+                  "multi": false,
+                  "systems": [
+                    {
+                      "name": "Epic",
+                      "legacy": false,
+                      "future": "",
+                      "qa": {
+                        "q1": "OFTEN",
+                        "q1_note": "Supervisie moet handmatig in een levende agenda worden vrijgemaakt en beschermd. Het systeem regelt dat niet automatisch.",
+                        "q2": "OFTEN",
+                        "q2_note": "Supervisieblokken moeten expliciet worden geopend, gesloten of gereserveerd in een agenda die al vol en dynamisch is.",
+                        "q3": "SOMETIMES",
+                        "q3_note": "De relatie assistent-supervisor staat al vast, maar moet nu opnieuw worden vertaald naar tijd in de agenda.",
+                        "q4": "OFTEN",
+                        "q4_note": "Blokken kunnen verkeerd worden gezet, onvoldoende worden afgeschermd of later alsnog gevuld worden met patiëntenzorg.",
+                        "q5": "STOP",
+                        "q5_note": "Zonder Epic kunnen geen supervisieblokken in de agenda worden verwerk"
+                      },
+                      "score": 33
+                    }
+                  ],
+                  "activeSystemIdx": 0
+                }
               },
               "inputDefinitions": [],
               "disruptions": [],
@@ -31850,7 +32042,7 @@
               "systemData": {
                 "isMulti": false,
                 "systemName": "",
-                "calculatedScore": null,
+                "calculatedScore": 33,
                 "systems": [
                   {
                     "id": "10794ede-5af5-4c3e-812d-a85dfd4d17b4",
@@ -31866,7 +32058,31 @@
                     },
                     "calculatedScore": null
                   }
-                ]
+                ],
+                "systemsMeta": {
+                  "multi": false,
+                  "systems": [
+                    {
+                      "name": "Epic",
+                      "legacy": false,
+                      "future": "",
+                      "qa": {
+                        "q1": "OFTEN",
+                        "q1_note": "Supervisie en consultcapaciteit zijn niet integraal ingericht. Daardoor moet na het plannen van supervisie opnieuw handmatig consultcapaciteit worden gesloten.",
+                        "q2": "OFTEN",
+                        "q2_note": " Dit is herstelwerk op een agenda die eerder al was opgebouwd. Daardoor kost deze stap veel extra handelingen.",
+                        "q3": "SOMETIMES",
+                        "q3_note": "De agenda stond al ingericht en moet nu opnieuw worden aangepast om de impact van supervisie op consultcapaciteit te verwerken",
+                        "q4": "OFTEN",
+                        "q4_note": "Als de correctie niet volledig of te laat wordt gedaan, blijft te veel consultcapaciteit openstaan en ontstaan uitvoeringsproblemen.",
+                        "q5": "STOP",
+                        "q5_note": "Zonder Epic kan de agenda van de supervisor niet worden gecorrigeerd en blijft de planning inhoudelijk onjuist."
+                      },
+                      "score": 33
+                    }
+                  ],
+                  "activeSystemIdx": 0
+                }
               },
               "inputDefinitions": [],
               "disruptions": [],
