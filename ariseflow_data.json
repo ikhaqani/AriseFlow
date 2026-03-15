@@ -28000,11 +28000,14 @@
               "created": 1773564245798,
               "text": "Assistentenrooster ophalen",
               "linkedSourceId": null,
-              "type": null,
-              "processValue": null,
-              "processStatus": null,
+              "type": "Taak",
+              "processValue": "BNVA",
+              "processStatus": "NEUTRAL",
               "successFactors": "",
-              "causes": [],
+              "causes": [
+                "Wijzigingen in het assistentenrooster worden niet altijd proactief teruggekoppeld.",
+                "Het rooster is bruikbaar als basis, maar niet vanzelf actueel genoeg voor uitvoering."
+              ],
               "improvements": [],
               "qa": {
                 "compleet": {
@@ -28054,9 +28057,20 @@
                 ]
               },
               "inputDefinitions": [],
-              "disruptions": [],
-              "workExp": null,
-              "workExpNote": ""
+              "disruptions": [
+                {
+                  "scenario": "Het rooster is beschikbaar maar niet volledig actueel.",
+                  "frequency": "Soms",
+                  "workaround": "Zelf opnieuw controleren of er wijzigingen zijn."
+                },
+                {
+                  "scenario": "Verandering in stage of inzet komt pas later aan het licht.",
+                  "frequency": "Soms",
+                  "workaround": "Rooster handmatig corrigeren in een latere stap."
+                }
+              ],
+              "workExp": "ROUTINE",
+              "workExpNote": "Het ophalen zelf is geen ingewikkelde stap. Het aandachtspunt zit niet in het openen van het document, maar in het feit dat wijzigingen niet altijd actief worden doorgegeven. Daardoor blijft controle op actualiteit nodig."
             },
             {
               "id": "ba9e06d1-a70b-4513-a83b-4c7cb153b94a",
@@ -28493,11 +28507,14 @@
               "created": 1773564300025,
               "text": "Rooster stafartsen ophalen en controleren",
               "linkedSourceId": null,
-              "type": null,
-              "processValue": null,
-              "processStatus": null,
+              "type": "Taak",
+              "processValue": "BNVA",
+              "processStatus": "NEUTRAL",
               "successFactors": "",
-              "causes": [],
+              "causes": [
+                "Het rooster toont beschikbaarheid, maar niet automatisch alle praktische beperkingen.",
+                "De bruikbaarheid van klinische tijd is niet altijd gelijk aan de formele aanwezigheid in Epic."
+              ],
               "improvements": [],
               "qa": {
                 "compleet": {
@@ -28547,9 +28564,20 @@
                 ]
               },
               "inputDefinitions": [],
-              "disruptions": [],
-              "workExp": null,
-              "workExpNote": ""
+              "disruptions": [
+                {
+                  "scenario": "Een stafarts lijkt beschikbaar maar blijkt praktisch niet inzetbaar voor supervisie.",
+                  "frequency": "Soms",
+                  "workaround": "Handmatig controleren en later in het rooster corrigeren."
+                },
+                {
+                  "scenario": "Uitzonderingen op klinische tijd vallen pas later op.",
+                  "frequency": "Soms",
+                  "workaround": "Supervisierooster achteraf aanpassen."
+                }
+              ],
+              "workExp": "ROUTINE",
+              "workExpNote": "Deze stap is noodzakelijk om te kunnen zien waar supervisie überhaupt past. De agenda van stafartsen is de randvoorwaarde voor de rest van het proces. Het aandachtspunt zit in het feit dat beschikbaarheid niet alleen een technisch rooster is, maar ook beïnvloed wordt door lokale afspraken en uitzonderingen."
             },
             {
               "id": "256da27a-b54c-4636-b5ef-cf3f4e547b22",
@@ -28987,11 +29015,15 @@
               "created": 1773564354384,
               "text": "Basis supervisierooster opstellen",
               "linkedSourceId": null,
-              "type": null,
-              "processValue": null,
-              "processStatus": null,
+              "type": "Taak",
+              "processValue": "BNVA",
+              "processStatus": "NEUTRAL",
               "successFactors": "",
-              "causes": [],
+              "causes": [
+                "Twee aparte roosters moeten handmatig op elkaar worden gelegd.",
+                "De roosterlogica zit grotendeels in ervaring en niet in een systeemregel.",
+                "De praktische consequentie van een stage is niet direct uit het assistentenrooster afleesbaar."
+              ],
               "improvements": [],
               "qa": {
                 "compleet": {
@@ -29041,9 +29073,20 @@
                 ]
               },
               "inputDefinitions": [],
-              "disruptions": [],
-              "workExp": null,
-              "workExpNote": ""
+              "disruptions": [
+                {
+                  "scenario": "Assistentenrooster en stafrooster passen niet logisch op elkaar.",
+                  "frequency": "Vaak",
+                  "workaround": "Handmatig puzzelen tot een werkbare basis ontstaat."
+                },
+                {
+                  "scenario": "De theoretische koppeling klopt, maar de praktijk van de week niet.",
+                  "frequency": "Vaak",
+                  "workaround": "Zelf herschikken in Excel."
+                }
+              ],
+              "workExp": "OBSTACLE",
+              "workExpNote": "Het basis supervisierooster opstellen vraagt veel denkwerk en interpretatie. Het is geen simpele invuloefening. Assistentenrooster en stafrooster moeten inhoudelijk met elkaar passend worden gemaakt. Daardoor zit hier al veel verborgen complexiteit."
             },
             {
               "id": "fad8d258-18dc-4b17-b906-bef577c19b1b",
@@ -29480,11 +29523,15 @@
               "created": 1773564417078,
               "text": "FTE en roosterafspraken verwerken",
               "linkedSourceId": null,
-              "type": null,
-              "processValue": null,
-              "processStatus": null,
+              "type": "Taak",
+              "processValue": "BNVA",
+              "processStatus": "SAD",
               "successFactors": "",
-              "causes": [],
+              "causes": [
+                "FTE en vaste vrije dagen botsen soms met de logica van de stage.",
+                "Niet iedere beperking wordt vanuit één vaste bron of logica aangeleverd.",
+                "De praktische impact van roosterwensen komt uiteindelijk bij de backoffice terecht."
+              ],
               "improvements": [],
               "qa": {
                 "compleet": {
@@ -29534,9 +29581,20 @@
                 ]
               },
               "inputDefinitions": [],
-              "disruptions": [],
-              "workExp": null,
-              "workExpNote": ""
+              "disruptions": [
+                {
+                  "scenario": "Vaste vrije dag of ouderschapsverlof maakt de stageverdeling scheef.",
+                  "frequency": "Vaak",
+                  "workaround": "Consulten concentreren op andere dagen en rooster handmatig ombouwen."
+                },
+                {
+                  "scenario": "Een roosterwens blijkt pas later onwerkbaar voor supervisie.",
+                  "frequency": "Soms",
+                  "workaround": "Opnieuw afstemmen en rooster aanpassen."
+                }
+              ],
+              "workExp": "OBSTACLE",
+              "workExpNote": "Hier wordt het proces echt kwetsbaar. FTE, ouderschapsverlof, vaste vrije dagen en lokale uitzonderingen maken dat de standaardopzet niet meer vanzelf werkt. Deze stap is sterk afhankelijk van individuele afspraken en voorkeuren en daardoor structureel instabiel."
             },
             {
               "id": "9232eefd-a4a2-46db-95bc-ab566b09f655",
@@ -29968,11 +30026,15 @@
               "created": 1773564589449,
               "text": "Supervisierooster afstemmen met betrokkenen",
               "linkedSourceId": null,
-              "type": null,
-              "processValue": null,
-              "processStatus": null,
+              "type": "Taak",
+              "processValue": "BNVA",
+              "processStatus": "NEUTRAL",
               "successFactors": "",
-              "causes": [],
+              "causes": [
+                "Het conceptrooster wordt pas laat geconfronteerd met individuele voorkeuren of bezwaren.",
+                "Niet iedereen weegt planningsbelang en opleidingsbelang op dezelfde manier.",
+                "De stap leunt op informele afstemming in plaats van vaste besluitregels."
+              ],
               "improvements": [],
               "qa": {
                 "compleet": {
@@ -30022,9 +30084,20 @@
                 ]
               },
               "inputDefinitions": [],
-              "disruptions": [],
-              "workExp": null,
-              "workExpNote": ""
+              "disruptions": [
+                {
+                  "scenario": "Betrokkenen willen wijzigingen op het conceptrooster.",
+                  "frequency": "Vaak",
+                  "workaround": "Concept aanpassen en opnieuw afstemmen."
+                },
+                {
+                  "scenario": "Een rooster is logisch opgebouwd maar wordt alsnog inhoudelijk afgezwakt.",
+                  "frequency": "Soms",
+                  "workaround": "Compromisoplossing maken."
+                }
+              ],
+              "workExp": "OBSTACLE",
+              "workExpNote": "Afstemming is nodig, maar zorgt ook voor vertraging, herwerk en afhankelijkheid van persoonlijke voorkeuren. Het proces is niet strak bestuurbaar omdat betrokkenen nog een extra correctieronde doen op iets dat al inhoudelijk is opgebouwd."
             },
             {
               "id": "e8f0c324-6810-4815-8d54-04836b2b1031",
@@ -30456,10 +30529,10 @@
               "created": 1773564655686,
               "text": "Basisrooster assistenten in Epic zetten",
               "linkedSourceId": null,
-              "type": null,
-              "processValue": null,
-              "processStatus": null,
-              "successFactors": "",
+              "type": "Taak",
+              "processValue": "BNVA",
+              "processStatus": "HAPPY",
+              "successFactors": "De stap volgt op een al afgestemd rooster. Epic is hier vooral een vastlegstap en geen interpretatiestap.",
               "causes": [],
               "improvements": [],
               "qa": {
@@ -30510,9 +30583,15 @@
                 ]
               },
               "inputDefinitions": [],
-              "disruptions": [],
-              "workExp": null,
-              "workExpNote": ""
+              "disruptions": [
+                {
+                  "scenario": "Invoer in Epic wijkt af van het afgestemde rooster.",
+                  "frequency": "Soms",
+                  "workaround": "Nacontrole doen en corrigeren."
+                }
+              ],
+              "workExp": "ROUTINE",
+              "workExpNote": "Als het rooster eenmaal is vastgesteld, is de administratieve verwerking in Epic relatief rechttoe rechtaan. De complexiteit zit vooral vóór deze stap, niet in het technisch zetten van de basisplanning."
             },
             {
               "id": "155a4b80-a3e7-40ce-a116-8e90e57403dd",
@@ -30949,11 +31028,14 @@
               "created": 1773564735675,
               "text": "Zorgverlenersbericht met supervisor toevoegen",
               "linkedSourceId": null,
-              "type": null,
-              "processValue": null,
-              "processStatus": null,
+              "type": "Taak",
+              "processValue": "BNVA",
+              "processStatus": "NEUTRAL",
               "successFactors": "",
-              "causes": [],
+              "causes": [
+                "De supervisierelatie zit niet automatisch al in de basisplanning.",
+                "De kwaliteit van deze stap hangt af van consequente invoer."
+              ],
               "improvements": [],
               "qa": {
                 "compleet": {
@@ -31003,9 +31085,20 @@
                 ]
               },
               "inputDefinitions": [],
-              "disruptions": [],
-              "workExp": null,
-              "workExpNote": ""
+              "disruptions": [
+                {
+                  "scenario": "Supervisor staat niet of niet goed in het zorgverlenersbericht.",
+                  "frequency": "Soms",
+                  "workaround": "Handmatig corrigeren."
+                },
+                {
+                  "scenario": "De relatie is inhoudelijk bekend maar administratief nog niet zichtbaar.",
+                  "frequency": "Soms",
+                  "workaround": "Achteraf toevoegen in Epic."
+                }
+              ],
+              "workExp": "ROUTINE",
+              "workExpNote": "De handeling zelf is administratief simpel, maar het is wel een extra stap die nodig is om de relatie tussen assistent en supervisor goed zichtbaar te maken. Dat maakt het proces afhankelijk van zorgvuldige invoer."
             },
             {
               "id": "49ae197c-bc53-4609-b68a-b425eb029029",
@@ -31437,11 +31530,15 @@
               "created": 1773564805514,
               "text": "Supervisieblokken in agenda verwerken",
               "linkedSourceId": null,
-              "type": null,
-              "processValue": null,
-              "processStatus": null,
+              "type": "Taak",
+              "processValue": "BNVA",
+              "processStatus": "SAD",
               "successFactors": "",
-              "causes": [],
+              "causes": [
+                "Supervisie moet handmatig in bestaande agenda’s worden vrijgemaakt.",
+                "Planners kunnen open ruimte weer vullen als de supervisielogica niet strak genoeg zichtbaar is.",
+                "Er is twijfel of de gereserveerde supervisietijd in de praktijk altijd echt zo gebruikt wordt."
+              ],
               "improvements": [],
               "qa": {
                 "compleet": {
@@ -31491,9 +31588,25 @@
                 ]
               },
               "inputDefinitions": [],
-              "disruptions": [],
-              "workExp": null,
-              "workExpNote": ""
+              "disruptions": [
+                {
+                  "scenario": "Supervisieblok staat niet goed vrij in de agenda.",
+                  "frequency": "Vaak",
+                  "workaround": " Blokken handmatig openen of sluiten."
+                },
+                {
+                  "scenario": "Een blok dat voor supervisie bedoeld is wordt toch weer gebruikt voor patiëntenzorg.",
+                  "frequency": "Soms",
+                  "workaround": "Achteraf corrigeren of alsnog ruimte zoeken."
+                },
+                {
+                  "scenario": "De gereserveerde tijd past niet bij de werkelijke praktijk.",
+                  "frequency": "Soms",
+                  "workaround": "Op ervaring bijsturen"
+                }
+              ],
+              "workExp": "OBSTACLE",
+              "workExpNote": "Hier zit een van de grootste knelpunten. Supervisie moet in een levende agenda worden ingebouwd en kost echte klinische tijd. Dat vraagt openen, sluiten en reserveren van blokken in een omgeving die al vol en dynamisch is. De kans op verstoring is groot."
             },
             {
               "id": "39f6b903-3352-4174-8385-a6b9f5ae7b23",
@@ -31925,11 +32038,15 @@
               "created": 1773564884822,
               "text": "Consultcapaciteit van supervisor corrigeren",
               "linkedSourceId": null,
-              "type": null,
-              "processValue": null,
-              "processStatus": null,
+              "type": "Taak",
+              "processValue": "BNVA",
+              "processStatus": "SAD",
               "successFactors": "",
-              "causes": [],
+              "causes": [
+                "Supervisie en consultcapaciteit zijn niet integraal ontworpen maar worden na elkaar gecorrigeerd.",
+                "Het sluiten van consulten gebeurt handmatig en is daardoor foutgevoelig.",
+                "De achterliggende norm voor compensatie is niet altijd onomstreden in de praktijk."
+              ],
               "improvements": [],
               "qa": {
                 "compleet": {
@@ -31979,9 +32096,25 @@
                 ]
               },
               "inputDefinitions": [],
-              "disruptions": [],
-              "workExp": null,
-              "workExpNote": ""
+              "disruptions": [
+                {
+                  "scenario": "Supervisor heeft te veel consultcapaciteit open staan ondanks supervisie.",
+                  "frequency": "Vaak",
+                  "workaround": "Consulten handmatig sluiten."
+                },
+                {
+                  "scenario": "Correctie wordt te laat of niet volledig doorgevoerd.",
+                  "frequency": "Soms",
+                  "workaround": "Later alsnog corrigeren in de agenda."
+                },
+                {
+                  "scenario": "Er ontstaat spanning tussen opleidingsruimte en productiecapaciteit.",
+                  "frequency": "Vaak",
+                  "workaround": "Handmatig schuiven en pragmatisch oplossen."
+                }
+              ],
+              "workExp": "OBSTACLE",
+              "workExpNote": "Deze stap is noodzakelijk, maar toont ook direct de verspilling in het proces. Eerst wordt capaciteit opgebouwd, daarna moet die weer handmatig worden teruggenomen vanwege supervisie. Daardoor ontstaat veel herwerk, foutkans en discussie over wat wel of niet echt nodig is."
             },
             {
               "id": "1e1ecb20-5672-4448-be6d-b40d7a4d06e4",
