@@ -23324,32 +23324,32 @@
                 "compleet": {
                   "result": "MINOR",
                   "impact": "B",
-                  "note": "Omdat de actor later nog moet corrigeren op afwezigheden, vergaderingen en andere uitzonderingen."
+                  "note": "Het overzicht is voldoende om te starten, maar bevat nog niet automatisch alle blokkades, afwezigheden en uitzonderingen die later de forecast beïnvloeden."
                 },
                 "kwaliteit": {
                   "result": "MINOR",
-                  "impact": "B",
-                  "note": "De basisagenda is bruikbaar, maar kan formeel kloppen terwijl de werkelijke inzetbaarheid later anders blijkt."
+                  "impact": "C",
+                  "note": "De basisagenda is bruikbaar, maar kan formeel juist zijn terwijl de werkelijke inzetbaarheid later toch anders blijkt"
                 },
                 "duidelijkheid": {
                   "result": "MINOR",
-                  "impact": "B",
+                  "impact": "C",
                   "note": "De hoofdstructuur is duidelijk, maar de agenda zegt niet vanzelf alles over de achterliggende afspraken en uitzonderingen."
                 },
                 "tijdigheid": {
-                  "result": null,
+                  "result": "GOOD",
                   "impact": null,
                   "note": ""
                 },
                 "standaard": {
-                  "result": null,
+                  "result": "GOOD",
                   "impact": null,
                   "note": ""
                 },
                 "overdracht": {
-                  "result": null,
-                  "impact": null,
-                  "note": ""
+                  "result": "MINOR",
+                  "impact": "B",
+                  "note": "Het overzicht is logisch overgedragen, maar moet nog inhoudelijk worden verrijkt voordat het echt bruikbaar is."
                 }
               },
               "systemData": {
@@ -23373,7 +23373,28 @@
                   }
                 ]
               },
-              "inputDefinitions": [],
+              "inputDefinitions": [
+                {
+                  "item": "Zichtbare basisagenda per arts in Epic",
+                  "specifications": "",
+                  "type": "HARD"
+                },
+                {
+                  "item": "Klinische blokken en vaste consultmomenten",
+                  "specifications": "",
+                  "type": "HARD"
+                },
+                {
+                  "item": "Toegang tot de juiste planningsweek",
+                  "specifications": "",
+                  "type": "HARD"
+                },
+                {
+                  "item": "Bekende uitzonderingen bij de agenda ",
+                  "specifications": "",
+                  "type": "SOFT"
+                }
+              ],
               "disruptions": [],
               "workExp": null,
               "workExpNote": "",
@@ -23813,34 +23834,34 @@
               "improvements": [],
               "qa": {
                 "compleet": {
-                  "result": null,
-                  "impact": null,
-                  "note": ""
+                  "result": "MODERATE",
+                  "impact": "B",
+                  "note": "De gecontroleerde basisagenda is niet genoeg om direct verder te kunnen, omdat afwezigheden, congressen en vergaderingen aanvullend en niet uniform worden aangeleverd."
                 },
                 "kwaliteit": {
-                  "result": null,
-                  "impact": null,
-                  "note": ""
+                  "result": "MINOR",
+                  "impact": "C",
+                  "note": "De basisagenda is als vertrekpunt correct, maar nog niet geschikt als realistisch weekbeeld zolang uitzonderingen ontbreken."
                 },
                 "duidelijkheid": {
-                  "result": null,
-                  "impact": null,
-                  "note": ""
+                  "result": "MODERATE",
+                  "impact": "B",
+                  "note": "Niet alle blokkades en afwezigheden worden op dezelfde manier of via hetzelfde ritme aangeleverd, waardoor interpretatie nodig is."
                 },
                 "tijdigheid": {
-                  "result": null,
-                  "impact": null,
-                  "note": ""
+                  "result": "MODERATE",
+                  "impact": "B",
+                  "note": "Niet alle blokkades komen op tijd binnen, waardoor de agenda later opnieuw moet worden aangepast"
                 },
                 "standaard": {
-                  "result": null,
-                  "impact": null,
-                  "note": ""
+                  "result": "FAIL",
+                  "impact": "B",
+                  "note": "De aanlevering van uitzonderingen en vergaderingen is niet uniform en verschilt per bron sterk in vorm en horizon"
                 },
                 "overdracht": {
-                  "result": null,
-                  "impact": null,
-                  "note": ""
+                  "result": "MODERATE",
+                  "impact": "B",
+                  "note": "De informatie-overdracht is niet strak genoeg om deze stap in één keer goed af te handelen."
                 }
               },
               "systemData": {
@@ -23864,7 +23885,33 @@
                   }
                 ]
               },
-              "inputDefinitions": [],
+              "inputDefinitions": [
+                {
+                  "item": "Gecontroleerde basisagenda",
+                  "specifications": "",
+                  "type": "HARD"
+                },
+                {
+                  "item": "Volledige lijst met afwezigheden",
+                  "specifications": "",
+                  "type": "HARD"
+                },
+                {
+                  "item": "Overzicht van congressen en vergaderingen ",
+                  "specifications": "",
+                  "type": "HARD"
+                },
+                {
+                  "item": "Duidelijkheid welke blokkades klinische tijd raken ",
+                  "specifications": "",
+                  "type": "HARD"
+                },
+                {
+                  "item": "Vast aanlevermoment per bron",
+                  "specifications": "",
+                  "type": "SOFT"
+                }
+              ],
               "disruptions": [],
               "workExp": null,
               "workExpNote": "",
@@ -24304,34 +24351,34 @@
               "improvements": [],
               "qa": {
                 "compleet": {
-                  "result": null,
-                  "impact": null,
-                  "note": ""
+                  "result": "MINOR",
+                  "impact": "B",
+                  "note": "De agenda is alleen volledig bruikbaar voor telling als alle blokkades correct zijn verwerkt. Bij twijfel moet eerst opnieuw worden gecontroleerd."
                 },
                 "kwaliteit": {
-                  "result": null,
-                  "impact": null,
-                  "note": ""
+                  "result": "MINOR",
+                  "impact": "C",
+                  "note": "De input is bruikbaar voor telling, maar blijft afhankelijk van hoe goed de vorige stap is uitgevoerd."
                 },
                 "duidelijkheid": {
-                  "result": null,
-                  "impact": null,
-                  "note": ""
+                  "result": "MINOR",
+                  "impact": "C",
+                  "note": "Open en gesloten blokken zijn zichtbaar, maar de achterliggende logica van lokale afspraken blijft niet altijd direct duidelijk."
                 },
                 "tijdigheid": {
-                  "result": null,
+                  "result": "GOOD",
                   "impact": null,
                   "note": ""
                 },
                 "standaard": {
-                  "result": null,
-                  "impact": null,
-                  "note": ""
+                  "result": "MINOR",
+                  "impact": "C",
+                  "note": "De agenda is gestandaardiseerd in vorm, maar de inhoud blijft sterk afhankelijk van handmatige inrichting en lokale regels"
                 },
                 "overdracht": {
-                  "result": null,
-                  "impact": null,
-                  "note": ""
+                  "result": "MINOR",
+                  "impact": "C",
+                  "note": "De input wordt logisch overgedragen, maar eventuele fouten uit de vorige stap werken direct door."
                 }
               },
               "systemData": {
@@ -24355,7 +24402,28 @@
                   }
                 ]
               },
-              "inputDefinitions": [],
+              "inputDefinitions": [
+                {
+                  "item": "Actuele bijgewerkte agenda per arts",
+                  "specifications": "",
+                  "type": "HARD"
+                },
+                {
+                  "item": "Zicht op open en gesloten consultblokken ",
+                  "specifications": "",
+                  "type": "HARD"
+                },
+                {
+                  "item": "Correct verwerkte blokkades ",
+                  "specifications": "",
+                  "type": "HARD"
+                },
+                {
+                  "item": "Inzicht in klinisch inzetbare blokken ",
+                  "specifications": "",
+                  "type": "HARD"
+                }
+              ],
               "disruptions": [],
               "workExp": null,
               "workExpNote": "",
@@ -24813,34 +24881,34 @@
               "improvements": [],
               "qa": {
                 "compleet": {
-                  "result": null,
-                  "impact": null,
-                  "note": ""
+                  "result": "MINOR",
+                  "impact": "C",
+                  "note": "De capaciteit geeft de basis voor verdeling, maar nog niet hoe die het beste over de week gebalanceerd moet worden."
                 },
                 "kwaliteit": {
-                  "result": null,
-                  "impact": null,
-                  "note": ""
+                  "result": "MINOR",
+                  "impact": "C",
+                  "note": "De telling is bruikbaar, maar blijft gevoelig voor eerdere fouten of uitzonderingen die niet goed verwerkt zijn."
                 },
                 "duidelijkheid": {
-                  "result": null,
-                  "impact": null,
-                  "note": ""
+                  "result": "MINOR",
+                  "impact": "C",
+                  "note": "Het aantal consulten is als uitkomst duidelijk, maar niet automatisch hoe dat het beste over dagen verdeeld moet worden."
                 },
                 "tijdigheid": {
-                  "result": null,
+                  "result": "GOOD",
                   "impact": null,
                   "note": ""
                 },
                 "standaard": {
-                  "result": null,
-                  "impact": null,
-                  "note": ""
+                  "result": "MODERATE",
+                  "impact": "B",
+                  "note": "De verdelingslogica zit niet in een uniform systeemproces, maar in een eigen Excel-aanpak en lokale werkwijze."
                 },
                 "overdracht": {
-                  "result": null,
-                  "impact": null,
-                  "note": ""
+                  "result": "MINOR",
+                  "impact": "C",
+                  "note": "De capaciteit wordt goed doorgegeven, maar nog niet in een vorm die direct bestuurlijk of logistiek optimaal bruikbaar is."
                 }
               },
               "systemData": {
@@ -24864,7 +24932,28 @@
                   }
                 ]
               },
-              "inputDefinitions": [],
+              "inputDefinitions": [
+                {
+                  "item": "Beschikbare consultcapaciteit per arts ",
+                  "specifications": "",
+                  "type": "HARD"
+                },
+                {
+                  "item": "Beschikbare consultcapaciteit per week ",
+                  "specifications": "",
+                  "type": "HARD"
+                },
+                {
+                  "item": "Inzicht in gewenste dagspreiding",
+                  "specifications": "",
+                  "type": "HARD"
+                },
+                {
+                  "item": "Afspraken over consultverdeling ",
+                  "specifications": "",
+                  "type": "SOFT"
+                }
+              ],
               "disruptions": [],
               "workExp": null,
               "workExpNote": "",
@@ -25369,34 +25458,34 @@
               "improvements": [],
               "qa": {
                 "compleet": {
-                  "result": null,
-                  "impact": null,
-                  "note": ""
+                  "result": "MINOR",
+                  "impact": "C",
+                  "note": "De dagindeling vormt een goede basis voor de forecast, maar er blijven nog knelpunten en uitzonderingen die verdere afweging vragen."
                 },
                 "kwaliteit": {
-                  "result": null,
-                  "impact": null,
-                  "note": ""
+                  "result": "MINOR",
+                  "impact": "C",
+                  "note": "De input is bruikbaar, maar blijft een conceptuele verdeling en geen definitieve operationele realiteit."
                 },
                 "duidelijkheid": {
-                  "result": null,
-                  "impact": null,
-                  "note": ""
+                  "result": "MINOR",
+                  "impact": "C",
+                  "note": "De dagindeling laat de balans zien, maar niet automatisch alle onderliggende gevoeligheden of toekomstige wijzigingen."
                 },
                 "tijdigheid": {
-                  "result": null,
+                  "result": "GOOD",
                   "impact": null,
                   "note": ""
                 },
                 "standaard": {
-                  "result": null,
-                  "impact": null,
-                  "note": ""
+                  "result": "MODERATE",
+                  "impact": "B",
+                  "note": "De forecast wordt gemaakt vanuit een eigen Excel-logica en niet vanuit een uniforme, systeemgedwongen forecastmethodiek."
                 },
                 "overdracht": {
-                  "result": null,
-                  "impact": null,
-                  "note": ""
+                  "result": "MINOR",
+                  "impact": "C",
+                  "note": "De input sluit logisch aan op de vorige stap, maar is nog niet bestuurlijk afgestemd of gevalideerd."
                 }
               },
               "systemData": {
@@ -25420,7 +25509,28 @@
                   }
                 ]
               },
-              "inputDefinitions": [],
+              "inputDefinitions": [
+                {
+                  "item": "Evenredige dagindeling per week",
+                  "specifications": "",
+                  "type": "HARD"
+                },
+                {
+                  "item": "Zicht op piekdagen en knelpunten ",
+                  "specifications": "",
+                  "type": "HARD"
+                },
+                {
+                  "item": "Inzicht in afspraken per arts of doelgebied",
+                  "specifications": "",
+                  "type": "HARD"
+                },
+                {
+                  "item": "Ruimte om conceptueel te schuiven ",
+                  "specifications": "",
+                  "type": "SOFT"
+                }
+              ],
               "disruptions": [],
               "workExp": null,
               "workExpNote": "",
@@ -25925,32 +26035,32 @@
               "improvements": [],
               "qa": {
                 "compleet": {
-                  "result": null,
-                  "impact": null,
-                  "note": ""
+                  "result": "MINOR",
+                  "impact": "C",
+                  "note": "De concept forecast is voldoende om te beoordelen, maar bevat soms nog punten die mondeling of per mail verduidelijkt moeten worden."
                 },
                 "kwaliteit": {
-                  "result": null,
-                  "impact": null,
-                  "note": ""
+                  "result": "MINOR",
+                  "impact": "C",
+                  "note": "De forecast is inhoudelijk bruikbaar, maar blijft een concept en nog geen definitief afgestemde planning."
                 },
                 "duidelijkheid": {
-                  "result": null,
-                  "impact": null,
-                  "note": ""
+                  "result": "MODERATE",
+                  "impact": "C",
+                  "note": "Niet alles in de forecast is voor iedere ontvanger direct logisch zonder extra context."
                 },
                 "tijdigheid": {
-                  "result": null,
+                  "result": "GOOD",
                   "impact": null,
                   "note": ""
                 },
                 "standaard": {
-                  "result": null,
-                  "impact": null,
-                  "note": ""
+                  "result": "MINOR",
+                  "impact": "C",
+                  "note": "Er is een vaste manier van aanbieden, maar de begrijpelijkheid hangt nog sterk af van contextkennis."
                 },
                 "overdracht": {
-                  "result": null,
+                  "result": "GOOD",
                   "impact": null,
                   "note": ""
                 }
@@ -25976,7 +26086,23 @@
                   }
                 ]
               },
-              "inputDefinitions": [],
+              "inputDefinitions": [
+                {
+                  "item": "Complete concept forecast ",
+                  "specifications": "",
+                  "type": "HARD"
+                },
+                {
+                  "item": "Zicht op verdeling per week en per dag",
+                  "specifications": "",
+                  "type": "HARD"
+                },
+                {
+                  "item": "Toelichting op opvallende keuzes of knelpunten ",
+                  "specifications": "",
+                  "type": "SOFT"
+                }
+              ],
               "disruptions": [],
               "workExp": null,
               "workExpNote": "",
@@ -26481,34 +26607,34 @@
               "improvements": [],
               "qa": {
                 "compleet": {
-                  "result": null,
-                  "impact": null,
-                  "note": ""
+                  "result": "MINOR",
+                  "impact": "C",
+                  "note": "De feedback is meestal voldoende om verder te kunnen, maar vraagt soms nog verduidelijking."
                 },
                 "kwaliteit": {
-                  "result": null,
-                  "impact": null,
-                  "note": ""
+                  "result": "MINOR",
+                  "impact": "C",
+                  "note": "De feedback is bruikbaar, maar niet altijd volledig zelfverklarend."
                 },
                 "duidelijkheid": {
-                  "result": null,
-                  "impact": null,
-                  "note": ""
+                  "result": "MINOR",
+                  "impact": "C",
+                  "note": "De meeste terugkoppeling is hanteerbaar, maar de inhoud is niet volledig gestandaardiseerd en vraagt soms interpretatie."
                 },
                 "tijdigheid": {
-                  "result": null,
+                  "result": "GOOD",
                   "impact": null,
                   "note": ""
                 },
                 "standaard": {
-                  "result": null,
-                  "impact": null,
-                  "note": ""
+                  "result": "MODERATE",
+                  "impact": "C",
+                  "note": "Feedback loopt via mail en niet via een vaste gestructureerde beoordelingsvorm."
                 },
                 "overdracht": {
-                  "result": null,
-                  "impact": null,
-                  "note": ""
+                  "result": "MINOR",
+                  "impact": "C",
+                  "note": "De feedback wordt wel overgedragen, maar niet in een strak format dat directe verwerking altijd vanzelfsprekend maakt."
                 }
               },
               "systemData": {
@@ -26532,7 +26658,23 @@
                   }
                 ]
               },
-              "inputDefinitions": [],
+              "inputDefinitions": [
+                {
+                  "item": "Forecast met akkoord of wijzigingsverzoek ",
+                  "specifications": "",
+                  "type": "HARD"
+                },
+                {
+                  "item": "Duidelijkheid welke onderdelen aangepast moeten worden",
+                  "specifications": "",
+                  "type": "HARD"
+                },
+                {
+                  "item": "Toelichting op uitzonderingen of bestuurlijke keuzes",
+                  "specifications": "",
+                  "type": "SOFT"
+                }
+              ],
               "disruptions": [],
               "workExp": null,
               "workExpNote": "",
@@ -27037,34 +27179,34 @@
               "improvements": [],
               "qa": {
                 "compleet": {
-                  "result": null,
-                  "impact": null,
-                  "note": ""
+                  "result": "MINOR",
+                  "impact": "B",
+                  "note": "De dagindeling is inhoudelijk klaar, maar moet nog vertaald worden naar het uitvoeringssysteem voordat het rooster echt bruikbaar is."
                 },
                 "kwaliteit": {
-                  "result": null,
-                  "impact": null,
-                  "note": ""
+                  "result": "MINOR",
+                  "impact": "C",
+                  "note": "De definitieve dagindeling is bruikbaar als eindproduct, maar blijft kwetsbaar bij handmatige overzetting."
                 },
                 "duidelijkheid": {
-                  "result": null,
-                  "impact": null,
-                  "note": ""
+                  "result": "MINOR",
+                  "impact": "C",
+                  "note": "De dagindeling is intern duidelijk, maar publicatie vraagt nog een nauwkeurige vertaalslag naar Epic."
                 },
                 "tijdigheid": {
-                  "result": null,
+                  "result": "GOOD",
                   "impact": null,
                   "note": ""
                 },
                 "standaard": {
-                  "result": null,
-                  "impact": null,
-                  "note": ""
+                  "result": "MODERATE",
+                  "impact": "B",
+                  "note": " De definitieve dagindeling staat in Excel terwijl het uitvoeringssysteem Epic is, waardoor de standaard niet integraal doorloopt."
                 },
                 "overdracht": {
-                  "result": null,
-                  "impact": null,
-                  "note": ""
+                  "result": "MINOR",
+                  "impact": "B",
+                  "note": "De input wordt netjes doorgegeven, maar niet in hetzelfde systeem waarin de uitvoering plaatsvindt."
                 }
               },
               "systemData": {
@@ -27088,7 +27230,28 @@
                   }
                 ]
               },
-              "inputDefinitions": [],
+              "inputDefinitions": [
+                {
+                  "item": "Definitieve dagindeling per arts en per dag ",
+                  "specifications": "",
+                  "type": "HARD"
+                },
+                {
+                  "item": "Definitieve open en gesloten blokken ",
+                  "specifications": "",
+                  "type": "HARD"
+                },
+                {
+                  "item": "Duidelijkheid welke wijzigingen al verwerkt zijn ",
+                  "specifications": "",
+                  "type": "HARD"
+                },
+                {
+                  "item": "Toelichting bij bijzondere weken",
+                  "specifications": "",
+                  "type": "SOFT"
+                }
+              ],
               "disruptions": [],
               "workExp": null,
               "workExpNote": "",
