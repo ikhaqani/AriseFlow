@@ -45304,7 +45304,7 @@
               "systemData": {
                 "isMulti": false,
                 "systemName": "",
-                "calculatedScore": null,
+                "calculatedScore": 75,
                 "systems": [
                   {
                     "id": "cdb4e295-ec48-40d0-8497-35400b01398d",
@@ -45325,12 +45325,21 @@
                   "multi": false,
                   "systems": [
                     {
-                      "id": "7caaf367-6fff-4346-912d-8a4e1ca02f6a",
-                      "name": "",
+                      "name": "Epic",
                       "legacy": false,
                       "future": "",
-                      "qa": {},
-                      "score": null
+                      "qa": {
+                        "q1": "SOMETIMES",
+                        "q1_note": "Epic laat zien wie klinisch staat ingepland, maar niet vanzelf of die inzet ook praktisch klopt voor de uiteindelijke kamerverdeling. Daardoor blijft extra controle nodig.",
+                        "q2": "SOMETIMES",
+                        "q3": "SOMETIMES",
+                        "q3_note": "In deze stap wordt vooral gecontroleerd. De dubbele verwerking ontstaat pas wanneer de informatie daarna in Excel wordt vertaald.",
+                        "q4": "NEVER",
+                        "q4_note": "Een arts kan formeel klinisch ingepland staan, terwijl de feitelijke inzet of benodigde kamervoorwaarden later anders blijken.",
+                        "q2_note": "Het rooster is zichtbaar, maar niet alle uitzonderingen en latere wijzigingen zijn meteen logisch te overzien voor kamertoewijzing.",
+                        "q5_note": "Zonder Epic is het artsenrooster niet betrouwbaar te controleren en kan de kamerplanning niet goed starten"
+                      },
+                      "score": 75
                     }
                   ],
                   "activeSystemIdx": 0
@@ -45832,7 +45841,7 @@
               "systemData": {
                 "isMulti": false,
                 "systemName": "",
-                "calculatedScore": null,
+                "calculatedScore": 33,
                 "systems": [
                   {
                     "id": "16b13bd8-8fa0-467b-a8d6-e2c76d0ebfda",
@@ -45848,7 +45857,31 @@
                     },
                     "calculatedScore": null
                   }
-                ]
+                ],
+                "systemsMeta": {
+                  "multi": false,
+                  "systems": [
+                    {
+                      "name": "Excel",
+                      "legacy": false,
+                      "future": "",
+                      "qa": {
+                        "q1": "ALWAYS",
+                        "q1_note": "Excel wordt gebruikt omdat de kamerbehoefte niet rechtstreeks en bruikbaar uit Epic volgt. Daarmee is Excel hier feitelijk een tussenoplossing.",
+                        "q2": "SOMETIMES",
+                        "q2_note": "De inventarisatie kan goed in Excel, maar alle logica moet handmatig worden opgebouwd en bewaakt.",
+                        "q3": "OFTEN",
+                        "q3_note": "De roosterinformatie staat al in Epic en wordt daarna opnieuw in Excel verwerkt om de kamerbehoefte inzichtelijk te maken.",
+                        "q4": "OFTEN",
+                        "q4_note": "Het handmatig vertalen van artsenrooster naar kamerbehoefte maakt deze stap gevoelig voor vergeten voorwaarden of onjuiste interpretatie.",
+                        "q5": "RISK",
+                        "q5_note": "Zonder Excel ontbreekt het werkdocument waarin de kamerbehoefte overzichtelijk wordt opgebouwd."
+                      },
+                      "score": 33
+                    }
+                  ],
+                  "activeSystemIdx": 0
+                }
               },
               "inputDefinitions": [],
               "disruptions": [],
@@ -46299,7 +46332,7 @@
               "systemData": {
                 "isMulti": false,
                 "systemName": "",
-                "calculatedScore": null,
+                "calculatedScore": 53,
                 "systems": [
                   {
                     "id": "6ea9effd-426c-433a-bad4-5f03711481ee",
@@ -46315,7 +46348,31 @@
                     },
                     "calculatedScore": null
                   }
-                ]
+                ],
+                "systemsMeta": {
+                  "multi": false,
+                  "systems": [
+                    {
+                      "name": "Excel",
+                      "legacy": false,
+                      "future": "",
+                      "qa": {
+                        "q1": "OFTEN",
+                        "q1_note": " Excel ondersteunt de verdeling, maar niet de onderliggende logica van kamerregels, doelgebieden en uitzonderingen. Die kennis zit vooral in het hoofd van de planner.",
+                        "q2": "SOMETIMES",
+                        "q2_note": "Het systeem is flexibel, maar vraagt veel handmatige afwegingen voordat een werkbare kamerindeling ontstaat.",
+                        "q3": "SOMETIMES",
+                        "q3_note": "De kamerbehoefte staat al in Excel, maar moet opnieuw worden doorvertaald naar een concrete indeling per kamer.",
+                        "q4": "OFTEN",
+                        "q4_note": "Een verkeerde toewijzing van type kamer, locatie of doelgebied is in Excel makkelijk gemaakt en niet automatisch afgevangen.",
+                        "q5": "DELAY",
+                        "q5_note": "Zonder Excel valt de feitelijke puzzel van behoefte naar kamerindeling grotendeels weg."
+                      },
+                      "score": 53
+                    }
+                  ],
+                  "activeSystemIdx": 0
+                }
               },
               "inputDefinitions": [],
               "disruptions": [],
@@ -46766,7 +46823,7 @@
               "systemData": {
                 "isMulti": false,
                 "systemName": "",
-                "calculatedScore": null,
+                "calculatedScore": 41,
                 "systems": [
                   {
                     "id": "7483fa29-abf9-4f56-aba8-9750d8b76f84",
@@ -46782,7 +46839,30 @@
                     },
                     "calculatedScore": null
                   }
-                ]
+                ],
+                "systemsMeta": {
+                  "multi": false,
+                  "systems": [
+                    {
+                      "name": "Excel",
+                      "legacy": false,
+                      "future": "",
+                      "qa": {
+                        "q1": "OFTEN",
+                        "q1_note": "Overbezetting, oneerlijke verdeling of botsende voorwaarden worden niet door het systeem opgelost. Dat vraagt volledig handmatig herschikken.",
+                        "q3_note": "De conceptindeling bestaat al, maar moet opnieuw worden aangepast, verschoven en doorgerekend.",
+                        "q3": "SOMETIMES",
+                        "q2_note": "Deze stap kost tijd omdat steeds opnieuw moet worden gekeken welke combinatie nog net werkbaar is.",
+                        "q4": "OFTEN",
+                        "q4_note": "Juist in het oplossen van knelpunten is de kans groot dat een nieuwe onbalans of een onlogische toewijzing ontstaat.",
+                        "q5": "RISK",
+                        "q5_note": "Zonder Excel kunnen knelpunten niet meer bestuurbaar worden opgelost en ontstaat snel verlies van overzicht."
+                      },
+                      "score": 41
+                    }
+                  ],
+                  "activeSystemIdx": 0
+                }
               },
               "inputDefinitions": [],
               "disruptions": [],
@@ -47233,7 +47313,7 @@
               "systemData": {
                 "isMulti": false,
                 "systemName": "",
-                "calculatedScore": null,
+                "calculatedScore": 73,
                 "systems": [
                   {
                     "id": "de4c7164-5093-45af-8cdb-482291cd698d",
@@ -47249,7 +47329,31 @@
                     },
                     "calculatedScore": null
                   }
-                ]
+                ],
+                "systemsMeta": {
+                  "multi": false,
+                  "systems": [
+                    {
+                      "name": "Mail / Excel",
+                      "legacy": false,
+                      "future": "",
+                      "qa": {
+                        "q1": "SOMETIMES",
+                        "q1_note": "De controle loopt via mail en losse terugkoppeling. Er is geen vaste controleworkflow, waardoor verduidelijking en heen en weer sturen nodig kan zijn.",
+                        "q2": "SOMETIMES",
+                        "q2_note": "De inhoud is zichtbaar, maar feedback is niet gestructureerd en hangt af van hoe de polikliniek reageert.",
+                        "q3": "NEVER",
+                        "q3_note": "De voorlopige indeling zelf staat al in Excel. Mail wordt vooral gebruikt voor de overdracht en terugkoppeling.",
+                        "q4": "SOMETIMES",
+                        "q4_note": "Feedback kan gebaseerd zijn op lokale voorkeuren of looplogica die niet vooraf in het model zaten, waardoor interpretatieverschillen ontstaan.",
+                        "q5": "DELAY",
+                        "q5_note": "De indeling kan inhoudelijk blijven bestaan, maar de terugkoppeling en afstemming lopen vertraging op."
+                      },
+                      "score": 73
+                    }
+                  ],
+                  "activeSystemIdx": 0
+                }
               },
               "inputDefinitions": [],
               "disruptions": [],
@@ -47700,7 +47804,7 @@
               "systemData": {
                 "isMulti": false,
                 "systemName": "",
-                "calculatedScore": null,
+                "calculatedScore": 66,
                 "systems": [
                   {
                     "id": "93a4a20c-5513-4ba9-b85c-2b316401356a",
@@ -47716,7 +47820,31 @@
                     },
                     "calculatedScore": null
                   }
-                ]
+                ],
+                "systemsMeta": {
+                  "multi": false,
+                  "systems": [
+                    {
+                      "name": "Excel",
+                      "legacy": false,
+                      "future": "",
+                      "qa": {
+                        "q1_note": "Excel is bruikbaar om feedback te verwerken, maar niet om feedback logisch te structureren of herkomst en reden van wijzigingen goed te bewaken.",
+                        "q1": "SOMETIMES",
+                        "q2": "SOMETIMES",
+                        "q2_note": "De verwerking zelf is mogelijk, maar blijft volledig handmatig en afhankelijk van hoe duidelijk de feedback was.",
+                        "q3": "SOMETIMES",
+                        "q3_note": "De indeling bestaat al en moet na feedback opnieuw worden aangepast in hetzelfde bestand.",
+                        "q4": "SOMETIMES",
+                        "q4_note": "Een wijziging kan goed zijn doorgevoerd maar elders weer een nieuw knelpunt veroorzaken zonder automatische waarschuwing",
+                        "q5": "DELAY",
+                        "q5_note": "De verwerking van feedback schuift dan op, maar de inhoud van de kamerindeling is niet direct verloren."
+                      },
+                      "score": 66
+                    }
+                  ],
+                  "activeSystemIdx": 0
+                }
               },
               "inputDefinitions": [],
               "disruptions": [],
@@ -48167,7 +48295,7 @@
               "systemData": {
                 "isMulti": false,
                 "systemName": "",
-                "calculatedScore": null,
+                "calculatedScore": 40,
                 "systems": [
                   {
                     "id": "709a5a8a-81f6-44c0-a160-2838c77cdb72",
@@ -48183,7 +48311,31 @@
                     },
                     "calculatedScore": null
                   }
-                ]
+                ],
+                "systemsMeta": {
+                  "multi": false,
+                  "systems": [
+                    {
+                      "name": "Epic",
+                      "legacy": false,
+                      "future": "",
+                      "qa": {
+                        "q1": "SOMETIMES",
+                        "q1_note": "De definitieve indeling moet nog handmatig in Epic worden gekoppeld. Het systeem trekt de kamerindeling niet vanzelf door vanuit het werkdocument.",
+                        "q2": "SOMETIMES",
+                        "q2_note": "De publicatiestap vraagt nog een laatste vertaalslag van Excel naar Epic voordat de indeling zichtbaar is voor uitvoering",
+                        "q3": "OFTEN",
+                        "q3_note": "De definitieve kamerindeling staat al vast in Excel en moet daarna opnieuw in Epic worden ingevoerd.",
+                        "q4": "OFTEN",
+                        "q4_note": "Bij het handmatig koppelen kunnen kamers verkeerd worden toegewezen of wijzigingen onvolledig worden overgenomen.",
+                        "q5": "STOP",
+                        "q5_note": "Zonder Epic kan de kamerindeling niet zichtbaar worden gemaakt voor artsen, poli en patiëntenstroom."
+                      },
+                      "score": 40
+                    }
+                  ],
+                  "activeSystemIdx": 0
+                }
               },
               "inputDefinitions": [],
               "disruptions": [],
