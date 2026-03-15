@@ -132240,7 +132240,7 @@
               "systemData": {
                 "isMulti": false,
                 "systemName": "",
-                "calculatedScore": null,
+                "calculatedScore": 80,
                 "systems": [
                   {
                     "id": "e6946724-487f-4359-b5e6-5fac1bf258fa",
@@ -132261,12 +132261,22 @@
                   "multi": false,
                   "systems": [
                     {
-                      "id": "57137f0a-eb5c-47c4-9397-3b54c7dabced",
                       "name": "",
                       "legacy": false,
                       "future": "",
-                      "qa": {},
-                      "score": null
+                      "qa": {
+                        "q1": "NEVER",
+                        "q1_note": "De taak komt normaal gewoon binnen via Radiotherapie Web. Pas bij uitval of als de taak niet zichtbaar is, ontstaat een workaround zoals bellen.",
+                        "q2": "NEVER",
+                        "q2_note": "Het openen van de taak is op zichzelf eenvoudig en juist bedoeld om het werk te structureren.",
+                        "q3": "NEVER",
+                        "q3_note": "In deze stap wordt alleen de taak geopend en beoordeeld.",
+                        "q4": "SOMETIMES",
+                        "q4_note": "Als de taak niet goed zichtbaar is of niet goed doorkomt, weet de arts niet dat er iets klaarstaat om in te tekenen.",
+                        "q5": "RISK",
+                        "q5_note": "Zonder Radiotherapie Web ontbreekt de formele trigger om het proces te starten."
+                      },
+                      "score": 80
                     }
                   ],
                   "activeSystemIdx": 0
@@ -132778,7 +132788,7 @@
               "systemData": {
                 "isMulti": false,
                 "systemName": "",
-                "calculatedScore": null,
+                "calculatedScore": 59,
                 "systems": [
                   {
                     "id": "88ce5319-6809-4ac4-9a19-e811d899e765",
@@ -132794,7 +132804,31 @@
                     },
                     "calculatedScore": null
                   }
-                ]
+                ],
+                "systemsMeta": {
+                  "multi": false,
+                  "systems": [
+                    {
+                      "name": "Radiotherapie Web",
+                      "legacy": false,
+                      "future": "",
+                      "qa": {
+                        "q1": "SOMETIMES",
+                        "q1_note": "De taak is bruikbaar als trigger, maar Radiotherapie Web opent niet direct de juiste patiënt in het plansysteem. Daardoor is een tussenhandeling nodig.",
+                        "q3": "SOMETIMES",
+                        "q2": "SOMETIMES",
+                        "q2_note": "De input is aanwezig, maar nog niet geïntegreerd met Eclipse/Ethos, waardoor de volgende stap omslachtiger wordt.",
+                        "q3_note": "De informatie uit de taak wordt opnieuw gebruikt om de patiënt in het plansysteem te vinden.",
+                        "q4": "SOMETIMES",
+                        "q5": "RISK",
+                        "q4_note": "De taak geeft niet direct een foutloze overgang naar het plansysteem, waardoor verkeerde selectie of extra zoekwerk kan ontstaan.",
+                        "q5_note": "Zonder deze taakbeoordeling ontbreekt een goede start voor de volgende stap en wordt het lastiger om de juiste patiënt op te pakken."
+                      },
+                      "score": 59
+                    }
+                  ],
+                  "activeSystemIdx": 0
+                }
               },
               "inputDefinitions": [],
               "disruptions": [],
@@ -133245,7 +133279,7 @@
               "systemData": {
                 "isMulti": false,
                 "systemName": "",
-                "calculatedScore": null,
+                "calculatedScore": 46,
                 "systems": [
                   {
                     "id": "3fff9730-e349-483b-9ca8-8bb5f320af12",
@@ -133261,7 +133295,31 @@
                     },
                     "calculatedScore": null
                   }
-                ]
+                ],
+                "systemsMeta": {
+                  "multi": false,
+                  "systems": [
+                    {
+                      "name": "Eclipse / Ethos",
+                      "legacy": false,
+                      "future": "",
+                      "qa": {
+                        "q1": "OFTEN",
+                        "q1_note": "De concept contourset is vaak niet direct bruikbaar en moet regelmatig worden gecorrigeerd, geleegd of opnieuw opgebouwd.",
+                        "q2": "SOMETIMES",
+                        "q2_note": "De input is technisch aanwezig, maar inhoudelijk vaak nog niet goed genoeg om direct door te kunnen.",
+                        "q3": "NEVER",
+                        "q3_note": "Er wordt niet letterlijk dubbel geregistreerd, maar wel veel hersteld en opnieuw gecontroleerd.",
+                        "q4": "OFTEN",
+                        "q4_note": "Oude scans, oude structuren en automatisch geladen contouren maken het risico groot dat de verkeerde basis wordt gebruikt.",
+                        "q5": "STOP",
+                        "q5_note": "Zonder Eclipse/Ethos is deze contourinput niet beschikbaar en kan inhoudelijke controle niet plaatsvinden."
+                      },
+                      "score": 46
+                    }
+                  ],
+                  "activeSystemIdx": 0
+                }
               },
               "inputDefinitions": [],
               "disruptions": [],
@@ -133712,7 +133770,7 @@
               "systemData": {
                 "isMulti": false,
                 "systemName": "",
-                "calculatedScore": null,
+                "calculatedScore": 60,
                 "systems": [
                   {
                     "id": "b48dc9d6-cb36-4506-a465-22e07c313101",
@@ -133728,7 +133786,31 @@
                     },
                     "calculatedScore": null
                   }
-                ]
+                ],
+                "systemsMeta": {
+                  "multi": false,
+                  "systems": [
+                    {
+                      "name": "Eclipse / Ethos",
+                      "legacy": false,
+                      "future": "",
+                      "qa": {
+                        "q1": "SOMETIMES",
+                        "q1_note": "Na controle is de contourset beter bruikbaar, maar de kwaliteit blijft afhankelijk van veel handmatige correctie in het voorafgaande werk.",
+                        "q2": "SOMETIMES",
+                        "q2_note": "De input is bruikbaar voor intekenen, maar komt niet altijd schoon en stabiel genoeg uit het systeem.",
+                        "q3": "NEVER",
+                        "q3_note": "De gecontroleerde contourset is inhoudelijke input, geen dubbele administratie.",
+                        "q4_note": "Als in de vorige stap iets gemist is, wordt dat nu meegenomen als basis voor het intekenen.",
+                        "q4": "SOMETIMES",
+                        "q5_note": "Zonder Eclipse/Ethos is de gecontroleerde contourset niet beschikbaar voor het intekenen.",
+                        "q5": "STOP"
+                      },
+                      "score": 60
+                    }
+                  ],
+                  "activeSystemIdx": 0
+                }
               },
               "inputDefinitions": [],
               "disruptions": [],
@@ -134179,7 +134261,7 @@
               "systemData": {
                 "isMulti": false,
                 "systemName": "",
-                "calculatedScore": null,
+                "calculatedScore": 80,
                 "systems": [
                   {
                     "id": "e907b435-852d-44e0-8c2f-b9114153c337",
@@ -134195,7 +134277,31 @@
                     },
                     "calculatedScore": null
                   }
-                ]
+                ],
+                "systemsMeta": {
+                  "multi": false,
+                  "systems": [
+                    {
+                      "name": "Eclipse / Ethos",
+                      "legacy": false,
+                      "future": "",
+                      "qa": {
+                        "q1": "NEVER",
+                        "q1_note": "Het ingetekende doelgebied is in principe de normale output van het systeem voor deze stap.",
+                        "q2": "NEVER",
+                        "q2_note": "Als het doelgebied eenmaal goed is ingetekend, is het een heldere input voor goedkeuring.",
+                        "q3": "NEVER",
+                        "q3_note": "Het betreft één inhoudelijke output van het intekenwerk.",
+                        "q4": "SOMETIMES",
+                        "q4_note": "Als er eerder in de keten iets niet goed zat, wordt dat met deze input formeel verder gebracht.",
+                        "q5": "RISK",
+                        "q5_note": "Zonder toegang tot deze output kan de structure set niet goed worden vrijgegeven."
+                      },
+                      "score": 80
+                    }
+                  ],
+                  "activeSystemIdx": 0
+                }
               },
               "inputDefinitions": [],
               "disruptions": [],
@@ -134646,7 +134752,7 @@
               "systemData": {
                 "isMulti": false,
                 "systemName": "",
-                "calculatedScore": null,
+                "calculatedScore": 53,
                 "systems": [
                   {
                     "id": "6ccb7b27-c517-4470-ba3b-e70d7ebf6ea8",
@@ -134662,7 +134768,31 @@
                     },
                     "calculatedScore": null
                   }
-                ]
+                ],
+                "systemsMeta": {
+                  "multi": false,
+                  "systems": [
+                    {
+                      "name": "Eclipse / Ethos",
+                      "legacy": false,
+                      "future": "",
+                      "qa": {
+                        "q1": "SOMETIMES",
+                        "q1_note": "De structure set is goedgekeurd, maar moet daarna nog apart zichtbaar worden gemaakt voor OB via een extra handeling.",
+                        "q2": "SOMETIMES",
+                        "q2_note": "De input is formeel gereed, maar niet automatisch doorgezet naar de volgende processtap.",
+                        "q3": "SOMETIMES",
+                        "q3_note": "De inhoud is goedgekeurd, maar er volgt nog een extra proceshandeling om de casus verder te brengen.",
+                        "q4": "OFTEN",
+                        "q4_note": "Als de vervolghandeling niet wordt gedaan, blijft een goedgekeurde structure set hangen zonder goede overdracht naar OB.",
+                        "q5": "RISK",
+                        "q5_note": "Zonder deze output kan de volgende stap niet goed starten."
+                      },
+                      "score": 53
+                    }
+                  ],
+                  "activeSystemIdx": 0
+                }
               },
               "inputDefinitions": [],
               "disruptions": [],
@@ -135113,7 +135243,7 @@
               "systemData": {
                 "isMulti": false,
                 "systemName": "",
-                "calculatedScore": null,
+                "calculatedScore": 53,
                 "systems": [
                   {
                     "id": "68ebba6c-ed03-427a-a896-ac3c757875ed",
@@ -135129,7 +135259,31 @@
                     },
                     "calculatedScore": null
                   }
-                ]
+                ],
+                "systemsMeta": {
+                  "multi": false,
+                  "systems": [
+                    {
+                      "name": "Radiotherapie Web",
+                      "legacy": false,
+                      "future": "",
+                      "qa": {
+                        "q1": "SOMETIMES",
+                        "q1_note": "Het afronden van de intekentaak staat los van de inhoudelijke afronding in Eclipse/Ethos. Daardoor zijn twee gescheiden afrondmomenten nodig.",
+                        "q2": "SOMETIMES",
+                        "q2_note": "Radiotherapie Web levert de taak als administratieve input, maar die sluit niet automatisch aan op de inhoudelijke systeemstatus.",
+                        "q3": "SOMETIMES",
+                        "q3_note": "De inhoud is elders al afgerond, maar moet in Radiotherapie Web nog apart administratief worden afgehandeld.",
+                        "q4": "OFTEN",
+                        "q4_note": "Als de taak niet goed administratief wordt bijgewerkt, ontstaat verschil tussen inhoudelijke status en processtatus.",
+                        "q5": "RISK",
+                        "q5_note": "Dan kan het proces niet formeel worden afgerond of goed worden overgedragen."
+                      },
+                      "score": 53
+                    }
+                  ],
+                  "activeSystemIdx": 0
+                }
               },
               "inputDefinitions": [],
               "disruptions": [],
