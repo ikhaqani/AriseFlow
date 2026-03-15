@@ -4,7 +4,7 @@
   "author": "Anoniem",
   "created": "2026-01-16T08:48:17.021Z",
   "version": "2.7",
-  "activeSheetId": "12c3644a-dd1c-45cd-8019-0e9771617f93",
+  "activeSheetId": "5ed4ea36-2f52-4698-96bf-4cd2cdfe1ade",
   "sheets": [
     {
       "id": "858c26e5-f7ec-4311-b503-641f99e65c84",
@@ -136054,34 +136054,34 @@
               "improvements": [],
               "qa": {
                 "compleet": {
-                  "result": null,
-                  "impact": null,
-                  "note": ""
+                  "result": "MINOR",
+                  "impact": "B",
+                  "note": "De casus is zichtbaar voor OB, maar zichtbaarheid alleen is niet genoeg; de juiste beelden en context moeten daarna nog goed klaargezet worden."
                 },
                 "kwaliteit": {
-                  "result": null,
-                  "impact": null,
-                  "note": ""
+                  "result": "MINOR",
+                  "impact": "C",
+                  "note": "De input is bruikbaar als start voor OB, maar zegt nog niet vanzelf dat alles inhoudelijk goed voorbereid is voor bespreking."
                 },
                 "duidelijkheid": {
-                  "result": null,
-                  "impact": null,
-                  "note": ""
+                  "result": "MINOR",
+                  "impact": "C",
+                  "note": "Het is duidelijk dat de casus op OB hoort, maar nog niet altijd meteen hoe compleet of bespreekklaar die casus is."
                 },
                 "tijdigheid": {
-                  "result": null,
+                  "result": "GOOD",
                   "impact": null,
                   "note": ""
                 },
                 "standaard": {
-                  "result": null,
-                  "impact": null,
-                  "note": ""
+                  "result": "MINOR",
+                  "impact": "C",
+                  "note": "De casus wordt via een vaste route zichtbaar, maar die zichtbaarheid hangt nog af van een aparte voorgaande handeling."
                 },
                 "overdracht": {
-                  "result": null,
-                  "impact": null,
-                  "note": ""
+                  "result": "MINOR",
+                  "impact": "B",
+                  "note": "De overdracht naar OB werkt, maar is nog niet volledig naadloos omdat de zichtbaarheid niet automatisch uit de vorige inhoudelijke stap volgt."
                 }
               },
               "systemData": {
@@ -136105,7 +136105,28 @@
                   }
                 ]
               },
-              "inputDefinitions": [],
+              "inputDefinitions": [
+                {
+                  "item": "Casus zichtbaar op de OB-stroom ",
+                  "specifications": "",
+                  "type": "HARD"
+                },
+                {
+                  "item": "Juiste patiëntkoppeling ",
+                  "specifications": "",
+                  "type": "HARD"
+                },
+                {
+                  "item": "Toegang tot de juiste beeldset ",
+                  "specifications": "",
+                  "type": "HARD"
+                },
+                {
+                  "item": "Duidelijkheid dat de intekening gereed is voor bespreking ",
+                  "specifications": "",
+                  "type": "HARD"
+                }
+              ],
               "disruptions": [],
               "workExp": null,
               "workExpNote": "",
@@ -136545,34 +136566,34 @@
               "improvements": [],
               "qa": {
                 "compleet": {
-                  "result": null,
-                  "impact": null,
-                  "note": ""
+                  "result": "MINOR",
+                  "impact": "B",
+                  "note": "De casus staat klaar, maar dat betekent nog niet automatisch dat alle juiste beelden, match en context direct goed in beeld staan voor een soepele bespreking."
                 },
                 "kwaliteit": {
-                  "result": null,
-                  "impact": null,
-                  "note": ""
+                  "result": "MINOR",
+                  "impact": "C",
+                  "note": "De input is bruikbaar voor bespreking, maar de kwaliteit hangt nog af van hoe goed de beelden zijn voorbereid en getoond."
                 },
                 "duidelijkheid": {
-                  "result": null,
-                  "impact": null,
-                  "note": ""
+                  "result": "MODERATE",
+                  "impact": "B",
+                  "note": "Niet elke casus is even makkelijk te openen of te tonen, omdat verschillende workflows, scans en matches door elkaar kunnen lopen."
                 },
                 "tijdigheid": {
-                  "result": null,
+                  "result": "GOOD",
                   "impact": null,
                   "note": ""
                 },
                 "standaard": {
-                  "result": null,
-                  "impact": null,
-                  "note": ""
+                  "result": "MINOR",
+                  "impact": "C",
+                  "note": "Casussen worden op een vaste manier klaargezet, maar de praktische presentatie verschilt per type casus."
                 },
                 "overdracht": {
-                  "result": null,
-                  "impact": null,
-                  "note": ""
+                  "result": "MINOR",
+                  "impact": "C",
+                  "note": "De casus wordt logisch doorgegeven aan de voorzitter, maar niet altijd in een vorm die direct zonder zoekwerk bespreekbaar is."
                 }
               },
               "systemData": {
@@ -136596,7 +136617,33 @@
                   }
                 ]
               },
-              "inputDefinitions": [],
+              "inputDefinitions": [
+                {
+                  "item": "Casus open in het juiste plansysteem ",
+                  "specifications": "",
+                  "type": "HARD"
+                },
+                {
+                  "item": "Juiste scan of beeldreeks",
+                  "specifications": "",
+                  "type": "HARD"
+                },
+                {
+                  "item": "Juiste match zichtbaar",
+                  "specifications": "",
+                  "type": "HARD"
+                },
+                {
+                  "item": "Toegankelijke contouren en intekening",
+                  "specifications": "",
+                  "type": "HARD"
+                },
+                {
+                  "item": "Eventuele aanvullende beeldvorming ",
+                  "specifications": "",
+                  "type": "SOFT"
+                }
+              ],
               "disruptions": [],
               "workExp": null,
               "workExpNote": "",
@@ -137036,32 +137083,32 @@
               "improvements": [],
               "qa": {
                 "compleet": {
-                  "result": null,
-                  "impact": null,
-                  "note": ""
+                  "result": "MINOR",
+                  "impact": "C",
+                  "note": "De casus is geselecteerd, maar de behandelend arts moet nog steeds zelf de relevante context en kern van de casus goed toelichten."
                 },
                 "kwaliteit": {
-                  "result": null,
-                  "impact": null,
-                  "note": ""
+                  "result": "MINOR",
+                  "impact": "C",
+                  "note": "De selectie is bruikbaar, maar zegt nog niets over hoe volledig of helder de inhoudelijke presentatie zal zijn."
                 },
                 "duidelijkheid": {
-                  "result": null,
-                  "impact": null,
-                  "note": ""
+                  "result": "MINOR",
+                  "impact": "C",
+                  "note": "Het is duidelijk welke patiënt besproken wordt, maar niet automatisch of alle relevante voorgeschiedenis en context direct helder zijn."
                 },
                 "tijdigheid": {
-                  "result": null,
+                  "result": "GOOD",
                   "impact": null,
                   "note": ""
                 },
                 "standaard": {
-                  "result": null,
+                  "result": "GOOD",
                   "impact": null,
                   "note": ""
                 },
                 "overdracht": {
-                  "result": null,
+                  "result": "GOOD",
                   "impact": null,
                   "note": ""
                 }
@@ -137087,7 +137134,28 @@
                   }
                 ]
               },
-              "inputDefinitions": [],
+              "inputDefinitions": [
+                {
+                  "item": "Geselecteerde casus ",
+                  "specifications": "",
+                  "type": "HARD"
+                },
+                {
+                  "item": "Behandelend arts of vervanger ",
+                  "specifications": "",
+                  "type": "HARD"
+                },
+                {
+                  "item": "Toegang tot juiste beelden ",
+                  "specifications": "",
+                  "type": "HARD"
+                },
+                {
+                  "item": "Relevante klinische context ",
+                  "specifications": "",
+                  "type": "HARD"
+                }
+              ],
               "disruptions": [],
               "workExp": null,
               "workExpNote": "",
@@ -137527,34 +137595,34 @@
               "improvements": [],
               "qa": {
                 "compleet": {
-                  "result": null,
-                  "impact": null,
-                  "note": ""
+                  "result": "MINOR",
+                  "impact": "B",
+                  "note": "De inhoud is gedeeld, maar de kwaliteit van de beoordeling hangt er nog van af of alle relevante beelden, matches en context echt goed zijn meegenomen"
                 },
                 "kwaliteit": {
-                  "result": null,
-                  "impact": null,
-                  "note": ""
+                  "result": "MINOR",
+                  "impact": "B",
+                  "note": "De input is meestal bruikbaar, maar als verkeerde beelden of onvolledige context worden getoond, beïnvloedt dat direct de beoordeling."
                 },
                 "duidelijkheid": {
-                  "result": null,
-                  "impact": null,
-                  "note": ""
+                  "result": "MODERATE",
+                  "impact": "B",
+                  "note": "Niet iedereen kent iedere workflow of beeldopbouw even goed, waardoor interpretatie tijdens de bespreking extra inspanning vraagt."
                 },
                 "tijdigheid": {
-                  "result": null,
+                  "result": "GOOD",
                   "impact": null,
                   "note": ""
                 },
                 "standaard": {
-                  "result": null,
-                  "impact": null,
-                  "note": ""
+                  "result": "MODERATE",
+                  "impact": "C",
+                  "note": "De casuspresentatie volgt geen volledig uniforme manier van tonen of navigeren en blijft afhankelijk van degene die de beelden bedient."
                 },
                 "overdracht": {
-                  "result": null,
-                  "impact": null,
-                  "note": ""
+                  "result": "MINOR",
+                  "impact": "C",
+                  "note": "De inhoud wordt gedeeld, maar niet altijd op een visueel of inhoudelijk volledig gestandaardiseerde manier."
                 }
               },
               "systemData": {
@@ -137578,7 +137646,33 @@
                   }
                 ]
               },
-              "inputDefinitions": [],
+              "inputDefinitions": [
+                {
+                  "item": "Gedeelde casuscontext",
+                  "specifications": "",
+                  "type": "HARD"
+                },
+                {
+                  "item": "Juiste intekening in beeld ",
+                  "specifications": "",
+                  "type": "HARD"
+                },
+                {
+                  "item": "Juiste match of scanreeks ",
+                  "specifications": "",
+                  "type": "HARD"
+                },
+                {
+                  "item": "Mogelijkheid om aanvullende beelden te tonen ",
+                  "specifications": "",
+                  "type": "HARD"
+                },
+                {
+                  "item": "Toelichting op relevante bijzonderheden ",
+                  "specifications": "",
+                  "type": "SOFT"
+                }
+              ],
               "disruptions": [],
               "workExp": null,
               "workExpNote": "",
@@ -138018,34 +138112,34 @@
               "improvements": [],
               "qa": {
                 "compleet": {
-                  "result": null,
+                  "result": "GOOD",
                   "impact": null,
                   "note": ""
                 },
                 "kwaliteit": {
-                  "result": null,
-                  "impact": null,
-                  "note": ""
+                  "result": "MINOR",
+                  "impact": "A",
+                  "note": "De intekening is beoordeeld, maar als die beoordeling op onvolledige of verkeerd getoonde informatie is gebaseerd, wordt een fout direct meegenomen in het besluit."
                 },
                 "duidelijkheid": {
-                  "result": null,
-                  "impact": null,
-                  "note": ""
+                  "result": "MINOR",
+                  "impact": "C",
+                  "note": "Meestal is duidelijk wat het oordeel is, maar niet altijd is het voor iedereen meteen even scherp wat precies aangepast of geaccepteerd is."
                 },
                 "tijdigheid": {
-                  "result": null,
+                  "result": "GOOD",
                   "impact": null,
                   "note": ""
                 },
                 "standaard": {
-                  "result": null,
-                  "impact": null,
-                  "note": ""
+                  "result": "MINOR",
+                  "impact": "C",
+                  "note": "Er is een gezamenlijke beoordeling, maar de precieze weergave en besluitvorming zijn niet volledig gestandaardiseerd."
                 },
                 "overdracht": {
-                  "result": null,
-                  "impact": null,
-                  "note": ""
+                  "result": "MINOR",
+                  "impact": "C",
+                  "note": "De beoordeelde intekening gaat logisch door naar besluitvorming, maar nuance of detail kan mondeling blijven hangen."
                 }
               },
               "systemData": {
@@ -138069,7 +138163,28 @@
                   }
                 ]
               },
-              "inputDefinitions": [],
+              "inputDefinitions": [
+                {
+                  "item": "Beoordeelde intekening",
+                  "specifications": "",
+                  "type": "HARD"
+                },
+                {
+                  "item": "Duidelijk oordeel akkoord of aanpassen ",
+                  "specifications": "",
+                  "type": "HARD"
+                },
+                {
+                  "item": "Inzicht in relevante opmerkingen",
+                  "specifications": "",
+                  "type": "HARD"
+                },
+                {
+                  "item": "Visuele bevestiging van wat beoordeeld is",
+                  "specifications": "",
+                  "type": "SOFT"
+                }
+              ],
               "disruptions": [],
               "workExp": null,
               "workExpNote": "",
@@ -138509,34 +138624,34 @@
               "improvements": [],
               "qa": {
                 "compleet": {
-                  "result": null,
-                  "impact": null,
-                  "note": ""
+                  "result": "MINOR",
+                  "impact": "B",
+                  "note": "De uitkomst is aanwezig, maar moet nog praktisch worden vertaald naar afronden of doorschuiven; die vervolgstap zit nog niet vanzelf in de uitkomst zelf."
                 },
                 "kwaliteit": {
-                  "result": null,
-                  "impact": null,
-                  "note": ""
+                  "result": "MINOR",
+                  "impact": "C",
+                  "note": "De uitkomst is bruikbaar, maar niet altijd volledig uitgewerkt in hoe de vervolgactie exact moet worden uitgevoerd."
                 },
                 "duidelijkheid": {
-                  "result": null,
-                  "impact": null,
-                  "note": ""
+                  "result": "MODERATE",
+                  "impact": "B",
+                  "note": "Als niet expliciet genoeg is of een casus akkoord is, aangepast moet worden of doorgeschoven wordt, ontstaat onduidelijkheid in het vervolg."
                 },
                 "tijdigheid": {
-                  "result": null,
+                  "result": "GOOD",
                   "impact": null,
                   "note": ""
                 },
                 "standaard": {
-                  "result": null,
-                  "impact": null,
-                  "note": ""
+                  "result": "MODERATE",
+                  "impact": "C",
+                  "note": "De uitkomst ontstaat in de bespreking, maar de formulering en praktische vertaling ervan zijn niet volledig gestandaardiseerd."
                 },
                 "overdracht": {
-                  "result": null,
-                  "impact": null,
-                  "note": ""
+                  "result": "MODERATE",
+                  "impact": "B",
+                  "note": "De inhoudelijke uitkomst moet daarna nog apart praktisch verwerkt worden, waardoor overdracht niet in één gesloten stap plaatsvindt."
                 }
               },
               "systemData": {
@@ -138560,7 +138675,33 @@
                   }
                 ]
               },
-              "inputDefinitions": [],
+              "inputDefinitions": [
+                {
+                  "item": "Duidelijke OB-uitkomst ",
+                  "specifications": "",
+                  "type": "HARD"
+                },
+                {
+                  "item": "Akkoord of niet akkoord ",
+                  "specifications": "",
+                  "type": "HARD"
+                },
+                {
+                  "item": "Duidelijkheid of casus wordt doorgeschoven ",
+                  "specifications": "",
+                  "type": "HARD"
+                },
+                {
+                  "item": "Eventuele vervolgactie",
+                  "specifications": "",
+                  "type": "HARD"
+                },
+                {
+                  "item": "Toelichting op reden van doorschuiven ",
+                  "specifications": "",
+                  "type": "SOFT"
+                }
+              ],
               "disruptions": [],
               "workExp": null,
               "workExpNote": "",
@@ -139000,34 +139141,34 @@
               "improvements": [],
               "qa": {
                 "compleet": {
-                  "result": null,
-                  "impact": null,
-                  "note": ""
+                  "result": "MINOR",
+                  "impact": "B",
+                  "note": "De praktische status is bijgewerkt, maar dat betekent nog niet dat de bespreking ook formeel en volledig in Epic is vastgelegd."
                 },
                 "kwaliteit": {
-                  "result": null,
-                  "impact": null,
-                  "note": ""
+                  "result": "MINOR",
+                  "impact": "C",
+                  "note": "De status is bruikbaar voor vastlegging, maar blijft kwetsbaar als de praktische verwerking niet helemaal scherp was."
                 },
                 "duidelijkheid": {
-                  "result": null,
-                  "impact": null,
-                  "note": ""
+                  "result": "MODERATE",
+                  "impact": "B",
+                  "note": "Als niet precies duidelijk is of een casus besproken, doorgeschoven of aangepast is, kan de dossiervoering onvolledig of fout worden."
                 },
                 "tijdigheid": {
-                  "result": null,
+                  "result": "GOOD",
                   "impact": null,
                   "note": ""
                 },
                 "standaard": {
-                  "result": null,
-                  "impact": null,
-                  "note": ""
+                  "result": "MODERATE",
+                  "impact": "C",
+                  "note": "De status is bruikbaar, maar niet via één volledig uniforme en systeemgedwongen overdracht naar Epic."
                 },
                 "overdracht": {
-                  "result": null,
-                  "impact": null,
-                  "note": ""
+                  "result": "MINOR",
+                  "impact": "B",
+                  "note": "De status wordt doorgegeven, maar de formele vastlegging in Epic vraagt nog een aparte handeling in een ander systeem."
                 }
               },
               "systemData": {
@@ -139051,7 +139192,33 @@
                   }
                 ]
               },
-              "inputDefinitions": [],
+              "inputDefinitions": [
+                {
+                  "item": "Bijgewerkte OB-status",
+                  "specifications": "",
+                  "type": "HARD"
+                },
+                {
+                  "item": "Duidelijkheid of casus besproken is",
+                  "specifications": "",
+                  "type": "HARD"
+                },
+                {
+                  "item": "Duidelijkheid over uitkomst",
+                  "specifications": "",
+                  "type": "HARD"
+                },
+                {
+                  "item": "Juiste patiëntkoppeling voor Epic-vastlegging ",
+                  "specifications": "",
+                  "type": "HARD"
+                },
+                {
+                  "item": "Eventuele toelichting bij afwijkingen ",
+                  "specifications": "",
+                  "type": "SOFT"
+                }
+              ],
               "disruptions": [],
               "workExp": null,
               "workExpNote": "",
