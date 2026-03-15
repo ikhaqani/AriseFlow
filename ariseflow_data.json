@@ -45372,28 +45372,34 @@
               "improvements": [],
               "qa": {
                 "compleet": {
-                  "result": "",
-                  "note": ""
+                  "result": "MINOR",
+                  "impact": "B",
+                  "note": "Het artsenrooster geeft de basis van wie klinisch werkt, maar niet altijd alle praktische uitzonderingen die nodig zijn voor een correcte kamertoewijzing.\n"
                 },
                 "kwaliteit": {
-                  "result": "",
-                  "note": ""
+                  "result": "MINOR",
+                  "impact": "C",
+                  "note": "Het rooster is bruikbaar, maar formele aanwezigheid betekent niet altijd dat een arts ook praktisch inzetbaar is in die kamerlogica."
                 },
                 "duidelijkheid": {
-                  "result": "",
-                  "note": ""
+                  "result": "MINOR",
+                  "impact": "C",
+                  "note": "Het is duidelijk wie wanneer werkt, maar niet altijd direct welke kamercondities of uitzonderingen daarbij horen."
                 },
                 "tijdigheid": {
-                  "result": "",
+                  "result": "GOOD",
+                  "impact": null,
                   "note": ""
                 },
                 "standaard": {
-                  "result": "",
+                  "result": "GOOD",
+                  "impact": null,
                   "note": ""
                 },
                 "overdracht": {
-                  "result": "",
-                  "note": ""
+                  "result": "MINOR",
+                  "impact": "B",
+                  "note": "Het rooster wordt goed overgedragen, maar aanvullende bijzonderheden voor kamergebruik moeten vaak later nog worden meegenomen."
                 }
               },
               "systemData": {
@@ -45417,7 +45423,28 @@
                   }
                 ]
               },
-              "inputDefinitions": [],
+              "inputDefinitions": [
+                {
+                  "item": "Actueel artsenrooster per dagdeel ",
+                  "specifications": "",
+                  "type": "HARD"
+                },
+                {
+                  "item": "Klinische momenten per arts ",
+                  "specifications": "",
+                  "type": "HARD"
+                },
+                {
+                  "item": "Locatie Radboud of CWZ ",
+                  "specifications": "",
+                  "type": "HARD"
+                },
+                {
+                  "item": "Bekende roosterwijzigingen ",
+                  "specifications": "",
+                  "type": "SOFT"
+                }
+              ],
               "disruptions": [],
               "workExp": null,
               "workExpNote": "",
@@ -45431,7 +45458,8 @@
                 "onPassTargetProcessId": null,
                 "rule": "ALL_OK",
                 "note": ""
-              }
+              },
+              "linkedSourceIds": []
             },
             {
               "id": "d85617aa-ac08-4788-b2bb-a728ca8cccc2",
@@ -45901,34 +45929,34 @@
               "improvements": [],
               "qa": {
                 "compleet": {
-                  "result": null,
-                  "impact": null,
-                  "note": ""
+                  "result": "MINOR",
+                  "impact": "B",
+                  "note": "Het gecontroleerde rooster is voldoende om te starten, maar nog niet genoeg om direct de volledige kamerbehoefte goed te bepalen zonder extra kennis van kamerregels en doelgebieden.\n"
                 },
                 "kwaliteit": {
-                  "result": null,
-                  "impact": null,
-                  "note": ""
+                  "result": "MINOR",
+                  "impact": "C",
+                  "note": "Het rooster is als basis juist, maar nog niet volledig vertaald naar functionele kamervraag."
                 },
                 "duidelijkheid": {
-                  "result": null,
-                  "impact": null,
-                  "note": ""
+                  "result": "MODERATE",
+                  "impact": "B",
+                  "note": "Het rooster laat niet vanzelf zien welke arts welk type kamer nodig heeft en welke uitzonderingen gelden."
                 },
                 "tijdigheid": {
-                  "result": null,
+                  "result": "GOOD",
                   "impact": null,
                   "note": ""
                 },
                 "standaard": {
-                  "result": null,
-                  "impact": null,
-                  "note": ""
+                  "result": "MINOR",
+                  "impact": "C",
+                  "note": "Het rooster heeft een vaste basisvorm, maar de vertaalslag naar kamerbehoefte is niet standaard ingebouwd."
                 },
                 "overdracht": {
-                  "result": null,
-                  "impact": null,
-                  "note": ""
+                  "result": "MINOR",
+                  "impact": "C",
+                  "note": "Het gecontroleerde rooster wordt logisch doorgegeven, maar moet nog inhoudelijk worden geïnterpreteerd voor de volgende stap"
                 }
               },
               "systemData": {
@@ -45952,7 +45980,33 @@
                   }
                 ]
               },
-              "inputDefinitions": [],
+              "inputDefinitions": [
+                {
+                  "item": "Gecontroleerd artsenrooster",
+                  "specifications": "",
+                  "type": "HARD"
+                },
+                {
+                  "item": "Klinische blokken per arts ",
+                  "specifications": "",
+                  "type": "HARD"
+                },
+                {
+                  "item": "Locatie per blok ",
+                  "specifications": "",
+                  "type": "HARD"
+                },
+                {
+                  "item": "Doelgebied of kamertype-eis ",
+                  "specifications": "",
+                  "type": "HARD"
+                },
+                {
+                  "item": "Overzicht bijzondere spreekuren",
+                  "specifications": "",
+                  "type": "SOFT"
+                }
+              ],
               "disruptions": [],
               "workExp": null,
               "workExpNote": "",
@@ -46392,34 +46446,34 @@
               "improvements": [],
               "qa": {
                 "compleet": {
-                  "result": null,
-                  "impact": null,
-                  "note": ""
+                  "result": "MINOR",
+                  "impact": "B",
+                  "note": "De kamerbehoefte geeft een goed vertrekpunt, maar nog niet vanzelf welke concrete kamer het moet worden en hoe conflicten opgelost moeten worden."
                 },
                 "kwaliteit": {
-                  "result": null,
-                  "impact": null,
-                  "note": ""
+                  "result": "MINOR",
+                  "impact": "C",
+                  "note": "De behoefte is bruikbaar, maar blijft afhankelijk van de juistheid van de eerdere vertaalslag uit het artsenrooster."
                 },
                 "duidelijkheid": {
-                  "result": null,
-                  "impact": null,
-                  "note": ""
+                  "result": "MODERATE",
+                  "impact": "B",
+                  "note": "Niet elke kamerbehoefte vertaalt zich automatisch naar één logische kamer, omdat ook doelgebied, locatie en lokale voorkeuren meewegen"
                 },
                 "tijdigheid": {
-                  "result": null,
+                  "result": "GOOD",
                   "impact": null,
                   "note": ""
                 },
                 "standaard": {
-                  "result": null,
-                  "impact": null,
-                  "note": ""
+                  "result": "MODERATE",
+                  "impact": "B",
+                  "note": "Het overzicht bestaat, maar de logica voor toewijzing zit niet vast in een uniform systeemproces"
                 },
                 "overdracht": {
-                  "result": null,
-                  "impact": null,
-                  "note": ""
+                  "result": "MINOR",
+                  "impact": "C",
+                  "note": "De behoefte wordt goed doorgegeven, maar nog niet in een vorm die direct een foutloze kamerindeling oplevert."
                 }
               },
               "systemData": {
@@ -46443,7 +46497,33 @@
                   }
                 ]
               },
-              "inputDefinitions": [],
+              "inputDefinitions": [
+                {
+                  "item": "Kamerbehoefte per arts ",
+                  "specifications": "",
+                  "type": "HARD"
+                },
+                {
+                  "item": "Dagdeel en locatie ",
+                  "specifications": "",
+                  "type": "HARD"
+                },
+                {
+                  "item": "Type kamer of functionele eis ",
+                  "specifications": "",
+                  "type": "HARD"
+                },
+                {
+                  "item": "Totaal beschikbare kamers ",
+                  "specifications": "",
+                  "type": "HARD"
+                },
+                {
+                  "item": "Lokale voorkeuren of uitzonderingen ",
+                  "specifications": "",
+                  "type": "SOFT"
+                }
+              ],
               "disruptions": [],
               "workExp": null,
               "workExpNote": "",
@@ -46882,34 +46962,34 @@
               "improvements": [],
               "qa": {
                 "compleet": {
-                  "result": null,
-                  "impact": null,
-                  "note": ""
+                  "result": "MINOR",
+                  "impact": "B",
+                  "note": "De conceptindeling is bruikbaar als basis, maar nog niet stabiel genoeg zolang knelpunten en botsingen nog opgelost moeten worden."
                 },
                 "kwaliteit": {
-                  "result": null,
-                  "impact": null,
-                  "note": ""
+                  "result": "MINOR",
+                  "impact": "C",
+                  "note": "De indeling is inhoudelijk bruikbaar, maar nog niet definitief en dus nog gevoelig voor herverdeling."
                 },
                 "duidelijkheid": {
-                  "result": null,
-                  "impact": null,
-                  "note": ""
+                  "result": "MINOR",
+                  "impact": "C",
+                  "note": "De eerste verdeling is zichtbaar, maar het is nog niet zeker dat die ook logistiek en praktisch de beste oplossing is."
                 },
                 "tijdigheid": {
-                  "result": null,
+                  "result": "GOOD",
                   "impact": null,
                   "note": ""
                 },
                 "standaard": {
-                  "result": null,
-                  "impact": null,
-                  "note": ""
+                  "result": "MODERATE",
+                  "impact": "B",
+                  "note": "Het oplossen van knelpunten gebeurt handmatig en niet via een vaste systeemgestuurde logica."
                 },
                 "overdracht": {
-                  "result": null,
-                  "impact": null,
-                  "note": ""
+                  "result": "MINOR",
+                  "impact": "C",
+                  "note": "De conceptindeling sluit logisch aan op de volgende stap, maar bevat nog openstaande spanningen of onevenwichtigheden."
                 }
               },
               "systemData": {
@@ -46933,7 +47013,28 @@
                   }
                 ]
               },
-              "inputDefinitions": [],
+              "inputDefinitions": [
+                {
+                  "item": "Concept kamerindeling per arts",
+                  "specifications": "",
+                  "type": "HARD"
+                },
+                {
+                  "item": "Zicht op overbezetting of conflicten",
+                  "specifications": "",
+                  "type": "HARD"
+                },
+                {
+                  "item": "Inzicht in type kamers per locatie ",
+                  "specifications": "",
+                  "type": "HARD"
+                },
+                {
+                  "item": "Criteria voor eerlijke of logische verdeling ",
+                  "specifications": "",
+                  "type": "SOFT"
+                }
+              ],
               "disruptions": [],
               "workExp": null,
               "workExpNote": "",
@@ -47373,34 +47474,34 @@
               "improvements": [],
               "qa": {
                 "compleet": {
-                  "result": null,
-                  "impact": null,
-                  "note": ""
+                  "result": "MINOR",
+                  "impact": "C",
+                  "note": "De voorlopige indeling is voldoende om te beoordelen, maar de polikliniek kijkt nog met een andere logistieke bril waardoor aanvullende opmerkingen kunnen ontstaan."
                 },
                 "kwaliteit": {
-                  "result": null,
-                  "impact": null,
-                  "note": ""
+                  "result": "MINOR",
+                  "impact": "C",
+                  "note": "De indeling is bruikbaar, maar nog niet definitief gevalideerd op praktische looproutes en poliwensen."
                 },
                 "duidelijkheid": {
-                  "result": null,
-                  "impact": null,
-                  "note": ""
+                  "result": "MODERATE",
+                  "impact": "B",
+                  "note": "Wat voor de backoffice logisch lijkt, is niet altijd meteen logisch voor de polikliniek omdat daar andere praktische voorkeuren meespelen."
                 },
                 "tijdigheid": {
-                  "result": null,
+                  "result": "GOOD",
                   "impact": null,
                   "note": ""
                 },
                 "standaard": {
-                  "result": null,
-                  "impact": null,
-                  "note": ""
+                  "result": "MODERATE",
+                  "impact": "C",
+                  "note": "De beoordeling door de polikliniek verloopt niet via een strak vast format maar via losse terugkoppeling."
                 },
                 "overdracht": {
-                  "result": null,
-                  "impact": null,
-                  "note": ""
+                  "result": "MINOR",
+                  "impact": "C",
+                  "note": "De voorlopige indeling komt bij de juiste partij terecht, maar de terugkoppeling is niet volledig gestandaardiseerd."
                 }
               },
               "systemData": {
@@ -47424,7 +47525,33 @@
                   }
                 ]
               },
-              "inputDefinitions": [],
+              "inputDefinitions": [
+                {
+                  "item": "Voorlopige kamerindeling",
+                  "specifications": "",
+                  "type": "HARD"
+                },
+                {
+                  "item": "Namen artsen per kamer",
+                  "specifications": "",
+                  "type": "HARD"
+                },
+                {
+                  "item": "Locatie en dagdeel ",
+                  "specifications": "",
+                  "type": "HARD"
+                },
+                {
+                  "item": "Bijzondere kamervereisten",
+                  "specifications": "",
+                  "type": "HARD"
+                },
+                {
+                  "item": "Toelichting op lastige keuzes",
+                  "specifications": "",
+                  "type": "SOFT"
+                }
+              ],
               "disruptions": [],
               "workExp": null,
               "workExpNote": "",
@@ -47864,34 +47991,34 @@
               "improvements": [],
               "qa": {
                 "compleet": {
-                  "result": null,
-                  "impact": null,
-                  "note": ""
+                  "result": "MINOR",
+                  "impact": "C",
+                  "note": "De feedback is meestal voldoende om verder te kunnen, maar niet altijd volledig strak of uniform geformuleerd."
                 },
                 "kwaliteit": {
-                  "result": null,
-                  "impact": null,
-                  "note": ""
+                  "result": "MINOR",
+                  "impact": "C",
+                  "note": "De inhoud is bruikbaar, maar kan lokale voorkeuren bevatten die opnieuw afgewogen moeten worden."
                 },
                 "duidelijkheid": {
-                  "result": null,
-                  "impact": null,
-                  "note": ""
+                  "result": "MINOR",
+                  "impact": "C",
+                  "note": "De feedback is meestal begrijpelijk, maar niet altijd volledig objectief of gestandaardiseerd."
                 },
                 "tijdigheid": {
-                  "result": null,
+                  "result": "GOOD",
                   "impact": null,
                   "note": ""
                 },
                 "standaard": {
-                  "result": null,
-                  "impact": null,
-                  "note": ""
+                  "result": "MODERATE",
+                  "impact": "C",
+                  "note": "De feedback wordt niet via een vaste beslisstructuur aangeleverd maar via losse opmerkingen."
                 },
                 "overdracht": {
-                  "result": null,
-                  "impact": null,
-                  "note": ""
+                  "result": "MINOR",
+                  "impact": "C",
+                  "note": "De input wordt goed teruggegeven, maar vraagt soms nog interpretatie voordat verwerking mogelijk is."
                 }
               },
               "systemData": {
@@ -47915,7 +48042,28 @@
                   }
                 ]
               },
-              "inputDefinitions": [],
+              "inputDefinitions": [
+                {
+                  "item": "Feedback op de voorlopige indeling ",
+                  "specifications": "",
+                  "type": "HARD"
+                },
+                {
+                  "item": "Duidelijkheid welke kamers aangepast moeten worden ",
+                  "specifications": "",
+                  "type": "HARD"
+                },
+                {
+                  "item": "Reden van wijziging ",
+                  "specifications": "",
+                  "type": "SOFT"
+                },
+                {
+                  "item": "Eventuele logistieke voorkeur van de poli ",
+                  "specifications": "",
+                  "type": "SOFT"
+                }
+              ],
               "disruptions": [],
               "workExp": null,
               "workExpNote": "",
@@ -48355,34 +48503,34 @@
               "improvements": [],
               "qa": {
                 "compleet": {
-                  "result": null,
-                  "impact": null,
-                  "note": ""
+                  "result": "MINOR",
+                  "impact": "B",
+                  "note": "De indeling is inhoudelijk af, maar nog niet uitvoerbaar zichtbaar zolang deze niet in Epic is gekoppeld."
                 },
                 "kwaliteit": {
-                  "result": null,
-                  "impact": null,
-                  "note": ""
+                  "result": "MINOR",
+                  "impact": "C",
+                  "note": "De definitieve indeling is bruikbaar, maar blijft kwetsbaar bij handmatige overzetting naar Epic."
                 },
                 "duidelijkheid": {
-                  "result": null,
-                  "impact": null,
-                  "note": ""
+                  "result": "MINOR",
+                  "impact": "C",
+                  "note": "De indeling is intern duidelijk, maar moet nog exact en foutloos naar het uitvoeringssysteem worden vertaald."
                 },
                 "tijdigheid": {
-                  "result": null,
+                  "result": "GOOD",
                   "impact": null,
                   "note": ""
                 },
                 "standaard": {
-                  "result": null,
-                  "impact": null,
-                  "note": ""
+                  "result": "MODERATE",
+                  "impact": "B",
+                  "note": "De definitieve indeling staat niet al in het uitvoeringssysteem en vraagt daarom nog een aparte publicatiestap."
                 },
                 "overdracht": {
-                  "result": null,
-                  "impact": null,
-                  "note": ""
+                  "result": "MINOR",
+                  "impact": "B",
+                  "note": "De indeling wordt goed doorgegeven, maar niet in hetzelfde systeem waarin de uitvoering plaatsvindt."
                 }
               },
               "systemData": {
@@ -48406,7 +48554,33 @@
                   }
                 ]
               },
-              "inputDefinitions": [],
+              "inputDefinitions": [
+                {
+                  "item": "Definitieve kamerindeling per arts ",
+                  "specifications": "",
+                  "type": "HARD"
+                },
+                {
+                  "item": "Juiste kamer per locatie",
+                  "specifications": "",
+                  "type": "HARD"
+                },
+                {
+                  "item": "Dagdeel of datum ",
+                  "specifications": "",
+                  "type": "HARD"
+                },
+                {
+                  "item": "Laatste goedgekeurde versie ",
+                  "specifications": "",
+                  "type": "HARD"
+                },
+                {
+                  "item": "Toelichting op uitzonderingen",
+                  "specifications": "",
+                  "type": "SOFT"
+                }
+              ],
               "disruptions": [],
               "workExp": null,
               "workExpNote": "",
