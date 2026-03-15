@@ -132309,34 +132309,34 @@
               "improvements": [],
               "qa": {
                 "compleet": {
-                  "result": null,
-                  "impact": null,
-                  "note": ""
+                  "result": "MINOR",
+                  "impact": "B",
+                  "note": " De taak geeft aan dat er ingetekend moet worden, maar bevat niet vanzelf alles wat nodig is om direct inhoudelijk te starten in het plansysteem.\n"
                 },
                 "kwaliteit": {
-                  "result": null,
-                  "impact": null,
-                  "note": ""
+                  "result": "MINOR",
+                  "impact": "C",
+                  "note": "De taak is bruikbaar als trigger, maar is vooral procesmatig en nog niet de volledige inhoudelijke basis voor intekenen."
                 },
                 "duidelijkheid": {
-                  "result": null,
+                  "result": "GOOD",
                   "impact": null,
                   "note": ""
                 },
                 "tijdigheid": {
-                  "result": null,
+                  "result": "GOOD",
                   "impact": null,
                   "note": ""
                 },
                 "standaard": {
-                  "result": null,
+                  "result": "GOOD",
                   "impact": null,
                   "note": ""
                 },
                 "overdracht": {
-                  "result": null,
-                  "impact": null,
-                  "note": ""
+                  "result": "MINOR",
+                  "impact": "C",
+                  "note": "De taak wordt goed overgedragen, maar vormt vooral een startsein en nog niet een volledig inhoudelijk pakket."
                 }
               },
               "systemData": {
@@ -132360,7 +132360,28 @@
                   }
                 ]
               },
-              "inputDefinitions": [],
+              "inputDefinitions": [
+                {
+                  "item": "De taak wordt goed overgedragen, maar vormt vooral een startsein en nog niet een volledig inhoudelijk pakket.",
+                  "specifications": "",
+                  "type": "HARD"
+                },
+                {
+                  "item": "Juiste patiëntkoppeling",
+                  "specifications": "",
+                  "type": "HARD"
+                },
+                {
+                  "item": "Duidelijk dat het om een intekentaak gaat ",
+                  "specifications": "",
+                  "type": "HARD"
+                },
+                {
+                  "item": "Prioriteit of planningstermijn ",
+                  "specifications": "",
+                  "type": "SOFT"
+                }
+              ],
               "disruptions": [],
               "workExp": null,
               "workExpNote": "",
@@ -132848,34 +132869,34 @@
               "improvements": [],
               "qa": {
                 "compleet": {
-                  "result": null,
-                  "impact": null,
-                  "note": ""
+                  "result": "MINOR",
+                  "impact": "B",
+                  "note": "De taak is beoordeeld en kan gebruikt worden om verder te gaan, maar de vertaalslag naar de juiste patiënt in Eclipse of Ethos vraagt nog extra handelingen."
                 },
                 "kwaliteit": {
-                  "result": null,
-                  "impact": null,
-                  "note": ""
+                  "result": "MINOR",
+                  "impact": "C",
+                  "note": "De taak is bruikbaar, maar nog niet voldoende rijk om zonder tussenstap direct de juiste patiënt in het plansysteem te openen."
                 },
                 "duidelijkheid": {
-                  "result": null,
-                  "impact": null,
-                  "note": ""
+                  "result": "MINOR",
+                  "impact": "C",
+                  "note": "De taak maakt duidelijk wat er moet gebeuren, maar niet automatisch hoe de juiste patiënt in het plansysteem het snelst gevonden wordt."
                 },
                 "tijdigheid": {
-                  "result": null,
+                  "result": "GOOD",
                   "impact": null,
                   "note": ""
                 },
                 "standaard": {
-                  "result": null,
+                  "result": "GOOD",
                   "impact": null,
                   "note": ""
                 },
                 "overdracht": {
-                  "result": null,
-                  "impact": null,
-                  "note": ""
+                  "result": "MINOR",
+                  "impact": "C",
+                  "note": "De taak gaat logisch door naar de volgende stap, maar de overgang naar het plansysteem is niet naadloos."
                 }
               },
               "systemData": {
@@ -132899,7 +132920,28 @@
                   }
                 ]
               },
-              "inputDefinitions": [],
+              "inputDefinitions": [
+                {
+                  "item": "Beoordeelde intekentaak ",
+                  "specifications": "",
+                  "type": "HARD"
+                },
+                {
+                  "item": "Juiste patiëntidentificatie ",
+                  "specifications": "",
+                  "type": "HARD"
+                },
+                {
+                  "item": "Patiëntnummer of andere unieke sleutel ",
+                  "specifications": "",
+                  "type": "HARD"
+                },
+                {
+                  "item": "Duidelijkheid welk plansysteem gebruikt moet worden",
+                  "specifications": "",
+                  "type": "SOFT"
+                }
+              ],
               "disruptions": [],
               "workExp": null,
               "workExpNote": "",
@@ -133339,34 +133381,34 @@
               "improvements": [],
               "qa": {
                 "compleet": {
-                  "result": null,
-                  "impact": null,
-                  "note": ""
+                  "result": "MODERATE",
+                  "impact": "B",
+                  "note": "De contourset is vaak nog niet direct bruikbaar, omdat contouren of structuren regelmatig gecorrigeerd, verwijderd of opnieuw opgebouwd moeten worden voordat veilig verder gewerkt kan worden."
                 },
                 "kwaliteit": {
-                  "result": null,
-                  "impact": null,
-                  "note": ""
+                  "result": "MODERATE",
+                  "impact": "B",
+                  "note": "De automatisch geladen contouren en structuren zijn regelmatig inhoudelijk onvoldoende om zonder correctie op verder te bouwen."
                 },
                 "duidelijkheid": {
-                  "result": null,
-                  "impact": null,
-                  "note": ""
+                  "result": "MODERATE",
+                  "impact": "B",
+                  "note": "Oude scans, oude sets en automatisch geladen contouren maken het niet altijd meteen duidelijk wat de juiste actuele basis is."
                 },
                 "tijdigheid": {
-                  "result": null,
+                  "result": "GOOD",
                   "impact": null,
                   "note": ""
                 },
                 "standaard": {
-                  "result": null,
-                  "impact": null,
-                  "note": ""
+                  "result": "MINOR",
+                  "impact": "C",
+                  "note": "De structuurset wordt wel standaard aangeleverd, maar de inhoudelijke kwaliteit is niet stabiel genoeg om standaard op te vertrouwen."
                 },
                 "overdracht": {
-                  "result": null,
-                  "impact": null,
-                  "note": ""
+                  "result": "MODERATE",
+                  "impact": "B",
+                  "note": "De conceptset wordt wel overgedragen, maar nog niet in een staat waarin de arts zonder correctie direct veilig kan doorgaan."
                 }
               },
               "systemData": {
@@ -133390,7 +133432,33 @@
                   }
                 ]
               },
-              "inputDefinitions": [],
+              "inputDefinitions": [
+                {
+                  "item": "Juiste planning CT ",
+                  "specifications": "",
+                  "type": "HARD"
+                },
+                {
+                  "item": "Juiste gekoppelde beeldset",
+                  "specifications": "",
+                  "type": "HARD"
+                },
+                {
+                  "item": "Beschikbare contourset ",
+                  "specifications": "",
+                  "type": "HARD"
+                },
+                {
+                  "item": "Herkenbare actuele scan tussen oude scans ",
+                  "specifications": "",
+                  "type": "HARD"
+                },
+                {
+                  "item": "Aangeleverde OAR’s ",
+                  "specifications": "",
+                  "type": "SOFT"
+                }
+              ],
               "disruptions": [],
               "workExp": null,
               "workExpNote": "",
@@ -133830,32 +133898,32 @@
               "improvements": [],
               "qa": {
                 "compleet": {
-                  "result": null,
-                  "impact": null,
-                  "note": ""
+                  "result": "MINOR",
+                  "impact": "B",
+                  "note": "De contourset is na controle beter bruikbaar, maar nog steeds afhankelijk van de vraag of alle noodzakelijke structuren inhoudelijk echt goed staan voor het intekenen."
                 },
                 "kwaliteit": {
-                  "result": null,
-                  "impact": null,
-                  "note": ""
+                  "result": "MINOR",
+                  "impact": "B",
+                  "note": "De kwaliteit is duidelijk beter dan in de conceptfase, maar fouten of onnauwkeurigheden kunnen nog doorwerken in de intekening."
                 },
                 "duidelijkheid": {
-                  "result": null,
-                  "impact": null,
-                  "note": ""
+                  "result": "MINOR",
+                  "impact": "C",
+                  "note": "Meestal is goed zichtbaar waarop verder gewerkt moet worden, maar het blijft afhankelijk van hoe schoon en overzichtelijk de set is geworden."
                 },
                 "tijdigheid": {
-                  "result": null,
+                  "result": "GOOD",
                   "impact": null,
                   "note": ""
                 },
                 "standaard": {
-                  "result": null,
-                  "impact": null,
-                  "note": ""
+                  "result": "MINOR",
+                  "impact": "C",
+                  "note": "De gecontroleerde contourset volgt de normale werkstap, maar de inhoudelijke kwaliteit hangt nog sterk af van handmatige correctie."
                 },
                 "overdracht": {
-                  "result": null,
+                  "result": "GOOD",
                   "impact": null,
                   "note": ""
                 }
@@ -133881,7 +133949,33 @@
                   }
                 ]
               },
-              "inputDefinitions": [],
+              "inputDefinitions": [
+                {
+                  "item": "Gecontroleerde contourset ",
+                  "specifications": "",
+                  "type": "HARD"
+                },
+                {
+                  "item": "Juiste match tussen scans ",
+                  "specifications": "",
+                  "type": "HARD"
+                },
+                {
+                  "item": "OAR’s die bruikbaar zijn",
+                  "specifications": "",
+                  "type": "HARD"
+                },
+                {
+                  "item": "Verwijdering van foutieve of irrelevante contouren",
+                  "specifications": "",
+                  "type": "HARD"
+                },
+                {
+                  "item": "Extra aanvullende beeldvorming indien van toepassing ",
+                  "specifications": "",
+                  "type": "SOFT"
+                }
+              ],
               "disruptions": [],
               "workExp": null,
               "workExpNote": "",
@@ -134321,32 +134415,32 @@
               "improvements": [],
               "qa": {
                 "compleet": {
-                  "result": null,
+                  "result": "GOOD",
                   "impact": null,
                   "note": ""
                 },
                 "kwaliteit": {
-                  "result": null,
-                  "impact": null,
-                  "note": ""
+                  "result": "MINOR",
+                  "impact": "A",
+                  "note": "Het doelgebied is inhoudelijk klaar, maar als de onderliggende basis eerder niet goed was, wordt een fout nu meegenomen naar de formele goedkeuring."
                 },
                 "duidelijkheid": {
-                  "result": null,
+                  "result": "GOOD",
                   "impact": null,
                   "note": ""
                 },
                 "tijdigheid": {
-                  "result": null,
+                  "result": "GOOD",
                   "impact": null,
                   "note": ""
                 },
                 "standaard": {
-                  "result": null,
+                  "result": "GOOD",
                   "impact": null,
                   "note": ""
                 },
                 "overdracht": {
-                  "result": null,
+                  "result": "GOOD",
                   "impact": null,
                   "note": ""
                 }
@@ -134372,7 +134466,28 @@
                   }
                 ]
               },
-              "inputDefinitions": [],
+              "inputDefinitions": [
+                {
+                  "item": "Ingetekend doelgebied ",
+                  "specifications": "",
+                  "type": "HARD"
+                },
+                {
+                  "item": "Juiste onderliggende scan",
+                  "specifications": "",
+                  "type": "SOFT"
+                },
+                {
+                  "item": "Consistente contourset als basis ",
+                  "specifications": "",
+                  "type": "HARD"
+                },
+                {
+                  "item": "Controle op klinische plausibiliteit ",
+                  "specifications": "",
+                  "type": "SOFT"
+                }
+              ],
               "disruptions": [],
               "workExp": null,
               "workExpNote": "",
@@ -134812,34 +134927,34 @@
               "improvements": [],
               "qa": {
                 "compleet": {
-                  "result": null,
+                  "result": "GOOD",
                   "impact": null,
                   "note": ""
                 },
                 "kwaliteit": {
-                  "result": null,
+                  "result": "GOOD",
                   "impact": null,
                   "note": ""
                 },
                 "duidelijkheid": {
-                  "result": null,
+                  "result": "GOOD",
                   "impact": null,
                   "note": ""
                 },
                 "tijdigheid": {
-                  "result": null,
+                  "result": "GOOD",
                   "impact": null,
                   "note": ""
                 },
                 "standaard": {
-                  "result": null,
+                  "result": "GOOD",
                   "impact": null,
                   "note": ""
                 },
                 "overdracht": {
-                  "result": null,
-                  "impact": null,
-                  "note": ""
+                  "result": "MINOR",
+                  "impact": "B",
+                  "note": "De structure set is inhoudelijk gereed, maar moet nog via een aparte handeling zichtbaar worden gemaakt voor OB; de overdracht loopt dus nog niet vanzelf door."
                 }
               },
               "systemData": {
@@ -134863,7 +134978,28 @@
                   }
                 ]
               },
-              "inputDefinitions": [],
+              "inputDefinitions": [
+                {
+                  "item": "Goedgekeurde structure set ",
+                  "specifications": "",
+                  "type": "HARD"
+                },
+                {
+                  "item": "Juiste patiënt in het juiste plansysteem",
+                  "specifications": "",
+                  "type": "HARD"
+                },
+                {
+                  "item": "Duidelijk dat de set approved is",
+                  "specifications": "",
+                  "type": "HARD"
+                },
+                {
+                  "item": "Eventuele koppeling aan volgende workflowstap",
+                  "specifications": "",
+                  "type": "SOFT"
+                }
+              ],
               "disruptions": [],
               "workExp": null,
               "workExpNote": "",
@@ -135303,34 +135439,34 @@
               "improvements": [],
               "qa": {
                 "compleet": {
-                  "result": null,
-                  "impact": null,
-                  "note": ""
+                  "result": "MINOR",
+                  "impact": "B",
+                  "note": "De openstaande intekentaak is voldoende om administratief af te ronden, maar sluit niet automatisch aan op wat inhoudelijk al in Eclipse of Ethos is gedaan."
                 },
                 "kwaliteit": {
-                  "result": null,
-                  "impact": null,
-                  "note": ""
+                  "result": "MINOR",
+                  "impact": "C",
+                  "note": "De taak is als statusdrager bruikbaar, maar weerspiegelt niet vanzelf de volledige inhoudelijke afronding van het intekenwerk."
                 },
                 "duidelijkheid": {
-                  "result": null,
-                  "impact": null,
-                  "note": ""
+                  "result": "MINOR",
+                  "impact": "C",
+                  "note": "Het is duidelijk dat de taak nog moet worden afgerond, maar er blijft verschil tussen inhoudelijke gereedheid en administratieve status."
                 },
                 "tijdigheid": {
-                  "result": null,
+                  "result": "GOOD",
                   "impact": null,
                   "note": ""
                 },
                 "standaard": {
-                  "result": null,
+                  "result": "GOOD",
                   "impact": null,
                   "note": ""
                 },
                 "overdracht": {
-                  "result": null,
-                  "impact": null,
-                  "note": ""
+                  "result": "MODERATE",
+                  "impact": "B",
+                  "note": "De taak moet apart worden bijgewerkt terwijl de inhoud al elders gereed is; daardoor loopt de overdracht niet als één gesloten keten."
                 }
               },
               "systemData": {
@@ -135354,7 +135490,28 @@
                   }
                 ]
               },
-              "inputDefinitions": [],
+              "inputDefinitions": [
+                {
+                  "item": "Openstaande intekentaak",
+                  "specifications": "",
+                  "type": "HARD"
+                },
+                {
+                  "item": "Juiste patiëntkoppeling",
+                  "specifications": "",
+                  "type": "HARD"
+                },
+                {
+                  "item": "Duidelijkheid dat OB-handeling al gedaan is",
+                  "specifications": "",
+                  "type": "SOFT"
+                },
+                {
+                  "item": "Duidelijkheid dat intekening inhoudelijk gereed is",
+                  "specifications": "",
+                  "type": "HARD"
+                }
+              ],
               "disruptions": [],
               "workExp": null,
               "workExpNote": "",
