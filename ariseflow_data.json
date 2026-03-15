@@ -27847,28 +27847,34 @@
               "improvements": [],
               "qa": {
                 "compleet": {
-                  "result": "",
-                  "note": ""
+                  "result": "MINOR",
+                  "impact": "B",
+                  "note": "Het rooster geeft de basis van stage en inzet, maar wijzigingen worden niet altijd actief doorgegeven en moeten soms zelf gecontroleerd worden."
                 },
                 "kwaliteit": {
-                  "result": "",
-                  "note": ""
+                  "result": "MINOR",
+                  "impact": "C",
+                  "note": "De input is meestal bruikbaar, maar sluit niet altijd volledig aan op de actuele situatie van de assistent."
                 },
                 "duidelijkheid": {
-                  "result": "",
-                  "note": ""
+                  "result": "MODERATE",
+                  "impact": "B",
+                  "note": "Het rooster is niet altijd zo aangeleverd dat direct duidelijk is wat de praktische planningsconsequenties zijn voor de backoffice."
                 },
                 "tijdigheid": {
-                  "result": "",
-                  "note": ""
+                  "result": "MINOR",
+                  "impact": "C",
+                  "note": "De basis is meestal op tijd beschikbaar, maar wijzigingen komen niet altijd proactief of uniform door."
                 },
                 "standaard": {
-                  "result": "",
-                  "note": ""
+                  "result": "MINOR",
+                  "impact": "C",
+                  "note": "Het rooster bestaat wel als vast document, maar de manier waarop wijzigingen en bijzonderheden worden verwerkt is niet volledig strak gestandaardiseerd."
                 },
                 "overdracht": {
-                  "result": "",
-                  "note": ""
+                  "result": "MODERATE",
+                  "impact": "B",
+                  "note": "Veranderingen in stage of inzet worden niet altijd actief teruggekoppeld, waardoor controle op actualiteit nodig blijft."
                 }
               },
               "systemData": {
@@ -27892,10 +27898,39 @@
                   }
                 ]
               },
-              "inputDefinitions": [],
+              "inputDefinitions": [
+                {
+                  "item": "Naam assistent",
+                  "specifications": "",
+                  "type": "HARD"
+                },
+                {
+                  "item": "Stage of doelgebied ",
+                  "specifications": "",
+                  "type": "HARD"
+                },
+                {
+                  "item": "Periode van de stage",
+                  "specifications": "",
+                  "type": "HARD"
+                },
+                {
+                  "item": "Gekoppelde supervisor of opleider ",
+                  "specifications": "",
+                  "type": "HARD"
+                },
+                {
+                  "item": "Wijzigingen ten opzichte van eerdere versie",
+                  "specifications": "",
+                  "type": "SOFT"
+                }
+              ],
               "disruptions": [],
               "workExp": null,
-              "workExpNote": ""
+              "workExpNote": "",
+              "linkedSourceUids": [],
+              "linkedSourceUid": null,
+              "linkedSourceIds": []
             },
             {
               "id": "3a126fea-2215-4138-bff9-5395d1a4a6dd",
@@ -28301,34 +28336,34 @@
               "improvements": [],
               "qa": {
                 "compleet": {
-                  "result": null,
-                  "impact": null,
-                  "note": ""
+                  "result": "MODERATE",
+                  "impact": "B",
+                  "note": "Alleen het assistentenrooster is niet genoeg om verder te kunnen, omdat ook het rooster van de stafartsen nodig is om echte supervisie-inzet te kunnen plannen.\n"
                 },
                 "kwaliteit": {
-                  "result": null,
-                  "impact": null,
-                  "note": ""
+                  "result": "MINOR",
+                  "impact": "C",
+                  "note": "De ontvangen basis is bruikbaar, maar nog niet voldoende om de aansluiting op de stafagenda’s te beoordelen"
                 },
                 "duidelijkheid": {
-                  "result": null,
-                  "impact": null,
-                  "note": ""
+                  "result": "MINOR",
+                  "impact": "C",
+                  "note": "Het is duidelijk welke assistent in welke stage zit, maar nog niet hoe dit praktisch past op de agenda van de stafarts."
                 },
                 "tijdigheid": {
-                  "result": null,
+                  "result": "GOOD",
                   "impact": null,
                   "note": ""
                 },
                 "standaard": {
-                  "result": null,
-                  "impact": null,
-                  "note": ""
+                  "result": "MINOR",
+                  "impact": "C",
+                  "note": "De input volgt een herkenbare basisvorm, maar is niet volledig integraal met de stafagenda."
                 },
                 "overdracht": {
-                  "result": null,
-                  "impact": null,
-                  "note": ""
+                  "result": "MINOR",
+                  "impact": "B",
+                  "note": "De input is beschikbaar, maar moet nog worden verrijkt met de roosters van de stafartsen om bruikbaar te zijn voor de volgende stap."
                 }
               },
               "systemData": {
@@ -28352,7 +28387,33 @@
                   }
                 ]
               },
-              "inputDefinitions": [],
+              "inputDefinitions": [
+                {
+                  "item": "Actueel assistentenrooster ",
+                  "specifications": "",
+                  "type": "HARD"
+                },
+                {
+                  "item": "Stageperiode",
+                  "specifications": "",
+                  "type": "HARD"
+                },
+                {
+                  "item": "Doelgebied ",
+                  "specifications": "",
+                  "type": "HARD"
+                },
+                {
+                  "item": "Naam supervisor ",
+                  "specifications": "",
+                  "type": "HARD"
+                },
+                {
+                  "item": "Link met beschikbaarheid stafarts ",
+                  "specifications": "",
+                  "type": "SOFT"
+                }
+              ],
               "disruptions": [],
               "workExp": null,
               "workExpNote": "",
@@ -28768,34 +28829,34 @@
               "improvements": [],
               "qa": {
                 "compleet": {
-                  "result": null,
-                  "impact": null,
-                  "note": ""
+                  "result": "MINOR",
+                  "impact": "B",
+                  "note": "De twee roosters samen geven de basis, maar FTE, ouderschapsverlof en praktische roosterafspraken moeten nog apart worden meegenomen."
                 },
                 "kwaliteit": {
-                  "result": null,
-                  "impact": null,
-                  "note": ""
+                  "result": "MINOR",
+                  "impact": "C",
+                  "note": "De input is bruikbaar, maar nog niet volledig vertaald naar een realistisch supervisierooster."
                 },
                 "duidelijkheid": {
-                  "result": null,
-                  "impact": null,
-                  "note": ""
+                  "result": "MODERATE",
+                  "impact": "B",
+                  "note": "De roosters laten niet vanzelf zien hoe supervisie logisch moet landen in de praktijk, waardoor interpretatie nodig is."
                 },
                 "tijdigheid": {
-                  "result": null,
-                  "impact": null,
-                  "note": ""
+                  "result": "MINOR",
+                  "impact": "C",
+                  "note": "De basis is meestal beschikbaar, maar uitzonderingen of wijzigingen zijn niet altijd direct verwerkt."
                 },
                 "standaard": {
-                  "result": null,
-                  "impact": null,
-                  "note": ""
+                  "result": "MODERATE",
+                  "impact": "B",
+                  "note": "De combinatie van assistentenrooster en stafrooster geeft nog geen standaard planningsproduct en moet handmatig worden vertaal"
                 },
                 "overdracht": {
-                  "result": null,
-                  "impact": null,
-                  "note": ""
+                  "result": "MINOR",
+                  "impact": "B",
+                  "note": "De input is aanwezig, maar nog niet in een vorm waarmee het supervisierooster zonder extra denkwerk kan worden opgebouwd."
                 }
               },
               "systemData": {
@@ -28819,7 +28880,33 @@
                   }
                 ]
               },
-              "inputDefinitions": [],
+              "inputDefinitions": [
+                {
+                  "item": "Assistentenrooster",
+                  "specifications": "",
+                  "type": "HARD"
+                },
+                {
+                  "item": "Rooster stafartsen ",
+                  "specifications": "",
+                  "type": "HARD"
+                },
+                {
+                  "item": "Klinische blokken stafartsen ",
+                  "specifications": "",
+                  "type": "HARD"
+                },
+                {
+                  "item": "Gekoppelde supervisor per stage",
+                  "specifications": "",
+                  "type": "HARD"
+                },
+                {
+                  "item": "Bekende roosterbeperkingen",
+                  "specifications": "",
+                  "type": "SOFT"
+                }
+              ],
               "disruptions": [],
               "workExp": null,
               "workExpNote": "",
@@ -29236,34 +29323,34 @@
               "improvements": [],
               "qa": {
                 "compleet": {
-                  "result": null,
-                  "impact": null,
-                  "note": ""
+                  "result": "MODERATE",
+                  "impact": "B",
+                  "note": "Het concept is nog niet voldoende om door te kunnen, omdat FTE, ouderschapsverlof, vaste vrije dagen en lokale roosterafspraken nog verwerkt moeten worden."
                 },
                 "kwaliteit": {
-                  "result": null,
-                  "impact": null,
-                  "note": ""
+                  "result": "MINOR",
+                  "impact": "C",
+                  "note": "Het concept is bruikbaar als basis, maar nog niet realistisch genoeg als eindbeeld."
                 },
                 "duidelijkheid": {
-                  "result": null,
-                  "impact": null,
-                  "note": ""
+                  "result": "MINOR",
+                  "impact": "C",
+                  "note": "De basisopzet is duidelijk, maar nog niet in lijn met alle praktische uitzonderingen."
                 },
                 "tijdigheid": {
-                  "result": null,
+                  "result": "GOOD",
                   "impact": null,
                   "note": ""
                 },
                 "standaard": {
-                  "result": null,
-                  "impact": null,
-                  "note": ""
+                  "result": "MODERATE",
+                  "impact": "B",
+                  "note": "Het concept is een handmatige tussenstap en geen standaard systeemoutput die al rekening houdt met alle lokale regels."
                 },
                 "overdracht": {
-                  "result": "MODERATE",
-                  "impact": null,
-                  "note": ""
+                  "result": "MINOR",
+                  "impact": "C",
+                  "note": "De overgang naar de volgende stap is logisch, maar de kwaliteit hangt nog sterk af van nadere correcties."
                 }
               },
               "systemData": {
@@ -29287,7 +29374,33 @@
                   }
                 ]
               },
-              "inputDefinitions": [],
+              "inputDefinitions": [
+                {
+                  "item": "Concept inzet per assistent ",
+                  "specifications": "",
+                  "type": "HARD"
+                },
+                {
+                  "item": "Concept koppeling aan supervisor ",
+                  "specifications": "",
+                  "type": "HARD"
+                },
+                {
+                  "item": "FTE of werkpercentage",
+                  "specifications": "",
+                  "type": "HARD"
+                },
+                {
+                  "item": "Ouderschapsverlof of vaste vrije dag ",
+                  "specifications": "",
+                  "type": "HARD"
+                },
+                {
+                  "item": "Lokale roosterafspraken ",
+                  "specifications": "",
+                  "type": "HARD"
+                }
+              ],
               "disruptions": [],
               "workExp": null,
               "workExpNote": "",
@@ -29703,34 +29816,34 @@
               "improvements": [],
               "qa": {
                 "compleet": {
-                  "result": null,
-                  "impact": null,
-                  "note": ""
+                  "result": "MINOR",
+                  "impact": "C",
+                  "note": "Het rooster is inhoudelijk bijna klaar, maar moet nog worden afgestemd met betrokkenen voordat het echt uitvoerbaar is."
                 },
                 "kwaliteit": {
-                  "result": null,
-                  "impact": null,
-                  "note": ""
+                  "result": "MINOR",
+                  "impact": "C",
+                  "note": "De input is goed genoeg om te bespreken, maar nog niet definitief bevestigd."
                 },
                 "duidelijkheid": {
-                  "result": null,
-                  "impact": null,
-                  "note": ""
+                  "result": "MINOR",
+                  "impact": "C",
+                  "note": "Het rooster is logisch opgebouwd, maar kan nog discussie geven over praktische uitvoerbaarheid of voorkeuren."
                 },
                 "tijdigheid": {
-                  "result": null,
+                  "result": "GOOD",
                   "impact": null,
                   "note": ""
                 },
                 "standaard": {
-                  "result": null,
-                  "impact": null,
-                  "note": ""
+                  "result": "MODERATE",
+                  "impact": "C",
+                  "note": "Afstemming met betrokkenen is nodig omdat het rooster niet volledig vanuit één vaste beslisregel tot stand komt."
                 },
                 "overdracht": {
-                  "result": null,
-                  "impact": null,
-                  "note": ""
+                  "result": "MINOR",
+                  "impact": "C",
+                  "note": "Het rooster kan door naar afstemming, maar is nog niet definitief vastgelegd."
                 }
               },
               "systemData": {
@@ -29754,7 +29867,28 @@
                   }
                 ]
               },
-              "inputDefinitions": [],
+              "inputDefinitions": [
+                {
+                  "item": "Aangepast supervisierooster per assistent ",
+                  "specifications": "",
+                  "type": "HARD"
+                },
+                {
+                  "item": "Geplande supervisor per dagdeel ",
+                  "specifications": "",
+                  "type": "HARD"
+                },
+                {
+                  "item": "Verwerkte roosterbeperkingen ",
+                  "specifications": "",
+                  "type": "HARD"
+                },
+                {
+                  "item": "Openstaande discussiepunten",
+                  "specifications": "",
+                  "type": "SOFT"
+                }
+              ],
               "disruptions": [],
               "workExp": null,
               "workExpNote": "",
@@ -30170,32 +30304,32 @@
               "improvements": [],
               "qa": {
                 "compleet": {
-                  "result": null,
+                  "result": "GOOD",
                   "impact": null,
                   "note": ""
                 },
                 "kwaliteit": {
-                  "result": null,
-                  "impact": null,
-                  "note": ""
+                  "result": "MINOR",
+                  "impact": "C",
+                  "note": "Het rooster is afgestemd, maar blijft afhankelijk van juiste en volledige invoer in Epic."
                 },
                 "duidelijkheid": {
-                  "result": null,
+                  "result": "GOOD",
                   "impact": null,
                   "note": ""
                 },
                 "tijdigheid": {
-                  "result": null,
+                  "result": "GOOD",
                   "impact": null,
                   "note": ""
                 },
                 "standaard": {
-                  "result": null,
-                  "impact": null,
-                  "note": ""
+                  "result": "MINOR",
+                  "impact": "C",
+                  "note": "De inhoud is afgestemd, maar de vertaling naar Epic blijft een aparte administratieve stap."
                 },
                 "overdracht": {
-                  "result": null,
+                  "result": "GOOD",
                   "impact": null,
                   "note": ""
                 }
@@ -30221,7 +30355,28 @@
                   }
                 ]
               },
-              "inputDefinitions": [],
+              "inputDefinitions": [
+                {
+                  "item": "Definitief afgestemd supervisierooster ",
+                  "specifications": "",
+                  "type": "HARD"
+                },
+                {
+                  "item": "Stageperiode",
+                  "specifications": "",
+                  "type": "HARD"
+                },
+                {
+                  "item": "Supervisor per dagdeel ",
+                  "specifications": "",
+                  "type": "HARD"
+                },
+                {
+                  "item": "Start- en einddatum inplanning",
+                  "specifications": "",
+                  "type": "HARD"
+                }
+              ],
               "disruptions": [],
               "workExp": null,
               "workExpNote": "",
@@ -30637,34 +30792,34 @@
               "improvements": [],
               "qa": {
                 "compleet": {
-                  "result": null,
-                  "impact": null,
-                  "note": ""
+                  "result": "MINOR",
+                  "impact": "B",
+                  "note": "De assistentenplanning staat in Epic, maar zonder expliciete koppeling van supervisor per moment is de supervisie nog niet volledig vastgelegd."
                 },
                 "kwaliteit": {
-                  "result": null,
-                  "impact": null,
-                  "note": ""
+                  "result": "MINOR",
+                  "impact": "C",
+                  "note": "De basisplanning is bruikbaar, maar nog niet compleet voor supervisiedoeleinden."
                 },
                 "duidelijkheid": {
-                  "result": null,
-                  "impact": null,
-                  "note": ""
+                  "result": "MODERATE",
+                  "impact": "B",
+                  "note": "De planning van de assistent laat nog niet vanzelf duidelijk zien wie de supervisor is en hoe dat administratief moet worden vastgelegd."
                 },
                 "tijdigheid": {
-                  "result": null,
+                  "result": "GOOD",
                   "impact": null,
                   "note": ""
                 },
                 "standaard": {
-                  "result": null,
-                  "impact": null,
-                  "note": ""
+                  "result": "MINOR",
+                  "impact": "C",
+                  "note": "De planning staat op een vaste plek, maar de supervisierelatie moet nog apart toegevoegd worden."
                 },
                 "overdracht": {
-                  "result": null,
-                  "impact": null,
-                  "note": ""
+                  "result": "MINOR",
+                  "impact": "B",
+                  "note": "De input is logisch overgedragen, maar nog niet compleet genoeg om zonder extra administratieve stap door te gaan."
                 }
               },
               "systemData": {
@@ -30688,7 +30843,33 @@
                   }
                 ]
               },
-              "inputDefinitions": [],
+              "inputDefinitions": [
+                {
+                  "item": "Assistentenplanning in Epic ",
+                  "specifications": "",
+                  "type": "HARD"
+                },
+                {
+                  "item": "Dagdeel of inzetmoment ",
+                  "specifications": "",
+                  "type": "HARD"
+                },
+                {
+                  "item": "Betreffende stage",
+                  "specifications": "",
+                  "type": "HARD"
+                },
+                {
+                  "item": "Naam supervisor ",
+                  "specifications": "",
+                  "type": "HARD"
+                },
+                {
+                  "item": "Werkwijze voor vastleggen in zorgverlenersbericht ",
+                  "specifications": "",
+                  "type": "SOFT"
+                }
+              ],
               "disruptions": [],
               "workExp": null,
               "workExpNote": "",
@@ -31104,34 +31285,34 @@
               "improvements": [],
               "qa": {
                 "compleet": {
-                  "result": null,
-                  "impact": null,
-                  "note": ""
+                  "result": "MINOR",
+                  "impact": "B",
+                  "note": "De relatie tussen assistent en supervisor is vastgelegd, maar de agenda van de stafarts moet nog actief worden aangepast om ruimte te maken voor supervisie."
                 },
                 "kwaliteit": {
-                  "result": null,
-                  "impact": null,
-                  "note": ""
+                  "result": "MINOR",
+                  "impact": "C",
+                  "note": "De koppeling is inhoudelijk bruikbaar, maar nog niet voldoende voor een uitvoerbare agenda."
                 },
                 "duidelijkheid": {
-                  "result": null,
-                  "impact": null,
-                  "note": ""
+                  "result": "MINOR",
+                  "impact": "C",
+                  "note": "Het is duidelijk wie bij wie hoort, maar nog niet automatisch hoeveel ruimte in de agenda nodig is."
                 },
                 "tijdigheid": {
-                  "result": null,
+                  "result": "GOOD",
                   "impact": null,
                   "note": ""
                 },
                 "standaard": {
-                  "result": null,
-                  "impact": null,
-                  "note": ""
+                  "result": "MODERATE",
+                  "impact": "B",
+                  "note": "Het vastleggen van de relatie is niet hetzelfde als het automatisch inregelen van de benodigde supervisietijd."
                 },
                 "overdracht": {
-                  "result": null,
-                  "impact": null,
-                  "note": ""
+                  "result": "MINOR",
+                  "impact": "B",
+                  "note": "De input is goed voor de volgende stap, maar moet nog vertaald worden naar echte agenda-aanpassingen."
                 }
               },
               "systemData": {
@@ -31155,7 +31336,28 @@
                   }
                 ]
               },
-              "inputDefinitions": [],
+              "inputDefinitions": [
+                {
+                  "item": "Vastgelegde supervisor per assistent ",
+                  "specifications": "",
+                  "type": "HARD"
+                },
+                {
+                  "item": "Inzetmoment of dagdeel ",
+                  "specifications": "",
+                  "type": "HARD"
+                },
+                {
+                  "item": "Aantal of type supervisiemomenten ",
+                  "specifications": "",
+                  "type": "HARD"
+                },
+                {
+                  "item": "Regels voor agenda-aanpassing ",
+                  "specifications": "",
+                  "type": "HARD"
+                }
+              ],
               "disruptions": [],
               "workExp": null,
               "workExpNote": "",
@@ -31571,34 +31773,34 @@
               "improvements": [],
               "qa": {
                 "compleet": {
-                  "result": null,
-                  "impact": null,
-                  "note": ""
+                  "result": "MINOR",
+                  "impact": "B",
+                  "note": " De supervisiemomenten zijn verwerkt, maar de consultcapaciteit van de supervisor moet nog worden gecorrigeerd om de agenda echt uitvoerbaar te maken."
                 },
                 "kwaliteit": {
-                  "result": null,
-                  "impact": null,
-                  "note": ""
+                  "result": "MINOR",
+                  "impact": "C",
+                  "note": "De input is bruikbaar, maar nog niet het eindproduct zolang compensatie in consultcapaciteit ontbreekt."
                 },
                 "duidelijkheid": {
-                  "result": null,
-                  "impact": null,
-                  "note": ""
+                  "result": "MINOR",
+                  "impact": "C",
+                  "note": "Het is duidelijk waar supervisie gepland staat, maar nog niet vanzelf hoeveel consultcapaciteit daarvoor gesloten moet worden."
                 },
                 "tijdigheid": {
-                  "result": null,
+                  "result": "GOOD",
                   "impact": null,
                   "note": ""
                 },
                 "standaard": {
-                  "result": null,
-                  "impact": null,
-                  "note": ""
+                  "result": "MODERATE",
+                  "impact": "B",
+                  "note": "Het verwerken van supervisieblokken en het corrigeren van consultcapaciteit zijn twee aparte handelingen in plaats van één geïntegreerde stap."
                 },
                 "overdracht": {
-                  "result": null,
-                  "impact": null,
-                  "note": ""
+                  "result": "MINOR",
+                  "impact": "B",
+                  "note": "De input is goed doorgegeven, maar nog niet afgerond zolang de consultagenda van de supervisor niet gecorrigeerd is."
                 }
               },
               "systemData": {
@@ -31622,7 +31824,28 @@
                   }
                 ]
               },
-              "inputDefinitions": [],
+              "inputDefinitions": [
+                {
+                  "item": "Verwerkte supervisieblokken",
+                  "specifications": "",
+                  "type": "HARD"
+                },
+                {
+                  "item": "Betrokken stafarts",
+                  "specifications": "",
+                  "type": "HARD"
+                },
+                {
+                  "item": "Regels voor compensatie van consultcapaciteit ",
+                  "specifications": "",
+                  "type": "HARD"
+                },
+                {
+                  "item": "Inzicht hoeveel consulten gesloten moeten worden",
+                  "specifications": "",
+                  "type": "HARD"
+                }
+              ],
               "disruptions": [],
               "workExp": null,
               "workExpNote": "",
