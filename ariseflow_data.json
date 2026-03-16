@@ -4,7 +4,7 @@
   "author": "Anoniem",
   "created": "2026-01-16T08:48:17.021Z",
   "version": "2.7",
-  "activeSheetId": "1ce454da-dff3-429c-8dc8-c20a382b42c0",
+  "activeSheetId": "858c26e5-f7ec-4311-b503-641f99e65c84",
   "sheets": [
     {
       "id": "858c26e5-f7ec-4311-b503-641f99e65c84",
@@ -1345,8 +1345,8 @@
               "qa": {
                 "compleet": {
                   "result": "FAIL",
-                  "impact": "A",
-                  "note": "Bij ontvangst van de verwijzing controleren we de volledigheid van de gegevens. Indien noodzakelijk, nemen we contact op via telefoon of e-mail om ontbrekende informatie aan te vullen, terwijl de verwijzing doorgaat. We maken aantekening dat aanvullende gegevens nog worden verwacht."
+                  "impact": null,
+                  "note": ""
                 },
                 "kwaliteit": {
                   "result": "MINOR",
@@ -4196,7 +4196,7 @@
             {
               "id": "fe9f96c3-4e5e-4080-bfed-ef83da12a460",
               "created": 1769599457731,
-              "text": "",
+              "text": "Externe Verwijzing",
               "linkedSourceId": null,
               "type": null,
               "processValue": null,
@@ -5790,14 +5790,13 @@
         {
           "slotIdx": 2,
           "cols": [
-            2,
             3,
             4,
             5,
             6,
             7
           ],
-          "master": 2,
+          "master": 3,
           "label": "Merged Output"
         }
       ]
@@ -5929,7 +5928,7 @@
               "systemData": {
                 "isMulti": false,
                 "systemName": "",
-                "calculatedScore": null,
+                "calculatedScore": 80,
                 "systems": [
                   {
                     "id": "46b4721b-86c7-4e73-ac0e-aa5040e47fd3",
@@ -5950,12 +5949,18 @@
                   "multi": false,
                   "systems": [
                     {
-                      "id": "ea02d280-cd5b-4bd3-80ab-a2acd4e6f6cc",
-                      "name": "",
+                      "id": "7cbcadda-fa53-4544-a785-e5a573121b5a",
+                      "name": "Epic",
                       "legacy": false,
                       "future": "",
-                      "qa": {},
-                      "score": null
+                      "qa": {
+                        "q1": "NEVER",
+                        "q2": "NEVER",
+                        "q3": "NEVER",
+                        "q4": "NEVER",
+                        "q5": "STOP"
+                      },
+                      "score": 80
                     }
                   ],
                   "activeSystemIdx": 0
@@ -5979,7 +5984,7 @@
               "id": "6e13dd16-d922-4d47-9651-ae1c7895c154",
               "created": 1768841085648,
               "text": "",
-              "linkedSourceId": "OUT8",
+              "linkedSourceId": null,
               "type": null,
               "processValue": null,
               "processStatus": null,
@@ -5988,27 +5993,33 @@
               "improvements": [],
               "qa": {
                 "compleet": {
-                  "result": null,
+                  "result": "MODERATE",
+                  "impact": "B",
                   "note": ""
                 },
                 "kwaliteit": {
-                  "result": null,
+                  "result": "MINOR",
+                  "impact": "B",
                   "note": ""
                 },
                 "duidelijkheid": {
-                  "result": null,
+                  "result": "MODERATE",
+                  "impact": null,
                   "note": ""
                 },
                 "tijdigheid": {
-                  "result": null,
+                  "result": "GOOD",
+                  "impact": null,
                   "note": ""
                 },
                 "standaard": {
-                  "result": null,
+                  "result": "GOOD",
+                  "impact": null,
                   "note": ""
                 },
                 "overdracht": {
-                  "result": null,
+                  "result": "GOOD",
+                  "impact": null,
                   "note": ""
                 }
               },
@@ -6039,9 +6050,7 @@
               "workExpNote": "",
               "linkedBundleId": null,
               "linkedBundleIds": [],
-              "linkedSourceIds": [
-                "OUT8"
-              ],
+              "linkedSourceIds": [],
               "linkedSourceUids": [
                 "out_3a81c2e8-14b2-4caa-9d6e-16933049fd70",
                 "out_e60acaf1-d167-4af9-ab9c-fb248e1b03c7"
@@ -10508,8 +10517,8 @@
                   "multi": false,
                   "systems": [
                     {
-                      "id": "552ff4fb-9dd0-400f-a4cc-19f03342b61b",
-                      "name": "",
+                      "id": "d5517ce6-5502-4440-a5d3-e8f9808e1b07",
+                      "name": "Radiotherapie Web",
                       "legacy": false,
                       "future": "",
                       "qa": {
@@ -11727,8 +11736,8 @@
                   "multi": false,
                   "systems": [
                     {
-                      "id": "11cdb7f9-e95b-4455-8cec-202d33624916",
-                      "name": "",
+                      "id": "b2990f0e-99e4-4f91-888f-acd1b5a41196",
+                      "name": "Radiotherapie Web",
                       "legacy": false,
                       "future": "",
                       "qa": {
@@ -14543,8 +14552,8 @@
                   "multi": false,
                   "systems": [
                     {
-                      "id": "ffd23f01-5e03-4da7-9b51-1929d766f230",
-                      "name": "",
+                      "id": "5f5ac148-4ff6-4aa4-80d2-bda7137fba98",
+                      "name": "Outlook",
                       "legacy": false,
                       "future": "",
                       "qa": {
@@ -15129,8 +15138,8 @@
                   "multi": false,
                   "systems": [
                     {
-                      "id": "47a282bc-7948-4e82-970c-c57221c95753",
-                      "name": "",
+                      "id": "e38143d2-bd10-470f-b4a2-07b968ff06be",
+                      "name": "Sharepoint",
                       "legacy": false,
                       "future": "",
                       "qa": {
@@ -15721,8 +15730,8 @@
                   "multi": false,
                   "systems": [
                     {
-                      "id": "44322f33-47bc-441e-ae34-10faed7ce9d1",
-                      "name": "",
+                      "id": "3069df84-a6c1-4227-95cf-ef29323be69a",
+                      "name": "Outlook",
                       "legacy": false,
                       "future": "",
                       "qa": {
@@ -16300,8 +16309,8 @@
                   "multi": false,
                   "systems": [
                     {
-                      "id": "b7dac1ee-a9d3-4192-95e1-78ac9113270d",
-                      "name": "",
+                      "id": "3c8ad2d2-ccba-402e-b13e-214345e0fee6",
+                      "name": "Excel",
                       "legacy": false,
                       "future": "",
                       "qa": {
@@ -16888,8 +16897,8 @@
                   "multi": false,
                   "systems": [
                     {
-                      "id": "c73e810d-51cb-4507-999c-fa07780397c7",
-                      "name": "",
+                      "id": "fd9358d3-274d-46eb-b94e-08621dd654cd",
+                      "name": "Excel",
                       "legacy": false,
                       "future": "",
                       "qa": {
@@ -17465,7 +17474,7 @@
                   "multi": false,
                   "systems": [
                     {
-                      "id": "00a43439-55c9-4454-85a8-440ee2be569e",
+                      "id": "3ac8330a-eeb5-4ef1-9049-43195be277fd",
                       "name": "Outlook",
                       "legacy": false,
                       "future": "",
@@ -18026,8 +18035,8 @@
                   "multi": false,
                   "systems": [
                     {
-                      "id": "77fb2424-eceb-4c78-82e8-6bb279efe036",
-                      "name": "",
+                      "id": "a7393685-b436-4378-9bcf-413c650e6fb6",
+                      "name": "Outlook",
                       "legacy": false,
                       "future": "",
                       "qa": {
@@ -22717,8 +22726,8 @@
                   "multi": false,
                   "systems": [
                     {
-                      "id": "0e1c532d-d492-4512-abe5-5d617193c111",
-                      "name": "",
+                      "id": "578db980-8591-48b4-9299-0ec2d7d8682a",
+                      "name": "Sharepoint",
                       "legacy": false,
                       "future": "",
                       "qa": {
@@ -42077,8 +42086,8 @@
                   "multi": false,
                   "systems": [
                     {
-                      "id": "4732ddc7-5878-400f-a2bd-8c9ebc9a4a50",
-                      "name": "",
+                      "id": "34d35d8d-c628-4387-9076-6fcda002117b",
+                      "name": "Zenya",
                       "legacy": false,
                       "future": "",
                       "qa": {
@@ -42655,8 +42664,8 @@
                   "multi": false,
                   "systems": [
                     {
-                      "id": "a672bb9a-f977-4c75-b2c5-8764be1a4a22",
-                      "name": "",
+                      "id": "1f0b5d6d-69ed-4c70-8921-a2b9689e7683",
+                      "name": "Zenya",
                       "legacy": false,
                       "future": "",
                       "qa": {
@@ -43238,8 +43247,8 @@
                   "multi": false,
                   "systems": [
                     {
-                      "id": "290bc895-5fcf-47b1-a75e-94e87cfb66d8",
-                      "name": "",
+                      "id": "de6017b9-74e9-418a-b1d0-b52ab864ac05",
+                      "name": "Epic",
                       "legacy": false,
                       "future": "",
                       "qa": {
@@ -44936,8 +44945,8 @@
                   "multi": false,
                   "systems": [
                     {
-                      "id": "5430991f-acb2-4be0-8011-3ad61f42e5ca",
-                      "name": "",
+                      "id": "18c8c600-a291-451d-8cae-f187efa4c785",
+                      "name": "Telefoon",
                       "legacy": false,
                       "future": "",
                       "qa": {
@@ -45498,8 +45507,8 @@
                   "multi": false,
                   "systems": [
                     {
-                      "id": "f470202b-0bcb-4d2c-87dc-9bfbc0525643",
-                      "name": "",
+                      "id": "fe1fd525-95c0-4141-843e-f3e66ef64799",
+                      "name": "Telefoon",
                       "legacy": false,
                       "future": "",
                       "qa": {
