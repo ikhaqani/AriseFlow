@@ -3,6 +3,8 @@
 // + FIX: Proces data wordt nu correct uit Slot 4 gelezen (was 3)
 // + FIX: Actor data wordt nu correct uit Slot 3 gelezen
 // + FIX: Mapping van Input-links naar Output-tekst werkt weer (geen ruwe ID's meer)
+// + FIX: Sheetnaam toegevoegd vooraan in de CSV export
+// + FIX: Input ID telt netjes op (IN1, IN2) en accepteert bestaande (OUT2) gelijktijdig
 // + INCLUDES: Eerdere fixes (Headers, PNG, PDF, Github SHA)
 
 import { state } from './state.js';
@@ -640,6 +642,7 @@ export function exportToCSV() {
 function doFullCSVExport() {
   try {
     const headers = [
+      'Procesblad', // <--- FIX 1: Sheetnaam
       'Kolomnummer', 'Fase', 'Parallel?', 'Parallel met?', 'Split?', 'Route', 'Conditioneel?', 'Logica', 'Groep?', 'Groepsnaam', 'Leverancier',
       'Systemen', 'Legacy systemen', 'Target systemen', 'Systeem workarounds', 'Systeem workarounds opmerking',
       'Belemmering', 'Belemmering opmerking', 'Dubbel registreren', 'Dubbel registreren opmerking',
@@ -652,7 +655,7 @@ function doFullCSVExport() {
       'Standaardisatie', 'Standaardisatie taakimpact', 'Standaardisatie taakimpact opmerking',
       'Overdracht', 'Overdracht taakimpact', 'Overdracht taakimpact opmerking',
       'IQF score', 'Items', 'Type', 'Specificaties', 
-      'Actor', // <--- NIEUW: Actor
+      'Actor', 
       'Proces', 'Type activiteit', 'Werkbeleving', 'Toelichting', 'Leanwaarde', 'Status proces',
       'Oorzaken', 'Maatregelen', 'Verstoringen', 'Frequentie', 'Proces workarounds', 'Output ID', 'Output',
       'Procesvalidatie', 'Routing bij rework', 'Routing bij pass', 'Klant'
@@ -686,40 +689,67 @@ function doFullCSVExport() {
 
         const gFor = (sheet.groups || []).find(g => g.cols?.includes(colIdx));
         
-        // UPDATE: Nieuwe slot indices
-        // 0=Bron, 1=Sys, 2=In, 3=Actor, 4=Proces, 5=Output, 6=Klant
         const inS = col?.slots?.[2];
         const actorS = col?.slots?.[3];
         const procS = col?.slots?.[4] || {};
         const outS = col?.slots?.[5];
 
-        let inId = '', inTxt = String(inS?.text || '').trim();
+        let manualInTxt = String(inS?.text || '').trim();
         const bRes = resolveBundleIdsToLists(normalizeLinkedBundles(inS), bundleMaps);
         const srcRes = resolveLinkedSourcesToOutPairs(normalizeLinkedSources(inS), outIdByUid, outTextByUid, outTextByOutId);
-        if (bRes.bundleNames.length || srcRes.ids.length) { inId = joinSemi([...bRes.bundleNames, ...srcRes.ids]); inTxt = joinSemi([...bRes.bundleNames, ...srcRes.texts]); }
-        else if (inTxt) { globalInCounter++; inId = `IN${globalInCounter}`; }
+
+        // FIX 2: Slimme Input ID & Tekst opbouw
+        let inIdParts = [];
+        let inTxtParts = [];
+
+        // Handmatige tekst krijgt ALTIJD een oplopende IN-teller
+        if (manualInTxt) {
+          globalInCounter++;
+          inIdParts.push(`IN${globalInCounter}`);
+          inTxtParts.push(manualInTxt);
+        }
+
+        // Bundels toevoegen
+        if (bRes.bundleNames.length) {
+          inIdParts.push(...bRes.bundleNames);
+          inTxtParts.push(...bRes.bundleNames);
+        }
+
+        // Gekoppelde outputs (OUTx) toevoegen als input
+        if (srcRes.ids.length) {
+          inIdParts.push(...srcRes.ids);
+          inTxtParts.push(...srcRes.texts);
+        }
+
+        let inId = joinSemi(inIdParts);
+        let inTxt = joinSemi(inTxtParts);
 
         const qa = inS?.qa || {};
         const c_ = (l) => getIOTripleForLabel(qa, l, sl.systemsCount);
         const def = splitDefs(inS?.inputDefinitions), dis = splitDisruptions(procS?.disruptions);
 
-        // UPDATE: Output merge check op 5
         const outG = getMergeGroupForCell(mergeGroups, colIdx, 5), validGate = finalizeGate(outG?.gate);
         let outId = '';
         if (String(outS?.text || '').trim() && !isMergedSlaveInSheet(mergeGroups, colIdx, 5)) {
           const u = String(outS?.outputUid || '').trim(); outId = u && outIdByUid[u] ? outIdByUid[u] : '';
         }
 
-        // Nieuw: Actor ophalen (uit slot 3)
         const actor = String(actorS?.text || '').trim();
 
         lines.push([
+          sheet.name || `Proces`, 
           globalColNr, `Procesflow ${globalColNr}`, isP ? 'Ja' : 'Nee', pWith, isS ? 'Ja' : 'Nee', route, isC ? 'Ja' : 'Nee', logExp,
           col.isGroup ? 'Ja' : 'Nee', gFor?.title || '', String(col?.slots?.[0]?.text || '').trim(),
           sl.systemNames, sl.legacySystems, sl.targetSystems, sl.systemWorkarounds, sl.systemWorkaroundsNotes,
           sl.belemmering, sl.belemmeringNotes, sl.dubbelRegistreren, sl.dubbelRegistrerenNotes,
           sl.foutgevoeligheid, sl.foutgevoeligheidNotes, sl.gevolgUitval, sl.gevolgUitvalNotes, sl.ttfScores,
-          inId, inTxt, joinSemi(bRes.bundleNames), joinSemi(bRes.memberOutIds), joinSemi(bRes.memberOutTexts),
+          
+          inId, // <--- Correct samengevoegde ID's (INx en/of OUTx)
+          inTxt, 
+          joinSemi(bRes.bundleNames), 
+          joinSemi([...bRes.memberOutIds, ...srcRes.ids]), 
+          joinSemi([...bRes.memberOutTexts, ...srcRes.texts]), 
+          
           c_('Compleetheid').result, c_('Compleetheid').impact, c_('Compleetheid').note,
           c_('Datakwaliteit').result, c_('Datakwaliteit').impact, c_('Datakwaliteit').note,
           c_('Eenduidigheid').result, c_('Eenduidigheid').impact, c_('Eenduidigheid').note,
@@ -727,13 +757,13 @@ function doFullCSVExport() {
           c_('Standaardisatie').result, c_('Standaardisatie').impact, c_('Standaardisatie').note,
           c_('Overdracht').result, c_('Overdracht').impact, c_('Overdracht').note,
           calculateIQFScore(qa) || '', def.items, def.types, def.specs,
-          actor, // <--- Actor veld
+          actor,
           String(procS.text || '').trim(), String(procS.type || '').trim(), formatWorkExp(procS.workExp || procS.workJoy),
           String(procS.note || procS.toelichting || '').trim(), getLeanValueLabel(procS.processValue), getProcessStatusLabel(procS.processStatus),
           joinSemi(procS.causes || []), joinSemi(procS.improvements || []),
           dis.scenarios, dis.frequencies, dis.workarounds || joinSemi(procS.workarounds || []),
           outId, String(outS?.text || '').trim(), validGate ? 'Ja' : '', validGate ? getFailTargetFromGate(sheet, validGate) : '', validGate && outG ? getPassTargetFromGroup(sheet, outG) : '',
-          String(col?.slots?.[6]?.text || '').trim() // Klant zit op 6
+          String(col?.slots?.[6]?.text || '').trim()
         ].map(toCsvField).join(';'));
       });
     });
