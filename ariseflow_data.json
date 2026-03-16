@@ -225545,7 +225545,7 @@
               "systemData": {
                 "isMulti": false,
                 "systemName": "",
-                "calculatedScore": null,
+                "calculatedScore": 80,
                 "systems": [
                   {
                     "id": "2bee7a92-c9ea-4203-8e55-70656a9d5c5d",
@@ -225566,12 +225566,22 @@
                   "multi": false,
                   "systems": [
                     {
-                      "id": "8ff4e25f-c892-45eb-9fee-617275ad1d52",
-                      "name": "",
+                      "name": "Epic",
                       "legacy": false,
                       "future": "",
-                      "qa": {},
-                      "score": null
+                      "qa": {
+                        "q1": "NEVER",
+                        "q1_note": "De follow-up afspraak staat gewoon gepland in Epic en kan direct als startpunt worden gebruikt.",
+                        "q2": "NEVER",
+                        "q2_note": "Het openen van een gepland consult is rechttoe rechtaan en veroorzaakt weinig frictie",
+                        "q3": "NEVER",
+                        "q3_note": "De afspraak hoeft niet opnieuw opgebouwd of overgenomen te worden.",
+                        "q4": "SOMETIMES",
+                        "q4_note": "De afspraak zelf is duidelijk, maar de afspraak zegt niet automatisch alles over benodigde voorbereiding of inhoudelijke aandachtspunten",
+                        "q5": "RISK",
+                        "q5_note": "Zonder Epic ontbreekt het geplande consult als formeel startpunt van de follow-up."
+                      },
+                      "score": 80
                     }
                   ],
                   "activeSystemIdx": 0
@@ -226082,7 +226092,7 @@
               "systemData": {
                 "isMulti": false,
                 "systemName": "",
-                "calculatedScore": null,
+                "calculatedScore": 66,
                 "systems": [
                   {
                     "id": "97e39830-fd58-4c97-8ced-a28536f7b28b",
@@ -226098,7 +226108,31 @@
                     },
                     "calculatedScore": null
                   }
-                ]
+                ],
+                "systemsMeta": {
+                  "multi": false,
+                  "systems": [
+                    {
+                      "name": "Epic",
+                      "legacy": false,
+                      "future": "",
+                      "qa": {
+                        "q1": "SOMETIMES",
+                        "q1_note": "Het dossier is beschikbaar, maar specifieke onderdelen of relevante voorgeschiedenis moeten soms actief worden opgezocht.",
+                        "q2": "SOMETIMES",
+                        "q2_note": "Het consult kan gewoon doorgaan, maar het terugvinden van de juiste context kost extra handelingen.",
+                        "q3": "NEVER",
+                        "q3_note": "De arts werkt verder in hetzelfde dossier en hoeft de basisinformatie niet opnieuw in te voeren.",
+                        "q4": "SOMETIMES",
+                        "q4_note": "Als relevante voorgeschiedenis of uitslagen niet snel zichtbaar zijn, kan informatie gemist of te laat meegenomen worden.",
+                        "q5": "RISK",
+                        "q5_note": "Zonder dossierinzage ontbreekt de noodzakelijke context voor een goede follow-upbeoordeling."
+                      },
+                      "score": 66
+                    }
+                  ],
+                  "activeSystemIdx": 0
+                }
               },
               "inputDefinitions": [],
               "disruptions": [],
@@ -226549,7 +226583,7 @@
               "systemData": {
                 "isMulti": false,
                 "systemName": "",
-                "calculatedScore": null,
+                "calculatedScore": 73,
                 "systems": [
                   {
                     "id": "ff4dcdfc-b0e9-4dae-a988-ad09e68698c2",
@@ -226565,7 +226599,31 @@
                     },
                     "calculatedScore": null
                   }
-                ]
+                ],
+                "systemsMeta": {
+                  "multi": false,
+                  "systems": [
+                    {
+                      "name": "Fysiek / telefoon / video",
+                      "legacy": false,
+                      "future": "",
+                      "qa": {
+                        "q1": "SOMETIMES",
+                        "q1_note": "Vooral bij videoconsulten ontstaat een workaround, omdat tegelijk kijken, praten en documenteren omslachtiger is.",
+                        "q2": "SOMETIMES",
+                        "q2_note": "Telefonisch werkt relatief soepel, maar video werkt minder prettig voor gelijktijdig contact en verslaglegging.",
+                        "q3_note": "Er is geen echte dubbele registratie in dit systeem, maar verslaglegging verschuift soms naar direct na het consult.",
+                        "q3": "NEVER",
+                        "q4": "SOMETIMES",
+                        "q4_note": "Als documentatie niet tijdens maar na het consult gebeurt, kunnen details uit het gesprek verloren gaan.",
+                        "q5_note": "Bij uitval van video of telefonie kan het consult vaak nog omgezet of verplaatst worden, maar het proces loopt wel vertraging op.",
+                        "q5": "DELAY"
+                      },
+                      "score": 73
+                    }
+                  ],
+                  "activeSystemIdx": 0
+                }
               },
               "inputDefinitions": [],
               "disruptions": [],
@@ -227016,7 +227074,7 @@
               "systemData": {
                 "isMulti": false,
                 "systemName": "",
-                "calculatedScore": null,
+                "calculatedScore": 66,
                 "systems": [
                   {
                     "id": "4f8396a6-71f7-48e9-8e87-91e6b557662a",
@@ -227032,7 +227090,29 @@
                     },
                     "calculatedScore": null
                   }
-                ]
+                ],
+                "systemsMeta": {
+                  "multi": false,
+                  "systems": [
+                    {
+                      "name": "Epic",
+                      "legacy": false,
+                      "future": "",
+                      "qa": {
+                        "q1": "SOMETIMES",
+                        "q1_note": "",
+                        "q2": "SOMETIMES",
+                        "q2_note": "",
+                        "q3": "NEVER",
+                        "q4": "SOMETIMES",
+                        "q5": "RISK",
+                        "q5_note": "Dan kan de klinische beoordeling niet goed onderbouwd of vastgelegd worden."
+                      },
+                      "score": 66
+                    }
+                  ],
+                  "activeSystemIdx": 0
+                }
               },
               "inputDefinitions": [],
               "disruptions": [],
@@ -227483,7 +227563,7 @@
               "systemData": {
                 "isMulti": false,
                 "systemName": "",
-                "calculatedScore": null,
+                "calculatedScore": 75,
                 "systems": [
                   {
                     "id": "555af781-e653-4ee5-956e-d42bf2f666d6",
@@ -227499,7 +227579,30 @@
                     },
                     "calculatedScore": null
                   }
-                ]
+                ],
+                "systemsMeta": {
+                  "multi": false,
+                  "systems": [
+                    {
+                      "name": "Epic",
+                      "legacy": false,
+                      "future": "",
+                      "qa": {
+                        "q1": "SOMETIMES",
+                        "q1_note": "Vooral bij consultvormen waarin niet prettig live getypt kan worden, verschuift verslaglegging deels naar achteraf.",
+                        "q2_note": "Het vastleggen zelf kan, maar niet elke consultvorm ondersteunt dat even soepel.",
+                        "q3": "NEVER",
+                        "q3_note": "De beoordeling wordt rechtstreeks in Epic vastgelegd en hoeft niet apart overgenomen te worden.",
+                        "q4": "SOMETIMES",
+                        "q4_note": "De kwaliteit van deze stap hangt af van hoe volledig en zorgvuldig de notitie wordt geformuleerd.",
+                        "q5_note": "Het consult kan inhoudelijk plaatsvinden, maar de formele vastlegging en overdracht lopen dan achter.",
+                        "q5": "DELAY"
+                      },
+                      "score": 75
+                    }
+                  ],
+                  "activeSystemIdx": 0
+                }
               },
               "inputDefinitions": [],
               "disruptions": [],
@@ -227950,7 +228053,7 @@
               "systemData": {
                 "isMulti": false,
                 "systemName": "",
-                "calculatedScore": null,
+                "calculatedScore": 66,
                 "systems": [
                   {
                     "id": "fa6aeafd-b1cb-446d-8562-32ca22436e4b",
@@ -227966,7 +228069,28 @@
                     },
                     "calculatedScore": null
                   }
-                ]
+                ],
+                "systemsMeta": {
+                  "multi": false,
+                  "systems": [
+                    {
+                      "name": "Epic",
+                      "legacy": false,
+                      "future": "",
+                      "qa": {
+                        "q1": "SOMETIMES",
+                        "q2": "SOMETIMES",
+                        "q3": "NEVER",
+                        "q4": "SOMETIMES",
+                        "q4_note": "Als het besluit inhoudelijk helder is maar technisch niet goed wordt omgezet, gaat het vervolgproces alsnog mis.",
+                        "q5": "RISK",
+                        "q5_note": "Dan kan het vervolgbeleid niet goed worden vastgelegd of doorgezet."
+                      },
+                      "score": 66
+                    }
+                  ],
+                  "activeSystemIdx": 0
+                }
               },
               "inputDefinitions": [],
               "disruptions": [],
@@ -228978,9 +229102,9 @@
               "linkedBundleId": null,
               "linkedBundleIds": null,
               "linkedSourceUids": [
-                "out_b83241f3-a060-45ba-9f57-074f8f7be271"
+                "out_50c26225-5c23-4686-94df-946b40fc38bc"
               ],
-              "linkedSourceUid": "out_b83241f3-a060-45ba-9f57-074f8f7be271",
+              "linkedSourceUid": "out_50c26225-5c23-4686-94df-946b40fc38bc",
               "linkedSourceIds": []
             },
             {
