@@ -642,7 +642,7 @@ export function exportToCSV() {
 function doFullCSVExport() {
   try {
     const headers = [
-      'Procesblad', // <--- FIX 1: Sheetnaam
+      'Procesblad',
       'Kolomnummer', 'Fase', 'Parallel?', 'Parallel met?', 'Split?', 'Route', 'Conditioneel?', 'Logica', 'Groep?', 'Groepsnaam', 'Leverancier',
       'Systemen', 'Legacy systemen', 'Target systemen', 'Systeem workarounds', 'Systeem workarounds opmerking',
       'Belemmering', 'Belemmering opmerking', 'Dubbel registreren', 'Dubbel registreren opmerking',
@@ -698,31 +698,33 @@ function doFullCSVExport() {
         const bRes = resolveBundleIdsToLists(normalizeLinkedBundles(inS), bundleMaps);
         const srcRes = resolveLinkedSourcesToOutPairs(normalizeLinkedSources(inS), outIdByUid, outTextByUid, outTextByOutId);
 
-        // FIX 2: Slimme Input ID & Tekst opbouw
+        // --- DEFINITIEVE FIX VOOR INPUT ID ---
         let inIdParts = [];
         let inTxtParts = [];
 
-        // Handmatige tekst krijgt ALTIJD een oplopende IN-teller
+        // 1. Handmatige tekst krijgt altijd een IN-nummer
         if (manualInTxt) {
           globalInCounter++;
           inIdParts.push(`IN${globalInCounter}`);
           inTxtParts.push(manualInTxt);
+        } 
+        // 2. Als er GEEN tekst is en GEEN OUT-referentie, maar WEL een bundel:
+        // Ken dan toch een IN-nummer toe zodat de Input ID niet leeg blijft.
+        else if (bRes.bundleNames.length > 0 && srcRes.ids.length === 0) {
+          globalInCounter++;
+          inIdParts.push(`IN${globalInCounter}`);
         }
 
-        // Bundels toevoegen
-        if (bRes.bundleNames.length) {
-          inIdParts.push(...bRes.bundleNames);
-          inTxtParts.push(...bRes.bundleNames);
-        }
-
-        // Gekoppelde outputs (OUTx) toevoegen als input
+        // 3. Gekoppelde outputs (OUTx) toevoegen als input
         if (srcRes.ids.length) {
           inIdParts.push(...srcRes.ids);
           inTxtParts.push(...srcRes.texts);
         }
 
+        // We pushen bRes.bundleNames hier NIET meer in. Die hebben hun eigen 'Input bundel(s)' kolom!
         let inId = joinSemi(inIdParts);
         let inTxt = joinSemi(inTxtParts);
+        // -------------------------------------
 
         const qa = inS?.qa || {};
         const c_ = (l) => getIOTripleForLabel(qa, l, sl.systemsCount);
@@ -744,9 +746,9 @@ function doFullCSVExport() {
           sl.belemmering, sl.belemmeringNotes, sl.dubbelRegistreren, sl.dubbelRegistrerenNotes,
           sl.foutgevoeligheid, sl.foutgevoeligheidNotes, sl.gevolgUitval, sl.gevolgUitvalNotes, sl.ttfScores,
           
-          inId, // <--- Correct samengevoegde ID's (INx en/of OUTx)
+          inId,  // Hier staat nu gegarandeerd alleen INx of OUTx in
           inTxt, 
-          joinSemi(bRes.bundleNames), 
+          joinSemi(bRes.bundleNames), // Hier staat netjes 'Interne verwijzing' etc.
           joinSemi([...bRes.memberOutIds, ...srcRes.ids]), 
           joinSemi([...bRes.memberOutTexts, ...srcRes.texts]), 
           
