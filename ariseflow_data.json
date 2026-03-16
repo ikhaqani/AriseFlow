@@ -228433,7 +228433,7 @@
           "order": 1,
           "isVisible": true,
           "isParallel": false,
-          "isVariant": false,
+          "isVariant": true,
           "hasTransition": false,
           "transitionNext": "",
           "outputId": null,
@@ -228541,7 +228541,7 @@
               "systemData": {
                 "isMulti": false,
                 "systemName": "",
-                "calculatedScore": null,
+                "calculatedScore": 53,
                 "systems": [
                   {
                     "id": "0af7c6ac-e58a-41a2-985e-ffb7e3733eab",
@@ -228557,7 +228557,31 @@
                     },
                     "calculatedScore": null
                   }
-                ]
+                ],
+                "systemsMeta": {
+                  "multi": false,
+                  "systems": [
+                    {
+                      "name": "Epic",
+                      "legacy": false,
+                      "future": "",
+                      "qa": {
+                        "q1": "SOMETIMES",
+                        "q2": "SOMETIMES",
+                        "q3": "SOMETIMES",
+                        "q4": "OFTEN",
+                        "q5": "RISK",
+                        "q1_note": "De brieftekst wordt deels automatisch gevuld, maar moet daarna nog handmatig aangepast en aangevuld worden.",
+                        "q2_note": "Het proces werkt, maar extra handelingen zoals tekst bewerkbaar maken en ontvangers toevoegen maken het omslachtiger.",
+                        "q3_note": "De inhoud staat deels al in de consultnotitie, maar moet nog gecontroleerd en aangevuld worden in de brief.",
+                        "q4_note": "Ontvangers worden geregeld vergeten, waardoor de poliadministratie moet terugvragen naar wie de brief moet.",
+                        "q5_note": "Zonder Epic kan de ontslagbrief niet correct worden opgesteld of doorgezet."
+                      },
+                      "score": 53
+                    }
+                  ],
+                  "activeSystemIdx": 0
+                }
               },
               "inputDefinitions": [],
               "disruptions": [],
@@ -228900,7 +228924,7 @@
           "order": 1,
           "isVisible": true,
           "isParallel": false,
-          "isVariant": false,
+          "isVariant": true,
           "hasTransition": false,
           "transitionNext": "",
           "outputId": null,
@@ -229008,7 +229032,7 @@
               "systemData": {
                 "isMulti": false,
                 "systemName": "",
-                "calculatedScore": null,
+                "calculatedScore": 40,
                 "systems": [
                   {
                     "id": "9f269ae5-63a4-40e4-a2dd-cbb09f6732f5",
@@ -229024,7 +229048,31 @@
                     },
                     "calculatedScore": null
                   }
-                ]
+                ],
+                "systemsMeta": {
+                  "multi": false,
+                  "systems": [
+                    {
+                      "name": "Epic",
+                      "legacy": false,
+                      "future": "",
+                      "qa": {
+                        "q1": "OFTEN",
+                        "q1_note": "Voor een nieuwe follow-up order moet exact de juiste ordernaam bekend zijn, waardoor geheugen, lijstjes en zoekwerk nodig zijn.",
+                        "q2_note": "Het vinden van de juiste order kost tijd en onderbreekt de afronding van het consult.",
+                        "q2": "OFTEN",
+                        "q3": "SOMETIMES",
+                        "q3_note": "Het inhoudelijke besluit ligt al vast, maar moet daarna nog technisch vertaald worden naar de juiste order.",
+                        "q4": "OFTEN",
+                        "q4_note": "Een verkeerde order, vergeten order of uitgestelde order ontstaat hier relatief makkelijk door de complexe orderstructuur.",
+                        "q5_note": "Zonder Epic kan geen correcte vervolgorder worden aangemaakt voor het afsprakenbureau",
+                        "q5": "RISK"
+                      },
+                      "score": 40
+                    }
+                  ],
+                  "activeSystemIdx": 0
+                }
               },
               "inputDefinitions": [],
               "disruptions": [],
@@ -229820,7 +229868,19 @@
       "outputMerges": [],
       "systemMerges": [],
       "groups": [],
-      "variantGroups": []
+      "variantGroups": [
+        {
+          "id": "var_561bd370-173d-4487-88e4-e48d550fcee6",
+          "parents": [
+            5
+          ],
+          "parentColIdx": 5,
+          "variants": [
+            6,
+            7
+          ]
+        }
+      ]
     }
   ],
   "outputBundles": [
