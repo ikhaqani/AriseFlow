@@ -50155,7 +50155,7 @@
     },
     {
       "id": "99dcbf7e-71ed-48c1-a451-39b75e1655d1",
-      "name": "10 - Eerste consult",
+      "name": "10 - Eerste consult ✓",
       "order": 1,
       "columns": [
         {
@@ -50280,7 +50280,7 @@
               "systemData": {
                 "isMulti": false,
                 "systemName": "",
-                "calculatedScore": null,
+                "calculatedScore": 80,
                 "systems": [
                   {
                     "id": "630e3815-f208-4b86-982d-04484ea4639a",
@@ -50301,12 +50301,18 @@
                   "multi": false,
                   "systems": [
                     {
-                      "id": "015ab07a-2c14-45ef-b8af-7aff76e44d1d",
-                      "name": "",
+                      "id": "73dea77d-bda4-45ee-aab8-7773976cd449",
+                      "name": "Epic",
                       "legacy": false,
                       "future": "",
-                      "qa": {},
-                      "score": null
+                      "qa": {
+                        "q1": "NEVER",
+                        "q2": "SOMETIMES",
+                        "q3": "NEVER",
+                        "q4": "SOMETIMES",
+                        "q5": "DELAY"
+                      },
+                      "score": 80
                     }
                   ],
                   "activeSystemIdx": 0
@@ -50339,32 +50345,32 @@
               "improvements": [],
               "qa": {
                 "compleet": {
-                  "result": null,
+                  "result": "GOOD",
                   "impact": null,
                   "note": ""
                 },
                 "kwaliteit": {
-                  "result": null,
+                  "result": "GOOD",
                   "impact": null,
                   "note": ""
                 },
                 "duidelijkheid": {
-                  "result": null,
+                  "result": "GOOD",
                   "impact": null,
                   "note": ""
                 },
                 "tijdigheid": {
-                  "result": null,
+                  "result": "GOOD",
                   "impact": null,
                   "note": ""
                 },
                 "standaard": {
-                  "result": null,
+                  "result": "GOOD",
                   "impact": null,
                   "note": ""
                 },
                 "overdracht": {
-                  "result": null,
+                  "result": "GOOD",
                   "impact": null,
                   "note": ""
                 }
@@ -50390,7 +50396,18 @@
                   }
                 ]
               },
-              "inputDefinitions": [],
+              "inputDefinitions": [
+                {
+                  "item": "Consultafspraak",
+                  "specifications": "Juiste patiënt, juiste datum/tijd, juiste behandelaar zichtbaar. Consulttype en consultmoment correct gekoppeld",
+                  "type": "HARD"
+                },
+                {
+                  "item": "HIP-status / behandelwensen",
+                  "specifications": "Relevante status en wensen zijn zichtbaar en actueel genoeg om te controleren",
+                  "type": "HARD"
+                }
+              ],
               "disruptions": [],
               "workExp": null,
               "workExpNote": "",
@@ -50486,9 +50503,9 @@
               "created": 1770370092364,
               "text": "Controleren HIP-status / Behandelwensen",
               "linkedSourceId": null,
-              "type": null,
-              "processValue": null,
-              "processStatus": null,
+              "type": "Taak",
+              "processValue": "BNVA",
+              "processStatus": "HAPPY",
               "successFactors": "",
               "causes": [],
               "improvements": [],
@@ -50540,9 +50557,15 @@
                 ]
               },
               "inputDefinitions": [],
-              "disruptions": [],
-              "workExp": null,
-              "workExpNote": "",
+              "disruptions": [
+                {
+                  "scenario": "Twijfel of HIP-status / behandelwensen nog actueel zijn",
+                  "frequency": "Zelden",
+                  "workaround": "Arts controleert extra in dossier of loopt het nog even na"
+                }
+              ],
+              "workExp": "ROUTINE",
+              "workExpNote": "voorbereidende controle, weinig expliciete frictie genoemd",
               "outputUid": "out_1837078e-d6cb-4a70-8c3d-bb2ccfe9861f",
               "linkedSourceUids": [],
               "linkedBundleIds": [],
@@ -50827,7 +50850,7 @@
               "systemData": {
                 "isMulti": false,
                 "systemName": "",
-                "calculatedScore": null,
+                "calculatedScore": 86,
                 "systems": [
                   {
                     "id": "f2b85377-995a-4517-a6a5-5214cc5ebcb1",
@@ -50848,12 +50871,18 @@
                   "multi": false,
                   "systems": [
                     {
-                      "id": "30cef6f0-b59a-41e6-b9b0-6bd9f0d0c854",
-                      "name": "",
+                      "id": "a534599a-0c3c-4449-9dcb-fb18425ceb7d",
+                      "name": "Epic",
                       "legacy": false,
                       "future": "",
-                      "qa": {},
-                      "score": null
+                      "qa": {
+                        "q1": "NEVER",
+                        "q2": "NEVER",
+                        "q3": "NEVER",
+                        "q4": "SOMETIMES",
+                        "q5": "DELAY"
+                      },
+                      "score": 86
                     }
                   ],
                   "activeSystemIdx": 0
@@ -50886,32 +50915,32 @@
               "improvements": [],
               "qa": {
                 "compleet": {
-                  "result": null,
+                  "result": "GOOD",
                   "impact": null,
                   "note": ""
                 },
                 "kwaliteit": {
-                  "result": null,
+                  "result": "GOOD",
                   "impact": null,
                   "note": ""
                 },
                 "duidelijkheid": {
-                  "result": null,
+                  "result": "GOOD",
                   "impact": null,
                   "note": ""
                 },
                 "tijdigheid": {
-                  "result": null,
+                  "result": "GOOD",
                   "impact": null,
                   "note": ""
                 },
                 "standaard": {
-                  "result": null,
+                  "result": "GOOD",
                   "impact": null,
                   "note": ""
                 },
                 "overdracht": {
-                  "result": null,
+                  "result": "GOOD",
                   "impact": null,
                   "note": ""
                 }
@@ -50937,7 +50966,13 @@
                   }
                 ]
               },
-              "inputDefinitions": [],
+              "inputDefinitions": [
+                {
+                  "item": "Gecontroleerd HIP-status / behandelwensen",
+                  "specifications": "",
+                  "type": "HARD"
+                }
+              ],
               "disruptions": [],
               "workExp": null,
               "workExpNote": "",
@@ -51033,9 +51068,9 @@
               "created": 1770370147969,
               "text": "Oproepen patiënt",
               "linkedSourceId": null,
-              "type": null,
-              "processValue": null,
-              "processStatus": null,
+              "type": "Taak",
+              "processValue": "BNVA",
+              "processStatus": "HAPPY",
               "successFactors": "",
               "causes": [],
               "improvements": [],
@@ -51087,8 +51122,14 @@
                 ]
               },
               "inputDefinitions": [],
-              "disruptions": [],
-              "workExp": null,
+              "disruptions": [
+                {
+                  "scenario": "Patiëntstatus is niet helemaal duidelijk",
+                  "frequency": "Zelden",
+                  "workaround": "Arts of medewerker checkt nog even in Epic of de patiënt echt aan de beurt is"
+                }
+              ],
+              "workExp": "ROUTINE",
               "workExpNote": "",
               "outputUid": "out_cd173d93-741c-4a77-9e10-2c03c60b196a",
               "linkedSourceUids": [],
@@ -51374,7 +51415,7 @@
               "systemData": {
                 "isMulti": false,
                 "systemName": "",
-                "calculatedScore": null,
+                "calculatedScore": 59,
                 "systems": [
                   {
                     "id": "c969e5c6-93ef-4557-9cd3-89113e8a3020",
@@ -51395,12 +51436,19 @@
                   "multi": false,
                   "systems": [
                     {
-                      "id": "2ac655ae-ed6e-40fc-bef5-1c4a2eea2075",
-                      "name": "",
+                      "id": "88cb5659-bd16-4a96-8602-a83313ee239c",
+                      "name": "Epic",
                       "legacy": false,
                       "future": "",
-                      "qa": {},
-                      "score": null
+                      "qa": {
+                        "q1": "SOMETIMES",
+                        "q2": "SOMETIMES",
+                        "q3": "OFTEN",
+                        "q3_note": "Hier wringt het, omdat dezelfde status verderop nogmaals in een ander systeem terugkomt. Dat wijst op ketenmatige dubbelregistratie.",
+                        "q4": "SOMETIMES",
+                        "q5": "DELAY"
+                      },
+                      "score": 59
                     }
                   ],
                   "activeSystemIdx": 0
@@ -51433,32 +51481,32 @@
               "improvements": [],
               "qa": {
                 "compleet": {
-                  "result": null,
+                  "result": "GOOD",
                   "impact": null,
                   "note": ""
                 },
                 "kwaliteit": {
-                  "result": null,
+                  "result": "GOOD",
                   "impact": null,
                   "note": ""
                 },
                 "duidelijkheid": {
-                  "result": null,
+                  "result": "GOOD",
                   "impact": null,
                   "note": ""
                 },
                 "tijdigheid": {
-                  "result": null,
+                  "result": "GOOD",
                   "impact": null,
                   "note": ""
                 },
                 "standaard": {
-                  "result": null,
+                  "result": "GOOD",
                   "impact": null,
                   "note": ""
                 },
                 "overdracht": {
-                  "result": null,
+                  "result": "GOOD",
                   "impact": null,
                   "note": ""
                 }
@@ -51484,7 +51532,13 @@
                   }
                 ]
               },
-              "inputDefinitions": [],
+              "inputDefinitions": [
+                {
+                  "item": "Patiënt in consultkamer",
+                  "specifications": "Juiste patiënt is aanwezig bij de juiste afspraak",
+                  "type": "HARD"
+                }
+              ],
               "disruptions": [],
               "workExp": null,
               "workExpNote": "",
@@ -51580,12 +51634,16 @@
               "created": 1770370260087,
               "text": "Inchecken patiënt",
               "linkedSourceId": null,
-              "type": null,
-              "processValue": null,
-              "processStatus": null,
+              "type": "Taak",
+              "processValue": "BNVA",
+              "processStatus": "NEUTRAL",
               "successFactors": "",
-              "causes": [],
-              "improvements": [],
+              "causes": [
+                "Patiëntstatus moet later ook nog in een ander systeem terugkomen"
+              ],
+              "improvements": [
+                "Richt één leidende statusstap in of synchroniseer Epic en Radiotherapie Web automatisch"
+              ],
               "qa": {
                 "compleet": {
                   "result": "",
@@ -51634,9 +51692,15 @@
                 ]
               },
               "inputDefinitions": [],
-              "disruptions": [],
-              "workExp": null,
-              "workExpNote": "",
+              "disruptions": [
+                {
+                  "scenario": "Status klopt in Epic, maar moet elders nogmaals worden gezet",
+                  "frequency": "Altijd",
+                  "workaround": "Medewerker controleert beide systemen handmatig"
+                }
+              ],
+              "workExp": "ROUTINE",
+              "workExpNote": "handeling zelf is simpel, maar maakt deel uit van dubbele statusvoering",
               "outputUid": "out_9fc3b3e1-f709-4d0a-bc5d-e54d3b0d9f6f",
               "linkedSourceUids": [],
               "linkedBundleIds": [],
@@ -51921,7 +51985,7 @@
               "systemData": {
                 "isMulti": false,
                 "systemName": "",
-                "calculatedScore": null,
+                "calculatedScore": 59,
                 "systems": [
                   {
                     "id": "7e103a25-5d3c-4ef6-9d8e-7215d601d5b3",
@@ -51942,12 +52006,19 @@
                   "multi": false,
                   "systems": [
                     {
-                      "id": "941fcb94-89e3-463d-9c5f-d16cb7621c2f",
-                      "name": "",
+                      "id": "3751f550-81df-4ecf-b565-3f0b0ba394a5",
+                      "name": "Radiotherapie Web",
                       "legacy": false,
                       "future": "",
-                      "qa": {},
-                      "score": null
+                      "qa": {
+                        "q1": "SOMETIMES",
+                        "q2": "SOMETIMES",
+                        "q3": "OFTEN",
+                        "q4": "SOMETIMES",
+                        "q5": "DELAY",
+                        "q3_note": "weede incheckstap naast Epic maakt dit gevoelig voor dubbel werk en statusverschillen."
+                      },
+                      "score": 59
                     }
                   ],
                   "activeSystemIdx": 0
@@ -51980,32 +52051,32 @@
               "improvements": [],
               "qa": {
                 "compleet": {
-                  "result": null,
+                  "result": "GOOD",
                   "impact": null,
                   "note": ""
                 },
                 "kwaliteit": {
-                  "result": null,
+                  "result": "GOOD",
                   "impact": null,
                   "note": ""
                 },
                 "duidelijkheid": {
-                  "result": null,
+                  "result": "GOOD",
                   "impact": null,
                   "note": ""
                 },
                 "tijdigheid": {
-                  "result": null,
+                  "result": "GOOD",
                   "impact": null,
                   "note": ""
                 },
                 "standaard": {
-                  "result": null,
+                  "result": "GOOD",
                   "impact": null,
                   "note": ""
                 },
                 "overdracht": {
-                  "result": null,
+                  "result": "GOOD",
                   "impact": null,
                   "note": ""
                 }
@@ -52031,7 +52102,13 @@
                   }
                 ]
               },
-              "inputDefinitions": [],
+              "inputDefinitions": [
+                {
+                  "item": "Juiste patiënt is aanwezig bij de juiste afspraak",
+                  "specifications": "",
+                  "type": "HARD"
+                }
+              ],
               "disruptions": [],
               "workExp": null,
               "workExpNote": "",
@@ -52127,12 +52204,16 @@
               "created": 1770370325824,
               "text": "Inchecken patiënt",
               "linkedSourceId": null,
-              "type": null,
-              "processValue": null,
-              "processStatus": null,
+              "type": "Taak",
+              "processValue": "NVA",
+              "processStatus": "NEUTRAL",
               "successFactors": "",
-              "causes": [],
-              "improvements": [],
+              "causes": [
+                "Dezelfde patiëntstatus moet in meerdere systemen worden bijgewerkt"
+              ],
+              "improvements": [
+                "Koppel statusupdates tussen Epic en Radiotherapie Web of schrap dubbele check-in"
+              ],
               "qa": {
                 "compleet": {
                   "result": "",
@@ -52181,9 +52262,15 @@
                 ]
               },
               "inputDefinitions": [],
-              "disruptions": [],
-              "workExp": null,
-              "workExpNote": "",
+              "disruptions": [
+                {
+                  "scenario": "Patiënt moet in twee systemen worden ingecheckt",
+                  "frequency": "Altijd",
+                  "workaround": "Medewerker zet status handmatig in beide systemen"
+                }
+              ],
+              "workExp": "OBSTACLE",
+              "workExpNote": "lijkt vooral een extra administratieve stap naast Epic",
               "outputUid": "out_604c017c-fa09-40b3-a5c3-0c1e827fcabb",
               "linkedSourceUids": [],
               "linkedBundleIds": [],
@@ -52489,7 +52576,7 @@
                   "multi": false,
                   "systems": [
                     {
-                      "id": "304caa30-a659-40e1-8c4f-8414214aa413",
+                      "id": "30cc6faf-d47a-4f8c-9bda-c8e5a4af0fdd",
                       "name": "Epic",
                       "legacy": false,
                       "future": "",
@@ -52533,32 +52620,32 @@
               "improvements": [],
               "qa": {
                 "compleet": {
-                  "result": null,
+                  "result": "GOOD",
                   "impact": null,
                   "note": ""
                 },
                 "kwaliteit": {
-                  "result": null,
+                  "result": "GOOD",
                   "impact": null,
                   "note": ""
                 },
                 "duidelijkheid": {
-                  "result": null,
+                  "result": "GOOD",
                   "impact": null,
                   "note": ""
                 },
                 "tijdigheid": {
-                  "result": null,
+                  "result": "GOOD",
                   "impact": null,
                   "note": ""
                 },
                 "standaard": {
-                  "result": null,
+                  "result": "GOOD",
                   "impact": null,
                   "note": ""
                 },
                 "overdracht": {
-                  "result": null,
+                  "result": "GOOD",
                   "impact": null,
                   "note": ""
                 }
@@ -52584,7 +52671,13 @@
                   }
                 ]
               },
-              "inputDefinitions": [],
+              "inputDefinitions": [
+                {
+                  "item": "Consultafspraak",
+                  "specifications": "Juiste patiënt, juiste afspraak en juiste context zichtbaar. Dossier en consultinformatie zijn raadpleegbaar tijdens consult",
+                  "type": "HARD"
+                }
+              ],
               "disruptions": [],
               "workExp": null,
               "workExpNote": "",
@@ -52734,9 +52827,15 @@
                 ]
               },
               "inputDefinitions": [],
-              "disruptions": [],
+              "disruptions": [
+                {
+                  "scenario": "Administratieve uitwerking na het consult is niet altijd logisch",
+                  "frequency": "Zelden",
+                  "workaround": "Arts vult later aan of zoekt daarna uit welke vervolgstappen nodig zijn"
+                }
+              ],
               "workExp": "FLOW",
-              "workExpNote": "",
+              "workExpNote": "dit is het kernwerk van de arts en lijkt inhoudelijk goed te lopen",
               "linkedSourceUids": [],
               "linkedBundleIds": [],
               "gate": {
@@ -53021,7 +53120,7 @@
               "systemData": {
                 "isMulti": false,
                 "systemName": "",
-                "calculatedScore": null,
+                "calculatedScore": 100,
                 "systems": [
                   {
                     "id": "0c0caa9d-e876-4352-a92a-251dd59f426f",
@@ -53042,12 +53141,18 @@
                   "multi": false,
                   "systems": [
                     {
-                      "id": "7cbc2c8e-4b4b-4d82-aa79-c6abe3b9f87b",
-                      "name": "",
+                      "id": "9928a7cb-8690-4a5d-802c-9845ef235691",
+                      "name": "Mondeling",
                       "legacy": false,
                       "future": "",
-                      "qa": {},
-                      "score": null
+                      "qa": {
+                        "q1": "NEVER",
+                        "q2": "NEVER",
+                        "q3": "NEVER",
+                        "q4": "NEVER",
+                        "q5": "SAFE"
+                      },
+                      "score": 100
                     }
                   ],
                   "activeSystemIdx": 0
@@ -53080,32 +53185,32 @@
               "improvements": [],
               "qa": {
                 "compleet": {
-                  "result": null,
+                  "result": "GOOD",
                   "impact": null,
                   "note": ""
                 },
                 "kwaliteit": {
-                  "result": null,
+                  "result": "GOOD",
                   "impact": null,
                   "note": ""
                 },
                 "duidelijkheid": {
-                  "result": null,
+                  "result": "GOOD",
                   "impact": null,
                   "note": ""
                 },
                 "tijdigheid": {
-                  "result": null,
+                  "result": "GOOD",
                   "impact": null,
                   "note": ""
                 },
                 "standaard": {
-                  "result": null,
+                  "result": "GOOD",
                   "impact": null,
                   "note": ""
                 },
                 "overdracht": {
-                  "result": null,
+                  "result": "GOOD",
                   "impact": null,
                   "note": ""
                 }
@@ -53131,7 +53236,13 @@
                   }
                 ]
               },
-              "inputDefinitions": [],
+              "inputDefinitions": [
+                {
+                  "item": "Behandelvoorstel",
+                  "specifications": "Voorstel is inhoudelijk volledig genoeg om op te beslissen",
+                  "type": "HARD"
+                }
+              ],
               "disruptions": [],
               "workExp": null,
               "workExpNote": "",
@@ -53227,9 +53338,9 @@
               "created": 1770305405431,
               "text": "Behandelvoorstel accepteren/weigeren",
               "linkedSourceId": null,
-              "type": null,
-              "processValue": null,
-              "processStatus": null,
+              "type": "Beoordeling",
+              "processValue": "VA",
+              "processStatus": "HAPPY",
               "successFactors": "",
               "causes": [],
               "improvements": [],
@@ -53281,9 +53392,15 @@
                 ]
               },
               "inputDefinitions": [],
-              "disruptions": [],
-              "workExp": null,
-              "workExpNote": "",
+              "disruptions": [
+                {
+                  "scenario": "Patiënt twijfelt of begrijpt voorstel nog niet volledig",
+                  "frequency": "Soms",
+                  "workaround": "Arts geeft extra toelichting of beantwoordt aanvullende vragen"
+                }
+              ],
+              "workExp": "FLOW",
+              "workExpNote": "gezamenlijke besluitvorming met patiënt is kern van het consult",
               "outputUid": "out_e1d714a6-e99c-446d-9b62-b04a3e0000d5",
               "linkedSourceUids": [],
               "linkedBundleIds": [],
@@ -53568,7 +53685,7 @@
               "systemData": {
                 "isMulti": false,
                 "systemName": "",
-                "calculatedScore": null,
+                "calculatedScore": 100,
                 "systems": [
                   {
                     "id": "696ad3c0-c391-44d2-b416-83b1650d708b",
@@ -53589,12 +53706,18 @@
                   "multi": false,
                   "systems": [
                     {
-                      "id": "79747460-2a4d-41e5-8e10-4dfaf8f23d78",
-                      "name": "",
+                      "id": "e7eab534-c045-4167-81db-b04d916fcad4",
+                      "name": "Mondeling",
                       "legacy": false,
                       "future": "",
-                      "qa": {},
-                      "score": null
+                      "qa": {
+                        "q1": "NEVER",
+                        "q2": "NEVER",
+                        "q3": "NEVER",
+                        "q4": "NEVER",
+                        "q5": "SAFE"
+                      },
+                      "score": 100
                     }
                   ],
                   "activeSystemIdx": 0
@@ -53627,32 +53750,32 @@
               "improvements": [],
               "qa": {
                 "compleet": {
-                  "result": null,
+                  "result": "GOOD",
                   "impact": null,
                   "note": ""
                 },
                 "kwaliteit": {
-                  "result": null,
+                  "result": "GOOD",
                   "impact": null,
                   "note": ""
                 },
                 "duidelijkheid": {
-                  "result": null,
+                  "result": "GOOD",
                   "impact": null,
                   "note": ""
                 },
                 "tijdigheid": {
-                  "result": null,
+                  "result": "GOOD",
                   "impact": null,
                   "note": ""
                 },
                 "standaard": {
-                  "result": null,
+                  "result": "GOOD",
                   "impact": null,
                   "note": ""
                 },
                 "overdracht": {
-                  "result": null,
+                  "result": "GOOD",
                   "impact": null,
                   "note": ""
                 }
@@ -53678,7 +53801,18 @@
                   }
                 ]
               },
-              "inputDefinitions": [],
+              "inputDefinitions": [
+                {
+                  "item": "Behandelvoorstel geweigerd",
+                  "specifications": "Duidelijk dát patiënt weigert. Duidelijk wat is geweigerd",
+                  "type": "HARD"
+                },
+                {
+                  "item": "Behandelvoorstel geweigerd",
+                  "specifications": "Eventuele reden of toelichting is bekend indien relevant",
+                  "type": "SOFT"
+                }
+              ],
               "disruptions": [],
               "workExp": null,
               "workExpNote": "",
@@ -53774,12 +53908,18 @@
               "created": 1770305610381,
               "text": "Geweigerd behandelvoorstel vastleggen",
               "linkedSourceId": null,
-              "type": null,
-              "processValue": null,
-              "processStatus": null,
+              "type": "Taak",
+              "processValue": "BNVA",
+              "processStatus": "SAD",
               "successFactors": "",
-              "causes": [],
-              "improvements": [],
+              "causes": [
+                "Reden van afwijzing moet grotendeels handmatig in vrije tekst worden vastgelegd",
+                "Veel typwerk en weinig systeemondersteuning"
+              ],
+              "improvements": [
+                "Maak een gestandaardiseerd afwijzingsformulier met vaste velden en keuzelijsten",
+                "Laat relevante gegevens automatisch overnemen in notitie en vervolgbrief"
+              ],
               "qa": {
                 "compleet": {
                   "result": "",
@@ -53828,9 +53968,20 @@
                 ]
               },
               "inputDefinitions": [],
-              "disruptions": [],
-              "workExp": null,
-              "workExpNote": "",
+              "disruptions": [
+                {
+                  "scenario": "Reden van afwijzing is niet strak gestructureerd vast te leggen",
+                  "frequency": "Vaak",
+                  "workaround": "Zelf uitgebreid typen in vrije tekst"
+                },
+                {
+                  "scenario": "Proces voelt stroef en kost veel tijd",
+                  "frequency": "Vaak",
+                  "workaround": "Stap later afronden of meerdere keren terug naar dossier"
+                }
+              ],
+              "workExp": "OBSTACLE",
+              "workExpNote": "veel typwerk, niet intuïtief, onduidelijk wat precies moet gebeuren",
               "outputUid": "out_9f5a61d1-a1da-40d2-92aa-32872407af2d",
               "linkedSourceUids": [],
               "linkedBundleIds": [],
@@ -54115,7 +54266,7 @@
               "systemData": {
                 "isMulti": false,
                 "systemName": "",
-                "calculatedScore": null,
+                "calculatedScore": 53,
                 "systems": [
                   {
                     "id": "b4d89164-72fb-4c71-9c4d-3ca8baeda8ad",
@@ -54136,12 +54287,18 @@
                   "multi": false,
                   "systems": [
                     {
-                      "id": "8d78b8ef-24a1-403b-890c-29f312996df7",
-                      "name": "",
+                      "id": "8a0ba741-ea53-40f2-baac-b8070f0428f1",
+                      "name": "Epic",
                       "legacy": false,
                       "future": "",
-                      "qa": {},
-                      "score": null
+                      "qa": {
+                        "q1": "OFTEN",
+                        "q2": "OFTEN",
+                        "q3": "SOMETIMES",
+                        "q4": "SOMETIMES",
+                        "q5": "DELAY"
+                      },
+                      "score": 53
                     }
                   ],
                   "activeSystemIdx": 0
@@ -54174,34 +54331,34 @@
               "improvements": [],
               "qa": {
                 "compleet": {
-                  "result": null,
-                  "impact": null,
-                  "note": ""
+                  "result": "MODERATE",
+                  "impact": "B",
+                  "note": "Reden van afwijzing moet vaak nog expliciet worden uitgewerkt of aangevuld."
                 },
                 "kwaliteit": {
-                  "result": null,
-                  "impact": null,
-                  "note": ""
+                  "result": "MINOR",
+                  "impact": "C",
+                  "note": "De kern is bekend, maar de kwaliteit hangt af van hoe goed de arts het zelf formuleert."
                 },
                 "duidelijkheid": {
-                  "result": null,
-                  "impact": null,
-                  "note": ""
+                  "result": "MODERATE",
+                  "impact": "B",
+                  "note": "Het is niet altijd duidelijk wat precies moet worden vastgelegd en hoe."
                 },
                 "tijdigheid": {
-                  "result": null,
+                  "result": "GOOD",
                   "impact": null,
                   "note": ""
                 },
                 "standaard": {
-                  "result": null,
-                  "impact": null,
-                  "note": ""
+                  "result": "MODERATE",
+                  "impact": "B",
+                  "note": "Het proces vraagt veel vrije tekst en weinig gestandaardiseerde ondersteuning."
                 },
                 "overdracht": {
-                  "result": null,
-                  "impact": null,
-                  "note": ""
+                  "result": "MODERATE",
+                  "impact": "B",
+                  "note": "Door handmatige vastlegging is de overdracht kwetsbaar en foutgevoeliger."
                 }
               },
               "systemData": {
@@ -54225,7 +54382,18 @@
                   }
                 ]
               },
-              "inputDefinitions": [],
+              "inputDefinitions": [
+                {
+                  "item": "Geweigerd behandelvoorstel vastgelegd",
+                  "specifications": "Weigering staat geregistreerd",
+                  "type": "HARD"
+                },
+                {
+                  "item": "Relevante context voor brief is aanwezig",
+                  "specifications": "",
+                  "type": "HARD"
+                }
+              ],
               "disruptions": [],
               "workExp": null,
               "workExpNote": "",
@@ -54321,12 +54489,18 @@
               "created": 1770305760338,
               "text": "Afwijsbrief opstellen",
               "linkedSourceId": null,
-              "type": null,
-              "processValue": null,
-              "processStatus": null,
+              "type": "Taak",
+              "processValue": "BNVA",
+              "processStatus": "NEUTRAL",
               "successFactors": "",
-              "causes": [],
-              "improvements": [],
+              "causes": [
+                "Reden en context van afwijzing zijn niet altijd al strak voorbereid voor briefopstelling",
+                "Veel vrije tekst en handmatige uitwerking"
+              ],
+              "improvements": [
+                "Trek reden van afwijzing automatisch door naar briefsjabloon",
+                "Maak standaard afwijsbrieven met vaste tekstblokken en verplichte velden"
+              ],
               "qa": {
                 "compleet": {
                   "result": "",
@@ -54375,9 +54549,15 @@
                 ]
               },
               "inputDefinitions": [],
-              "disruptions": [],
-              "workExp": null,
-              "workExpNote": "",
+              "disruptions": [
+                {
+                  "scenario": "Niet alle informatie staat direct klaar voor de brief",
+                  "frequency": "Soms",
+                  "workaround": "Dossier terugzoeken en extra tekst toevoegen"
+                }
+              ],
+              "workExp": "OBSTACLE",
+              "workExpNote": "afhankelijk van goede vastlegging van afwijzing, relatief veel handmatig werk",
               "outputUid": "out_1aafbc78-176b-4b5a-8b2a-977579f7c846",
               "linkedSourceUids": [],
               "linkedBundleIds": [],
@@ -54662,7 +54842,7 @@
               "systemData": {
                 "isMulti": false,
                 "systemName": "",
-                "calculatedScore": 0,
+                "calculatedScore": 46,
                 "systems": [
                   {
                     "id": "ff053dd7-b073-4aab-bb1b-2b96cb653dd7",
@@ -54683,20 +54863,18 @@
                   "multi": true,
                   "systems": [
                     {
-                      "id": "f0eb9f6a-7824-44b4-8695-99ea9e4de5a2",
+                      "id": "5146f71c-ef99-4def-809f-d011f1180a62",
                       "name": "Epic",
                       "legacy": false,
                       "future": "",
-                      "qa": {},
-                      "score": null
-                    },
-                    {
-                      "id": "29f6e58a-6201-4b56-a456-d3bc2e24c4ab",
-                      "name": "Outlook",
-                      "legacy": false,
-                      "future": "",
-                      "qa": {},
-                      "score": null
+                      "qa": {
+                        "q1": "OFTEN",
+                        "q2": "OFTEN",
+                        "q3": "OFTEN",
+                        "q4": "SOMETIMES",
+                        "q5": "DELAY"
+                      },
+                      "score": 46
                     }
                   ],
                   "activeSystemIdx": 0
@@ -54729,34 +54907,34 @@
               "improvements": [],
               "qa": {
                 "compleet": {
-                  "result": null,
-                  "impact": null,
-                  "note": ""
+                  "result": "MODERATE",
+                  "impact": "B",
+                  "note": "Niet alle benodigde context staat vanzelf al goed klaar voor de brief."
                 },
                 "kwaliteit": {
-                  "result": null,
-                  "impact": null,
-                  "note": ""
+                  "result": "MINOR",
+                  "impact": "C",
+                  "note": "Bruikbaar, maar afhankelijk van hoe goed de vorige stap is uitgewerkt."
                 },
                 "duidelijkheid": {
-                  "result": null,
+                  "result": "MODERATE",
                   "impact": null,
-                  "note": ""
+                  "note": "Het proces is niet intuïtief en vraagt interpretatie en handmatige verwerking."
                 },
                 "tijdigheid": {
-                  "result": null,
+                  "result": "GOOD",
                   "impact": null,
                   "note": ""
                 },
                 "standaard": {
-                  "result": null,
-                  "impact": null,
-                  "note": ""
+                  "result": "MODERATE",
+                  "impact": "B",
+                  "note": "Veel typwerk wijst op beperkte standaardisatie."
                 },
                 "overdracht": {
-                  "result": null,
-                  "impact": null,
-                  "note": ""
+                  "result": "MODERATE",
+                  "impact": "B",
+                  "note": "Door het stroeve proces is kans groter dat informatie niet strak of volledig overkomt."
                 }
               },
               "systemData": {
@@ -54780,7 +54958,18 @@
                   }
                 ]
               },
-              "inputDefinitions": [],
+              "inputDefinitions": [
+                {
+                  "item": "Reden van afwijzing",
+                  "specifications": "",
+                  "type": "HARD"
+                },
+                {
+                  "item": "Contactgegevens verwijzer",
+                  "specifications": "",
+                  "type": "HARD"
+                }
+              ],
               "disruptions": [],
               "workExp": null,
               "workExpNote": "",
@@ -54876,11 +55065,13 @@
               "created": 1770305407159,
               "text": "Afsluiten DBC",
               "linkedSourceId": null,
-              "type": null,
-              "processValue": null,
-              "processStatus": null,
+              "type": "Taak",
+              "processValue": "BNVA",
+              "processStatus": "NEUTRAL",
               "successFactors": "",
-              "causes": [],
+              "causes": [
+                "Overgang tussen stappen is niet volledig foutbestendig"
+              ],
               "improvements": [],
               "qa": {
                 "compleet": {
@@ -54930,9 +55121,15 @@
                 ]
               },
               "inputDefinitions": [],
-              "disruptions": [],
-              "workExp": null,
-              "workExpNote": "",
+              "disruptions": [
+                {
+                  "scenario": "Onzekerheid of alles administratief klaar is",
+                  "frequency": "Soms",
+                  "workaround": "Extra controle in dossier of afstemmen met administratie"
+                }
+              ],
+              "workExp": "ROUTINE",
+              "workExpNote": "administratieve afronding, afhankelijk van correcte eerdere registratie",
               "outputUid": "out_08d03c08-f066-4747-887d-7d40f5f3ad0a",
               "linkedSourceUids": [],
               "linkedBundleIds": [],
@@ -55217,7 +55414,7 @@
               "systemData": {
                 "isMulti": false,
                 "systemName": "",
-                "calculatedScore": null,
+                "calculatedScore": 100,
                 "systems": [
                   {
                     "id": "c02a74d0-60ca-480d-b826-a4f3e074126d",
@@ -55238,12 +55435,19 @@
                   "multi": false,
                   "systems": [
                     {
-                      "id": "9bd175f7-f843-4289-bde9-ee5e9d12e4f9",
-                      "name": "",
+                      "id": "b82ccfc6-9019-4533-9ecd-c3508e149468",
+                      "name": "Mondeling",
                       "legacy": false,
                       "future": "",
-                      "qa": {},
-                      "score": null
+                      "qa": {
+                        "q1": "NEVER",
+                        "q2": "NEVER",
+                        "q3": "NEVER",
+                        "q4": "NEVER",
+                        "q5": "SAFE",
+                        "q1_note": "Dit is vooral gesprek en besluitvorming. Nauwelijks systeemfrictie. Wel beperkte kans op interpretatieverschil zolang het nog niet formeel is vastgelegd."
+                      },
+                      "score": 100
                     }
                   ],
                   "activeSystemIdx": 0
@@ -55276,32 +55480,32 @@
               "improvements": [],
               "qa": {
                 "compleet": {
-                  "result": null,
+                  "result": "GOOD",
                   "impact": null,
                   "note": ""
                 },
                 "kwaliteit": {
-                  "result": null,
+                  "result": "GOOD",
                   "impact": null,
                   "note": ""
                 },
                 "duidelijkheid": {
-                  "result": null,
+                  "result": "GOOD",
                   "impact": null,
                   "note": ""
                 },
                 "tijdigheid": {
-                  "result": null,
+                  "result": "GOOD",
                   "impact": null,
                   "note": ""
                 },
                 "standaard": {
-                  "result": null,
+                  "result": "GOOD",
                   "impact": null,
                   "note": ""
                 },
                 "overdracht": {
-                  "result": null,
+                  "result": "GOOD",
                   "impact": null,
                   "note": ""
                 }
@@ -55327,7 +55531,13 @@
                   }
                 ]
               },
-              "inputDefinitions": [],
+              "inputDefinitions": [
+                {
+                  "item": "Behandelvoorstel",
+                  "specifications": "",
+                  "type": "HARD"
+                }
+              ],
               "disruptions": [],
               "workExp": null,
               "workExpNote": "",
@@ -55423,9 +55633,9 @@
               "created": 1770306238195,
               "text": "Behandelvoorstel accepteren/weigeren",
               "linkedSourceId": null,
-              "type": null,
-              "processValue": null,
-              "processStatus": null,
+              "type": "Beoordeling",
+              "processValue": "VA",
+              "processStatus": "HAPPY",
               "successFactors": "",
               "causes": [],
               "improvements": [],
@@ -55477,9 +55687,15 @@
                 ]
               },
               "inputDefinitions": [],
-              "disruptions": [],
-              "workExp": null,
-              "workExpNote": "",
+              "disruptions": [
+                {
+                  "scenario": "Patiënt twijfelt of begrijpt voorstel nog niet volledig",
+                  "frequency": "Soms",
+                  "workaround": "Arts geeft extra uitleg en beantwoordt aanvullende vragen"
+                }
+              ],
+              "workExp": "FLOW",
+              "workExpNote": "Dit is de kern van gezamenlijke besluitvorming. Inhoudelijk lijkt dit goed te lopen.",
               "outputUid": "out_3c18f852-304d-4427-8f0a-a56377365880",
               "linkedSourceUids": [],
               "linkedBundleIds": [],
@@ -55764,7 +55980,7 @@
               "systemData": {
                 "isMulti": false,
                 "systemName": "",
-                "calculatedScore": null,
+                "calculatedScore": 100,
                 "systems": [
                   {
                     "id": "21ee8f88-e6cf-4646-b190-bc681dd5587d",
@@ -55785,12 +56001,18 @@
                   "multi": false,
                   "systems": [
                     {
-                      "id": "68e7628a-e5bc-4aed-ae41-4e9ade0f9eb0",
-                      "name": "",
+                      "id": "24a65857-24c2-492e-81f3-241979065ae6",
+                      "name": "Mondeling",
                       "legacy": false,
                       "future": "",
-                      "qa": {},
-                      "score": null
+                      "qa": {
+                        "q1": "NEVER",
+                        "q2": "NEVER",
+                        "q3": "NEVER",
+                        "q4": "NEVER",
+                        "q5": "SAFE"
+                      },
+                      "score": 100
                     }
                   ],
                   "activeSystemIdx": 0
@@ -55823,32 +56045,32 @@
               "improvements": [],
               "qa": {
                 "compleet": {
-                  "result": null,
+                  "result": "GOOD",
                   "impact": null,
                   "note": ""
                 },
                 "kwaliteit": {
-                  "result": null,
+                  "result": "GOOD",
                   "impact": null,
                   "note": ""
                 },
                 "duidelijkheid": {
-                  "result": null,
+                  "result": "GOOD",
                   "impact": null,
                   "note": ""
                 },
                 "tijdigheid": {
-                  "result": null,
+                  "result": "GOOD",
                   "impact": null,
                   "note": ""
                 },
                 "standaard": {
-                  "result": null,
+                  "result": "GOOD",
                   "impact": null,
                   "note": ""
                 },
                 "overdracht": {
-                  "result": null,
+                  "result": "GOOD",
                   "impact": null,
                   "note": ""
                 }
@@ -55874,7 +56096,13 @@
                   }
                 ]
               },
-              "inputDefinitions": [],
+              "inputDefinitions": [
+                {
+                  "item": "Duidelijk dát patiënt akkoord is",
+                  "specifications": "",
+                  "type": "HARD"
+                }
+              ],
               "disruptions": [],
               "workExp": null,
               "workExpNote": "",
@@ -55970,11 +56198,13 @@
               "created": 1769004643262,
               "text": "Geaccepteerd behandelvoorstel vastleggen",
               "linkedSourceId": null,
-              "type": null,
-              "processValue": null,
-              "processStatus": null,
+              "type": "Taak",
+              "processValue": "BNVA",
+              "processStatus": "NEUTRAL",
               "successFactors": "",
-              "causes": [],
+              "causes": [
+                "Acceptatie moet nog expliciet worden omgezet naar formele registratie"
+              ],
               "improvements": [],
               "qa": {
                 "compleet": {
@@ -56024,9 +56254,15 @@
                 ]
               },
               "inputDefinitions": [],
-              "disruptions": [],
-              "workExp": null,
-              "workExpNote": "",
+              "disruptions": [
+                {
+                  "scenario": "Arts moet zelf bedenken wat precies vastgelegd moet worden",
+                  "frequency": "Zelden",
+                  "workaround": "Handmatig noteren of later aanvullen in dossier"
+                }
+              ],
+              "workExp": "ROUTINE",
+              "workExpNote": "De acceptatie zelf is duidelijk, maar de vertaalslag naar formele vastlegging is minder strak ondersteund.",
               "linkedSourceUids": [],
               "linkedBundleIds": [],
               "gate": {
@@ -56311,7 +56547,7 @@
               "systemData": {
                 "isMulti": false,
                 "systemName": "",
-                "calculatedScore": null,
+                "calculatedScore": 86,
                 "systems": [
                   {
                     "id": "7789a63e-281e-4968-a36f-cb088152ecaa",
@@ -56332,12 +56568,18 @@
                   "multi": false,
                   "systems": [
                     {
-                      "id": "7231421f-5df9-49e1-9fa7-7738cdad4f6d",
-                      "name": "",
+                      "id": "33de262a-920d-495c-9ac0-fdbef2e50447",
+                      "name": "Epic",
                       "legacy": false,
                       "future": "",
-                      "qa": {},
-                      "score": null
+                      "qa": {
+                        "q1": "NEVER",
+                        "q3": "NEVER",
+                        "q2": "NEVER",
+                        "q4": "SOMETIMES",
+                        "q5": "DELAY"
+                      },
+                      "score": 86
                     }
                   ],
                   "activeSystemIdx": 0
@@ -56370,32 +56612,32 @@
               "improvements": [],
               "qa": {
                 "compleet": {
-                  "result": null,
+                  "result": "GOOD",
                   "impact": null,
                   "note": ""
                 },
                 "kwaliteit": {
-                  "result": null,
+                  "result": "GOOD",
                   "impact": null,
                   "note": ""
                 },
                 "duidelijkheid": {
-                  "result": null,
+                  "result": "GOOD",
                   "impact": null,
                   "note": ""
                 },
                 "tijdigheid": {
-                  "result": null,
+                  "result": "GOOD",
                   "impact": null,
                   "note": ""
                 },
                 "standaard": {
-                  "result": null,
+                  "result": "GOOD",
                   "impact": null,
                   "note": ""
                 },
                 "overdracht": {
-                  "result": null,
+                  "result": "GOOD",
                   "impact": null,
                   "note": ""
                 }
@@ -56421,7 +56663,13 @@
                   }
                 ]
               },
-              "inputDefinitions": [],
+              "inputDefinitions": [
+                {
+                  "item": "Akkoord van patiënt",
+                  "specifications": "",
+                  "type": "HARD"
+                }
+              ],
               "disruptions": [],
               "workExp": null,
               "workExpNote": "",
@@ -56517,11 +56765,13 @@
               "created": 1770306835458,
               "text": "Aanmaken prescriptie",
               "linkedSourceId": null,
-              "type": null,
-              "processValue": null,
-              "processStatus": null,
+              "type": "Taak",
+              "processValue": "BNVA",
+              "processStatus": "HAPPY",
               "successFactors": "",
-              "causes": [],
+              "causes": [
+                "Protocolgestuurde opbouw ondersteunt de taak goed"
+              ],
               "improvements": [],
               "qa": {
                 "compleet": {
@@ -56571,9 +56821,15 @@
                 ]
               },
               "inputDefinitions": [],
-              "disruptions": [],
-              "workExp": null,
-              "workExpNote": "",
+              "disruptions": [
+                {
+                  "scenario": "Patiënt past niet netjes in standaardprotocol",
+                  "frequency": "Soms",
+                  "workaround": "Arts past prescriptie handmatig aan"
+                }
+              ],
+              "workExp": "FLOW",
+              "workExpNote": "Dit is juist een relatief sterke stap. De arts benoemt dat dit via protocollen en keuzes vrij makkelijk gaat.",
               "outputUid": "out_82a9a32d-7621-4cb6-b658-f40ea53db619",
               "linkedSourceUids": [],
               "linkedBundleIds": [],
@@ -56858,7 +57114,7 @@
               "systemData": {
                 "isMulti": false,
                 "systemName": "",
-                "calculatedScore": null,
+                "calculatedScore": 86,
                 "systems": [
                   {
                     "id": "ee904dde-d57b-4765-ac36-e72525f4d481",
@@ -56879,12 +57135,18 @@
                   "multi": false,
                   "systems": [
                     {
-                      "id": "667d97f7-40a0-4b65-aae7-8580041140be",
-                      "name": "",
+                      "id": "c8c4928f-4ddd-42e5-92ea-3e8cc1b88c20",
+                      "name": "Radiotherapie Web",
                       "legacy": false,
                       "future": "",
-                      "qa": {},
-                      "score": null
+                      "qa": {
+                        "q1": "NEVER",
+                        "q3": "NEVER",
+                        "q2": "NEVER",
+                        "q4": "SOMETIMES",
+                        "q5": "DELAY"
+                      },
+                      "score": 86
                     }
                   ],
                   "activeSystemIdx": 0
@@ -56917,32 +57179,32 @@
               "improvements": [],
               "qa": {
                 "compleet": {
-                  "result": null,
+                  "result": "GOOD",
                   "impact": null,
                   "note": ""
                 },
                 "kwaliteit": {
-                  "result": null,
+                  "result": "GOOD",
                   "impact": null,
                   "note": ""
                 },
                 "duidelijkheid": {
-                  "result": null,
+                  "result": "GOOD",
                   "impact": null,
                   "note": ""
                 },
                 "tijdigheid": {
-                  "result": null,
+                  "result": "GOOD",
                   "impact": null,
                   "note": ""
                 },
                 "standaard": {
-                  "result": null,
+                  "result": "GOOD",
                   "impact": null,
                   "note": ""
                 },
                 "overdracht": {
-                  "result": null,
+                  "result": "GOOD",
                   "impact": null,
                   "note": ""
                 }
@@ -56968,7 +57230,13 @@
                   }
                 ]
               },
-              "inputDefinitions": [],
+              "inputDefinitions": [
+                {
+                  "item": "Presciptie protocol",
+                  "specifications": "",
+                  "type": "HARD"
+                }
+              ],
               "disruptions": [],
               "workExp": null,
               "workExpNote": "",
@@ -57064,11 +57332,15 @@
               "created": 1770306782336,
               "text": "Aanmaken CT-order",
               "linkedSourceId": null,
-              "type": null,
-              "processValue": null,
-              "processStatus": null,
+              "type": "Taak",
+              "processValue": "BNVA",
+              "processStatus": "NEUTRAL",
               "successFactors": "",
-              "causes": [],
+              "causes": [
+                "Er zijn meerdere ordervarianten en de juiste keuze is niet vanzelfsprekend",
+                "Contrastlogica is niet eenduidig",
+                "De juiste ordernaam moet precies bekend zijn"
+              ],
               "improvements": [],
               "qa": {
                 "compleet": {
@@ -57118,8 +57390,19 @@
                 ]
               },
               "inputDefinitions": [],
-              "disruptions": [],
-              "workExp": null,
+              "disruptions": [
+                {
+                  "scenario": "Arts weet niet zeker welke CT-order of contrastvariant nodig is",
+                  "frequency": "Vaak",
+                  "workaround": "Zoeken, collega vragen of eerder gebruikte order opzoeken"
+                },
+                {
+                  "scenario": "Verkeerde contrastorder gekozen",
+                  "frequency": "Soms",
+                  "workaround": "Telefoontje van CT, daarna corrigeren"
+                }
+              ],
+              "workExp": "OBSTACLE",
               "workExpNote": "",
               "outputUid": "out_59b5d25d-f7ac-4fb2-9525-1db2d18655a9",
               "linkedSourceUids": [],
@@ -57405,7 +57688,7 @@
               "systemData": {
                 "isMulti": false,
                 "systemName": "",
-                "calculatedScore": null,
+                "calculatedScore": 86,
                 "systems": [
                   {
                     "id": "d5735033-a075-4bfa-8aeb-8528c0878492",
@@ -57426,12 +57709,18 @@
                   "multi": false,
                   "systems": [
                     {
-                      "id": "95639e98-d508-4b9f-8b03-badd53387fd7",
-                      "name": "",
+                      "id": "6ba0773b-7f0f-4a60-b40d-6dcc1003db0c",
+                      "name": "Radiotherapie Web",
                       "legacy": false,
                       "future": "",
-                      "qa": {},
-                      "score": null
+                      "qa": {
+                        "q1": "NEVER",
+                        "q3": "NEVER",
+                        "q2": "NEVER",
+                        "q4": "SOMETIMES",
+                        "q5": "DELAY"
+                      },
+                      "score": 86
                     }
                   ],
                   "activeSystemIdx": 0
@@ -57611,11 +57900,14 @@
               "created": 1770801947255,
               "text": "Aanmaken MRI-order",
               "linkedSourceId": null,
-              "type": null,
-              "processValue": null,
-              "processStatus": null,
+              "type": "Taak",
+              "processValue": "BNVA",
+              "processStatus": "NEUTRAL",
               "successFactors": "",
-              "causes": [],
+              "causes": [
+                "Er zijn meerdere bijna-gelijke MRI-orders per doelgebied en situatie",
+                "Het systeem dwingt kennis van exacte ordernamen af"
+              ],
               "improvements": [],
               "qa": {
                 "compleet": {
@@ -57665,9 +57957,15 @@
                 ]
               },
               "inputDefinitions": [],
-              "disruptions": [],
-              "workExp": null,
-              "workExpNote": "",
+              "disruptions": [
+                {
+                  "scenario": "Arts weet niet welke MRI-order gekozen moet worden",
+                  "frequency": "Vaak",
+                  "workaround": "Lijstje, geheugen, favorieten of collega raadplegen"
+                }
+              ],
+              "workExp": "OBSTACLE",
+              "workExpNote": "Dit is het duidelijkste obstakel in deze route.",
               "linkedSourceUids": [],
               "linkedBundleIds": [],
               "gate": {
@@ -57951,7 +58249,7 @@
               "systemData": {
                 "isMulti": false,
                 "systemName": "",
-                "calculatedScore": null,
+                "calculatedScore": 86,
                 "systems": [
                   {
                     "id": "cefdd96d-05c9-4e99-bd1e-bfd487290b30",
@@ -57972,12 +58270,18 @@
                   "multi": false,
                   "systems": [
                     {
-                      "id": "83983263-f194-4448-ab9a-ff271b58b509",
-                      "name": "",
+                      "id": "41e79d30-893c-4edb-8481-6767cf893ba1",
+                      "name": "Radiotherapie Web",
                       "legacy": false,
                       "future": "",
-                      "qa": {},
-                      "score": null
+                      "qa": {
+                        "q1": "NEVER",
+                        "q3": "NEVER",
+                        "q2": "NEVER",
+                        "q4": "SOMETIMES",
+                        "q5": "DELAY"
+                      },
+                      "score": 86
                     }
                   ],
                   "activeSystemIdx": 0
@@ -58157,11 +58461,13 @@
               "created": 1770802000261,
               "text": "Aanmaken PET-order",
               "linkedSourceId": null,
-              "type": null,
-              "processValue": null,
-              "processStatus": null,
+              "type": "Taak",
+              "processValue": "BNVA",
+              "processStatus": "NEUTRAL",
               "successFactors": "",
-              "causes": [],
+              "causes": [
+                "Er zijn verschillende scanroutes en contexten"
+              ],
               "improvements": [],
               "qa": {
                 "compleet": {
@@ -58211,9 +58517,15 @@
                 ]
               },
               "inputDefinitions": [],
-              "disruptions": [],
-              "workExp": null,
-              "workExpNote": "",
+              "disruptions": [
+                {
+                  "scenario": "Onzekerheid over juiste PET-route",
+                  "frequency": "Soms",
+                  "workaround": "Collega vragen of eerder vergelijkbare patiënt opzoeken"
+                }
+              ],
+              "workExp": "OBSTACLE",
+              "workExpNote": "Minder expliciet problematisch dan CT en MRI, maar wel onderdeel van een complex scanlandschap.",
               "linkedSourceUids": [],
               "linkedBundleIds": [],
               "gate": {
@@ -58497,7 +58809,7 @@
               "systemData": {
                 "isMulti": false,
                 "systemName": "",
-                "calculatedScore": null,
+                "calculatedScore": 86,
                 "systems": [
                   {
                     "id": "e794e1fa-5403-4945-8d69-eea8ebd00623",
@@ -58518,12 +58830,18 @@
                   "multi": false,
                   "systems": [
                     {
-                      "id": "b7ab722a-fe56-462d-9b95-a0ff2531e4c9",
-                      "name": "",
+                      "id": "00390084-97b5-477e-a029-9ed840980cf2",
+                      "name": "Radiotherapie Web",
                       "legacy": false,
                       "future": "",
-                      "qa": {},
-                      "score": null
+                      "qa": {
+                        "q1": "NEVER",
+                        "q2": "NEVER",
+                        "q3": "NEVER",
+                        "q4": "SOMETIMES",
+                        "q5": "DELAY"
+                      },
+                      "score": 86
                     }
                   ],
                   "activeSystemIdx": 0
@@ -58703,11 +59021,13 @@
               "created": 1768730160900,
               "text": "Aanmaken aanvraagformulier",
               "linkedSourceId": null,
-              "type": null,
-              "processValue": null,
-              "processStatus": null,
+              "type": "Taak",
+              "processValue": "BNVA",
+              "processStatus": "NEUTRAL",
               "successFactors": "",
-              "causes": [],
+              "causes": [
+                "Matchbehoefte volgt niet vanzelf duidelijk uit de keuzes"
+              ],
               "improvements": [],
               "qa": {
                 "compleet": {
@@ -58757,9 +59077,15 @@
                 ]
               },
               "inputDefinitions": [],
-              "disruptions": [],
-              "workExp": null,
-              "workExpNote": "",
+              "disruptions": [
+                {
+                  "scenario": "Arts denkt dat MRI + CT automatisch match betekent, maar dat blijkt niet zo",
+                  "frequency": "Soms",
+                  "workaround": "Achteraf telefonisch verduidelijken of aanvullen"
+                }
+              ],
+              "workExp": "ROUTINE",
+              "workExpNote": "Overwegend werkbaar, maar niet volledig eenduidig. Vooral match is een zwak punt.",
               "linkedSourceUids": [],
               "linkedBundleIds": [],
               "gate": {
@@ -59044,7 +59370,7 @@
               "systemData": {
                 "isMulti": false,
                 "systemName": "",
-                "calculatedScore": null,
+                "calculatedScore": 73,
                 "systems": [
                   {
                     "id": "9155dd14-4dca-4bf8-8d06-6621fed91216",
@@ -59065,12 +59391,18 @@
                   "multi": false,
                   "systems": [
                     {
-                      "id": "48c8a729-844a-4a58-a1f7-26f3da8ea070",
-                      "name": "",
+                      "id": "c9b2b48c-64ef-4103-aea5-14bbdc1cf559",
+                      "name": "Radiotherapie Web",
                       "legacy": false,
                       "future": "",
-                      "qa": {},
-                      "score": null
+                      "qa": {
+                        "q1": "SOMETIMES",
+                        "q2": "SOMETIMES",
+                        "q3": "NEVER",
+                        "q4": "SOMETIMES",
+                        "q5": "DELAY"
+                      },
+                      "score": 73
                     }
                   ],
                   "activeSystemIdx": 0
@@ -59103,32 +59435,32 @@
               "improvements": [],
               "qa": {
                 "compleet": {
-                  "result": null,
+                  "result": "GOOD",
                   "impact": null,
                   "note": ""
                 },
                 "kwaliteit": {
-                  "result": null,
+                  "result": "GOOD",
                   "impact": null,
                   "note": ""
                 },
                 "duidelijkheid": {
-                  "result": null,
+                  "result": "GOOD",
                   "impact": null,
                   "note": ""
                 },
                 "tijdigheid": {
-                  "result": null,
+                  "result": "GOOD",
                   "impact": null,
                   "note": ""
                 },
                 "standaard": {
-                  "result": null,
+                  "result": "GOOD",
                   "impact": null,
                   "note": ""
                 },
                 "overdracht": {
-                  "result": null,
+                  "result": "GOOD",
                   "impact": null,
                   "note": ""
                 }
@@ -59154,7 +59486,13 @@
                   }
                 ]
               },
-              "inputDefinitions": [],
+              "inputDefinitions": [
+                {
+                  "item": "Duidelijke instructie mould",
+                  "specifications": "",
+                  "type": "HARD"
+                }
+              ],
               "disruptions": [],
               "workExp": null,
               "workExpNote": "",
@@ -59250,9 +59588,9 @@
               "created": 1769004945083,
               "text": "Vastleggen mouldinstructie",
               "linkedSourceId": null,
-              "type": null,
-              "processValue": null,
-              "processStatus": null,
+              "type": "Taak",
+              "processValue": "BNVA",
+              "processStatus": "HAPPY",
               "successFactors": "",
               "causes": [],
               "improvements": [],
@@ -59304,9 +59642,15 @@
                 ]
               },
               "inputDefinitions": [],
-              "disruptions": [],
-              "workExp": null,
-              "workExpNote": "",
+              "disruptions": [
+                {
+                  "scenario": "Twijfel over benodigde mouldvoorbereiding",
+                  "frequency": "Zelden",
+                  "workaround": "Afstemmen met mouldroom of collega"
+                }
+              ],
+              "workExp": "ROUTINE",
+              "workExpNote": "Minder expliciet besproken. Lijkt vooral een normale uitvoeringsstap, maar met speciale casuïstiek.",
               "linkedSourceUids": [],
               "linkedBundleIds": [],
               "gate": {
@@ -59595,7 +59939,7 @@
               "systemData": {
                 "isMulti": false,
                 "systemName": "",
-                "calculatedScore": null,
+                "calculatedScore": 73,
                 "systems": [
                   {
                     "id": "68c4271f-1da6-4861-84b5-c7e622d90b7d",
@@ -59616,12 +59960,18 @@
                   "multi": false,
                   "systems": [
                     {
-                      "id": "a815d338-17a3-4907-9603-6e05be541058",
-                      "name": "",
+                      "id": "2c8502a8-b247-4b9a-af97-169ab17bfe87",
+                      "name": "Radiotherapie Web",
                       "legacy": false,
                       "future": "",
-                      "qa": {},
-                      "score": null
+                      "qa": {
+                        "q1": "SOMETIMES",
+                        "q2": "SOMETIMES",
+                        "q3": "NEVER",
+                        "q4": "SOMETIMES",
+                        "q5": "DELAY"
+                      },
+                      "score": 73
                     }
                   ],
                   "activeSystemIdx": 0
@@ -59654,32 +60004,32 @@
               "improvements": [],
               "qa": {
                 "compleet": {
-                  "result": null,
+                  "result": "GOOD",
                   "impact": null,
                   "note": ""
                 },
                 "kwaliteit": {
-                  "result": null,
+                  "result": "GOOD",
                   "impact": null,
                   "note": ""
                 },
                 "duidelijkheid": {
-                  "result": null,
+                  "result": "GOOD",
                   "impact": null,
                   "note": ""
                 },
                 "tijdigheid": {
-                  "result": null,
+                  "result": "GOOD",
                   "impact": null,
                   "note": ""
                 },
                 "standaard": {
-                  "result": null,
+                  "result": "GOOD",
                   "impact": null,
                   "note": ""
                 },
                 "overdracht": {
-                  "result": null,
+                  "result": "GOOD",
                   "impact": null,
                   "note": ""
                 }
@@ -59705,7 +60055,13 @@
                   }
                 ]
               },
-              "inputDefinitions": [],
+              "inputDefinitions": [
+                {
+                  "item": "Duidelijke instructie CT",
+                  "specifications": "",
+                  "type": "HARD"
+                }
+              ],
               "disruptions": [],
               "workExp": null,
               "workExpNote": "",
@@ -59801,11 +60157,14 @@
               "created": 1769010331895,
               "text": "Vastleggen CT-instructie",
               "linkedSourceId": null,
-              "type": null,
+              "type": "Taak",
               "processValue": null,
-              "processStatus": null,
+              "processStatus": "NEUTRAL",
               "successFactors": "",
-              "causes": [],
+              "causes": [
+                "CT-instructies zijn niet altijd expliciet genoeg voor bijzondere varianten",
+                "Voorbereiding en contrast vereisen soms interpretatie"
+              ],
               "improvements": [],
               "qa": {
                 "compleet": {
@@ -59855,9 +60214,15 @@
                 ]
               },
               "inputDefinitions": [],
-              "disruptions": [],
-              "workExp": null,
-              "workExpNote": "",
+              "disruptions": [
+                {
+                  "scenario": "Onzekerheid over voorbereiding of contrast",
+                  "frequency": "Soms",
+                  "workaround": "Extra notitie toevoegen of bellen met CT"
+                }
+              ],
+              "workExp": "ROUTINE",
+              "workExpNote": "Meestal werkbaar, maar details zoals voorbereiding en contrast maken het gevoeliger.",
               "linkedSourceUids": [],
               "linkedBundleIds": [],
               "gate": {
@@ -60142,7 +60507,7 @@
               "systemData": {
                 "isMulti": false,
                 "systemName": "",
-                "calculatedScore": null,
+                "calculatedScore": 73,
                 "systems": [
                   {
                     "id": "499e86ce-5d69-4a01-b0c4-adf6b666ceda",
@@ -60163,12 +60528,18 @@
                   "multi": false,
                   "systems": [
                     {
-                      "id": "47ba8331-a66f-4f61-9bcf-a8fdb3960f2a",
-                      "name": "",
+                      "id": "0e6a1ce5-2f20-4a08-b16f-9446ca1b6408",
+                      "name": "Radiotherapie Web",
                       "legacy": false,
                       "future": "",
-                      "qa": {},
-                      "score": null
+                      "qa": {
+                        "q1": "SOMETIMES",
+                        "q2": "SOMETIMES",
+                        "q3": "NEVER",
+                        "q4": "SOMETIMES",
+                        "q5": "DELAY"
+                      },
+                      "score": 73
                     }
                   ],
                   "activeSystemIdx": 0
@@ -60201,32 +60572,32 @@
               "improvements": [],
               "qa": {
                 "compleet": {
-                  "result": null,
+                  "result": "GOOD",
                   "impact": null,
                   "note": ""
                 },
                 "kwaliteit": {
-                  "result": null,
+                  "result": "GOOD",
                   "impact": null,
                   "note": ""
                 },
                 "duidelijkheid": {
-                  "result": null,
+                  "result": "GOOD",
                   "impact": null,
                   "note": ""
                 },
                 "tijdigheid": {
-                  "result": null,
+                  "result": "GOOD",
                   "impact": null,
                   "note": ""
                 },
                 "standaard": {
-                  "result": null,
+                  "result": "GOOD",
                   "impact": null,
                   "note": ""
                 },
                 "overdracht": {
-                  "result": null,
+                  "result": "GOOD",
                   "impact": null,
                   "note": ""
                 }
@@ -60252,7 +60623,13 @@
                   }
                 ]
               },
-              "inputDefinitions": [],
+              "inputDefinitions": [
+                {
+                  "item": "Duidelijke instructie MRI",
+                  "specifications": "",
+                  "type": "HARD"
+                }
+              ],
               "disruptions": [],
               "workExp": null,
               "workExpNote": "",
@@ -60348,11 +60725,13 @@
               "created": 1770802063109,
               "text": "Vastleggen MRI-instructie",
               "linkedSourceId": null,
-              "type": null,
-              "processValue": null,
-              "processStatus": null,
+              "type": "Taak",
+              "processValue": "BNVA",
+              "processStatus": "NEUTRAL",
               "successFactors": "",
-              "causes": [],
+              "causes": [
+                "Matchlogica is niet expliciet genoeg"
+              ],
               "improvements": [],
               "qa": {
                 "compleet": {
@@ -60402,9 +60781,15 @@
                 ]
               },
               "inputDefinitions": [],
-              "disruptions": [],
-              "workExp": null,
-              "workExpNote": "",
+              "disruptions": [
+                {
+                  "scenario": "Arts denkt dat match impliciet geregeld is, maar CT belt later terug",
+                  "frequency": null,
+                  "workaround": "Achteraf verduidelijken of aanvullen"
+                }
+              ],
+              "workExp": "ROUTINE",
+              "workExpNote": "Hier zit opnieuw duidelijke frictie, vooral rond de match tussen MRI en CT.",
               "linkedSourceUids": [],
               "linkedBundleIds": [],
               "gate": {
@@ -60688,7 +61073,7 @@
               "systemData": {
                 "isMulti": false,
                 "systemName": "",
-                "calculatedScore": null,
+                "calculatedScore": 73,
                 "systems": [
                   {
                     "id": "f84a4c00-53b9-495c-902f-587af27e17fc",
@@ -60709,12 +61094,18 @@
                   "multi": false,
                   "systems": [
                     {
-                      "id": "47cd5fe1-0f81-4b25-a9d1-84fd34a75c25",
-                      "name": "",
+                      "id": "345a860a-a270-41fe-9590-fb755bee28dc",
+                      "name": "Radiotherapie Web",
                       "legacy": false,
                       "future": "",
-                      "qa": {},
-                      "score": null
+                      "qa": {
+                        "q1": "SOMETIMES",
+                        "q2": "SOMETIMES",
+                        "q3": "NEVER",
+                        "q4": "SOMETIMES",
+                        "q5": "DELAY"
+                      },
+                      "score": 73
                     }
                   ],
                   "activeSystemIdx": 0
@@ -60747,32 +61138,32 @@
               "improvements": [],
               "qa": {
                 "compleet": {
-                  "result": null,
+                  "result": "GOOD",
                   "impact": null,
                   "note": ""
                 },
                 "kwaliteit": {
-                  "result": null,
+                  "result": "GOOD",
                   "impact": null,
                   "note": ""
                 },
                 "duidelijkheid": {
-                  "result": null,
+                  "result": "GOOD",
                   "impact": null,
                   "note": ""
                 },
                 "tijdigheid": {
-                  "result": null,
+                  "result": "GOOD",
                   "impact": null,
                   "note": ""
                 },
                 "standaard": {
-                  "result": null,
+                  "result": "GOOD",
                   "impact": null,
                   "note": ""
                 },
                 "overdracht": {
-                  "result": null,
+                  "result": "GOOD",
                   "impact": null,
                   "note": ""
                 }
@@ -60798,7 +61189,13 @@
                   }
                 ]
               },
-              "inputDefinitions": [],
+              "inputDefinitions": [
+                {
+                  "item": "Duidelijke instructie PET",
+                  "specifications": "",
+                  "type": "HARD"
+                }
+              ],
               "disruptions": [],
               "workExp": null,
               "workExpNote": "",
@@ -60894,11 +61291,13 @@
               "created": 1770802134870,
               "text": "Vastleggen PET-instructies",
               "linkedSourceId": null,
-              "type": null,
-              "processValue": null,
-              "processStatus": null,
+              "type": "Taak",
+              "processValue": "BNVA",
+              "processStatus": "NEUTRAL",
               "successFactors": "",
-              "causes": [],
+              "causes": [
+                "PET-instructies zijn minder vaak gebruikte varianten"
+              ],
               "improvements": [],
               "qa": {
                 "compleet": {
@@ -60948,9 +61347,15 @@
                 ]
               },
               "inputDefinitions": [],
-              "disruptions": [],
-              "workExp": null,
-              "workExpNote": "",
+              "disruptions": [
+                {
+                  "scenario": "Twijfel over PET-instructie of route",
+                  "frequency": "Soms",
+                  "workaround": "Collega vragen of eerder dossier als voorbeeld gebruiken"
+                }
+              ],
+              "workExp": "ROUTINE",
+              "workExpNote": "Waarschijnlijk meestal werkbaar, maar minder expliciet besproken.",
               "linkedSourceUids": [],
               "linkedBundleIds": [],
               "gate": {
@@ -61234,7 +61639,7 @@
               "systemData": {
                 "isMulti": false,
                 "systemName": "",
-                "calculatedScore": null,
+                "calculatedScore": 73,
                 "systems": [
                   {
                     "id": "abc69df6-5922-42da-85c5-4c214dca71d1",
@@ -61255,12 +61660,18 @@
                   "multi": false,
                   "systems": [
                     {
-                      "id": "4eb40f06-0132-4a70-8360-9758b90c4388",
+                      "id": "deb1e70e-09f7-4101-9632-c1b2237fe5aa",
                       "name": "",
                       "legacy": false,
                       "future": "",
-                      "qa": {},
-                      "score": null
+                      "qa": {
+                        "q1": "NEVER",
+                        "q2": "NEVER",
+                        "q3": "ALWAYS",
+                        "q4": "NEVER",
+                        "q5": "DELAY"
+                      },
+                      "score": 73
                     }
                   ],
                   "activeSystemIdx": 0
@@ -61293,32 +61704,32 @@
               "improvements": [],
               "qa": {
                 "compleet": {
-                  "result": null,
+                  "result": "GOOD",
                   "impact": null,
                   "note": ""
                 },
                 "kwaliteit": {
-                  "result": null,
+                  "result": "GOOD",
                   "impact": null,
                   "note": ""
                 },
                 "duidelijkheid": {
-                  "result": null,
+                  "result": "GOOD",
                   "impact": null,
                   "note": ""
                 },
                 "tijdigheid": {
-                  "result": null,
+                  "result": "GOOD",
                   "impact": null,
                   "note": ""
                 },
                 "standaard": {
-                  "result": null,
+                  "result": "GOOD",
                   "impact": null,
                   "note": ""
                 },
                 "overdracht": {
-                  "result": null,
+                  "result": "GOOD",
                   "impact": null,
                   "note": ""
                 }
@@ -61344,7 +61755,13 @@
                   }
                 ]
               },
-              "inputDefinitions": [],
+              "inputDefinitions": [
+                {
+                  "item": "COnsultafspraak",
+                  "specifications": "",
+                  "type": "HARD"
+                }
+              ],
               "disruptions": [],
               "workExp": null,
               "workExpNote": "",
@@ -61440,9 +61857,9 @@
               "created": 1770312612103,
               "text": "Uitchecken patiënt",
               "linkedSourceId": null,
-              "type": null,
-              "processValue": null,
-              "processStatus": null,
+              "type": "Taak",
+              "processValue": "BNVA",
+              "processStatus": "HAPPY",
               "successFactors": "",
               "causes": [],
               "improvements": [],
@@ -61494,8 +61911,14 @@
                 ]
               },
               "inputDefinitions": [],
-              "disruptions": [],
-              "workExp": null,
+              "disruptions": [
+                {
+                  "scenario": "Status niet direct juist afgerond",
+                  "frequency": "Zelden",
+                  "workaround": "Handmatig corrigeren"
+                }
+              ],
+              "workExp": "ROUTINE",
               "workExpNote": "",
               "linkedSourceUids": [],
               "linkedBundleIds": [],
@@ -61706,7 +62129,20 @@
           ]
         }
       ],
-      "groups": []
+      "groups": [],
+      "mergeGroupsV2": [
+        {
+          "slotIdx": 2,
+          "cols": [
+            12,
+            13,
+            14,
+            15
+          ],
+          "master": 12,
+          "label": "Merged Output"
+        }
+      ]
     },
     {
       "id": "b2afde0c-1451-450c-85d7-c0f3b53e8757",
